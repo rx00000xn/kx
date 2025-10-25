@@ -4638,17 +4638,32 @@ WSU_create_kronland = {
 			set_nationality = WSU
 		}
 	}
-	set_cosmetic_tag = WSU_austrian
+	set_cosmetic_tag = WSU_habsburg
+	set_country_flag = CONST_proper
+	add_to_array = { global.constituents_array = THIS }
+	set_variable = { THIS.AUS_subject_status = 5 }
+	set_variable = { THIS.CONST_revolt_rate_rising = -0.015 }
 	set_politics = {
-		ruling_party = social_conservative
+		ruling_party = authoritarian_democrat
 		elections_allowed = no
 	}
-	UKR_create_vasyl = yes
+	add_soccon_to_coalition = yes
+	if = {
+		limit = { has_global_flag = UKR_dnieper_explosion }
+		UKR_create_leo_stefan = yes
+		country_event = {
+			id = ukrpol.122
+			days = 5
+		}
+	}
+	else = {
+		UKR_create_vasyl = yes
+	}
 	get_current_government_type = yes
 	AUS = {
 		set_autonomy = {
 			target = WSU
-			autonomous_state = kr_autonomous_puppet
+			autonomy_state = botde_satellite
 		}
 	}
 	restore_previous_government_type = yes
@@ -4658,7 +4673,13 @@ WSU_create_rebellion = {
 	every_state = {
 		limit = {
 			is_east_galicia = yes
-			owned_by_austria_or_puppet = yes
+			OR = {
+				owned_by_austria_or_puppet = yes
+				AND = {
+					is_owned_by = GAL
+					has_global_flag = AUS_collapsed
+				}
+			}
 		}
 		set_demilitarized_zone = no
 		if = {
@@ -4699,8 +4720,8 @@ WSU_create_rebellion = {
 			set_capital = { state = 1124 }			
 		}
 	}
-	set_temp_variable = { WSU_coup_popularity = UKR_ukrainian_resistance }
-	divide_temp_variable = { WSU_coup_popularity = 400 }
+	set_temp_variable = { WSU_coup_popularity = WSU.subject_revolt_progress }
+	divide_temp_variable = { WSU_coup_popularity = 4 }
 	WSU = {
 		transfer_technology_without_doctrines = yes
 		drop_cosmetic_tag = yes
@@ -4794,10 +4815,17 @@ WSU_create_rebellion = {
 			producer = WSU
 		}
 	}
-	ROM = {
-		country_event = {
-			id = wsu.12
-			days = 15
+	if = {
+		limit = {
+			NOT = {
+				country_exists = BUK
+			}
+		}
+		ROM = {
+			country_event = {
+				id = wsu.12
+				days = 15
+			}
 		}
 	}
 }

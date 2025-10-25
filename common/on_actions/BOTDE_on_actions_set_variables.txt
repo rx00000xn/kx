@@ -1,176 +1,172 @@
 on_actions = {
 	
 	on_startup = {
-		effect = {
-			759 = {
-				add_state_modifier = {
-					modifier = {
-						compliance_growth = -0.15
-						local_non_core_manpower = -0.05
-						starting_compliance = -0.3
+		effect = {		
+			every_state = {
+				limit = {
+					OR = {
+						is_owned_by = AUS
+						is_owned_by = HUN
+						is_owned_by = CZE
+						is_owned_by = CRO
+						is_owned_by = GAL
 					}
 				}
-			}
-			160 = {
-				add_state_modifier = {
-					modifier = {
-						compliance_growth = -0.15
-						local_non_core_manpower = -0.05
-						starting_compliance = -0.3
-					}
+				set_state_flag = default_danubian_state
+			}		
+			for_each_scope_loop = {
+				array = CRO.owned_states
+				if = {
+					limit = { is_core_of = SKS }
+					add_to_array = { global.SER_srpska_states = THIS }
+				}
+				if = {
+					limit = { OR = { is_core_of = SKS is_core_of = BOS } }
+					add_to_array = { global.SER_target_states = THIS }
+				}
+				if = {
+					limit = { is_core_of = BOS }
+					add_to_array = { global.SER_bosnia_states = THIS }
+				}
+			}		
+			for_each_scope_loop = {
+				array = GAL.owned_states
+				if = {
+					limit = { is_core_of = BUK }
+					add_to_array = { global.ROM_target_states = THIS }
+					add_to_array = { global.ROM_bukovina_states = THIS }
+				}
+			}		
+			for_each_scope_loop = {
+				array = HUN.owned_states
+				if = {
+					limit = { is_core_of = TRS NOT = { is_core_of = BAN } }
+					add_to_array = { global.ROM_target_states = THIS }
+					add_to_array = { global.ROM_transylvania_states = THIS }
+				}
+				if = {
+					limit = { is_core_of = BAN }
+					add_to_array = { global.ROM_target_states = THIS }
+					add_to_array = { global.ROM_banat_states = THIS }
 				}
 			}
+			
+			#Paramilitaries!
+			153 = {
+				add_dynamic_modifier = {
+					modifier = AUS_heimwehr_presence
+				}
+				set_state_flag = AUS_heimwehr
+			}
+			775 = {
+				add_dynamic_modifier = {
+					modifier = AUS_heimwehr_presence
+				}
+				set_state_flag = AUS_heimwehr
+			}
+			4 = {
+				add_dynamic_modifier = {
+					modifier = AUS_schutzbund_presence
+				}
+				set_state_flag = AUS_schutzbund
+			}
+			39 = {
+				add_dynamic_modifier = {
+					modifier = AUS_frontfighters_presence
+				}
+				set_state_flag = AUS_frontfighters
+			}
+			
+			set_variable = { AUS.remaining_payments = 12 }		
+		
+		
+			1103 = {
+				AUS_change_minority_paramilitary_slovene = yes
+			}		
+			1121 = {
+				AUS_change_minority_paramilitary_slovak = yes
+			}
+			1120 = {
+				AUS_change_minority_paramilitary_slovak = yes
+			}
+			70 = {
+				AUS_change_minority_paramilitary_slovak = yes
+			}			
+			1140 = {
+				AUS_change_minority_paramilitary_ukrainian = yes
+			}
+			89 = {
+				AUS_change_minority_paramilitary_ukrainian = yes
+			}
+			
+			#104 = {
+			#	AUS_change_minority_paramilitary_bosniak = yes
+			#}
+			
+			69 = {
+				AUS_change_minority_paramilitary_deutschbohmen = yes
+			}
+			1138 = {
+				AUS_change_minority_paramilitary_deutschbohmen = yes
+			}
+			
+			#73 = {
+			#	AUS_change_minority_paramilitary_ruthenian = yes
+			#}
+			
+			84 = {
+				AUS_change_minority_paramilitary_transylvanian = yes
+			}
+			1113 = {
+				AUS_change_minority_paramilitary_transylvanian = yes
+			}		
+		
+			#759 = {
+			#	add_state_modifier = {
+			#		modifier = {
+			#			compliance_growth = -0.15
+			#			local_non_core_manpower = -0.05
+			#			starting_compliance = -0.3
+			#		}
+			#	}
+			#}
+			#160 = {
+			#	add_state_modifier = {
+			#		modifier = {
+			#			compliance_growth = -0.15
+			#			local_non_core_manpower = -0.05
+			#			starting_compliance = -0.3
+			#		}
+			#	}
+			#}
 			AUS = {
-				
-				
-				#country_event = { #Slovenia ticker
-				#	id = ethnic.1
-				#	days = 7
-				#	random = 336
-				#}
-				
-				#country_event = { #AI funnies
-				#	id = revolt.1000
-				#}
-				
-				set_variable = {
-					var = AUS.subject_revolt_progress
-					value = 0.52
-				}
-				
-				
-				set_variable = {
-					var = AUS.german_unrest
-					value = 0
-				}
-				
-				
-				
-				set_variable = {
-					var = AUS.slovene_unrest
-					value = 2.2
-				}
-				
-				set_variable = {
-					var = AUS.slovene_stability
-					value = -0.1
-				}
-				
-				set_variable = {
-					var = AUS.slovene_war_support
-					value = -0.05
-				}
-				
-				
-				set_variable = {
-					var = AUS.italian_unrest
-					value = 3.7
-				}
-				
-				
-				
-				set_variable = {
-					var = AUS.croat_unrest
-					value = 0.5
-				}
-				
-				clamp_variable = {
-					var = AUS.german_unrest
-					min = 0
-					max = 6
-				}
-				
-				clamp_variable = {
-					var = AUS.slovene_unrest
-					min = 0
-					max = 5
-				}
-				
-				clamp_variable = {
-					var = AUS.italian_unrest
-					min = 0
-					max = 5
-				}
-				
-				clamp_variable = {
-					var = AUS.croat_unrest
-					min = 0
-					max = 5
-				}
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				clamp_variable = {
-					var = AUS.subject_revolt_progress
-					min = 0
-					max = 1
-				}
-				
-				set_variable = {
-					var = CRO.subject_revolt_progress
-					value = 0.28
-				}
-				
-				clamp_variable = {
-					var = CRO.subject_revolt_progress
-					min = 0
-					max = 1
-				}
-				
-				set_variable = {
-					var = HUN.subject_revolt_progress
-					value = 0.46
-				}
-				
-				clamp_variable = {
-					var = HUN.subject_revolt_progress
-					min = 0
-					max = 1
-				}
-				
-				set_variable = {
-					var = CZE.subject_revolt_progress
-					value = 0.39
-				}
-				
-				clamp_variable = {
-					var = CZE.subject_revolt_progress
-					min = 0
-					max = 1
-				}
-				
-				set_variable = {
-					var = GAL.subject_revolt_progress
-					value = 0.52
-				}
-				
-				clamp_variable = {
-					var = GAL.subject_revolt_progress
-					min = 0
-					max = 1
-				}
-				
-				
-				
-				
-				
-				set_variable = {
-					var = AUS_subject_status
-					value = 2
-				}
-				
-				#country_event = {
-				#	id = ethnic.9
-				#	days = 7
-				#	random = 336
-				#}
+				add_soccon_to_coalition = yes
+				add_pataut_to_coalition = yes
+				country_event = { #Turn up collapse rate 1%
+					id = constituents.23
+					days = 7
+				}				
+				country_event = { #Collapse picker
+					id = ethnic.1
+					days = 30
+					random = 300
+				}				
+				country_event = { #AI funnies
+					id = revolt.1000
+				}				
+				set_variable = { AUS.subject_revolt_progress = 0.52 }
+				set_variable = { AUS.german_unrest = 0 }
+				set_variable = { AUS.slovene_unrest = 2.2 }
+				set_variable = { AUS.slovene_stability = -0.1 }
+				set_variable = { AUS.slovene_war_support = -0.05 }
+				set_variable = { AUS.italian_unrest = 3.7 }
+				set_variable = { AUS.croat_unrest = 0.5 }
+				set_variable = { CRO.subject_revolt_progress = 0.28 }		
+				set_variable = { HUN.subject_revolt_progress = 0.46 }			
+				set_variable = { CZE.subject_revolt_progress = 0.39 }	
+				set_variable = { GAL.subject_revolt_progress = 0.52 }
+				set_variable = { ITA.subject_revolt_progress = 0.12 }					
+				set_variable = { AUS_subject_status = 2 }
 				
 				#if = {
 				#	limit = {
@@ -183,6 +179,8 @@ on_actions = {
 				#		value = 1
 				#	}
 				#}
+				set_country_flag = CONST_proper
+				AUS_level_up_backer_combat_global = yes
 			}
 			
 			CRO = {
@@ -194,37 +192,17 @@ on_actions = {
 				#add_dynamic_modifier = { modifier = CRO_srpska_effects }
 				#add_dynamic_modifier = { modifier = CRO_emirate_effects }
 				#add_dynamic_modifier = { modifier = CRO_krajina_effects }
-				set_variable = {
-					var = AUS_subject_status
-					value = 1
+				set_variable = { AUS_subject_status = 4 }
+				
+				country_event = { #Illyrian revolt progress begins
+					id = ethnic_picker.2
+					days = 14
+					random = 168
 				}
-				
-				#country_event = { #Illyrian revolt progress begins
-				#	id = ethnic_picker.2
-				#	days = 14
-				#	random = 168
-				#}
-				
-				#country_event = {
-				#	id = ethnic.5
-				#	days = 7
-				#	random = 336
-				#}
-				#country_event = {
-				#	id = ethnic.6
-				#	days = 7
-				#	random = 336
-				#}
-				#country_event = {
-				#	id = ethnic.7
-				#	days = 7
-				#	random = 336
-				#}
-				#country_event = {
-				#	id = ethnic.11
-				#	days = 7
-				#	random = 336
-				#}
+				country_event = { #
+					id = constituents.51
+					days = 1
+				}
 				
 				#if = {
 				#	limit = {
@@ -238,121 +216,30 @@ on_actions = {
 				#	}
 				#}
 				
-				set_variable = {
-					var = CRO.croat_unrest
-					value = 0
-				}
-				
-				set_variable = {
-					var = CRO.german_unrest
-					value = 1
-				}
-				
-				set_variable = {
-					var = CRO.bosnian_unrest
-					value = 3.5
-				}
-				
-				set_variable = {
-					var = CRO.serb_unrest
-					value = 3.2
-				}
-				
-				set_variable = {
-					var = CRO.montenegrin_unrest
-					value = 3.8
-				}
-				
-				
-				clamp_variable = {
-					var = CRO.croat_unrest
-					min = 0
-					max = 6
-				}
-				
-				clamp_variable = {
-					var = CRO.german_unrest
-					min = 0
-					max = 5
-				}
-				
-				clamp_variable = {
-					var = CRO.bosnian_unrest
-					min = 0
-					max = 5
-				}
-				
-				clamp_variable = {
-					var = CRO.serb_unrest
-					min = 0
-					max = 5
-				}
-				
-				clamp_variable = {
-					var = CRO.montenegrin_unrest
-					min = 0
-					max = 5
-				}
+				set_variable = { CRO.german_unrest = 1 }
+				set_variable = { CRO.bosnian_unrest = 3.5 }
+				set_variable = { CRO.serb_unrest = 3.2 }
+				set_variable = { CRO.montenegrin_unrest = 3.8 }				
+				set_country_flag = CONST_proper
 			}
 			
 			HUN = {
-				set_variable = {
-					var = AUS_subject_status
-					value = 2
+				country_event = { #
+					id = constituents.51
+					days = 1
 				}
-				set_variable = {
-					var = HUN.hungarian_unrest
-					value = 0
+				set_variable = { AUS_subject_status = 2 }
+				set_variable = { HUN.hungarian_unrest = 0 }
+				set_variable = { HUN.slovak_unrest = 1.8 }
+				set_variable = { HUN.serb_unrest = 2.1 }
+				set_variable = { HUN.transylvanian_unrest = 1.8 }
+				set_variable = { HUN.banat_unrest = 0.7 }
+				set_variable = { HUN.ruthenian_unrest = 1 }				
+				country_event = { #Hungarian revolt progress begins
+					id = ethnic_picker.1
+					days = 14
+					random = 168
 				}
-				set_variable = {
-					var = HUN.german_unrest
-					value = 1
-				}
-				set_variable = {
-					var = HUN.slovak_unrest
-					value = 1.8
-				}
-				set_variable = {
-					var = HUN.serb_unrest
-					value = 2.1
-				}
-				set_variable = {
-					var = HUN.transylvanian_unrest
-					value = 1.8
-				}
-				set_variable = {
-					var = HUN.banat_unrest
-					value = 0.7
-				}
-				set_variable = {
-					var = HUN.ruthenian_unrest
-					value = 1
-				}
-				#country_event = { #Hungarian revolt progress begins
-				#	id = ethnic_picker.1
-				#	days = 14
-				#	random = 168
-				#}
-				#country_event = {
-				#	id = ethnic.2
-				#	days = 7
-				#	random = 336
-				#}
-				#country_event = {
-				#	id = ethnic.3
-				#	days = 7
-				#	random = 336
-				#}
-				#country_event = {
-				#	id = ethnic.4
-				#	days = 7
-				#	random = 336
-				#}
-				#country_event = {
-				#	id = ethnic.10
-				#	days = 7
-				#	random = 336
-				#}
 				
 				#if = {
 				#	limit = {
@@ -364,74 +251,22 @@ on_actions = {
 				#		var = intro_status
 				#		value = 1
 				#	}
-				#}
-				
-				clamp_variable = {
-					var = HUN.hungarian_unrest
-					min = 0
-					max = 6
-				}
-				
-				clamp_variable = {
-					var = HUN.german_unrest
-					min = 0
-					max = 5
-				}
-				
-				clamp_variable = {
-					var = HUN.slovak_unrest
-					min = 0
-					max = 5
-				}
-				
-				clamp_variable = {
-					var = HUN.serb_unrest
-					min = 0
-					max = 5
-				}
-				
-				clamp_variable = {
-					var = HUN.transylvanian_unrest
-					min = 0
-					max = 5
-				}
-				
-				clamp_variable = {
-					var = HUN.banat_unrest
-					min = 0
-					max = 5
-				}
-				
-				clamp_variable = {
-					var = HUN.ruthenian_unrest
-					min = 0
-					max = 5
-				}
+				#}				
+				set_country_flag = CONST_proper
+				add_to_variable = { HUN.extra_value = 0.01 }
 			}
 			
 			CZE = {
-				set_variable = {
-					var = AUS_subject_status
-					value = 1
+				country_event = { #
+					id = constituents.51
+					days = 1
 				}
-				set_variable = {
-					var = CZE.czech_unrest
-					value = 0
+				set_variable = { AUS_subject_status = 1 }
+				country_event = {
+					id = ethnic_picker.3
+					days = 14
+					random = 168
 				}
-				set_variable = {
-					var = CZE.german_unrest
-					value = 1
-				}
-				#country_event = {
-				#	id = ethnic_picker.3
-				#	days = 14
-				#	random = 168
-				#}
-				#country_event = {
-				#	id = ethnic.12
-				#	days = 7
-				#	random = 336
-				#}
 				
 				if = {
 					limit = {
@@ -444,47 +279,16 @@ on_actions = {
 						value = 1
 					}
 				}
-								
-				clamp_variable = {
-					var = CZE.czech_unrest
-					min = 0
-					max = 5
-				}
-				
-				clamp_variable = {
-					var = CZE.german_unrest
-					min = 0
-					max = 5
-				}
+				set_country_flag = CONST_proper
+				add_to_variable = { CZE.extra_value = -0.003 }
 			}
 			
 			GAL = {
-				set_variable = {
-					var = AUS_subject_status
-					value = 1
+				country_event = { #
+					id = constituents.51
+					days = 1
 				}
-				set_variable = {
-					var = GAL.polish_unrest
-					value = 0
-				}
-				set_variable = {
-					var = GAL.ukrainian_unrest
-					value = 1
-				}
-				set_variable = {
-					var = GAL.bukovina_unrest
-					value = 1
-				}
-				#country_event = { #
-				#	id = ethnic.8
-				#	days = 7
-				#	random = 336
-				#}
-				#country_event = {
-				#	id = ethnic.13
-				#	days = 7
-				#	random = 336
-				#}
+				set_variable = { AUS_subject_status = 1 }
 				
 				if = {
 					limit = {
@@ -498,93 +302,227 @@ on_actions = {
 					}
 				}
 				
-				clamp_variable = {
-					var = GAL.polish_unrest
-					min = 0
-					max = 5
+				set_variable = { GAL.ukrainian_unrest = 1.8 }
+				set_country_flag = CONST_proper
+			}
+			
+			ITA = {
+				set_variable = { AUS_subject_status = 4 }
+				if = {
+					limit = {
+						ITA = {
+							is_ai = no
+						}
+					}
+					set_variable = {
+						var = intro_status
+						value = 1
+					}
 				}
-				
-				clamp_variable = {
-					var = GAL.ukrainian_unrest
-					min = 0
-					max = 5
-				}
-				
-				clamp_variable = {
-					var = GAL.bukovina_unrest
-					min = 0
-					max = 5
-				}
+				set_country_flag = CONST_proper
+				set_country_flag = CONST_no_placate_decision
+				set_country_flag = CONST_no_suppress_decision
+				set_country_flag = CONST_no_factory_decision
+				set_country_flag = CONST_no_visit_decision
+				set_country_flag = CONST_no_evidenzbureau
 			}
 			
 			SVK = {
-				set_variable = {
-					var = AUS_subject_status
-					value = 0
-				}
+				set_country_flag = CONST_minor
+				set_variable = { AUS_subject_status = 0 }
+				set_variable = { SVK.subject_revolt_progress = 0.2 }
 			}
 			
 			TRS = {
-				set_variable = {
-					var = AUS_subject_status
-					value = 0
-				}
+				set_country_flag = CONST_minor
+				set_variable = { AUS_subject_status = 0 }
+				set_variable = { TRS.subject_revolt_progress = 0.1 }
 			}
 			
 			BOS = {
-				set_variable = {
-					var = AUS_subject_status
-					value = 0
-				}
+				set_country_flag = CONST_minor
+				set_variable = { AUS_subject_status = 0 }
+				set_variable = { BOS.subject_revolt_progress = 0.1 }
 			}
 			
 			MNT = {
-				set_variable = {
-					var = AUS_subject_status
-					value = 0
-				}
+				set_variable = { AUS_subject_status = 0 }
 			}
 			
 			SLO = {
-				set_variable = {
-					var = AUS_subject_status
-					value = 0
-				}
+				set_country_flag = CONST_minor
+				set_variable = { AUS_subject_status = 0 }
+				set_variable = { SLO.subject_revolt_progress = 0.1 }
 			}
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			PGU = {
+				set_country_flag = CONST_minor
+				set_variable = { PGU.subject_revolt_progress = 0.1 }
+				#country_event = {
+				#	id = ethnic.0
+				#	days = 7
+				#	random = 336
+				#}
+			}
+			KRK = {
+				set_country_flag = CONST_minor
+				set_variable = { KRK.subject_revolt_progress = 0.1 }
+				#country_event = {
+				#	id = ethnic.0
+				#	days = 7
+				#	random = 336
+				#}
+			}
+			WSU = {
+				set_country_flag = CONST_minor
+				set_variable = { WSU.subject_revolt_progress = 0.15 }				
+				#country_event = {
+				#	id = ethnic.0
+				#	days = 7
+				#	random = 336
+				#}
+			}
+			BUK = {
+				set_country_flag = CONST_minor
+				set_variable = { BUK.subject_revolt_progress = 0.1 }
+				#country_event = {
+				#	id = ethnic.0
+				#	days = 7
+				#	random = 336
+				#}
+			}			
+			BAN = {
+				set_country_flag = CONST_minor
+				set_variable = { BAN.subject_revolt_progress = 0.1 }
+				#country_event = {
+				#	id = ethnic.0
+				#	days = 7
+				#	random = 336
+				#}
+			}
+			MNT = {
+				set_country_flag = CONST_minor
+				set_variable = { MNT.subject_revolt_progress = 0.1 }
+				#country_event = {
+				#	id = ethnic.0
+				#	days = 7
+				#	random = 336
+				#}
+			}
+			VNC = {
+				set_country_flag = CONST_minor
+				set_variable = { VNC.subject_revolt_progress = 0.1 }				
+				#country_event = {
+				#	id = ethnic.0
+				#	days = 7
+				#	random = 336
+				#}
+			}
+			SKS = {
+				set_country_flag = CONST_minor
+				set_variable = { SKS.subject_revolt_progress = 0.1 }				
+				#country_event = {
+				#	id = ethnic.0
+				#	days = 7
+				#	random = 336
+				#}
+			}
+			CPU = {
+				set_country_flag = CONST_minor
+				set_variable = { CPU.subject_revolt_progress = 0.1 }				
+				#country_event = {
+				#	id = ethnic.0
+				#	days = 7
+				#	random = 336
+				#}
+			}
 			
 			add_to_array = { global.constituents_array = AUS }
 			add_to_array = { global.constituents_array = HUN }
 			add_to_array = { global.constituents_array = CRO }
 			add_to_array = { global.constituents_array = CZE }
 			add_to_array = { global.constituents_array = GAL }
+			add_to_array = { global.constituents_array = ITA }
+			
+			add_to_array = { global.minorities_array = SVK }
+			add_to_array = { global.minorities_array = VNC }
+			add_to_array = { global.minorities_array = SLO }
+			add_to_array = { global.minorities_array = WSU }
+			add_to_array = { global.minorities_array = BUK }
+			add_to_array = { global.minorities_array = KRK }
+			add_to_array = { global.minorities_array = CPU }
+			add_to_array = { global.minorities_array = SKS }
+			add_to_array = { global.minorities_array = BOS }
+			add_to_array = { global.minorities_array = BAN }
+			add_to_array = { global.minorities_array = TRS }
+			add_to_array = { global.minorities_array = PGU }
+			
+			
+			add_to_array = { ROOT.austria_minority_array = SVK }
+			#add_to_array = { ROOT.austria_minority_array = VNC }
+			add_to_array = { ROOT.austria_minority_array = SLO }
+			add_to_array = { ROOT.austria_minority_array = WSU }
+			add_to_array = { ROOT.austria_minority_array = BUK }
+			#add_to_array = { ROOT.austria_minority_array = KRK }
+			add_to_array = { ROOT.austria_minority_array = CPU }
+			add_to_array = { ROOT.austria_minority_array = SKS }
+			add_to_array = { ROOT.austria_minority_array = BOS }
+			#add_to_array = { ROOT.austria_minority_array = BAN }
+			add_to_array = { ROOT.austria_minority_array = TRS }
+			#add_to_array = { ROOT.austria_minority_array = PGU }
+			
+			add_to_array = { global.AUS_all_possible_array = AUS }
+			add_to_array = { global.AUS_all_possible_array = HUN }
+			add_to_array = { global.AUS_all_possible_array = CRO }
+			add_to_array = { global.AUS_all_possible_array = CZE }
+			add_to_array = { global.AUS_all_possible_array = GAL }
+			add_to_array = { global.AUS_all_possible_array = SVK }
+			add_to_array = { global.AUS_all_possible_array = VNC }
+			add_to_array = { global.AUS_all_possible_array = SLO }
+			add_to_array = { global.AUS_all_possible_array = WSU }
+			add_to_array = { global.AUS_all_possible_array = BUK }
+			add_to_array = { global.AUS_all_possible_array = KRK }
+			add_to_array = { global.AUS_all_possible_array = CPU }
+			add_to_array = { global.AUS_all_possible_array = SKS }
+			add_to_array = { global.AUS_all_possible_array = BOS }
+			add_to_array = { global.AUS_all_possible_array = BAN }
+			add_to_array = { global.AUS_all_possible_array = TRS }
+			add_to_array = { global.AUS_all_possible_array = PGU }
+			add_to_array = { global.AUS_all_possible_array = CUM }
+			add_to_array = { global.AUS_all_possible_array = PGU }
+			add_to_array = { global.AUS_all_possible_array = HNZ }
+			
+			add_to_array = { global.bp_occupied_tag_array_SER = SKS }
+			add_to_array = { global.bp_occupied_tag_array_SER = BOS }
+			add_to_array = { global.bp_occupied_tag_array_SER = MNT }
+			
+			add_to_array = { global.bp_occupied_tag_array_ROM = TRS }
+			add_to_array = { global.bp_occupied_tag_array_ROM = BAN }
+			add_to_array = { global.bp_occupied_tag_array_ROM = BUK }
+		}
+	}
+	
+	on_declare_war = {
+		effect = {
+			if = {
+				limit = {
+					tag = AUS
+					OR = {
+						AUS_habsburg_in_charge = yes
+						AUS_habsburg_in_charge_regent = yes
+						AUS_habsburg_in_charge_junta = yes
+					}
+					has_completed_focus = AUS_reconstitute_empire
+					NOT = {
+						has_global_flag = antihabsburg_coalition
+					}
+					FROM = {
+						AUS_is_danubian_tag = yes
+						is_subject = no
+					}
+				}
+			}
+			AUS_coalition_value = yes
 		}
 	}
 }

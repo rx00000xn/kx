@@ -4,6 +4,45 @@
 
 add_namespace = gal
 
+country_event = { #Galicia becomes independent, collapse
+	id = gal.0
+	immediate = { log = "[GetDateText]: [Root.GetName]: event gal.0" }
+	title = gal.0.t
+	desc = gal.0.d
+
+	trigger = {
+		tag = GAL
+		#has_war = no
+		is_subject = no
+		has_global_flag = AUS_collapsed
+		NOT = {
+			has_global_flag = AUS_collapsed_stable
+		}
+	}
+	mean_time_to_happen = {
+		days = 14
+	}
+	
+	#is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #aw rats
+		name = gal.0.a
+		ai_chance = {
+			factor = 100
+		}
+		add_ideas = GAL_collapsing_constituent
+		activate_mission = GAL_collapsing_constituent
+		#hidden_effect = {
+			country_event = {
+				id = gal.42
+				days = 30
+				random = 10
+			}
+		#}
+	}
+}
+
 country_event = { #Galicia becomes independent, after war
 	id = gal.1
 	immediate = { log = "[GetDateText]: [Root.GetName]: event gal.1" }
@@ -15,11 +54,18 @@ country_event = { #Galicia becomes independent, after war
 		has_war = no
 		is_subject = no
 		country_exists = POL
+		OR = {
+			NOT = {
+				has_global_flag = AUS_collapsed
+			}
+			has_global_flag = AUS_collapsed_stable
+		}
 	}
 	mean_time_to_happen = {
 		days = 14
 	}
-
+	
+	is_triggered_only = yes
 	fire_only_once = yes
 
 	option = { #join Poland
@@ -79,19 +125,13 @@ country_event = { #Galicia wants to join Poland
 			target = FROM
 			transfer_troops = yes
 		}
-		if = {
-			limit = {
-				ROM = {
-					exists = yes
-					is_subject = no
+		46 = {
+			owner = {
+				country_event = {
+					id = gal.3
+					days = 1
 				}
 			}
-			ROM = {
-			    country_event = {
-				    id = gal.3
-				    days = 1
-			    }
-		    }
 		}
 	}
 }
@@ -151,12 +191,12 @@ country_event = {#BM
 
 	option = { 
 		name = gal.12.a
-				add_stability = -0.05
+		add_stability = -0.05
 		swap_ideas = {
 			remove_idea = GAL_golicja_glodomeria
 			add_idea = GAL_golicja_glodomeria_2
 		}
-				swap_ideas = {
+		swap_ideas = {
 			remove_idea = GAL_minority_unrest
 			add_idea = GAL_minority_unrest_2
 		}
@@ -190,15 +230,15 @@ country_event = {#Vienna
 
 	option = { 
 		name = gal.14.a 
-				add_political_power = 30
-				hidden_effect = {
+		add_political_power = 30
+		hidden_effect = {
 			set_country_flag = GAL_market_help
 		}
 	}
 
-		option = { 
+	option = { 
 		name = gal.14.b
-				add_political_power = -70
+		add_political_power = -70
 	}
 }
 
@@ -212,109 +252,109 @@ country_event = {#Elections
 
 	option = { 
 		name = gal.15.a
-				add_popularity = {
-				ideology = social_liberal
-				popularity = 0.1
+		add_popularity = {
+			ideology = social_liberal
+			popularity = 0.1
 		}
-				set_politics = {
+		set_politics = {
 			ruling_party = social_liberal
 			election_frequency = 48
 			elections_allowed = no
 		}
-				hidden_effect = {
+		hidden_effect = {
 			set_country_flag = GAL_psl_elected
 		}
 	}
 
-		option = { 
+	option = { 
 		name = gal.15.b
 		add_popularity = {
-				ideology = radical_socialist
-				popularity = 0.1
+			ideology = radical_socialist
+			popularity = 0.1
 		}
-				set_politics = {
+		set_politics = {
 			ruling_party = radical_socialist
 			election_frequency = 48
 			elections_allowed = no
 		}
-				remove_all_ministers = yes
+		remove_all_ministers = yes
 		add_ideas = {
 			GAL_Tomasz_Dabal_hog_rso
 			GAL_Andrzej_Huszno_for_rso
 			GAL_Franciszek_Krempa_eco_rso
 			GAL_Antoni_Kurowski_sec_rso
 		}
-				hidden_effect = {
+		hidden_effect = {
 			set_country_flag = GAL_chsr_elected
 		}
 	}
 
-		option = { 
+	option = { 
 		name = gal.15.c
 		add_popularity = {
-				ideology = social_democrat
-				popularity = 0.1
+			ideology = social_democrat
+			popularity = 0.1
 		}
-				set_politics = {
+		set_politics = {
 			ruling_party = social_democrat
 			election_frequency = 48
 			elections_allowed = no
 		}
-				remove_all_ministers = yes
+		remove_all_ministers = yes
 		add_ideas = {
 			GAL_Kazimierz_Puzak_hog_sde
 			GAL_Herman_Lieberman_for_sde
 			GAL_Jedrzej_Moraczewski_eco_sde
 			GAL_Tadeusz_Reger_sec_sde
 		}
-				hidden_effect = {
+		hidden_effect = {
 			set_country_flag = GAL_ppsd_elected
 		}
 	}
 
-		option = { 
+	option = { 
 		name = gal.15.e
 		add_popularity = {
-				ideology = social_conservative
-				popularity = 0.1
+			ideology = social_conservative
+			popularity = 0.1
 		}
-				set_politics = {
+		set_politics = {
 			ruling_party = social_conservative
 			election_frequency = 48
 			elections_allowed = no
 		}
-				remove_all_ministers = yes
+		remove_all_ministers = yes
 		add_ideas = {
 			GAL_Andrzej_Lubomirski_hog_pau
 			GAL_Roman_Longchamps_Berier_for_pau
 			GAL_Wladyslaw_Leopold_Jaworski_eco_sco
 			GAL_Aleksander_Skrzynski_sec_sco
 		}
-				hidden_effect = {
+		hidden_effect = {
 			set_country_flag = GAL_spn_elected
 		}
 	}
 
-		 option = { 
+	option = { 
 		name = gal.15.f
-				trigger = { has_country_flag = GAL_market_help }
+		trigger = { has_country_flag = GAL_market_help }
 		add_popularity = {
-				ideology = market_liberal
-				popularity = 0.1
+			ideology = market_liberal
+			popularity = 0.1
 		}
-				remove_all_ministers = yes
+		remove_all_ministers = yes
 		add_ideas = {
 			GAL_Adam_Heydel_hog_mli
 			GAL_Maksymilian_Fingerchut_for_mli
 			GAL_Ferdynand_Zweig_eco_mli
 			GAL_Natan_Loewenstein_sec_mli
 		}
-				set_politics = {
+		set_politics = {
 			ruling_party = market_liberal
 			election_frequency = 48
 			elections_allowed = no
 		}
-				hidden_effect = {
+		hidden_effect = {
 			set_country_flag = GAL_kse_elected
 		}
 	}
@@ -332,7 +372,7 @@ country_event = { #UWO Attacks
 		name = gal.20.a
 		set_variable = { GAL_WSU_guerilla_activity_timeout = 75 }
 		activate_mission = GAL_WSU_guerilla_activity
-
+		
 		hidden_effect = {
 			country_event = { id = gal.21 days = 60 }
 			country_event = { id = gal.22 days = 30 }
@@ -390,28 +430,21 @@ country_event = { #UWO Raid High
 			min = -250
 			max = -25
 		}
-		add_manpower = GAL_manpower_lost
+		add_manpower = GAL_manpower_lost			
 		random_owned_controlled_state = {
 			limit = {
-				is_east_galicia = yes
-				is_core_of = ROOT
-				has_active_resistance = no
-				NOT = { has_state_flag = GAL_premysl_secured }
-				NOT = { has_state_flag = GAL_lvov_secured }
+				NOT = { 
+					has_state_flag = GAL_lvov_secured
+					has_state_flag = GAL_premysl_secured
+				}
 			}
-			hidden_effect = { 
-				add_core_of = WSU
-				remove_core_of = GAL
-				add_claim_by = GAL
-			}
-			set_demilitarized_zone = yes
-			start_resistance = yes
-			set_resistance = 15
-			ROOT = { activate_targeted_decision = { target = PREV decision = GAL_Destroy_UWO_In_State } }
-		}		
+			AUS_change_minority_paramilitary_ukrainian = yes 
+		}
 		custom_effect_tooltip = tooltip_white_line
-		set_temp_variable = { WSU_threat_change = 11 }
-		GAL_change_WSU_threat = yes
+		WSU = {
+			set_temp_variable = { revolt_progress_change = 0.11 }
+			BOTDE_add_collapse = yes
+		}
 	}
 }
 country_event = { #UWO Damage Local Business
@@ -440,8 +473,10 @@ country_event = { #UWO Damage Local Business
 				damage = 0.25
 			}
 		}
-		set_temp_variable = { WSU_threat_change = 2 }
-		GAL_change_WSU_threat = yes
+		WSU = {
+			set_temp_variable = { revolt_progress_change = 0.02 }
+			BOTDE_add_collapse = yes
+		}
 	}
 }
 country_event = { #UWO Damage Arms Factory
@@ -465,8 +500,10 @@ country_event = { #UWO Damage Arms Factory
 				damage = 0.45
 			}
 		}
-		set_temp_variable = { WSU_threat_change = 2 }
-		GAL_change_WSU_threat = yes
+		WSU = {
+			set_temp_variable = { revolt_progress_change = 0.02 }
+			BOTDE_add_collapse = yes
+		}
 	}
 }
 country_event = { #Quiet
@@ -480,8 +517,10 @@ country_event = { #Quiet
 
 	option = {
 		name = gal.26.a
-		set_temp_variable = { WSU_threat_change = 1 }
-		GAL_change_WSU_threat = yes
+		WSU = {
+			set_temp_variable = { revolt_progress_change = 0.01 }
+			BOTDE_add_collapse = yes
+		}
 	}
 }
 country_event = { #LAF Repulsed
@@ -498,8 +537,10 @@ country_event = { #LAF Repulsed
 	option = {
 		name = gal.27.a
 		add_political_power = 10
-		set_temp_variable = { WSU_threat_change = -2 }
-		GAL_change_WSU_threat = yes
+		WSU = {
+			set_temp_variable = { revolt_progress_change = -0.02 }
+			BOTDE_add_collapse = yes
+		}
 	}
 }
 country_event = { #UWO Damage Infrastructure
@@ -527,8 +568,10 @@ country_event = { #UWO Damage Infrastructure
 				damage = 0.6
 			}
 		}
-		set_temp_variable = { WSU_threat_change = 3 }
-		GAL_change_WSU_threat = yes
+		WSU = {
+			set_temp_variable = { revolt_progress_change = 0.03 }
+			BOTDE_add_collapse = yes
+		}
 	}
 }
 country_event = { #UWO Raid Low
@@ -561,8 +604,10 @@ country_event = { #UWO Raid Low
 			amount = var:GAL_support_equipment_lost
 		}
 		custom_effect_tooltip = tooltip_white_line
-		set_temp_variable = { WSU_threat_change = 3 }
-		GAL_change_WSU_threat = yes
+		WSU = {
+			set_temp_variable = { revolt_progress_change = 0.03 }
+			BOTDE_add_collapse = yes
+		}
 	}
 }
 country_event = { #Successful Raid
@@ -575,8 +620,10 @@ country_event = { #Successful Raid
 
 	option = {
 		name = gal.30.a
-		set_temp_variable = { WSU_threat_change = -5 }
-		GAL_change_WSU_threat = yes
+		WSU = {
+			set_temp_variable = { revolt_progress_change = -0.05 }
+			BOTDE_add_collapse = yes
+		}
 	}
 }
 country_event = { #Civilians harmed
@@ -590,8 +637,10 @@ country_event = { #Civilians harmed
 	option = {
 		name = gal.31.a
 		add_stability = -0.02
-		set_temp_variable = { WSU_threat_change = 5 }
-		GAL_change_WSU_threat = yes
+		WSU = {
+			set_temp_variable = { revolt_progress_change = 0.05 }
+			BOTDE_add_collapse = yes
+		}
 	}
 }
 country_event = { #UWO strongpoint destroyed
@@ -604,8 +653,10 @@ country_event = { #UWO strongpoint destroyed
 
 	option = {
 		name = gal.32.a
-		set_temp_variable = { WSU_threat_change = -10 }
-		GAL_change_WSU_threat = yes
+		WSU = {
+			set_temp_variable = { revolt_progress_change = -0.10 }
+			BOTDE_add_collapse = yes
+		}
 	}
 }
 country_event = { #All quite on the Lithuanian front
@@ -634,15 +685,13 @@ country_event = { #End of the UWO
 		set_temp_variable = { ideology_change_var = 4 }
 		change_ruling_party_popularity = yes	
 		every_owned_state = {
-			limit = { has_active_resistance = yes }
-			remove_claim_by = ROOT
-			add_core_of = ROOT
-			remove_core_of = WSU
-			if = {
-				limit = { has_resistance = yes }
-				cancel_resistance = yes
-			}
-			force_disable_resistance = { clear = yes }
+			AUS_remove_minority_paramilitary = yes
+		}
+		WSU = {
+			set_temp_variable = { revolt_progress_change = WSU.subject_revolt_progress }
+			multiply_temp_variable = { revolt_progress_change = -1 }
+			BOTDE_add_collapse = yes
+			set_country_flag = no_minority_revolt
 		}
 	}
 }
@@ -667,7 +716,6 @@ country_event = { #Prosvita
 	title = gal.36.t
 	desc = gal.36.d
 	
-	
 	is_triggered_only = yes
 
 	option = {
@@ -687,22 +735,42 @@ country_event = { #Petrushevych
 
 	option = {
 		name = gal.37.a
-		set_country_flag = GAL_finished_centralisation
+		WSU = { set_country_flag = no_minority_revolt }
 	}
 }
 country_event = { #Leave
 	id = gal.38
 	immediate = { log = "[GetDateText]: [Root.GetName]: event gal.38 FROM = [From.GetName]" }
 	title = gal.38.t
-	desc = gal.38.d
-	
+	desc = {
+		text = gal.38.d
+		trigger = { original_tag = GAL }
+	}
+	desc = {
+		text = gal.38.d.AUS
+		trigger = { original_tag = AUS }
+	}
 	
 	is_triggered_only = yes
 
 	option = {
 		name = gal.38.a
-		set_temp_variable = { WSU_threat_change = -20 }
-		GAL_change_WSU_threat = yes
+		trigger = { original_tag = GAL }
+		effect_tooltip = {
+			WSU = {
+				set_temp_variable = { revolt_progress_change = -0.20 }
+				BOTDE_add_collapse = yes
+			}
+		}
+		AUS = { country_event = gal.38 }
+	}
+	option = {
+		name = gal.38.b
+		trigger = { original_tag = AUS }
+		WSU = {
+			set_temp_variable = { revolt_progress_change = -0.20 }
+			BOTDE_add_collapse = yes
+		}
 	}
 }
 country_event = { #UGA
@@ -724,6 +792,7 @@ country_event = { #UGA
 				has_authoritarian_government = no
 			}
 		}
+		GAL_add_eight_collapse = yes
 		FROM = {
 			country_event = {
 				id = gal.40
@@ -741,6 +810,10 @@ country_event = { #UGA
 				has_authoritarian_government = yes
 			}
 		}
+		WSU = {
+			set_temp_variable = { revolt_progress_change = 0.08 }
+			BOTDE_add_collapse = yes
+		}
 	}	
 }
 country_event = { #UGA
@@ -754,11 +827,14 @@ country_event = { #UGA
 
 	option = {
 		name = gal.40.a
-		set_country_flag = AUS_forbid_dissolving_uga
-		set_temp_variable = { GAL_centralisation_change = -5 }
-		GAL_change_centralisation = yes
+		set_country_flag = AUS_forbid_dissolving_uga		
+		GAL = {
+			set_temp_variable = { revolt_progress_change = 0.05 }
+			BOTDE_add_collapse = yes
+		}
 	}	
 }
+
 country_event = { #UGA
 	id = gal.41
 	immediate = { log = "[GetDateText]: [Root.GetName]: event gal.41 FROM = [From.GetName]" }
@@ -771,15 +847,103 @@ country_event = { #UGA
 	option = {
 		name = gal.41.a
 		ai_chance = { base = 70 }
-		set_temp_variable = { GAL_centralisation_change = -5 }
-		GAL_change_centralisation = yes
+		GAL = {
+			set_temp_variable = { revolt_progress_change = 0.05 }
+			BOTDE_add_collapse = yes
+		}
 	}
 	option = {
 		name = gal.41.b
 		ai_chance = { base = 30 }
-		set_temp_variable = { GAL_centralisation_change = 5 }
-		GAL_change_centralisation = yes
-		set_temp_variable = { WSU_threat_change = 5 }
-		GAL_change_WSU_threat = yes
+		GAL = {
+			set_temp_variable = { revolt_progress_change = -0.05 }
+			BOTDE_add_collapse = yes
+		}
+		WSU = {
+			set_temp_variable = { revolt_progress_change = 0.05 }
+			BOTDE_add_collapse = yes
+		}
 	}	
+}
+
+country_event = { #Sanctuary in Krakow
+	id = gal.42
+	immediate = { log = "[GetDateText]: [Root.GetName]: event gal.41 FROM = [From.GetName]" }
+	title = gal.42.t
+	desc = gal.42.d
+	
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = gal.42.a
+		ai_chance = { base = 40 }
+		KRK = {
+			transfer_state = 1124
+			KRK_setup = yes
+		}
+	}
+	
+	option = {
+		name = gal.42.b
+		ai_chance = { base = 0 }
+		KRK = {
+			transfer_state = 1124
+			change_tag_from = ROOT
+			KRK_setup = yes
+		}
+		
+	}
+	
+	option = {
+		name = gal.42.c
+		ai_chance = { base = 0 } #change this base to 100
+		add_stability = -0.1
+	}
+	
+}
+
+country_event = { #KRK - Join Poland?
+	id = gal.43
+	immediate = { log = "[GetDateText]: [Root.GetName]: event gal.41 FROM = [From.GetName]" }
+	title = gal.43.t
+	desc = gal.43.d
+	
+	
+	is_triggered_only = yes
+
+	option = { #No
+		name = gal.43.a
+		ai_chance = { factor = 30 modifier = { factor = 10 same_government_type_as_ROOT = no } }
+		transfer_state = 88
+		add_state_core = 88
+	}
+	
+	option = { #Yes
+		name = gal.43.b
+		ai_chance = { factor = 100 modifier = { factor = 0 same_government_type_as_ROOT = no } }
+		POL = {
+			annex_country = {
+				target = ROOT
+				transfer_troops = yes
+			}
+		}
+	}
+}
+
+country_event = { #WSU - Seizing Sanok
+	id = gal.44
+	immediate = { log = "[GetDateText]: [Root.GetName]: event gal.41 FROM = [From.GetName]" }
+	title = gal.44.t
+	desc = gal.44.d
+	
+	
+	is_triggered_only = yes
+
+	option = { #No
+		name = gal.43.a
+		ai_chance = { base = 30 modifier = { factor = 2 NOT = { same_government_type_as_ROOT = yes } } }
+		transfer_state = 1319
+		add_state_core = 1319
+	}
 }
