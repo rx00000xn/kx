@@ -169,7 +169,7 @@ political_actions = {
 			surrender_progress > 0.35
 		}
 
-		targets = { AUS TUR BUL }
+		targets = { AUS TUR BUL OTT }
 
 		target_trigger = {
 			FROM = {
@@ -279,6 +279,72 @@ political_actions = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision GER_send_support_to_bulgaria target: [From.GetName]"
 			BUL = { country_event = gerfor.140 }
+		}
+	}
+	
+	GER_send_support_to_proxy = {
+		icon = generic_agreement
+
+		allowed = { original_tag = GER }
+
+		available = {
+			ROOT = {
+				has_war = no
+			}
+			FROM = {
+				has_capitulated = no
+			}
+		}
+
+		visible = {
+			FROM = {
+				is_subject = no
+				NOT = { has_war_with = ROOT }
+			}
+		}
+		
+		custom_cost_trigger = {
+			has_equipment = { infantry_equipment > 1999 }
+		}
+		custom_cost_text = 2000_infantry_equipment_1
+		days_remove = 25
+
+		target_root_trigger = {
+			has_completed_focus = GER_Obligations_of_Empire
+		}
+
+		targets = { WRA COR TEX SPR }
+
+		target_trigger = {
+			FROM = {
+				has_war = yes
+				is_subject = no
+				NOT = { has_war_with = ROOT }
+				OR = {
+					has_idea = GER_German_Support1_idea
+					has_idea = GER_German_Support2_idea
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 15
+			modifier = { # This is to prevent the AI from spamming it which could annoy a player.
+				factor = 0
+				has_country_flag = GER_Sent_Support
+			}
+		}
+		
+		complete_effect = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment_1
+				amount = -2000
+			}
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_send_support_to_proxy target: [From.GetName]"
+			FROM = { country_event = gerfor.264 }
 		}
 	}
 
@@ -466,6 +532,6225 @@ political_actions = {
 			factor = 50
 		}
     }
+	
+	GER_Sicilian_Economic_Aid = {
+		icon = generic_construction
+		allowed = { always = no } # Fired in event
+		
+		days_remove = 180
+		fire_only_once = yes
+		
+		modifier = {
+			civilian_factory_use = 8
+		}
+	}
+	
+	GER_Dutch_Economic_Aid = {
+		icon = generic_construction
+		allowed = { always = no } # Fired in event
+		
+		days_remove = 180
+		fire_only_once = yes
+		
+		modifier = {
+			civilian_factory_use = 8
+		}
+	}
+	
+	GER_Don_Economic_Aid = {
+		icon = generic_construction
+		allowed = { always = no } # Fired in event
+		
+		days_remove = 180
+		fire_only_once = yes
+		
+		modifier = {
+			civilian_factory_use = 8
+		}
+	}
+}
+
+GER_halifax_category = {
+
+	GER_Halifax_Alsace_Lorraine = {
+		icon = generic_agreement
+		visible = {
+			OR = {
+				is_ai = no
+				AND = {
+					is_ai = yes
+					CAN = { is_ai = yes }
+					NFA = { is_ai = yes }
+				}
+			}
+			OR = {
+				original_tag = GER
+				original_tag = CAN
+				original_tag = NFA
+			}
+		}
+		available = {
+			NOT = { has_global_flag = GER_Halifax_Negotiating }
+		}
+		
+		fire_only_once = yes
+		
+		cost = 10
+		
+		complete_effect = {
+			set_global_flag = GER_Halifax_Negotiating
+			if = {
+				limit = {
+					tag = GER
+					NFA = { is_in_faction_with = ENT }
+				}
+				NFA = {
+					country_event = { id = entente.30701 days = 1 }
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						tag = NFA
+						tag = CAN
+					}
+					NFA = { is_in_faction_with = ENT }
+				}
+				GER = {
+					country_event = { id = entente.30701 days = 1 }
+				}
+			}
+			if = {
+				limit = {
+					NOT = { NFA = { is_in_faction_with = ENT } }
+				}
+				country_event = entente.30716
+			}
+		}
+	}
+	
+	GER_Halifax_Colonial_Claims = {
+		icon = generic_agreement
+		visible = {
+			OR = {
+				is_ai = no
+				AND = {
+					is_ai = yes
+					CAN = { is_ai = yes }
+					NFA = { is_ai = yes }
+				}
+			}
+			NOT = {
+				has_global_flag = MAF_collapse
+			}
+			country_exists = GEA
+			OR = {
+				original_tag = GER
+				original_tag = CAN
+				original_tag = NFA
+			}
+		}
+		available = {
+			NOT = { has_global_flag = GER_Halifax_Negotiating }
+		}
+		
+		fire_only_once = yes
+
+		cost = 10
+		
+		complete_effect = {
+			set_global_flag = GER_Halifax_Negotiating
+			if = {
+				limit = {
+					tag = GER
+				}
+				CAN = {
+					country_event = { id = entente.30706 days = 1 }
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						tag = NFA
+						tag = CAN
+					}
+				}
+				GER = {
+					country_event = { id = entente.30706 days = 1 }
+				}
+			}
+		}
+	
+	}
+	
+	GER_Halifax_Mitteleuropa = {
+		icon = generic_agreement
+		visible = {
+			OR = {
+				is_ai = no
+				AND = {
+					is_ai = yes
+					CAN = { is_ai = yes }
+					NFA = { is_ai = yes }
+				}
+			}
+			OR = {
+				original_tag = GER
+				original_tag = CAN
+				original_tag = NFA
+			}
+		}
+		available = {
+			NOT = { has_global_flag = GER_Halifax_Negotiating }
+		}
+		
+		fire_only_once = yes
+		
+		cost = 10
+	
+		complete_effect = {
+			set_global_flag = GER_Halifax_Negotiating
+			if = {
+				limit = {
+					tag = GER
+				}
+				CAN = {
+					country_event = { id = entente.30711 days = 1 }
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						tag = NFA
+						tag = CAN
+					}
+				}
+				country_event = { id = entente.30711 days = 1 }
+			}
+		}
+	
+	}
+	
+	GER_Halifax_Signature = {
+		icon = generic_agreement
+		visible = {
+			OR = {
+				is_ai = no
+				AND = {
+					is_ai = yes
+					CAN = { is_ai = yes }
+					NFA = { is_ai = yes }
+				}
+			}
+			OR = {
+				original_tag = GER
+				original_tag = CAN
+				original_tag = NFA
+			}
+		}
+		available = {
+			has_global_flag = GER_Halifax_AL_Resolved
+			has_global_flag = GER_Halifax_Colonies_Resolved
+			has_global_flag = GER_Halifax_Mitteleuropa_Resolved
+		}
+		
+		fire_only_once = yes
+		
+		cost = 10
+		
+		complete_effect = {
+			ENT = {
+				news_event = { id = entente.319 days = 1 }
+			}
+			hidden_effect = {
+				ENT = {
+					country_event = { id = entente.325 days = 1 }
+				}
+				GER = {
+					country_event = { id = entente.326 days = 1 }
+				}
+				every_country = {
+					limit = {
+						OR = {
+							is_in_faction_with = ENT
+							is_in_faction_with = GER
+						}
+						NOT = {
+							tag = ENT
+							tag = GER
+						}
+					}
+					country_event = { id = entente.327 days = 1 }
+				}
+			}
+			hidden_effect = {
+				clr_global_flag = GER_Halifax_Started
+			}
+		}
+	
+	}
+
+}
+
+GER_desperate_struggle_category = {
+
+	GER_increase_struggle_level2 = {
+		icon = GFX_decision_generic_military
+		
+		allowed = { original_tag = GER }
+		
+		available = {
+			surrender_progress > 0.40
+		}
+		visible = {
+			has_defensive_war = yes
+			has_idea = GER_Desperate_Struggle1_idea
+		}
+		
+		cost = 50
+		days_remove = 30
+		
+		complete_effect = {
+			add_stability = -0.05
+		}
+		
+		remove_effect = {
+			swap_ideas = {
+				remove_idea = GER_Desperate_Struggle1_idea
+				add_idea = GER_Desperate_Struggle2_idea
+			}
+		}
+	}
+	
+	GER_increase_struggle_level3 = {
+		icon = GFX_decision_generic_military
+		
+		allowed = { original_tag = GER }
+		
+		available = {
+			surrender_progress > 0.60
+		}
+		visible = {
+			has_defensive_war = yes
+			has_idea = GER_Desperate_Struggle2_idea
+		}
+		
+		cost = 50
+		days_remove = 30
+		
+		complete_effect = {
+			add_stability = -0.10
+		}
+		
+		remove_effect = {
+			swap_ideas = {
+				remove_idea = GER_Desperate_Struggle2_idea
+				add_idea = GER_Desperate_Struggle3_idea
+			}
+		}
+	}
+	
+	GER_increase_struggle_level4 = {
+		icon = GFX_decision_generic_military
+		
+		allowed = { original_tag = GER }
+		
+		available = {
+			surrender_progress > 0.80
+		}
+		visible = {
+			has_defensive_war = yes
+			has_idea = GER_Desperate_Struggle2_idea
+		}
+		
+		cost = 20
+		days_remove = 10
+		
+		complete_effect = {
+			add_stability = -0.20 # SG* Add other effects that make things worse when Germany wins, or related flavor events. This is a "there is no turning back" moment.
+		}
+		
+		remove_effect = {
+			remove_ideas = GER_Desperate_Struggle3_idea
+			add_timed_idea = {
+				idea = GER_Desperate_Struggle4_idea
+				days = 120
+			}
+		}
+	}
+
+	GER_recruit_landsturm = {
+		icon = GFX_decision_generic_military
+
+		allowed = { original_tag = GER }
+		
+		available = {
+			has_war_support > 0
+			has_country_flag = GER_Desperate_Struggle_Flag
+			has_completed_focus = GER_Landsturm
+			NOT = {
+				has_country_flag = GER_landsturm_is_recruiting
+			}
+		}
+		visible = {
+			NOT = { FROM = { has_state_flag = GER_landsturm_recruited_@ROOT } }
+			has_defensive_war = yes
+		}
+		custom_cost_trigger = {
+			has_equipment = { infantry_equipment > 499 }
+			command_power > 4
+		}
+		custom_cost_text = 500_infantry_equipment_1_cp_5
+		days_remove = 15
+		cancel_if_not_visible = yes
+		on_map_mode = map_only
+
+		state_target = yes
+		target_array = GER.owned_states
+		target_trigger = {
+			FROM = {
+				is_owned_by = ROOT
+				is_core_of = ROOT
+			}
+		}
+		target_root_trigger = {
+			has_country_flag = GER_Desperate_Struggle_Flag
+			has_defensive_war = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+
+		cancel_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision cancel GER_recruit_landsturm target: [From.GetName]"
+			hidden_effect = {
+				add_command_power = 5
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 500
+				}
+			}
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_recruit_landsturm target: [From.GetName]"
+			set_country_flag = GER_landsturm_is_recruiting
+			hidden_effect = {
+				add_command_power = -5
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = -500
+				}
+			}
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_recruit_landsturm target: [From.GetName]"
+			clr_country_flag = GER_landsturm_is_recruiting
+			FROM = {
+				set_state_flag = GER_landsturm_recruited_@ROOT
+				### calculate number of units to spawn
+				set_temp_variable = { units_to_spawn = state_population_k }
+				divide_temp_variable = { units_to_spawn = 500 }
+
+				### failsafe so at least one unit is always spawned
+				clamp_temp_variable = { var = units_to_spawn min = 1 max = 7 }
+
+				### tooltip
+				set_temp_variable = { total_units_to_spawn = units_to_spawn }
+				custom_effect_tooltip = GER_recruit_landsturm_units
+
+				### spawn normal militias
+				set_temp_variable = { counter = 1 }
+				if = {
+					limit = {
+						check_variable = { var = units_to_spawn value = 1 compare = greater_than_or_equals }
+					}
+					ROOT = { 
+						if = {
+							limit = {
+								NOT = { has_template = "Landsturm" }
+							}
+							division_template = {
+								name = "Landsturm"
+								division_names_group = GER_MILINF_01
+								regiments = {
+									irregular_infantry = { x = 0 y = 0 }
+									irregular_infantry = { x = 0 y = 1 }
+									irregular_infantry = { x = 0 y = 2 }
+									irregular_infantry = { x = 1 y = 0 }
+									irregular_infantry = { x = 1 y = 1 }
+									irregular_infantry = { x = 1 y = 2 }
+									irregular_infantry = { x = 2 y = 0 }
+								}						
+								support = {
+									anti_tank = { x = 0 y = 0 }
+								}
+								priority = 0
+								template_counter = 68
+							}
+						}
+					}
+					for_loop_effect = {
+						start = 1
+						end = units_to_spawn
+						compare = less_than_or_equals
+
+						meta_effect = {
+							text = {
+								create_unit = {
+									division = "name = [DIVISION] division_template = \"Landsturm\" start_experience_factor = 0.1 start_equipment_factor = 1"
+									allow_spawning_on_enemy_provs = yes
+									owner = ROOT
+								}
+							}
+							DIVISION = "\\\"[?counter]a [THIS.GetName] Landsturm Division\\\""
+						}
+						add_to_temp_variable = { counter = 1 }
+					}
+				}
+			}
+		}
+	}
+	
+	GER_armeehelferinnen_air = {
+		icon = GFX_decision_generic_military
+	
+		allowed = { original_tag = GER }
+	
+		available = {
+			has_idea = GER_Desperate_Struggle2_idea
+		}
+		visible = {
+			has_completed_focus = GER_Armeehelferinnen
+		}
+		
+		cost = 20
+		days_remove = 20
+		
+		complete_effect = {
+			add_stability = -0.04
+			set_country_flag = GER_recruiting_armeehelferinnen
+		}
+		
+		remove_effect = {
+			add_to_variable = { GER.GERAH_air_home_defence_factor = 0.10 }
+			custom_effect_tooltip = GER_armeehelferinnen_air_tooltip
+			clr_country_flag = GER_recruiting_armeehelferinnen
+		}
+	
+	}
+	
+	GER_armeehelferinnen_hospitals = {
+		icon = GFX_decision_generic_military
+	
+		allowed = { original_tag = GER }
+	
+		available = {
+			has_country_flag = GER_Desperate_Struggle_Flag
+		}
+		visible = {
+			has_completed_focus = GER_Armeehelferinnen
+		}
+		
+		cost = 20
+		days_remove = 20
+		
+		complete_effect = {
+			add_stability = -0.02
+			set_country_flag = GER_recruiting_armeehelferinnen
+		}
+		
+		remove_effect = {
+			add_to_variable = { GER.GERAH_weekly_casualties_war_support = 0.010 } #CHECK THIS LATER
+			custom_effect_tooltip = GER_armeehelferinnen_hospitals_tooltip
+			clr_country_flag = GER_recruiting_armeehelferinnen
+		}
+	
+	}
+	
+	GER_armeehelferinnen_factories = {
+		icon = GFX_decision_generic_military
+	
+		allowed = { original_tag = GER }
+	
+		available = {
+			has_country_flag = GER_Desperate_Struggle_Flag
+			NOT = {
+				has_country_flag = GER_recruiting_armeehelferinnen
+			}
+		}
+		visible = {
+			has_completed_focus = GER_Armeehelferinnen
+		}
+		
+		cost = 20
+		days_remove = 20
+		
+		complete_effect = {
+			add_stability = -0.02
+			set_country_flag = GER_recruiting_armeehelferinnen
+		}
+		
+		remove_effect = {
+			add_to_variable = { GER.GERAH_production_factory_efficiency_gain_factor = 0.15 }
+			custom_effect_tooltip = GER_armeehelferinnen_factories_tooltip
+			clr_country_flag = GER_recruiting_armeehelferinnen
+		}
+	
+	}
+	
+	GER_armeehelferinnen_logistics = {
+		icon = GFX_decision_generic_military
+	
+		allowed = { original_tag = GER }
+	
+		available = {
+			has_country_flag = GER_Desperate_Struggle_Flag
+			NOT = {
+				has_country_flag = GER_recruiting_armeehelferinnen
+			}
+		}
+		visible = {
+			has_completed_focus = GER_Armeehelferinnen
+		}
+		
+		cost = 20
+		days_remove = 20
+		
+		complete_effect = {
+			add_stability = -0.02
+			set_country_flag = GER_recruiting_armeehelferinnen
+		}
+		
+		remove_effect = {
+			add_to_variable = { GER.GERAH_supply_consumption_factor = -0.10 }
+			custom_effect_tooltip = GER_armeehelferinnen_logistics_tooltip
+			clr_country_flag = GER_recruiting_armeehelferinnen
+		}
+	
+	}
+	
+	GER_armeehelferinnen_navy = {
+		icon = GFX_decision_generic_military
+	
+		allowed = { original_tag = GER }
+	
+		available = {
+			has_idea = GER_Desperate_Struggle2_idea
+			NOT = {
+				has_country_flag = GER_recruiting_armeehelferinnen
+			}
+		}
+		visible = {
+			has_completed_focus = GER_Armeehelferinnen
+		}
+		
+		cost = 20
+		days_remove = 20
+		
+		complete_effect = {
+			add_stability = -0.04
+			set_country_flag = GER_recruiting_armeehelferinnen
+		}
+		
+		remove_effect = {
+			add_to_variable = { GER.GERAH_convoy_retreat_speed = 0.10 }
+			add_to_variable = { GER.GERAH_convoy_escort_efficiency = 0.10 }
+			custom_effect_tooltip = GER_armeehelferinnen_navy_tooltip
+			clr_country_flag = GER_recruiting_armeehelferinnen
+		}
+	
+	}
+	
+	GER_armeehelferinnen_partisans = {
+		icon = GFX_decision_generic_military
+	
+		allowed = { original_tag = GER }
+	
+		available = {
+			has_idea = GER_Desperate_Struggle3_idea
+			NOT = {
+				has_country_flag = GER_recruiting_armeehelferinnen
+			}
+		}
+		visible = {
+			has_completed_focus = GER_Armeehelferinnen
+		}
+		
+		cost = 20
+		days_remove = 20
+		
+		complete_effect = {
+			add_stability = -0.10
+			set_country_flag = GER_recruiting_armeehelferinnen
+		}
+		
+		remove_effect = {
+			add_to_variable = { GER.GERAH_resistance_growth_on_our_occupied_states = 0.15 }
+			custom_effect_tooltip = GER_armeehelferinnen_partisans_tooltip
+			clr_country_flag = GER_recruiting_armeehelferinnen
+		}
+	
+	}
+	
+	GER_launch_chemical_attack = {
+		icon = GFX_decision_generic_military
+	
+		allowed = { original_tag = GER }
+	
+		available = {
+			NOT = {
+				has_country_flag = GER_preparing_chemical_attack
+			}
+		}
+		visible = {
+			has_completed_focus = GER_Reigniting_the_Chemists_War
+		}
+		
+		custom_cost_trigger = {
+			has_equipment = { support_equipment > 1999 }
+			command_power > 19
+		}
+		custom_cost_text = 2000_support_equipment_cp_20
+		days_remove = 15
+		
+		targets = { FRA ENG RUS CAN NFA USA COR CSA TEX JAP }
+		target_trigger = {
+			FROM = {
+				has_war_with = GER
+				NOT = {
+					has_idea = GER_Chemical_Attack_idea
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_launch_chemical_attack target: [From.GetName]"
+			set_country_flag = GER_preparing_chemical_attack
+			hidden_effect = {
+				add_command_power = -20
+				add_equipment_to_stockpile = {
+					type = support_equipment
+					amount = -2000
+				}
+			}
+		}
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_recruit_landsturm target: [From.GetName]"
+			clr_country_flag = GER_preparing_chemical_attack
+			FROM = {
+				country_event = gerdom.511
+				if = {
+					limit = { has_country_flag = GER_kaiserwaffe_chemical_weapons }
+					add_timed_idea = {
+						idea = GER_Chemical_Attack_idea2
+						days = 70
+					}
+				}
+				else = {
+					add_timed_idea = {
+						idea = GER_Chemical_Attack_idea
+						days = 70
+					}
+				}
+			}
+		}
+	}
+	
+	GER_bifrost_expansion_1 = {
+		icon = GFX_decision_generic_military
+	
+		allowed = { original_tag = GER }
+	
+		available = {
+			has_idea = GER_Desperate_Struggle2_idea
+			NOT = {
+				has_country_flag = GER_expanding_bifrost
+			}
+		}
+		visible = {
+			has_completed_focus = GER_Unternehmen_Bifrost
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+		
+		cost = 75
+		days_remove = 120
+		
+		complete_effect = {
+			add_stability = -0.05
+			add_war_support = -0.10
+			set_country_flag = GER_expanding_bifrost
+		}
+		
+		remove_effect = {
+			GER_Increase_Bifrost_Preparation = yes
+			clr_country_flag = GER_expanding_bifrost
+		}
+	}
+
+}
+
+GER_militarism_category = {
+
+	GER_militarism_enhanced_benefits = {
+		allowed = { original_tag = GER }
+		
+		visible = {
+			original_tag = GER
+			has_country_flag = GER_Militarist_Propaganda
+			OR = {
+				has_idea = GER_quenched_militarism
+				has_idea = GER_quenched_militarism2
+				has_idea = GER_quenched_militarism3
+			}
+		}
+		
+		available = {
+			NOT = {
+				has_country_flag = GER_improving_militarism
+			}
+		}
+		
+		cost = 25
+		
+		days_remove = 50
+		
+		complete_effect = {
+			subtract_from_variable = {
+				var = GER.GER_mitteleuropa_strength_var
+				value = 2
+				tooltip = sub_2_from_mitteleuropastrength_tt
+			}
+			hidden_effect = {
+				GER_recalculate_mitteleuropa_effects = yes
+			}
+			set_country_flag = GER_improving_militarism
+		}
+		
+		remove_effect = {
+			GER_improve_militarism_effect = yes
+			clr_country_flag = GER_improving_militarism
+		}
+		
+	}
+	
+	GER_militarism_patriotic_schooling = {
+		allowed = { original_tag = GER }
+		
+		visible = {
+			original_tag = GER
+			has_country_flag = GER_Militarist_Propaganda
+			OR = {
+				has_idea = GER_quenched_militarism
+				has_idea = GER_quenched_militarism2
+				has_idea = GER_quenched_militarism3
+			}
+		}
+		
+		available = {
+			NOT = {
+				has_country_flag = GER_improving_militarism
+			}
+		}
+		
+		cost = 50
+		
+		days_remove = 50
+		
+		complete_effect = {
+			army_experience = -20
+			set_country_flag = GER_improving_militarism
+		}
+		
+		remove_effect = {
+			GER_improve_militarism_effect = yes
+			clr_country_flag = GER_improving_militarism
+		}
+		
+	}
+	
+	GER_militarism_martial_parades = {
+		allowed = { original_tag = GER }
+		
+		visible = {
+			original_tag = GER
+			has_country_flag = GER_Militarist_Propaganda
+			OR = {
+				has_idea = GER_quenched_militarism
+				has_idea = GER_quenched_militarism2
+				has_idea = GER_quenched_militarism3
+			}
+		}
+		
+		available = {
+			NOT = {
+				has_country_flag = GER_improving_militarism
+			}
+		}
+		
+		cost = 30
+		
+		days_remove = 50
+		
+		complete_effect = {
+			add_manpower = -25000
+			set_country_flag = GER_improving_militarism
+		}
+		
+		remove_effect = {
+			GER_improve_militarism_effect = yes
+			clr_country_flag = GER_improving_militarism
+		}
+		
+	}
+
+}
+
+GER_mitteleuropa_category = {
+
+	GER_mitteleuropa_tutorial_decision = {
+		allowed = { original_tag = GER }
+		available = {
+			has_country_flag = GER_blank_flag
+		}
+	}
+	
+	GER_mitteleuropa_improve_buff = {
+		allowed = { original_tag = GER }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = GER_Mittel_Improve_Buff_tt
+				check_variable = {
+					var = GER_mitteleuropa_investment_count
+					value = 2
+					compare = greater_than_or_equals
+				}
+			}
+		}
+		
+		complete_effect = {
+			
+			custom_effect_tooltip = GER_increase_mittel_buff_tt
+		
+			subtract_from_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 2
+			}
+			
+			hidden_effect = {
+				GER_increase_mitteleuropa_buff = yes
+			}
+		
+		}
+		
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	GER_mitteleuropa_improve_strength = {
+		allowed = { original_tag = GER }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = GER_Mittel_Improve_Strength_tt
+				check_variable = {
+					var = GER_mitteleuropa_investment_count
+					value = 2
+					compare = greater_than_or_equals
+				}
+			}
+		}
+		
+		complete_effect = {
+		
+			subtract_from_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 2
+			}
+		
+			add_to_variable = {
+					var = GER.GER_mitteleuropa_strength_var
+					value = 2
+					tooltip = add_2_to_mitteleuropastrength_tt
+			}
+			hidden_effect = {
+				GER_recalculate_mitteleuropa_effects = yes
+			}
+		
+		}
+		
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	### Subregion Scandinavia
+	
+	GER_bismarckian_paternalism_Scandinavia = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_completed_focus = GER_Bismarckian_Paternalism
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Scandinavia
+			FROM = {
+				NOT = {
+					has_idea = GER_Bismarckian_Paternalism_idea
+				}
+			}
+		}
+
+		targets = { DEN SWE FIN ICE NOR SCA }
+		target_trigger = {
+			FROM = {
+				GER_is_in_mitteleuropa = yes
+			}
+		}
+		
+		available = {
+			FROM = {
+				NOT = {
+					has_idea = GER_Bismarckian_Paternalism_idea
+				}
+			}
+		}
+	
+		cost = 40
+		days_remove = 50
+		fire_only_once = yes
+		remove_effect = {
+			FROM = {
+				country_event = germit.30
+				add_ideas = GER_Bismarckian_Paternalism_idea
+			}
+		}
+	}
+	
+	GER_KWS_investments_Scandinavia = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_completed_focus = GER_Expand_the_Kaiser_Wilhelm_Society
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Scandinavia
+			FROM = {
+				NOT = {
+					has_idea = GER_KWS_Investments_idea
+				}
+			}
+		}
+
+		targets = { DEN SWE FIN ICE NOR SCA }
+		target_trigger = {
+			FROM = {
+				GER_is_in_mitteleuropa = yes
+			}
+		}
+		
+		available = {
+			FROM = {
+				NOT = {
+					has_idea = GER_KWS_Investments_idea
+				}
+			}
+		}
+	
+		cost = 40
+		days_remove = 50
+		fire_only_once = yes
+		remove_effect = {
+			FROM = {
+				country_event = germit.29
+				add_ideas = GER_KWS_Investments_idea
+			}
+		}
+	}
+	
+	GER_Battle_of_Jutland_Wrecks = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Scandinavia
+			OR = {
+				SWE = { has_country_flag = GER_is_in_mitteleuropa }
+				DEN = { has_country_flag = GER_is_in_mitteleuropa }
+				NOR = { has_country_flag = GER_is_in_mitteleuropa }
+			}
+		}
+	
+		cost = 50
+		days_remove = 90
+		fire_only_once = yes
+		remove_effect = {
+			navy_experience = 30
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Scandinavian_Fjords = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Scandinavia
+			has_country_flag = GER_European_Tourism_Flag
+			OR = {
+				SWE = { has_country_flag = GER_is_in_mitteleuropa }
+				DEN = { has_country_flag = GER_is_in_mitteleuropa }
+				NOR = { has_country_flag = GER_is_in_mitteleuropa }
+			}
+		}
+	
+		cost = 15
+		days_remove = 120
+		fire_only_once = yes
+		remove_effect = {
+			add_political_power = 85
+			add_equipment_to_stockpile = {
+				type = convoy_1
+				amount = 50
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	### Subregion Italy
+	
+	GER_bismarckian_paternalism_Italy = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_completed_focus = GER_Bismarckian_Paternalism
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Italy
+			FROM = {
+				NOT = {
+					has_idea = GER_Bismarckian_Paternalism_idea
+				}
+			}
+		}
+
+		targets = { ITA SRD PAP SIC SWI VNC LOM EMI TUS }
+		target_trigger = {
+			FROM = {
+				GER_is_in_mitteleuropa = yes
+			}
+		}
+		
+		available = {
+			FROM = {
+				NOT = {
+					has_idea = GER_Bismarckian_Paternalism_idea
+				}
+			}
+		}
+	
+		cost = 40
+		days_remove = 50
+		fire_only_once = yes
+		remove_effect = {
+			FROM = {
+				country_event = germit.30
+				add_ideas = GER_Bismarckian_Paternalism_idea
+			}
+		}
+	}
+	
+	GER_KWS_investments_Italy = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_completed_focus = GER_Expand_the_Kaiser_Wilhelm_Society
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Italy
+			FROM = {
+				NOT = {
+					has_idea = GER_KWS_Investments_idea
+				}
+			}
+		}
+
+		targets = { ITA SRD PAP SIC SWI VNC LOM EMI TUS }
+		target_trigger = {
+			FROM = {
+				GER_is_in_mitteleuropa = yes
+			}
+		}
+		
+		available = {
+			FROM = {
+				NOT = {
+					has_idea = GER_KWS_Investments_idea
+				}
+			}
+		}
+	
+		cost = 40
+		days_remove = 50
+		fire_only_once = yes
+		remove_effect = {
+			FROM = {
+				country_event = germit.29
+				add_ideas = GER_KWS_Investments_idea
+			}
+		}
+	}
+	
+	GER_Italian_Universities = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Italy
+			OR = {
+				ITA = {
+					has_country_flag = GER_is_in_mitteleuropa
+				}
+				SRD = {
+					has_country_flag = GER_is_in_mitteleuropa
+				}
+				PAP = {
+					has_country_flag = GER_is_in_mitteleuropa
+				}
+				SIC = {
+					has_country_flag = GER_is_in_mitteleuropa
+				}
+			}
+		}
+	
+		cost = 75
+		days_remove = 100
+		fire_only_once = yes
+		remove_effect = {
+			if = {
+				limit = { ITA = { has_country_flag = GER_is_in_mitteleuropa } }
+				ITA = { add_stability = 0.03 }
+			}
+			if = {
+				limit = { SRD = { has_country_flag = GER_is_in_mitteleuropa } }
+				SRD = { add_stability = 0.03 }
+			}
+			if = {
+				limit = { PAP = { has_country_flag = GER_is_in_mitteleuropa } }
+				PAP = { add_stability = 0.03 }
+			}
+			if = {
+				limit = { SIC = { has_country_flag = GER_is_in_mitteleuropa } }
+				SIC = { add_stability = 0.03 }
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 1
+				category = electronics
+			}
+		}
+	}
+	
+	GER_Castel_Monte = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Italy
+			has_country_flag = GER_European_Tourism_Flag
+			var:837.owner = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 65
+		days_remove = 55
+		fire_only_once = yes
+		remove_effect = {
+			837 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	### Subregion France
+	
+	GER_bismarckian_paternalism_France = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_completed_focus = GER_Bismarckian_Paternalism
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_France
+			FROM = {
+				NOT = {
+					has_idea = GER_Bismarckian_Paternalism_idea
+				}
+			}
+		}
+
+		targets = { FRP OCC NRM BRI NFA }
+		target_trigger = {
+			FROM = {
+				GER_is_in_mitteleuropa = yes
+			}
+		}
+		
+		available = {
+			FROM = {
+				NOT = {
+					has_idea = GER_Bismarckian_Paternalism_idea
+				}
+			}
+		}
+	
+		cost = 40
+		days_remove = 50
+		fire_only_once = yes
+		remove_effect = {
+			FROM = {
+				country_event = germit.30
+				add_ideas = GER_Bismarckian_Paternalism_idea
+			}
+		}
+	}
+	
+	GER_KWS_investments_France = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_completed_focus = GER_Expand_the_Kaiser_Wilhelm_Society
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_France
+			FROM = {
+				NOT = {
+					has_idea = GER_KWS_Investments_idea
+				}
+			}
+		}
+
+		targets = { FRP OCC NRM BRI NFA }
+		target_trigger = {
+			FROM = {
+				GER_is_in_mitteleuropa = yes
+			}
+		}
+		
+		available = {
+			FROM = {
+				NOT = {
+					has_idea = GER_KWS_Investments_idea
+				}
+			}
+		}
+	
+		cost = 40
+		days_remove = 50
+		fire_only_once = yes
+		remove_effect = {
+			FROM = {
+				country_event = germit.29
+				add_ideas = GER_KWS_Investments_idea
+			}
+		}
+	}
+	
+	GER_Weltkrieg_Scars = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_France
+			FRP = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 60
+		days_remove = 75
+		fire_only_once = yes
+		remove_effect = {
+			add_stability = 0.05
+			add_war_support = -0.03
+			785 = {
+				add_extra_state_shared_building_slots = 2
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Basilica_Saint_Denis = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_France
+			has_country_flag = GER_European_Tourism_Flag
+			FRP = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 65
+		days_remove = 80
+		fire_only_once = yes
+		remove_effect = {
+			FRP = { add_stability = 0.03 }
+			16 = { add_extra_state_shared_building_slots = 1 }
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	### Subregion Britain
+	
+	GER_bismarckian_paternalism_Britain = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_completed_focus = GER_Bismarckian_Paternalism
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Britain
+			FROM = {
+				NOT = {
+					has_idea = GER_Bismarckian_Paternalism_idea
+				}
+			}
+		}
+
+		targets = { ENG GBP SCT WAL IRE CAN GBR }
+		target_trigger = {
+			FROM = {
+				GER_is_in_mitteleuropa = yes
+			}
+		}
+		
+		available = {
+			FROM = {
+				NOT = {
+					has_idea = GER_Bismarckian_Paternalism_idea
+				}
+			}
+		}
+	
+		cost = 40
+		days_remove = 50
+		fire_only_once = yes
+		remove_effect = {
+			FROM = {
+				country_event = germit.30
+				add_ideas = GER_Bismarckian_Paternalism_idea
+			}
+		}
+	}
+	
+	GER_KWS_investments_Britain = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_completed_focus = GER_Expand_the_Kaiser_Wilhelm_Society
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Britain
+			FROM = {
+				NOT = {
+					has_idea = GER_KWS_Investments_idea
+				}
+			}
+		}
+
+		targets = { ENG GBP SCT WAL IRE CAN GBR }
+		target_trigger = {
+			FROM = {
+				GER_is_in_mitteleuropa = yes
+			}
+		}
+		
+		available = {
+			FROM = {
+				NOT = {
+					has_idea = GER_KWS_Investments_idea
+				}
+			}
+		}
+	
+		cost = 40
+		days_remove = 50
+		fire_only_once = yes
+		remove_effect = {
+			FROM = {
+				country_event = germit.29
+				add_ideas = GER_KWS_Investments_idea
+			}
+		}
+	}
+	
+	GER_Gateway_to_Atlantic = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Britain
+			IRE = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 45
+		days_remove = 90
+		fire_only_once = yes
+		remove_effect = {
+			IRE = { navy_experience = 25 }
+			134 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					instant_build = yes
+					province = 9303
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Cliffs_of_Moher = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Britain
+			has_country_flag = GER_European_Tourism_Flag
+			IRE = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 50
+		days_remove = 70
+		fire_only_once = yes
+		remove_effect = {
+			134 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			135 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			add_political_power = 35
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_British_Coal_Mining = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Britain
+			GBP = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 120
+		days_remove = 135
+		fire_only_once = yes
+		remove_effect = {
+			128 = {
+				add_resource = {
+					type = steel
+					amount = 18
+				}
+			}
+			132 = {
+				add_resource = {
+					type = steel
+					amount = 22
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_English_Garden_Tours = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Britain
+			has_country_flag = GER_European_Tourism_Flag
+			GBP = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 50
+		days_remove = 45
+		fire_only_once = yes
+		remove_effect = {
+			338 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			GBP = { add_stability = 0.05 }
+			add_political_power = 35
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	### Subregion Iberia
+	
+	GER_bismarckian_paternalism_Iberia = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_completed_focus = GER_Bismarckian_Paternalism
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Iberia
+			FROM = {
+				NOT = {
+					has_idea = GER_Bismarckian_Paternalism_idea
+				}
+			}
+		}
+
+		targets = { SPR POR CAR GLC CAT BAS }
+		target_trigger = {
+			FROM = {
+				GER_is_in_mitteleuropa = yes
+			}
+		}
+		
+		available = {
+			FROM = {
+				NOT = {
+					has_idea = GER_Bismarckian_Paternalism_idea
+				}
+			}
+		}
+	
+		cost = 40
+		days_remove = 50
+		fire_only_once = yes
+		remove_effect = {
+			FROM = {
+				country_event = germit.30
+				add_ideas = GER_Bismarckian_Paternalism_idea
+			}
+		}
+	}
+	
+	GER_KWS_investments_Iberia = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_completed_focus = GER_Expand_the_Kaiser_Wilhelm_Society
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Iberia
+			FROM = {
+				NOT = {
+					has_idea = GER_KWS_Investments_idea
+				}
+			}
+		}
+
+		targets = { SPR POR CAR GLC CAT BAS }
+		target_trigger = {
+			FROM = {
+				GER_is_in_mitteleuropa = yes
+			}
+		}
+		
+		available = {
+			FROM = {
+				NOT = {
+					has_idea = GER_KWS_Investments_idea
+				}
+			}
+		}
+	
+		cost = 40
+		days_remove = 50
+		fire_only_once = yes
+		remove_effect = {
+			FROM = {
+				country_event = germit.29
+				add_ideas = GER_KWS_Investments_idea
+			}
+		}
+	}
+	
+	GER_Visigothic_Archaeology = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Iberia
+			SPR = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 65
+		days_remove = 70
+		fire_only_once = yes
+		remove_effect = {
+			41 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Alhambra_Tourism = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Iberia
+			has_country_flag = GER_European_Tourism_Flag
+			SPR = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 50
+		days_remove = 70
+		fire_only_once = yes
+		remove_effect = {
+			173 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 1
+					instant_build = yes
+					province = 9979
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	### Subregion Benelux
+	
+	GER_bismarckian_paternalism_Benelux = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_completed_focus = GER_Bismarckian_Paternalism
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Benelux
+			FROM = {
+				NOT = {
+					has_idea = GER_Bismarckian_Paternalism_idea
+				}
+			}
+		}
+
+		targets = { BEL FLN WLL HOL LUX }
+		target_trigger = {
+			FROM = {
+				GER_is_in_mitteleuropa = yes
+			}
+		}
+		
+		available = {
+			FROM = {
+				NOT = {
+					has_idea = GER_Bismarckian_Paternalism_idea
+				}
+			}
+		}
+	
+		cost = 40
+		days_remove = 50
+		fire_only_once = yes
+		remove_effect = {
+			FROM = {
+				country_event = germit.30
+				add_ideas = GER_Bismarckian_Paternalism_idea
+			}
+		}
+	}
+	
+	GER_KWS_investments_Benelux = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_completed_focus = GER_Expand_the_Kaiser_Wilhelm_Society
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Benelux
+			FROM = {
+				NOT = {
+					has_idea = GER_KWS_Investments_idea
+				}
+			}
+		}
+
+		targets = { BEL FLN WLL HOL LUX }
+		target_trigger = {
+			FROM = {
+				GER_is_in_mitteleuropa = yes
+			}
+		}
+		
+		available = {
+			FROM = {
+				NOT = {
+					has_idea = GER_KWS_Investments_idea
+				}
+			}
+		}
+	
+		cost = 40
+		days_remove = 50
+		fire_only_once = yes
+		remove_effect = {
+			FROM = {
+				country_event = germit.29
+				add_ideas = GER_KWS_Investments_idea
+			}
+		}
+	}
+	
+	## Belgium / Flanders-Wallonia
+	
+	GER_Belgium_War_Memorial = {
+		allowed = { original_tag = GER }
+		
+		visible = {
+			has_country_flag = GER_building_belgium_memorial
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Benelux
+		}
+	
+		cost = 10
+		days_remove = 35
+		fire_only_once = yes
+		remove_effect = {
+			clr_country_flag = GER_building_belgium_memorial
+			country_event = gerdom.3553
+			BEL = {
+				country_event = gerdom.3553
+			}
+		}
+	}
+	
+	GER_shadow_belgium = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_shadow_spawned
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Benelux
+			BEL = {
+				is_in_faction_with = GER
+				NOT = {
+					has_idea = GER_Looming_Shadow_idea
+				}
+			}
+		}
+	
+		cost = 65
+		days_remove = 180
+		fire_only_once = yes
+		remove_effect = {
+			country_event = gerdom.3735
+			BEL = {
+				country_event = gerdom.3735
+			}
+		}
+	}
+	
+	GER_Belgium_Hydroelectricity = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Benelux
+			var:6.owner = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 55
+		days_remove = 90
+		fire_only_once = yes
+		remove_effect = {
+			6 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Ommegang = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_European_Tourism_Flag
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Benelux
+			OR = {
+				BEL = { has_country_flag = GER_is_in_mitteleuropa }
+				FLN = { has_country_flag = GER_is_in_mitteleuropa }
+				WLL = { has_country_flag = GER_is_in_mitteleuropa }
+			}
+		}
+	
+		cost = 25
+		days_remove = 45
+		fire_only_once = yes
+		remove_effect = {
+			add_stability = 0.01
+			if = {
+				limit = { BEL = { exists = yes } }
+				BEL = { add_stability = 0.04 }
+			}
+			if = {
+				limit = { FLN = { exists = yes } }
+				FLN = { add_stability = 0.04 }
+			}
+			if = {
+				limit = { WLL = { exists = yes } }
+				WLL = { add_stability = 0.04 }
+			}
+			add_political_power = 50
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	## Netherlands
+	
+	GER_Building_Polders = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Benelux
+			HOL = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 75
+		days_remove = 80
+		fire_only_once = yes
+		remove_effect = {
+			7 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			35 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Keukenhof = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_European_Tourism_Flag
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Benelux
+			HOL = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 30
+		days_remove = 55
+		fire_only_once = yes
+		remove_effect = {
+			add_stability = 0.01
+			HOL = { add_stability = 0.03 }
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	### Subregion Germany
+	
+	GER_generic_build_factory_heimat = { # Debug Event.
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Germany
+		}
+		cost = 120
+		days_remove = 180
+		remove_effect = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER.GER_mitteleuropa_strength_var
+				value = 2
+				tooltip = add_2_to_mitteleuropastrength_tt
+			}
+			hidden_effect = {
+				GER_recalculate_mitteleuropa_effects = yes
+			}
+		}
+	}
+	
+	GER_Elbe_Projekt = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Germany
+			has_country_flag = GER_Electrification_Program
+		}
+		cost = 250
+		days_remove = 240
+		fire_only_once = yes
+		remove_effect = {
+			country_event = gerdom.717
+			64 = {
+				add_state_modifier = {
+					modifier = {
+						local_building_slots_factor = 0.15
+						state_resources_factor = 0.10
+						state_production_speed_buildings_factor = 0.15
+					}
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Wardenclyffe_Tower = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Germany
+			has_country_flag = GER_Heaven_Flag
+		}
+		cost = 250
+		days_remove = 300
+		fire_only_once = yes
+		remove_effect = {
+			country_event = gerdom.724
+			add_ideas = GER_Wardenclyffe_Tower_idea
+			add_to_variable = {
+				var = GER.GER_mitteleuropa_strength_var
+				value = 3
+				tooltip = add_3_to_mitteleuropastrength_tt
+			}
+		}
+	}
+	
+	GER_Reichsautobahn_Brandenburg = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Germany
+			has_country_flag = GER_Reichsautobahn_Project
+		}
+	
+		cost = 10
+		days_remove = 100
+		fire_only_once = yes
+		remove_effect = {
+			country_event = gerdom.702
+			64 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_state_modifier = {
+					modifier = {
+						local_building_slots_factor = 0.10
+					}
+				}
+			}
+		}
+	}
+	
+	GER_Reichsautobahn_Hanover = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Germany
+			has_country_flag = GER_Reichsautobahn_Project
+		}
+	
+		cost = 35
+		days_remove = 100
+		fire_only_once = yes
+		remove_effect = {
+			59 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_state_modifier = {
+					modifier = {
+						local_building_slots_factor = 0.10
+					}
+				}
+			}
+		}
+	}
+	
+	GER_Reichsautobahn_Bavaria = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Germany
+			has_country_flag = GER_Reichsautobahn_Project
+		}
+	
+		cost = 55
+		days_remove = 160
+		fire_only_once = yes
+		remove_effect = {
+			52 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_state_modifier = {
+					modifier = {
+						local_building_slots_factor = 0.10
+					}
+				}
+			}
+			53 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_state_modifier = {
+					modifier = {
+						local_building_slots_factor = 0.10
+					}
+				}
+			}
+		}
+	}
+	
+	GER_Reichsautobahn_Rhineland = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Germany
+			has_country_flag = GER_Reichsautobahn_Project
+		}
+	
+		cost = 75
+		days_remove = 160
+		fire_only_once = yes
+		remove_effect = {
+			51 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_state_modifier = {
+					modifier = {
+						local_building_slots_factor = 0.10
+					}
+				}
+			}
+			781 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_state_modifier = {
+					modifier = {
+						local_building_slots_factor = 0.10
+					}
+				}
+			}
+		}
+	}
+	
+	GER_Reichsautobahn_Prussia = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Germany
+			has_country_flag = GER_Reichsautobahn_Project
+		}
+	
+		cost = 100
+		days_remove = 160
+		fire_only_once = yes
+		remove_effect = {
+			776 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_state_modifier = {
+					modifier = {
+						local_building_slots_factor = 0.10
+					}
+				}
+			}
+			777 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_state_modifier = {
+					modifier = {
+						local_building_slots_factor = 0.10
+					}
+				}
+			}
+			5 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_state_modifier = {
+					modifier = {
+						local_building_slots_factor = 0.10
+					}
+				}
+			}
+		}
+	}
+	
+	GER_neobaroque_palast = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_building_palast_europas
+		}
+	
+		cost = 50
+		days_remove = 730
+		fire_only_once = yes
+		remove_effect = {
+			country_event = germit.26
+			custom_effect_tooltip = GER_increase_mittel_buff_tt
+			hidden_effect = {
+				GER_increase_mitteleuropa_buff = yes
+			}
+			add_ideas = GER_neobaroque_palast_idea
+		}
+	}
+	
+	GER_neoromanesque_palast = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_building_palast_europas
+		}
+	
+		cost = 50
+		days_remove = 730
+		fire_only_once = yes
+		remove_effect = {
+			country_event = germit.27
+			custom_effect_tooltip = GER_increase_mittel_buff_tt
+			hidden_effect = {
+				GER_increase_mitteleuropa_buff = yes
+			}
+			add_ideas = GER_neoromanesque_palast_idea
+		}
+	}
+	
+	GER_bauhaus_palast = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_building_palast_europas
+		}
+	
+		cost = 50
+		days_remove = 730
+		fire_only_once = yes
+		remove_effect = {
+			country_event = germit.28
+			custom_effect_tooltip = GER_increase_mittel_buff_tt
+			hidden_effect = {
+				GER_increase_mitteleuropa_buff = yes
+			}
+			add_ideas = GER_bauhaus_palast_idea
+		}
+	}
+	
+	### Subregion Oststaats
+	
+	GER_bismarckian_paternalism_Oststaats = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_completed_focus = GER_Bismarckian_Paternalism
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Oststaats
+			FROM = {
+				NOT = {
+					has_idea = GER_Bismarckian_Paternalism_idea
+				}
+			}
+		}
+
+		targets = { POL LIT WHR BAT LAT EST }
+		target_trigger = {
+			FROM = {
+				GER_is_in_mitteleuropa = yes
+			}
+		}
+		
+		available = {
+			FROM = {
+				NOT = {
+					has_idea = GER_Bismarckian_Paternalism_idea
+				}
+			}
+		}
+	
+		cost = 40
+		days_remove = 50
+		fire_only_once = yes
+		remove_effect = {
+			FROM = {
+				country_event = germit.30
+				add_ideas = GER_Bismarckian_Paternalism_idea
+			}
+		}
+	}
+	
+	GER_KWS_investments_Oststaats = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_completed_focus = GER_Expand_the_Kaiser_Wilhelm_Society
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Oststaats
+			FROM = {
+				NOT = {
+					has_idea = GER_KWS_Investments_idea
+				}
+			}
+		}
+
+		targets = { POL LIT WHR BAT LAT EST }
+		target_trigger = {
+			FROM = {
+				GER_is_in_mitteleuropa = yes
+			}
+		}
+		
+		available = {
+			FROM = {
+				NOT = {
+					has_idea = GER_KWS_Investments_idea
+				}
+			}
+		}
+	
+		cost = 40
+		days_remove = 50
+		fire_only_once = yes
+		remove_effect = {
+			FROM = {
+				country_event = germit.29
+				add_ideas = GER_KWS_Investments_idea
+			}
+		}
+	}
+	
+	GER_biagarnav_park = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Oststaats
+			AND = {
+				POL = {
+					is_in_faction_with = GER
+				}
+				WHR = {
+					is_in_faction_with = GER
+				}
+				LIT = {
+					is_in_faction_with = GER
+				}
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 9
+		}
+	
+		cost = 120
+		days_remove = 180
+		modifier = {
+			civilian_factory_use = 10
+		}
+		fire_only_once = yes
+		remove_effect = {
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			97 = {
+				increase_state_category_by_one_level = yes
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			94 = {
+				increase_state_category_by_two_levels = yes
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			1295 = {
+				increase_state_category_by_one_level = yes
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	
+	GER_Commonwealth_Trail = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_European_Tourism_Flag
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Oststaats
+			AND = {
+				POL = {
+					has_country_flag = GER_is_in_mitteleuropa
+				}
+				WHR = {
+					has_country_flag = GER_is_in_mitteleuropa
+				}
+				LIT = {
+					has_country_flag = GER_is_in_mitteleuropa
+				}
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 9
+		}
+	
+		cost = 60
+		days_remove = 75
+		modifier = {
+			civilian_factory_use = 10
+		}
+		fire_only_once = yes
+		remove_effect = {
+			if = {
+				limit = { POL = { has_country_flag = GER_is_in_mitteleuropa } }
+				POL = { add_stability = 0.03 }
+				90 = {
+					add_building_construction = {
+						type = bunker
+						level = 1
+						instant_build = yes
+						province = 3497
+					}
+					add_building_construction = {
+						type = bunker
+						level = 1
+						instant_build = yes
+						province = 3458
+					}
+				}
+			}
+			if = {
+				limit = { WHR = { has_country_flag = GER_is_in_mitteleuropa } }
+				WHR = { add_stability = 0.03 }
+				95 = {
+					add_building_construction = {
+						type = bunker
+						level = 1
+						instant_build = yes
+						province = 560
+					}
+				}
+			}
+			if = {
+				limit = { LIT = { has_country_flag = GER_is_in_mitteleuropa } }
+				LIT = { add_stability = 0.03 }
+				94 = {
+					add_building_construction = {
+						type = bunker
+						level = 1
+						instant_build = yes
+						province = 13736
+					}
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	## Baltics
+	
+	GER_shadow_baltics = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_shadow_spawned
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Oststaats
+			BAT = {
+				is_in_faction_with = GER
+				NOT = {
+					has_idea = GER_Looming_Shadow_idea
+				}
+			}
+		}
+	
+		cost = 65
+		days_remove = 180
+		fire_only_once = yes
+		remove_effect = {
+			country_event = gerdom.3739
+			BAT = {
+				country_event = gerdom.3739
+			}
+		}
+	}
+	
+	GER_Berlin_Riga_Railway = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_BAT_Investments
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Oststaats
+			BAT = {
+				is_in_faction_with = GER
+			}
+		}
+	
+		available = {
+			num_of_civilian_factories_available_for_projects > 7
+		}
+	
+		cost = 80
+		days_remove = 160
+		modifier = {
+			civilian_factory_use = 8
+		}
+		fire_only_once = yes
+		remove_effect = {
+			build_railway = {
+				level = 1
+				build_only_on_allied = yes
+				fallback = yes
+				path = { 6521 11444 3207 6282 6334 9334 9361 11372 11343 9263 362 3380 6402 6332 11265 3288 6314 9262 11246 6342 265 9340 }
+				start_province = 6521
+				target_province = 9340
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Baltic_Palaces = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_BAT_Investments
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Oststaats
+			BAT = {
+				is_in_faction_with = GER
+			}
+		}
+	
+		available = {
+			num_of_civilian_factories_available_for_projects > 5
+		}
+	
+		cost = 65
+		days_remove = 90
+		modifier = {
+			civilian_factory_use = 6
+		}
+		fire_only_once = yes
+		remove_effect = {
+			BAT = { add_stability = 0.03 }
+			190 = {
+				add_extra_state_shared_building_slots = 2
+			}
+			1091 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Baltic_Settlements = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_BAT_Investments
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Oststaats
+			BAT = {
+				is_in_faction_with = GER
+			}
+		}
+	
+		available = {
+			num_of_civilian_factories_available_for_projects > 5
+		}
+	
+		cost = 45
+		days_remove = 100
+		modifier = {
+			civilian_factory_use = 6
+		}
+		fire_only_once = yes
+		remove_effect = {
+			190 = {
+				increase_state_category_by_one_level = yes
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Deutsche_Legion = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_BAT_Investments
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Oststaats
+			BAT = {
+				is_in_faction_with = GER
+			}
+		}
+	
+		available = {
+			num_of_civilian_factories_available_for_projects > 7
+		}
+	
+		cost = 70
+		days_remove = 90
+		modifier = {
+			civilian_factory_use = 8
+		}
+		fire_only_once = yes
+		remove_effect = {
+			BAT = { add_war_support = 0.05 }
+			12 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Peipus_Pskov_Monitoring_Station = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Oststaats
+			BAT = {
+				is_in_faction_with = GER
+			}
+		}
+	
+		available = {
+			num_of_civilian_factories_available_for_projects > 4
+		}
+	
+		cost = 75
+		days_remove = 80
+		modifier = {
+			civilian_factory_use = 5
+		}
+		fire_only_once = yes
+		remove_effect = {
+			13 = {
+				add_building_construction = {
+					type = radar_station
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Baltic_Paradise_Island = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_European_Tourism_Flag
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Oststaats
+			BAT = {
+				is_in_faction_with = GER
+			}
+		}
+	
+		available = {
+			num_of_civilian_factories_available_for_projects > 7
+		}
+	
+		cost = 80
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 8
+		}
+		fire_only_once = yes
+		remove_effect = {
+			BAT = { add_stability = 0.02 }
+			13 = {
+				increase_state_category_by_one_level = yes
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	## Belarus
+	
+	GER_shadow_belarus = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_shadow_spawned
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Oststaats
+			WHR = {
+				is_in_faction_with = GER
+				NOT = {
+					has_idea = GER_Looming_Shadow_idea
+				}
+			}
+		}
+	
+		cost = 65
+		days_remove = 180
+		fire_only_once = yes
+		remove_effect = {
+			country_event = gerdom.3738
+			WHR = {
+				country_event = gerdom.3738
+			}
+		}
+	}
+	
+	## Lithuania
+	
+	GER_Kaunas_University = {
+		allowed = { original_tag = GER }
+		
+		visible = {
+			has_country_flag = GER_opening_kaunas
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Oststaats
+		}
+	
+		cost = 10
+		days_remove = 75
+		fire_only_once = yes
+		remove_effect = {
+			clr_country_flag = GER_opening_kaunas
+			country_event = gerdom.3564
+		}
+	}
+	
+	GER_shadow_lithuania = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_shadow_spawned
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Oststaats
+			LIT = {
+				is_in_faction_with = GER
+				NOT = {
+					has_idea = GER_Looming_Shadow_idea
+				}
+			}
+		}
+	
+		cost = 65
+		days_remove = 180
+		fire_only_once = yes
+		remove_effect = {
+			country_event = gerdom.3737
+			LIT = {
+				country_event = gerdom.3737
+			}
+		}
+	}
+	
+	## Poland
+	
+	GER_shadow_poland = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_shadow_spawned
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Oststaats
+			POL = {
+				is_in_faction_with = GER
+				NOT = {
+					has_idea = GER_Looming_Shadow_idea
+				}
+			}
+		}
+	
+		cost = 65
+		days_remove = 180
+		fire_only_once = yes
+		remove_effect = {
+			country_event = gerdom.3736
+			POL = {
+				country_event = gerdom.3736
+			}
+		}
+	}
+	
+	### Subregion Ukraine
+	
+	## Ukraine
+	
+	GER_bismarckian_paternalism_Ukraine = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_completed_focus = GER_Bismarckian_Paternalism
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Ukraine
+			FROM = {
+				NOT = {
+					has_idea = GER_Bismarckian_Paternalism_idea
+				}
+			}
+		}
+
+		targets = { UKR CRM }
+		target_trigger = {
+			FROM = {
+				GER_is_in_mitteleuropa = yes
+			}
+		}
+		
+		available = {
+			FROM = {
+				NOT = {
+					has_idea = GER_Bismarckian_Paternalism_idea
+				}
+			}
+		}
+	
+		cost = 40
+		days_remove = 50
+		fire_only_once = yes
+		remove_effect = {
+			FROM = {
+				country_event = germit.30
+				add_ideas = GER_Bismarckian_Paternalism_idea
+			}
+		}
+	}
+	
+	GER_KWS_investments_Ukraine = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_completed_focus = GER_Expand_the_Kaiser_Wilhelm_Society
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Ukraine
+			FROM = {
+				NOT = {
+					has_idea = GER_KWS_Investments_idea
+				}
+			}
+		}
+
+		targets = { UKR CRM }
+		target_trigger = {
+			FROM = {
+				GER_is_in_mitteleuropa = yes
+			}
+		}
+		
+		available = {
+			FROM = {
+				NOT = {
+					has_idea = GER_KWS_Investments_idea
+				}
+			}
+		}
+	
+		cost = 40
+		days_remove = 50
+		fire_only_once = yes
+		remove_effect = {
+			FROM = {
+				country_event = germit.29
+				add_ideas = GER_KWS_Investments_idea
+			}
+		}
+	}
+	
+	GER_shadow_ukraine = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_shadow_spawned
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Ukraine
+			UKR = {
+				is_in_faction_with = GER
+				NOT = {
+					has_idea = GER_Looming_Shadow_idea
+				}
+			}
+		}
+	
+		cost = 65
+		days_remove = 180
+		fire_only_once = yes
+		remove_effect = {
+			country_event = gerdom.3740
+			UKR = {
+				country_event = gerdom.3740
+			}
+		}
+	}
+	
+	GER_black_sea_germans = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Ukraine
+			UKR = {
+				is_in_faction_with = GER
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 2
+		}
+	
+		cost = 40
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 3
+		}
+		fire_only_once = yes
+		remove_effect = {
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			192 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			137 = {
+				increase_state_category_by_one_level = yes
+			}
+			1234 = {
+				increase_state_category_by_one_level = yes
+			}
+		}
+	}
+	
+	GER_askania_nova = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Ukraine
+			has_country_flag = GER_European_Tourism_Flag
+			UKR = {
+				is_in_faction_with = GER
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 3
+		}
+	
+		cost = 50
+		days_remove = 80
+		modifier = {
+			civilian_factory_use = 4
+		}
+		fire_only_once = yes
+		remove_effect = {
+			UKR = { add_stability = 0.03 }
+			196 = {
+				add_state_modifier = {
+					modifier = {
+						local_supplies = 0.10
+					}
+				}
+			}
+			197 = {
+				add_state_modifier = {
+					modifier = {
+						local_supplies = 0.10
+					}
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	### Subregion Russia
+	
+	GER_bismarckian_paternalism_Russia = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_completed_focus = GER_Bismarckian_Paternalism
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Russia
+			FROM = {
+				NOT = {
+					has_idea = GER_Bismarckian_Paternalism_idea
+				}
+			}
+		}
+
+		targets = { RPG TRM KAR }
+		target_trigger = {
+			FROM = {
+				GER_is_in_mitteleuropa = yes
+			}
+		}
+		
+		available = {
+			FROM = {
+				NOT = {
+					has_idea = GER_Bismarckian_Paternalism_idea
+				}
+			}
+		}
+	
+		cost = 40
+		days_remove = 50
+		fire_only_once = yes
+		remove_effect = {
+			FROM = {
+				country_event = germit.30
+				add_ideas = GER_Bismarckian_Paternalism_idea
+			}
+		}
+	}
+	
+	GER_KWS_investments_Russia = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_completed_focus = GER_Expand_the_Kaiser_Wilhelm_Society
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Russia
+			FROM = {
+				NOT = {
+					has_idea = GER_KWS_Investments_idea
+				}
+			}
+		}
+
+		targets = { RPG TRM KAR }
+		target_trigger = {
+			FROM = {
+				GER_is_in_mitteleuropa = yes
+			}
+		}
+		
+		available = {
+			FROM = {
+				NOT = {
+					has_idea = GER_KWS_Investments_idea
+				}
+			}
+		}
+	
+		cost = 40
+		days_remove = 50
+		fire_only_once = yes
+		remove_effect = {
+			FROM = {
+				country_event = germit.29
+				add_ideas = GER_KWS_Investments_idea
+			}
+		}
+	}
+	
+	GER_White_Sea_Baltic_Canal = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Russia
+			RPG = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 140
+		days_remove = 180
+		fire_only_once = yes
+		remove_effect = {
+			1327 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			216 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			214 = {
+				increase_state_category_by_one_level = yes
+				add_building_construction = {
+					type = naval_base
+					level = 3
+					instant_build = yes
+					province = 9045
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Oranienbaum = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Russia
+			has_country_flag = GER_European_Tourism_Flag
+			RPG = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 40
+		days_remove = 65
+		fire_only_once = yes
+		remove_effect = {
+			RUS = { add_stability = 0.01 }
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	### Subregion Caucasus
+	
+	GER_bismarckian_paternalism_Caucasia = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_completed_focus = GER_Bismarckian_Paternalism
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Caucasia
+			FROM = {
+				NOT = {
+					has_idea = GER_Bismarckian_Paternalism_idea
+				}
+			}
+		}
+
+		targets = { DKB KUB KLY MTR GEO ARM ABK AZE }
+		target_trigger = {
+			FROM = {
+				GER_is_in_mitteleuropa = yes
+			}
+		}
+		
+		available = {
+			FROM = {
+				NOT = {
+					has_idea = GER_Bismarckian_Paternalism_idea
+				}
+			}
+		}
+	
+		cost = 40
+		days_remove = 50
+		fire_only_once = yes
+		remove_effect = {
+			FROM = {
+				country_event = germit.30
+				add_ideas = GER_Bismarckian_Paternalism_idea
+			}
+		}
+	}
+	
+	GER_KWS_investments_Caucasia = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_completed_focus = GER_Expand_the_Kaiser_Wilhelm_Society
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Caucasia
+			FROM = {
+				NOT = {
+					has_idea = GER_KWS_Investments_idea
+				}
+			}
+		}
+
+		targets = { DKB KUB KLY MTR GEO ARM ABK AZE }
+		target_trigger = {
+			FROM = {
+				GER_is_in_mitteleuropa = yes
+			}
+		}
+		
+		available = {
+			FROM = {
+				NOT = {
+					has_idea = GER_KWS_Investments_idea
+				}
+			}
+		}
+	
+		cost = 40
+		days_remove = 50
+		fire_only_once = yes
+		remove_effect = {
+			FROM = {
+				country_event = germit.29
+				add_ideas = GER_KWS_Investments_idea
+			}
+		}
+	}
+	
+	GER_caucasus_oil = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Caucasia
+			AZE = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 5
+		}
+	
+		cost = 60
+		days_remove = 100
+		modifier = {
+			civilian_factory_use = 6
+		}
+		fire_only_once = yes
+		remove_effect = {
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			1190 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 3698
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 1
+					instant_build = yes
+					province = 3698
+				}
+			}
+		}
+	}
+	
+	GER_sochi_resort = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Caucasia
+			has_country_flag = GER_European_Tourism_Flag
+			GEO = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 5
+		}
+	
+		cost = 60
+		days_remove = 100
+		modifier = {
+			civilian_factory_use = 6
+		}
+		fire_only_once = yes
+		remove_effect = {
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			1190 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 3698
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 1
+					instant_build = yes
+					province = 3698
+				}
+			}
+		}
+	}
+	
+	### Subregion Habsburgs
+	
+	GER_bismarckian_paternalism_Habsburgs = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_completed_focus = GER_Bismarckian_Paternalism
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Habsburgs
+			FROM = {
+				NOT = {
+					has_idea = GER_Bismarckian_Paternalism_idea
+				}
+			}
+		}
+
+		targets = { AUS HUN CZE CRO GAL WSU KRK SVK SLO BOS MNT TRS BUK }
+		target_trigger = {
+			FROM = {
+				GER_is_in_mitteleuropa = yes
+			}
+		}
+		
+		available = {
+			FROM = {
+				NOT = {
+					has_idea = GER_Bismarckian_Paternalism_idea
+				}
+			}
+		}
+	
+		cost = 40
+		days_remove = 50
+		fire_only_once = yes
+		remove_effect = {
+			FROM = {
+				country_event = germit.30
+				add_ideas = GER_Bismarckian_Paternalism_idea
+			}
+		}
+	}
+	
+	GER_KWS_investments_Habsburgs = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_completed_focus = GER_Expand_the_Kaiser_Wilhelm_Society
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Habsburgs
+			FROM = {
+				NOT = {
+					has_idea = GER_KWS_Investments_idea
+				}
+			}
+		}
+
+		targets = { AUS HUN CZE CRO GAL WSU KRK SVK SLO BOS MNT TRS BUK }
+		target_trigger = {
+			FROM = {
+				GER_is_in_mitteleuropa = yes
+			}
+		}
+		
+		available = {
+			FROM = {
+				NOT = {
+					has_idea = GER_KWS_Investments_idea
+				}
+			}
+		}
+	
+		cost = 40
+		days_remove = 50
+		fire_only_once = yes
+		remove_effect = {
+			FROM = {
+				country_event = germit.29
+				add_ideas = GER_KWS_Investments_idea
+			}
+		}
+	}
+	
+	GER_Zollverein_Decision = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Habsburgs
+			AUS = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 120
+		days_remove = 80
+		fire_only_once = yes
+		remove_effect = {
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = industry
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Kunsthistorisches_Museum = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Habsburgs
+			has_country_flag = GER_European_Tourism_Flag
+			AUS = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 65
+		days_remove = 80
+		fire_only_once = yes
+		remove_effect = {
+			add_political_power = 50
+			AUS = { add_stability = 0.01 }
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	### Subregion Balkans
+	
+	GER_bismarckian_paternalism_Balkans = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_completed_focus = GER_Bismarckian_Paternalism
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Balkans
+			FROM = {
+				NOT = {
+					has_idea = GER_Bismarckian_Paternalism_idea
+				}
+			}
+		}
+
+		targets = { BUL SER GRE CRE ALB ROM MOL }
+		target_trigger = {
+			FROM = {
+				GER_is_in_mitteleuropa = yes
+			}
+		}
+		
+		available = {
+			FROM = {
+				NOT = {
+					has_idea = GER_Bismarckian_Paternalism_idea
+				}
+			}
+		}
+	
+		cost = 40
+		days_remove = 50
+		fire_only_once = yes
+		remove_effect = {
+			FROM = {
+				country_event = germit.30
+				add_ideas = GER_Bismarckian_Paternalism_idea
+			}
+		}
+	}
+	
+	GER_KWS_investments_Balkans = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_completed_focus = GER_Expand_the_Kaiser_Wilhelm_Society
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Balkans
+			FROM = {
+				NOT = {
+					has_idea = GER_KWS_Investments_idea
+				}
+			}
+		}
+
+		targets = { BUL SER GRE CRE ALB ROM MOL }
+		target_trigger = {
+			FROM = {
+				GER_is_in_mitteleuropa = yes
+			}
+		}
+		
+		available = {
+			FROM = {
+				NOT = {
+					has_idea = GER_KWS_Investments_idea
+				}
+			}
+		}
+	
+		cost = 40
+		days_remove = 50
+		fire_only_once = yes
+		remove_effect = {
+			FROM = {
+				country_event = germit.29
+				add_ideas = GER_KWS_Investments_idea
+			}
+		}
+	}
+	
+	GER_Bulgarian_Factories = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Balkans
+			BUL = { has_country_flag = GER_is_in_mitteleuropa }
+		}
+	
+		cost = 90
+		days_remove = 70
+		fire_only_once = yes
+		remove_effect = {
+			BUL = { add_war_support = 0.02 }
+			48 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Nesebar = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Balkans
+			has_country_flag = GER_European_Tourism_Flag
+			BUL = { has_country_flag = GER_is_in_mitteleuropa }
+		}
+	
+		cost = 55
+		days_remove = 70
+		fire_only_once = yes
+		remove_effect = {
+			211 = {
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					instant_build = yes
+					province = 9919
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 1
+					instant_build = yes
+					province = 9902
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Romanian_Royals = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Balkans
+			ROM = { has_country_flag = GER_is_in_mitteleuropa }
+		}
+	
+		cost = 80
+		days_remove = 30
+		fire_only_once = yes
+		remove_effect = {
+			ROM = { add_stability = 0.05 }
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Bran_Castle = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Balkans
+			has_country_flag = GER_European_Tourism_Flag
+			ROM = { has_country_flag = GER_is_in_mitteleuropa }
+		}
+	
+		cost = 60
+		days_remove = 40
+		fire_only_once = yes
+		remove_effect = {
+			ROM = { add_war_support = 0.05 }
+			1116 = {
+				add_building_construction = {
+					type = bunker
+					level = 1
+					instant_build = yes
+					province = 690
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Corinth_Canal = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Balkans
+			GRE = { has_country_flag = GER_is_in_mitteleuropa }
+		}
+	
+		cost = 100
+		days_remove = 140
+		fire_only_once = yes
+		remove_effect = {
+			47 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_state_modifier = {
+					modifier = {
+						local_supplies = 0.15
+					}
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Corfu_Tourism = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Balkans
+			has_country_flag = GER_European_Tourism_Flag
+			GRE = { has_country_flag = GER_is_in_mitteleuropa }
+		}
+	
+		cost = 50
+		days_remove = 80
+		fire_only_once = yes
+		remove_effect = {
+			758 = {
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					instant_build = yes
+					province = 10203
+				}
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	### Subregion Anatolia
+	
+	GER_Anatolia_Strait_Defenses = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Anatolia
+			OR = {
+				OTT = {
+					has_country_flag = GER_is_in_mitteleuropa
+				}
+				TUR = {
+					has_country_flag = GER_is_in_mitteleuropa
+				}
+			}
+		}
+	
+		cost = 50
+		days_remove = 75
+		fire_only_once = yes
+		remove_effect = {
+			1225 = {
+				add_building_construction = {
+					type = bunker
+					level = 3
+					instant_build = yes
+					province = 9887
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 2
+					instant_build = yes
+					province = { all_provinces = yes }
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Derinkuyu_Tourism = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Anatolia
+			has_country_flag = GER_European_Tourism_Flag
+			OR = {
+				OTT = {
+					has_country_flag = GER_is_in_mitteleuropa
+				}
+				TUR = {
+					has_country_flag = GER_is_in_mitteleuropa
+				}
+			}
+		}
+	
+		cost = 50
+		days_remove = 60
+		fire_only_once = yes
+		remove_effect = {
+			346 = {
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				bonus = 0.50
+				uses = 1
+				category = excavation_tech
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	### Subregion Abyssinia
+	
+	GER_Addis_Adaba_Expansion = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Abyssinia
+			ETH = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 65
+		days_remove = 140
+		fire_only_once = yes
+		remove_effect = {
+			ETH = { add_stability = 0.03 }
+			271 = {
+				increase_state_category_by_one_level = yes
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Lalibela_Tourism = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Abyssinia
+			has_country_flag = GER_Colonial_Tourism_Flag
+			ETH = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 50
+		days_remove = 75
+		fire_only_once = yes
+		remove_effect = {
+			920 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	### Subregion South Africa
+	
+	GER_Boer_Culture_Project = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Cape
+			SAF = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 60
+		days_remove = 40
+		fire_only_once = yes
+		remove_effect = {
+			SAF = { add_stability = 0.05 }
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Franschhoek = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Cape
+			has_country_flag = GER_Colonial_Tourism_Flag
+			SAF = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 75
+		days_remove = 60
+		fire_only_once = yes
+		remove_effect = {
+			SAF = { add_stability = 0.03 }
+			681 = {
+				add_extra_state_shared_building_slots = 2
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	### Subregion Near East
+	
+	GER_Modernized_Caravans = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Near_East
+			SAU = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 75
+		days_remove = 100
+		fire_only_once = yes
+		remove_effect = {
+			753 = {
+				add_extra_state_shared_building_slots = 3
+			}
+			292 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Jerusalem_Tourism = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Near_East
+			has_country_flag = GER_Colonial_Tourism_Flag
+			var:454.owner = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 75
+		days_remove = 90
+		fire_only_once = yes
+		remove_effect = {
+			454 = {
+				add_building_construction = {
+					type = air_base
+					level = 3
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					instant_build = yes
+					province = 4206
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	### Subregion Mittelafrika
+	
+	## Mittelafrika
+	
+	GER_shadow_mittelafrika = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_shadow_spawned
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Mittelafrika
+			MAF = {
+				is_in_faction_with = GER
+				NOT = {
+					has_idea = GER_Looming_Shadow_idea
+				}
+			}
+		}
+	
+		cost = 65
+		days_remove = 180
+		fire_only_once = yes
+		remove_effect = {
+			country_event = gerdom.3741
+			custom_effect_tooltip = MAF_decrease_collapse_1_tt
+			MAF = {
+				country_event = gerdom.3741
+				add_to_variable = { MAF_collapse_var = 1 }
+			}
+		}
+	}
+	
+	GER_Luderitz_Diamond_Mines = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_MAF_Investments1
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Mittelafrika
+			MAF = {
+				is_in_faction_with = GER
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 5
+		}
+	
+		cost = 80
+		days_remove = 100
+		modifier = {
+			civilian_factory_use = 6
+		}
+		fire_only_once = yes
+		remove_effect = {
+			541 = {
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			add_to_variable = { MAF_Investment_Level = 1 }
+			custom_effect_tooltip = MAF_decrease_collapse_1_tt
+			MAF = {
+				add_to_variable = { MAF_collapse_var = 1 }
+			}
+		}
+	}
+	
+	GER_expand_windhoek = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_MAF_Investments1
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Mittelafrika
+			MAF = {
+				is_in_faction_with = GER
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 4
+		}
+	
+		cost = 60
+		days_remove = 75
+		modifier = {
+			civilian_factory_use = 5
+		}
+		fire_only_once = yes
+		remove_effect = {
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			541 = {
+				increase_state_category_by_one_level = yes
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 14512
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					instant_build = yes
+					province = 14516
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					instant_build = yes
+					province = 14509
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					instant_build = yes
+					province = 14502
+				}
+			}
+			add_to_variable = { MAF_Investment_Level = 1 }
+			custom_effect_tooltip = MAF_decrease_collapse_1_tt
+			MAF = {
+				add_to_variable = { MAF_collapse_var = 1 }
+			}
+		}
+	}
+	
+	GER_Afri_Cola_MAF = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_MAF_Investments1
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Mittelafrika
+			MAF = {
+				is_in_faction_with = GER
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 2
+		}
+	
+		cost = 10
+		days_remove = 50
+		modifier = {
+			civilian_factory_use = 3
+		}
+		fire_only_once = yes
+		remove_effect = {
+			MAF = { add_stability = 0.01 }
+			add_political_power = 70
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			add_to_variable = { MAF_Investment_Level = 1 }
+			custom_effect_tooltip = MAF_decrease_collapse_1_tt
+			MAF = {
+				add_to_variable = { MAF_collapse_var = 1 }
+			}
+		}
+	}
+	
+	GER_Colonial_Youth_Department = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_MAF_Investments1
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Mittelafrika
+			MAF = {
+				is_in_faction_with = GER
+			}
+		}
+	
+		cost = 30
+		days_remove = 80
+		fire_only_once = yes
+		remove_effect = {
+			MAF = { add_war_support = 0.05 }
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 1
+				category = cat_special_forces_generic
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			add_to_variable = { MAF_Investment_Level = 1 }
+			custom_effect_tooltip = MAF_decrease_collapse_1_tt
+			MAF = {
+				add_to_variable = { MAF_collapse_var = 1 }
+			}
+		}
+	}
+	
+	GER_Afrikabahn = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_MAF_Investments2
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Mittelafrika
+			MAF = {
+				is_in_faction_with = GER
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 6
+		}
+	
+		cost = 75
+		days_remove = 130
+		modifier = {
+			civilian_factory_use = 7
+		}
+		fire_only_once = yes
+		remove_effect = {
+			965 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			546 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			541 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			927 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			add_to_variable = { MAF_Investment_Level = 1 }
+			custom_effect_tooltip = MAF_decrease_collapse_1_tt
+			MAF = {
+				add_to_variable = { MAF_collapse_var = 1 }
+			}
+		}
+	}
+	
+	GER_Tanzania_Gold = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_MAF_Investments2
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Mittelafrika
+			MAF = {
+				is_in_faction_with = GER
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 4
+		}
+	
+		cost = 80
+		days_remove = 100
+		modifier = {
+			civilian_factory_use = 5
+		}
+		fire_only_once = yes
+		remove_effect = {
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 1
+				category = excavation_tech
+			}
+			1032 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			add_to_variable = { MAF_Investment_Level = 1 }
+			custom_effect_tooltip = MAF_decrease_collapse_1_tt
+			MAF = {
+				add_to_variable = { MAF_collapse_var = 1 }
+			}
+		}
+	}
+	
+	GER_Dar_es_Salaam_Ports = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_MAF_Investments2
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Mittelafrika
+			MAF = {
+				is_in_faction_with = GER
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 5
+		}
+	
+		cost = 50
+		days_remove = 75
+		modifier = {
+			civilian_factory_use = 6
+		}
+		fire_only_once = yes
+		remove_effect = {
+			965 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					instant_build = yes
+					province = 2196
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			add_to_variable = { MAF_Investment_Level = 1 }
+			custom_effect_tooltip = MAF_decrease_collapse_1_tt
+			MAF = {
+				add_to_variable = { MAF_collapse_var = 1 }
+			}
+		}
+	}
+	
+	GER_Plantation_Reform = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_MAF_Investments2
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Mittelafrika
+			MAF = {
+				is_in_faction_with = GER
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 4
+		}
+	
+		cost = 30
+		days_remove = 90
+		modifier = {
+			civilian_factory_use = 5
+		}
+		fire_only_once = yes
+		remove_effect = {
+			MAF = { add_stability = 0.05 }
+			increase_ruling_party_popularity_by_5 = yes
+			1032 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			899 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			add_to_variable = { MAF_Investment_Level = 1 }
+			custom_effect_tooltip = MAF_decrease_collapse_1_tt
+			MAF = {
+				add_to_variable = { MAF_collapse_var = 1 }
+			}
+		}
+	}
+	
+	GER_Askari_Recruitment_Drive = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Mittelafrika
+			MAF = {
+				is_in_faction_with = GER
+			}
+		}
+	
+		cost = 50
+		days_remove = 120
+		fire_only_once = yes
+		remove_effect = {
+			MAF = { add_manpower = 50000 add_war_support = 0.03 }
+			541 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			custom_effect_tooltip = MAF_decrease_collapse_1_tt
+			MAF = {
+				add_to_variable = { MAF_collapse_var = 1 }
+			}
+		}
+	}
+	
+	GER_United_Africa_Mines = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Mittelafrika
+			has_completed_focus = GER_Berlins_Own_Steelworks
+			MAF = {
+				is_in_faction_with = GER
+			}
+		}
+	
+		cost = 55
+		days_remove = 100
+		fire_only_once = yes
+		remove_effect = {
+			MAF = {
+				add_stability = 0.02
+				add_war_support = 0.03
+				add_manpower = 50000
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			custom_effect_tooltip = MAF_decrease_collapse_1_tt
+			MAF = {
+				add_to_variable = { MAF_collapse_var = 1 }
+			}
+		}
+	}
+	
+	GER_Zanzibar_Tourism = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Mittelafrika
+			has_country_flag = GER_Colonial_Tourism_Flag
+			MAF = {
+				is_in_faction_with = GER
+			}
+		}
+	
+		cost = 40
+		days_remove = 65
+		fire_only_once = yes
+		remove_effect = {
+			905 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = naval_base
+					level = 1
+					instant_build = yes
+					province = 13551
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			custom_effect_tooltip = MAF_decrease_collapse_1_tt
+			MAF = {
+				add_to_variable = { MAF_collapse_var = 1 }
+			}
+		}
+	}
+	
+	GER_Mittelafrika_Safari = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Mittelafrika
+			has_country_flag = GER_Colonial_Tourism_Flag
+			MAF = {
+				is_in_faction_with = GER
+			}
+		}
+	
+		cost = 10
+		days_remove = 70
+		fire_only_once = yes
+		remove_effect = {
+			add_political_power = 80
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			custom_effect_tooltip = MAF_decrease_collapse_1_tt
+			MAF = {
+				add_to_variable = { MAF_collapse_var = 1 }
+			}
+		}
+	}
+	
+	### Subregion Morocco
+	
+	GER_Morocco_Phosphate_Mines = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Morocco
+			MOR = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 65
+		days_remove = 90
+		fire_only_once = yes
+		remove_effect = {
+			461 = {
+				add_extra_state_shared_building_slots = 1
+				add_state_modifier = {
+					modifier = {
+						state_resources_factor = 0.15
+					}
+				}
+			}
+			462 = {
+				add_extra_state_shared_building_slots = 1
+				add_state_modifier = {
+					modifier = {
+						state_resources_factor = 0.15
+					}
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Fez_Tourism = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Morocco
+			has_country_flag = GER_Colonial_Tourism_Flag
+			MOR = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 25
+		days_remove = 70
+		fire_only_once = yes
+		remove_effect = {
+			add_political_power = 40
+			461 = {
+				add_building_construction = {
+					type = air_base
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	### Subregion Egypt
+	
+	GER_Aswan_Low_Dam = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Morocco
+			EGY = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 7
+		}
+	
+		cost = 90
+		days_remove = 160
+		modifier = {
+			civilian_factory_use = 8
+		}
+		fire_only_once = yes
+		remove_effect = {
+			456 = {
+				add_building_construction = {
+					type = dam
+					level = 1
+					instant_build = yes
+					province = 11999
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Egyptian_Zeppelin_Tours = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Morocco
+			has_country_flag = GER_Colonial_Tourism_Flag
+			EGY = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 40
+		days_remove = 70
+		fire_only_once = yes
+		remove_effect = {
+			446 = {
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}
+			551 = {
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	### Subregion Australia
+	
+	GER_Dingo_Control = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Australia
+			AST = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 55
+		days_remove = 75
+		fire_only_once = yes
+		remove_effect = {
+			AST = { add_stability = 0.02 }
+			285 = {
+				add_building_construction = {
+					type = air_base
+					level = 1
+					instant_build = yes
+				}
+			}
+			986 = {
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}
+			988 = {
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Great_Barrier_Reef = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Australia
+			has_country_flag = GER_Colonial_Tourism_Flag
+			AST = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 20
+		days_remove = 55
+		fire_only_once = yes
+		remove_effect = {
+			add_political_power = 65
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 1
+				category = marine_tech
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	### Subregion Ostasia
+	
+	## German East Asia
+	
+	GER_shadow_ostasia = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_shadow_spawned
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Ostasia
+			GEA = {
+				is_in_faction_with = GER
+				NOT = {
+					has_idea = GER_Looming_Shadow_idea
+				}
+			}
+		}
+	
+		cost = 65
+		days_remove = 180
+		fire_only_once = yes
+		remove_effect = {
+			country_event = gerdom.3742
+			GEA = {
+				country_event = gerdom.3742
+				add_to_variable = { GEA_Indochinese_Anger = -1 }
+			}
+		}
+	}
+	
+	GER_Pearl_Diving = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_GEA_Investments1
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Ostasia
+			GEA = {
+				is_in_faction_with = GER
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 2
+		}
+	
+		cost = 65
+		days_remove = 100
+		modifier = {
+			civilian_factory_use = 3
+		}
+		fire_only_once = yes
+		remove_effect = {
+			757 = {
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					instant_build = yes
+					province = 12154
+				}
+			}
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 1
+				category = marine_tech
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			add_to_variable = { GEA_Investment_Level = 1 }
+			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+		}
+	}
+	
+	GER_modernize_aog_offices = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_GEA_Investments1
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Ostasia
+			GEA = {
+				is_in_faction_with = GER
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 3
+		}
+	
+		cost = 50
+		days_remove = 90
+		modifier = {
+			civilian_factory_use = 4
+		}
+		fire_only_once = yes
+		remove_effect = {
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			336 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = { GEA_Investment_Level = 1 }
+			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+		}
+	}
+	
+	GER_Indochina_Deforestation = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_GEA_Investments1
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Ostasia
+			GEA = {
+				is_in_faction_with = GER
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 3
+		}
+	
+		cost = 80
+		days_remove = 140
+		modifier = {
+			civilian_factory_use = 4
+		}
+		fire_only_once = yes
+		remove_effect = {
+			827 = {
+				add_extra_state_shared_building_slots = 2
+			}
+			670 = {
+				add_extra_state_shared_building_slots = 3
+			}
+			826 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			add_to_variable = { GEA_Investment_Level = 1 }
+			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+		}
+	}
+	
+	GER_Ferry_Systems = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_GEA_Investments1
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Ostasia
+			GEA = {
+				is_in_faction_with = GER
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 1
+		}
+	
+		cost = 30
+		days_remove = 70
+		modifier = {
+			civilian_factory_use = 2
+		}
+		fire_only_once = yes
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = convoy_1
+				amount = 50
+				producer = GER
+			}
+			333 = {
+				add_building_construction = {
+					type = naval_base
+					level = 1
+					instant_build = yes
+					province = 1208
+				}
+			}
+			828 = {
+				add_building_construction = {
+					type = naval_base
+					level = 1
+					instant_build = yes
+					province = 10199
+				}
+			}
+			846 = {
+				add_building_construction = {
+					type = naval_base
+					level = 1
+					instant_build = yes
+					province = 10297
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			add_to_variable = { GEA_Investment_Level = 1 }
+			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+		}
+	}
+	
+	GER_Ostasienmark = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_GEA_Investments2
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Ostasia
+			GEA = {
+				is_in_faction_with = GER
+			}
+		}
+	
+		cost = 30
+		days_remove = 100
+		fire_only_once = yes
+		remove_effect = {
+			GEA = { add_stability = 0.05 add_political_power = 120 }
+			add_political_power = 50
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			add_to_variable = { GEA_Investment_Level = 1 }
+			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+		}
+	}
+	
+	GER_Fortress_Islands = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_GEA_Investments2
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Ostasia
+			GEA = {
+				is_in_faction_with = GER
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 4
+		}
+	
+		cost = 75
+		days_remove = 50
+		modifier = {
+			civilian_factory_use = 5
+		}
+		fire_only_once = yes
+		remove_effect = {
+			GEA = { add_war_support = 0.03 }
+			647 = {
+				add_building_construction = {
+					type = coastal_bunker
+					level = 2
+					instant_build = yes
+					province = 12103
+				}
+			}
+			684 = {
+				add_building_construction = {
+					type = coastal_bunker
+					level = 2
+					instant_build = yes
+					province = 13028
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 1
+					instant_build = yes
+					province = 2489
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 1
+					instant_build = yes
+					province = 13032
+				}
+			}
+			633 = {
+				add_building_construction = {
+					type = coastal_bunker
+					level = 1
+					instant_build = yes
+					province = 13039
+				}
+			}
+			639 = {
+				add_building_construction = {
+					type = coastal_bunker
+					level = 1
+					instant_build = yes
+					province = 13021
+				}
+			}
+			941 = {
+				add_building_construction = {
+					type = coastal_bunker
+					level = 2
+					instant_build = yes
+					province = 7290
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			add_to_variable = { GEA_Investment_Level = 1 }
+			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+		}
+	}
+	
+	GER_Rubber_GEA = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_GEA_Investments2
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Ostasia
+			GEA = {
+				is_in_faction_with = GER
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 2
+		}
+	
+		cost = 70
+		days_remove = 80
+		modifier = {
+			civilian_factory_use = 3
+		}
+		fire_only_once = yes
+		remove_effect = {
+			846 = {
+				add_state_modifier = {
+					modifier = {
+						state_resources_factor = 0.10
+					}
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			add_to_variable = { GEA_Investment_Level = 1 }
+			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+		}
+	}
+	
+	GER_Germanize_Civil_Service_GEA = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_GEA_Investments2
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Ostasia
+			GEA = {
+				is_in_faction_with = GER
+			}
+		}
+	
+		cost = 60
+		days_remove = 30
+		fire_only_once = yes
+		remove_effect = {
+			GEA = { add_stability = 0.05 }
+			336 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			add_to_variable = { GEA_Investment_Level = 1 }
+			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+		}
+	}
+	
+	GER_Retrofit_GEA_Navy = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Ostasia
+			GEA = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 5
+		}
+	
+		cost = 70
+		days_remove = 100
+		modifier = {
+			civilian_factory_use = 6
+		}
+		fire_only_once = yes
+		remove_effect = {
+			GEA = {
+				navy_experience = 30
+				add_tech_bonus = {
+					bonus = 0.5
+					uses = 2
+					category = naval_equipment
+				}
+			}
+			333 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+			846 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+			828 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+		}
+	}
+	
+	GER_Malay_Stahlstadt = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Ostasia
+			has_country_flag = GER_Cartels_Krupp
+			GEA = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 5
+		}
+	
+		cost = 100
+		days_remove = 130
+		modifier = {
+			civilian_factory_use = 6
+		}
+		fire_only_once = yes
+		remove_effect = {
+			846 = {
+				add_resource = {
+					type = steel
+					amount = 18
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+		}
+	}
+	
+	GER_Ha_Long_Bay = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Ostasia
+			has_country_flag = GER_Colonial_Tourism_Flag
+			GEA = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 2
+		}
+	
+		cost = 15
+		days_remove = 50
+		modifier = {
+			civilian_factory_use = 3
+		}
+		fire_only_once = yes
+		remove_effect = {
+			add_political_power = 60
+			857 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+		}
+	}
+	
+	GER_Malacca_City = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Ostasia
+			has_country_flag = GER_Colonial_Tourism_Flag
+			GEA = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 55
+		days_remove = 70
+		fire_only_once = yes
+		remove_effect = {
+			846 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					instant_build = yes
+					province = 7427
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+		}
+	}
+	
+	GER_Indonesian_Spices = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Ostasia
+			var:1020.owner = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 20
+		days_remove = 90
+		fire_only_once = yes
+		remove_effect = {
+			add_stability = 0.01
+			add_political_power = 80
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+		}
+	}
+	
+	GER_Bali_Tourism = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Ostasia
+			has_country_flag = GER_Colonial_Tourism_Flag
+			var:1020.owner = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 2
+		}
+	
+		cost = 30
+		days_remove = 75
+		modifier = {
+			civilian_factory_use = 3
+		}
+		fire_only_once = yes
+		remove_effect = {
+			add_political_power = 60
+			667 = {
+				add_building_construction = {
+					type = naval_base
+					level = 3
+					instant_build = yes
+					province = 4273
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+		}
+	}
+	
+	### Subregion Persia
+	
+	GER_Zoroaster = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Persia
+			PER = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 15
+		days_remove = 40
+		fire_only_once = yes
+		remove_effect = {
+			PER = { add_stability = 0.02 }
+			add_political_power = 50
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Tabriz_Bazaar = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Persia
+			has_country_flag = GER_Colonial_Tourism_Flag
+			PER = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 30
+		days_remove = 60
+		fire_only_once = yes
+		remove_effect = {
+			add_political_power = 60
+			419 = {
+				add_extra_state_shared_building_slots = 2
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	### Subregion Central Asia
+	
+	GER_Modern_Silk_Road = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Central_Asia
+			ALO = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 4
+		}
+	
+		cost = 40
+		days_remove = 70
+		modifier = {
+			civilian_factory_use = 5
+		}
+		fire_only_once = yes
+		remove_effect = {
+			810 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			590 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			402 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Aral_Sea_Sailing = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Central_Asia
+			has_country_flag = GER_Colonial_Tourism_Flag
+			ALO = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 20
+		days_remove = 55
+		fire_only_once = yes
+		remove_effect = {
+			add_political_power = 60
+			ALO = { add_stability = 0.01 }
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	### Subregion Japan
+	
+	GER_Meissen_Porcelain = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Japan
+			JAP = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 60
+		days_remove = 90
+		fire_only_once = yes
+		remove_effect = {
+			JAP = { add_stability = 0.01 }
+			65 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			531 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Japanese_Tourism = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Japan
+			has_country_flag = GER_Colonial_Tourism_Flag
+			JAP = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 25
+		days_remove = 60
+		fire_only_once = yes
+		remove_effect = {
+			JAP = { add_stability = 0.03 }
+			282 = { add_extra_state_shared_building_slots = 1 }
+			532 = {
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	### Subregion China
+	
+	## China
+	
+	GER_Rural_Connection_China = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_AOG_Investments
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_China
+			country_exists = LEP
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 5
+		}
+	
+		cost = 50
+		days_remove = 100
+		modifier = {
+			civilian_factory_use = 6
+		}
+		fire_only_once = yes
+		remove_effect = {
+			1044 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			595 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			1014 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			600 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_German_Asian_Bank = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_AOG_Investments
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_China
+			country_exists = LEP
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 4
+		}
+	
+		cost = 35
+		days_remove = 100
+		modifier = {
+			civilian_factory_use = 5
+		}
+		fire_only_once = yes
+		remove_effect = {
+			add_political_power = 120
+			LEP = { add_stability = 0.05 }
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Confucian_Renaissance = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_AOG_Investments
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_China
+			country_exists = LEP
+		}
+	
+		cost = 65
+		days_remove = 50
+		fire_only_once = yes
+		remove_effect = {
+			613 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			LEP = {
+				add_tech_bonus = {
+					bonus = 0.5
+					uses = 1
+					category = industry
+				}
+				add_tech_bonus = {
+					bonus = 0.5
+					uses = 1
+					category = electronics
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_New_East_Asia_Squadron = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_AOG_Investments
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_China
+			country_exists = LEP
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 5
+		}
+	
+		cost = 65
+		days_remove = 100
+		modifier = {
+			civilian_factory_use = 6
+		}
+		fire_only_once = yes
+		remove_effect = {
+			596 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			598 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			744 = {
+				add_building_construction = {
+					type = naval_base
+					level = 3
+					instant_build = yes
+					province = 13669
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Chinese_Opium = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_China
+			country_exists = LEP
+		}
+	
+		cost = 80
+		days_remove = 20
+		fire_only_once = yes
+		remove_effect = {
+			LEP = { add_stability = 0.03 }
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Forbidden_City = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_China
+			has_country_flag = GER_Colonial_Tourism_Flag
+			var:608.owner = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 2
+		}
+	
+		cost = 15
+		days_remove = 80
+		modifier = {
+			civilian_factory_use = 3
+		}
+		fire_only_once = yes
+		remove_effect = {
+			add_political_power = 90
+			608 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = air_base
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	### Subregion South Asia
+	
+	GER_Ceylon_Connections = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_South_Asia
+			OR = {
+				PRF = { has_country_flag = GER_is_in_mitteleuropa }
+				DEH = { has_country_flag = GER_is_in_mitteleuropa }
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 3
+		}
+	
+		cost = 40
+		days_remove = 75
+		modifier = {
+			civilian_factory_use = 4
+		}
+		fire_only_once = yes
+		remove_effect = {
+			423 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = naval_base
+					level = 3
+					instant_build = yes
+					province = 1381
+				}
+			}
+			422 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = naval_base
+					level = 1
+					instant_build = yes
+					province = 10229
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Nepal_Balloons = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_South_Asia
+			has_country_flag = GER_Colonial_Tourism_Flag
+			OR = {
+				PRF = { has_country_flag = GER_is_in_mitteleuropa }
+				DEH = { has_country_flag = GER_is_in_mitteleuropa }
+				NEP = { has_country_flag = GER_is_in_mitteleuropa }
+			}
+		}
+	
+		cost = 15
+		days_remove = 80
+		fire_only_once = yes
+		remove_effect = {
+			add_political_power = 80
+			air_experience = 15
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Afghan_Military_Modernization = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_South_Asia
+			AFG = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 4
+		}
+	
+		cost = 70
+		days_remove = 90
+		modifier = {
+			civilian_factory_use = 5
+		}
+		fire_only_once = yes
+		remove_effect = {
+			AFG = { add_war_support = 0.05 army_experience = 20 }
+			267 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Qargha_Dam = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_South_Asia
+			has_country_flag = GER_Colonial_Tourism_Flag
+			AFG = {
+				has_country_flag = GER_is_in_mitteleuropa
+			}
+		}
+	
+		cost = 50
+		days_remove = 160
+		fire_only_once = yes
+		remove_effect = {
+			add_political_power = 100
+			267 = {
+				add_building_construction = {
+					type = dam
+					level = 1
+					instant_build = yes
+					province = 10737
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	### Subregion Brazil
+	
+	GER_German_Brazilians = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Brazil
+			BRA = { has_country_flag = GER_is_in_mitteleuropa }
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 3
+		}
+	
+		cost = 30
+		days_remove = 65
+		modifier = {
+			civilian_factory_use = 4
+		}
+		fire_only_once = yes
+		remove_effect = {
+			add_political_power = 60
+			501 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			895 = {
+				add_extra_state_shared_building_slots = 3
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Brazilian_Carnival = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Brazil
+			has_country_flag = GER_Colonial_Tourism_Flag
+			BRA = { has_country_flag = GER_is_in_mitteleuropa }
+		}
+	
+		cost = 15
+		days_remove = 100
+		fire_only_once = yes
+		remove_effect = {
+			add_political_power = 75
+			BRA = { add_stability = 0.01 }
+			501 = {
+				add_building_construction = {
+					type = air_base
+					level = 3
+					instant_build = yes
+				}
+			}
+			500 = {
+				add_building_construction = {
+					type = air_base
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	### Subregion La Plata
+	
+	GER_Argentinean_Farms = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_La_Plata
+			ARG = { has_country_flag = GER_is_in_mitteleuropa }
+		}
+	
+		cost = 50
+		days_remove = 90
+		fire_only_once = yes
+		remove_effect = {
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 1
+				category = excavation_tech
+			}
+			449 = {
+				increase_state_category_by_one_level = yes
+			}
+			509 = {
+				increase_state_category_by_one_level = yes
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_Perito_Moreno = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_La_Plata
+			has_country_flag = GER_Colonial_Tourism_Flag
+			CHL = { has_country_flag = GER_is_in_mitteleuropa }
+		}
+	
+		cost = 30
+		days_remove = 90
+		fire_only_once = yes
+		remove_effect = {
+			add_political_power = 75
+			1029 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	### Subregion Central America
+	
+	GER_ZKG_Investments = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Central_America
+			OR = {
+				COS = { has_country_flag = GER_is_in_mitteleuropa }
+				CEN = { has_country_flag = GER_is_in_mitteleuropa }
+			}
+		}
+	
+		cost = 50
+		days_remove = 75
+		fire_only_once = yes
+		remove_effect = {
+			316 = {
+				add_extra_state_shared_building_slots = 2
+			}
+			1258 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			1259 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_German_Clubs_Costa_Rica = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Central_America
+			has_country_flag = GER_Colonial_Tourism_Flag
+			OR = {
+				COS = { has_country_flag = GER_is_in_mitteleuropa }
+				CEN = { has_country_flag = GER_is_in_mitteleuropa }
+			}
+		}
+	
+		cost = 20
+		days_remove = 80
+		fire_only_once = yes
+		remove_effect = {
+			add_political_power = 70
+			if = { limit = { COS = { has_country_flag = GER_is_in_mitteleuropa } }
+				COS = { add_stability = 0.05 }
+			}
+			if = { limit = { CEN = { has_country_flag = GER_is_in_mitteleuropa } }
+				CEN = { add_stability = 0.05 }
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	### Subregion USA
+	
+	GER_Sons_of_Hermann = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_USA
+			OR = {
+				USA = {
+					has_country_flag = GER_is_in_mitteleuropa
+				}
+				COR = {
+					has_country_flag = GER_is_in_mitteleuropa
+				}
+			}
+		}
+	
+		cost = 40
+		days_remove = 85
+		fire_only_once = yes
+		remove_effect = {
+			358 = { add_extra_state_shared_building_slots = 2 }
+			931 = { add_extra_state_shared_building_slots = 1 }
+			375 = { add_extra_state_shared_building_slots = 1 }
+			829 = { add_extra_state_shared_building_slots = 1 }
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
+	
+	GER_American_Prison_Tourism = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_Mitteleuropa_OpenSubregion_Anatolia
+			has_country_flag = GER_European_Tourism_Flag
+			OR = {
+				USA = {
+					has_country_flag = GER_is_in_mitteleuropa
+				}
+				COR = {
+					has_country_flag = GER_is_in_mitteleuropa
+				}
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 4
+		}
+	
+		cost = 15
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 5
+		}
+		fire_only_once = yes
+		remove_effect = {
+			add_political_power = 80
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 1
+				category = cat_fortification
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+	}
 }
 
 french_occupation_decisions = {
@@ -678,6 +6963,887 @@ GER_black_monday_category = {
 
 		modifier = {
 			stability_weekly = -0.02
+		}
+	}
+}
+
+GER_kaiserwaffe_category = {
+
+	GER_kaiserwaffe_arminius_landcruiser_breakthrough = {
+		visible = {
+			has_country_flag = ARMINIUS_OPEN
+			NOT = { is_special_project_completed = sp:sp_land_land_cruiser }
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 3
+			NOT = { is_special_project_completed = sp:sp_land_land_cruiser }
+		}
+	
+		cost = 25
+		days_remove = 75
+		modifier = {
+			civilian_factory_use = 4
+		}
+		fire_only_once = yes
+		
+		remove_effect = {
+			add_breakthrough_points = {
+				specialization = specialization_land
+				value = 1
+			}
+		}
+	}
+	
+	GER_kaiserwaffe_arminius_landcruiser = {
+		visible = {
+			has_country_flag = ARMINIUS_OPEN
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 3
+			is_special_project_completed = sp:sp_land_land_cruiser
+		}
+	
+		cost = 60
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 4
+		}
+		fire_only_once = yes
+		
+		remove_effect = {
+			create_equipment_variant = {
+				name = "Landkreuzer P. 1000 Ratte"
+				type = land_cruiser_chassis_1
+				modules = {
+					lc_main_armament_slot = lc_heavy_naval_guns
+					lc_secondary_armament_slot = lc_hull_mounted_railway_gun
+					lc_special_features_slot_1 = lc_command_center
+					lc_special_features_slot_2 = lc_radar
+					lc_special_features_slot_3 = lc_internal_fuel_tanks
+					lc_additional_armament_slot_1 = lc_light_anti_air_battery
+					lc_additional_armament_slot_2 = lc_assault_gun
+				}
+				upgrades = {
+					tank_nsb_engine_upgrade = 10
+					tank_nsb_armor_upgrade = 10
+				}
+			}
+			add_equipment_to_stockpile = {
+				type = land_cruiser_chassis_1
+				amount = 3
+				variant_name = "Landkreuzer P. 1000 Ratte"
+			}
+		}
+	}
+	
+	GER_kaiserwaffe_arminius_large_caliber_guns_breakthrough = {
+		visible = {
+			has_country_flag = ARMINIUS_OPEN
+			NOT = { is_special_project_completed = sp:sp_land_multi_charge_large_caliber_gun }
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 2
+			NOT = { is_special_project_completed = sp:sp_land_multi_charge_large_caliber_gun }
+		}
+	
+		cost = 25
+		days_remove = 75
+		modifier = {
+			civilian_factory_use = 3
+		}
+		fire_only_once = yes
+		
+		remove_effect = {
+			add_breakthrough_points = {
+				specialization = specialization_land
+				value = 1
+			}
+		}
+	}
+	
+	GER_kaiserwaffe_arminius_large_caliber_guns = {
+		visible = {
+			has_country_flag = ARMINIUS_OPEN
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 2
+			is_special_project_completed = sp:sp_land_multi_charge_large_caliber_gun
+			var:741.owner = {
+				OR = {
+					tag = GER
+					is_in_faction_with = GER
+				}
+			}
+		}
+	
+		cost = 50
+		days_remove = 70
+		modifier = {
+			civilian_factory_use = 3
+		}
+		fire_only_once = yes
+		
+		remove_effect = {
+			741 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = mega_gun_emplacement
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	
+	GER_kaiserwaffe_arminius_night_vision = {
+		visible = {
+			has_country_flag = ARMINIUS_OPEN
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 2
+			has_tech = night_vision
+		}
+	
+		cost = 60
+		days_remove = 160
+		modifier = {
+			civilian_factory_use = 3
+		}
+		fire_only_once = yes
+		
+		remove_effect = {
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 3
+				category = infantry_weapons
+			}
+			add_breakthrough_progress = {
+				specialization = specialization_land
+				value = 0.25
+			}
+		}
+	}
+	
+	## Do ATGMs at some point.
+	
+	GER_kaiserwaffe_hohenstaufen_supercarrier_breakthrough = {
+		visible = {
+			has_country_flag = HOHENSTAUFEN_OPEN
+			has_completed_focus = GER_Der_Supertrager
+			NOT = { is_special_project_completed = sp:sp_naval_modern_carrier }
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 3
+			NOT = { is_special_project_completed = sp:sp_naval_modern_carrier }
+		}
+	
+		cost = 25
+		days_remove = 75
+		modifier = {
+			civilian_factory_use = 4
+		}
+		fire_only_once = yes
+		
+		remove_effect = {
+			add_breakthrough_points = {
+				specialization = specialization_naval
+				value = 1
+			}
+		}
+	}
+	
+	GER_kaiserwaffe_hohenstaufen_supercarrier = {
+		visible = {
+			has_country_flag = HOHENSTAUFEN_OPEN
+			has_completed_focus = GER_Der_Supertrager
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 3
+			is_special_project_completed = sp:sp_naval_modern_carrier
+		}
+	
+		cost = 70
+		days_remove = 160
+		modifier = {
+			civilian_factory_use = 4
+		}
+		fire_only_once = yes
+		
+		remove_effect = {
+			if = {
+				limit = { has_completed_focus = GER_An_Atomic_Nest }
+				create_equipment_variant = {
+					name = "Walküre Class"
+					type = ship_hull_carrier_modern
+					name_group = GER_CV_IMPERIAL
+					role_icon_index = 1
+					modules = {
+						fixed_ship_deck_slot_1 = ship_deck_space
+						fixed_ship_deck_slot_2 = ship_deck_space
+						fixed_ship_anti_air_slot = ship_anti_air_4
+						fixed_ship_radar_slot = ship_radar_4
+						fixed_ship_engine_slot = carrier_ship_nuclear_engine_1
+						fixed_ship_secondaries_slot = dp_ship_secondaries_4
+						fixed_ship_armor_slot = ship_armor_cruiser_4
+						front_1_custom_slot = ship_deck_space
+						mid_1_custom_slot = ship_deck_space
+						mid_2_custom_slot = ship_deck_space
+						rear_1_custom_slot = dp_ship_secondaries_4
+					}
+				}
+			}
+			else = {
+				create_equipment_variant = {
+					name = "Walküre Class"
+					type = ship_hull_carrier_modern
+					name_group = GER_CV_IMPERIAL
+					role_icon_index = 1
+					modules = {
+						fixed_ship_deck_slot_1 = ship_deck_space
+						fixed_ship_deck_slot_2 = ship_deck_space
+						fixed_ship_anti_air_slot = ship_anti_air_4
+						fixed_ship_radar_slot = ship_radar_4
+						fixed_ship_engine_slot = carrier_ship_engine_4
+						fixed_ship_secondaries_slot = dp_ship_secondaries_4
+						fixed_ship_armor_slot = ship_armor_cruiser_4
+						front_1_custom_slot = ship_deck_space
+						mid_1_custom_slot = ship_deck_space
+						mid_2_custom_slot = ship_deck_space
+						rear_1_custom_slot = dp_ship_secondaries_4
+					}
+				}
+			}
+			add_equipment_production = {
+				name = "Erich Loewenhardt"
+				equipment = {
+					type = ship_hull_carrier_modern
+					version_name = "Walküre Class"
+				}
+				requested_factories = 1
+				progress = 0.30
+				amount = 1
+			}
+			add_equipment_production = {
+				name = "Fritz Rumey"
+				equipment = {
+					type = ship_hull_carrier_modern
+					version_name = "Walküre Class"
+				}
+				requested_factories = 1
+				progress = 0.30
+				amount = 1
+			}
+		}
+	}
+	
+	GER_kaiserwaffe_hohenstaufen_nuclear_submarine_breakthrough = {
+		visible = {
+			has_country_flag = HOHENSTAUFEN_OPEN
+			has_completed_focus = GER_An_Immortal_Engine
+			NOT = { is_special_project_completed = sp:sp_naval_nuclear_submarine }
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 3
+			NOT = { is_special_project_completed = sp:sp_naval_nuclear_submarine }
+		}
+	
+		cost = 25
+		days_remove = 75
+		modifier = {
+			civilian_factory_use = 4
+		}
+		fire_only_once = yes
+		
+		remove_effect = {
+			add_breakthrough_points = {
+				specialization = specialization_naval
+				value = 1
+			}
+		}
+	}
+	
+	GER_kaiserwaffe_hohenstaufen_nuclear_submarine = {
+		visible = {
+			has_country_flag = HOHENSTAUFEN_OPEN
+			has_completed_focus = GER_An_Immortal_Engine
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 3
+			is_special_project_completed = sp:sp_naval_nuclear_submarine
+		}
+	
+		cost = 30
+		days_remove = 40
+		modifier = {
+			civilian_factory_use = 4
+		}
+		fire_only_once = yes
+		
+		remove_effect = {
+			if = {
+				limit = { is_special_project_completed = sp:sp_naval_nuclear_missile_submarine }
+				create_equipment_variant = {
+					name = "Type XXIV Class"
+					type = ship_hull_nuclear_submarine
+					name_group = GER_SS_IMPERIAL
+					role_icon_index = 1
+					modules = {
+						fixed_ship_torpedo_slot = ship_torpedo_sub_4
+						fixed_ship_engine_slot = sub_ship_nuclear_engine_1
+						front_1_custom_slot = ship_torpedo_sub_4
+						mid_1_custom_slot = ship_anechoic_tile
+						rear_1_custom_slot = slbm_launcher
+					}
+				}
+			}
+			else = {
+				create_equipment_variant = {
+					name = "Type XXIV Class"
+					type = ship_hull_nuclear_submarine
+					name_group = GER_SS_IMPERIAL
+					role_icon_index = 1
+					modules = {
+						fixed_ship_torpedo_slot = ship_torpedo_sub_4
+						fixed_ship_engine_slot = sub_ship_nuclear_engine_1
+						front_1_custom_slot = ship_torpedo_sub_4
+						mid_1_custom_slot = ship_anechoic_tile
+					}
+				}
+			}
+			add_equipment_production = {
+				name = "UX-501"
+				equipment = {
+					type = ship_hull_nuclear_submarine
+					version_name = "Type XXIV Class"
+				}
+				requested_factories = 1
+				progress = 0.50
+				amount = 1
+			}
+			add_equipment_production = {
+				name = "UX-502"
+				equipment = {
+					type = ship_hull_nuclear_submarine
+					version_name = "Type XXIV Class"
+				}
+				requested_factories = 1
+				progress = 0.50
+				amount = 1
+			}
+			add_equipment_production = {
+				name = "UX-503"
+				equipment = {
+					type = ship_hull_nuclear_submarine
+					version_name = "Type XXIV Class"
+				}
+				requested_factories = 1
+				progress = 0.50
+				amount = 1
+			}
+			add_equipment_production = {
+				name = "UX-504"
+				equipment = {
+					type = ship_hull_nuclear_submarine
+					version_name = "Type XXIV Class"
+				}
+				requested_factories = 1
+				progress = 0.50
+				amount = 1
+			}
+		}
+	}
+	
+	GER_kaiserwaffe_hohenstaufen_h_class = {
+		visible = {
+			has_country_flag = HOHENSTAUFEN_OPEN
+			has_completed_focus = GER_The_Hohenzollern_Class
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 3
+			is_special_project_completed = sp:sp_naval_super_heavy_battleship
+		}
+	
+		cost = 40
+		days_remove = 180
+		modifier = {
+			civilian_factory_use = 4
+		}
+		fire_only_once = yes
+		
+		remove_effect = {
+			set_country_flag = KW_H_Class
+			create_equipment_variant = {
+				name = "Hohenzollern Class"
+				type = ship_hull_super_heavy_1
+				name_group = GER_BB_IMPERIAL
+				role_icon_index = 1
+				modules = {
+					fixed_ship_battery_slot = ship_super_heavy_battery_1
+					fixed_ship_anti_air_slot = ship_anti_air_4
+					fixed_ship_fire_control_system_slot = ship_fire_control_system_3
+					fixed_ship_radar_slot = ship_radar_2
+					fixed_ship_engine_slot = heavy_ship_engine_4
+					fixed_ship_secondaries_slot = ship_secondaries_2
+					fixed_ship_armor_slot = ship_armor_shbb
+					front_1_custom_slot = ship_super_heavy_battery_1
+					front_2_custom_slot = ship_super_heavy_battery_1
+					mid_1_custom_slot = dp_ship_secondaries_2
+					mid_2_custom_slot = dp_ship_secondaries_2
+					mid_3_custom_slot = dp_ship_secondaries_2
+					rear_1_custom_slot = ship_airplane_launcher_2
+					rear_2_custom_slot = ship_super_heavy_battery_1
+				}
+			}
+			add_equipment_production = {
+				name = "Ulrich van Hutten"
+				equipment = {
+					type = ship_hull_super_heavy_1
+					version_name = "Hohenzollern Class"
+				}
+				requested_factories = 1
+				progress = 0.30
+				amount = 1
+			}
+			add_equipment_production = {
+				name = "Adler von Lübeck"
+				equipment = {
+					type = ship_hull_super_heavy_1
+					version_name = "Hohenzollern Class"
+				}
+				requested_factories = 1
+				progress = 0.30
+				amount = 1
+			}
+		}
+	}
+	
+	GER_kaiserwaffe_brunhilde_zeppelin = {
+		visible = {
+			has_country_flag = BRUNHILDE_OPEN
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 5
+		}
+	
+		cost = 60
+		days_remove = 150
+		modifier = {
+			civilian_factory_use = 6
+		}
+		fire_only_once = yes
+		remove_effect = {
+			country_event = gerfla.201
+			set_technology = { airship_airframes = 1 }
+			air_experience = 30
+		}
+	}
+	
+	GER_kaiserwaffe_brunhilde_jets_breakthrough = {
+		visible = {
+			has_country_flag = BRUNHILDE_OPEN
+			NOT = { is_special_project_completed = sp:sp_air_jet_engine }
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 3
+			NOT = { is_special_project_completed = sp:sp_air_jet_engine }
+		}
+	
+		cost = 25
+		days_remove = 75
+		modifier = {
+			civilian_factory_use = 4
+		}
+		fire_only_once = yes
+		remove_effect = {
+			add_breakthrough_points = {
+				specialization = specialization_air
+				value = 1
+			}
+		}
+	}
+	
+	GER_kaiserwaffe_brunhilde_jets = {
+		visible = {
+			has_country_flag = BRUNHILDE_OPEN
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 3
+			is_special_project_completed = sp:sp_air_jet_engine
+		}
+	
+		cost = 5
+		days_remove = 10
+		modifier = {
+			civilian_factory_use = 4
+		}
+		fire_only_once = yes
+		remove_effect = {
+			air_experience = 30
+			create_equipment_variant = {
+				name = "Me 262"
+				type = small_plane_airframe_4
+				modules = {
+					fixed_main_weapon_slot = aircraft_cannon_2_2x
+					fixed_auxiliary_weapon_slot_1 = bomb_locks
+					engine_type_slot = jet_engine_2x
+				}
+			}
+		}
+	}
+	
+	GER_kaiserwaffe_brunhilde_flying_wing_breakthrough = {
+		visible = {
+			has_country_flag = BRUNHILDE_OPEN
+			NOT = { is_special_project_completed = sp:sp_air_axial_jet_engine }
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 3
+			NOT = { is_special_project_completed = sp:sp_air_axial_jet_engine }
+		}
+	
+		cost = 25
+		days_remove = 75
+		modifier = {
+			civilian_factory_use = 4
+		}
+		fire_only_once = yes
+		remove_effect = {
+			add_breakthrough_points = {
+				specialization = specialization_air
+				value = 1
+			}
+		}
+	}
+	
+	GER_kaiserwaffe_brunhilde_flying_wing = {
+		visible = {
+			has_country_flag = BRUNHILDE_OPEN
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 3
+			is_special_project_completed = sp:sp_air_axial_jet_engine
+		}
+	
+		cost = 5
+		days_remove = 10
+		modifier = {
+			civilian_factory_use = 4
+		}
+		fire_only_once = yes
+		remove_effect = {
+			air_experience = 30
+			create_equipment_variant = {
+				name = "Ho 229"
+				type = small_plane_airframe_4
+				modules = {
+					fixed_main_weapon_slot = aircraft_cannon_2_2x
+					fixed_auxiliary_weapon_slot_1 = bomb_locks
+					engine_type_slot = jet_engine_axial_2x
+				}
+			}
+		}
+	}
+	
+	GER_kaiserwaffe_brunhilde_air_missiles = {
+		visible = {
+			has_country_flag = BRUNHILDE_OPEN
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 3
+		}
+	
+		cost = 80
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 4
+		}
+		fire_only_once = yes
+		remove_effect = {
+			#SG* make this add a custom module, afterwards change rewards accordingly
+			air_experience = 30
+			add_breakthrough_points = {
+				specialization = specialization_air
+				value = 1
+			}
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 1
+				category = rocketry
+			}
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 1
+				category = light_fighter
+			}
+		}
+	}
+	
+	GER_kaiserwaffe_gotterdammerung_atom_bombs = {
+		visible = {
+			has_country_flag = GOTTERDAMMERUNG_OPEN
+			has_completed_focus = GER_The_Amazing_Atom
+		}
+		
+		available = {
+			NOT = { is_special_project_completed = sp:sp_nuclear_bomb }
+			is_special_project_completed = sp:sp_nuclear_reactor
+		}
+	
+		cost = 120
+		days_remove = 360
+		fire_only_once = yes
+		
+		remove_effect = {
+			complete_special_project = sp:sp_nuclear_bomb
+		}
+	}
+	
+	GER_kaiserwaffe_gotterdammerung_chemical_weapons = {
+		visible = {
+			has_country_flag = GOTTERDAMMERUNG_OPEN
+			has_completed_focus = GER_Reigniting_the_Chemists_War
+		}
+	
+		cost = 140
+		days_remove = 80
+		fire_only_once = yes
+		
+		remove_effect = {
+			custom_effect_tooltip = GER_kaiserwaffe_gotterdammerung_chemical_weapons_tt
+			set_country_flag = GER_kaiserwaffe_chemical_weapons
+		}
+	}
+	
+	GER_kaiserwaffe_gotterdammerung_nuclear_reactor = {
+		visible = {
+			has_country_flag = GOTTERDAMMERUNG_OPEN
+			NOT = { is_special_project_completed = sp:sp_nuclear_reactor }
+		}
+		
+		available = {
+			NOT = { is_special_project_completed = sp:sp_nuclear_reactor }
+		}
+	
+		cost = 100
+		days_remove = 240
+		fire_only_once = yes
+		
+		remove_effect = {
+			add_breakthrough_points = {
+				specialization = specialization_nuclear
+				value = 1
+			}
+		}
+	}
+
+}
+
+GER_helgoland_category = {
+
+	GER_helgoland_land_reclamation_1 = {
+		visible = {
+			has_completed_focus = GER_Helgoland_Scheme
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 11
+		}
+	
+		cost = 100
+		days_remove = 220
+		modifier = {
+			civilian_factory_use = 12
+		}
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				country_event = {
+					id = gerfla.44
+					days = 120
+				}
+			}
+		}
+		remove_effect = {
+			set_country_flag = GER_Helgoland_Size2_flag
+		}
+	}
+	
+	GER_helgoland_land_reclamation_2 = {
+		visible = {
+			has_completed_focus = GER_Helgoland_Scheme
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 19
+			has_country_flag = GER_Helgoland_Size2_flag
+		}
+	
+		cost = 200
+		days_remove = 320
+		modifier = {
+			civilian_factory_use = 20
+		}
+		fire_only_once = yes
+		remove_effect = {
+			clr_country_flag = GER_Helgoland_Size2_flag
+			set_country_flag = GER_Helgoland_Size3_flag
+		}
+	}
+	
+	GER_helgoland_luxury_casino_hotel = {
+		visible = {
+			has_completed_focus = GER_Helgoland_Scheme
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 5
+		}
+	
+		cost = 75
+		days_remove = 80
+		modifier = {
+			civilian_factory_use = 6
+		}
+		fire_only_once = yes
+		remove_effect = {
+			increase_ruling_party_popularity_by_5 = yes
+			add_to_variable = { GER_Helgoland_Resort_var = 1 }
+			GER_improve_helgoland_effect = yes
+		}
+	}
+	
+	GER_helgoland_opera_house = {
+		visible = {
+			has_completed_focus = GER_Helgoland_Scheme
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 7
+		}
+	
+		cost = 100
+		days_remove = 130
+		modifier = {
+			civilian_factory_use = 8
+		}
+		fire_only_once = yes
+		remove_effect = {
+			add_stability = 0.02
+			add_to_variable = { GER_Helgoland_Resort_var = 1 }
+			GER_improve_helgoland_effect = yes
+		}
+	}
+	
+	GER_helgoland_mock_naval_battle = {
+		visible = {
+			has_completed_focus = GER_Helgoland_Scheme
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 9
+			has_country_flag = GER_Helgoland_Size2_flag
+		}
+	
+		cost = 100
+		days_remove = 80
+		modifier = {
+			civilian_factory_use = 10
+		}
+		fire_only_once = yes
+		remove_effect = {
+			navy_experience = 15
+			add_to_variable = { GER_Helgoland_Resort_var = 1 }
+			GER_improve_helgoland_effect = yes
+		}
+	}
+	
+	GER_helgoland_shopping_center = {
+		visible = {
+			has_completed_focus = GER_Helgoland_Scheme
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 5
+			has_country_flag = GER_Helgoland_Size2_flag
+		}
+	
+		cost = 60
+		days_remove = 150
+		modifier = {
+			civilian_factory_use = 6
+		}
+		fire_only_once = yes
+		remove_effect = {
+			add_political_power = 50
+			add_to_variable = { GER_Helgoland_Resort_var = 1 }
+			GER_improve_helgoland_effect = yes
+		}
+	}
+	
+	GER_helgoland_grand_prix = {
+		visible = {
+			has_completed_focus = GER_Helgoland_Scheme
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 9
+			has_country_flag = GER_Helgoland_Size3_flag
+		}
+	
+		cost = 100
+		days_remove = 175
+		modifier = {
+			civilian_factory_use = 10
+		}
+		fire_only_once = yes
+		remove_effect = {
+			army_experience = 5
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 1
+				category = motorized_equipment
+			}
+			add_to_variable = { GER_Helgoland_Resort_var = 1 }
+			GER_improve_helgoland_effect = yes
+		}
+	}
+	
+	GER_helgoland_football_stadium = {
+		visible = {
+			has_completed_focus = GER_Helgoland_Scheme
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 13
+			has_country_flag = GER_Helgoland_Size3_flag
+		}
+	
+		cost = 80
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 14
+		}
+		fire_only_once = yes
+		remove_effect = {
+			add_war_support = 0.03
+			add_to_variable = { GER_Helgoland_Resort_var = 1 }
+			GER_improve_helgoland_effect = yes
 		}
 	}
 }
