@@ -3,6 +3,8 @@
 ###########################
 
 add_namespace = pru
+add_namespace = prubol
+add_namespace = pruecu
 
 country_event = {
 	id = pru.1
@@ -331,117 +333,116 @@ country_event = {
 
 # go on with elections or go full on autocrat
 # ministers stay the same, we're technically the same thing
-country_event = {
-	id = pru.104
-	immediate = {
-		log = "[GetDateText]: [Root.GetName]: event pru.104"
-		set_country_flag = PRU_socialists_weakened
-	}
-	title = pru.104.t
-	desc = pru.104.d
-	picture = GFX_report_event_PRU_generic
-	trigger = {
-		tag = PRU
-		OR = {
-			has_war_with = ECU
-			ECU = {
-				is_subject_of = PRU
-			}
-			owns_state = 490
-		}
-		is_subject = no
-	}
+#country_event = {
+	#id = pru.104
+	#immediate = {
+		#log = "[GetDateText]: [Root.GetName]: event pru.104"
+		#set_country_flag = PRU_socialists_weakened
+	#}
+	#title = pru.104.t
+	#desc = pru.104.d
+	#picture = GFX_report_event_PRU_generic
+	#trigger = {
+		#tag = PRU
+		#OR = {
+			#has_war_with = ECU
+			#ECU = {
+				#is_subject_of = PRU
+			#}
+			#owns_state = 490
+		#}
+		#is_subject = no
+	#}
 
-	fire_only_once = yes
+	#fire_only_once = yes
 
-	mean_time_to_happen = {
-		months = 1
-	}
+	#mean_time_to_happen = {
+		#months = 1
+	#}
 
-	option = {
-		name = pru.104.a
-		ai_chance = {
-			factor = 40
-			modifier = {
-				factor = 0
-				OR = {
-					has_game_rule = {
-						rule = PRU_post_attempt
-						option = PRU_POST_ATTEMPT_MILITARY_PATERNAL_AUTOCRAT
-					}
-					has_game_rule = {
-						rule = PRU_post_attempt
-						option = PRU_POST_ATTEMPT_MILITARY_REVOLT_SYNDICALIST
-					}
-					has_game_rule = {
-						rule = PRU_post_attempt
-						option = PRU_POST_ATTEMPT_MILITARY_REVOLT_TOTALIST
-					}
-				}
-			}
-		}
-		add_stability = 0.1
-		set_country_flag = PRU_will_have_elections
-		if = {
-			limit = {
-				has_war_with = ECU
-			}
-			custom_effect_tooltip = PRU_future_elections
-		}
-		else = {
-			custom_effect_tooltip = PRU_future_elections_2
-		}
-	}
+	#option = {
+		#name = pru.104.a
+		#ai_chance = {
+			#factor = 40
+			#modifier = {
+				#factor = 0
+				#OR = {
+					#has_game_rule = {
+						#rule = PRU_post_attempt
+						#option = PRU_POST_ATTEMPT_MILITARY_PATERNAL_AUTOCRAT
+					#}
+					#has_game_rule = {
+						#rule = PRU_post_attempt
+						#option = PRU_POST_ATTEMPT_MILITARY_REVOLT_SYNDICALIST
+					#}
+					#has_game_rule = {
+						#rule = PRU_post_attempt
+						#option = PRU_POST_ATTEMPT_MILITARY_REVOLT_TOTALIST
+					#}
+				#}
+			#}
+		#}
+		#add_stability = 0.1
+		#set_country_flag = PRU_will_have_elections
+		#if = {
+			#limit = {
+				#has_war_with = ECU
+			#}
+			#custom_effect_tooltip = PRU_future_elections
+		#}
+		#else = {
+			#custom_effect_tooltip = PRU_future_elections_2
+		#}
+	#}
 
-	option = {
-		name = pru.104.b
-		ai_chance = {
-			factor = 20
-			modifier = {
-				factor = 0
-				OR = {
-					has_game_rule = {
-						rule = PRU_post_attempt
-						option = PRU_POST_ATTEMPT_ELECTION_DEMOCRACY_SOCIAL_CONSERVATIVE
-					}
-					has_game_rule = {
-						rule = PRU_post_attempt
-						option = PRU_POST_ATTEMPT_ELECTION_DEMOCRACY_MARKET_LIBERAL
-					}
-					has_game_rule = {
-						rule = PRU_post_attempt
-						option = PRU_POST_ATTEMPT_ELECTION_DEMOCRACY_SOCIAL_DEMOCRAT
-					}
-					has_game_rule = {
-						rule = PRU_post_attempt
-						option = PRU_POST_ATTEMPT_ELECTION_NATIONAL_POPULIST
-					}
-				}
-			}
-		}
-		add_stability = -0.2
-		add_war_support = -0.2
+	#option = {
+		#name = pru.104.b
+		#ai_chance = {
+			#factor = 20
+			#modifier = {
+				#factor = 0
+				#OR = {
+					#has_game_rule = {
+						#rule = PRU_post_attempt
+						#option = PRU_POST_ATTEMPT_ELECTION_DEMOCRACY_SOCIAL_CONSERVATIVE
+					#}
+					#has_game_rule = {
+						#rule = PRU_post_attempt
+						#option = PRU_POST_ATTEMPT_ELECTION_DEMOCRACY_MARKET_LIBERAL
+					#}
+					#has_game_rule = {
+						#rule = PRU_post_attempt
+						#option = PRU_POST_ATTEMPT_ELECTION_DEMOCRACY_SOCIAL_DEMOCRAT
+					#}
+					#has_game_rule = {
+						#rule = PRU_post_attempt
+						#option = PRU_POST_ATTEMPT_ELECTION_NATIONAL_POPULIST
+					#}
+				#}
+			#}
+		#}
+		#add_stability = -0.2
+		#add_war_support = -0.2
 
-		set_country_flag = PRU_patauth_dictatorship
-		hidden_effect = {
-			add_popularity = {
-				ideology = authoritarian_democrat
-				popularity = -1
-			}
-		}
-		set_politics = {
-			ruling_party = paternal_autocrat
-			elections_allowed = no
-		}
-		add_authdem_to_coalition = yes
-		add_ideas = {
-			PRU_Alberto_Zenon_Aguero_hog_ade
-			PRU_Alberto_Ulloa_Sotomayor_for_ade
-			PRU_Nicolas_Lindley_Lopez_eco_pau
-			PRU_Ernesto_Montagne_Markholz_sec_pau
-		}
-	}
-}
+		#set_country_flag = PRU_patauth_dictatorship
+		#hidden_effect = {
+			#add_popularity = {
+				#ideology = authoritarian_democrat
+				#popularity = -1
+			#}
+		#}
+		#set_politics = {
+			#ruling_party = paternal_autocrat
+			#elections_allowed = no
+		#}
+		#add_ideas = {
+			#PRU_Alberto_Zenon_Aguero_hog_ade
+			#PRU_Alberto_Ulloa_Sotomayor_for_ade
+			#PRU_Nicolas_Lindley_Lopez_eco_pau
+			#PRU_Ernesto_Montagne_Markholz_sec_pau
+		#}
+	#}
+#}
 
 # first real elections
 country_event = {
@@ -719,7 +720,6 @@ country_event = {
 			ruling_party = radical_socialist
 			elections_allowed = no
 		}
-		add_tot_to_coalition = yes
 		set_country_flag = PRU_syndicalism
 		hidden_effect = {
 			every_unit_leader = {
@@ -1044,7 +1044,7 @@ country_event = {
 			desc = "POLITICS_MIRO_QUESADA_DESC"
 			picture = "gfx/leaders/PRU/Portrait_Peru_Carlos_Miro_Quesada.png"
 			expire = "1.1.1"
-			ideology = natpop_national_conservative_subtype
+			ideology = hispanism_subtype
 		}
 		hidden_effect = {
 			remove_ideas_with_trait = head_of_government
@@ -1082,7 +1082,7 @@ country_event = {
 			desc = "POLITICS_URETA_DESC"
 			picture = "gfx/leaders/PRU/Portrait_Peru_Eloy_Ureta.png"
 			expire = "1.1.1"
-			ideology = militarism_subtype
+			ideology = hispanism_subtype
 		}
 		hidden_effect = {
 			remove_ideas_with_trait = head_of_government
@@ -1123,16 +1123,11 @@ country_event = {
 			desc = "POLITICS_ODRIA_DESC"
 			picture = "gfx/leaders/PRU/Portrait_Peru_Manuel_Odria.png"
 			expire = "1.1.1"
-			ideology = pataut_national_conservative_subtype
+			ideology = caudillo_populism_subtype
 		}
 		set_politics = {
 			ruling_party = paternal_autocrat
 			elections_allowed = no
-		}
-		set_party_name = {
-			ideology = paternal_autocrat
-			long_name = PRU_odria_party_long
-			name = PRU_odria_party
 		}
 		set_country_flag = PRU_odria_became_caudillo
 		add_popularity = {
@@ -1184,11 +1179,6 @@ country_event = {
 					picture = "gfx/leaders/PRU/Portrait_PRU_Pahacutec.png"
 					expire = "1.1.1"
 					ideology = pataut_tribal_chiefdom_subtype
-				}
-				set_party_name = {
-					ideology = paternal_autocrat
-					long_name = PRU_inca_party_long
-					name = PRU_inca_party
 				}
 
 				add_state_core = 494
@@ -1281,12 +1271,7 @@ country_event = {
 			desc = "POLITICS_ODRIA_DESC"
 			picture = "gfx/leaders/PRU/Portrait_Peru_Manuel_Odria.png"
 			expire = "1.1.1"
-			ideology = pataut_national_conservative_subtype
-		}
-		set_party_name = {
-			ideology = paternal_autocrat
-			long_name = PRU_odria_party_long
-			name = PRU_odria_party
+			ideology = caudillo_populism_subtype
 		}
 		hidden_effect = {
 			if = {
@@ -1303,21 +1288,11 @@ country_event = {
 				desc = "POLITICS_ODRIA_DESC"
 				picture = "gfx/leaders/PRU/Portrait_Peru_Manuel_Odria.png"
 				expire = "1.1.1"
-				ideology = authdem_national_conservative_subtype
-			}
-			set_party_name = {
-				ideology = authoritarian_democrat
-				long_name = PRU_odria_party_long
-				name = PRU_odria_party
-		    }
-			if = {
-				limit = { has_completed_focus = PRU_revolucion_restauradora }
-				add_authdem_to_coalition = yes
+				ideology = authdem_caudillo_populism_subtype
 			}
 		}
 	}
 }
-# flavour stuff
 country_event = {
 	id = pru.116
 	immediate = { log = "[GetDateText]: [Root.GetName]: event pru.116" }
@@ -1357,6 +1332,134 @@ country_event = {
 		add_popularity = {
 			ideology = totalist
 			popularity = 0.02
+		}
+	}
+}
+
+country_event = {
+	id = pru.118
+	immediate = { log = "[GetDateText]: [Root.GetName]: event pru.118" }
+	title = pru.118.t
+	desc = pru.118.d
+	is_triggered_only = yes
+	fire_only_once = yes
+		
+
+	option = {
+		name = pru.118.a
+		ai_chance = {
+			factor = 85
+		}
+		every_other_country = {
+			limit = {
+				OR = {
+					has_idea = GCL_integrating_ECU
+					has_idea = GCL_integrating_COL
+					has_idea = GCL_integrating_VEN
+				}
+			}
+			ROOT = {
+				every_state = {
+					limit = {
+						is_owned_and_controlled_by = ROOT
+						OR = {
+							is_core_of = ECU
+							is_core_of = COL
+							is_core_of = VEN
+						}
+					}
+					transfer_state_to = var:PREV.PREV
+				}
+			}
+		}
+		every_other_country = {
+			limit = {
+				OR = {
+					has_idea = GCL_integrating_ECU
+					has_idea = GCL_integrating_COL
+					has_idea = GCL_integrating_VEN
+				}
+			}
+			country_event = pru.119
+		}
+		set_country_flag = GCL_accepted_transfer
+	}
+
+	option = {
+		name = pru.118.b
+		ai_chance = {
+			factor = 15
+		}
+		add_command_power = 25
+		add_war_support = 0.075
+		every_other_country = {
+			limit = {
+				OR = {
+					has_idea = GCL_integrating_ECU
+					has_idea = GCL_integrating_COL
+					has_idea = GCL_integrating_VEN
+				}
+			}
+			country_event = pru.120
+			add_opinion_modifier = { 
+				target = ROOT modifier = KR_outraged
+			}
+		}
+		set_country_flag = GCL_denied_transfer
+	}
+}
+
+country_event = {
+	id = pru.119
+	immediate = { log = "[GetDateText]: [Root.GetName]: event pru.119" }
+	title = pru.119.t
+	desc = pru.119.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = pru.119.a
+		add_political_power = 175
+		add_stability = 0.05
+		every_other_country = {
+			limit = {
+				has_country_flag = GCL_accepted_transfer
+			}
+			ROOT = {
+				add_opinion_modifier = { 
+					target = PREV modifier = medium_increase
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = pru.120
+	immediate = { log = "[GetDateText]: [Root.GetName]: event pru.120" }
+	title = pru.120.t
+	desc = pru.120.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = pru.120.a
+		every_state = {
+			limit = {
+				OR = {
+					is_core_of = ECU
+					is_core_of = COL
+					is_core_of = VEN
+				}
+				ROOT = {
+					can_declare_war_on = var:PREV.owner
+				}
+			}
+			ROOT = {
+				create_wargoal = {
+					type = take_claimed_state
+					target = PREV.owner
+					generator = var:PREV
+				}
+			}
 		}
 	}
 }
@@ -1421,3 +1524,106 @@ country_event = { #They deny
 		add_political_power = -20
 	}
 }
+
+country_event = { #Bolivian Separatists rebels
+	id = prubol.1
+	immediate = { log = "[GetDateText]: [Root.GetName]: event prubol.1"}
+	title = prubol.1.t
+	desc = prubol.1.d
+	fire_only_once = yes
+	trigger = {
+		tag = PRU
+		has_cosmetic_tag = PBC
+		has_war_with = COL
+		COL = {
+			has_completed_focus = COL_foment_bolivian_separatism
+		}
+			
+	}
+	option = {
+		name = prubol.1.a
+		BOL_rebellion_setup = yes
+	}
+}
+
+country_event = { #The ecuadorean first semester report
+	id = pruecu.1
+	immediate = { log = "[GetDateText]: [Root.GetName]: event pruecu.1"}
+	title = pruecu.1.t
+	desc = pruecu.1.d
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = pruecu.1.a
+		ECU = {
+			country_event = {
+				id = ecu.1
+				days = 3
+			} 
+		}
+	}
+}
+
+country_event = { #The ecuadorean second semester report
+	id = pruecu.2
+	immediate = { log = "[GetDateText]: [Root.GetName]: event pruecu.2"}
+	title = pruecu.2.t
+	desc = pruecu.2.d
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = pruecu.2.a
+		ECU = {
+			country_event = {
+				id = ecu.16
+				days = 3
+			} 
+		}
+	}
+}
+
+country_event = { #Occupation of Ecuador?
+	id = pruecu.3
+	immediate = { log = "[GetDateText]: [Root.GetName]: event pruecu.3"}
+	title = pruecu.3.t
+	desc = pruecu.3.d
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #occupy them
+		name = pruecu.3.a
+		ai_chance = {
+			factor = 0
+		}
+		add_command_power = 50
+		add_stability = 0.02
+		ECU = {
+			country_event = {
+				id = ecu.33
+				days = 3
+			} 
+		}
+	}
+
+	option = { #give them another chance
+		name = pruecu.3.b
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = -25
+		add_command_power = -25
+		add_stability = -0.01
+		ECU = {
+			country_event = {
+				id = ecu.34
+				days = 3
+			} 
+		}
+	}
+}
+
