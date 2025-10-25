@@ -50,11 +50,6 @@ country_event = { #Intro
 				id = comfrance.930
 			}
 		}
-		add_popularity = {
-			ideology = totalist
-			popularity = 0.02
-		}
-		add_war_support = 0.02
 	}
 }
 
@@ -3091,10 +3086,6 @@ country_event = { # The socialist Risorgimento
 	picture = GFX_end_of_the_congress
 
 	is_triggered_only = yes
-	
-	trigger = {
-		SRI = { NOT = { has_completed_focus = SRI_garibaldi_ii }}
-	}
 
 	option = { #Ask for support to achieve the Risorgimento!
 		name = comfrance.53.a
@@ -4703,6 +4694,7 @@ country_event = {
 
 	option = { #The old system shall be swept away!
 		name = comfrance.130.a
+		add_stability = -0.2
 		set_country_flag = COMMUNIST_FRANCE
 		set_party_name = {
 			ideology = totalist
@@ -4725,13 +4717,35 @@ country_event = {
 
 	option = { #An improvement, no doubt
 		name = comfrance.131.a
-		add_stability = -0.02
+		add_stability = -0.08
 		set_country_flag = restructurebgtcsp
 		add_popularity = {
 			ideology = totalist
 			popularity = 0.1
 		}
-		hidden_effect = { country_event = { id = comfrance.133 days = 12 } }
+		hidden_effect = { country_event = { id = comfrance.132 days = 10 } }
+	}
+}
+
+country_event = {
+	id = comfrance.132
+	immediate = {log = "[GetDateText]: [Root.GetName]: event comfrance.132"}
+	title = comfrance.132.t
+	desc = comfrance.132.d
+	picture = GFX_news_event_FRA_jacobin_control
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { #They are against our Revolution
+		name = comfrance.132.a
+		add_stability = -0.16
+		hidden_effect = {
+			country_event = {
+				id = comfrance.133
+				days = 12
+			}
+		}
 	}
 }
 
@@ -4749,10 +4763,11 @@ country_event = {
 		ai_chance = {
 			factor = 55
 		}
+		add_stability = -0.06
 		hidden_effect = {
 			country_event = {
 				id = comfrance.134
-				days = 14
+				days = 18
 			}
 		}
 	}
@@ -4776,11 +4791,11 @@ country_event = {
 		ai_chance = {
 			factor = 70
 		}
-		add_stability = -0.04
+		add_stability = -0.18
 		hidden_effect = {
 			country_event = {
 				id = comfrance.135
-				days = 20
+				days = 40
 			}
 		}
 	}
@@ -4797,7 +4812,7 @@ country_event = {
 				}
 		  }
 		}
-		add_stability = -0.02
+		add_stability = -0.1
 		set_country_flag = GAMELIN1
 		hidden_effect = { country_event = { id = comfrance.137 days = 20 } }
 	}
@@ -4824,7 +4839,7 @@ country_event = {
 				}
 			}
 		}
-		add_stability = 0.06
+		add_stability = -0.2
 		set_country_flag = Maurice_Gamelin_dead
 		if = {
 			limit = {
@@ -4879,7 +4894,7 @@ country_event = {
 				}
 			}
 		}
-		add_war_support = 0.02
+		add_stability = -0.08
 		hidden_effect = {
 			country_event = comfrance.139
 		}
@@ -5109,9 +5124,127 @@ country_event = {
 		ai_chance = {
 			factor = 50
 		}
-		add_stability = 0.1
-		add_manpower = -800
+
+		add_stability = -0.1
+
+		16 = {
+			damage_building = {
+				type = industrial_complex
+				damage = 1
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 1
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 1
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 0.6
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 1
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 1
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 0.6
+			}
+			damage_building = {
+				type = infrastructure
+				damage = 4
+			}
+		}
+
+		29 = {
+			damage_building = {
+				type = industrial_complex
+				damage = 1
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 1
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 1
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 0.6
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 1
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 0.6
+			}
+			damage_building = {
+				type = infrastructure
+				damage = 4
+			}
+		}
+
+		20 = {
+			damage_building = {
+				type = industrial_complex
+				damage = 0.6
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 1
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 1
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 1
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 0.6
+			}
+			damage_building = {
+				type = infrastructure
+				damage = 3
+			}
+		}
+
+		33 = {
+			damage_building = {
+				type = industrial_complex
+				damage = 1
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 0.6
+			}
+			damage_building = {
+				type = infrastructure
+				damage = 4
+			}
+		}
+
+		add_manpower = -100000
+
+		add_equipment_to_stockpile = {
+			type = infantry_equipment_1
+			amount = -7000
+			producer = FRA
+		}
+
 		set_country_flag = Maurice_Gamelin_dead
+
 		if = {
 			limit = {
 				has_unit_leader = 205
@@ -5743,6 +5876,7 @@ country_event = {
 	
 	option = {
 		name = comfrance.913.a
+		add_stability = -0.1
 		add_political_power = -30
 		hidden_effect = {
 			country_event = {
@@ -5766,6 +5900,7 @@ country_event = {
 
 	option = { 
 		name = comfrance.910.a
+		add_stability = -0.16
 		add_political_power = -100
 		hidden_effect = {
 			country_event = {
@@ -5791,7 +5926,7 @@ country_event = {
 		ai_chance = {
 			factor = 55
 		}
-		add_stability = -0.03
+		add_stability = -0.06
 		add_political_power = -50
 		custom_effect_tooltip = FRA_anarchy_tooltip
 		hidden_effect = {
@@ -5824,7 +5959,7 @@ country_event = {
 					}
 			}
 		}
-		add_stability = -0.02
+		add_stability = -0.18
 		add_political_power = -50
 		hidden_effect = {
 			country_event = {
@@ -5839,7 +5974,7 @@ country_event = {
 		ai_chance = {
 			factor = 30
 		}
-		add_stability = -0.01
+		add_stability = -0.1
 		hidden_effect = {
 			country_event = {
 				id = comfrance.915
@@ -5897,7 +6032,42 @@ country_event = {
 				}
 			}
 		}
-		add_stability = -0.02
+
+		16 = {
+			damage_building = {
+				type = industrial_complex
+				damage = 1
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 1
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 1
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 0.6
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 1
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 1
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 0.6
+			}
+			damage_building = {
+				type = infrastructure
+				damage = 4
+			}
+		}
+		add_stability = -0.12
 		add_political_power = -75
 		custom_effect_tooltip = FRA_anarchy_tooltip
 		hidden_effect = {
@@ -5919,7 +6089,7 @@ country_event = {
 					}
 			}
 		 }
-		add_stability = -0.04
+		add_stability = -0.1
 		hidden_effect = {
 			country_event = {
 				id = comfrance.914
@@ -5940,7 +6110,7 @@ country_event = {
 
 	option = { 
 		name = comfrance.916.a
-		add_stability = -0.02
+		add_stability = -0.30
 		custom_effect_tooltip = FRA_anarchy_tooltip
 		hidden_effect = {
 			country_event = {
@@ -5962,7 +6132,8 @@ country_event = {
 
 	option = { 
 		name = comfrance.917.a
-		add_political_power = -55
+		add_stability = -0.30
+		add_political_power = -50
 		custom_effect_tooltip = FRA_anarchy_tooltip
 		hidden_effect = {
 			country_event = {
@@ -5984,7 +6155,7 @@ country_event = {
 
 	option = { 
 		name = comfrance.918.a
-		add_stability = -0.02
+		add_stability = -0.30
 		custom_effect_tooltip = FRA_anarchy_tooltip
 		hidden_effect = {
 			country_event = {
@@ -6023,7 +6194,7 @@ country_event = {
 			}
 		}
 
-		add_stability = -0.04
+		add_stability = -0.50
 		
 		set_politics = {
 			ruling_party = radical_socialist
@@ -6049,13 +6220,10 @@ country_event = {
 			traits = { }
 		}
 
-		remove_all_ministers = yes
-		add_ideas = {
-			FRA_Benoit_Broutchoux_hog_rso
-			FRA_Fernand_Despres_for_rso
-			FRA_Andre_Breton_eco_rso
-			FRA_Maurice_Joyeux_sec_rso
-		}
+		remove_ideas_with_trait = head_of_government
+		remove_ideas_with_trait = foreign_minister
+		remove_ideas_with_trait = economy_minister
+		remove_ideas_with_trait = security_minister
 		set_cosmetic_tag = FRA_Makhno
 		set_country_flag = FRA_Anarchy_Reign
 		set_country_flag = LEADER_GUI_VISIBLE
@@ -6424,11 +6592,6 @@ country_event = {
 	
 	option = {
 		name = comfrance.930.a
-		add_popularity = {
-			ideology = totalist
-			popularity = 0.02
-		}
-		add_stability = -0.02
 	}
 }
 
@@ -7420,9 +7583,14 @@ country_event = {
 						has_id = 200
 						has_id = 205
 						has_id = 4870
-						has_id = 5770
-						has_id = 5771
-						has_id = 5773
+						has_id = 669
+						has_id = 6698
+						has_id = 6697
+						has_id = 6857
+						has_id = 6856
+						has_id = 8765
+						has_id = 8769
+						has_id = 8876
 					}
 				}
 				remove_unit_leader = yes
@@ -7567,17 +7735,10 @@ country_event = {
 
 	option = {
 		name = comfrance.1000.a
-		if = {
-			limit = { has_dlc_got = yes }
-			complete_special_project = sp:sp_air_helicopter
-			add_equipment_to_stockpile = { type = helicopter_equipment_1 amount = 100 }
+		set_technology = {
+			helicopter = 1
 		}
-		else = {
-			set_technology = {
-				helicopter = 1
-			}
-			add_equipment_to_stockpile = { type = helicopter_1 amount = 100 }
-		}
+		add_equipment_to_stockpile = { type = helicopter_1 amount = 100 }
 		hidden_effect = {
 			every_country = {
 				limit = {
@@ -7605,19 +7766,10 @@ country_event = {
 
 	option = {
 		name = comfrance.1001.a
-		if = {
-			limit = { has_dlc_got = yes }
-			add_breakthrough_progress = {
-				specialization = specialization_air
-				value = 0.25
-			}
+		set_technology = {
+			helicopter = 1
 		}
-		else = {
-			set_technology = {
-				helicopter = 1
-			}
-			add_equipment_to_stockpile = { type = helicopter_1 amount = 25 }
-		}
+		add_equipment_to_stockpile = { type = helicopter_1 amount = 25 }
 	}
 }
 

@@ -1,0 +1,1443 @@
+#####################
+## Ghana Decisions ##
+#####################
+
+GHA_ashanti_resistance_decisions = {
+	GHA_ashanti_skirmishes_mission = {
+		allowed = {
+			always = no
+		}
+
+		icon = ger_mefo_bills
+
+		selectable_mission = yes
+		days_mission_timeout = 30
+		days_re_enable = 15
+
+		custom_cost_trigger = {
+			has_equipment = { infantry_equipment > 200 }
+		}
+		custom_cost_text = 200_infantry_equipment_1
+
+		is_good = no
+
+		fire_only_once = no
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		cancel_trigger = {
+			NOT = { has_idea = GHA_ashanti_resistance }
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_ashanti_skirmishes_mission"
+			subtract_from_variable = { var = GHA_ashanti_power value = 1 }
+			custom_effect_tooltip = GHA_ashanti_resistance_subtract_1
+		}
+
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout GHA_ashanti_skirmishes_mission"
+			add_to_variable = { var = GHA_ashanti_power value = 2 }
+			add_political_power = -20
+			custom_effect_tooltip = GHA_ashanti_resistance_add_2
+		}
+	}
+	GHA_suppress_ashanti = {
+		icon = oppression
+		allowed = { tag = GHA }
+
+		highlight_states = { highlight_state_targets = {
+			state = 1321
+		} }
+
+		available = {
+			controls_state = 1321
+		}
+
+		visible = {
+			1321 = {
+				is_owned_by = GHA
+				has_dynamic_modifier = { modifier = GHA_ashanti_unrest }
+			}
+		}
+
+		cancel_trigger = {
+			hidden_trigger = {
+				1321 = {
+					OR = {
+						NOT = { is_owned_by = GHA }
+						NOT = { 
+							has_dynamic_modifier = { modifier = GHA_ashanti_unrest }
+						}
+					}
+				}
+			}
+		}
+
+		fire_only_once = no
+		modifier = {
+			stability_weekly = 0.005
+			political_power_cost = 0.10
+			conscription_factor = -0.10
+		}
+
+		days_remove = 30
+		cost = 25
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_suppress_ashanti"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GHA_suppress_ashanti"
+			hidden_effect = {
+				subtract_from_variable = { var = GHA_ashanti_power value = 2 }
+			}
+			add_stability = 0.02
+			custom_effect_tooltip = GHA_ashanti_resistance_subtract_1
+			GHA_increase_revolutionary = yes
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	GHA_police_ashanti = {
+		icon = oppression
+		allowed = { tag = GHA }
+
+		highlight_states = { highlight_state_targets = {
+			state = 1321
+		} }
+
+		available = {
+			controls_state = 1321
+		}
+
+		visible = {
+			1321 = {
+				is_owned_by = GHA
+				has_dynamic_modifier = { modifier = GHA_ashanti_unrest }
+			}
+		}
+
+		cancel_trigger = {
+			hidden_trigger = {
+				1321 = {
+					OR = {
+						NOT = { is_owned_by = GHA }
+						NOT = { 
+							has_dynamic_modifier = { modifier = GHA_ashanti_unrest }
+						}
+					}
+				}
+			}
+		}
+
+		fire_only_once = no
+		modifier = {
+			stability_weekly = 0.005
+			political_power_cost = 0.10
+			conscription_factor = -0.10
+		}
+
+		days_remove = 30
+		cost = 25
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_suppress_ashanti"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GHA_suppress_ashanti"
+			hidden_effect = {
+				subtract_from_variable = { var = GHA_ashanti_power value = 2 }
+			}
+			add_stability = 0.02
+			custom_effect_tooltip = GHA_ashanti_resistance_subtract_1
+			GHA_increase_revolutionary = yes
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	GHA_negotiate_ashanti = {
+		icon = oppression
+		allowed = { tag = GHA }
+
+		highlight_states = { highlight_state_targets = {
+			state = 1321
+		} }
+
+		available = {
+			controls_state = 1321
+		}
+
+		visible = {
+			1321 = {
+				is_owned_by = GHA
+				has_dynamic_modifier = { modifier = GHA_ashanti_unrest }
+			}
+		}
+
+		cancel_trigger = {
+			hidden_trigger = {
+				1321 = {
+					OR = {
+						NOT = { is_owned_by = GHA }
+						NOT = { 
+							has_dynamic_modifier = { modifier = GHA_ashanti_unrest }
+						}
+					}
+				}
+			}
+		}
+
+		fire_only_once = no
+		modifier = {
+			stability_weekly = 0.005
+			political_power_cost = -0.10
+		}
+
+		days_remove = 30
+		cost = 20
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_suppress_ashanti"
+			add_stability = 0.025
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GHA_suppress_ashanti"
+			hidden_effect = {
+				subtract_from_variable = { var = GHA_ashanti_power value = 2 }
+			}
+			add_stability = 0.02
+			custom_effect_tooltip = GHA_ashanti_resistance_subtract_1
+			GHA_increase_revolutionary = yes
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	GHA_raise_cocoa_prices = {
+		icon = oppression
+		allowed = { tag = GHA }
+
+		highlight_states = { highlight_state_targets = {
+			state = 1321
+		} }
+
+		available = {
+			controls_state = 1321
+		}
+
+		visible = {
+			1321 = {
+				is_owned_by = GHA
+				has_dynamic_modifier = { modifier = GHA_ashanti_unrest }
+			}
+		}
+
+		cancel_trigger = {
+			hidden_trigger = {
+				1321 = {
+					OR = {
+						NOT = { is_owned_by = GHA }
+						NOT = { 
+							has_dynamic_modifier = { modifier = GHA_ashanti_unrest }
+						}
+					}
+				}
+			}
+		}
+
+		fire_only_once = no
+		modifier = {
+			stability_weekly = -0.005
+			political_power_cost = 0.10
+		}
+
+		days_remove = 30
+		cost = 20
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_suppress_ashanti"
+			add_stability = -0.025
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GHA_suppress_ashanti"
+			hidden_effect = {
+				subtract_from_variable = { var = GHA_ashanti_power value = 2 }
+			}
+			add_stability = 0.02
+			custom_effect_tooltip = GHA_ashanti_resistance_subtract_1
+			GHA_increase_reformist = yes
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
+}
+
+GHA_pan_african_decisions = {
+	GHA_unite_africa = {
+		icon = generic_political_discourse
+		visible = {
+			has_completed_focus = GHA_aapc
+			
+		}
+		available = {
+			var:927.owner = { has_idea = GHA_panafrican_state }
+			CEA = { has_idea = GHA_panafrican_state }
+			GAB = { has_idea = GHA_panafrican_state }
+			TKE = { has_idea = GHA_panafrican_state }
+			GAB = { has_idea = GHA_panafrican_state }
+			TZN = { has_idea = GHA_panafrican_state }
+			BRD = { has_idea = GHA_panafrican_state }
+			RWA = { has_idea = GHA_panafrican_state }
+			KIK = { has_idea = GHA_panafrican_state }
+			ZAM = { has_idea = GHA_panafrican_state }
+			
+		}
+		cost = 25
+		fire_only_once = yes
+		days_remove = 1
+		ai_will_do = { factor = 100 }
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_invade_togoland"
+			set_cosmetic_tag = GHA_AFRICA_1
+			every_other_country = {
+				limit = { 
+					is_subject_of = GHA
+					is_african_tag = yes
+				}
+				every_owned_state = {
+					limit = { 
+						is_core_of = PREV
+						NOT = { is_core_of = ROOT }
+					}
+					add_core_of = ROOT
+				}
+				ROOT = {
+					annex_country = {
+						target = PREV
+						transfer_troops = yes
+					}
+				}
+			}
+		}
+	}
+	GHA_unite_west_africa = {
+		icon = generic_political_discourse
+		visible = { has_completed_focus = GHA_wans }
+		available = {
+			OR = {
+				NGR = { is_subject_of = GHA }
+				owns_state = 973
+			}
+			OR = {
+				DAH = { is_subject_of = GHA }
+				owns_state = 876
+			}
+		}
+		cost = 25
+		fire_only_once = yes
+		days_remove = 1
+		ai_will_do = { factor = 100 }
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_invade_togoland"
+			set_cosmetic_tag = GHA_west_african_union
+			every_other_country = {
+				limit = { 
+					is_subject_of = GHA
+				}
+				every_owned_state = {
+					limit = { 
+						is_core_of = PREV
+						NOT = { is_core_of = ROOT }
+					}
+					add_core_of = ROOT
+				}
+				ROOT = {
+					annex_country = {
+						target = PREV
+						transfer_troops = yes
+					}
+				}
+			}
+			add_state_core = 963
+			add_state_core = 807
+			add_state_core = 963
+			add_state_core = 876
+			add_state_core = 808
+			add_state_core = 809
+			add_state_core = 1192
+			add_state_core = 515
+			add_state_core = 910
+			add_state_core = 911
+			add_state_core = 806
+			add_state_core = 557
+			add_state_core = 567
+			add_state_core = 968
+			add_state_core = 967
+			add_state_core = 834
+		}
+	}
+
+	GHA_integration_puppet = {
+		icon = generic_agreement
+		visible = {
+			FROM = {
+				is_in_faction_with = GHA
+				is_african_tag = yes
+			}
+		}
+		cost = 50
+		fire_only_once = yes
+		days_remove = 1
+		targets = {
+			ALG
+			TUN
+			MRT
+			SEN
+			GNA
+			SIE
+			MAL
+			BFA
+			NER
+			WAD
+			CEA
+			GAB
+			TEK
+			KIV
+			SAF
+			ZIM
+			ZAM
+			TZN
+			BRD
+			RWA
+			KIK
+			UGA
+			EGY
+			ETH
+			DJI
+			SOM
+			TRP
+			MOR
+			MAG
+		}
+			remove_effect = {
+				log = "[GetDateText]: [Root.GetName]: Decision GHA_invite_ubangi_shari"
+				GHA = {
+					puppet = FROM
+					set_autonomy = {
+						target = FROM
+						autonomous_state = kx_pan_african_state
+					}
+				}
+				FROM = { add_ideas = GHA_panafrican_state }
+			}
+		}
+
+		GHA_pan_africa_invitation = {
+			icon = generic_agreement
+			allowed = { original_tag = GHA }
+			priority = 15
+			available = {
+				FROM = {
+					is_subject = no
+					has_war = no
+					at_peace_or_same_enemies_as_ROOT = yes
+					NOT = {
+						OR = {
+							has_country_leader_ideology = radsoc_colonial_govt_subtype
+							has_country_leader_ideology = socdem_colonial_govt_subtype
+							has_country_leader_ideology = soclib_colonial_govt_subtype
+							has_country_leader_ideology = soccon_colonial_govt_subtype
+							has_country_leader_ideology = marlib_colonial_govt_subtype
+							has_country_leader_ideology = colonial_govt_subtype
+							has_country_leader_ideology = autocratic_colonial_govt_subtype
+							has_country_leader_ideology = natpop_colonial_govt_subtype
+							has_country_leader_ideology = kleptocracy_subtype
+						}
+						is_in_faction_with = EGY
+					}
+				}
+				ROOT = {
+					NOT = { has_country_flag = { flag = GHA_inviting_pan_africa value > 0 } }
+				}
+			}
+			visible = {
+				has_completed_focus = GHA_aapc
+				is_faction_leader = yes
+				country_exists = FROM
+			}
+			targets = {
+				CEA
+				GAB
+				TKE
+				ZIM
+				ZAM
+				TZN
+				BRD
+				RWA
+				KIK
+				UGA
+				ETH
+				DJI
+				SOM
+				TRP
+				MOR
+				KIV
+			}
+			target_root_trigger = {
+				NOT = { has_completed_focus = GHA_aapc }
+				is_faction_leader = yes
+			}
+			target_trigger = {
+				FROM = {
+					is_subject = no
+					is_in_faction = no
+					at_peace_or_same_enemies_as_ROOT = yes
+				}
+				country_exists = FROM
+			}
+	
+			cost = 0
+			days_remove = 20
+			fire_only_once = yes
+	
+			ai_will_do = {
+				factor = 200
+			}
+	
+			cancel_effect = {
+				clr_country_flag = GHA_inviting_pan_africa
+			}
+			complete_effect = {
+				log = "[GetDateText]: [Root.GetName]: Decision GHA_pan_africa_invitation target: [From.GetName]"
+				set_country_flag = { flag = GHA_inviting_pan_africa days = 10 value = 1 }
+				FROM = {
+					country_event = {
+						id = ghapanafrika.31
+						days = 2
+					}
+				}
+			}
+	
+			remove_effect = {
+				log = "[GetDateText]: [Root.GetName]: Decision remove GHA_pan_africa_invitation target: [From.GetName]"
+				clr_country_flag = GHA_inviting_pan_africa
+			}
+	}
+	GHA_pan_africa_invade_colonies = {
+		icon = generic_agreement
+		visible = { 
+			MAF = { exists = no }
+			FROM = {
+				any_neighbor_country = {
+					OR = {
+						tag = GHA
+						is_subject_of = GHA
+						is_in_faction_with = GHA
+					}
+				}
+				NOT = { is_in_faction_with = GHA }
+			}
+		}
+		cost = 25
+		fire_only_once = yes
+		days_remove = 1
+		targets = { ZIM KEN ZAM CMR TZN POR SPR CAR GAB }
+		target_root_trigger = {
+			has_completed_focus = GHA_aapc
+		}
+		war_with_target_on_remove = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_invite_ubangi_shari target: [From.GetName]"
+			set_country_flag = { flag = imminent_war days = 20 value = 1 }
+			setup_decision_attack_AI = yes			
+		}
+	}
+	GHA_pan_africa_cairo_pact = {
+		icon = generic_agreement
+		visible = { 
+			country_exists = EGY
+			FROM = {
+				any_neighbor_country = {
+					OR = {
+						tag = GHA
+						is_subject_of = GHA
+						is_in_faction_with = GHA
+					}
+				}
+				NOT = { is_in_faction_with = GHA }
+			}
+		}
+		cost = 25
+		fire_only_once = yes
+		days_remove = 1
+		targets = { EGY }
+		target_root_trigger = {
+			has_completed_focus = GHA_aapc
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_invite_ubangi_shari target: [From.GetName]"
+			set_country_flag = { flag = imminent_war days = 20 value = 1 }
+			setup_decision_attack_AI = yes			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_invite_ubangi_shari"
+			country_event = ghapanafrika.43
+		}
+	}
+
+	GHA_pan_africa_congo = {
+		icon = generic_agreement
+		visible = {
+			country_exists = KIV
+			has_global_flag = CONGO_SHITSHOW_OVER
+			FROM = {
+				any_neighbor_country = {
+					OR = {
+						tag = GHA
+						is_subject_of = GHA
+						is_in_faction_with = GHA
+					}
+				}
+				NOT =  {is_in_faction_with = GHA }
+			}
+		}
+		cost = 25
+		fire_only_once = yes
+		days_remove = 1
+		targets = { KIV }
+		target_root_trigger = {
+			has_completed_focus = GHA_aapc
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_invite_ubangi_shari target: [From.GetName]"
+			set_country_flag = { flag = imminent_war days = 20 value = 1 }
+			setup_decision_attack_AI = yes			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_invite_ubangi_shari"
+			country_event = ghapanafrika.38
+		}
+	}
+	GHA_pan_africa_south_africa = {
+		icon = generic_agreement
+		visible = { 
+			country_exists = SAF
+			FROM = {
+				any_neighbor_country = {
+					OR = {
+						tag = GHA
+						is_subject_of = GHA
+						is_in_faction_with = GHA
+					}
+				}
+				NOT = { is_in_faction_with = GHA }
+			}
+		}
+		cost = 25
+		fire_only_once = yes
+		days_remove = 1
+		targets = { SAF }
+		target_root_trigger = {
+			has_completed_focus = GHA_aapc
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_invite_ubangi_shari target: [From.GetName]"
+			set_country_flag = { flag = imminent_war days = 20 value = 1 }
+			setup_decision_attack_AI = yes			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_invite_ubangi_shari"
+			country_event = ghapanafrika.40
+		}
+	}
+	
+	GHA_pan_africa_intervene_in_congo = {
+		icon = generic_agreement
+		visible = { 
+			has_global_flag = CONGO_SHITSHOW
+			FROM = {
+				any_neighbor_country = {
+					OR = {
+						tag = GHA
+						is_subject_of = GHA
+						is_in_faction_with = GHA
+					}
+				}
+				NOT = { is_in_faction_with = GHA }
+			}
+		}
+		cost = 25
+		fire_only_once = yes
+		days_remove = 1
+		targets = { COG }
+		target_root_trigger = {
+			has_completed_focus = GHA_aapc
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_invite_ubangi_shari target: [From.GetName]"
+			set_country_flag = { flag = imminent_war days = 20 value = 1 }
+			setup_decision_attack_AI = yes			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_invite_ubangi_shari"
+			country_event = ghapanafrika.41
+		}
+	}
+	GHA_pan_africa_invade_colonies = {
+		icon = generic_agreement
+		visible = { 
+			MAF = { exists = no }
+			FROM = {
+				any_neighbor_country = {
+					OR = {
+						tag = GHA
+						is_subject_of = GHA
+						is_in_faction_with = GHA
+					}
+				}
+				NOT = { is_in_faction_with = GHA }
+			}
+		}
+		cost = 25
+		fire_only_once = yes
+		days_remove = 1
+		targets = { ZIM KEN ZAM CMR TZN POR SPR CAR }
+		target_root_trigger = {
+			has_completed_focus = GHA_aapc
+		}
+		war_with_target_on_remove = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_invite_ubangi_shari target: [From.GetName]"
+			set_country_flag = { flag = imminent_war days = 20 value = 1 }
+			setup_decision_attack_AI = yes			
+		}
+	}
+	GHA_pan_africa_erase_tribalism = {
+		icon = generic_agreement
+		visible = {
+			FROM = {
+				any_neighbor_country = {
+					OR = {
+						tag = GHA
+						is_subject_of = GHA
+						is_in_faction_with = GHA
+					}
+				}
+				NOT = { is_in_faction_with = GHA }
+			}
+		}
+		cost = 25
+		fire_only_once = yes
+		days_remove = 1
+		targets = { BRD RWA BRT KOG KBR HAU ZZB }
+		target_root_trigger = {
+			has_completed_focus = GHA_aapc
+		}
+		war_with_target_on_remove = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_invite_ubangi_shari target: [From.GetName]"
+			set_country_flag = { flag = imminent_war days = 20 value = 1 }
+			setup_decision_attack_AI = yes			
+		}
+	}
+
+	GHA_invade_togoland = {
+		icon = GFX_decision_generic_operation
+		visible = { has_completed_focus = GHA_liberate_togobenin }
+		cost = 25
+		fire_only_once = yes
+		days_remove = 1
+		targets = { TOG }
+		ai_will_do = { factor = 100 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MON_ride_easst target: [From.GetName]"
+			set_country_flag = { flag = imminent_war days = 20 value = 1 }
+			setup_decision_attack_AI = yes
+			add_state_claim = 877
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_invade_togoland"
+			declare_war_on = {
+				target = TOG
+				type = annex_everything
+			}
+		}
+	}
+
+	GHA_core_togo = {
+		icon = generic_prepare_civil_war
+		visible = { owns_state = 877 }
+		fire_only_once = yes
+		cost = 50
+		days_remove = 30
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_core_togo"
+			add_state_core = 877
+		}
+	}
+
+	GHA_contact_senegalese = {
+		icon = generic_political_discourse
+		visible = { has_completed_focus = GHA_wans }
+		cost = 15
+		days_remove = 1
+		fire_only_once = yes
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_contact_senegalese"
+			hidden_effect = {
+				country_event = ghapanafrika.5
+			}
+		}
+	}
+
+	GHA_contact_malians = {
+		icon = generic_political_discourse
+		visible = { has_completed_focus = GHA_wans }
+		cost = 15
+		days_remove = 1
+		fire_only_once = yes
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_contact_senegalese"
+			hidden_effect = {
+				country_event = ghapanafrika.6
+			}
+		}
+	}
+
+	GHA_contact_sierra_leoneans = {
+		icon = generic_political_discourse
+		visible = { has_completed_focus = GHA_wans }
+		cost = 15
+		days_remove = 1
+		fire_only_once = yes
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_contact_senegalese"
+			country_event = ghapanafrika.15
+		}
+	}
+
+	GHA_fund_senegal = {
+		icon = GFX_decision_generic_operation
+		visible = { has_country_flag = GHA_allied_senegal }
+		custom_cost_trigger = {
+			has_equipment = { infantry_equipment > 1000 }
+		}
+		custom_cost_text = 1000_infantry_equipment_1
+		days_remove = 1
+		fire_only_once = yes
+		ai_will_do = { factor = 100 }
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_fund_senegal"
+			set_country_flag = GHA_funded_senegal
+		}
+	}
+	
+	GHA_fund_mali = {
+		icon = GFX_decision_generic_operation
+		visible = { has_country_flag =  GHA_allied_mali }
+		custom_cost_trigger = {
+			has_equipment = { infantry_equipment > 1000 }
+		}
+		custom_cost_text = 1000_infantry_equipment_1
+		ai_will_do = { factor = 100 }
+		fire_only_once = yes
+		days_remove = 1
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_arm_togoland"
+			set_country_flag = GHA_funded_mali
+		}
+	}
+
+	GHA_fund_sierra_leone = {
+		icon = GFX_decision_generic_operation
+		visible = { has_country_flag =  GHA_allied_sierra_leone }
+		custom_cost_trigger = {
+			has_equipment = { infantry_equipment > 1000 }
+		}
+		custom_cost_text = 1000_infantry_equipment_1
+		ai_will_do = { factor = 100 }
+		fire_only_once = yes
+		days_remove = 1
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_arm_togoland"
+			set_country_flag = GHA_funded_sierra_leone
+		}
+	}
+
+	GHA_contact_beninese = {
+		icon = generic_political_discourse
+		visible = { has_completed_focus = GHA_wans }
+		cost = 15
+		days_remove = 1
+		fire_only_once = yes
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_contact_senegalese"
+			hidden_effect = {
+				country_event = ghapanafrika.2
+			}
+		}
+	}
+
+	GHA_arm_dahomey = {
+		icon = generic_ignite_civil_war
+		visible = { has_completed_focus = GHA_liberate_togobenin }
+		custom_cost_trigger = {
+			has_equipment = { infantry_equipment > 1000 }
+		}
+		custom_cost_text = 1000_infantry_equipment_1
+		ai_will_do = { factor = 100 }
+		fire_only_once = yes
+		days_remove = 1
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_arm_dahomey"
+			set_country_flag = GHA_armed_dahomey
+		}
+	}
+
+	GHA_invade_dahomey = {
+		icon = GFX_decision_generic_operation
+		visible = {
+			has_country_flag = GHA_armed_dahomey
+			NOT = {
+				DAH = {
+					is_subject_of = GHA
+				}
+			}
+		}
+		available = {
+			OR = {
+				is_owner_neighbor_of = DAH
+				any_allied_country = { is_owner_neighbor_of = DAH }
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		days_remove = 1
+		targets = { DAH }
+		ai_will_do = { factor = 100 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MON_ride_easst target: [From.GetName]"
+			set_country_flag = { flag = imminent_war days = 20 value = 1 }
+			setup_decision_attack_AI = yes			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_invade_dahomey"
+			hidden_effect = {
+				country_event = ghapanafrika.4
+			}
+		}
+	}
+
+	GHA_resist_mittelafrika = {
+		icon = GFX_decision_generic_agreement
+
+		allowed = { always = no } 
+
+		available = {
+			NGR = {
+				NOT = {
+					controls_state = 558
+					controls_state = 662
+					controls_state = 913
+					controls_state = 878
+					owns_state = 973
+				}
+			}
+			MAF = {
+				has_war_with = GHA
+			}
+		}
+
+		cancel_trigger = {
+			GHA = {
+				exists = no
+			}
+		}
+
+		is_good = no
+		fire_only_once = yes
+		days_mission_timeout = 120
+
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout MEX_retake_yucatan_mission"
+			GHA = {
+				country_event = ghapanafrika.17
+				white_peace_with_ROOT = yes 
+			}
+			if = {
+				limit = {
+					NGR = {
+						NOT = {
+							owns_state = 973
+						}
+					}
+				}
+				var:973.owner = {
+					transfer_state = 558
+					transfer_state = 662
+					transfer_state = 913
+					transfer_state = 878
+				}
+			}
+			if = {
+				limit = {
+					NGR = {
+						NOT = {
+							owns_state = 973
+							owns_state = 878
+						}
+					}
+				}
+				var:973.owner = {
+					transfer_state = 558
+					transfer_state = 662
+					transfer_state = 913
+				}
+			}
+			every_country = {
+				limit = {
+					is_in_faction_with = MAF
+					has_war_with = GHA
+				}
+				white_peace = GHA
+			}
+		}
+	}
+
+	GHA_contact_nigeria = {
+		icon = GFX_decision_generic_operation
+		visible = { has_completed_focus = GHA_absorb_nigeria }
+		cost = 25
+		days_remove = 1
+		fire_only_once = yes
+		ai_will_do = { factor = 100 }
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_arm_togoland"
+			hidden_effect = {
+				if = {
+					limit = {
+						NGR = {
+							has_country_leader = { name = "Benjamin Nnamdi Azikiwe" ruling_only = yes }
+						}
+					}
+					country_event = ghapanafrika.10
+				}
+				else = {
+					country_event = ghapanafrika.9
+				}
+			}
+		}
+	}
+
+	GHA_fund_nigeria = {
+		icon = GFX_decision_generic_operation
+		visible = { has_country_flag = GHA_arm_nigeria }
+		custom_cost_trigger = {
+			has_equipment = { infantry_equipment > 1000 }
+		}
+		custom_cost_text = 1000_infantry_equipment_1
+		fire_only_once = yes
+		days_remove = 1
+		ai_will_do = { factor = 100 }
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_arm_togoland"
+			set_country_flag = GHA_armed_nigeria
+		}
+	}
+
+	GHA_invade_nigeria = {
+		icon = GFX_decision_generic_operation
+		visible = { has_country_flag = GHA_armed_nigeria }
+		available = {
+			OR = {
+				is_owner_neighbor_of = NGR
+				any_allied_country = { is_owner_neighbor_of = NGR }
+			}
+		}
+		cost = 0
+		days_remove = 1
+		fire_only_once = yes
+		targets = { NGR }
+		ai_will_do = { factor = 100 }
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MON_ride_easst target: [From.GetName]"
+			set_country_flag = { flag = imminent_war days = 20 value = 1 }
+			setup_decision_attack_AI = yes			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_invade_dahomey"
+			hidden_effect = {
+				country_event = ghapanafrika.14
+			}
+		}
+	}
+
+	GHA_resist_france = {
+		icon = GFX_decision_generic_agreement
+
+		allowed = { always = no } 
+
+		available = {
+			NFA = {
+				NOT = {
+					controls_state = 700
+					controls_state = 806
+					controls_state = 556
+					controls_state = 808
+					controls_state = 809
+					controls_state = 556
+					controls_state = 1192
+					controls_state = 515
+					controls_state = 834
+					controls_state = 272
+					controls_state = 557
+					controls_state = 968
+				}
+			}
+		}
+
+		cancel_trigger = {
+			GHA = {
+				exists = no
+			}
+		}
+
+		is_good = no
+		fire_only_once = yes
+		days_mission_timeout = 60
+
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout MEX_retake_yucatan_mission"
+			country_event = ghapanafrika.16
+		}
+	}
+}
+
+
+GHA_colonial_sabotage_decisions = {
+	GHA_sponsor_algerian_strikes = {
+		icon = generic_ignite_civil_war
+		ai_will_do = {
+			factor = 75
+		}
+		visible = {
+			has_completed_focus = GHA_colonial_sabotage
+			has_war_with = NFA
+		}
+		available = {
+			NFA = { controls_state = 459 }
+		}
+		highlight_states = { highlight_state_targets = { state = 700 } }
+
+		fire_only_once = yes
+		days_remove = 1
+		cost = 75
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_incite_upper_voltan_resistance"
+			NFA = {
+				add_timed_idea = {
+					idea = NFA_algerian_strikes
+					days = 60
+				}
+			}
+		}
+	}
+
+	GHA_sabotage_transaharan_railway = {
+		icon = generic_ignite_civil_war
+		ai_will_do = {
+			factor = 75
+		}
+		visible = {
+			has_completed_focus = GHA_colonial_sabotage
+			has_war_with = NFA
+		}
+		available = {
+			controls_state = 556
+		}
+		highlight_states = { highlight_state_targets = { state = 860 } }
+
+		fire_only_once = yes
+		days_remove = 20
+		custom_cost_trigger = {
+			has_equipment = { infantry_equipment > 199 }
+		}
+		custom_cost_text = 200_infantry_equipment_1
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_sabotage_transaharan_railway"
+			
+				556 = { 
+					add_state_modifier = { modifier = { disable_strategic_redeployment = 1 } }
+					add_state_modifier = { modifier = { local_supplies_for_controller = -0.5 } }
+					state_event = { id = nfa.88 trigger_for = controller days = 45 }
+					damage_building = { type = infrastructure damage = 1.6 }
+				}
+				860 = { 
+					add_state_modifier = { modifier = { disable_strategic_redeployment = 1 } }
+					add_state_modifier = { modifier = { local_supplies_for_controller = -0.5 } }
+					state_event = { id = nfa.88 trigger_for = controller days = 45 }
+					damage_building = { type = infrastructure damage = 2.3 }
+				}
+			
+		}
+	}
+	
+	GHA_sabotage_mauritanian_railway = {
+		icon = generic_ignite_civil_war
+		ai_will_do = {
+			factor = 75
+		}
+		visible = {
+			has_completed_focus = GHA_colonial_sabotage
+			has_war_with = NFA
+		}
+		available = {
+			NFA = {
+				controls_state = 968
+				controls_state = 557
+			}
+			controls_state = 808
+		}
+		highlight_states = { highlight_state_targets = { state = 557 } }
+
+		fire_only_once = yes
+		days_remove = 1
+		custom_cost_trigger = {
+			has_equipment = { infantry_equipment > 199 }
+		}
+		custom_cost_text = 200_infantry_equipment_1
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_sabotage_mauritanian_railway"
+			custom_effect_tooltip = NFA_Poitou_Limo_Sabotage_tt
+			
+				968 = { 
+					add_state_modifier = { modifier = { disable_strategic_redeployment = 1 } }
+					add_state_modifier = { modifier = { local_supplies_for_controller = -0.5 } }
+					state_event = { id = nfa.88 trigger_for = controller days = 45 }
+					damage_building = { type = infrastructure damage = 1.6 }
+				}
+				557 = { 
+					add_state_modifier = { modifier = { disable_strategic_redeployment = 1 } }
+					add_state_modifier = { modifier = { local_supplies_for_controller = -0.5 } }
+					state_event = { id = nfa.88 trigger_for = controller days = 45 }
+					damage_building = { type = infrastructure damage = 2.3 }
+				}
+			
+		}
+	}
+
+	GHA_incite_mauritanian_resistance = {
+		icon = generic_ignite_civil_war
+		ai_will_do = {
+			factor = 75
+		}
+		visible = {
+			has_completed_focus = GHA_colonial_sabotage
+			has_war_with = NFA
+		}
+		available = {
+			NFA = { controls_state = 557 }
+		}
+		highlight_states = { highlight_state_targets = { state = 557 } }
+
+		fire_only_once = yes
+		days_remove = 1
+		custom_cost_trigger = {
+			command_power > 14.99
+		}
+		custom_cost_text = CP_15
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_incite_mauritanian_resistance"
+			557 = {
+				add_dynamic_modifier = { modifier = GHA_indigene_resistance }
+				add_resistance = 15
+			}
+			968 = {
+				add_dynamic_modifier = { modifier = GHA_indigene_resistance }
+				add_resistance = 15
+			}
+		}
+	}
+
+	GHA_incite_upper_voltan_resistance = {
+		icon = generic_ignite_civil_war
+		ai_will_do = {
+			factor = 75
+		}
+		visible = {
+			has_completed_focus = GHA_colonial_sabotage
+			has_war_with = NFA
+		}
+		available = {
+			NFA = { controls_state = 808 }
+		}
+		highlight_states = { highlight_state_targets = { state = 808 } }
+
+		fire_only_once = yes
+		days_remove = 1
+		custom_cost_trigger = {
+			command_power > 14.99
+		}
+		custom_cost_text = CP_15
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_incite_upper_voltan_resistance"
+			808 = {
+				add_dynamic_modifier = { modifier = GHA_indigene_resistance }
+				add_resistance = 30
+			}
+		}
+	}
+
+	GHA_incite_guinean_resistance = {
+		icon = generic_ignite_civil_war
+		ai_will_do = {
+			factor = 75
+		}
+		visible = {
+			has_completed_focus = GHA_colonial_sabotage
+			has_war_with = NFA
+		}
+		available = {
+			NFA = { controls_state = 806 }
+		}
+		highlight_states = { highlight_state_targets = { state = 806 } }
+
+		fire_only_once = yes
+		days_remove = 1
+		custom_cost_trigger = {
+			command_power > 14.99
+		}
+		custom_cost_text = CP_15
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_incite_upper_voltan_resistance"
+			806 = {
+				add_dynamic_modifier = { modifier = GHA_indigene_resistance }
+				add_resistance = 30
+			}
+		}
+	}
+
+	GHA_incite_nigerien_resistance = {
+		icon = generic_ignite_civil_war
+		ai_will_do = {
+			factor = 75
+		}
+		visible = {
+			has_completed_focus = GHA_colonial_sabotage
+			has_war_with = NFA
+		}
+		available = {
+			NFA = {
+				controls_state = 809
+				controls_state = 1192
+			}
+		}
+		highlight_states = { highlight_state_targets = { state = 809 } }
+
+		fire_only_once = yes
+		days_remove = 1
+		custom_cost_trigger = {
+			command_power > 14.99
+		}
+		custom_cost_text = CP_15
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_incite_upper_voltan_resistance"
+			809 = {
+				add_dynamic_modifier = { modifier = GHA_indigene_resistance }
+				add_resistance = 30
+			}
+			1192 = {
+				add_dynamic_modifier = { modifier = GHA_indigene_resistance }
+				add_resistance = 30
+			}
+		}
+	}
+}	
+
+
+GHA_pan_african_rift_decisions = {
+	GHA_mobilise_support = {
+		icon = generic_prepare_civil_war
+		visible = { has_idea = GHA_panafrican_rift }
+		fire_only_once = no
+		cost = 25
+		days_remove = 1
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_mobilise_support"
+			GHA_increase_accra_influence = yes
+		}
+	}
+	GHA_promote_pan_african_education = {
+		icon = generic_prepare_civil_war
+		visible = { has_idea = GHA_panafrican_rift }
+		fire_only_once = yes
+		cost = 25
+		days_remove = 1
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GHA_mobilise_support"
+			GHA_increase_accra_influence_big = yes
+		}
+	}
+	GHA_dakar_group_makes_its_move = {
+		icon = GFX_decision_generic_political_discourse
+		activation = { always = no }
+		available = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+		cancel_trigger = {
+			NOT = { has_idea = GHA_panafrican_rift }
+		}
+		is_good = no
+		selectable_mission = no
+		days_mission_timeout = 30
+		fire_only_once = no
+		timeout_effect = {
+			random_list = {
+				75 = { GHA_increase_dakar_influence = yes }
+				25 = { GHA_increase_dakar_influence_big = yes }
+			}
+			hidden_effect = {
+				activate_mission = GHA_dakar_group_makes_its_move
+			}
+		}
+	}
+}

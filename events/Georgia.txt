@@ -1977,12 +1977,7 @@ country_event = { # Kakutsa Cholokashvili comes to Giorgi Bagration with a propo
 						rule = GEO_path
 						option = GEO_PATH_MARLIB_KINGDOM	
 					}
-					OR = {
-						has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED }
-						has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED_OTT_GER }
-						has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED_OTT }
-						has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED_OTT_GEO_WAR }
-					}
+					has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED }
 				}
 			}
 		}
@@ -2185,12 +2180,7 @@ country_event = { # siege of kutais
 						rule = GEO_path
 						option = GEO_PATH_MENSHEVIK_REBEL_JUGELI
 					}
-					OR = {
-						has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED }
-						has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED_OTT_GER }
-						has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED_OTT }
-						has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED_OTT_GEO_WAR }
-					}
+					has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED }
 				}
 			}
 		}
@@ -2293,12 +2283,7 @@ country_event = { # siege of Sukhum
 						rule = GEO_path
 						option = GEO_PATH_MENSHEVIK_REBEL_JUGELI
 					}
-					OR = {
-						has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED }
-						has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED_OTT_GER }
-						has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED_OTT }
-						has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED_OTT_GEO_WAR }
-					}
+					has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED }
 				}
 			}
 		}
@@ -2426,12 +2411,7 @@ country_event = { # battle of Poti, need to get reinforcements to him
 						rule = GEO_path
 						option = GEO_PATH_MENSHEVIK_REBEL_JUGELI
 					}
-					OR = {
-						has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED }
-						has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED_OTT_GER }
-						has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED_OTT }
-						has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED_OTT_GEO_WAR }
-					}
+					has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED }
 				}
 			}
 		}
@@ -2668,15 +2648,15 @@ country_event = { # jugheli takes tiflis, takes power temporarily
 		add_stability = 0.15
 		add_war_support = 0.15
 		random_unit_leader = {
+			limit = { has_id = 3501 }			
+			remove_unit_leader = yes
+		}
+		random_unit_leader = {
 			limit = { has_id = 577 }
 			remove_unit_leader = yes
 		}
 		random_unit_leader = {
 			limit = { has_id = 578 }
-			promote_leader = yes
-		}
-		random_unit_leader = {
-			limit = { has_id = 3503 }
 			promote_leader = yes
 		}
 		drop_cosmetic_tag = yes
@@ -2686,6 +2666,10 @@ country_event = { # jugheli takes tiflis, takes power temporarily
 			picture = "gfx/leaders/GEO/Portrait_GEO_Valiko_Jugheli.png"
 			expire = "1.1.1"
 			ideology = socdem_junta_subtype
+		}
+		random_unit_leader = {
+			limit = { has_id = 3503 }
+			promote_leader = yes
 		}
 		set_politics = {
 			ruling_party = social_democrat
@@ -2705,10 +2689,6 @@ country_event = { # jugheli takes tiflis, takes power temporarily
 			limit = {
 				NOT = { has_country_flag = was_totalist }
 			}
-			random_unit_leader = {
-				limit = { has_id = 3501 }			
-				remove_unit_leader = yes
-			}
 			add_popularity = {
 				ideology = social_conservative
 				popularity = -0.10
@@ -2727,21 +2707,21 @@ country_event = { # jugheli takes tiflis, takes power temporarily
 					desc = "POLITICS_EKVTIME_TAKAISHVILI_DESC"
 					picture = "gfx/leaders/GEO/Portrait_GEO_Ekvtime_Takaishvili.png"
 					expire = "1.1.1"
-					ideology = soccon_generic_national_democracy_subtype
+					ideology = social_conservative_subtype
 				}
 				create_country_leader = {
-					name = "Grigol Veshapeli"
+					name = "Grigory Veshapeli"
 					desc = "POLITICS_GRIGORY_GEORGIEVICH_DESC"
 					picture = "gfx/leaders/GEO/Portrait_GEO_Grigory_Veshapeli.png"
 					expire = "1.1.1"
-					ideology = marlib_national_liberalism_subtype
+					ideology = market_liberal_subtype
 				}
 				create_country_leader = {
 					name = "Iosif Baratov"
 					desc = "POLITICS_IOSIF_BARATOV_DESC"
 					picture = "gfx/leaders/GEO/Portrait_GEO_Iosif_Baratov.png"
 					expire = "1.1.1"
-					ideology = socialist_federalism_subtype
+					ideology = national_liberalism_subtype
 				}
 				create_country_leader = {
 					name = "Mikheil Tsereteli"
@@ -2759,21 +2739,6 @@ country_event = { # jugheli takes tiflis, takes power temporarily
 			}
 		}
 		else = {
-			set_country_flag = Ioseb_Jugashvili_dead
-			create_country_leader = {
-				name = "Grigol Orjonikidze"
-				desc = "POLITICS_GRIGOL_DESC"
-				picture = "gfx/leaders/GEO/Portrait_GEO_Grigol_Ordzhonikikdze.png"
-				expire = "1.1.1"
-				ideology = authcom_subtype
-			}
-			hidden_effect = {
-				set_party_name = {
-					ideology = totalist
-					name = GEO_totalist_party
-					long_name = GEO_totalist_party_long
-				}
-			}
 			add_popularity = {
 				ideology = totalist
 				popularity = -0.15
@@ -3336,13 +3301,8 @@ country_event = { # PCA endorses South Ossetian autonomy
 		ai_chance = {
 			base = 30
 			modifier = {
-				factor = 1000				
-				OR = {
-					has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED }
-					has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED_OTT_GER }
-					has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED_OTT }
-					has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED_OTT_GEO_WAR }
-				}
+				factor = 1000
+				has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED }
 			}
 		}
 		hidden_effect = {
@@ -3386,12 +3346,7 @@ country_event = { # SO's begin to arm themselves
 			base = 80
 			modifier = {
 				factor = 1000
-				OR = {
-					has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED }
-					has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED_OTT_GER }
-					has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED_OTT }
-					has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED_OTT_GEO_WAR }
-				}
+				has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED }
 			}
 		}
 		add_stability = -0.02
@@ -3459,12 +3414,7 @@ country_event = { # SO rebels attack military base in revenge
 			base = 70
 			modifier = {
 				factor = 1000
-				OR = {
-					has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED }
-					has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED_OTT_GER }
-					has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED_OTT }
-					has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED_OTT_GEO_WAR }
-				}
+				has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED }
 			}
 		}
 		hidden_effect = {
@@ -3552,12 +3502,7 @@ country_event = { # abkhaz separatists
 			base = 85
 			modifier = {
 				factor = 1000
-				OR = {
-					has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED }
-					has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED_OTT_GER }
-					has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED_OTT }
-					has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED_OTT_GEO_WAR }
-				}
+				has_game_rule = { rule = ABK_fate option = ABK_GUARANTEED }
 			}
 		}
 		add_stability = -0.05
@@ -4077,7 +4022,7 @@ country_event = { # 1936 election
 				desc = "POLITICS_EVGENI_GEGECHKORI_DESC"
 				picture = "gfx/leaders/GEO/Portrait_GEO_Evgeni_Gegechkori.png"
 				expire = "1.1.1"
-				ideology = revisionist_marxism_subtype
+				ideology = social_democrat_subtype
 			}
 		}
 		meta_effect = {
@@ -4312,7 +4257,7 @@ country_event = { # future elections
 				desc = "POLITICS_EVGENI_GEGECHKORI_DESC"
 				picture = "gfx/leaders/GEO/Portrait_GEO_Evgeni_Gegechkori.png"
 				expire = "1.1.1"
-				ideology = revisionist_marxism_subtype
+				ideology = social_democrat_subtype
 			}
 		}
 		meta_effect = {
@@ -4379,7 +4324,7 @@ country_event = { # future elections
 				desc = "POLITICS_EVGENI_GEGECHKORI_DESC"
 				picture = "gfx/leaders/GEO/Portrait_GEO_Evgeni_Gegechkori.png"
 				expire = "1.1.1"
-				ideology = revisionist_marxism_subtype
+				ideology = social_democrat_subtype
 			}
 		}
 		meta_effect = {

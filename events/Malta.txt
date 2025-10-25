@@ -235,7 +235,6 @@ country_event = {#natioanlist vote
 				OR = {
 					has_game_rule = { rule = MLT_path option = MLT_SOCCON }
 					has_game_rule = { rule = MLT_path option = MLT_NATPOP }
-					has_game_rule = { rule = MLT_path option = MLT_DEMOCRACY }
 				}
 			}
 		}
@@ -565,16 +564,6 @@ country_event = {#kngits attempt coup
 
 	option = { #works
 		name = mlt.7.a
-		ai_chance = {
-			base = 33
-			modifier = {
-				factor = 0
-				OR = {
-					has_game_rule = { rule = MLT_path option = MLT_RADSOC }
-					has_game_rule = { rule = MLT_path option = MLT_DEMOCRACY }
-				}
-			}
-		}
 		hidden_effect = {
 			remove_all_ministers = yes
 			add_ideas = {
@@ -601,11 +590,8 @@ country_event = {#kngits attempt coup
 	}
 	option = { #failed
 		name = mlt.7.b
-		ai_chance = {
-			base = 67
-		}		
 		add_popularity = { ideology = radical_socialist popularity = 0.05}
-	}
+	}	
 }
 
 country_event = {#intro event
@@ -1011,7 +997,7 @@ country_event = { #fate of knights
 		set_cosmetic_tag = MLT_REP
 		random_unit_leader = { 
 			limit = { has_id = 73 }
-			set_nationality = NSW
+			retire = yes
 		}
 	}
 }
@@ -1060,9 +1046,9 @@ country_event = { #yeet knights
 		name = mlt.20.a
 		increase_ruling_party_popularity_by_10 = yes
 		set_cosmetic_tag = MLT_DOM
-		every_unit_leader = {
-			limit = { has_trait = MLT_order_commander }
-			set_nationality = NSW
+		random_unit_leader = { 
+			limit = { has_id = 73 }
+			retire = yes
 		}
 		ENT = {
 			add_to_faction = MLT
@@ -1464,12 +1450,20 @@ country_event = { #knights but socialist now
 	option = { #cool
 		name = mlt.29.a
 		increase_ruling_party_popularity_by_10 = yes
-		NSW = {
-			random_unit_leader = { 
-				limit = { has_id = 73 }
-				set_nationality = MLT
-			}
-		}
+		create_field_marshal = {# 
+	name = "Ludovico Chigi della Rovere-Albani  "
+	portrait_path = "gfx/leaders/MLT/Portrait_MLT_Ludovico_Chigi_Albani_della_Rovere.png"
+	traits = {
+		offensive_doctrine
+		politically_connected
+	}
+	skill = 3
+	attack_skill = 2
+	defense_skill = 3
+	planning_skill = 2
+	logistics_skill = 2
+	id = 73
+}
 	}
 	
 }
@@ -1817,8 +1811,8 @@ country_event = { #we did it
 	option = { #they did it
 		name = mlt.40.a
 		transfer_state = 115
-		add_state_core = 115
 		add_command_power = 20
+
 	}
 	
 }
@@ -1846,12 +1840,11 @@ country_event = { #we failed
 			is_ai = no
 		}
 		add_war_support = 0.1
-		transfer_state = 115
 		declare_war_on = {
 			target = 115.owner
 			type = annex_everything
 		}
-		add_state_core = 115
+
 	}
 }
 
@@ -1970,8 +1963,8 @@ country_event = { #latin empire restored
 		GRE = {
 			set_party_name = {
 					ideology = paternal_autocrat
-					long_name = MLT_saint_john_party_long
-					name = MLT_saint_john_party
+					long_name = "Order of St. John"
+					name = "OSJ"
 				}
 				set_politics = {
 					ruling_party = paternal_autocrat
@@ -2010,6 +2003,7 @@ country_event = { #latin empire restored
 				add_state_core = 343
 				add_state_core = 356
 				add_state_core = 1125
+				add_state_core = 1225 	
 		}
 	} }
 	title = mlt.44.t
@@ -2119,9 +2113,6 @@ country_event = { #malta wants to buy virgin islands
 
 	option = { #ok sure
 		name = mlt.48.a
-		trigger = {
-			MLT = { is_ai = no }
-		}
 		add_political_power = -25
 		hidden_effect = {
 			MLT = {
@@ -2136,9 +2127,6 @@ country_event = { #malta wants to buy virgin islands
 	option = { #no
 		name = mlt.48.b
 		add_political_power = 25
-		trigger = {
-			MLT = { is_ai = yes }
-		}
 		hidden_effect = {
 			MLT = {
 				country_event = {
@@ -2225,9 +2213,6 @@ country_event = { #malta wants to buy st martin
 
 	option = { #ok sure
 		name = mlt.51.a
-		trigger = {
-			MLT = { is_ai = no }
-		}
 		add_political_power = -25
 		hidden_effect = {
 			MLT = {
@@ -2241,9 +2226,6 @@ country_event = { #malta wants to buy st martin
 	}
 	option = { #no
 		name = mlt.51.b
-		trigger = {
-			MLT = { is_ai = yes }
-		}
 		add_political_power = 25
 		hidden_effect = {
 			MLT = {
@@ -2331,9 +2313,6 @@ country_event = { #malta wants to buy leeward islands
 
 	option = { #ok sure
 		name = mlt.54.a
-		trigger = {
-			MLT = { is_ai = no }
-		}
 		add_political_power = -25
 		hidden_effect = {
 			MLT = {
@@ -2347,9 +2326,6 @@ country_event = { #malta wants to buy leeward islands
 	}
 	option = { #no
 		name = mlt.54.b
-		trigger = {
-			MLT = { is_ai = yes }
-		}
 		add_political_power = 25
 		hidden_effect = {
 			MLT = {
@@ -3097,11 +3073,8 @@ country_event = { #bought agean
 				days = 100
 				}
 		}
+		transfer_state = 187
 		transfer_state = 939 
-		if = {
-			limit = { 187 = { is_owned_by = GRE } }
-			transfer_state = 939 
-		}
 		add_timed_idea = {
 				idea = MLT_paid_for_island
 				days = 100
@@ -3132,102 +3105,6 @@ country_event = { #said no to buying agean
 		create_wargoal = {
 			type = annex_everything
 			target = GRE
-		}
-
-	}
-}
-
-country_event = { #malta wants to buy agean
-	id = mlt.751
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mlt.1" }
-	title = mlt.751.t
-	desc = mlt.751.d
-	
-	picture = GFX_report_event_MLT_prettymed
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = { #ok sure
-		name = mlt.751.a
-		add_political_power = -25
-		hidden_effect = {
-			MLT = {
-			country_event = {
-					id = mlt.76
-				days = 3
-				}
-			}
-		}
-
-	}
-	option = { #no
-		name = mlt.751.b
-		add_political_power = 25
-		hidden_effect = {
-			MLT = {
-				country_event = {
-					id = mlt.77
-				days = 3
-				}
-			}
-		}
-
-	}
-}	
-
-country_event = { #bought agean
-	id = mlt.761
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mlt.1" }
-	title = mlt.761.t
-	desc = mlt.761.d
-	
-	picture = GFX_report_event_MLT_prettymed
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = { #ok sure
-		name = mlt.761.a
-		TUR = {
-			add_timed_idea = {
-				idea = MLT_money_for_island
-				days = 100
-				}
-		}
-		transfer_state = 187
-		add_timed_idea = {
-				idea = MLT_paid_for_island
-				days = 100
-				}
-
-	}
-}
-
-country_event = { #said no to buying agean
-	id = mlt.771
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mlt.1" }
-	title = mlt.771.t
-	desc = mlt.771.d
-	
-	picture = GFX_report_event_MLT_prettymed
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = { #ok sure
-		name = mlt.771.a
-		add_political_power = -25
-
-	}
-	option = { #ok sure
-		name = mlt.771.b
-		create_wargoal = {
-			type = annex_everything
-			target = TUR
 		}
 
 	}
@@ -3904,7 +3781,7 @@ country_event = { #gov general appointed
 					desc = "POLITICS_GORT_DESC"
 					picture = "gfx/leaders/CAN/Portrait_England_John_Vereker_GG.png"
 					expire = "1.1.1"
-					ideology = socdem_christian_democracy_subtype
+					ideology = socdem_christian_socialism_subtype
 					traits = {}
 				}
 			create_country_leader = {
@@ -3940,10 +3817,20 @@ country_event = { #gov general appointed
 		}	
 		if = {
 			limit = {
-				OR = {
-					has_country_flag = MLT_integ
-					has_country_flag = MLT_muarry
-				}
+				has_country_flag = MLT_integ
+			}
+			create_country_leader = {
+					name = "John Vereker"
+					desc = "POLITICS_GORT_DESC"
+					picture = "gfx/leaders/CAN/Portrait_England_John_Vereker_GG.png"
+					expire = "1.1.1"
+					ideology = integralism_subtype
+					traits = {}
+				}	
+		}	
+		if = {
+			limit = {
+				has_country_flag = MLT_muarry
 			}
 			create_country_leader = {
 					name = "John Vereker"
@@ -3994,7 +3881,12 @@ country_event = { #gov general appointed
 					traits = {}
 				}	
 		}	
-		else = {
+		if = {
+			limit = {
+				NOT = {
+					has_completed_focus = MLT_maltese_toryism
+				}
+			}
 			create_country_leader = {
 					name = "John Vereker"
 					desc = "POLITICS_GORT_DESC"
@@ -4003,15 +3895,9 @@ country_event = { #gov general appointed
 					ideology = liberal_conservative_subtype
 					traits = {}
 				}	
-		}
-		create_country_leader = {
-			name = "John Vereker"
-			desc = "POLITICS_GORT_DESC"
-			picture = "gfx/leaders/CAN/Portrait_England_John_Vereker_GG.png"
-			expire = "1.1.1"
-			ideology = centrist_subtype
-			traits = {}
 		}				
+		
+
 	}
 }
 
@@ -5383,7 +5269,6 @@ country_event = { #do we go italy or nah
 					is_core_of = SRD
 					is_core_of = PAP
 					is_core_of = SIC
-					is_core_of = SCL
 				}
 			}
 			add_claim_by = MLT
@@ -5407,15 +5292,6 @@ country_event = { #do we go italy or nah
 	create_wargoal = {
 		type = annex_everything
 		target = SIC
-	}
-	if  = {
-		limit = {
-			SCL = { exists = yes }
-		}
-		create_wargoal = {
-			type = annex_everything
-			target = SCL
-		}
 	}
 		hidden_effect = {
 			scoped_sound_effect = "effect_malta_roma"
@@ -5685,6 +5561,7 @@ country_event = { #Borg Rome LARP
 		add_state_core = 46
 		add_state_core = 81
 		add_state_core = 341
+		add_state_core = 1225
 		add_state_core = 773
 		add_state_core = 340
 		add_state_core = 339
@@ -5731,7 +5608,6 @@ country_event = { #Borg Rome LARP
 		add_state_core = 130
 		add_state_core = 132
 		add_state_core = 122
-		add_state_core = 1225
 		add_state_core = 128
 		add_state_core = 129
 		add_state_core = 338
@@ -5799,7 +5675,6 @@ country_event = { #Borg Rome LARP
 			add_core_of = MLT
 		}
 		set_cosmetic_tag = MLT_RED_ROME_BLACK
-		set_country_flag = MLT_weareromenow
 		hidden_effect = {
 			country_event = { id = mlt.149 }
 		}
@@ -5887,8 +5762,8 @@ country_event = { #Duchy of Athens
 				}
 				set_party_name = {
 					ideology = paternal_autocrat
-					long_name = MLT_accioli_party_long
-					name = MLT_accioli_party
+					long_name = "House of Accioli"
+					name = "House of Accioli"
 				}
 				set_politics = {
 					ruling_party = paternal_autocrat
@@ -5944,8 +5819,8 @@ country_event = { #Duchy of Athens
 				}
 				set_party_name = {
 					ideology = paternal_autocrat
-					long_name = MLT_accioli_party_long
-					name = MLT_accioli_party
+					long_name = "House of Accioli"
+					name = "House of Accioli"
 				}
 				set_politics = {
 					ruling_party = paternal_autocrat

@@ -26,14 +26,6 @@ country_event = {
 						rule = SRI_start_election
 						option = SRI_START_GARIBALDI
 					}
-					has_game_rule = {
-						rule = SRI_start_election
-						option = SRI_START_GARIBALDI_REPUBLIC
-					}
-					has_game_rule = {
-						rule = SRI_start_election
-						option = SRI_START_GARIBALDI_SARDINIA
-					}
 				}
 			}
 		}
@@ -43,28 +35,28 @@ country_event = {
 			elections_allowed = no
 		}
 		complete_national_focus = SRI_garibaldi_ii
-		set_country_leader_portrait = {portrait = "gfx/leaders/SRI/Portrait_SRI_Giuseppe_Garibaldi_II.png" }
+		set_country_leader_portrait = {	portrait = "gfx/leaders/SRI/Portrait_SRI_Giuseppe_Garibaldi_II.png" }
 		hidden_effect = {
-			set_country_flag = LEADER_GUI_VISIBLE
-			SRI = { SRI_become_not_socialist_like = yes }
-			set_country_flag = SRI_garibaldi_republic
-			clr_country_flag = soc_dems_are_socialists
-			remove_all_ministers = yes
-			add_ideas = SRI_Randolfo_Pacciardi_hog_sli
-			add_ideas = SRI_Raffaele_Rossetti_for_sli
-			add_ideas = SRI_Sante_Garibaldi_eco_sli
-			add_ideas = SRI_Ricciotti_Garibaldi_sec_sli
-			set_cosmetic_tag = SRI_confederation
-			every_unit_leader = {
-				limit = { 
-					OR = {
-						has_trait = SRI_squadristi_trait 
-						has_trait = SRI_arditi_futuristi_trait 
-					}
+		set_country_flag = LEADER_GUI_VISIBLE
+		SRI = { SRI_become_not_socialist_like = yes }
+		set_country_flag = SRI_garibaldi_republic
+		clr_country_flag = soc_dems_are_socialists
+		remove_all_ministers = yes
+		add_ideas = SRI_Randolfo_Pacciardi_hog_sli
+		add_ideas = SRI_Raffaele_Rossetti_for_sli
+		add_ideas = SRI_Sante_Garibaldi_eco_sli
+		add_ideas = SRI_Ricciotti_Garibaldi_sec_sli
+		set_cosmetic_tag = SRI_confederation
+		every_unit_leader = {
+			limit = { 
+				OR = {
+				has_trait = SRI_squadristi_trait 
+				has_trait = SRI_arditi_futuristi_trait 
 				}
-				remove_unit_leader = yes
 			}
-			random_other_country = {
+			remove_unit_leader = yes
+		}
+		random_other_country = {
 				news_event = {
 					id = worldnews.10008
 					days = 1
@@ -82,14 +74,6 @@ country_event = {
 					has_game_rule = {
 						rule = SRI_start_election
 						option = SRI_START_GARIBALDI
-					}
-					has_game_rule = {
-						rule = SRI_start_election
-						option = SRI_START_GARIBALDI_REPUBLIC
-					}
-					has_game_rule = {
-						rule = SRI_start_election
-						option = SRI_START_GARIBALDI_SARDINIA
 					}
 				}
 			}
@@ -119,16 +103,6 @@ country_event = {
 	
 	option = {
 		name = socitaly.206.a
-		ai_chance = {
-			factor = 20
-			modifier = {
-				factor = 0
-				has_game_rule = {
-					rule = SRI_start_election
-					option = SRI_START_GARIBALDI_REPUBLIC
-				}
-			}
-		}
 		SRD = {
 			country_event = {
 				id = socitaly.207
@@ -144,16 +118,6 @@ country_event = {
 	}
 	option = {
 		name = socitaly.206.b
-		ai_chance = {
-			factor = 80
-			modifier = {
-				factor = 0
-				has_game_rule = {
-					rule = SRI_start_election
-					option = SRI_START_GARIBALDI_SARDINIA
-				}
-			}
-		}
 		add_political_power = 100
 			add_stability = 0.05
 			add_popularity = {
@@ -214,25 +178,6 @@ country_event = {
 			factor = 100
 		}
 		add_political_power = 100
-		SRI = {
-			every_unit_leader = {
-				set_nationality = SRD
-			}
-			hidden_effect = {
-				set_nationality = {
-					target_country = SRD
-					character = SRI_Enrico_Fermi
-				}
-				set_nationality = {
-					target_country = SRD
-					character = SRI_Nello_Carrara
-				}
-				set_nationality = {
-					target_country = SRD
-					character = SRI_Giovanni_Giorgi
-				}
-			}
-		}
 		SRD = {
 			every_state = {
 			limit = { is_core_of = SRI }
@@ -253,6 +198,11 @@ country_event = {
 		}
 		hidden_effect = {
 		}
+		SRI = {
+			every_unit_leader = {
+				set_nationality = SRD
+			}
+		}
 	}
 
 	option = {
@@ -265,11 +215,6 @@ country_event = {
 		every_state = {
 			limit = { is_core_of = SRD }
 			add_core_of = SRI
-		}
-		SRD = {
-			every_unit_leader = {
-				set_nationality = SRI
-			}
 		}
 		SRI = {
 			annex_country = {
@@ -852,15 +797,15 @@ country_event = {
 		every_state = {
 			limit = { is_core_of = SPR }
 			add_claim_by = FROM
-		}
+			}
 		every_state = {
 			limit = { is_core_of = CNT }
 			add_claim_by = FROM
-		}
+			}
 		every_state = {
 			limit = { is_core_of = CAR }
 			add_claim_by = FROM
-		}
+			}
 		set_country_flag = SRI_amadeo_spain
 	}
 	option = {
@@ -914,108 +859,122 @@ country_event = {
 	
 	is_triggered_only = yes
 	immediate = {
-		hidden_effect = {
-			set_party_name = { 
-				ideology = radical_socialist
-				long_name = SRI_federterra_party_long
-				name = SRI_federterra_party
+	hidden_effect = {
+	set_party_name = { 
+			ideology = radical_socialist
+			long_name = SRI_federterra_party_long
+			name = SRI_federterra_party
+		}
+	set_party_name = { 
+			ideology = social_democrat
+			long_name = SRI_action_party_long
+			name = SRI_action_party
+		}
+		set_party_name = { 
+			ideology = social_liberal
+			long_name = SRI_social_liberal_party_long
+			name = SRI_social_liberal_party
+		}
+		set_party_name = { 
+			ideology = market_liberal
+			long_name = SRI_market_liberal_party_long
+			name = SRI_market_liberal_party
+		}
+		set_party_name = { 
+			ideology = social_conservative
+			long_name = SRI_social_conservative_party_long
+			name = SRI_social_conservative_party
+		}
+	country_event = { id = socitaly.225 days = 1461 } # Repeat election every 4 years
+	if = {
+	limit = {
+	has_country_leader = { ruling_only = yes name = "Amedeo I" }
+	}
+	create_country_leader = {
+			name = "Amedeo I"
+			picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
+			desc = "POLITICS_AMADEO_SAVOY_DESC"
+			ideology = radsoc_socialist_feminism_subtype
+			traits = { }
+	}
+	create_country_leader = {
+			name = "Amedeo I"
+			picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
+			desc = "POLITICS_AMADEO_SAVOY_DESC"
+			ideology = liberal_socialism_subtype
+			traits = { }
+	}
+	create_country_leader = {
+			name = "Amedeo I"
+			picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
+			desc = "POLITICS_AMADEO_SAVOY_DESC"
+			ideology = marlib_radical_liberalism_subtype
+			traits = { }
+	}
+	create_country_leader = {
+			name = "Amedeo I"
+			picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
+			desc = "POLITICS_AMADEO_SAVOY_DESC"
+			ideology = paternal_socialism_subtype 
+			traits = { }
+	}
+	create_country_leader = {
+			name = "Amedeo I"
+			picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
+			desc = "POLITICS_AMADEO_SAVOY_DESC"
+			ideology = qualunquismo_subtype
+			traits = { }
+	}
+	create_country_leader = {
+			name = "Amedeo I"
+			picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
+			desc = "POLITICS_AMADEO_SAVOY_DESC"
+			ideology = pataut_national_conservative_subtype
+			traits = { }
 			}
-			set_party_name = { 
-				ideology = social_democrat
-				long_name = SRI_action_party_long
-				name = SRI_action_party
-			}
-			set_party_name = { 
-				ideology = social_liberal
-				long_name = SRI_social_liberal_party_long
-				name = SRI_social_liberal_party
-			}
-			set_party_name = { 
-				ideology = market_liberal
-				long_name = SRI_market_liberal_party_long
-				name = SRI_market_liberal_party
-			}
-			set_party_name = { 
-				ideology = social_conservative
-				long_name = SRI_social_conservative_party_long
-				name = SRI_social_conservative_party
-			}
-			country_event = { id = socitaly.225 days = 1461 } # Repeat election every 4 years
-			if = {
-				limit = { has_country_leader = { ruling_only = yes name = "Amedeo I" } }
-				create_country_leader = {
-					name = "Amedeo I"
-					picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
-					desc = "POLITICS_AMADEO_SAVOY_DESC"
-					ideology = radsoc_socialist_feminism_subtype
-				}
-				create_country_leader = {
-					name = "Amedeo I"
-					picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
-					desc = "POLITICS_AMADEO_SAVOY_DESC"
-					ideology = liberal_socialism_subtype
-				}
-				create_country_leader = {
-					name = "Amedeo I"
-					picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
-					desc = "POLITICS_AMADEO_SAVOY_DESC"
-					ideology = marlib_radical_liberalism_subtype
-				}
-				create_country_leader = {
-					name = "Amedeo I"
-					picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
-					desc = "POLITICS_AMADEO_SAVOY_DESC"
-					ideology = paternal_socialism_subtype
-				}
-				create_country_leader = {
-					name = "Amedeo I"
-					picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
-					desc = "POLITICS_AMADEO_SAVOY_DESC"
-					ideology = qualunquismo_subtype
-				}
-				create_country_leader = {
-					name = "Amedeo I"
-					picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
-					desc = "POLITICS_AMADEO_SAVOY_DESC"
-					ideology = pataut_national_conservative_subtype
-				}
-			}
-			else_if = {
-				create_country_leader = {
-					name = "Giuseppe Garibaldi II"
-					picture = "gfx/leaders/SRI/Portrait_SRI_Giuseppe_Garibaldi_II_Suit.png"
-					desc = ""
-					ideology = radsoc_socialist_feminism_subtype
-				}
-				create_country_leader = {
-					name = "Giuseppe Garibaldi II"
-					picture = "gfx/leaders/SRI/Portrait_SRI_Giuseppe_Garibaldi_II_Suit.png"
-					desc = ""
-					ideology = liberal_socialism_subtype
-				}
-				create_country_leader = {
-					name = "Giuseppe Garibaldi II"
-					picture = "gfx/leaders/SRI/Portrait_SRI_Giuseppe_Garibaldi_II_Suit.png"
-					desc = ""
-					ideology = marlib_radical_liberalism_subtype
-				}
-				create_country_leader = {
-					name = "Giuseppe Garibaldi II"
-					picture = "gfx/leaders/SRI/Portrait_SRI_Giuseppe_Garibaldi_II_Suit.png"
-					desc = ""
-					ideology = paternal_socialism_subtype
-				}
-				create_country_leader = {
-					name = "Giuseppe Garibaldi II"
-					picture = "gfx/leaders/SRI/Portrait_SRI_Giuseppe_Garibaldi_II_Suit.png"
-					desc = ""
-					ideology = qualunquismo_subtype
-				}
-				create_country_leader = {
-					name = "Giuseppe Garibaldi II"
-					picture = "gfx/leaders/SRI/Portrait_SRI_Giuseppe_Garibaldi_II_Suit.png"
-					desc = ""
-					ideology = pataut_national_conservative_subtype
+		}
+	else_if = {
+	create_country_leader = {
+			name = "Giuseppe Garibaldi II"
+			picture = "gfx/leaders/SRI/Portrait_SRI_Giuseppe_Garibaldi_II_Suit.png"
+			desc = ""
+			ideology = radsoc_socialist_feminism_subtype
+			traits = { }
+	}
+	create_country_leader = {
+			name = "Giuseppe Garibaldi II"
+			picture = "gfx/leaders/SRI/Portrait_SRI_Giuseppe_Garibaldi_II_Suit.png"
+			desc = ""
+			ideology = liberal_socialism_subtype
+			traits = { }
+	}
+	create_country_leader = {
+			name = "Giuseppe Garibaldi II"
+			picture = "gfx/leaders/SRI/Portrait_SRI_Giuseppe_Garibaldi_II_Suit.png"
+			desc = ""
+			ideology = marlib_radical_liberalism_subtype
+			traits = { }
+	}
+	create_country_leader = {
+			name = "Giuseppe Garibaldi II"
+			picture = "gfx/leaders/SRI/Portrait_SRI_Giuseppe_Garibaldi_II_Suit.png"
+			desc = ""
+			ideology = paternal_socialism_subtype 
+			traits = { }
+	}
+	create_country_leader = {
+			name = "Giuseppe Garibaldi II"
+			picture = "gfx/leaders/SRI/Portrait_SRI_Giuseppe_Garibaldi_II_Suit.png"
+			desc = ""
+			ideology = qualunquismo_subtype
+			traits = { }
+	}
+	create_country_leader = {
+			name = "Giuseppe Garibaldi II"
+			picture = "gfx/leaders/SRI/Portrait_SRI_Giuseppe_Garibaldi_II_Suit.png"
+			desc = ""
+			ideology = pataut_national_conservative_subtype
+			traits = { }
 				}
 			}
 		}
@@ -1039,7 +998,9 @@ country_event = {
 			CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 		}
 		custom_effect_tooltip = "New Elections will take place every 4 years!"
-		hidden_effect = { remove_ideas_with_trait = head_of_government }
+		hidden_effect = {
+		remove_ideas_with_trait = head_of_government
+		}
 		add_ideas = SRI_Argentina_Altobelli_hog_rso
 	}
 	option = {
@@ -1060,7 +1021,9 @@ country_event = {
 			CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 		}
 		custom_effect_tooltip = "New Elections will take place every 4 years!"
-		hidden_effect = { remove_ideas_with_trait = head_of_government }
+		hidden_effect = {
+		remove_ideas_with_trait = head_of_government
+		}
 		add_ideas = SRI_Carlo_Rosselli_hog_sde
 	}
 	option = {
@@ -1085,10 +1048,14 @@ country_event = {
 		remove_ideas_with_trait = head_of_government
 		}
 		if = {
-			limit = { has_country_leader = { ruling_only = yes name = "Amedeo I" } }
+			limit = {
+				has_country_leader = { ruling_only = yes name = "Amedeo I" }
+			}
 			add_ideas = SRI_Giuseppe_Garibaldi_II_hog_sli
 		}
-		else_if = { add_ideas = SRI_Randolfo_Pacciardi_hog_sli }
+		else_if = {
+			add_ideas = SRI_Randolfo_Pacciardi_hog_sli
+		}
 	}
 	option = {
 		name = socitaly.225.e
@@ -1108,7 +1075,9 @@ country_event = {
 			CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 		}
 		custom_effect_tooltip = "New Elections will take place every 4 years!"
-		hidden_effect = { remove_ideas_with_trait = head_of_government }
+		hidden_effect = {
+		remove_ideas_with_trait = head_of_government
+		}
 		add_ideas = SRI_Giovanni_Amendola_hog_mli
 	}
 	option = {
@@ -1129,7 +1098,9 @@ country_event = {
 			CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 		}
 		custom_effect_tooltip = "New Elections will take place every 4 years!"
-		hidden_effect = { remove_ideas_with_trait = head_of_government }
+		hidden_effect = {
+		remove_ideas_with_trait = head_of_government
+		}
 		add_ideas = SRI_Alessandro_Scotti_hog_sco
 	}
 	option = {
@@ -1150,7 +1121,9 @@ country_event = {
 			CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 		}
 		custom_effect_tooltip = "New Elections will take place every 4 years!"
-		hidden_effect = { remove_ideas_with_trait = head_of_government }
+		hidden_effect = {
+		remove_ideas_with_trait = head_of_government
+		}
 		add_ideas = SRI_Roberto_Bencivenga_hog_ade
 	}
 	option = {
@@ -1171,7 +1144,9 @@ country_event = {
 			CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 		}
 		custom_effect_tooltip = "New Elections will take place every 4 years!"
-		hidden_effect = { remove_ideas_with_trait = head_of_government }
+		hidden_effect = {
+		remove_ideas_with_trait = head_of_government
+		}
 		add_ideas = SRI_Alfredo_Covelli_hog_pau
 	}
 }
@@ -1191,94 +1166,98 @@ country_event = {
 		ai_chance = {
 			factor = 50
 		}
-		release_puppet = SPR
-		FROM = {
+			release_puppet = SPR
+			FROM = {
 			set_autonomy = {
 				target = SPR
 				autonomous_state = kx_colored_puppet
+				}
 			}
-		}
-		SPR = {
+			SPR = {
 			load_focus_tree = generic_focus
 			set_cosmetic_tag = SPR_SRD
 			create_country_leader = {
-				name = "Amadeo II"
-				desc = ""
-				picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
-				expire = "1.1.1"
-				ideology = national_populist_subtype
-			}
-			create_country_leader = {
-				name = "Amadeo II"
-				desc = ""
-				picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
-				expire = "1.1.1"
-				ideology = absolute_monarchy_subtype
-			}
-			create_country_leader = {
-				name = "Amadeo II"
-				desc = ""
-				picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
-				expire = "1.1.1"
-				ideology = authoritarian_democrat_subtype
-			}
-			create_country_leader = {
-				name = "Amadeo II"
-				desc = ""
-				picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
-				expire = "1.1.1"
-				ideology = social_conservative_subtype
-			}
-			create_country_leader = {
-				name = "Amadeo II"
-				desc = ""
-				picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
-				expire = "1.1.1"
-				ideology = market_liberal_subtype
-			}
-			create_country_leader = {
-				name = "Amadeo II"
-				desc = ""
-				picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
-				expire = "1.1.1"
-				ideology = social_liberal_subtype
-			}
-			create_country_leader = {
-				name = "Amadeo II"
-				desc = ""
-				picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
-				expire = "1.1.1"
-				ideology = social_democrat_subtype
-			}
-			create_country_leader = {
-				name = "Amadeo II"
-				desc = ""
-				picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
-				expire = "1.1.1"
-				ideology = radical_socialist_subtype
-			}
-			every_state = {
+					name = "Amadeo II"
+					desc = ""
+					picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
+					expire = "1.1.1"
+					ideology = national_populist_subtype
+				}
+				create_country_leader = {
+					name = "Amadeo II"
+					desc = ""
+					picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
+					expire = "1.1.1"
+					ideology = absolute_monarchy_subtype
+				}
+				create_country_leader = {
+					name = "Amadeo II"
+					desc = ""
+					picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
+					expire = "1.1.1"
+					ideology = authoritarian_democrat_subtype
+				}
+				create_country_leader = {
+					name = "Amadeo II"
+					desc = ""
+					picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
+					expire = "1.1.1"
+					ideology = social_conservative_subtype
+				}
+				create_country_leader = {
+					name = "Amadeo II"
+					desc = ""
+					picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
+					expire = "1.1.1"
+					ideology = market_liberal_subtype
+				}
+				create_country_leader = {
+					name = "Amadeo II"
+					desc = ""
+					picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
+					expire = "1.1.1"
+					ideology = social_liberal_subtype
+				}
+				create_country_leader = {
+					name = "Amadeo II"
+					desc = ""
+					picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
+					expire = "1.1.1"
+					ideology = social_democrat_subtype
+				}
+				create_country_leader = {
+					name = "Amadeo II"
+					desc = ""
+					picture = "gfx/leaders/SRD/Portrait_SRD_King_Amedeo.png"
+					expire = "1.1.1"
+					ideology = radical_socialist_subtype
+				}
+				every_state = {
 				limit = { is_core_of = CAR }
 				add_core_of = SPR
-			}
-			every_state = {
+					}
+				every_state = {
 				limit = { is_core_of = CNT }
 				add_core_of = SPR
-			}
-			every_core_state = {
+					}
+				every_core_state = {
 				limit = {
-					OR = {
+				OR = {	
 						is_owned_by = ITA
 						is_owned_by = SIC
 						is_owned_by = SRD
 						is_owned_by = SPR
-					}
-				}
+							}
+						}
 				set_state_owner_to = SPR
-			}
-			hidden_effect = {
+				}
+				hidden_effect = {
 				every_state = {
-					limit = { is_core_of = SPR }
+					limit = {
+						OR = {
+							is_core_of = SPR
+						}
+					}
 					remove_core_of = FROM
 				}
 				177 = { add_core_of = FROM }
@@ -1292,25 +1271,31 @@ country_event = {
 			factor = 50
 		}
 		if = {
-			limit = { tag = ITA }
-			set_cosmetic_tag = SPR_ITA_UNION
+		limit = {
+		tag = ITA
+			}
+		set_cosmetic_tag = SPR_ITA_UNION
 		}
 		else_if = {
-			limit = { NOT = { tag = ITA } }
-			set_cosmetic_tag = SPR_SRD_UNION
+		limit = {
+		NOT = {
+		tag = ITA
+			}
+		}
+		set_cosmetic_tag = SPR_SRD_UNION
 		}
 		every_state = {
 			limit = { is_core_of = SPR }
 			add_core_of = FROM
-		}
+			}
 		every_state = {
 			limit = { is_core_of = CNT }
 			add_core_of = FROM
-		}
+			}
 		every_state = {
 			limit = { is_core_of = CAR }
 			add_core_of = FROM
-		}
+			}
 		add_political_power = -100
 		add_stability = -0.1
 	}
@@ -1322,15 +1307,15 @@ country_event = {
 		every_state = {
 			limit = { is_core_of = SPR }
 			add_core_of = FROM
-		}
+			}
 		every_state = {
 			limit = { is_core_of = CNT }
 			add_core_of = FROM
-		}
+			}
 		every_state = {
 			limit = { is_core_of = CAR }
 			add_core_of = FROM
-		}
+			}
 		add_political_power = -100
 		add_stability = -0.1
 	}
@@ -1348,199 +1333,6 @@ country_event = {
 	option = {
 		name = socitaly.209.a
 		add_political_power = 30
-	}
-}
-
-country_event = { #fate of generals
-	id = socitaly.227
-	immediate = {log = "[GetDateText]: [Root.GetName]: event socitaly.227"}
-	title = socitaly.227.t
-	desc = socitaly.227.d
-	picture = GFX_USA_military_trial
-	
-	fire_only_once = yes
-	
-	is_triggered_only = yes
-	
-	option = { #harsh
-		name = socitaly.227.a
-		ai_chance = {
-			factor = 50
-		}
-		add_political_power = 50
-		add_command_power = -10
-		add_stability = 0.05
-	}
-	option = { #all
-		name = socitaly.227.b
-		ai_chance = {
-			factor = 0
-		}
-		add_political_power = -100
-		add_command_power = 30
-		ITA = {
-			every_unit_leader = {
-				set_nationality = SRI
-			}
-		}
-		SRD = {
-			every_unit_leader = {
-				set_nationality = SRI
-			}
-		}	
-		SIC = {
-			every_unit_leader = {
-				set_nationality = SRI
-			}
-		}
-		PAP = {
-			every_unit_leader = {
-				limit = {
-					NOT = {
-						has_trait = PAP_swiss_guard_trait
-					}
-				}
-				set_nationality = SRI
-			}
-		}
-		if = {
-			limit = {
-				has_global_flag = ITA_dissolved
-			}
-			VNC = {
-				every_unit_leader = {
-					set_nationality = SRI
-				}
-			}
-			LOM = {
-				every_unit_leader = {
-					set_nationality = SRI
-				}
-			}							
-		}
-	}
-	option = { #all but extremists
-		name = socitaly.227.c
-		ai_chance = {
-			factor = 20
-		}
-		add_political_power = -75
-		add_command_power = 25
-		ITA = {
-			every_unit_leader = {
-				limit = {
-					NOT = {
-						has_trait = ITA_camicie_azzurre_trait
-						has_trait = ITA_fiamme_nere_trait
-					}
-				}
-				set_nationality = SRI
-			}
-		}
-		SRD = {
-			every_unit_leader = {
-				set_nationality = SRI
-			}
-		}	
-		SIC = {
-			every_unit_leader = {
-				limit = {
-					NOT = {
-						has_trait = SIC_camicie_nere_trait
-					}
-				}
-				set_nationality = SRI
-			}
-		}
-		PAP = {
-			every_unit_leader = {
-				limit = {
-					NOT = {
-						has_trait = PAP_fiamme_bianche_trait
-						has_trait = PAP_swiss_guard_trait
-					}
-				}
-				set_nationality = SRI
-			}
-		}
-		if = {
-			limit = {
-				has_global_flag = ITA_dissolved
-			}
-			VNC = {
-				every_unit_leader = {
-					set_nationality = SRI
-				}
-			}
-			LOM = {
-				every_unit_leader = {
-					set_nationality = SRI
-				}
-			}							
-		}
-	}
-	option = { #Just the republicans
-		name = socitaly.227.e
-		trigger = {
-			has_country_leader = { ruling_only = yes name = "Giuseppe Garibaldi II" }
-		}
-		ai_chance = {
-			factor = 30
-		}
-		add_political_power = -10
-		add_command_power = 5
-		ITA = {
-			every_unit_leader = {
-				limit = {
-					NOT = {
-						has_trait = ITA_camicie_azzurre_trait
-						has_trait = ITA_fiamme_nere_trait
-					}
-				}
-				set_nationality = SRI
-			}
-		}
-		if = {
-			limit = {
-				has_global_flag = ITA_dissolved
-			}
-			VNC = {
-				every_unit_leader = {
-					set_nationality = SRI
-				}
-			}
-		}
-	}
-	option = { #Just the monarchists
-		trigger = {
-			has_country_leader = { ruling_only = yes name = "Amedeo I" }
-		}
-		ai_chance = {
-			factor = 30
-		}
-		name = socitaly.227.f
-		add_political_power = -10
-		add_command_power = 5
-		SIC = {
-			every_unit_leader = {
-				limit = {
-					NOT = {
-						has_trait = SIC_camicie_nere_trait
-					}
-				}
-				set_nationality = SRI
-			}
-		}
-		if = {
-			limit = {
-				has_global_flag = ITA_dissolved
-			}
-			LOM = {
-				every_unit_leader = {
-					set_nationality = SRI
-				}
-			}							
-		}
 	}
 }
 
@@ -1639,19 +1431,9 @@ country_event = { # Economic policy
 			}
 			modifier = {
 				factor = 100
-				OR = {
 					has_game_rule = {
 						rule = SRI_start_election
 						option = SRI_START_GARIBALDI
-					}
-					has_game_rule = {
-						rule = SRI_start_election
-						option = SRI_START_GARIBALDI_REPUBLIC
-					}
-					has_game_rule = {
-						rule = SRI_start_election
-						option = SRI_START_GARIBALDI_SARDINIA
-					}
 				}
 			}
 		}
@@ -1810,19 +1592,9 @@ country_event = { # Internal policy
 			}
 			modifier = {
 				factor = 100
-				OR = {
 					has_game_rule = {
 						rule = SRI_start_election
 						option = SRI_START_GARIBALDI
-					}
-					has_game_rule = {
-						rule = SRI_start_election
-						option = SRI_START_GARIBALDI_REPUBLIC
-					}
-					has_game_rule = {
-						rule = SRI_start_election
-						option = SRI_START_GARIBALDI_SARDINIA
-					}
 				}
 			}
 		}
@@ -2093,19 +1865,9 @@ country_event = { # Religious policy
 			}
 			modifier = {
 				factor = 100
-				OR = {
 					has_game_rule = {
 						rule = SRI_start_election
 						option = SRI_START_GARIBALDI
-					}
-					has_game_rule = {
-						rule = SRI_start_election
-						option = SRI_START_GARIBALDI_REPUBLIC
-					}
-					has_game_rule = {
-						rule = SRI_start_election
-						option = SRI_START_GARIBALDI_SARDINIA
-					}
 				}
 			}
 		}
@@ -3103,7 +2865,11 @@ country_event = { # Partito Socialista Unitario majority
 
 	is_triggered_only = yes
 
-	trigger = { NOT = { has_country_flag = SRI_garibaldi_republic } }
+	trigger = {
+	NOT = {
+	has_country_flag = SRI_garibaldi_republic
+		}
+	}
 
 	immediate = {
 		log = "[GetDateText]: [Root.GetName]: event socitaly.45"
@@ -3127,11 +2893,6 @@ country_event = { # Partito Socialista Unitario majority
 			ruling_party = social_democrat
 			elections_allowed = no
 		}
-		set_party_name = { 
-			ideology = social_democrat
-			long_name = SRI_psu_party_long
-			name = SRI_psu_party
-		}
 		add_ideas = SRI_Giacomo_Matteotti_hog_sde
 		add_ideas = SRI_Pietro_Nenni_for_sde
 		add_ideas = SRI_Ludovico_Aragona_eco_sde
@@ -3149,56 +2910,7 @@ country_event = { # Partito Socialista Unitario majority
 			ruling_party = social_democrat
 			elections_allowed = no
 		}
-		set_party_name = { 
-			ideology = social_democrat
-			long_name = SRI_psu_party_long
-			name = SRI_psu_party
-		}
 		add_ideas = SRI_Giacomo_Matteotti_hog_sde
-		add_ideas = SRI_Pietro_Nenni_for_sde
-		add_ideas = SRI_Ludovico_Aragona_eco_sde
-		add_ideas = SRI_Bruno_Buozzi_sec_sde
-	}
-	option = { # Ludovico D'Aragona
-		name = socitaly.45.c
-		create_country_leader = {
-			name = "Ludovico D'Aragona"
-			picture = "gfx/leaders/SRI/Portrait_SRI_Ludovico_Daragona.png"
-			expire = "1.1.1"
-			ideology = syndie_social_democrat_subtype 
-		}
-		set_politics = {
-			ruling_party = social_democrat
-			elections_allowed = no
-		}
-		set_party_name = { 
-			ideology = social_democrat
-			long_name = SRI_cgdl_party_long
-			name = SRI_cgdl_party
-		}
-		add_ideas = SRI_Giacomo_Matteotti_hog_sde
-		add_ideas = SRI_Pietro_Nenni_for_sde
-		add_ideas = SRI_Ludovico_Aragona_eco_sde
-		add_ideas = SRI_Bruno_Buozzi_sec_sde
-	}
-	option = { # Argentina Altobelli
-		name = socitaly.45.e
-		create_country_leader = {
-			name = "Argentina Altobelli"
-			picture = "gfx/leaders/SRI/Portrait_SRI_Argentina_Altobelli.png"
-			expire = "1.1.1"
-			ideology = socdem_socialist_feminism_subtype 
-		}
-		set_politics = {
-			ruling_party = social_democrat
-			elections_allowed = no
-		}
-		set_party_name = { 
-			ideology = social_democrat
-			long_name = SRI_federterra_party_long
-			name = SRI_federterra_party
-		}
-		add_ideas = SRI_Argentina_Altobelli_hog_rso
 		add_ideas = SRI_Pietro_Nenni_for_sde
 		add_ideas = SRI_Ludovico_Aragona_eco_sde
 		add_ideas = SRI_Bruno_Buozzi_sec_sde
@@ -3212,7 +2924,11 @@ country_event = { # Commie and Synds Success
 
 	is_triggered_only = yes
 
-	trigger = { NOT = { has_country_flag = SRI_garibaldi_republic } }
+	trigger = {
+	NOT = {
+	has_country_flag = SRI_garibaldi_republic
+		}
+	}
 
 	option = { # Syndies
 		name = socitaly.777.a
@@ -3249,7 +2965,11 @@ country_event = { # Unione Sindacale Italiana majority
 
 	is_triggered_only = yes
 
-	trigger = { NOT = { has_country_flag = SRI_garibaldi_republic } }
+	trigger = {
+	NOT = {
+	has_country_flag = SRI_garibaldi_republic
+		}
+	}
 
 	immediate = {
 		log = "[GetDateText]: [Root.GetName]: event socitaly.46"
@@ -3289,7 +3009,7 @@ country_event = { # Unione Sindacale Italiana majority
 			elections_allowed = no
 		}
 		set_party_name = { 
-			ideology = syndicalist
+			ideology = totalist
 			long_name = SRI_interventionist_party_long
 			name = SRI_interventionist_party
 		}
@@ -3304,50 +3024,6 @@ country_event = { # Unione Sindacale Italiana majority
 		add_ideas = SRI_Giuseppe_Giulietti_eco_syn
 		add_ideas = SRI_Nicola_Vecchi_sec_syn
 	}
-	option = { # Armando Borghi
-		name = socitaly.46.c
-		set_politics = {
-			ruling_party = syndicalist
-			elections_allowed = no
-		}
-		set_party_name = { 
-			ideology = syndicalist
-			long_name = SRI_neutralist_party_long
-			name = SRI_neutralist_party
-		}
-		create_country_leader = {
-		name = "Armando Borghi"
-		picture = "gfx/leaders/SRI/Portrait_SRI_Armando_Borghi.png"
-		expire = "1.1.1"
-		ideology = anarcho_syndicalist_subtype 
-		}
-		add_ideas = SRI_Armando_Borghi_hog_syn
-		add_ideas = SRI_Maria_Rygier_for_syn
-		add_ideas = SRI_Giuseppe_Giulietti_eco_syn
-		add_ideas = SRI_Nicola_Vecchi_sec_syn
-	}
-	option = { # Errico Malatesta
-		name = socitaly.46.e
-		set_politics = {
-			ruling_party = syndicalist
-			elections_allowed = no
-		}
-		set_party_name = { 
-			ideology = syndicalist
-			long_name = SRI_anarchist_party_long
-			name = SRI_anarchist_party
-		}
-		create_country_leader = {
-		name = "Errico Malatesta"
-		picture = "gfx/leaders/SRI/Portrait_SRI_Errico_Malatesta.png"
-		expire = "1.1.1"
-		ideology = syn_anarcho_communism_subtype 
-		}
-		add_ideas = SRI_Errico_Malatesta_hog_rso
-		add_ideas = SRI_Maria_Rygier_for_syn
-		add_ideas = SRI_Giuseppe_Giulietti_eco_syn
-		add_ideas = SRI_Nicola_Vecchi_sec_syn
-	}
 }
 country_event = { # Partito Comunista d'Italia majority
 	id = socitaly.461
@@ -3357,7 +3033,11 @@ country_event = { # Partito Comunista d'Italia majority
 
 	is_triggered_only = yes
 
-	trigger = { NOT = { has_country_flag = SRI_garibaldi_republic } }
+	trigger = {
+	NOT = {
+	has_country_flag = SRI_garibaldi_republic
+		}
+	}
 
 	immediate = {
 		log = "[GetDateText]: [Root.GetName]: event socitaly.46"
@@ -3392,10 +3072,10 @@ country_event = { # Partito Comunista d'Italia majority
 			elections_allowed = no
 		}
 		create_country_leader = {
-	name = "Angelo Tasca"
-	picture = "gfx/leaders/SRI/Portrait_SRI_Angelo_Tasca.png"
-	expire = "1.1.1"
-	ideology = bukharinist_subtype 
+	    name = "Angelo Tasca"
+	    picture = "gfx/leaders/SRI/Portrait_SRI_Angelo_Tasca.png"
+	    expire = "1.1.1"
+	    ideology = bukharinist_subtype 
         }
 		add_ideas = SRI_Antonio_Gramsci_hog_rso
 		add_ideas = SRI_Umberto_Terracini_for_rso
@@ -3409,10 +3089,10 @@ country_event = { # Partito Comunista d'Italia majority
 			elections_allowed = no
 		}
 		create_country_leader = {
-	name = "Palmiro Togliatti"
-	picture = "gfx/leaders/SRI/Portrait_SRI_Palmiro_Togliatti.png"
-	expire = "1.1.1"
-	ideology = radsoc_communism_subtype 
+	    name = "Palmiro Togliatti"
+	    picture = "gfx/leaders/SRI/Portrait_SRI_Palmiro_Togliatti.png"
+	    expire = "1.1.1"
+	    ideology = radsoc_communism_subtype 
         }
 		add_ideas = SRI_Antonio_Gramsci_hog_rso
 		add_ideas = SRI_Umberto_Terracini_for_rso
@@ -3428,7 +3108,11 @@ country_event = { # NatSynd and Futurist Success
 
 	is_triggered_only = yes
 
-	trigger = { NOT = { has_country_flag = SRI_garibaldi_republic } }
+	trigger = {
+	NOT = {
+	has_country_flag = SRI_garibaldi_republic
+		}
+	}
 
 	option = { # National Syndicalists
 		name = socitaly.477.a
@@ -3475,7 +3159,11 @@ country_event = { # Blocco Nazionale Rivoluzionario majority
 
 	is_triggered_only = yes
 
-	trigger = { NOT = { has_country_flag = SRI_garibaldi_republic } }
+	trigger = {
+	NOT = {
+	has_country_flag = SRI_garibaldi_republic
+		}
+	}
 
 	immediate = {
 		log = "[GetDateText]: [Root.GetName]: event socitaly.47"
@@ -3592,7 +3280,11 @@ country_event = { # Futurist Political Party majority
 
 	is_triggered_only = yes
 
-	trigger = { NOT = { has_country_flag = SRI_garibaldi_republic } }
+	trigger = {
+	NOT = {
+	has_country_flag = SRI_garibaldi_republic
+		}
+	}
 
 	immediate = {
 		log = "[GetDateText]: [Root.GetName]: event socitaly.471"
@@ -3689,7 +3381,11 @@ country_event = { # Maximalist Italian Socialist Party majority
 
 	is_triggered_only = yes
 
-	trigger = { NOT = { has_country_flag = SRI_garibaldi_republic } }
+	trigger = {
+	NOT = {
+	has_country_flag = SRI_garibaldi_republic
+		}
+	}
 
 	immediate = {
 		log = "[GetDateText]: [Root.GetName]: event socitaly.471"
@@ -3764,7 +3460,11 @@ country_event = { # Italian Labour Union
 
 	is_triggered_only = yes
 
-	trigger = { NOT = { has_country_flag = SRI_garibaldi_republic } }
+	trigger = {
+	NOT = {
+	has_country_flag = SRI_garibaldi_republic
+		}
+	}
 
 	immediate = {
 		log = "[GetDateText]: [Root.GetName]: event socitaly.471"
@@ -4829,7 +4529,7 @@ country_event = { # Leonilde Iotti
 		name = socitaly.110.a
 		create_corps_commander = {# Leonilde Iotti
 		name = "Leonilde Iotti"
-		portrait_path = "gfx/leaders/SRI/Portrait_SRI_leonilde_Iotti.png"
+		portrait_path = "gfx/leaders/SRI/Portrait_SIC_leonilde_Iotti.png"
 		traits = {
 			politically_connected 
 			organizer 
@@ -4841,7 +4541,7 @@ country_event = { # Leonilde Iotti
 		planning_skill = 1
 		logistics_skill = 1
 		female = yes
-	}
+	    }
 	}
 }
 
@@ -4872,7 +4572,7 @@ country_event = { # The Cultural Revolution begins!
 				id = socitaly.114
 				days = 5
 			}
-			if = {
+			if = {	
 				limit = { has_country_leader = { name = "Benito Mussolini" ruling_only = yes } }
 				set_country_leader_portrait = {
 					portrait = "gfx/leaders/SRI/Portrait_SRI_Benito_Mussolini_Military.png"
