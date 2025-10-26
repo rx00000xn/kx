@@ -54,22 +54,110 @@ focus_tree = {
 				limit = {
 					NOT =  { 
 						OR = {
-							has_country_flag = CSA_social_patriot_victory 
-							has_country_flag = CSA_capone_acw_flag 
+							OR = {
+								has_country_flag = CSA_social_patriot_victory 
+								AND = {
+									is_ai = yes
+									OR = {
+										has_game_rule = {
+											rule = CSA_post_civil_war
+											option = CSA_POST_CIVIL_WAR_BURNHAM
+										}
+										has_game_rule = {
+											rule = CSA_post_civil_war
+											option = CSA_POST_CIVIL_WAR_LOVESTONE
+										}
+										has_game_rule = {
+											rule = CSA_post_civil_war
+											option = CSA_POST_CIVIL_WAR_SCOTT
+										}
+										has_game_rule = {
+											rule = CSA_post_civil_war
+											option = CSA_POST_CIVIL_WAR_LOEB
+										}
+										has_game_rule = {
+											rule = CSA_post_civil_war
+											option = CSA_POST_CIVIL_WAR_NATIONALIST
+										}
+										has_game_rule = {
+											rule = CSA_post_civil_war
+											option = CSA_POST_CIVIL_WAR_FEDERALIST
+										}
+										has_game_rule = {
+											rule = CSA_post_civil_war
+											option = CSA_POST_CIVIL_WAR_BROWDER
+										}
+									}
+								}	
+							}
+							OR = {
+								has_country_flag = CSA_capone_acw_flag
+								AND = {
+									is_ai = yes
+									has_game_rule = {
+										rule = CSA_post_civil_war
+										option = CSA_POST_CIVIL_WAR_TOTALIST_CAPONE
+									}
+								}
+							}
 						}
 					}	
 				}
 				country_event = { id = csa.1 days = 4 }
 			}
 			else_if = {
-			limit = {
-				has_country_flag = CSA_social_patriot_victory
-			}
-			country_event = { id = csa.1000 days = 4 }
+				limit = {
+					OR = {
+						has_country_flag = CSA_social_patriot_victory
+						AND = {
+							is_ai = yes
+							OR = {
+								has_game_rule = {
+									rule = CSA_post_civil_war
+									option = CSA_POST_CIVIL_WAR_BURNHAM
+								}
+								has_game_rule = {
+									rule = CSA_post_civil_war
+									option = CSA_POST_CIVIL_WAR_LOVESTONE
+								}
+								has_game_rule = {
+									rule = CSA_post_civil_war
+									option = CSA_POST_CIVIL_WAR_SCOTT
+								}
+								has_game_rule = {
+									rule = CSA_post_civil_war
+									option = CSA_POST_CIVIL_WAR_LOEB
+								}
+								has_game_rule = {
+									rule = CSA_post_civil_war
+									option = CSA_POST_CIVIL_WAR_NATIONALIST
+								}
+								has_game_rule = {
+									rule = CSA_post_civil_war
+									option = CSA_POST_CIVIL_WAR_FEDERALIST
+								}
+								has_game_rule = {
+									rule = CSA_post_civil_war
+									option = CSA_POST_CIVIL_WAR_BROWDER
+								}
+							}
+						}	
+					}
+				}
+				country_event = { id = csa.1000 days = 4 }
 			}
 			else_if = {
 				limit = {
-					has_country_flag = CSA_capone_acw_flag
+					OR = {
+						has_country_flag = CSA_capone_acw_flag
+						AND = {
+							is_ai = yes
+							has_game_rule = {
+								rule = CSA_post_civil_war
+								option = CSA_POST_CIVIL_WAR_TOTALIST_CAPONE
+							}
+						}
+					}
 				}
 				country_event = { id = csa.3000 days = 4 }
 			}
@@ -96,7 +184,7 @@ focus_tree = {
 				country_event = { id = csa.96 days = 570 random = 90 }
 				country_event = { id = csa.87 days = 600 random = 90 }
 				country_event = { id = csa.6014 days = 50 random = 10 }
-
+				country_event = { id = csa.6019 days = 36 random = 4 }
 			}
 		}
 	}
@@ -3577,7 +3665,6 @@ focus_tree = {
 			has_country_flag = CSA_butler_democracy
 			}
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_american_commonwealth
 		}
@@ -3610,7 +3697,6 @@ focus_tree = {
 		available = {	
 			has_government = social_democrat 
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_federalism
 		}
@@ -3693,7 +3779,6 @@ focus_tree = {
 		available = {	
 			has_government = social_democrat 
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_federalism
 		}
@@ -3768,7 +3853,6 @@ focus_tree = {
 		available = {	
 			has_government = social_democrat 
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_federalism
 		}
@@ -3800,7 +3884,6 @@ focus_tree = {
 		available = {
 			has_government = social_democrat 	
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_federalism
 		}
@@ -3858,7 +3941,6 @@ focus_tree = {
 				}
 			}
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_unite_unskilled_labour_in_flus
 		}
@@ -3922,7 +4004,6 @@ focus_tree = {
 				}
 			}
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_unite_unskilled_labour_in_flus
 		}
@@ -3986,7 +4067,6 @@ focus_tree = {
 				}
 			}
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_unite_unskilled_labour_in_flus
 		}
@@ -4033,7 +4113,6 @@ focus_tree = {
 		icon = GFX_goal_CSA_establish_jurisdiction_departments
 		cost = 5
 		available = { has_government = social_democrat }
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_syndicalism_without_radicalism
 			focus = CSA_labour_rewards_its_friends
@@ -4062,7 +4141,6 @@ focus_tree = {
 		icon = GFX_goal_CSA_protectionsim_american_worker
 		cost = 5
 		available = { has_government = social_democrat }
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_syndicalism_without_radicalism
 			focus = CSA_labour_rewards_its_friends
@@ -4124,7 +4202,6 @@ focus_tree = {
 		icon = GFX_goal_CSA_fair_days_pay
 		cost = 5
 		available = { has_government = social_democrat }
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_establish_jurisdiction_departments
 		}
@@ -4149,7 +4226,6 @@ focus_tree = {
 		id = CSA_paid_vacations
 		icon = GFX_goal_CSA_for_fair_days_work
 		cost = 5
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_establish_jurisdiction_departments
 		}
@@ -4190,7 +4266,6 @@ focus_tree = {
 		icon = GFX_goal_CSA_nationalized_utilities
 		cost = 5
 		available = { has_government = social_democrat }
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_high_wages
 		}
@@ -4259,7 +4334,6 @@ focus_tree = {
 		id = CSA_gompers_legacy
 		icon = GFX_goal_CSA_gompers_legacy
 		cost = 5
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_high_wages
 		}
@@ -4332,7 +4406,6 @@ focus_tree = {
 		available = { 
 			has_government = social_democrat 
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_high_wages
 		}
@@ -4361,7 +4434,6 @@ focus_tree = {
 		available = {	
 			has_government = social_democrat 
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_nationalize_public_utilities
 		}
@@ -4408,7 +4480,6 @@ focus_tree = {
 		available = {
 			has_government = social_democrat 	
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_nationalize_public_utilities
 		}
@@ -4440,7 +4511,6 @@ focus_tree = {
 		icon = GFX_goal_CSA_recruitment_campaign
 		cost = 5
 		available = { has_government = social_democrat }
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_nationalize_public_utilities
 		}
@@ -4500,7 +4570,6 @@ focus_tree = {
 		available = {	
 			has_government = social_democrat 
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_nationalize_public_utilities
 		}
@@ -4544,7 +4613,6 @@ focus_tree = {
 		}
 		cost = 5
 		available = { has_government = social_democrat }
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_the_closed_shop	
 			focus = CSA_publicly_guided_investment
@@ -4596,7 +4664,6 @@ focus_tree = {
 		}
 		cost = 5
 		available = { has_government = social_democrat }
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_the_closed_shop	
 			focus = CSA_publicly_guided_investment
@@ -4641,7 +4708,6 @@ focus_tree = {
 		icon = GFX_goal_AUS_union_congress
 		cost = 5
 		available = { has_government = social_democrat }
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_the_closed_shop
 		}
@@ -4674,7 +4740,6 @@ focus_tree = {
 		icon = GFX_goal_CSA_incumbent_stays_course
 		cost = 5
 		available = { has_government = social_democrat }
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_the_closed_shop	
 			focus = CSA_publicly_guided_investment
@@ -4718,7 +4783,6 @@ focus_tree = {
 		icon = GFX_goal_CSA_appeals_lost_generation
 		cost = 5
 		available = { has_government = social_democrat }
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_the_closed_shop	
 			focus = CSA_publicly_guided_investment
@@ -4784,7 +4848,6 @@ focus_tree = {
 				has_government = radical_socialist
 			}
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_mutal_economic_comitee
 		}
@@ -4818,7 +4881,6 @@ focus_tree = {
 				has_government = radical_socialist
 			}
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_indepedent_media
 		}
@@ -4851,7 +4913,6 @@ focus_tree = {
 				has_government = radical_socialist
 			}
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_social_moderation
 		}
@@ -4937,7 +4998,6 @@ focus_tree = {
 			has_country_flag = CSA_butler_democracy
 			}
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_american_commonwealth
 		}
@@ -4966,7 +5026,6 @@ focus_tree = {
 		days = 15
 		}
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_nationalism
 		}
@@ -5028,7 +5087,6 @@ focus_tree = {
 		available = {
 				has_government = radical_socialist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_economies_of_scale
 		}
@@ -5119,7 +5177,6 @@ focus_tree = {
 		available = {
 				has_government = radical_socialist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_department_of_production
 		}
@@ -5198,7 +5255,6 @@ focus_tree = {
 		available = {
 				has_government = radical_socialist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_nationalism
 		}
@@ -5224,7 +5280,6 @@ focus_tree = {
 		available = {
 				has_government = radical_socialist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_empower_councils
 		}
@@ -5257,7 +5312,6 @@ focus_tree = {
 		available = {
 				has_government = radical_socialist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_humanist_manifesto
 		}
@@ -5360,7 +5414,6 @@ focus_tree = {
 		available = {
 				has_government = radical_socialist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_nationalism
 		}
@@ -5393,7 +5446,6 @@ focus_tree = {
 		available = {
 			has_government = radical_socialist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_guildism
 		}
@@ -5462,7 +5514,6 @@ focus_tree = {
 		available = {
 				has_government = radical_socialist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_industrial_army
 		}
@@ -5521,7 +5572,6 @@ focus_tree = {
 		available = {
 				has_government = radical_socialist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_democratic_press
 		}
@@ -5554,7 +5604,6 @@ focus_tree = {
 		available = {
 				has_government = radical_socialist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_agricultural_revolution
 		}
@@ -5581,7 +5630,6 @@ focus_tree = {
 		available = {
 			has_government = radical_socialist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_peaceful_revolution
 		}
@@ -5687,7 +5735,6 @@ focus_tree = {
 		available = {
 				has_government = radical_socialist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_coop_clubs
 		}
@@ -5714,7 +5761,6 @@ focus_tree = {
 		available = {
 				has_government = radical_socialist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_agricultural_revolution
 		}
@@ -5740,7 +5786,6 @@ focus_tree = {
 		available = {
 				has_government = radical_socialist
 		}
-		cancel_if_invalid = yes
 		select_effect = {
 		hidden_effect = {
 			country_event = {
@@ -5887,7 +5932,6 @@ focus_tree = {
 		icon = GFX_goal_CSA_all_industrial_congress
 		cost = 5
 		available = { has_government = syndicalist }
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_american_syndicalist_union
 		}
@@ -5919,7 +5963,6 @@ focus_tree = {
 		icon = GFX_goal_CSA_organizing_the_party
 		cost = 5
 		available = { has_government = syndicalist }
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_american_syndicalist_union
 		}
@@ -5945,7 +5988,6 @@ focus_tree = {
 		icon = GFX_goal_USA_sabotabby
 		cost = 5
 		available = { has_government = syndicalist }
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_american_syndicalist_union
 		}
@@ -6042,7 +6084,6 @@ focus_tree = {
 		icon = GFX_goal_CSA_general_defence_committee
 		cost = 5
 		available = { has_government = syndicalist }
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_all_industrial_congress
 		}
@@ -6180,7 +6221,6 @@ focus_tree = {
 		icon = GFX_Socialist_Law
 		cost = 5
 		available = { has_government = syndicalist }
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_all_industrial_congress
 		}
@@ -6346,6 +6386,7 @@ focus_tree = {
 					}
 				}
 				set_country_leader_ideology = de_leonism_subtype
+				custom_effect_tooltip = syn_de_leonism_subtype_swap_tt
 			}
 			hidden_effect = {
 			country_event = {
@@ -6419,6 +6460,7 @@ focus_tree = {
 			}
 			add_ideas = CSA_decentralized_planning_idea
 			set_country_leader_ideology = anarcho_syndicalist_subtype
+			custom_effect_tooltip = syn_anarcho_syndicalist_subtype_swap_tt
 		}
 	}
 	
@@ -6427,7 +6469,6 @@ focus_tree = {
 		icon = GFX_goal_CSA_empower_congress
 		cost = 5
 		available = { has_government = syndicalist }
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_centrist_economics
 		}
@@ -6484,7 +6525,6 @@ focus_tree = {
 		icon = GFX_goal_CSA_committee_of_strategoc_services
 		cost = 5
 		available = { has_government = syndicalist }
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_empower_congress
 		}
@@ -6625,7 +6665,6 @@ focus_tree = {
 		icon = GFX_goal_CSA_power_to_the_people
 		cost = 5
 		available = { has_government = syndicalist }
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_empower_militias
 		}
@@ -6697,7 +6736,6 @@ focus_tree = {
 		icon = GFX_goal_CSA_gift_economy
 		cost = 5
 		available = { has_government = syndicalist }
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_free_communes
 		}
@@ -6779,7 +6817,6 @@ focus_tree = {
 		icon = GFX_BBR_labor_board
 		cost = 5
 		available = { has_government = syndicalist }
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_agricultural_unions
 		}
@@ -6845,6 +6882,7 @@ focus_tree = {
 				OR = {
 				has_country_leader_ideology = william_foster_thought_subtype
 				has_country_flag = CSA_cannon_foster
+				has_country_flag = CSA_mattick_foster
 				}
 			}
 			custom_trigger_tooltip = {
@@ -6917,7 +6955,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_presidential_socialism
 		}
@@ -6974,7 +7011,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_union_managment
 		}
@@ -7014,7 +7050,6 @@ focus_tree = {
 		days = 30
 		}
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_presidential_socialism
 		}
@@ -7040,7 +7075,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_communist_party
 		}
@@ -7126,7 +7160,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_subdue_bourgeousie
 		}
@@ -7259,7 +7292,6 @@ focus_tree = {
 				}
 			}
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_browders_economics
 		}
@@ -7295,7 +7327,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_collective_farming
 		}
@@ -7430,7 +7461,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_industrial_build_up
 		}
@@ -7532,7 +7562,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_practical_trade
 		}
@@ -7572,7 +7601,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_collective_farming
 		}
@@ -7626,7 +7654,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_decentralized_planning
 		}
@@ -7668,7 +7695,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_browders_economics
 		}
@@ -7707,7 +7733,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_friendly_media
 		}
@@ -7747,7 +7772,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_american_communism
 		}
@@ -7782,7 +7806,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_commune_policy
 		}
@@ -7863,7 +7886,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_price_controls
 		}
@@ -7995,7 +8017,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_purge_the_stubborn
 		}
@@ -8033,7 +8054,6 @@ focus_tree = {
 		available = {
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_usas
 		}
@@ -8073,7 +8093,6 @@ focus_tree = {
 		available = {
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_create_the_cia
 		}
@@ -8124,7 +8143,6 @@ focus_tree = {
 		available = {
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_resource_nationalization
 		}
@@ -8154,11 +8172,11 @@ focus_tree = {
 				OR = {
 				has_country_leader_ideology = william_foster_thought_subtype
 				has_country_flag = CSA_cannon_foster
+				has_country_flag = CSA_mattick_foster
 				}
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_usas
 		}
@@ -8188,11 +8206,11 @@ focus_tree = {
 				OR = {
 				has_country_leader_ideology = william_foster_thought_subtype
 				has_country_flag = CSA_cannon_foster
+				has_country_flag = CSA_mattick_foster
 				}
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_proletarian_dictatorship
 		}
@@ -8222,6 +8240,7 @@ focus_tree = {
 				OR = {
 				has_country_leader_ideology = william_foster_thought_subtype
 				has_country_flag = CSA_cannon_foster
+				has_country_flag = CSA_mattick_foster
 				}
 			}
 			has_government = totalist
@@ -8236,7 +8255,6 @@ focus_tree = {
 		days = 30
 			}
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_politics
 		}
@@ -8271,11 +8289,11 @@ focus_tree = {
 				OR = {
 				has_country_leader_ideology = william_foster_thought_subtype
 				has_country_flag = CSA_cannon_foster
+				has_country_flag = CSA_mattick_foster
 				}
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_proletarian_dictatorship
 		}
@@ -8305,11 +8323,11 @@ focus_tree = {
 				OR = {
 				has_country_leader_ideology = william_foster_thought_subtype
 				has_country_flag = CSA_cannon_foster
+				has_country_flag = CSA_mattick_foster
 				}
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_revolutionary_guards
 		}
@@ -8344,11 +8362,11 @@ focus_tree = {
 				OR = {
 				has_country_leader_ideology = william_foster_thought_subtype
 				has_country_flag = CSA_cannon_foster
+				has_country_flag = CSA_mattick_foster
 				}
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_kill_the_rich
 		}
@@ -8429,11 +8447,11 @@ focus_tree = {
 				OR = {
 				has_country_leader_ideology = william_foster_thought_subtype
 				has_country_flag = CSA_cannon_foster
+				has_country_flag = CSA_mattick_foster
 				}
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_fosters_economics
 		}
@@ -8506,11 +8524,11 @@ focus_tree = {
 				OR = {
 				has_country_leader_ideology = william_foster_thought_subtype
 				has_country_flag = CSA_cannon_foster
+				has_country_flag = CSA_mattick_foster
 				}
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_purge_reactionaries
 		}
@@ -8565,11 +8583,11 @@ focus_tree = {
 				OR = {
 				has_country_leader_ideology = william_foster_thought_subtype
 				has_country_flag = CSA_cannon_foster
+				has_country_flag = CSA_mattick_foster
 				}
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_purge_other_leftists
 		}
@@ -8601,11 +8619,11 @@ focus_tree = {
 				OR = {
 				has_country_leader_ideology = william_foster_thought_subtype
 				has_country_flag = CSA_cannon_foster
+				has_country_flag = CSA_mattick_foster
 				}
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_fosters_economics
 		}
@@ -8703,11 +8721,11 @@ focus_tree = {
 				OR = {
 				has_country_leader_ideology = william_foster_thought_subtype
 				has_country_flag = CSA_cannon_foster
+				has_country_flag = CSA_mattick_foster
 				}
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_state_farms
 		}
@@ -8805,11 +8823,11 @@ focus_tree = {
 				OR = {
 				has_country_leader_ideology = william_foster_thought_subtype
 				has_country_flag = CSA_cannon_foster
+				has_country_flag = CSA_mattick_foster
 				}
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_fosters_economics
 		}
@@ -8856,11 +8874,11 @@ focus_tree = {
 				OR = {
 				has_country_leader_ideology = william_foster_thought_subtype
 				has_country_flag = CSA_cannon_foster
+				has_country_flag = CSA_mattick_foster
 				}
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_defend_the_revolution
 		}
@@ -8891,11 +8909,11 @@ focus_tree = {
 				OR = {
 				has_country_leader_ideology = william_foster_thought_subtype
 				has_country_flag = CSA_cannon_foster
+				has_country_flag = CSA_mattick_foster
 				}
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_state_quotas
 		}
@@ -8956,11 +8974,11 @@ focus_tree = {
 				OR = {
 				has_country_leader_ideology = william_foster_thought_subtype
 				has_country_flag = CSA_cannon_foster
+				has_country_flag = CSA_mattick_foster
 				}
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_new_prisons
 		}
@@ -9162,11 +9180,11 @@ focus_tree = {
 				OR = {
 				has_country_leader_ideology = william_foster_thought_subtype
 				has_country_flag = CSA_cannon_foster
+				has_country_flag = CSA_mattick_foster
 				}
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_new_prisons
 		}
@@ -9234,11 +9252,11 @@ focus_tree = {
 				OR = {
 				has_country_leader_ideology = william_foster_thought_subtype
 				has_country_flag = CSA_cannon_foster
+				has_country_flag = CSA_mattick_foster
 				}
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_smash_americanism
 		}
@@ -9278,6 +9296,7 @@ focus_tree = {
 				OR = {
 				has_country_leader_ideology = william_foster_thought_subtype
 				has_country_flag = CSA_cannon_foster
+				has_country_flag = CSA_mattick_foster
 				}
 			}
 			has_government = totalist
@@ -9285,7 +9304,6 @@ focus_tree = {
 		bypass = {
 			country_exists = BBR
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_proletariat_science
 		}
@@ -9316,11 +9334,11 @@ focus_tree = {
 				OR = {
 				has_country_leader_ideology = william_foster_thought_subtype
 				has_country_flag = CSA_cannon_foster
+				has_country_flag = CSA_mattick_foster
 				}
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_the_great_sprint
 		}
@@ -9358,11 +9376,11 @@ focus_tree = {
 				OR = {
 				has_country_leader_ideology = william_foster_thought_subtype
 				has_country_flag = CSA_cannon_foster
+				has_country_flag = CSA_mattick_foster
 				}
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_socialist_incentives
 		}
@@ -9448,7 +9466,6 @@ focus_tree = {
 			has_country_leader = { ruling_only = yes name = "Smedley Butler" }
 			has_government = radical_socialist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_butler_coup
 		}
@@ -9493,7 +9510,6 @@ focus_tree = {
 			has_country_leader = { ruling_only = yes name = "Smedley Butler" }
 			has_government = radical_socialist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_populist_appeals
 		}
@@ -9522,7 +9538,6 @@ focus_tree = {
 			has_country_leader = { ruling_only = yes name = "Smedley Butler" }
 			has_government = radical_socialist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_populist_appeals
 		}
@@ -9577,7 +9592,6 @@ focus_tree = {
 			has_country_leader = { ruling_only = yes name = "Smedley Butler" }
 			has_government = radical_socialist
 		}
-		cancel_if_invalid = yes
 		prerequisite = {
 			focus = CSA_savior_of_the_revolution
 		}
@@ -9663,9 +9677,6 @@ focus_tree = {
 			factor = 50
 		}
 
-		available_if_capitulated = no
-		cancel_if_invalid = yes
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_war_is_a_racket"
 			add_ideas = CSA_war_racket_idea
@@ -9726,9 +9737,6 @@ focus_tree = {
 		ai_will_do = {
 			factor = 50
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_war_is_a_racket"
@@ -10163,9 +10171,12 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_destroy_jim_crow"
 			custom_effect_tooltip = CSA_destroy_longists
-			modify_country_flag = {
-				flag = ACW_klan_resistance
-				value = -2
+			hidden_effect = {
+				USA_resistance_klan_effect = yes
+				modify_country_flag = {
+					flag = ACW_klan_resistance
+					value = -2
+				}
 			}
 		}
 	}
@@ -10423,7 +10434,6 @@ focus_tree = {
 			add_idea = CSA_iww_doctrine_idea_2
 			}
 			add_tech_bonus = {
-				name = CSA_iww_doctrine_bonus
 				bonus = 1
 				uses = 2
 				category = motorized_equipment
@@ -10465,7 +10475,6 @@ focus_tree = {
 				category = land_doctrine
 			}
 			add_tech_bonus = {
-				name = CSA_iww_doctrine_bonus
 				bonus = 1
 				uses = 2
 				category = armor
@@ -10491,7 +10500,6 @@ focus_tree = {
 		relative_position_id = CSA_iww_doctrine
 		completion_reward = {
 			add_tech_bonus = {
-				name = CSA_industry
 				bonus = 1
 				uses = 1
 				category = industry
@@ -10544,7 +10552,6 @@ focus_tree = {
 				add_idea = CSA_iww_tank_idea_2
 			}
 			add_tech_bonus = {
-				name = CSA_iww_doctrine_bonus
 				bonus = 0.5
 				ahead_reduction = 1
 				uses = 1
@@ -10786,11 +10793,14 @@ focus_tree = {
 				bonus = 1
 				uses = 1
 				category = cat_anti_air
-			}
-			add_equipment_to_stockpile = {
-				type = anti_tank_equipment
-				amount = 65
-				producer = CSA
+				}
+			if = {
+				limit = { has_tech = interwar_antitank }
+				add_equipment_to_stockpile = {
+					type = anti_tank_equipment
+					amount = 65
+					producer = CSA
+				}
 			}
 			add_equipment_to_stockpile = {
 				type = anti_air_equipment
@@ -10831,10 +10841,13 @@ focus_tree = {
 				amount = 20
 				producer = BBR
 			}
-			add_equipment_to_stockpile = {
-				type = anti_tank_equipment
-				amount = 15
-				producer = BBR
+			if = {
+				limit = { has_tech = interwar_antitank }
+				add_equipment_to_stockpile = {
+					type = anti_tank_equipment
+					amount = 15
+					producer = BBR
+				}
 			}
 			add_equipment_to_stockpile = {
 				type = anti_air_equipment
@@ -12287,7 +12300,14 @@ focus_tree = {
 				uses = 1
 				category = naval_air
 			}
-			custom_effect_tooltip = CSA_hellcat_focus_effect
+			if = {
+				limit = { NOT = { has_tech = cv_fighter1 } }
+				set_technology = { cv_fighter1 = 1 }
+			}
+			if = {
+				limit = { NOT = { has_tech = cv_fighter2 } }
+				set_technology = { cv_fighter2 = 1 }
+			}
 		}
 	}
 	focus = {
@@ -12312,9 +12332,6 @@ focus_tree = {
 				has_war = yes
 			}
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_from_the_sky"
@@ -12347,9 +12364,6 @@ focus_tree = {
 				date > 1940.1.1
 			}
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_back_in_business"
@@ -12384,7 +12398,7 @@ focus_tree = {
 				has_country_leader = { ruling_only = yes name = "Lyndon LaRouche" }
 				has_country_leader = { ruling_only = yes name = "Ronald Reagan" }
 				has_country_leader = { ruling_only = yes name = "Jay Lovestone" }
-				has_country_leader = { ruling_only = yes name = "Lawrence Dennis" }
+				has_country_leader = { ruling_only = yes name = "Benjamin Gitlow" }
 			}
 		}
 		relative_position_id = CSA_back_in_business
@@ -12400,9 +12414,6 @@ focus_tree = {
 				}
 			}
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_mexico_friendship"
@@ -12453,9 +12464,6 @@ focus_tree = {
 			}
 		}
 
-		available_if_capitulated = no
-		cancel_if_invalid = yes
-
 		bypass = {
 			OR = {
 				NOT = { country_exists = MEX }
@@ -12500,7 +12508,10 @@ focus_tree = {
 					tooltip = CSA_burnham_is_leader
 					has_country_leader_ideology = burnhamite_thought_subtype
 				}
-				has_country_leader = { ruling_only = yes name = "Jay Lovestone" }
+				custom_trigger_tooltip = {
+					tooltip = CSA_lovestone_is_leader
+					has_country_leader_ideology = lovestoneism_subtype
+				}
 			}
 		}
 		relative_position_id = CSA_back_in_business
@@ -12518,9 +12529,6 @@ focus_tree = {
 				MEX = { default_attack_AI_trigger_FROM = yes }
 			}
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 		
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_mexican_standoff"
@@ -12560,9 +12568,6 @@ focus_tree = {
 		relative_position_id = CSA_back_in_business
 		x = 0
 		y = 2
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 		
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_demand_new_england"
@@ -12589,7 +12594,10 @@ focus_tree = {
 				tooltip = CSA_burnham_is_leader
 				has_country_leader_ideology = burnhamite_thought_subtype
 			    }
-				has_country_leader = { ruling_only = yes name = "Jay Lovestone" }
+				custom_trigger_tooltip = {
+				tooltip = CSA_lovestone_is_leader
+				has_country_leader_ideology = lovestoneism_subtype
+			    }
 			    }
 		}
 		relative_position_id = CSA_demand_new_england
@@ -12599,9 +12607,6 @@ focus_tree = {
 		ai_will_do = {
 			factor = 50
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_socialism_in_one_nation"
@@ -12720,9 +12725,6 @@ focus_tree = {
 			factor = 20
 		}
 
-		available_if_capitulated = no
-		cancel_if_invalid = yes
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_appeal_to_socialism"
 			add_state_core = 1253
@@ -12761,9 +12763,6 @@ focus_tree = {
 			factor = 20
 		}
 
-		available_if_capitulated = no
-		cancel_if_invalid = yes
-
 		select_effect = {
 		hidden_effect = {
 			country_event = {
@@ -12800,9 +12799,6 @@ focus_tree = {
 		x = 0
 		y = 1
 
-		available_if_capitulated = no
-		cancel_if_invalid = yes
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_organize_northern_technates"
 			add_state_core = 470
@@ -12837,9 +12833,6 @@ focus_tree = {
 		ai_will_do = {
 			factor = 20
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_the_great_north"
@@ -12879,9 +12872,6 @@ focus_tree = {
 		ai_will_do = {
 			factor = 70
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_greater_new_england"
@@ -12941,9 +12931,6 @@ focus_tree = {
 				}
 			}
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 		
 		select_effect = {
 		hidden_effect = {
@@ -12987,9 +12974,6 @@ focus_tree = {
 		x = 0
 		y = 1
 
-		available_if_capitulated = no
-		cancel_if_invalid = yes
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_deal_with_Quebec"
 			add_state_core = 468
@@ -13017,7 +13001,6 @@ focus_tree = {
 		prerequisite = {focus = CSA_deal_with_Quebec }
 		prerequisite = {focus = CSA_the_great_north }
 		relative_position_id = CSA_socialism_in_one_nation
-		cancel_if_invalid = yes
 		x = 0
 		y = 4
 		ai_will_do = {
@@ -13253,9 +13236,6 @@ focus_tree = {
 			factor = 50
 		}
 
-		available_if_capitulated = no
-		cancel_if_invalid = yes
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_the_revolution_at_home"
 			add_stability = 0.05
@@ -13285,9 +13265,6 @@ focus_tree = {
 			factor = 50
 		}
 
-		available_if_capitulated = no
-		cancel_if_invalid = yes
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_defend_the_front"
 			add_ideas = CSA_defense_doctrine_idea
@@ -13311,9 +13288,6 @@ focus_tree = {
 		ai_will_do = {
 			factor = 50
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_world_revolution"
@@ -13376,9 +13350,6 @@ focus_tree = {
 			factor = 50
 		}
 
-		available_if_capitulated = no
-		cancel_if_invalid = yes
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_world_revolution"
 			swap_ideas = {
@@ -13408,9 +13379,6 @@ focus_tree = {
 		ai_will_do = {
 			factor = 50
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_world_revolution"
@@ -13472,9 +13440,6 @@ focus_tree = {
 			factor = 50
 		}
 
-		available_if_capitulated = no
-		cancel_if_invalid = yes
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_world_revolution"
 			swap_ideas = {
@@ -13512,9 +13477,6 @@ focus_tree = {
 			factor = 50
 		}
 
-		available_if_capitulated = no
-		cancel_if_invalid = yes
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_revolutionary_monroeism"
 			add_ideas = CSA_revolutionary_monroeism_idea
@@ -13541,9 +13503,6 @@ focus_tree = {
 		ai_will_do = {
 			factor = 50
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_logistics_management"
@@ -13599,9 +13558,6 @@ focus_tree = {
 			factor = 50
 		}
 
-		available_if_capitulated = no
-		cancel_if_invalid = yes
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_naval_investments"
 			swap_ideas = {
@@ -13647,9 +13603,6 @@ focus_tree = {
 			factor = 50
 		}
 
-		available_if_capitulated = no
-		cancel_if_invalid = yes
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_americanist_faction"
 			if = {
@@ -13683,9 +13636,6 @@ focus_tree = {
 		ai_will_do = {
 			factor = 50
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_scoop_up_local_socialists"
@@ -13728,9 +13678,6 @@ focus_tree = {
 			factor = 50
 		}
 
-		available_if_capitulated = no
-		cancel_if_invalid = yes
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_world_revolution"
 			add_stability = 0.10
@@ -13756,9 +13703,6 @@ focus_tree = {
 		ai_will_do = {
 			factor = 50
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_address_the_internationale"
@@ -13788,9 +13732,6 @@ focus_tree = {
 				has_war = yes
 			}
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_on_the_beach"
@@ -13829,9 +13770,6 @@ focus_tree = {
 			}
 		}
 
-		available_if_capitulated = no
-		cancel_if_invalid = yes
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_join_the_internationale"
 			INT = {
@@ -13858,9 +13796,6 @@ focus_tree = {
 		ai_will_do = {
 			factor = 40
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_new_lend_lease"
@@ -13891,9 +13826,6 @@ focus_tree = {
 				has_war = yes
 			}
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_invest_in_the_west"
@@ -13954,9 +13886,6 @@ focus_tree = {
 			}
 		}
 
-		available_if_capitulated = no
-		cancel_if_invalid = yes
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_save_the_cnt"
 			if = {
@@ -14011,9 +13940,6 @@ focus_tree = {
 				has_war = yes
 			}
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_brazilian_socialism"
@@ -14072,9 +13998,6 @@ focus_tree = {
 			}
 		}
 
-		available_if_capitulated = no
-		cancel_if_invalid = yes
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_denounce_the_internationale"
 			add_stability = -0.05
@@ -14110,9 +14033,6 @@ focus_tree = {
 				has_war = yes
 			}
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_all_to_the_revolution"
@@ -14167,9 +14087,6 @@ focus_tree = {
 			}
 		}
 
-		available_if_capitulated = no
-		cancel_if_invalid = yes
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_new_red_faction"
 			add_war_support = 0.03
@@ -14210,9 +14127,6 @@ focus_tree = {
 			}
 		}
 
-		available_if_capitulated = no
-		cancel_if_invalid = yes
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_strike_ireland"
 			create_wargoal = {
@@ -14243,9 +14157,6 @@ focus_tree = {
 				has_war = yes
 			}
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_strike_faux_socialists"
@@ -14282,9 +14193,6 @@ focus_tree = {
 			}
 		}
 
-		available_if_capitulated = no
-		cancel_if_invalid = yes
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_power_of_the_revolution"
 			add_ideas = CSA_power_of_the_revolution_idea
@@ -14312,9 +14220,6 @@ focus_tree = {
 				has_war = yes
 			}
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_break_japan"
@@ -14347,9 +14252,6 @@ focus_tree = {
 				has_war = yes
 			}
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_eastern_revolution"
@@ -14388,9 +14290,6 @@ focus_tree = {
 			}
 		}
 
-		available_if_capitulated = no
-		cancel_if_invalid = yes
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_save_bolshevism"
 			create_wargoal = {
@@ -14421,9 +14320,6 @@ focus_tree = {
 				has_war = yes
 			}
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_prussian_socialism"
@@ -14456,9 +14352,6 @@ focus_tree = {
 				has_war = yes
 			}
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_on_the_beach"
@@ -14494,9 +14387,6 @@ focus_tree = {
 			}
 		}
 
-		available_if_capitulated = no
-		cancel_if_invalid = yes
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_on_the_beach"
 			add_ideas = CSA_on_the_beach_idea
@@ -14526,9 +14416,6 @@ focus_tree = {
 				date > 1940.1.1
 			}
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_free_the_west"
@@ -14572,9 +14459,6 @@ focus_tree = {
 				CAN = { default_attack_AI_trigger_FROM = yes }
 			}
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		bypass = {
 			OR = {
@@ -14624,9 +14508,6 @@ focus_tree = {
 		ai_will_do = {
 			factor = 50
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		bypass = {
 			OR = {
@@ -14727,9 +14608,6 @@ focus_tree = {
 			factor = 20
 		}
 
-		available_if_capitulated = no
-		cancel_if_invalid = yes
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_look_to_the_south"
 			unlock_decision_category_tooltip = CSA_expanding_the_revolution_decisions
@@ -14753,9 +14631,6 @@ focus_tree = {
 		ai_will_do = {
 			factor = 50
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_master_of_the_west"
@@ -14785,9 +14660,6 @@ focus_tree = {
 				has_war = yes
 			}
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_african_revolution"
@@ -14833,9 +14705,6 @@ focus_tree = {
 				has_war = yes
 			}
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_break_arab_monarchism"
@@ -14883,9 +14752,6 @@ focus_tree = {
 		ai_will_do = {
 			factor = 50
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		bypass = {
 			OR = {
@@ -14960,9 +14826,6 @@ focus_tree = {
 			factor = 50
 		}
 
-		available_if_capitulated = no
-		cancel_if_invalid = yes
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_socialist_liberation"
 			add_war_support = 0.1
@@ -14988,9 +14851,6 @@ focus_tree = {
 		ai_will_do = {
 			factor = 50
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_release_suriname"
@@ -15023,9 +14883,6 @@ focus_tree = {
 		ai_will_do = {
 			factor = 50
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_fund_chile"
@@ -15073,9 +14930,6 @@ focus_tree = {
 			factor = 50
 		}
 
-		available_if_capitulated = no
-		cancel_if_invalid = yes
-
 		bypass = {
 			OR = {
 				NOT = { country_exists = PRU }
@@ -15117,9 +14971,6 @@ focus_tree = {
 		ai_will_do = {
 			factor = 50
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		bypass = {
 			OR = {
@@ -15168,9 +15019,6 @@ focus_tree = {
 		ai_will_do = {
 			factor = 50
 		}
-
-		available_if_capitulated = no
-		cancel_if_invalid = yes
 
 		bypass = {
 			OR = {
@@ -15237,7 +15085,6 @@ focus_tree = {
 		prerequisite = {
 			focus = CSA_second_convention
 		}
-		cancel_if_invalid = yes
 		x = -5
 		y = 1
 		ai_will_do = {
@@ -15270,7 +15117,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		x = -2
 		y = 1
 		ai_will_do = {
@@ -15297,7 +15143,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		x = -3
 		y = 2
 		ai_will_do = {
@@ -15349,7 +15194,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		x = -1
 		y = 2
 		ai_will_do = {
@@ -15398,7 +15242,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		x = -2
 		y = 3
 		ai_will_do = {
@@ -15485,7 +15328,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		x = -1
 		y = 4
 		ai_will_do = {
@@ -15537,7 +15379,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		x = 0
 		y = 1
 		ai_will_do = {
@@ -15565,7 +15406,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		x = 1
 		y = 2
 		ai_will_do = {
@@ -15597,7 +15437,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		x = 3
 		y = 2
 		ai_will_do = {
@@ -15628,7 +15467,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		x = 2
 		y = 3
 		ai_will_do = {
@@ -15658,7 +15496,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		x = 0
 		y = 3
 		ai_will_do = {
@@ -15687,7 +15524,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		x = 1
 		y = 4
 		ai_will_do = {
@@ -15715,7 +15551,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		x = 0
 		y = 5
 		ai_will_do = {
@@ -15751,7 +15586,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		x = -2
 		y = 5
 		ai_will_do = {
@@ -15784,7 +15618,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		x = 2
 		y = 5
 		ai_will_do = {
@@ -15817,7 +15650,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		x = -1
 		y = 6
 		ai_will_do = {
@@ -15857,7 +15689,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		x = 1
 		y = 6
 		ai_will_do = {
@@ -15893,7 +15724,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		x = 0
 		y = 7
 		ai_will_do = {
@@ -15930,7 +15760,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		x = -2
 		y = 8
 		prerequisite = {focus = CSA_proletariat_commander}
@@ -15962,7 +15791,6 @@ focus_tree = {
 			}
 		    has_government = totalist
 		}
-		cancel_if_invalid = yes
 		x = 0
 		y = 8
 		ai_will_do = {
@@ -15990,7 +15818,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		x = 2
 		y = 8
 		ai_will_do = {
@@ -16024,7 +15851,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		x = 2
 		y = 1
 		ai_will_do = {
@@ -16058,7 +15884,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		x = 4
 		y = 3
 		ai_will_do = {
@@ -16090,7 +15915,6 @@ focus_tree = {
 				}
 			}
 		has_government = totalist }
-		cancel_if_invalid = yes
 		x = 4
 		y = 4
 		ai_will_do = {
@@ -16116,7 +15940,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		x = -4
 		y = 3
 		ai_will_do = {
@@ -16147,7 +15970,6 @@ focus_tree = {
 			}
 			has_government = totalist
 		}
-		cancel_if_invalid = yes
 		x = -4
 		y = 4
 		ai_will_do = {
@@ -16211,10 +16033,11 @@ focus_tree = {
 		icon = GFX_goal_CSA_final_revolution
 		cost = 2
 		available = { 
-		has_government = totalist 
-		has_country_leader = { ruling_only = yes name = "Jay Lovestone" }
+		custom_trigger_tooltip = {
+		tooltip = CSA_lovestone_is_leader
+		has_country_leader_ideology = lovestoneism_subtype
+	    }
 		}
-		cancel_if_invalid = yes
 		x = 8
 		y = 10
 		select_effect = {
@@ -16238,11 +16061,13 @@ focus_tree = {
 		id = CSA_red_patronage
 		icon = GFX_goal_CSA_red_patronage
 		cost = 5
-		available = { has_government = totalist
-				has_country_leader = { ruling_only = yes name = "Jay Lovestone" }
-				}
+		available = { 
+		custom_trigger_tooltip = {
+		tooltip = CSA_lovestone_is_leader
+		has_country_leader_ideology = lovestoneism_subtype
+	    }
+		}
 		prerequisite = {focus = CSA_final_revolution}
-		cancel_if_invalid = yes
 		x = 0
 		y = 1
 		ai_will_do = {
@@ -16274,10 +16099,13 @@ focus_tree = {
 		id = CSA_lovestone_circles
 		icon = GFX_goal_CSA_lovestone_circles
 		cost = 5
-		available = { has_government = totalist has_country_leader = { ruling_only = yes name = "Jay Lovestone" }
-				}
+		available = { 
+		custom_trigger_tooltip = {
+		tooltip = CSA_lovestone_is_leader
+		has_country_leader_ideology = lovestoneism_subtype
+	    }
+		}
 		prerequisite = {focus = CSA_red_patronage}
-		cancel_if_invalid = yes
 		x = -2
 		y = 2
 		ai_will_do = {
@@ -16295,9 +16123,13 @@ focus_tree = {
 		id = CSA_subjugate_the_technocratic
 		icon = GFX_goal_CSA_technocratic_subjugation
 		cost = 5
-		available = { has_government = totalist has_country_leader = { ruling_only = yes name = "Jay Lovestone" } }
+		available = { 
+		custom_trigger_tooltip = {
+		tooltip = CSA_lovestone_is_leader
+		has_country_leader_ideology = lovestoneism_subtype
+	    }
+		}
 		prerequisite = {focus = CSA_red_patronage}
-		cancel_if_invalid = yes
 		x = 0
 		y = 2
 		ai_will_do = {
@@ -16357,9 +16189,13 @@ focus_tree = {
 		id = CSA_css_radicalization
 		icon = GFX_goal_CSA_CSS_radicalization_campaign
 		cost = 5
-		available = { has_government = totalist has_country_leader = { ruling_only = yes name = "Jay Lovestone" } }
+		available = { 
+		custom_trigger_tooltip = {
+		tooltip = CSA_lovestone_is_leader
+		has_country_leader_ideology = lovestoneism_subtype
+	    }
+		}
 		prerequisite = {focus = CSA_red_patronage}
-		cancel_if_invalid = yes
 		x = 2
 		y = 2
 		ai_will_do = {
@@ -16376,10 +16212,14 @@ focus_tree = {
 		id = CSA_class_mergers
 		icon = GFX_goal_CSA_class_fusion
 		cost = 5
-		available = { has_government = totalist has_country_leader = { ruling_only = yes name = "Jay Lovestone" } }
+		available = { 
+		custom_trigger_tooltip = {
+		tooltip = CSA_lovestone_is_leader
+		has_country_leader_ideology = lovestoneism_subtype
+	    }
+		}
 		prerequisite = {focus = CSA_lovestone_circles}
 		prerequisite = {focus = CSA_subjugate_the_technocratic}
-		cancel_if_invalid = yes
 		x = -1
 		y = 3
 		ai_will_do = {
@@ -16428,9 +16268,13 @@ focus_tree = {
 		id = CSA_experimental_candidates
 		icon = GFX_goal_CSA_rural_industrialization
 		cost = 5
-		available = { has_government = totalist has_country_leader = { ruling_only = yes name = "Jay Lovestone" } }
+		available = { 
+		custom_trigger_tooltip = {
+		tooltip = CSA_lovestone_is_leader
+		has_country_leader_ideology = lovestoneism_subtype
+	    }
+		}
 		prerequisite = {focus = CSA_class_mergers}
-		cancel_if_invalid = yes
 		x = -3
 		y = 4
 		ai_will_do = {
@@ -16468,10 +16312,14 @@ focus_tree = {
 		id = CSA_socialism_first
 		icon = GFX_goal_CSA_Socialism_first
 		cost = 5
-		available = { has_government = totalist has_country_leader = { ruling_only = yes name = "Jay Lovestone" } }
+		available = { 
+		custom_trigger_tooltip = {
+		tooltip = CSA_lovestone_is_leader
+		has_country_leader_ideology = lovestoneism_subtype
+	    }
+		}
 		prerequisite = {focus = CSA_css_radicalization}
 		prerequisite = {focus = CSA_subjugate_the_technocratic }
-		cancel_if_invalid = yes
 		x = 1
 		y = 3
 		ai_will_do = {
@@ -16502,9 +16350,13 @@ focus_tree = {
 		id = CSA_new_surveilance
 		icon = GFX_goal_CSA_surveillance
 		cost = 5
-		available = { has_government = totalist has_country_leader = { ruling_only = yes name = "Jay Lovestone" } }
+		available = { 
+		custom_trigger_tooltip = {
+		tooltip = CSA_lovestone_is_leader
+		has_country_leader_ideology = lovestoneism_subtype
+	    }
+		}
 		prerequisite = {focus = CSA_socialism_first}
-		cancel_if_invalid = yes
 		x = 3
 		y = 4
 		ai_will_do = {
@@ -16527,9 +16379,13 @@ focus_tree = {
 		id = CSA_permanent_revolution
 		icon = GFX_goal_CSA_experimental_age
 		cost = 5
-		available = { has_government = totalist has_country_leader = { ruling_only = yes name = "Jay Lovestone" } }
+		available = { 
+		custom_trigger_tooltip = {
+		tooltip = CSA_lovestone_is_leader
+		has_country_leader_ideology = lovestoneism_subtype
+	    }
+		}
 		prerequisite = {focus = CSA_socialism_first}
-		cancel_if_invalid = yes
 		x = 1
 		y = 4
 		ai_will_do = {
@@ -16557,9 +16413,13 @@ focus_tree = {
 		id = CSA_rural_industrialization
 		icon = GFX_goal_CSA_mass_extraction
 		cost = 5
-		available = { has_government = totalist has_country_leader = { ruling_only = yes name = "Jay Lovestone" } }
+		available = { 
+		custom_trigger_tooltip = {
+		tooltip = CSA_lovestone_is_leader
+		has_country_leader_ideology = lovestoneism_subtype
+	    }
+		}
 		prerequisite = {focus = CSA_class_mergers}
-		cancel_if_invalid = yes
 		x = -1
 		y = 4
 		ai_will_do = {
@@ -16616,10 +16476,14 @@ focus_tree = {
 		id = CSA_new_economic_planning
 		icon = GFX_goal_CSA_new_economic_planning
 		cost = 5
-		available = { has_government = totalist has_country_leader = { ruling_only = yes name = "Jay Lovestone" } }
+		available = { 
+		custom_trigger_tooltip = {
+		tooltip = CSA_lovestone_is_leader
+		has_country_leader_ideology = lovestoneism_subtype
+	    }
+		}
 		prerequisite = {focus = CSA_experimental_candidates}
 		prerequisite = {focus = CSA_rural_industrialization}
-		cancel_if_invalid = yes
 		x = -2
 		y = 5
 		ai_will_do = {
@@ -16700,10 +16564,14 @@ focus_tree = {
 		id = CSA_american_exceptionalism
 		icon = GFX_goal_CSA_american_exceptionalism
 		cost = 5
-		available = { has_government = totalist has_country_leader = { ruling_only = yes name = "Jay Lovestone" } }
+		available = { 
+		custom_trigger_tooltip = {
+		tooltip = CSA_lovestone_is_leader
+		has_country_leader_ideology = lovestoneism_subtype
+	    }
+		}
 		prerequisite = {focus = CSA_new_economic_planning}
 		prerequisite = {focus = CSA_all_to_the_director }
-		cancel_if_invalid = yes
 		x = -1
 		y = 6
 		ai_will_do = {
@@ -16737,10 +16605,14 @@ focus_tree = {
 		id = CSA_all_to_the_director
 		icon = GFX_goal_CSA_all_to_the_director
 		cost = 5
-		available = { has_government = totalist has_country_leader = { ruling_only = yes name = "Jay Lovestone" } }
+		available = { 
+		custom_trigger_tooltip = {
+		tooltip = CSA_lovestone_is_leader
+		has_country_leader_ideology = lovestoneism_subtype
+	    }
+		}
 		prerequisite = {focus = CSA_permanent_revolution}
 		prerequisite = {focus = CSA_rural_industrialization}
-		cancel_if_invalid = yes
 		x = 0
 		y = 5
 		ai_will_do = {
@@ -16764,10 +16636,14 @@ focus_tree = {
 		id = CSA_gamma_expansion
 		icon = GFX_BBR_state_employement
 		cost = 5
-		available = { has_government = totalist has_country_leader = { ruling_only = yes name = "Jay Lovestone" } }
+		available = { 
+		custom_trigger_tooltip = {
+		tooltip = CSA_lovestone_is_leader
+		has_country_leader_ideology = lovestoneism_subtype
+	    }
+		}
 		prerequisite = {focus = CSA_permanent_revolution}
 		prerequisite = {focus = CSA_new_surveilance}
-		cancel_if_invalid = yes
 		x = 2
 		y = 5
 		ai_will_do = {
@@ -16817,10 +16693,14 @@ focus_tree = {
 		id = CSA_mass_extraction
 		icon = GFX_goal_CSA_resource_nationalisation
 		cost = 5
-		available = { has_government = totalist has_country_leader = { ruling_only = yes name = "Jay Lovestone" } }
+		available = { 
+		custom_trigger_tooltip = {
+		tooltip = CSA_lovestone_is_leader
+		has_country_leader_ideology = lovestoneism_subtype
+	    }
+		}
 		prerequisite = {focus = CSA_gamma_expansion }
 		prerequisite = {focus = CSA_all_to_the_director }
-		cancel_if_invalid = yes
 		x = 1
 		y = 6
 		ai_will_do = {

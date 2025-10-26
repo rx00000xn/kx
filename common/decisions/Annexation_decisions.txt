@@ -1884,6 +1884,10 @@ annexation_decisions = {
 				add_state_claim = 471
 				add_state_claim = 740
 				add_state_claim = 463
+				add_state_claim = 1348
+		        add_state_claim = 1349
+		        add_state_claim = 1350
+		        add_state_claim = 1273
 			}
 			occupy_large_country = yes
 		}
@@ -2346,7 +2350,21 @@ annexation_decisions = {
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision annexation_CUB_CONQ"
-			country_event = annex.117
+			if = {
+				limit = {
+					OR = {
+						has_country_leader = { ruling_only = yes name = "Lucky Luciano"}
+						has_country_leader = { ruling_only = yes name = "Bugsy Siegel"}
+						has_country_leader = { ruling_only = yes name = "Meyer Lansky"}
+						has_country_leader = { ruling_only = yes name = "Paul Ricca"}
+						has_country_leader = { ruling_only = yes name = "Hymie Weiss"}
+						has_country_leader = { ruling_only = yes name = "Bumpy Johnson"}
+						has_country_leader = { ruling_only = yes name = "Johnny Torrio"}
+					}
+				}
+				country_event = NYC_flavor.100
+			}
+			else = { country_event = annex.117 }
 		}
 		timeout_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision timeout annexation_CUB_CONQ"
@@ -5794,6 +5812,57 @@ annexation_decisions = {
 		}
 	}
 
+	# South Seas Islands
+	annexation_SSI_CONQ = {
+		icon = generic_form_nation
+
+		selectable_mission = yes
+		days_mission_timeout = 60
+		is_good = no
+		cost = 0
+		fire_only_once = no
+		cancel_trigger = {
+			NOT = {
+				AND = {
+					645 = {
+						is_owned_and_controlled_by = ROOT
+						is_claim_or_core_of_ROOT = no
+					}
+					636 = {
+						is_owned_and_controlled_by = ROOT
+						is_claim_or_core_of_ROOT = no
+					}
+				}
+				AND = {
+					633 = {
+						is_owned_and_controlled_by = ROOT
+						is_claim_or_core_of_ROOT = no
+					}
+					684 = {
+						is_owned_and_controlled_by = ROOT
+						is_claim_or_core_of_ROOT = no
+					}
+					639 = {
+						is_owned_and_controlled_by = ROOT
+						is_claim_or_core_of_ROOT = no
+					}
+				}
+			}
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision annexation_SSI_CONQ"
+			country_event = annex.2991
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout annexation_SSI_CONQ"
+			set_country_flag = SSI_CONQ
+			occupy_small_country = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
 	# Rome
 	annexation_PAP_CONQ = {
 		icon = generic_form_nation
@@ -7296,6 +7365,31 @@ annexation_decisions = {
 		}
 	}
 
+	# Palestine
+	annexation_PALESTINE_CONQ = {
+		icon = generic_form_nation
+		selectable_mission = yes
+		days_mission_timeout = 60
+		is_good = no
+		cost = 0
+		fire_only_once = no
+		cancel_trigger = {
+			454 = { is_valid_annexation_state = no }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision annexation_PALESTINE_CONQ"
+			country_event = annex.2371
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout annexation_PALESTINE_CONQ"
+			occupy_small_country = yes
+			set_country_flag = PALESTINE_CONQ
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
 	# Slovenia
 	annexation_SLO_CONQ = {
 		icon = generic_form_nation
@@ -8569,6 +8663,10 @@ annexation_decisions = {
 		cancel_trigger = {
 			NOT = {
 				122 = {
+					is_owned_and_controlled_by = ROOT
+					is_claim_or_core_of_ROOT = no
+				}
+				1225 = {
 					is_owned_and_controlled_by = ROOT
 					is_claim_or_core_of_ROOT = no
 				}

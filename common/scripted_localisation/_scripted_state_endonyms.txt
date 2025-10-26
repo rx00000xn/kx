@@ -460,18 +460,22 @@ defined_text = {
 	name = GetStateName_34
 	text = {
 		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
-		localization_key = STATE_34 #Hainaut
+		localization_key = STATE_34 #Wallonia
 	}
 	text = {
 		trigger = { is_dutch_tag = yes }
-		localization_key = STATE_34_DUTCH #Henegouwen
+		localization_key = STATE_34_DUTCH #Wallonië
 	}
 	text = {
 		trigger = { is_german_tag = yes }
-		localization_key = STATE_34_GERMAN #Hennegau
+		localization_key = STATE_34_GERMAN #Wallonien
 	}
 	text = {
-		localization_key = STATE_34 #Hainaut
+		trigger = { is_french_speaking_tag = yes }
+		localization_key = STATE_34_FRENCH #Wallonie
+	}
+	text = {
+		localization_key = STATE_34 #Wallonia
 	}
 }
 defined_text = {
@@ -1943,14 +1947,14 @@ defined_text = {
 	name = GetStateName_122
 	text = {
 		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
-		localization_key = STATE_122 #Wales
+		localization_key = STATE_122 #South Wales
 	}
 	text = {
 		trigger = { is_celtic_tag = yes }
-		localization_key = STATE_122_CELTIC #Cymru
+		localization_key = STATE_122_CELTIC #De Cymru
 	}
 	text = {
-		localization_key = STATE_122 #Wales
+		localization_key = STATE_122 #South Wales
 	}
 }
 defined_text = {
@@ -2437,8 +2441,15 @@ defined_text = {
 		localization_key = STATE_158 #Piedmont
 	}
 	text = {
-		trigger = { is_romance_speaking_tag = yes }
+		trigger = { 
+			is_romance_speaking_tag = yes 
+			is_french_speaking_tag = no
+		}
 		localization_key = STATE_158_ITALIAN #Piemonte
+	}
+	text = {
+		trigger = { is_french_speaking_tag = yes }
+		localization_key = STATE_158_FRENCH #Piémont 
 	}
 	text = {
 		localization_key = STATE_158 #Piedmont
@@ -2541,6 +2552,10 @@ defined_text = {
 	text = {
 		trigger = { is_spanish_speaking_tag = yes }
 		localization_key = STATE_165_SPANISH #Cataluña
+	}
+	text = {
+		trigger = { is_french_speaking_tag = yes }
+		localization_key = STATE_165_FRENCH #Catalogne
 	}
 	text = {
 		localization_key = STATE_165 #Catalonia
@@ -2841,7 +2856,12 @@ defined_text = {
 		localization_key = STATE_188_LITHUANIAN #Klaipėda
 	}
 	text = {
-		trigger = { is_polish_tag = yes }
+		trigger = { 
+			OR = {
+				is_polish_tag = yes 
+				original_tag = WHR
+			}
+		}
 		localization_key = STATE_188_POLISH #Kłajpeda
 	}
 	text = {
@@ -2869,6 +2889,10 @@ defined_text = {
 	text = {
 		trigger = { is_russian_speaking_tag = yes }
 		localization_key = STATE_189_RUSSIAN #Zhemaitija
+	}
+	text = {
+		trigger = { original_tag = WHR }
+		localization_key = STATE_189_BELARUSIAN #Žamojć
 	}
 	text = {
 		localization_key = STATE_189 #Samogitia
@@ -3301,6 +3325,14 @@ defined_text = {
 defined_text = {
 	name = GetStateName_205
 	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_205 #Kaluga
+	}
+	text = {
+		trigger = { original_tag = WHR }
+		localization_key = STATE_205_BELARUSIAN #Kałuha
+	}
+	text = {
 		localization_key = STATE_205 #Kaluga
 	}
 }
@@ -3362,15 +3394,19 @@ defined_text = {
 	name = GetStateName_209
 	text = {
 		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
-		localization_key = STATE_207 #Braslav
+		localization_key = STATE_209 #Pskov
 	}
 	text = {
 		trigger = { is_german_tag = yes }
-		localization_key = STATE_209_GERMAN
+		localization_key = STATE_209_GERMAN #Pleskau
 	}
 	text = {
 		trigger = { original_tag = LAT }
-		localization_key = STATE_209_LATVIAN
+		localization_key = STATE_209_LATVIAN #Pliskava
+	}
+	text = {
+		trigger = { original_tag = WHR }
+		localization_key = STATE_209_BELARUSIAN #Pskoŭ
 	}
 	text = {
 		localization_key = STATE_209 #Pskov
@@ -3378,6 +3414,14 @@ defined_text = {
 }
 defined_text = {
 	name = GetStateName_210
+	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_210 #Velikiye Luki
+	}
+	text = {
+		trigger = { original_tag = WHR }
+		localization_key = STATE_210_BELARUSIAN #Vialikija Łuki
+	}
 	text = {
 		localization_key = STATE_210 #Velikiye Luki
 	}
@@ -3465,6 +3509,13 @@ defined_text = {
 	name = GetStateName_217
 	text = {
 		trigger = { 
+			has_country_flag = soviet_speaking_tag 
+			217 = { has_state_flag = renamed_state_trotsky }
+		}
+		localization_key = STATE_217_TROTSKY
+	}
+	text = {
+		trigger = { 
 			217 = { has_state_flag = renamed_state_imperial }
 		}
 		localization_key = STATE_217_IMPERIAL
@@ -3472,10 +3523,7 @@ defined_text = {
 	text = {
 		trigger = { 
 			217 = { has_state_flag = renamed_state_rykov }
-			has_country_leader = {
-				name = "Andrei Zhdanov"
-				ruling_only = yes
-			}
+			SOV_zhdanov_in_power = yes
 		}
 		localization_key = STATE_217_RYKOV
 	}
@@ -3872,7 +3920,15 @@ defined_text = {
 defined_text = {
 	name = GetStateName_234
 	text = {
-		trigger = { has_global_flag = renamed_krasnodar }
+		trigger = { 
+			OR = {
+				AND = {
+					has_global_flag = renamed_krasnodar 
+					original_tag = KUB
+				}
+				has_country_flag = soviet_speaking_tag
+			}
+		}
 		localization_key = STATE_234_KRASNODAR
 	}
 	text = {
@@ -4072,7 +4128,17 @@ defined_text = {
 defined_text = {
 	name = GetStateName_247
 	text = {
-		trigger = { has_country_flag = soviet_speaking_tag }
+		trigger = { 
+			has_country_flag = soviet_speaking_tag 
+			247 = { has_state_flag = renamed_tver_to_kalinin }
+		}
+		localization_key = STATE_247_KALININ
+	}
+	text = {
+		trigger = { 
+			has_country_flag = soviet_speaking_tag 
+			247 = { NOT = { has_state_flag = renamed_tver_to_kalinin } }
+		}
 		localization_key = STATE_247_BAKUNIN
 	}
 	text = {
@@ -4122,6 +4188,13 @@ defined_text = {
 }
 defined_text = {
 	name = GetStateName_251
+	text = {
+		trigger = { 
+			has_country_flag = soviet_speaking_tag 
+			251 = { has_state_flag = renamed_samara_kuybyshev }
+		}
+		localization_key = STATE_251_KUYBYSHEV
+	}
 	text = {
 		localization_key = STATE_251 #Samara
 	}
@@ -4214,6 +4287,14 @@ defined_text = {
 }
 defined_text = {
 	name = GetStateName_263
+	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_263 #Novgorod
+	}
+	text = {
+		trigger = { original_tag = WHR }
+		localization_key = STATE_263_BELARUSIAN #Noŭharad
+	}
 	text = {
 		localization_key = STATE_263 #Novgorod
 	}
@@ -4523,6 +4604,10 @@ defined_text = {
 		localization_key = STATE_286_VIETNAMESE #Sài Gòn
 	}
 	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_286_JAPANESE #Saigon
+	}
+	text = {
 		localization_key = STATE_286 #Cochinchina
 	}
 }
@@ -4537,7 +4622,10 @@ defined_text = {
 		localization_key = STATE_287_MONGOLIAN #Bayingol
 	}
 	text = {
-		trigger = { is_chinese_tag = yes }
+		trigger = { 
+			is_chinese_tag = yes 
+			NOT = { original_tag = MON }
+		}
 		localization_key = STATE_287_CHINESE #Hetian
 	}
 	text = {
@@ -4979,6 +5067,14 @@ defined_text = {
 defined_text = {
 	name = GetStateName_326
 	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_326 #Hong Kong
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_326_JAPANESE #Honkon
+	}
+	text = {
 		localization_key = STATE_326 #Hong Kong
 	}
 }
@@ -4991,6 +5087,10 @@ defined_text = {
 	text = {
 		trigger = { original_tag = PHI }
 		localization_key = STATE_327_FILIPINO #Gitnang Luzon
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_327_JAPANESE #Chūō-Ruson
 	}
 	text = {
 		localization_key = STATE_327 #Central Luzon
@@ -5039,7 +5139,10 @@ defined_text = {
 		localization_key = STATE_330_MONGOLIAN #Mongol
 	}
 	text = {
-		trigger = { is_chinese_tag = yes }
+		trigger = { 
+			is_chinese_tag = yes 
+			NOT = { original_tag = MON }
+		}
 		localization_key = STATE_330_CHINESE #Wai Menggu
 	}
 	text = {
@@ -5081,6 +5184,10 @@ defined_text = {
 		localization_key = STATE_333_INDONESIAN #Sarawak
 	}
 	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_333_JAPANESE #Kita-Boruneo
+	}
+	text = {
 		localization_key = STATE_333 #North Borneo
 	}
 }
@@ -5101,6 +5208,10 @@ defined_text = {
 	text = {
 		trigger = { original_tag = INS }
 		localization_key = STATE_334_INDONESIAN #Kalimantan Barat
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_334_JAPANESE #Nishi-Boruneo
 	}
 	text = {
 		localization_key = STATE_334 #West Borneo
@@ -5684,11 +5795,8 @@ defined_text = {
 	name = GetStateName_398
 	text = {
 		trigger = { 
+			has_country_flag = soviet_speaking_tag
 			398 = { has_state_flag = renamed_state_molotov }
-			has_country_leader = {
-				name = "Vyacheslav Molotov"
-				ruling_only = yes
-			}
 		}
 		localization_key = STATE_398_MOLOTOV
 	}
@@ -5703,7 +5811,14 @@ defined_text = {
 	}
 }
 defined_text = {
-	name = GetStateName_400
+	name = GetStateName_400	
+	text = {
+		trigger = { 
+			has_country_flag = soviet_speaking_tag 
+			400 = { has_state_flag = renamed_vyatka_direktivinsk }
+		}
+		localization_key = STATE_400_DIREKTIVINSK
+	}
 	text = {
 		localization_key = STATE_400 #Vyatka
 	}
@@ -5758,7 +5873,14 @@ defined_text = {
 	}
 }
 defined_text = {
-	name = GetStateName_404
+	name = GetStateName_404	
+	text = {
+		trigger = { 
+			has_country_flag = soviet_speaking_tag 
+			404 = { has_state_flag = renamed_ustkamenegorsk_rubezhstroy }
+		}
+		localization_key = STATE_404_RUBEZHSTROY
+	}
 	text = {
 		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
 		localization_key = STATE_404 #Karaganda
@@ -6628,18 +6750,18 @@ defined_text = {
 	name = GetStateName_463
 	text = {
 		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
-		localization_key = STATE_463 #Alaska
+		localization_key = STATE_463 #Southeast Alaska
 	}
 	text = {
 		trigger = { is_japanese_tag = yes }
-		localization_key = STATE_463_JAPANESE #Arasuka
+		localization_key = STATE_463_JAPANESE #Arasuka Nantōbu
 	}
 	text = {
 		trigger = { is_russian_speaking_tag = yes }
-		localization_key = STATE_463_RUSSIAN #Alyaska
+		localization_key = STATE_463_RUSSIAN #Yugo-Vostochnaya Alyaska
 	}
 	text = {
-		localization_key = STATE_463 #Alaska
+		localization_key = STATE_463 #Southeast Alaska
 	}
 }
 defined_text = {
@@ -7204,22 +7326,18 @@ defined_text = {
 	name = GetStateName_525
 	text = {
 		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
-		localization_key = STATE_525 #Southern Korea
+		localization_key = STATE_525 #Gyeonggi
 	}
 	text = {
 		trigger = { is_japanese_tag = yes }
-		localization_key = STATE_525_JAPANESE #Minamichōsen
-	}
-	text = {
-		trigger = { original_tag = KOR }
-		localization_key = STATE_525_KOREAN #Namjoseon
+		localization_key = STATE_525_JAPANESE #Keiki
 	}
 	text = {
 		trigger = { is_chinese_tag = yes }
-		localization_key = STATE_525_CHINESE #Nan Chaoxian
+		localization_key = STATE_525_CHINESE #Jingji
 	}
 	text = {
-		localization_key = STATE_525 #Southern Korea
+		localization_key = STATE_525 #Gyeonggi
 	}
 }
 defined_text = {
@@ -7240,22 +7358,18 @@ defined_text = {
 	name = GetStateName_527
 	text = {
 		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
-		localization_key = STATE_527 #Northern Korea
+		localization_key = STATE_527 #Yangseo
 	}
 	text = {
 		trigger = { is_japanese_tag = yes }
-		localization_key = STATE_527_JAPANESE #Kitachōsen
-	}
-	text = {
-		trigger = { original_tag = KOR }
-		localization_key = STATE_527_KOREAN #Bugjoseon
+		localization_key = STATE_527_JAPANESE #Ryōsai
 	}
 	text = {
 		trigger = { is_chinese_tag = yes }
-		localization_key = STATE_527_CHINESE #Bei Chaoxian
+		localization_key = STATE_527_CHINESE #Liangxi
 	}
 	text = {
-		localization_key = STATE_527 #Northern Korea
+		localization_key = STATE_527 #Yangseo
 	}
 }
 defined_text = {
@@ -7330,14 +7444,10 @@ defined_text = {
 	name = GetStateName_534
 	text = {
 		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
-		localization_key = STATE_534 #Koshinetsu
+		localization_key = STATE_534 #Niigata
 	}
 	text = {
-		trigger = { is_japanese_tag = yes }
-		localization_key = STATE_534_JAPANESE #Kōshinetsu
-	}
-	text = {
-		localization_key = STATE_534 #Koshinetsu
+		localization_key = STATE_534 #Niigata
 	}
 }
 defined_text = {
@@ -7743,6 +7853,10 @@ defined_text = {
 		localization_key = STATE_561_JAPANESE
 	}
 	text = {
+		trigger = { is_chinese_tag = yes }
+		localization_key = STATE_561_CHINESE
+	}
+	text = {
 		localization_key = STATE_561 #Amur
 	}
 }
@@ -8115,6 +8229,10 @@ defined_text = {
 		localization_key = STATE_592_CHINESE #Guangzhou
 	}
 	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_592_JAPANESE #Kōshū
+	}
+	text = {
 		localization_key = STATE_592 #Canton
 	}
 }
@@ -8241,6 +8359,14 @@ defined_text = {
 defined_text = {
 	name = GetStateName_609
 	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_609 #Tianjin
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_609_JAPANESE #Tenshin
+	}
+	text = {
 		localization_key = STATE_609 #Tianjin
 	}
 }
@@ -8255,7 +8381,10 @@ defined_text = {
 		localization_key = STATE_610_MONGOLIAN #Khaluungol
 	}
 	text = {
-		trigger = { is_chinese_tag = yes }
+		trigger = { 
+			is_chinese_tag = yes 
+			NOT = { original_tag = MON }
+		}
 		localization_key = STATE_610_CHINESE #Rehe
 	}
 	text = {
@@ -8306,7 +8435,10 @@ defined_text = {
 		localization_key = STATE_612_MONGOLIAN #Xilingol
 	}
 	text = {
-		trigger = { is_chinese_tag = yes }
+		trigger = { 
+			is_chinese_tag = yes 
+			NOT = { original_tag = MON }
+		}
 		localization_key = STATE_612_CHINESE #Bei Chahaer
 	}
 	text = {
@@ -8386,7 +8518,11 @@ defined_text = {
 		localization_key = STATE_618_MONGOLIAN #Zuun Gar
 	}
 	text = {
-		trigger = { is_chinese_tag = yes }
+		trigger = { 
+			is_chinese_tag = yes 
+			NOT = { original_tag = MON }
+			is_uighur_tag = no
+		}
 		localization_key = STATE_618_CHINESE #Zhungaer
 	}
 	text = {
@@ -8408,7 +8544,10 @@ defined_text = {
 		localization_key = STATE_619 #Kashgar
 	}
 	text = {
-		trigger = { is_chinese_tag = yes }
+		trigger = { 
+			is_chinese_tag = yes 
+			is_uighur_tag = no
+		}
 		localization_key = STATE_619_CHINESE #Kashigaer
 	}
 	text = {
@@ -8456,6 +8595,10 @@ defined_text = {
 		localization_key = STATE_623_FILIPINO #Hilagang Luzon
 	}
 	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_623_JAPANESE #Kita-Ruson
+	}
+	text = {
 		localization_key = STATE_623 #Northern Luzon
 	}
 }
@@ -8470,17 +8613,37 @@ defined_text = {
 		localization_key = STATE_624_FILIPINO #Timog Luzon
 	}
 	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_624_JAPANESE #Minami-Ruson
+	}
+	text = {
 		localization_key = STATE_624 #Southern Luzon
 	}
 }
 defined_text = {
 	name = GetStateName_625
 	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_625 #Samar
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_625_JAPANESE #Samāru
+	}
+	text = {
 		localization_key = STATE_625 #Samar
 	}
 }
 defined_text = {
 	name = GetStateName_626
+	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_626 #Palawan
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_626_JAPANESE #Parawan
+	}
 	text = {
 		localization_key = STATE_626 #Palawan
 	}
@@ -8500,6 +8663,10 @@ defined_text = {
 	text = {
 		trigger = { original_tag = PHI }
 		localization_key = STATE_628_FILIPINO #K. Kabisayaan
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_628_JAPANESE #Nishi-Bisaya
 	}
 	text = {
 		localization_key = STATE_628 #Western Visayas
@@ -8725,22 +8892,26 @@ defined_text = {
 	name = GetStateName_641
 	text = {
 		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
-		localization_key = STATE_641 #Tahiti
+		localization_key = STATE_641 #German Polynesia
+	}
+	text = {
+		trigger = { 641 = { has_state_flag = oceania_cities_rename_flag } }
+		localization_key = STATE_641_OCEANIA #Tahiti
 	}
 	text = {
 		trigger = { is_japanese_tag = yes }
-		localization_key = STATE_641_JAPANESE #Tahichi
+		localization_key = STATE_641_JAPANESE #Nichiryou-Porineshia
 	}
 	text = {
 		trigger = { is_german_tag = yes }
-		localization_key = STATE_641_GERMAN
+		localization_key = STATE_641_GERMAN #Deutsch-Polynesien
 	}
 	text = {
 		trigger = { is_romance_speaking_tag = yes }
-		localization_key = STATE_641_FRENCH
+		localization_key = STATE_641_FRENCH #Polynésie française
 	}
 	text = {
-		localization_key = STATE_641 #Tahiti
+		localization_key = STATE_641 #German Polynesia
 	}
 }
 defined_text = {
@@ -8913,8 +9084,13 @@ defined_text = {
 		localization_key = STATE_652 #Orenburg
 	}
 }
+
 defined_text = {
 	name = GetStateName_653
+	text = {
+		trigger = { 653 = { has_state_flag = renamed_state_sverdlovsk } }
+		localization_key = STATE_653_SVERDLOVSK
+	}
 	text = {
 		trigger = { 
 			653 = { has_state_flag = renamed_state_zhdanovgrad } 
@@ -8924,10 +9100,6 @@ defined_text = {
 			}
 		}
 		localization_key = STATE_653_ZHDANOVGRAD
-	}
-	text = {
-		trigger = { has_country_flag = soviet_speaking_tag }
-		localization_key = STATE_653_SVERDLOVSK
 	}
 	text = {
 		localization_key = STATE_653 #Ekaterinburg
@@ -8968,6 +9140,10 @@ defined_text = {
 	text = {
 		trigger = { original_tag = LAT }
 		localization_key = STATE_655_LATVIAN #Sudava
+	}
+	text = {
+		trigger = { original_tag = WHR }
+		localization_key = STATE_655_BELARUSIAN #Suvałkija
 	}
 	text = {
 		localization_key = STATE_655 #Sudovia
@@ -9208,6 +9384,10 @@ defined_text = {
 		localization_key = STATE_670_THAI #Lao
 	}
 	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_670_JAPANESE #Raosu
+	}
+	text = {
 		localization_key = STATE_670 #Laos
 	}
 }
@@ -9248,6 +9428,10 @@ defined_text = {
 	text = {
 		trigger = { original_tag = INS }
 		localization_key = STATE_673_INDONESIAN #Sulawesi
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_673_JAPANESE #Serebesu
 	}
 	text = {
 		localization_key = STATE_673 #Celebes
@@ -10076,6 +10260,10 @@ defined_text = {
 		localization_key = STATE_729_PORTUGUESE #Macau
 	}
 	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_729_JAPANESE #Makao
+	}
+	text = {
 		localization_key = STATE_729 #Macao
 	}
 }
@@ -10272,6 +10460,14 @@ defined_text = {
 defined_text = {
 	name = GetStateName_743
 	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_743 #Shanghai
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_743_JAPANESE #Shanhai
+	}
+	text = {
 		localization_key = STATE_743 #Shanghai
 	}
 }
@@ -10368,6 +10564,10 @@ defined_text = {
 	text = {
 		trigger = { original_tag = SIA }
 		localization_key = STATE_750_THAI #Phnom Penh
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_750_JAPANESE #Punonpen
 	}
 	text = {
 		localization_key = STATE_750 #Pnom Penh
@@ -11136,11 +11336,27 @@ defined_text = {
 defined_text = {
 	name = GetStateName_797
 	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_797 #San Francisco
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_797_JAPANESE #Seijin Furanshisuko
+	}
+	text = {
 		localization_key = STATE_797 #San Francisco
 	}
 }
 defined_text = {
 	name = GetStateName_798
+	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_798 #Los Angeles
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_798_JAPANESE #Rosanzerusu
+	}
 	text = {
 		localization_key = STATE_798 #Los Angeles
 	}
@@ -11509,6 +11725,10 @@ defined_text = {
 		localization_key = STATE_825_THAI #Phra Tabong
 	}
 	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_825_JAPANESE #Battodamban
+	}
+	text = {
 		localization_key = STATE_825 #Battambang
 	}
 }
@@ -11527,17 +11747,37 @@ defined_text = {
 		localization_key = STATE_826_THAI #Chiang Taeng
 	}
 	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_826_JAPANESE #Sutontoren
+	}
+	text = {
 		localization_key = STATE_826 #Stung Treng
 	}
 }
 defined_text = {
 	name = GetStateName_827
 	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_827 #Annam
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_827_JAPANESE #Annan
+	}
+	text = {
 		localization_key = STATE_827 #Annam
 	}
 }
 defined_text = {
 	name = GetStateName_828
+	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_828 #Sabah
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_828_JAPANESE #Saba
+	}
 	text = {
 		localization_key = STATE_828 #Sabah
 	}
@@ -11675,6 +11915,14 @@ defined_text = {
 }
 defined_text = {
 	name = GetStateName_838
+	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_838 #Liguria
+	}
+	text = {
+		trigger = { is_french_speaking_tag = yes }
+		localization_key = STATE_838_FRENCH #Ligurie
+	}
 	text = {
 		localization_key = STATE_838 #Liguria
 	}
@@ -11888,11 +12136,23 @@ defined_text = {
 		localization_key = STATE_856_VIETNAMESE #Dong Bang Song Me Kong
 	}
 	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_856_JAPANESE #Mekonderuta
+	}
+	text = {
 		localization_key = STATE_856 #Mekong Delta
 	}
 }
 defined_text = {
 	name = GetStateName_857
+	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_857 #Dong Bac
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_857_JAPANESE #Tōhoku
+	}
 	text = {
 		localization_key = STATE_857 #Dong Bac
 	}
@@ -12947,7 +13207,11 @@ defined_text = {
 	name = GetStateName_941
 	text = {
 		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
-		localization_key = STATE_941 #Western Samoa
+		localization_key = STATE_941 #German Samoa
+	}
+	text = {
+		trigger = { 941 = { has_state_flag = oceania_cities_rename_flag } }
+		localization_key = STATE_941_OCEANIA #Western Samoa
 	}
 	text = {
 		trigger = { is_japanese_tag = yes }
@@ -12958,7 +13222,7 @@ defined_text = {
 		localization_key = STATE_941_GERMAN #Deutsch-Samoa
 	}
 	text = {
-		localization_key = STATE_941 #Western Samoa
+		localization_key = STATE_941 #German Samoa
 	}
 }
 defined_text = {
@@ -13120,22 +13384,22 @@ defined_text = {
 	name = GetStateName_955
 	text = {
 		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
-		localization_key = STATE_955 #East Luangwa
+		localization_key = STATE_955 #Eastern Zambezia
 	}
 	text = {
 		trigger = { original_tag = ZIM }
-		localization_key = STATE_955_RHODESIAN #
+		localization_key = STATE_955_RHODESIAN #Chewaland
 	}
 	text = {
 		trigger = { is_german_tag = yes }
-		localization_key = STATE_955_GERMAN #Ostluangwa
+		localization_key = STATE_955_GERMAN #Ostvorbecksland
 	}
 	text = {
 		trigger = { is_romance_speaking_tag = yes }
-		localization_key = STATE_955_PORTUGUESE #Aruângua Oriental
+		localization_key = STATE_955_PORTUGUESE #Lacerdia Oriental
 	}
 	text = {
-		localization_key = STATE_955 #East Luangwa
+		localization_key = STATE_955 #Eastern Zambezia
 	}
 }
 defined_text = {
@@ -13146,15 +13410,15 @@ defined_text = {
 	}
 	text = {
 		trigger = { original_tag = ZIM }
-		localization_key = STATE_956_RHODESIAN #
+		localization_key = STATE_956_RHODESIAN #North-Eastern Rhodesia
 	}
 	text = {
 		trigger = { is_german_tag = yes }
-		localization_key = STATE_956_GERMAN #Nordzambesia
+		localization_key = STATE_956_GERMAN #Nordvorbecksland
 	}
 	text = {
 		trigger = { is_romance_speaking_tag = yes }
-		localization_key = STATE_956_PORTUGUESE #Norte de Lacerdia
+		localization_key = STATE_956_PORTUGUESE #Lacerdia Setentrional
 	}
 	text = {
 		localization_key = STATE_956 #Northern Zambesia
@@ -13164,44 +13428,44 @@ defined_text = {
 	name = GetStateName_957
 	text = {
 		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
-		localization_key = STATE_957 #North Wales
+		localization_key = STATE_957 #Western Barotseland
 	}
 	text = {
-		trigger = { original_tag = ZIM }
+		trigger = { original_tag = ZIM } #Western Barotseland
 		localization_key = STATE_957
 	}
 	text = {
 		trigger = { is_german_tag = yes }
-		localization_key = STATE_957_GERMAN #Nordzambesia
+		localization_key = STATE_957_GERMAN #Westbarotseland
 	}
 	text = {
 		trigger = { is_romance_speaking_tag = yes }
-		localization_key = STATE_957_PORTUGUESE #Norte de Lacerdia
+		localization_key = STATE_957_PORTUGUESE #Baroce Ocidental
 	}
 	text = {
-		localization_key = STATE_957 #North Wales
+		localization_key = STATE_957 #South-Western Rhodesia
 	}
 }
 defined_text = {
 	name = GetStateName_958
 	text = {
 		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
-		localization_key = STATE_958 #Barotseland
+		localization_key = STATE_958 #Eastern Barotseland
 	}
 	text = {
-		trigger = { original_tag = ZIM }
+		trigger = { original_tag = ZIM } #Western Barotseland
 		localization_key = STATE_958
 	}
 	text = {
 		trigger = { is_german_tag = yes }
-		localization_key = STATE_958_GERMAN #Nordzambesia
+		localization_key = STATE_958_GERMAN #Ostbarotseland
 	}
 	text = {
 		trigger = { is_romance_speaking_tag = yes }
-		localization_key = STATE_958_PORTUGUESE #Baroce
+		localization_key = STATE_958_PORTUGUESE #Baroce Oriental
 	}
 	text = {
-		localization_key = STATE_958 #Barotseland
+		localization_key = STATE_958 #South-Eastern Rhodesia
 	}
 }
 defined_text = {
@@ -13465,6 +13729,14 @@ defined_text = {
 }
 defined_text = {
 	name = GetStateName_978
+	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_978 #Limburg
+	}
+	text = {
+		trigger = { is_french_speaking_tag = yes }
+		localization_key = STATE_978_FRENCH #Limbourg
+	}
 	text = {
 		localization_key = STATE_978 #Limburg
 	}
@@ -14052,6 +14324,10 @@ defined_text = {
 		localization_key = STATE_1016_INDONESIAN #Kalimantan Timur
 	}
 	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_1016_JAPANESE #Higashi-Boruneo
+	}
+	text = {
 		localization_key = STATE_1016 #South & East Borneo
 	}
 }
@@ -14074,6 +14350,10 @@ defined_text = {
 		localization_key = STATE_1017_INDONESIAN #Timor Barat
 	}
 	text = {
+		trigger = { is_spanish_speaking_tag = yes }
+		localization_key = STATE_1017_SPANISH #Timor Occidental
+	}
+	text = {
 		localization_key = STATE_1017 #West Timor
 	}
 }
@@ -14094,6 +14374,10 @@ defined_text = {
 	text = {
 		trigger = { original_tag = INS }
 		localization_key = STATE_1018_INDONESIAN #Kepulauan Flores
+	}
+	text = {
+		trigger = { is_spanish_speaking_tag = yes }
+		localization_key = STATE_1018_SPANISH #Flores y Sumba
 	}
 	text = {
 		localization_key = STATE_1018 #Flores & Sumba
@@ -14754,7 +15038,10 @@ defined_text = {
 		localization_key = STATE_1083_MONGOLIAN #Khamil
 	}
 	text = {
-		trigger = { is_chinese_tag = yes }
+		trigger = { 
+			is_chinese_tag = yes 
+			NOT = { original_tag = MON }
+		}
 		localization_key = STATE_1083_CHINESE #Hami
 	}
 	text = {
@@ -14768,7 +15055,10 @@ defined_text = {
 		localization_key = STATE_1084 #West Mongolia
 	}
 	text = {
-		trigger = { is_mongolian_tag = yes }
+		trigger = { 
+			is_chinese_tag = yes 
+			NOT = { original_tag = MON }
+		}
 		localization_key = STATE_1084_MONGOLIAN #Baruun Mongol
 	}
 	text = {
@@ -14790,7 +15080,10 @@ defined_text = {
 		localization_key = STATE_1085 #Taklamakan Desert
 	}
 	text = {
-		trigger = { is_chinese_tag = yes }
+		trigger = { 
+			is_chinese_tag = yes 
+			is_uighur_tag = no
+		}
 		localization_key = STATE_1085_CHINESE #Takelamagan Shamo
 	}
 	text = {
@@ -16428,6 +16721,13 @@ defined_text = {
 defined_text = {
 	name = GetStateName_1207
 	text = {
+		trigger = { 
+			has_country_flag = soviet_speaking_tag 
+			1207 = { has_state_flag = renamed_balakovo_formsobra }
+		}
+		localization_key = STATE_1207_FORMSOBRA
+	}
+	text = {
 		localization_key = STATE_1207
 	}
 }
@@ -16714,26 +17014,14 @@ defined_text = {
 	name = GetStateName_1225
 	text = {
 		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
-		localization_key = STATE_1225
+		localization_key = STATE_1225 #North Wales
 	}
 	text = {
-		trigger = { is_greek_tag = yes }
-		localization_key = STATE_1225_GREEK
+		trigger = { is_celtic_tag = yes }
+		localization_key = STATE_1225_CELTIC #Gogledd Cymru
 	}
 	text = {
-		trigger = { is_russian_speaking_tag = yes }
-		localization_key = STATE_1225_RUSSIAN
-	}
-	text = {
-		trigger = { original_tag = BUL }
-		localization_key = STATE_1225_BULGARIAN
-	}
-	text = {
-		trigger = { is_oghuz_turkic_tag = yes }
-		localization_key = STATE_1225_TURKISH
-	}
-	text = {
-		localization_key = STATE_1225
+		localization_key = STATE_1225 #North Wales
 	}
 }
 defined_text = {
@@ -16927,6 +17215,16 @@ defined_text = {
 			has_global_flag = UKR_has_administrative_reform
 		}
 		localization_key = STATE_1233_REFORMED_UKRAINIAN #
+	}
+	text = {
+		trigger = { 
+			has_country_flag = soviet_speaking_tag 
+			OR = {
+				SOV_zinoviev_in_power = yes
+				has_completed_focus = SOV_Magnify_Personality_Of_Zinoviev
+			}
+		}
+		localization_key = STATE_1233_ZINOVIEVSK
 	}
 	text = {
 		trigger = { is_russian_speaking_tag = yes }
@@ -17243,6 +17541,10 @@ defined_text = {
 	text = {
 		trigger = { is_japanese_tag = yes }
 		localization_key = STATE_1246_JAPANESE
+	}
+	text = {
+		trigger = { is_chinese_tag = yes }
+		localization_key = STATE_1246_CHINESE
 	}
 	text = {
 		localization_key = STATE_1246
@@ -17938,14 +18240,6 @@ defined_text = {
 defined_text = {
 	name = GetStateName_1299
 	text = {
-		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
-		localization_key = STATE_1299
-	}
-	text = {
-		trigger = { is_oghuz_turkic_tag = yes }
-		localization_key = STATE_1299_TURKISH
-	}
-	text = {
 		localization_key = STATE_1299
 	}
 }
@@ -18085,6 +18379,14 @@ defined_text = {
 }
 defined_text = {
 	name = GetStateName_1313
+	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_1313
+	}
+	text = {
+		trigger = { is_french_speaking_tag = yes }
+		localization_key = STATE_1313_FRENCH
+	}
 	text = {
 		localization_key = STATE_1313
 	}
@@ -18358,6 +18660,10 @@ defined_text = {
 		localization_key = STATE_1329_RUSSIAN #Suvalki
 	}
 	text = {
+		trigger = { original_tag = WHR }
+		localization_key = STATE_1329_BELARUSIAN #Suvałki
+	}
+	text = {
 		localization_key = STATE_1329 #Suwalki
 	}
 }
@@ -18489,5 +18795,215 @@ defined_text = {
 	name = GetStateName_1344
 	text = {
 		localization_key = STATE_1344
+	}
+}
+defined_text = {
+	name = GetStateName_1345
+	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_1345 #Samnam
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_1345_JAPANESE #Sānhán
+	}
+	text = {
+		trigger = { original_tag = KOR }
+		localization_key = STATE_1345_KOREAN #Samhan
+	}
+	text = {
+		trigger = { is_chinese_tag = yes }
+		localization_key = STATE_1345_CHINESE #Sannan
+	}
+	text = {
+		localization_key = STATE_1345 #Samnam
+	}
+}
+defined_text = {
+	name = GetStateName_1346
+	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_1346 #Jeju
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_1346_JAPANESE #Saishū
+	}
+	text = {
+		trigger = { original_tag = KOR }
+		localization_key = STATE_1346_KOREAN #Jejudo
+	}
+	text = {
+		trigger = { is_chinese_tag = yes }
+		localization_key = STATE_1346_CHINESE #Jizhōu Dao
+	}
+	text = {
+		localization_key = STATE_1346 #Jeju
+	}
+}
+defined_text = {
+	name = GetStateName_1347
+	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_1347 #Kwanbuk
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_1347_JAPANESE #Kanhoku
+	}
+	text = {
+		trigger = { original_tag = KOR }
+		localization_key = STATE_1347_KOREAN #Gwanbuk
+	}
+	text = {
+		trigger = { is_chinese_tag = yes }
+		localization_key = STATE_1347_CHINESE #Guanbei
+	}
+	text = {
+		localization_key = STATE_1347 #Kwanbuk
+	}
+}
+defined_text = {
+	name = GetStateName_1348
+	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_1348 #Southcentral Alaska
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_1348_JAPANESE #Arasuka Minamichūbu
+	}
+	text = {
+		trigger = { is_russian_speaking_tag = yes }
+		localization_key = STATE_1348_RUSSIAN #Yugo-Tsentralnaya Alyaska
+	}
+	text = {
+		localization_key = STATE_1348 #Southcentral Alaska
+	}
+}
+defined_text = {
+	name = GetStateName_1349
+	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_1349 #Southwest Alaska
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_1349_JAPANESE #Arasuka Minamiseibu
+	}
+	text = {
+		trigger = { is_russian_speaking_tag = yes }
+		localization_key = STATE_1349_RUSSIAN #Yugo-Zapadnaya Alyaska
+	}
+	text = {
+		localization_key = STATE_1349 #Southwest Alaska
+	}
+}
+defined_text = {
+	name = GetStateName_1350
+	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_1350 #North Alaska
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_1350_JAPANESE #Arasuka Hokubu
+	}
+	text = {
+		trigger = { is_russian_speaking_tag = yes }
+		localization_key = STATE_1350_RUSSIAN #Severnaya Alyaska
+	}
+	text = {
+		localization_key = STATE_1350 #North Alaska
+	}
+}
+defined_text = {
+	name = GetStateName_1351
+	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_1351 #North Kanto
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_1351_JAPANESE #Kita-Kantō
+	}
+	text = {
+		localization_key = STATE_1351 #North Kanto
+	}
+}
+defined_text = {
+	name = GetStateName_1352
+	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_1352 #South Kyushu
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_1352_JAPANESE #Minami-Kyūshū
+	}
+	text = {
+		localization_key = STATE_1352 #South Kyushu
+	}
+}
+defined_text = {
+	name = GetStateName_1353
+	text = {
+		localization_key = STATE_1353 #San'in
+	}
+}
+defined_text = {
+	name = GetStateName_1354
+	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_1354 #Hyogo
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_1354_JAPANESE #Hyōgo
+	}
+	text = {
+		localization_key = STATE_1354 #Hyogo
+	}
+}
+defined_text = {
+	name = GetStateName_1355
+	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_1355 #Koshinsei
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_1355_JAPANESE #Kōshinsei
+	}
+	text = {
+		localization_key = STATE_1355 #Koshinsei
+	}
+}
+defined_text = {
+	name = GetStateName_1356
+	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_1356 #North Tohoku
+	}
+	text = {
+		trigger = { is_japanese_tag = yes }
+		localization_key = STATE_1356_JAPANESE #Kita-Tōhoku
+	}
+	text = {
+		localization_key = STATE_1356 #North Tohoku
+	}
+}
+defined_text = {
+	name = GetStateName_1357
+	text = {
+		trigger = { NOT = { has_global_flag = allowrenaming_flag } }
+		localization_key = STATE_1357 #Stettin
+	}
+	text = {
+		trigger = { is_polish_tag = yes }
+		localization_key = STATE_1357_POLISH #Szczecin
+	}
+	text = {
+		localization_key = STATE_1357 #Stettin
 	}
 }

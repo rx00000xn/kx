@@ -341,7 +341,15 @@ country_event = { # 1937 Democrat Primary
 	id = pacificstates.5
 	immediate = {log = "[GetDateText]: [Root.GetName]: event pacificstates.5"}
 	title = pacificstates.5.t
-	desc = pacificstates.5.d
+	desc = {	
+		text = pacificstates.5.d_2
+		trigger = {
+			has_country_flag = Walt_Disney_dead
+		}
+	}
+	desc = {	
+		text = pacificstates.5.d
+	}
 	picture = GFX_report_event_USA_congress
 
 	is_triggered_only = yes
@@ -804,7 +812,7 @@ country_event = { # 1937 Election
 					desc = "POLITICS_WALT_DISNEY_DESC"
 					picture = "gfx/leaders/CAL/Portrait_CAL_Walt_Disney.png"
 					expire = "1.1.1"
-					ideology = christian_technocracy_subtype
+					ideology = soccon_imaginism_subtype
 					traits = { propaganda_expert }
 				}
 				if = {	
@@ -4595,6 +4603,12 @@ country_event = { # 1948 Republican Primary
 			set_country_flag = PSA_1948_republican_primary_craig
 		}
 	}
+	option = { # William Knowland
+		name = pacificstates.19.f
+		hidden_effect = {
+			set_country_flag = PSA_1948_republican_primary_knowland
+		}
+	}
 	option = { # President is re-elected
 		name = pacificstates.19.c
 		trigger = {
@@ -4869,6 +4883,20 @@ country_event = { # 1948 election
 					traits = { backroom_backstabber }
 				}
 			}
+			if = { # William Knowland
+				limit = {
+					has_country_flag = PSA_1948_republican_primary_knowland
+					NOT = { has_country_flag = CAL_Norton_PSA_flag }
+				}
+				create_country_leader = {
+					name = "William Knowland"
+					desc = "POLITICS_WILLIAM_KNOWLAND_DESC"
+					picture = "gfx/leaders/CAL/Portrait_CAL_William_Knowland.png"
+					expire = "1.1.1"
+					ideology = marlib_centrist_subtype
+					traits = { PSA_anti_syndicalist_hawk }
+				}
+			}
 			if = { # Val Peterson
 				limit = {
 					has_country_flag = PSA_1948_democratic_primary_peterson
@@ -5076,6 +5104,20 @@ country_event = { # 1948 election
 					set_country_leader_ideology = progressive_democracy_subtype
 				}
 			}
+			if = { # William Knowland
+				limit = {
+					has_country_flag = PSA_1948_republican_primary_knowland
+				}
+				remove_all_ministers = yes
+				add_ideas = CAL_William_Knowland_hog_mli
+				add_ideas = CAL_John_Foster_Dulles_for_mli
+				add_ideas = CAL_Barry_Morris_Goldwater_eco_mli
+				add_ideas = CAL_Ray_Lyman_Wilbur_sec_mli
+				if = {
+					limit = { has_country_flag = CAL_Norton_PSA_flag }
+					set_country_leader_ideology = centrist_subtype
+				}
+			}
 		}
 	}
 	option = { # Democrat
@@ -5219,29 +5261,29 @@ country_event = { # America is reunited
 			country_exists = USA
 			country_exists = COR
 			AND = {
-				country_exists = NEE
 				NEE = { 
+					exists = yes
 					has_country_flag = NEE_claimed_america
 					is_ally_of_ROOT = no
 				}
 			}
 			AND = {
-				country_exists = TXS
 				TXS = { 
+					exists = yes
 					has_country_flag = TXS_claimed_america
 					is_ally_of_ROOT = no
 				}
 			}
 			AND = {
-				country_exists = NYC
 				NYC = {
+					exists = yes
 					has_country_flag = NYC_can_invade_america
 					is_ally_of_ROOT = no
 				}
 			}
 			AND = {
-				country_exists = BBR
-				BBR = {	
+				BBR = {
+					exists = yes
 					has_country_flag = BBR_claimed_america
 					is_ally_of_ROOT = no
 				}
@@ -5252,7 +5294,7 @@ country_event = { # America is reunited
 		owns_state = 395 #Illinois
 		owns_state = 797 #San Francisco
 		owns_state = 932 #Massachusetts
-		has_war = no		
+		controls_all_owned_states = yes
 	}
 
 	option = { # at long last we are reunited
@@ -8570,7 +8612,7 @@ country_event = {# MacArthur's Demands
 		name = pacificstates.247.a
 		hidden_effect = {
 		country_event = {
-			id = pacificstates.247
+			id = pacificstates.248
 			days = 3
 			}
 		}
@@ -8610,7 +8652,7 @@ country_event = {# MacArthur's Demands
 		}
 		hidden_effect = {
 		country_event = {
-			id = pacificstates.247
+			id = pacificstates.248
 			days = 3
 			}
 		}
@@ -9429,23 +9471,6 @@ country_event = {# Rotary Club
 				uses = 1
 				category = industry
 			}
-	}
-}
-
-country_event = {# USS Roosevelt
-	id = pacificstates.282
-	immediate = {log = "[GetDateText]: [Root.GetName]: event pacificstates.282"}
-	title = pacificstates.282.t
-	desc = pacificstates.282.d
-	
-	picture = GFX_report_event_USA_naval_battle
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-	
-	option = {# Finally
-		name = pacificstates.282.a
 	}
 }
 
@@ -12295,6 +12320,7 @@ country_event = {# Long Returns
 			limit = {  has_country_flag = CAL_Norton_PSA_flag }
 			set_country_leader_ideology = socdem_longism_subtype
 		}
+		custom_effect_tooltip = socdem_socdem_longism_subtype_swap_tt
 		remove_all_ministers = yes
 		hidden_effect = {
 			add_ideas = CAL_Huey_Long_hog_sde
@@ -13687,7 +13713,7 @@ country_event = {
 				desc = "POLITICS_WALT_DISNEY_AUTOCRAT_DESC"
 				picture = "gfx/leaders/CAL/Portrait_CAL_Walt_Disney_Paternal_Autocrat.png"
 				expire = "1.1.1"
-				ideology = right_technocracy_subtype
+				ideology = imaginism_subtype
 				traits = {
 					the_mose_always_wins
 				}
@@ -13931,6 +13957,38 @@ country_event = {
 
 	option = {
 		name = KX_california.12.a
+		ai_chance = {
+			factor = 35
+			modifier = {
+				factor = 0
+				OR = {
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_LEGITIMATE_SECESSIONIST
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_COMMONWEALTH_SECESSIONIST
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_HEARST_SECESSIONIST
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_ARNOLD_SECESSIONIST
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_DEMOCRACY_SECESSIONIST
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_NORTON
+					}
+				}
+			}
+		}
 		hidden_effect = {
 			country_event = {
 				id = calpeaceout.22
@@ -13953,6 +14011,42 @@ country_event = {
 	}
 	option = { # Sinclar gang
 		name = KX_california.12.b
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 0
+				OR = {
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_LEGITIMATE_SECESSIONIST
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_HEARST_SECESSIONIST
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_ARNOLD_SECESSIONIST
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_AISO
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_AISO_YAMAGUCHI
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_DEMOCRACY_SECESSIONIST
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_NORTON
+					}
+				}
+			}
+		}
 		add_popularity = {
 			ideology = radical_socialist
 			popularity = 0.20
@@ -14010,6 +14104,42 @@ country_event = {
 	}
 	option = { # Hearst gang
 		name = KX_california.12.c
+		ai_chance = {
+			factor = 15
+			modifier = {
+				factor = 0
+				OR = {
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_LEGITIMATE_SECESSIONIST
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_COMMONWEALTH_SECESSIONIST
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_ARNOLD_SECESSIONIST
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_AISO
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_AISO_YAMAGUCHI
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_DEMOCRACY_SECESSIONIST
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_NORTON
+					}
+				}
+			}
+		}
 		add_popularity = {
 			ideology = authoritarian_democrat
 			popularity = 0.20
@@ -14065,7 +14195,40 @@ country_event = {
 	}
 	option = { # legit prez gang
 		ai_chance = {
-			factor = 0
+			factor = 5
+			modifier = {
+				factor = 0
+				OR = {
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_COMMONWEALTH_SECESSIONIST
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_HEARST_SECESSIONIST
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_ARNOLD_SECESSIONIST
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_AISO
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_AISO_YAMAGUCHI
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_DEMOCRACY_SECESSIONIST
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_NORTON
+					}
+				}
+			}
 		}
 		trigger = {
 			has_global_flag = CAL_confederate_legit_pres
@@ -14196,6 +14359,42 @@ country_event = {
 	}
 	option = {
 		name = KX_california.12.f
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 0
+				OR = {
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_LEGITIMATE_SECESSIONIST
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_COMMONWEALTH_SECESSIONIST
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_HEARST_SECESSIONIST
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_ARNOLD_SECESSIONIST
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_NORTON
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_AISO
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_AISO_YAMAGUCHI
+					}
+				}
+			}
+		}
 		hidden_effect = {
 			country_event = {
 				id = calpeaceout.22
@@ -14233,6 +14432,42 @@ country_event = {
 	}
 	option = { # Arnold Chads wya
 		name = KX_california.12.g
+		ai_chance = {
+			factor = 15
+			modifier = {
+				factor = 0
+				OR = {
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_LEGITIMATE_SECESSIONIST
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_COMMONWEALTH_SECESSIONIST
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_HEARST_SECESSIONIST
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_AISO
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_AISO_YAMAGUCHI
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_DEMOCRACY_SECESSIONIST
+					}
+					has_game_rule = {
+						rule = CAL_political
+						option = CAL_POLITICAL_PATH_NORTON
+					}
+				}
+			}
+		}
 		ai_chance = {
 			factor = 15
 			modifier = {
@@ -14851,6 +15086,9 @@ country_event = {
 	}
 	option = {
 		name = KX_california.30.b	
+		797 = {
+			set_state_name = "Norton"
+		}
 		set_province_name = {
 			id = 9671
 			name = "Norton City"
@@ -15343,6 +15581,9 @@ country_event = { #FEZ
 		add_state_core = 740
 		add_state_core = 471
 		add_state_core = 463
+		add_state_core = 1348
+		add_state_core = 1349
+		add_state_core = 1350
 		add_state_core = 379
 		add_state_core = 1273
 		add_state_core = 484
@@ -15442,6 +15683,9 @@ country_event = { #Tomorrowland
 		add_state_core = 740
 		add_state_core = 471
 		add_state_core = 463
+		add_state_core = 1348
+		add_state_core = 1349
+		add_state_core = 1350
 		add_state_core = 379
 		add_state_core = 1273
 		add_state_core = 484
@@ -15545,6 +15789,9 @@ country_event = { #do we expand or nah
 		add_state_core = 740
 		add_state_core = 471
 		add_state_core = 463
+		add_state_core = 1348
+		add_state_core = 1349
+		add_state_core = 1350
 		add_state_core = 379
 		add_state_core = 1273
 		add_state_core = 484
@@ -15625,6 +15872,9 @@ country_event = { #do we expand or nah
 		add_state_core = 740
 		add_state_core = 471
 		add_state_core = 463
+		add_state_core = 1348
+		add_state_core = 1349
+		add_state_core = 1350
 		add_state_core = 379
 		add_state_core = 1273
 		add_state_core = 484
@@ -15715,6 +15965,9 @@ country_event = { #do we expand or nah
 		add_state_core = 740
 		add_state_core = 471
 		add_state_core = 463
+		add_state_core = 1348
+		add_state_core = 1349
+		add_state_core = 1350
 		add_state_core = 379
 		add_state_core = 1273
 		add_state_core = 484
@@ -15798,6 +16051,9 @@ country_event = { #do we expand or nah
 		add_state_core = 740
 		add_state_core = 471
 		add_state_core = 463
+		add_state_core = 1348
+		add_state_core = 1349
+		add_state_core = 1350
 		add_state_core = 379
 		add_state_core = 1273
 		add_state_core = 484
@@ -15881,6 +16137,9 @@ country_event = { #do we expand or nah
 		add_state_core = 740
 		add_state_core = 471
 		add_state_core = 463
+		add_state_core = 1348
+		add_state_core = 1349
+		add_state_core = 1350
 		add_state_core = 379
 		add_state_core = 1273
 		add_state_core = 484
@@ -15980,6 +16239,9 @@ country_event = { #do we expand or nah spiritualism edition
 		add_state_core = 740
 		add_state_core = 471
 		add_state_core = 463
+		add_state_core = 1348
+		add_state_core = 1349
+		add_state_core = 1350
 		add_state_core = 379
 		add_state_core = 1273
 		add_state_core = 484
@@ -16076,6 +16338,7 @@ country_event = { #Henry Wallace is nuts
 		name = KX_california.50.b
 		ai_chance = { factor = 25 }
 		set_country_leader_ideology = socdem_spiritualism_subtype
+		custom_effect_tooltip = socdem_socdem_spiritualism_subtype_swap_tt
 		add_command_power = 30
 		add_political_power = -30
 		decrease_ruling_party_popularity_by_3 = yes
@@ -16085,6 +16348,7 @@ country_event = { #Henry Wallace is nuts
 		name = KX_california.50.c
 		ai_chance = { factor = 25 }
 		set_country_leader_ideology = socdem_esoteric_leninism_subtype
+		custom_effect_tooltip = socdem_socdem_esoteric_leninism_subtype_swap_tt
 		add_command_power = 50
 		add_political_power = -50
 		decrease_ruling_party_popularity_by_5 = yes
@@ -16407,6 +16671,7 @@ country_event = { #
 		add_stability = -0.05
 		add_offsite_building = { type = industrial_complex level = 1 }
 		set_country_leader_ideology = right_technocracy_subtype
+		custom_effect_tooltip = pataut_right_technocracy_subtype_swap_tt
 	}
 	option = {
 		name = KX_california.60.b
@@ -16460,6 +16725,9 @@ country_event = { #
 		add_state_core = 740
 		add_state_core = 471
 		add_state_core = 463
+		add_state_core = 1348
+		add_state_core = 1349
+		add_state_core = 1350
 		add_state_core = 379
 		add_state_core = 1273
 		add_state_core = 484
@@ -16820,6 +17088,7 @@ country_event = { #
 		add_political_power = 30
 		increase_ruling_party_popularity_by_3 = yes
 		set_country_leader_ideology = social_credit_subtype
+		custom_effect_tooltip = pataut_social_credit_subtype_swap_tt
 	}
 }
 
@@ -18111,10 +18380,9 @@ country_event = { #begone California
 		829 = {
 			set_state_name = "Mojave"
 		}
-
 	}
 	option = {
-		name = calpeaceout.22.b #fuck no
+		name = calpeaceout.22.b #fine yes
 		add_offsite_building = { type = industrial_complex level = 3 }
 		add_stability = -0.25
 		378 = {
@@ -18126,9 +18394,17 @@ country_event = { #begone California
 		798 = {
 			set_state_name = "Angels"
 		}
+		set_province_name = {
+			id = 9814
+			name = "Angels"
+		}
 		797 = {
 			set_state_name = "Frisco"
 			set_state_flag = CAL_renamed_state_frisco
+		}
+		set_province_name = {
+			id = 9671
+			name = "Frisco"
 		}
 	}	
 
