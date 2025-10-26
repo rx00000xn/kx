@@ -4,9 +4,49 @@
 
 add_namespace = wsu
 
+country_event = { #Austria gets informed West Ukraine will blow up within 2-5 business days
+	id = wsu.0
+	immediate = { log = "[GetDateText]: [Root.GetName]: event wsu.0" }
+	title = wsu.0.t
+	desc = wsu.0.d
+	picture = GFX_report_event_BAN_big_speech2
+
+	is_triggered_only = yes
+
+	option = { #damn
+		name = wsu.0.a
+		add_stability = -0.05
+		ALL_add_three_collapse = yes
+		GAL_add_ten_collapse = yes
+		WSU = {
+			set_temp_variable = { temp_num = UKR_ukrainian_resistance }
+			divide_temp_variable = { temp_num = 100 }
+			clamp_variable = {
+				var = temp_num
+				min = 0
+				max = 1
+			}
+			subtract_from_temp_variable = { temp_num = WSU.subject_revolt_progress }
+			if = {
+				limit = { check_variable = { temp_num > 0 } }
+				add_to_temp_variable = { revolt_progress_change = temp_num }
+				BOTDE_add_collapse = yes
+			}
+		}
+	}
+}
+
 country_event = { #East Galicia becomes independent
 	id = wsu.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event wsu.1" }
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event wsu.1"
+		hidden_effect = {
+			country_event = {
+				id = constituents.44
+				days = 150
+			}
+		}
+	}
 	title = wsu.1.t
 	desc = wsu.1.d
 	trigger = {
@@ -60,10 +100,16 @@ country_event = { #Clashes in Lemberg
 			}
 		}
 		hidden_effect =  {
-			country_event = {
-				id = wsu.1
-				days = 5
+			AUS = {
+				country_event = {
+					id = wsu.0
+					days = 1
+				}
 			}
+			#country_event = {
+			#	id = wsu.1
+			#	days = 5
+			#}
 		}
 	}
 }
@@ -427,6 +473,24 @@ country_event = { #Bukovina
 			}
 		}
 	}
+	
+	option = { #Let's stir up trouble instead and call the Indrazneti
+		name = wsu.12.b
+		trigger = {
+			has_global_flag = AUS_collapsed
+			not = {
+				has_global_flag = AUS_collapsed_stable
+				owns_state = 80
+			}
+		}
+		80.owner = {
+			country_event = {
+				id = constituents.22
+				days = 5
+			}
+		}
+	}
+	
 }
 country_event = { #Bukovina
 	id = wsu.13

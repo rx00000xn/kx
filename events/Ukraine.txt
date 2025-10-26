@@ -531,13 +531,18 @@ country_event = { # Polish farms
 		effect_tooltip = {
 			FROM = { country_event = ukrpol.15 }
 		}
+		if = {
+			limit = { tag = AUS }
+			GAL_add_two_collapse = yes
+		}
 		hidden_effect = {
 			if = {
-				limit = { tag = POL }
+				limit = { NOT = { tag = GAL } }
 				FROM = {
 					country_event = {
 						id = ukrpol.15
 						days = 3
+						random_days = 4
 					}
 				}
 			}
@@ -556,33 +561,45 @@ country_event = { # Polish farms
 		ai_chance = {
 			base = 25
 		}
-		UKR_decrease_king_strength = yes
-		POL = {
-			add_opinion_modifier = {
-				target = UKR
-				modifier = UKR_polish_concessions
+		if = {
+			limit = { has_idea = UKR_paying_polish_concessions }
+			modify_timed_idea = {
+				idea = UKR_paying_polish_concessions
+				days = 60
 			}
 		}
-		GAL = {
-			add_opinion_modifier = {
-				target = UKR
-				modifier = UKR_polish_concessions
-			}
-		}
-		add_timed_idea = {
-			idea = UKR_paying_polish_concessions
-			days = 180
-		}
-		POL = {
+		else = {
 			add_timed_idea = {
-				idea = UKR_POL_polish_concessions
+				idea = UKR_paying_polish_concessions
 				days = 180
 			}
 		}
-		GAL = {
-			add_timed_idea = {
-				idea = UKR_POL_polish_concessions
-				days = 180
+		if = {
+			limit = { 
+				FROM = { tag = POL }
+			}
+			UKR_decrease_king_strength = yes
+			POL = {
+				add_opinion_modifier = {
+					target = UKR
+					modifier = UKR_polish_concessions
+				}
+				add_timed_idea = {
+					idea = UKR_POL_polish_concessions
+					days = 180
+				}
+			}
+		}
+		else = {
+			GAL = {
+				add_opinion_modifier = {
+					target = UKR
+					modifier = UKR_polish_concessions
+				}
+				add_timed_idea = {
+					idea = UKR_POL_polish_concessions
+					days = 180
+				}
 			}
 		}
 	}	
@@ -596,22 +613,27 @@ country_event = { # Polish farms
 			}
 		}
 		set_country_flag = UKR_pol_gal_relations_forever_destroyed
-		UKR_increase_king_strength = yes
-		POL = {
-			add_opinion_modifier = {
-				target = UKR
-				modifier = KR_outraged
+		if = {
+			limit = { 
+				FROM = { tag = POL }
 			}
-		}
-		GAL = {
-			add_opinion_modifier = {
-				target = UKR
-				modifier = KR_outraged
+			UKR_increase_king_strength = yes
+			POL = {
+				add_opinion_modifier = {
+					target = UKR
+					modifier = KR_outraged
+				}
 			}
-		}
-		hidden_effect = { 
 			embargo_FROM = yes 
-			GAL = { embargo_PREV = yes }
+		}
+		else = {
+			GAL = {
+				add_opinion_modifier = {
+					target = UKR
+					modifier = KR_outraged
+				}
+				embargo_PREV = yes
+			}
 		}
 	}		
 }
@@ -867,6 +889,10 @@ country_event = { # Royal visit to austria
 		ai_chance = {
 			base = 95
 		}
+		WSU = {
+			set_temp_variable = { revolt_progress_change = -0.10 }
+			BOTDE_add_collapse = yes
+		}
 		FROM = {
 			country_event = {
 				id = ukrpol.23
@@ -878,6 +904,10 @@ country_event = { # Royal visit to austria
 		name = ukrpol.22.b
 		ai_chance = {
 			base = 5
+		}
+		WSU = {
+			set_temp_variable = { revolt_progress_change = 0.10 }
+			BOTDE_add_collapse = yes
 		}
 		FROM = {
 			country_event = {
@@ -1726,10 +1756,22 @@ country_event = { # UGA
 	immediate = { log = "[GetDateText]: [Root.GetName]: event ukrpol.39" }
 	title = ukrpol.39.t
 	desc = ukrpol.39.d
+	
 	is_triggered_only = yes
+	trigger = {
+		any_unit_leader = { has_trait = UKR_uga_officer }
+	}
 
 	option = {
 		name = ukrpol.39.a
+		GAL = {
+			set_temp_variable = { revolt_progress_change = -0.08 }
+			BOTDE_add_collapse = yes
+		}
+		WSU = {
+			set_temp_variable = { revolt_progress_change = -0.15 }
+			BOTDE_add_collapse = yes
+		}
 		effect_tooltip = {
 			every_unit_leader = {
 				limit = { has_trait = UKR_uga_officer }
@@ -2348,6 +2390,9 @@ country_event = { # Fall of Kyiv for Dyrektoria
 		trigger = { UKR_vasyl_in_power = yes }
 		effect_tooltip = { retire_country_leader = yes }
 		UKR_remove_king = yes
+		hidden_effect = {
+			AUS = { country_event = { id = bdeausfor.96 days = 3 } }
+		}
 	}
 	option = {
 		name = ukrpol.63.c
@@ -2527,10 +2572,14 @@ country_event = { # Dyrektoria Mechanics
 				FROM = { has_country_flag = UKR_king_path }
 			}
 		}
-		set_temp_variable = { WSU_threat_change = -5 }
-		GAL_change_WSU_threat = yes
-		set_temp_variable = { GAL_centralisation_change = -5 }
-		GAL_change_centralisation = yes
+		WSU = {
+			set_temp_variable = { revolt_progress_change = -0.05 }
+			BOTDE_add_collapse = yes
+		}
+		GAL = {
+			set_temp_variable = { revolt_progress_change = -0.05 }
+			BOTDE_add_collapse = yes
+		}
 		FROM = {
 			country_event = {
 				id = ukrpol.68
@@ -2551,11 +2600,15 @@ country_event = { # Dyrektoria Mechanics
 			ideology = social_democrat
 			popularity = -0.05
 		}
-		add_political_power = -15
-		set_temp_variable = { WSU_threat_change = 5 }
-		GAL_change_WSU_threat = yes
-		set_temp_variable = { GAL_centralisation_change = 5 }
-		GAL_change_centralisation = yes
+		add_political_power = -15		
+		WSU = {
+			set_temp_variable = { revolt_progress_change = -0.05 }
+			BOTDE_add_collapse = yes
+		}
+		GAL = {
+			set_temp_variable = { revolt_progress_change = 0.05 }
+			BOTDE_add_collapse = yes
+		}
 		FROM = {
 			country_event = {
 				id = ukrpol.69
@@ -3388,6 +3441,8 @@ country_event = { #
 	
 	option = {
 		name = ukrpol.112.a
+		AUS_add_one_collapse = yes
+		GAL_add_two_collapse = yes
 		add_political_power = -25
 		add_opinion_modifier = {
 			target = FROM
@@ -3401,6 +3456,8 @@ country_event = { #
 	}
 	option = {
 		name = ukrpol.112.b
+		AUS_subtract_two_collapse = yes
+		GAL_add_one_collapse = yes
 		add_political_power = 15
 		clr_global_flag = UKR_explosion_AUS_bad
 		remove_opinion_modifier = {
@@ -3410,6 +3467,8 @@ country_event = { #
 	}	
 	option = {
 		name = ukrpol.112.c
+		AUS_subtract_two_collapse = yes
+		GAL_subtract_two_collapse = yes
 		increase_ruling_party_popularity_by_2 = yes
 		add_stability = 0.03
 		set_global_flag = UKR_explosion_AUS_bad
@@ -6327,6 +6386,7 @@ country_event = { # Czernin Agreements
 				FROM = { at_peace_or_same_enemies_as_ROOT = no }
 			}
 		}
+		GAL_add_five_collapse = yes
 		set_country_flag = UKR_AUS_alliance
 		custom_effect_tooltip = UKR_if_agrees_tooltip
 		effect_tooltip = {
@@ -6366,6 +6426,12 @@ country_event = { # Czernin Agreements
 				factor = 0
 				has_game_rule = { rule = UKR_foreign_policy option = UKR_FOREIGN_POLICY_AUSTRIA }
 			}			
+		}
+		AUS_subtract_three_collapse = yes
+		GAL_subtract_five_collapse = yes
+		WSU = {
+			set_temp_variable = { revolt_progress_change = 0.20 }
+			BOTDE_add_collapse = yes
 		}
 		FROM = {
 			country_event = {
@@ -8693,6 +8759,7 @@ country_event = { # UPSS
 	option = {
 		name = ukrpol.233.a	
 		trigger = { tag = AUS }
+		AUS_subtract_two_collapse = yes
 		ai_chance = {
 			base = 30
 			modifier = {
@@ -8728,6 +8795,7 @@ country_event = { # UPSS
 				tag = GER
 			}
 		}
+		AUS_add_one_collapse = yes
 		add_political_power = -25
 		add_stability = 0.02
 		add_opinion_modifier = {
@@ -8768,6 +8836,10 @@ country_event = { # UPSS
 					has_government = market_liberal
 				}
 			}
+		}
+		if = {
+			limit = { tag = AUS }
+			AUS_add_two_collapse = yes
 		}
 		add_stability = -0.02
 		add_opinion_modifier = {
@@ -8865,6 +8937,10 @@ unit_leader_event = {
 		
 	option = {
 		name = ukrpol.235.a	
+		WSU = {
+			set_temp_variable = { revolt_progress_change = -0.10 }
+			BOTDE_add_collapse = yes
+		}
 		if = {
 			limit = {
 				ROOT = {
@@ -8896,6 +8972,10 @@ unit_leader_event = {
 	}
 	option = {
 		name = ukrpol.235.c
+		WSU = {
+			set_temp_variable = { revolt_progress_change = -0.10 }
+			BOTDE_add_collapse = yes
+		}
 		hidden_effect = {
 			THIS = { set_nationality = XXA }
 		}
@@ -26238,6 +26318,8 @@ country_event = { # Ukraine leaves bread peace?
 		}
 		else_if = {
 			limit = { tag = AUS }
+			AUS_add_ten_collapse = yes
+			ALL_add_ten_collapse = yes
 			every_other_country = {
 				limit = {
 					is_ally_of_ROOT = yes
@@ -26295,6 +26377,8 @@ country_event = { # Ukraine leaves bread peace?
 		}
 		else_if = {
 			limit = { tag = AUS }
+			AUS_add_ten_collapse = yes
+			ALL_add_ten_collapse = yes
 			every_other_country = {
 				limit = {
 					is_ally_of_ROOT = yes
@@ -26466,6 +26550,8 @@ country_event = { # Ukraine leaves bread peace?
 		}
 		else_if = {
 			limit = { tag = AUS }
+			AUS_add_ten_collapse = yes
+			ALL_add_ten_collapse = yes
 			every_other_country = {
 				limit = {
 					is_ally_of_ROOT = yes
@@ -29595,6 +29681,16 @@ country_event = { # West Ukraine
 				}
 			}
 		}
+		AUS_subtract_three_collapse = yes
+		GAL_subtract_five_collapse = yes
+		WSU = {
+			set_temp_variable = { revolt_progress_change = 0.10 }
+			BOTDE_add_collapse = yes
+		}
+		CPU = {
+			set_temp_variable = { revolt_progress_change = 0.10 }
+			BOTDE_add_collapse = yes
+		}
 		FROM = {
 			country_event = {
 				id = ukrfor.27
@@ -29611,6 +29707,15 @@ country_event = { # West Ukraine
 				factor = 0
 				has_authoritarian_government = yes
 			}
+		}
+		GAL_add_five_collapse = yes
+		WSU = {
+			set_temp_variable = { revolt_progress_change = -0.05 }
+			BOTDE_add_collapse = yes
+		}
+		CPU = {
+			set_temp_variable = { revolt_progress_change = -0.05 }
+			BOTDE_add_collapse = yes
 		}
 		FROM = {
 			country_event = {
@@ -29699,6 +29804,7 @@ country_event = { # West Ukraine
 				}
 			}
 		}
+		GAL_add_ten_collapse = yes
 		set_variable = { global.UKR_AUS_How_much_land_var = 1 }
 		country_event = ukrfor.30
 	}
@@ -29722,6 +29828,7 @@ country_event = { # West Ukraine
 				}
 			}
 		}
+		GAL_add_five_collapse = yes
 		country_event = ukrfor.31
 	}
 	option = {
@@ -29737,6 +29844,15 @@ country_event = { # West Ukraine
 					}
 				}
 			}
+		}
+		GAL_subtract_five_collapse = yes
+		WSU = {
+			set_temp_variable = { revolt_progress_change = 0.10 }
+			BOTDE_add_collapse = yes
+		}
+		CPU = {
+			set_temp_variable = { revolt_progress_change = 0.10 }
+			BOTDE_add_collapse = yes
 		}
 		FROM = {
 			country_event = {
@@ -29776,6 +29892,7 @@ country_event = { # West Ukraine
 				random = 48
 			}
 		}
+		GAL_subtract_five_collapse = yes
 		custom_effect_tooltip = UKR_if_agrees_tooltip
 		effect_tooltip = {
 			every_state = {
@@ -29807,6 +29924,7 @@ country_event = { # West Ukraine
 				random = 48
 			}
 		}
+		GAL_add_five_collapse = yes
 		custom_effect_tooltip = UKR_if_agrees_tooltip
 		effect_tooltip = {
 			every_state = {
@@ -29843,6 +29961,7 @@ country_event = { # West Ukraine
 				random = 48
 			}
 		}
+		AUS_subtract_three_collapse = yes
 		custom_effect_tooltip = UKR_if_agrees_tooltip
 		effect_tooltip = {
 			every_state = {
@@ -29874,6 +29993,12 @@ country_event = { # West Ukraine
 			base = 70
 		}
 		set_variable = { global.UKR_AUS_How_much_land_var = 2 }
+		AUS_subtract_three_collapse = yes
+		GAL_subtract_five_collapse = yes
+		WSU = {
+			set_temp_variable = { revolt_progress_change = 0.10 }
+			BOTDE_add_collapse = yes
+		}
 		country_event = ukrfor.32
 		reverse_add_opinion_modifier = {
 			target = GAL
@@ -29881,11 +30006,18 @@ country_event = { # West Ukraine
 		}
 	}
 	option = {
-		name = ukrfor.30.c
+		name = ukrfor.31.b
 		ai_chance = {
 			base = 30
 		}
+		AUS_add_three_collapse = yes
+		GAL_add_ten_collapse = yes
+		WSU = {
+			set_temp_variable = { revolt_progress_change = -0.10 }
+			BOTDE_add_collapse = yes
+		}
 		set_variable = { global.UKR_AUS_How_much_land_var = 3 }
+		country_event = ukrfor.32
 		reverse_add_opinion_modifier = {
 			target = GAL
 			modifier = KR_hates_govt
@@ -29920,6 +30052,11 @@ country_event = { # West Ukraine
 				days = 2
 				random = 48
 			}
+		}		
+		GAL_subtract_two_collapse = yes
+		WSU = {
+			set_temp_variable = { revolt_progress_change = 0.05 }
+			BOTDE_add_collapse = yes
 		}
 		custom_effect_tooltip = UKR_if_agrees_tooltip
 		effect_tooltip = {
@@ -29976,6 +30113,7 @@ country_event = { # West Ukraine
 				random = 48
 			}
 		}
+		GAL_add_five_collapse = yes
 		custom_effect_tooltip = UKR_if_agrees_tooltip
 		effect_tooltip = {
 			if = {
@@ -30035,6 +30173,7 @@ country_event = { # West Ukraine
 				random = 48
 			}
 		}
+		AUS_subtract_three_collapse = yes
 		custom_effect_tooltip = UKR_if_agrees_tooltip
 		effect_tooltip = {
 			if = {
@@ -30170,6 +30309,10 @@ country_event = { # West Ukraine
 
 	option = {
 		name = ukrfor.34.a
+		WSU = {
+			set_temp_variable = { revolt_progress_change = -0.20 }
+			BOTDE_add_collapse = yes
+		}
 		if = {
 			limit = {
 				check_variable = { global.UKR_AUS_How_much_land_var = 3 }
@@ -30286,6 +30429,12 @@ country_event = { # West Ukraine
 		ai_chance = {
 			base = 10
 		}	
+		AUS_add_five_collapse = yes
+		GAL_add_ten_collapse = yes
+		WSU = {
+			set_temp_variable = { revolt_progress_change = -0.20 }
+			BOTDE_add_collapse = yes
+		}
 		FROM = {
 			country_event = {
 				id = ukrfor.36
@@ -30308,7 +30457,13 @@ country_event = { # West Ukraine
 				factor = 0
 				FROM = { default_attack_AI_trigger_FROM = yes }
 			}			
-		}	
+		}		
+		AUS_subtract_three_collapse = yes
+		GAL_subtract_five_collapse = yes
+		WSU = {
+			set_temp_variable = { revolt_progress_change = 0.20 }
+			BOTDE_add_collapse = yes
+		}
 		add_stability = 0.05
 		increase_ruling_party_popularity_by_3 = yes
 		FROM = {
@@ -31288,6 +31443,10 @@ country_event = { #for AUS, start negotiations with Ukraine
 			target = var:202.owner
 			type = annex_everything
 		}
+		WSU = {
+			set_temp_variable = { revolt_progress_change = 0.20 }
+			BOTDE_add_collapse = yes
+		}
 		activate_mission = UKR_crush_the_ukrainian_revolt_AUS
 		hidden_effect = {
 			var:202.owner = { activate_mission = UKR_resist_the_germans_AUS }
@@ -31295,6 +31454,10 @@ country_event = { #for AUS, start negotiations with Ukraine
 	}
 	option = {
 		name = ukrfor.66.b
+		WSU = {
+			set_temp_variable = { revolt_progress_change = 0.10 }
+			BOTDE_add_collapse = yes
+		}
 		add_political_power = -40
 	}	
 }
@@ -33201,6 +33364,10 @@ country_event = { #for AUS, UKR wants to join us
 				factor = 0
 				has_global_flag = UKR_explosion_AUS_bad			
 			}
+		}		
+		WSU = {
+			set_temp_variable = { revolt_progress_change = -0.20 }
+			BOTDE_add_collapse = yes
 		}
 		var:202.owner = { country_event = ukrfor.109 }
 	}
@@ -33212,7 +33379,11 @@ country_event = { #for AUS, UKR wants to join us
 				factor = 0
 				has_game_rule = { rule = UKR_foreign_policy option = UKR_FOREIGN_POLICY_AUSTRIA }
 			}
-		} 
+		}		
+		WSU = {
+			set_temp_variable = { revolt_progress_change = 0.10 }
+			BOTDE_add_collapse = yes
+		}
 		var:202.owner = { country_event = ukrfor.110 }
 	}
 }
@@ -45180,6 +45351,7 @@ country_event = { #
 				has_game_rule = { rule = UKR_foreign_policy option = UKR_FOREIGN_POLICY_AUSTRIA }
 			}
 		}
+		AUS_add_three_collapse = yes
 		custom_effect_tooltip = ukrpol_explosion_1_a
 		set_global_flag = UKR_explosion_AUS_bad
 		add_opinion_modifier = {
@@ -45209,6 +45381,7 @@ country_event = { #
 				}
 			}
 		}
+		AUS_add_three_collapse = yes
 		custom_effect_tooltip = ukrpol_explosion_1_b
 		add_political_power = -25
 		UKR = {
@@ -45492,7 +45665,8 @@ country_event = { #
 	is_triggered_only = yes
 	
 	option = {
-		name = ukrpol_explosion.11.a
+		name = ukrpol_explosion.11.a		
+		AUS_add_three_collapse = yes
 		embargo_FROM = yes
 		every_other_country = {
 			limit = { is_ally_of_ROOT = yes }
@@ -45886,6 +46060,7 @@ country_event = { #
 		
 	option = {
 		name = ukrpol_explosion.18.a
+		AUS_subtract_three_collapse = yes
 		clr_global_flag = UKR_explosion_AUS_bad
 		remove_opinion_modifier = {
 			target = UKR
@@ -45903,6 +46078,7 @@ country_event = { #
 			}
 		}
 		trigger = { UKR = { has_country_flag = UKR_assassin_derzhvarta } }
+		AUS_subtract_five_collapse = yes
 		FROM = { country_event = ukrpol_explosion.20 }
 	}
 	option = {
@@ -45914,6 +46090,7 @@ country_event = { #
 				has_game_rule = { rule = UKR_foreign_policy option = UKR_FOREIGN_POLICY_AUSTRIA }
 			}
 		}
+		AUS_add_three_collapse = yes
 		if = {
 			limit = { 
 				NOT = { has_global_flag = UKR_explosion_AUS_bad }

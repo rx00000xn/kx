@@ -1514,6 +1514,116 @@ country_event = { #Premyslid Austria
 	}
 }
 
+country_event = {#Propose trialism?
+	id = bdeboh.15
+	title = bdeboh.15.t
+	desc = bdeboh.15.d
+	
+	picture = GFX_CZE_bohemian_crown
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #yeah
+		name = bdeboh.15.a
+		AUS = {
+			country_event = {
+				id = bdeboh.16
+				days = 1
+			}
+		}
+	}
+	option = { #no
+		name = bdeboh.15.b
+	}
+	
+}
+
+country_event = {#Bohemia proposes trialism
+	id = bdeboh.16
+	title = bdeboh.16.t
+	desc = bdeboh.16.d
+	
+	picture = GFX_CZE_kingdom_flags
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+	
+	after = {
+		CZE = {
+			country_event = {
+				id = bdeboh.17
+				days = 1
+			}
+		}
+	}
+
+	option = { #this is a good idea
+		name = bdeboh.16.a
+		CZE = { set_country_flag = AUS_CZE_agreed_to_trialist_proposal }
+		CZE_subtract_three_collapse = yes
+		AUS_fed_speed_trialism_add = yes
+	}
+	option = { #are they high?
+		name = bdeboh.16.b
+		CRO_add_one_collapse = yes
+		CZE_add_three_collapse = yes
+	}
+	
+}
+
+country_event = {#Bohemia proposes trialism - Austrian Response
+	id = bdeboh.17
+	title = bdeboh.17.t.refused
+	desc = bdeboh.17.d.refused
+	title = {
+		text = bdeboh.17.t.agreed
+		trigger = {
+			has_country_flag = AUS_CZE_agreed_to_trialist_proposal
+		}
+	}
+	desc = {
+		text = bdeboh.17.d.agreed
+		trigger = {
+			has_country_flag = AUS_CZE_agreed_to_trialist_proposal
+		}
+	}
+	
+	picture = GFX_CZE_prague_castle_view
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #they agreed
+		name = bdeboh.17.a
+		trigger = {
+			has_country_flag = AUS_CZE_agreed_to_trialist_proposal
+		}
+		set_country_flag = trialist_extra
+		add_political_power = 50
+		effect_tooltip = {
+			CRO_subtract_one_collapse = yes
+			CZE_subtract_three_collapse = yes
+			AUS_fed_speed_trialism_add = yes
+		}
+	}
+	option = { #they said no
+		name = bdeboh.17.b
+		trigger = {
+			NOT = { has_country_flag = AUS_CZE_agreed_to_trialist_proposal }
+		}
+		add_political_power = -50
+		effect_tooltip = {
+			CRO_add_one_collapse = yes
+			CZE_add_three_collapse = yes
+		}
+	}
+	
+}
+
 country_event = {#Agrarian Economy Minister
 	id = bdeczerszml.1
 	title = bdeczerszml.1.t
@@ -8936,6 +9046,141 @@ country_event = { #TEE
 	option = { #neat
 		name = bdeczeflavor.211.b
 		add_offsite_building = { type = industrial_complex level = 3 }
+	}
+
+}
+
+country_event = { #Austria gets informed that bohemia is gonna blow the fuck up
+	id = bdeczeflavor.212
+	title = bdeczeflavor.212.t
+	desc = bdeczeflavor.212.d
+	
+	picture = GFX_CZE_assembly
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	option = { #damn
+		name = bdeczeflavor.212.a
+		CZE_add_ten_collapse = yes
+		ALL_add_three_collapse = yes
+		custom_override_tooltip = {
+			tooltip = bdeczeflavor.212.a_tt
+			CZE = {
+				remove_ideas = AUS_cisleithanian_sphere
+				set_country_flag = CZE_will_revolt
+				add_to_variable = { CZE.extra_value = 0.075 }
+			}
+			AUS = {
+				end_puppet = CZE
+			}
+		}
+	}
+}
+
+country_event = { #AUS - restore bohemia after a revolt
+	id = bdeczeflavor.213
+	title = bdeczeflavor.213.t
+	desc = bdeczeflavor.213.desc
+	
+	picture = GFX_CZE_austrian_garrison
+	
+	trigger = {
+		tag = AUS
+		owns_state = 1129
+		CZE = {
+			exists = no
+			has_country_flag = BOTDE_has_revolted_before
+		}
+	}
+
+	fire_only_once = yes
+
+	option = { #yes but keep the german speaking areas
+		name = bdeczeflavor.213.a
+		ai_chance = {
+			base = 33
+		}
+		hidden_effect = { AUS_restore_BOH_after_revolt_effect = yes }
+	}
+
+	option = { #yes but keep the south moravia
+		name = bdeczeflavor.213.b
+		ai_chance = {
+			base = 33
+		}
+		hidden_effect = {
+			AUS_restore_BOH_after_revolt_effect = yes
+			every_owned_state = {
+				limit = {
+					is_core_of = PGU
+					NOT = {
+						state = 71
+						state = 786
+					}
+				}
+				transfer_state_to = CZE
+			}
+		}
+	}
+	
+	option = { #yes and give bohemia all its lands back
+		name = bdeczeflavor.213.c
+		ai_chance = {
+			base = 33
+		}
+		hidden_effect = {
+			AUS_restore_BOH_after_revolt_effect = yes
+			every_owned_state = {
+				limit = {
+					is_core_of = PGU
+				}
+				transfer_state_to = CZE
+			}
+		}
+	}
+	
+	option = { #direct rule is needed
+		name = bdeczeflavor.213.d
+		ai_chance = {
+			base = 0
+		}
+		add_stability = -0.1
+		ALL_add_ten_collapse = yes
+		if = {
+			limit = {
+				is_in_array = { global.constituents_array = CZE }
+			}
+			remove_from_array = { global.constituents_array = CZE }
+		}
+		if = {
+			limit = {
+				NOT = { is_in_array = { global.minorities_array = CZE } }
+			}
+			add_to_array = { global.minorities_array = CZE }
+		}
+		if = {
+			limit = {
+				NOT = { is_in_array = { AUS.austria_minority_array = CZE } }
+			}
+			add_to_array = { AUS.austria_minority_array = CZE }
+		}
+		CZE = {
+			custom_override_tooltip = {
+				tooltip = is_now_a_minority_tt
+				set_global_flag = CZE_on_array
+				set_cosmetic_tag = CZE_free_czechia
+				set_country_flag = CONST_minor
+				set_variable = { AUS_subject_status = 0 }
+				set_variable = { CZE.subject_revolt_progress = 0.4 }
+				every_core_state = {
+					limit = {
+						is_owned_by = AUS
+					}
+					add_resistance = 20
+				}
+			}
+		}
 	}
 
 }
