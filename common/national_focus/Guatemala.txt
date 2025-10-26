@@ -1,3 +1,7 @@
+#######################
+#Guatemala Focus Tree #
+#Unfucked by Pogge    #
+#######################
 focus_tree = {
 	id = guatemala_focus
 
@@ -11,14 +15,14 @@ focus_tree = {
 	}
 
 	default = no
-	continuous_focus_position = { x = 1850 y = 1350 }
+	continuous_focus_position = { x = 3000 y = 1900 }
 
 	focus = {
 		id = GUA_dont_depose_me
-		icon = GFX_goal_CZE_war_of_words
-		x = 3
+		icon = GFX_flag_guatemala
+		x = -18
 		y = 0
-		cost = 6
+		cost = 5
 
 		available = {
 			has_government = authoritarian_democrat
@@ -42,7 +46,7 @@ focus_tree = {
 		icon = GFX_goal_CSA_capital_investments
 		x = -2
 		y = 1
-		cost = 7
+		cost = 5
 
 		relative_position_id = GUA_dont_depose_me
 
@@ -86,7 +90,7 @@ focus_tree = {
 		icon = GFX_goal_generic_industrial_planning
 		x = -2
 		y = 2
-		cost = 6
+		cost = 5
 
 		relative_position_id = GUA_dont_depose_me
 
@@ -130,7 +134,7 @@ focus_tree = {
 		icon = GFX_goal_CAL_extend_immigration
 		x = -2
 		y = 3
-		cost = 6
+		cost = 5
 
 		available = {
 			has_government = authoritarian_democrat
@@ -160,7 +164,7 @@ focus_tree = {
 		icon = GFX_NEE_education_spending
 		x = 0
 		y = 1
-		cost = 6
+		cost = 5
 
 		relative_position_id = GUA_dont_depose_me
 
@@ -198,10 +202,10 @@ focus_tree = {
 
 	focus = {
 		id = GUA_teachers_are_good
-		icon = GFX_goal_AUS_Tithes_Real_Education
+		icon = GFX_ITA_education
 		x = 0
 		y = 2
-		cost = 6
+		cost = 5
 
 		available = {
 			has_government = authoritarian_democrat
@@ -235,7 +239,7 @@ focus_tree = {
 		icon = GFX_NEE_ivy_league
 		x = 0
 		y = 3
-		cost = 6
+		cost = 5
 
 		available = {
 			has_government = authoritarian_democrat
@@ -275,7 +279,7 @@ focus_tree = {
 		icon = GFX_goal_MEX_stability
 		x = 2
 		y = 1
-		cost = 6
+		cost = 5
 
 		available = {
 			has_government = authoritarian_democrat
@@ -304,7 +308,7 @@ focus_tree = {
 		icon = GFX_goal_MEX_fire_socialist_judges
 		x = 2
 		y = 2
-		cost = 6
+		cost = 5
 
 		available = {
 			has_government = authoritarian_democrat
@@ -336,7 +340,7 @@ focus_tree = {
 		icon = GFX_HOL_red_scare
 		x = 2
 		y = 3
-		cost = 6
+		cost = 5
 
 		available = {
 			has_government = authoritarian_democrat
@@ -365,9 +369,9 @@ focus_tree = {
 	focus = {
 		id = GUA_death_letter
 		icon = GFX_goal_GUA_Carta_311
-		x = 6
-		y = 5
-		cost = 6
+		x = -3
+		y = 0
+		cost = 5
 
 		available = {
 			has_country_flag = GUA_death_letter_flag
@@ -394,7 +398,7 @@ focus_tree = {
 		icon = GFX_goal_GUA_Orellana_Government_lives_on
 		x = -7
 		y = 1
-		cost = 6
+		cost = 5
 
 		relative_position_id = GUA_death_letter
 
@@ -417,11 +421,11 @@ focus_tree = {
 	}
 
 	focus = {
-		id = GUA_purge_dissidents
-		icon = GFX_BEL_Groote_Kuisch
+		id = GUA_establish_quetzal
+		icon = GFX_JBS_goal_syria_coins
 		x = -2
 		y = 1
-		cost = 6
+		cost = 5
 
 		available = {
 			has_government = authoritarian_democrat
@@ -429,7 +433,9 @@ focus_tree = {
 
 		relative_position_id = GUA_orellana_holds_on
 
-		prerequisite = { focus = GUA_orellana_holds_on }
+		prerequisite = { 
+                            focus = GUA_orellana_holds_on 
+                }
 
 		ai_will_do = {
 			factor = 100
@@ -437,7 +443,7 @@ focus_tree = {
 
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GUA_purge_dissidents"
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_establish_quetzal"
 			add_popularity = { ideology = social_conservative popularity = -0.05 }
 			add_popularity = { ideology = radical_socialist popularity = -0.05 }
 			add_popularity = { ideology = social_democrat popularity = -0.05 }
@@ -445,19 +451,21 @@ focus_tree = {
 	}
 
 	focus = {
-		id = GUA_clamp_down_more
-		icon = GFX_goal_GUA_Militarized_Society
-		x = 0
+		id = GUA_build_more_railways
+		icon = GFX_thenorthernraillink
+		x = -1
 		y = 1
-		cost = 6
+		cost = 5
 
 		available = {
 			has_government = authoritarian_democrat
 		}
 
-		relative_position_id = GUA_orellana_holds_on
+		relative_position_id = GUA_establish_quetzal
 
-		prerequisite = { focus = GUA_orellana_holds_on }
+		prerequisite = { 
+                            focus = GUA_establish_quetzal
+                }
 
 		ai_will_do = {
 			factor = 100
@@ -466,17 +474,60 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GUA_clamp_down_more"
+                      hidden_effect = {
+		        country_event = {
+			      id = democratic_guatemala.3
+			      days = 15
+		              }
+                        }
 			add_stability = 0.10
 		}
 		search_filters = { FOCUS_FILTER_STABILITY }
 	}
 
 	focus = {
+		id = GUA_contracts_to_foreigns
+		icon = GFX_RUS_Foreign_Investments
+		x = 0
+		y = 2
+		cost = 5
+
+		available = {
+			has_government = authoritarian_democrat
+		}
+
+		relative_position_id = GUA_establish_quetzal
+
+		prerequisite = { 
+                            focus = GUA_build_more_railways
+                }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_promote_economy"
+			add_ideas = {
+				GUA_faster_building
+			}
+			add_tech_bonus = {
+				name = GUA_promote_economy
+				bonus = 1
+				uses = 1
+				category = industry
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+
+	focus = {
 		id = GUA_unlimited_presidency
 		icon = GFX_goal_GUA_Orellana_Eternal
-		x = 2
+		x = 0
 		y = 1
-		cost = 6
+		cost = 5
 
 		available = {
 			has_government = authoritarian_democrat
@@ -500,21 +551,21 @@ focus_tree = {
 	}
 
 	focus = {
-		id = GUA_promote_economy
-		icon = GFX_GRU_german_industrial_miracle-4038
-		x = -1
-		y = 2
-		cost = 6
+		id = GUA_most_prestigious_general
+		icon = GFX_goal_NFA_sole_leadership
+		x = 1
+		y = 1
+		cost = 5
 
 		available = {
 			has_government = authoritarian_democrat
 		}
 
-		relative_position_id = GUA_orellana_holds_on
+		relative_position_id = GUA_unlimited_presidency
 
-		prerequisite = { focus = GUA_purge_dissidents }
-		prerequisite = { focus = GUA_clamp_down_more }
-		prerequisite = { focus = GUA_unlimited_presidency }
+		prerequisite = { 
+                            focus = GUA_unlimited_presidency
+                }
 
 		ai_will_do = {
 			factor = 100
@@ -522,26 +573,77 @@ focus_tree = {
 
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GUA_promote_economy"
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_unlimited_presidency"
 			add_ideas = {
-				GUA_faster_building
-			}
-			add_tech_bonus = {
-				name = GUA_promote_economy
-				bonus = 1
-				uses = 1
-				category = industry
+				GUA_eternal_president_idea
 			}
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+	focus = {
+		id = GUA_our_fruit_allies
+		icon = GFX_goal_HON_Good_Fruit_Relations
+		x = -1
+		y = 1
+		cost = 5
+
+		available = {
+			has_government = authoritarian_democrat
+		}
+
+		relative_position_id = GUA_unlimited_presidency
+
+		prerequisite = { 
+                            focus = GUA_unlimited_presidency
+                }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_unlimited_presidency"
+
+		}
 	}
 
 	focus = {
-		id = GUA_promote_more_education
-		icon = GFX_goal_ENG_Highland_Research_Towns
-		x = 1
+		id = GUA_crush_remaining_unionists
+		icon = GFX_goal_TEX_outlaw_union
+		x = 0
 		y = 2
-		cost = 6
+		cost = 5
+
+		available = {
+			has_government = authoritarian_democrat
+		}
+
+		relative_position_id = GUA_unlimited_presidency
+
+		prerequisite = { 
+                            focus = GUA_our_fruit_allies
+                }
+		prerequisite = { 
+                            focus = GUA_most_prestigious_general
+                }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_unlimited_presidency"
+
+		}
+	}
+
+	focus = {
+		id = GUA_deilliteracy_campaigns
+		icon = GFX_goal_HON_Education_Research
+		x = 2
+		y = 1
+		cost = 5
 
 		available = {
 			has_government = authoritarian_democrat
@@ -549,9 +651,64 @@ focus_tree = {
 
 		relative_position_id = GUA_orellana_holds_on
 
-		prerequisite = { focus = GUA_purge_dissidents }
-		prerequisite = { focus = GUA_clamp_down_more }
-		prerequisite = { focus = GUA_unlimited_presidency }
+		prerequisite = { 
+                            focus = GUA_orellana_holds_on
+                }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_promote_more_education"
+
+		}
+	}
+
+	focus = {
+		id = GUA_expand_popular_university
+		icon = GFX_goal_COR_University_System_of_America
+		x = 1
+		y = 1
+		cost = 5
+
+		available = {
+			has_government = authoritarian_democrat
+		}
+
+		relative_position_id = GUA_deilliteracy_campaigns
+
+		prerequisite = { 
+                            focus = GUA_deilliteracy_campaigns
+                }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_promote_more_education"
+		}
+	}
+
+	focus = {
+		id = GUA_solve_national_literacy_problem
+		icon = GFX_GRU_higher_education_grants-4039
+		x = 0
+		y = 2
+		cost = 5
+
+		available = {
+			has_government = authoritarian_democrat
+		}
+
+		relative_position_id = GUA_deilliteracy_campaigns
+
+		prerequisite = { 
+                            focus = GUA_expand_popular_university
+                }
 
 		ai_will_do = {
 			factor = 100
@@ -582,11 +739,11 @@ focus_tree = {
 	}
 
 	focus = {
-		id = GUA_stop_pestering_me
-		icon = GFX_RUS_Reasonable_Concessions
-		x = 0
-		y = 3
-		cost = 6
+		id = GUA_enact_decree_916
+		icon = GFX_goal_MEX_constitutional_monarchy
+		x = -1
+		y = 4
+		cost = 5
 
 		available = {
 			has_government = authoritarian_democrat
@@ -594,8 +751,13 @@ focus_tree = {
 
 		relative_position_id = GUA_orellana_holds_on
 
-		prerequisite = { focus = GUA_promote_economy }
-		prerequisite = { focus = GUA_promote_more_education }
+		prerequisite = { 
+                            focus = GUA_contracts_to_foreigns
+                }
+		prerequisite = { 
+                            focus = GUA_crush_remaining_unionists
+                }
+
 
 		ai_will_do = {
 			factor = 100
@@ -603,20 +765,17 @@ focus_tree = {
 
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GUA_stop_pestering_me"
-			add_popularity = { ideology = authoritarian_democrat popularity = 0.1 }
-			add_stability = 0.1
-			add_political_power = 50
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_promote_more_education"
+
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 	}
 
 	focus = {
-		id = GUA_on_the_right_path
-		icon = GFX_goal_MNT_decade_to_prosperity
-		x = 0
+		id = GUA_keep_ubico_in_check
+		icon = GFX_goal_NIC_Puppet_Guards
+		x = 1
 		y = 4
-		cost = 6
+		cost = 5
 
 		available = {
 			has_government = authoritarian_democrat
@@ -624,7 +783,13 @@ focus_tree = {
 
 		relative_position_id = GUA_orellana_holds_on
 
-		prerequisite = { focus = GUA_stop_pestering_me }
+		prerequisite = { 
+                            focus = GUA_solve_national_literacy_problem
+                }
+		prerequisite = { 
+                            focus = GUA_crush_remaining_unionists
+                }
+
 
 		ai_will_do = {
 			factor = 100
@@ -632,20 +797,49 @@ focus_tree = {
 
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GUA_on_the_right_path"
-			add_stability = 0.2
-			add_political_power = 100
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_promote_more_education"
+
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 	}
 
+	focus = {
+		id = GUA_beloved_caudillo
+		icon = GFX_goal_MEX_removed_by_vote_of_no_confidence
+		x = 0
+		y = 5
+		cost = 5
+
+		available = {
+			has_government = authoritarian_democrat
+		}
+
+		relative_position_id = GUA_orellana_holds_on
+
+		prerequisite = { 
+                            focus = GUA_keep_ubico_in_check
+                }
+		prerequisite = { 
+                            focus = GUA_enact_decree_916
+                }
+
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_promote_more_education"
+
+		}
+	}
 
 	focus = {
 		id = GUA_ubico_wins
 		icon = GFX_goal_GUA_Ubico_Takes_the_Throne
 		x = 7
 		y = 1
-		cost = 6
+		cost = 5
 
 		available = {
 			has_government = paternal_autocrat
@@ -669,10 +863,10 @@ focus_tree = {
 
 	focus = {
 		id = GUA_more_UFC
-		icon = GFX_goal_USA_banana_republics
+		icon = GFX_goal_GUA_United_Fruit_Relations
 		x = -2
 		y = 1
-		cost = 6
+		cost = 5
 
 		available = {
 			has_government = paternal_autocrat
@@ -680,7 +874,9 @@ focus_tree = {
 
 		relative_position_id = GUA_ubico_wins
 
-		prerequisite = { focus = GUA_ubico_wins }
+		prerequisite = { 
+                            focus = GUA_ubico_wins
+                }
 
 		ai_will_do = {
 			factor = 100
@@ -705,21 +901,22 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_STABILITY }
 	}
 
-
 	focus = {
-		id = GUA_execute_dissidents
-		icon = GFX_goal_KEN_cut_off_their_heads
-		x = 0
+		id = GUA_reign_of_oligarchs_and_landowners
+		icon = GFX_GRU_OLIGARCH_REPUBLIC
+		x = -1
 		y = 1
-		cost = 6
+		cost = 5
 
 		available = {
 			has_government = paternal_autocrat
 		}
 
-		relative_position_id = GUA_ubico_wins
+		relative_position_id = GUA_more_UFC
 
-		prerequisite = { focus = GUA_ubico_wins }
+		prerequisite = { 
+                            focus = GUA_more_UFC
+                }
 
 		ai_will_do = {
 			factor = 100
@@ -727,31 +924,30 @@ focus_tree = {
 
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GUA_execute_dissidents"
-			add_popularity = { ideology = authoritarian_democrat popularity = -0.1 }
-			add_popularity = { ideology = social_conservative popularity = -0.1 }
-			hidden_effect = {
-				country_event = {
-					id = guatemala.106 days = 60
-				}
-			}
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_no_syndies_escape"
+			add_popularity = { ideology = radical_socialist popularity = -0.1 }
+			add_popularity = { ideology = social_democrat popularity = -0.1 }
+			add_stability = 0.05
 		}
+		search_filters = { FOCUS_FILTER_STABILITY }
 	}
 
 	focus = {
-		id = GUA_no_syndies_escape
-		icon = GFX_goal_USA_avenge_mexican_crimes
-		x = 2
-		y = 1
-		cost = 6
+		id = GUA_vice_on_press
+		icon = GFX_goal_TEX_media_propaganda
+		x = 0
+		y = 2
+		cost = 5
 
 		available = {
 			has_government = paternal_autocrat
 		}
 
-		relative_position_id = GUA_ubico_wins
+		relative_position_id = GUA_more_UFC
 
-		prerequisite = { focus = GUA_ubico_wins }
+		prerequisite = { 
+                            focus = GUA_reign_of_oligarchs_and_landowners
+                }
 
 		ai_will_do = {
 			factor = 100
@@ -770,9 +966,9 @@ focus_tree = {
 	focus = {
 		id = GUA_napoleonic_ambitions
 		icon = GFX_goal_GUA_Ubico_Cult
-		x = -1
-		y = 2
-		cost = 6
+		x = 0
+		y = 1
+		cost = 5
 
 		available = {
 			has_government = paternal_autocrat
@@ -780,9 +976,9 @@ focus_tree = {
 
 		relative_position_id = GUA_ubico_wins
 
-		prerequisite = { focus = GUA_more_UFC }
-		prerequisite = { focus = GUA_execute_dissidents }
-		prerequisite = { focus = GUA_no_syndies_escape }
+		prerequisite = { 
+                            focus = GUA_ubico_wins
+                }
 
 
 		ai_will_do = {
@@ -792,28 +988,25 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GUA_napoleonic_ambitions"
-			add_ideas = {
-				GUA_ubico_dictator
-			}
 		}
 	}
 
 	focus = {
-		id = GUA_napoleonic_state
+		id = GUA_pro_american_stance
 		icon = GFX_goal_GUA_Napoleonic_Military_State
 		x = 1
-		y = 2
-		cost = 6
+		y = 1
+		cost = 5
 
 		available = {
 			has_government = paternal_autocrat
 		}
 
-		relative_position_id = GUA_ubico_wins
+		relative_position_id = GUA_napoleonic_ambitions
 
-		prerequisite = { focus = GUA_more_UFC }
-		prerequisite = { focus = GUA_execute_dissidents }
-		prerequisite = { focus = GUA_no_syndies_escape }
+		prerequisite = { 
+                            focus = GUA_napoleonic_ambitions
+                }
 
 
 		ai_will_do = {
@@ -841,18 +1034,19 @@ focus_tree = {
 	focus = {
 		id = GUA_better_constitution
 		icon = GFX_goal_GUA_Great_Leader_Constitution
-		x = 0
-		y = 3
-		cost = 6
+		x = -1
+		y = 1
+		cost = 5
 
 		available = {
 			has_government = paternal_autocrat
 		}
 
-		relative_position_id = GUA_ubico_wins
+		relative_position_id = GUA_napoleonic_ambitions
 
-		prerequisite = { focus = GUA_napoleonic_ambitions }
-		prerequisite = { focus = GUA_napoleonic_state }
+		prerequisite = { 
+                            focus = GUA_napoleonic_ambitions
+                }
 
 
 		ai_will_do = {
@@ -869,11 +1063,48 @@ focus_tree = {
 	}
 
 	focus = {
-		id = GUA_one_man_state
-		icon = GFX_NEE_progressive_society
+		id = GUA_loyal_legislative_assembly
+		icon = GFX_goal_PRU_legislative_palace
 		x = 0
-		y = 4
-		cost = 6
+		y = 2
+		cost = 5
+
+		available = {
+			has_government = paternal_autocrat
+		}
+
+		relative_position_id = GUA_napoleonic_ambitions
+
+		prerequisite = { 
+                            focus = GUA_better_constitution
+                }
+		prerequisite = { 
+                            focus = GUA_pro_american_stance
+                }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_punish_quote_corrupt_opposition"
+			add_popularity = { ideology = authoritarian_democrat popularity = -0.1 }
+			add_popularity = { ideology = social_conservative popularity = -0.1 }
+			hidden_effect = {
+				country_event = {
+					id = guatemala.106 days = 60
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = GUA_solve_education_issue
+		icon = GFX_goal_CRO_education_number_one
+		x = 2
+		y = 1
+		cost = 5
 
 		available = {
 			has_government = paternal_autocrat
@@ -881,7 +1112,174 @@ focus_tree = {
 
 		relative_position_id = GUA_ubico_wins
 
-		prerequisite = { focus = GUA_better_constitution }
+		prerequisite = { 
+                            focus = GUA_ubico_wins
+                }
+
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_napoleonic_ambitions"
+		}
+	}
+
+	focus = {
+		id = GUA_punish_the_corrupt
+		icon = GFX_goal_NIC_Destroy_Corruption
+		x = 1
+		y = 1
+		cost = 5
+
+		available = {
+			has_government = paternal_autocrat
+		}
+
+		relative_position_id = GUA_solve_education_issue
+
+		prerequisite = { 
+                            focus = GUA_solve_education_issue
+                }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_punish_quote_corrupt_opposition"
+			add_popularity = { ideology = authoritarian_democrat popularity = -0.1 }
+			add_popularity = { ideology = social_conservative popularity = -0.1 }
+			hidden_effect = {
+				country_event = {
+					id = guatemala.106 days = 60
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = GUA_eradicate_crime_issue
+		icon = GFX_goal_KEN_cut_off_their_heads
+		x = 0
+		y = 2
+		cost = 5
+
+		available = {
+			has_government = paternal_autocrat
+		}
+
+		relative_position_id = GUA_solve_education_issue
+
+		prerequisite = { 
+                            focus = GUA_punish_the_corrupt
+                }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_punish_quote_corrupt_opposition"
+			add_popularity = { ideology = authoritarian_democrat popularity = -0.1 }
+			add_popularity = { ideology = social_conservative popularity = -0.1 }
+			hidden_effect = {
+				country_event = {
+					id = guatemala.106 days = 60
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = GUA_utilize_ubiquistas
+		icon = GFX_RUS_Strong_Government
+		x = -1
+		y = 4
+		cost = 5
+
+		available = {
+			has_government = paternal_autocrat
+		}
+
+		relative_position_id = GUA_ubico_wins
+
+		prerequisite = { 
+                            focus = GUA_vice_on_press
+                }
+		prerequisite = { 
+                            focus = GUA_loyal_legislative_assembly
+                }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_one_man_state"
+			add_political_power = 200
+			add_ideas = GUA_ubico_dictator
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	focus = {
+		id = GUA_march_towards_civilization
+		icon = GFX_NEE_progressive_society
+		x = 1
+		y = 4
+		cost = 5
+
+		available = {
+			has_government = paternal_autocrat
+		}
+
+		relative_position_id = GUA_ubico_wins
+
+		prerequisite = { 
+                            focus = GUA_eradicate_crime_issue
+                }
+		prerequisite = { 
+                            focus = GUA_loyal_legislative_assembly
+                }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_one_man_state"
+			add_political_power = 200
+			add_ideas = GUA_ubico_dictator
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	focus = {
+		id = GUA_one_man_state
+		icon = GFX_RUS_Reinforce_Local_Parliaments
+		x = 0
+		y = 5
+		cost = 5
+
+		available = {
+			has_government = paternal_autocrat
+		}
+
+		relative_position_id = GUA_ubico_wins
+
+		prerequisite = { 
+                            focus = GUA_march_towards_civilization
+                }
+		prerequisite = { 
+                            focus = GUA_utilize_ubiquistas
+                }
 
 
 		ai_will_do = {
@@ -892,15 +1290,20 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GUA_one_man_state"
 			add_political_power = 200
+			add_ideas = GUA_ubico_dictator
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
-
-
 	focus = {
-		id = GUA_guatemalan_revolution
+		id = GUA_october_revolution
 		icon = GFX_goal_GUA_October_Revolution
-		cost = 2
+		x = 0
+		y = 1
+		cost = 5
+
+		available = {
+			has_country_flag = GUA_NPP_wins_flag
+		}
 
 		relative_position_id = GUA_death_letter
 		x = 0
@@ -915,493 +1318,2633 @@ focus_tree = {
 
 		ai_will_do = { factor = 100 }
 
-		bypass = {
-			hidden_trigger = {
-				OR = {
-					has_government = social_democrat
-					has_government = radical_socialist
-					has_government = social_conservative
-				}
-				is_subject = yes
-			}
-		}
 
 		completion_reward = {
-			log = "[GetLogRoot]: Focus Completed GUA_guatemalan_revolution"
-			add_stability = 0.1
-			add_popularity = {
-				ideology = social_democrat
-				popularity = 0.05
-			}
-			add_popularity = {
-				ideology = social_conservative
-				popularity = 0.05
-			}
-			add_popularity = {
-				ideology = radical_socialist
-				popularity = 0.05
-			}
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	}
-
-	focus = {
-		id = GUA_education_investment
-		icon = GFX_goal_GUA_Control_Education
-		cost = 4
-
-		relative_position_id = GUA_guatemalan_revolution
-		x = 2
-		y = 1
-
-		prerequisite = { focus = GUA_guatemalan_revolution }
-
-		ai_will_do = { factor = 100 }
-
-		completion_reward = {
-			log = "[GetLogRoot]: Focus Completed GUA_education_investment"
-			add_tech_bonus = {
-				name = GUA_promote_economy
-				bonus = 1
-				uses = 1
-				category = industry
-			}
-			custom_effect_tooltip = GUA_literacy
-			hidden_effect = {
-				remove_ideas = {
-					GUA_illiteracy
-					GUA_illiteracy_2
-					GUA_illiteracy_3
-					GUA_compensated_illiteracy
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
-	}
-
-	focus = {
-		id = GUA_depoliticise_military
-		icon = GFX_goal_GUA_Allies_Civil_Guard
-		cost = 4
-
-		relative_position_id = GUA_guatemalan_revolution
-		x = -2
-		y = 1
-
-		prerequisite = { focus = GUA_guatemalan_revolution }
-
-		ai_will_do = { factor = 100 }
-
-		bypass = { hidden_trigger = { is_subject = yes } }
-
-		completion_reward = {
-			log = "[GetLogRoot]: Focus Completed GUA_depoliticise_military"
-			add_timed_idea = {
-				idea = GUA_depoliticisation
-				days = 180
-			}
-			add_popularity = {
-				ideology = authoritarian_democrat
-				popularity = -0.1
-			}
-			add_popularity = {
-				ideology = paternal_autocrat
-				popularity = -0.1
-			}
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	}
-
-	focus = {
-		id = GUA_new_constitution
-		icon = GFX_goal_GUA_Implement_Civil_Code
-		cost = 4
-
-		relative_position_id = GUA_guatemalan_revolution
-		x = 0
-		y = 1
-
-		prerequisite = { focus = GUA_guatemalan_revolution }
-
-		ai_will_do = { factor = 100 }
-
-		completion_reward = {
-			log = "[GetLogRoot]: Focus Completed GUA_new_constitution"
-			add_ideas = GUA_restored_liberty
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	}
-
-	focus = {
-		id = GUA_new_election
-		icon = GFX_goal_GUA_Democracy_Process
-		cost = 2
-
-		relative_position_id = GUA_guatemalan_revolution
-		x = 0
-		y = 2
-
-		prerequisite = { focus = GUA_depoliticise_military }
-		prerequisite = { focus = GUA_new_constitution }
-		prerequisite = { focus = GUA_education_investment }
-
-		ai_will_do = { factor = 100 }
-
-		bypass = { hidden_trigger = { is_subject = yes } }
-
-		completion_reward = {
-			log = "[GetLogRoot]: Focus Completed GUA_new_election"
-			add_stability = 0.15
-			add_political_power = 50
-			country_event = guatemala.22
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	}
-
-	focus = {
-		id = GUA_pcg_win
-		icon = GFX_goal_ideology_radical_socialist
-		cost = 5
-
-		relative_position_id = GUA_new_election
-		x = -4
-		y = 1
-
-		available = { always = no }
-
-		prerequisite = { focus = GUA_new_election }
-
-		ai_will_do = { factor = 100 }
-
-		bypass = {
-			hidden_trigger = {
-				has_government = radical_socialist
-				is_subject = yes
-			}
-		}
-
-		completion_reward = {
-			log = "[GetLogRoot]: Focus Completed GUA_pcg_win"
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_ubico_wins"
 			add_popularity = { ideology = radical_socialist popularity = 0.1 }
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
-
 	focus = {
-		id = GUA_prn_win
-		icon = GFX_goal_GUA_Arevalo_Victory
+		id = GUA_target_orellanists
+		icon = GFX_goal_GUA_Target_Orrelanists
+		x = -2
+		y = 1
 		cost = 5
 
-		relative_position_id = GUA_new_election
+		available = {
+			has_country_flag = GUA_NPP_wins_flag
+		}
+
+		relative_position_id = GUA_october_revolution
+
+		prerequisite = { focus = GUA_october_revolution }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_ubico_wins"
+                        add_ideas = GUA_crushed_orellanists
+			add_popularity = { ideology = authoritarian_democrat popularity = -0.1 }
+			add_political_power = -50
+		}
+	}
+	focus = {
+		id = GUA_target_ubico
+		icon = GFX_goal_GUA_Target_Ubicoites
 		x = 0
 		y = 1
+		cost = 5
 
-		available = { always = no }
-
-		prerequisite = { focus = GUA_new_election }
-
-		ai_will_do = { factor = 100 }
-
-		bypass = {
-			hidden_trigger = {
-				has_government = social_democrat
-				is_subject = yes
-			}
+		available = {
+			has_country_flag = GUA_NPP_wins_flag
 		}
 
+		relative_position_id = GUA_october_revolution
+
+		prerequisite = { focus = GUA_october_revolution }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
 		completion_reward = {
-			log = "[GetLogRoot]: Focus Completed GUA_prn_win"
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_ubico_wins"
+                        country_event = {
+                                id = guatemala.23
+                                days = 5
+                        }
+                        add_ideas = GUA_dethroned_ubico
+			add_popularity = { ideology = paternal_autocrat popularity = -0.1 }
+			add_political_power = -50
+		}
+	}
+	focus = {
+		id = GUA_ease_tensions
+		icon = GFX_goal_GUA_Peace_People
+		x = 2
+		y = 1
+		cost = 5
+
+		available = {
+			has_country_flag = GUA_NPP_wins_flag
+		}
+
+		relative_position_id = GUA_october_revolution
+
+		prerequisite = { focus = GUA_october_revolution }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_ubico_wins"
+			add_political_power = 150
+			add_stability = 0.10
+		}
+	}
+	focus = {
+		id = GUA_begin_democratic_process
+		icon = GFX_goal_GUA_Democracy_Process
+		x = -1
+		y = 2
+		cost = 5
+
+		available = {
+			has_country_flag = GUA_NPP_wins_flag
+		}
+
+		relative_position_id = GUA_october_revolution
+
+		prerequisite = { focus = GUA_target_ubico }
+		prerequisite = { focus = GUA_ease_tensions }
+		prerequisite = { focus = GUA_target_orellanists }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_ubico_wins"
+                        country_event = democratic_guatemala.2
+                        add_ideas = GUA_began_democratic_process 
+			add_popularity = { ideology = social_conservative popularity = 0.1 }
 			add_popularity = { ideology = social_democrat popularity = 0.1 }
+			add_popularity = { ideology = market_liberal popularity = 0.1 }
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
-
 	focus = {
-		id = GUA_nationalise_industries
-		icon = GFX_goal_GUA_Towards_All_Forms_Struggle_Doctrine
+		id = GUA_heavily_crackdown_on_ufc
+		icon = GFX_goal_GUA_Bash_United_Fruit
+		x = 1
+		y = 2
 		cost = 5
 
-		relative_position_id = GUA_new_election
-		x = -5
-		y = 2
+		available = {
+			has_country_flag = GUA_NPP_wins_flag
+		}
 
-		prerequisite = { focus = GUA_pcg_win }
+		relative_position_id = GUA_october_revolution
 
-		ai_will_do = { factor = 100 }
+		prerequisite = { focus = GUA_target_ubico }
+		prerequisite = { focus = GUA_ease_tensions }
+		prerequisite = { focus = GUA_target_orellanists }
+
+		ai_will_do = {
+			factor = 100
+		}
+
 
 		completion_reward = {
-			log = "[GetLogRoot]: Focus Completed GUA_nationalise_industries"
-			add_ideas = GUA_workers_economy
-			remove_ideas = GUA_united_fruit
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_ubico_wins"
+                        custom_effect_tooltip = GUA_UFC_40down
 			hidden_effect = {
-				set_variable = { UFC_power = 0 }
+				add_to_variable = {
+					var = UFC_power
+					value = -40
+				}
+                        }
 				CA_SET_UFC_VAR = yes
-				remove_dynamic_modifier = { modifier = CEN_united_fruit_land }
-			}
-			add_stability = -0.1
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-	}
-
-	focus = {
-		id = GUA_land_reform
-		icon = GFX_goal_GUA_Adopt_Arbenzs_Preferred_Project
-		cost = 5
-
-		relative_position_id = GUA_new_election
-		x = -3
-		y = 2
-
-		prerequisite = { focus = GUA_pcg_win focus = GUA_prn_win }
-
-		ai_will_do = { factor = 100 }
-
-		completion_reward = {
-			log = "[GetLogRoot]: Focus Completed GUA_land_reform"
-			313 = { add_extra_state_shared_building_slots = 1 }
-			add_stability = 0.15
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-	}
-
-	focus = {
-		id = GUA_labour_code
-		icon = GFX_goal_GUA_Enact_Reformist_Labour_Laws
-		cost = 5
-
-		relative_position_id = GUA_new_election
-		x = -1
-		y = 2
-
-		prerequisite = { focus = GUA_pcg_win focus = GUA_prn_win }
-
-		ai_will_do = { factor = 100 }
-
-		on_uncomplete = { remove_ideas = GUA_restored_liberty_labour }
-
-		completion_reward = {
-			log = "[GetLogRoot]: Focus Completed GUA_labour_code"
-			swap_ideas = {
-				remove_idea = GUA_restored_liberty
-				add_idea = GUA_restored_liberty_labour
-			}
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	}
-
-	focus = {
-		id = GUA_restrict_foreign_business
-		icon = GFX_goal_GUA_Destroy_Banana_Man
-		cost = 5
-
-		relative_position_id = GUA_prn_win
-		x = 1
-		y = 1
-
-		prerequisite = { focus = GUA_prn_win }
-
-		ai_will_do = { factor = 100 }
-
-		completion_reward = {
-			log = "[GetLogRoot]: Focus Completed GUA_restrict_foreign_business"
-			add_ideas = GUA_ufc_land
-			add_political_power = -100
-			subtract_from_variable = {
-				var = UFC_power
-				value = 40
-			}
-			CA_SET_UFC_VAR = yes
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-	}
-
-	focus = {
-		id = GUA_worker_peasant_community
-		icon = GFX_goal_GUA_Start_Unions
-		cost = 5
-
-		relative_position_id = GUA_nationalise_industries
-		x = 1
-		y = 1
-
-		prerequisite = { focus = GUA_nationalise_industries }
-		prerequisite = { focus = GUA_land_reform }
-		prerequisite = { focus = GUA_labour_code }
-
-		ai_will_do = { factor = 100 }
-
-		completion_reward = {
-			log = "[GetLogRoot]: Focus Completed GUA_worker_peasant_community"
-			swap_ideas = {
-				remove_idea = GUA_restored_liberty_labour
-				add_idea = GUA_workers_guatemala
-			}
-			add_popularity = { ideology = radical_socialist popularity = 0.15 }
-		}
-		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
-	}
-
-	focus = {
-		id = GUA_spiritual_socialism
-		icon = GFX_goal_GUA_Spiritual_Socialism
-		cost = 5
-
-		relative_position_id = GUA_restrict_foreign_business
-		x = -1
-		y = 1
-
-		prerequisite = { focus = GUA_restrict_foreign_business }
-		prerequisite = { focus = GUA_land_reform }
-		prerequisite = { focus = GUA_labour_code }
-
-		ai_will_do = { factor = 100 }
-
-		completion_reward = {
-			log = "[GetLogRoot]: Focus Completed GUA_spiritual_socialism"
-			swap_ideas = {
-				remove_idea = GUA_restored_liberty_labour
-				add_idea = GUA_spiritual_socialism_idea
-			}
-			add_war_support = 0.1
-		}
-		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_POLITICAL }
-	}
-
-	focus = {
-		id = GUA_unionist_win
-		icon = GFX_goal_ideology_social_conservative
-		cost = 5
-
-		relative_position_id = GUA_new_election
-		x = 4
-		y = 1
-
-		available = { always = no }
-
-		prerequisite = { focus = GUA_new_election }
-
-		ai_will_do = { factor = 100 }
-
-		bypass = {
-			hidden_trigger = {
-				has_government = social_conservative
-				is_subject = yes
-			}
-		}
-
-		completion_reward = {
-			log = "[GetLogRoot]: Focus Completed GUA_unionist_win"
 			add_popularity = { ideology = social_conservative popularity = 0.1 }
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
-
 	focus = {
-		id = GUA_reconcile_liberals
-		icon = GFX_goal_GUA_Onwards_True_National_Liberation
+		id = GUA_never_another_ubico
+		icon = GFX_goal_GUA_Never_Another_Ubico
+		x = 0
+		y = 3
 		cost = 5
 
-		relative_position_id = GUA_unionist_win
-		x = -1
-		y = 1
+		available = {
+			has_country_flag = GUA_NPP_wins_flag
+		}
 
-		prerequisite = { focus = GUA_unionist_win }
+		relative_position_id = GUA_october_revolution
 
-		ai_will_do = { factor = 100 }
+		prerequisite = { focus = GUA_begin_democratic_process }
+		prerequisite = { focus = GUA_heavily_crackdown_on_ufc }
+
+		ai_will_do = {
+			factor = 100
+		}
+
 
 		completion_reward = {
-			log = "[GetLogRoot]: Focus Completed GUA_reconcile_liberals"
-			add_popularity = { ideology = market_liberal popularity = 0.1 }
-			add_marlib_to_coalition = yes
-			add_war_support = 0.1
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_ubico_wins"
+                        add_ideas = GUA_never_another_dictator
+			add_popularity = { ideology = paternal_autocrat popularity = -0.2 }
+			add_political_power = 50
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
+	}
+	focus = {
+		id = GUA_never_another_orellana
+		icon = GFX_goal_GUA_Never_Another_Orellana
+		x = 0
+		y = 4
+		cost = 5
+
+		available = {
+					        has_country_leader = {
+			          ruling_only = yes
+			          name = "Jacobo Arbenz"
+			}
+		}
+
+		relative_position_id = GUA_october_revolution
+
+		prerequisite = { focus = GUA_never_another_ubico }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_ubico_wins"
+			swap_ideas = {
+				add_idea = GUA_never_another_dictator2
+				remove_idea = GUA_never_another_dictator
+			}
+			add_popularity = { ideology = authoritarian_democrat popularity = -0.1 }
+			add_political_power = 100
+			add_stability = 0.10
+		}
+	}
+	focus = {
+		id = GUA_socdem_wins
+		icon = GFX_goal_GUA_Second_Republic
+		x = -3
+		y = 6
+		cost = 1
+
+		available = {
+                        has_completed_focus = GUA_never_another_orellana
+			has_country_leader = {
+			          ruling_only = yes
+			          name = "Jacobo Arbenz"
+			}
+		}
+
+
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_socdem_wins"
+			add_popularity = { ideology = radical_socialist popularity = 0.1 }
+		}
 	}
 
 	focus = {
-		id = GUA_restore_trust
-		icon = GFX_goal_GUA_Break_Torch_Hammer
-		cost = 5
-
-		relative_position_id = GUA_unionist_win
+		id = GUA_reform_parties
+		icon = GFX_RUS_reform_electoral_law
 		x = 1
 		y = 1
+		cost = 2
 
-		prerequisite = { focus = GUA_unionist_win }
+		available = {
+			has_country_leader = {
+			          ruling_only = yes
+			          name = "Jacobo Arbenz"
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_education_investment"
+			country_event = {
+				id = democratic_guatemala.5
+				days = 5
+			}
+		}
+	}
+
+	focus = {
+		id = GUA_delete_corruption
+		icon = GFX_goal_MAF_fuck_up_corrupt_officials
+		x = -1
+		y = 1
+		cost = 2
+
+		available = {
+					        has_country_leader = {
+			          ruling_only = yes
+			          name = "Jacobo Arbenz"
+			}
+		}
+
+		relative_position_id = GUA_socdem_wins
+
+		prerequisite = { focus = GUA_socdem_wins }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+			add_political_power = 100
+		        add_stability = 0.05
+		}
+	}
+	focus = {
+		id = GUA_new_elections
+		icon = GFX_goal_USA_Ensure_Election_Fairness
+		x = 0
+		y = 2
+		cost = 3
+
+		available = {
+					        has_country_leader = {
+			          ruling_only = yes
+			          name = "Jacobo Arbenz"
+			}
+		}
+
+		relative_position_id = GUA_socdem_wins
+
+		prerequisite = { focus = GUA_delete_corruption }
+		prerequisite = { focus = GUA_reform_parties }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+			country_event = {
+				id = democratic_guatemala.1
+				days = 10
+			}
+		}
+	}
+	focus = {
+		id = GUA_victory_of_azmitia
+		icon = GFX_goal_GUA_Azmitia_Victory
+		x = 0
+		y = 1
+		cost = 2
+
+		available = {
+			has_government = social_conservative
+		        has_country_leader = {
+			          ruling_only = yes
+			          name = "José Azmitia González"
+			}
+		}
+		bypass = {
+			has_government = social_conservative
+		        has_country_leader = {
+			          ruling_only = yes
+			          name = "José Azmitia González"
+			}
+		}
+
+		relative_position_id = GUA_new_elections
+
+		prerequisite = { focus = GUA_new_elections }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+                        custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = GUA_freedom_for_orellana_era_prisoners
+		icon = GFX_goal_GUA_Freedom_Orellana_Era_Prisoners
+		x = 2
+		y = 1
+		cost = 2
+
+		available = {
+			has_government = social_conservative
+		        has_country_leader = {
+			          ruling_only = yes
+			          name = "José Azmitia González"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_azmitia
+
+		prerequisite = { focus = GUA_victory_of_azmitia }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+                        add_stability = 0.10
+			add_political_power = -50
+		}
+	}
+	focus = {
+		id = GUA_unchain_press
+		icon = GFX_goal_GUA_Shatter_Chains_On_News
+		x = 2
+		y = 3
+		cost = 2
+
+		available = {
+			has_government = social_conservative
+		        has_country_leader = {
+			          ruling_only = yes
+			          name = "José Azmitia González"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_azmitia
+
+		prerequisite = { focus = GUA_freedom_for_orellana_era_prisoners }
+		prerequisite = { focus = GUA_central_american_dream }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+                        add_stability = 0.10
+			add_political_power = -50
+		}
+	}
+	focus = {
+		id = GUA_ally_cath_church
+		icon = GFX_goal_GUA_Ally_Catholic_Church
+		x = 0
+		y = 1
+		cost = 2
+
+		available = {
+			has_government = social_conservative
+		        has_country_leader = {
+			          ruling_only = yes
+			          name = "José Azmitia González"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_azmitia
+
+		prerequisite = { focus = GUA_victory_of_azmitia }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+                        add_ideas = GUA_church_allies
+		}
+	}
+	focus = {
+		id = GUA_lovers_of_democracy
+		icon = GFX_goal_GUA_Lovers_Democracy
+		x = -2
+		y = 1
+		cost = 2
+
+		available = {
+			has_government = social_conservative
+		        has_country_leader = {
+			          ruling_only = yes
+			          name = "José Azmitia González"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_azmitia
+
+		prerequisite = { focus = GUA_victory_of_azmitia }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+                        add_ideas = GUA_luv_me_democracy
+		}
+	}
+	focus = {
+		id = GUA_end_political_violence
+		icon = GFX_goal_GUA_End_Political_Violence
+		x = -2
+		y = 3
+		cost = 2
+
+		available = {
+			has_government = social_conservative
+		        has_country_leader = {
+			          ruling_only = yes
+			          name = "José Azmitia González"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_azmitia
+
+		prerequisite = { focus = GUA_lovers_of_democracy }
+		prerequisite = { focus = GUA_unify_the_unionista }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+                        add_ideas = GUA_luv_me_democracy
+		}
+	}
+	focus = {
+		id = GUA_unify_the_unionista
+		icon = GFX_goal_GUA_Unify_Unionista
+		x = -1
+		y = 2
+		cost = 2
+
+		available = {
+			has_government = social_conservative
+		        has_country_leader = {
+			          ruling_only = yes
+			          name = "José Azmitia González"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_azmitia
+
+		prerequisite = { 
+                         focus = GUA_lovers_of_democracy
+                }
+		prerequisite = { 
+                         focus = GUA_ally_cath_church
+                }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+                        add_ideas = GUA_unified_unionista
+		}
+	}
+	focus = {
+		id = GUA_central_american_dream
+		icon = GFX_goal_GUA_Central_America_Dream
+		x = 1
+		y = 2
+		cost = 2
+
+		available = {
+			has_government = social_conservative
+		        has_country_leader = {
+			          ruling_only = yes
+			          name = "José Azmitia González"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_azmitia
+
+		prerequisite = { 
+                         focus = GUA_freedom_for_orellana_era_prisoners
+                }
+		prerequisite = { 
+                         focus = GUA_ally_cath_church
+                }
+
+		ai_will_do = {
+			factor = 100
+		}
 
 		ai_will_do = { factor = 100 }
 
 		completion_reward = {
-			log = "[GetLogRoot]: Focus Completed GUA_restore_trust"
-			swap_ideas = {
-				remove_idea = GUA_restored_liberty
-				add_idea = GUA_restored_constitution
-			}
-			add_stability = 0.1
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+                        add_stability = 0.10
+			add_political_power = 100
 		}
-		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = GUA_legacy_of_three_folds
+		icon = GFX_goal_GUA_Legacy_Three_Folds_Act
+		x = 0
+		y = 3
+		cost = 2
+
+		available = {
+			has_government = social_conservative
+		        has_country_leader = {
+			          ruling_only = yes
+			          name = "José Azmitia González"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_azmitia
+
+		prerequisite = { 
+                         focus = GUA_central_american_dream
+                }
+		prerequisite = { 
+                         focus = GUA_unify_the_unionista
+                }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+                        add_ideas = GUA_free_guatemala
+		}
+	}
+	focus = {
+		id = GUA_guatemala_for_the_free
+		icon = GFX_goal_GUA_Guatemala_For_Free
+		x = 0
+		y = 4
+		cost = 2
+
+		available = {
+			has_government = social_conservative
+		        has_country_leader = {
+			          ruling_only = yes
+			          name = "José Azmitia González"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_azmitia
+
+		prerequisite = { 
+                         focus = GUA_legacy_of_three_folds
+                }
+		prerequisite = { 
+                         focus = GUA_end_political_violence
+                }
+		prerequisite = { 
+                         focus = GUA_unchain_press
+                }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+                        add_ideas = GUA_free_guatemala
+		}
+	}
+	focus = {
+		id = GUA_victory_of_enrique
+		icon = GFX_goal_GUA_Peralta_Victory
+		x = -6
+		y = 1
+		cost = 2
+
+		available = {
+			has_government = social_conservative
+		}
+		bypass = {
+			has_government = social_conservative
+		}
+
+		relative_position_id = GUA_new_elections
+
+		prerequisite = { focus = GUA_new_elections }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+                        custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = GUA_support_our_troops
+		icon = GFX_goal_GUA_Open_Military_Support
+		x = 2
+		y = 1
+		cost = 5
+
+		available = {
+			has_government = social_conservative
+		}
+
+		relative_position_id = GUA_victory_of_enrique
+
+		prerequisite = { focus = GUA_victory_of_enrique }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+			add_war_support = 0.10
+			add_political_power = 50
+                        add_ideas = GUA_troop_support 
+		}
 	}
 
 	focus = {
-		id = GUA_deilliteracy
-		icon = GFX_goal_GUA_Lovers_Democracy
+		id = GUA_rehabilitate_ubiquistas
+		icon = GFX_goal_GUA_Rehabilitate_Reassign_Ubiquistas
+		x = 2
+		y = 3
 		cost = 5
 
 		relative_position_id = GUA_reconcile_liberals
 		x = 0
 		y = 1
 
-		prerequisite = { focus = GUA_reconcile_liberals }
-		prerequisite = { focus = GUA_restore_trust }
+		relative_position_id = GUA_victory_of_enrique
+
+		prerequisite = { focus = GUA_block_the_left }
+
+		ai_will_do = {
+			factor = 100
+		}
 
 		ai_will_do = { factor = 100 }
 
 		completion_reward = {
-			log = "[GetLogRoot]: Focus Completed GUA_deilliteracy"
-			add_ideas = GUA_beter_research
-			add_popularity = { ideology = social_conservative popularity = 0.1 }
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+			
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
-
 	focus = {
-		id = GUA_vitalism
-		icon = GFX_goal_GUA_Central_America_Dream
-		cost = 5
-
-		relative_position_id = GUA_restore_trust
+		id = GUA_implement_civil_commercial_code
+		icon = GFX_goal_GUA_Implement_Civil_Code
 		x = 0
 		y = 1
+		cost = 5
 
-		prerequisite = { focus = GUA_reconcile_liberals }
-		prerequisite = { focus = GUA_restore_trust }
+		available = {
+			has_government = social_conservative
+		}
 
-		ai_will_do = { factor = 100 }
+		relative_position_id = GUA_victory_of_enrique
+
+		prerequisite = { focus = GUA_victory_of_enrique }
+
+		ai_will_do = {
+			factor = 100
+		}
+
 
 		completion_reward = {
-			log = "[GetLogRoot]: Focus Completed GUA_vitalism"
-			swap_ideas = {
-				remove_idea = GUA_restored_constitution
-				add_idea = GUA_vitalism_idea
-			}
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+			add_stability = 0.10
 			add_political_power = 100
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = GUA_block_the_left
+		icon = GFX_RUS_Deal_With_Left_Lean
+		x = -2
+		y = 1
+		cost = 5
+
+		available = {
+			has_government = social_conservative
+		}
+
+		relative_position_id = GUA_victory_of_enrique
+
+		prerequisite = { focus = GUA_victory_of_enrique }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+			add_stability = 0.05
+			add_political_power = -50
+                        add_ideas = GUA_blocked_left
+		}
+	}
+	focus = {
+		id = GUA_ally_yanks
+		icon = GFX_goal_GUA_Reconciliation_With_America
+		x = -2
+		y = 3
+		cost = 5
+
+		available = {
+			has_government = social_conservative
+		}
+
+		relative_position_id = GUA_victory_of_enrique
+
+		prerequisite = { focus = GUA_block_the_left }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+			
+		}
+	}
+	focus = {
+		id = GUA_education_for_all
+		icon = GFX_goal_GUA_Control_Education
+		x = -1
+		y = 2
+		cost = 5
+
+		available = {
+			has_government = social_conservative
+		}
+
+		relative_position_id = GUA_victory_of_enrique
+
+		prerequisite = { focus = GUA_block_the_left }
+		prerequisite = { focus = GUA_implement_civil_commercial_code }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+			add_stability = 0.10
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = GUA_workers_recreation_institute_act
+		icon = GFX_goal_GUA_Workers_Resort
+		x = 1
+		y = 2
+		cost = 5
+
+		available = {
+			has_government = social_conservative
+		}
+
+		relative_position_id = GUA_victory_of_enrique
+
+		prerequisite = { focus = GUA_implement_civil_commercial_code }
+		prerequisite = { focus = GUA_support_our_troops }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+                        add_ideas = GUA_blocked_left_further
+			add_stability = 0.05
+			add_political_power = -50
+		}
+	}
+	focus = {
+		id = GUA_chief_of_republic
+		icon = GFX_goal_GUA_Peralta_Chief_Republic
+		x = 0
+		y = 3
+		cost = 5
+
+		available = {
+			has_government = social_conservative
+		}
+
+		relative_position_id = GUA_victory_of_enrique
+
+		prerequisite = { focus = GUA_workers_recreation_institute_act }
+		prerequisite = { focus = GUA_education_for_all }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+			
+		}
+	}
+	focus = {
+		id = GUA_military_ready_guatamala
+		icon = GFX_goal_GUA_Military_Ready
+		x = 0
+		y = 4
+		cost = 5
+
+		available = {
+			has_government = social_conservative
+		}
+
+		relative_position_id = GUA_victory_of_enrique
+
+		prerequisite = { focus = GUA_chief_of_republic }
+		prerequisite = { focus = GUA_ally_yanks }
+		prerequisite = { focus = GUA_rehabilitate_ubiquistas }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+			add_stability = 0.10
+			add_political_power = 100
+                        add_ideas = GUA_army_ready
+		}
+	}
+	focus = {
+		id = GUA_victory_of_arevalo
+		icon = GFX_goal_GUA_Arevalo_Victory
+		x = 12
+		y = 1
+		cost = 2
+
+		available = {
+			has_government = social_democrat
+			has_country_leader = {
+			          ruling_only = yes
+			          name = "Juan José Arévalo Bermejo"
+			}
+		}
+		bypass = {
+			has_government = social_democrat
+			has_country_leader = {
+			          ruling_only = yes
+			          name = "Juan José Arévalo Bermejo"
+			}
+		}
+
+		relative_position_id = GUA_new_elections
+
+		prerequisite = { focus = GUA_new_elections }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+                        custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = GUA_staunch_anti_syndicalism
+		icon = GFX_goal_GUA_Break_Torch_Hammer
+		x = 2
+		y = 1
+		cost = 5
+
+		available = {
+			has_country_leader = {
+			          ruling_only = yes
+			          name = "Juan José Arévalo Bermejo"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_arevalo
+
+		prerequisite = { focus = GUA_victory_of_arevalo }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+                        add_ideas = GUA_anti_syndicalism
+			add_stability = -0.05
+			add_political_power = 100
+		}
+	}
+	focus = {
+		id = GUA_reformist_labour_laws
+		icon = GFX_goal_GUA_Enact_Reformist_Labour_Laws
+		x = 2
+		y = 3
+		cost = 5
+
+		available = {
+			has_country_leader = {
+			          ruling_only = yes
+			          name = "Juan José Arévalo Bermejo"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_arevalo
+
+		prerequisite = { focus = GUA_staunch_anti_syndicalism }
+		prerequisite = { focus = GUA_democratic_socialist_society }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+                        add_ideas = GUA_anti_syndicalism
+			add_stability = -0.05
+			add_political_power = 100
+		}
+	}
+	focus = {
+		id = GUA_spiritual_socialism
+		icon = GFX_goal_GUA_Spiritual_Socialism
+		x = -2
+		y = 1
+		cost = 5
+
+		available = {
+			has_country_leader = {
+			          ruling_only = yes
+			          name = "Juan José Arévalo Bermejo"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_arevalo
+
+		prerequisite = { focus = GUA_victory_of_arevalo }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+		        hidden_effect = {
+                              country_event = {
+				     id = democratic_guatemala.1220
+				     days = 10
+			             }
+                        }
+                        add_ideas = GUA_spiritual_socialism_beloved
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = GUA_towards_arevalismo
+		icon = GFX_goal_GUA_Towards_Arevalo
+		x = -2
+		y = 3
+		cost = 5
+
+		available = {
+			has_country_leader = {
+			          ruling_only = yes
+			          name = "Juan José Arévalo Bermejo"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_arevalo
+
+		prerequisite = { focus = GUA_spiritual_socialism }
+		prerequisite = { focus = GUA_new_constitution }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+			add_stability = 0.10
+			add_political_power = 70
+                        add_ideas = GUA_intellectual_pillar
+		}
+	}
+	focus = {
+		id = GUA_capitalist_mode_production
+		icon = GFX_goal_GUA_Capitalist_Overtures_Without_Avarice
+		x = 0
+		y = 1
+		cost = 5
+
+		available = {
+			has_country_leader = {
+			          ruling_only = yes
+			          name = "Juan José Arévalo Bermejo"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_arevalo
+
+		prerequisite = { focus = GUA_victory_of_arevalo }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = GUA_new_constitution
+		icon = GFX_goal_GUA_Democratic_Constitution
+		x = -1
+		y = 2
+		cost = 5
+
+		available = {
+			has_country_leader = {
+			          ruling_only = yes
+			          name = "Juan José Arévalo Bermejo"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_arevalo
+
+		prerequisite = { focus = GUA_spiritual_socialism }
+		prerequisite = { focus = GUA_capitalist_mode_production }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+			add_stability = 0.10
+			add_political_power = 100
+		}
+	}
+	focus = {
+		id = GUA_democratic_socialist_society
+		icon = GFX_goal_MEX_Pink_Roses
+		x = 1
+		y = 2
+		cost = 5
+
+		available = {
+			has_country_leader = {
+			          ruling_only = yes
+			          name = "Juan José Arévalo Bermejo"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_arevalo
+
+		prerequisite = { focus = GUA_staunch_anti_syndicalism }
+		prerequisite = { focus = GUA_capitalist_mode_production }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+			add_stability = 0.10
+                        add_ideas = GUA_demsoc_dream
+		}
+	}
+	focus = {
+		id = GUA_shark_sardines
+		icon = GFX_goal_GUA_Shark_and_Sardines
+		x = 0
+		y = 3
+		cost = 5
+
+		available = {
+			has_country_leader = {
+			          ruling_only = yes
+			          name = "Juan José Arévalo Bermejo"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_arevalo
+
+		prerequisite = { focus = GUA_democratic_socialist_society }
+		prerequisite = { focus = GUA_new_constitution }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+
+		}
+	}
+	focus = {
+		id = GUA_guatamalas_intellectual_pillar
+		icon = GFX_goal_GUA_Arevalo_Pillar
+		x = 0
+		y = 4
+		cost = 5
+
+		available = {
+			has_country_leader = {
+			          ruling_only = yes
+			          name = "Juan José Arévalo Bermejo"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_arevalo
+
+		prerequisite = { focus = GUA_towards_arevalismo }
+		prerequisite = { focus = GUA_shark_sardines }
+		prerequisite = { focus = GUA_reformist_labour_laws }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+			add_stability = 0.15
+			add_political_power = 150
+                        add_ideas = GUA_intellectual_pillar
+		}
+	}
+	focus = {
+		id = GUA_victory_of_arbenz
+		icon = GFX_goal_GUA_Arbenz_Victory
+		x = 6
+		y = 1
+		cost = 5
+
+		available = {
+				has_country_leader = {
+			          ruling_only = yes
+			          name = "Jacobo Arbenz"
+			}
+		}
+		bypass = {
+				has_country_leader = {
+			          ruling_only = yes
+			          name = "Jacobo Arbenz"
+			}
+		}
+
+		relative_position_id = GUA_new_elections
+
+		prerequisite = { focus = GUA_new_elections }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+                        custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = GUA_reform_agriculture_act
+		icon = GFX_goal_GUA_Decree_900
+		x = -2
+		y = 1
+		cost = 5
+
+		available = {
+					        has_country_leader = {
+			          ruling_only = yes
+			          name = "Jacobo Arbenz"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_arbenz
+
+		prerequisite = { focus = GUA_victory_of_arbenz }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+                        add_ideas = GUA_decree_900
+		}
+	}
+	focus = {
+		id = GUA_hit_ufc_harder
+		icon = GFX_goal_GUA_Destroy_Banana_Man
+		x = 0
+		y = 1
+		cost = 5
+
+		available = {
+					        has_country_leader = {
+			          ruling_only = yes
+			          name = "Jacobo Arbenz"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_arbenz
+
+		prerequisite = { focus = GUA_victory_of_arbenz }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+			hidden_effect = {
+				add_to_variable = {
+					var = UFC_power
+					value = -100
+				}
+				CA_SET_UFC_VAR = yes
+			}
+                        custom_effect_tooltip = GUA_UFC_deleted
+			add_stability = 0.15
+			add_political_power = 100
+                        add_ideas = GUA_UFC_ass_kicked
+		}
+	}
+	focus = {
+		id = GUA_cement_guatemalan_politics
+		icon = GFX_goal_GUA_Cement_Democracy
+		x = 2
+		y = 1
+		cost = 5
+
+		available = {
+					        has_country_leader = {
+			          ruling_only = yes
+			          name = "Jacobo Arbenz"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_arbenz
+
+		prerequisite = { focus = GUA_victory_of_arbenz }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+			add_stability = 0.1
+                        add_ideas = GUA_cemented_democracy
+		}
+	}
+	focus = {
+		id = GUA_reconcile_with_mayans
+		icon = GFX_goal_GUA_Reconcile_Natives
+		x = 1
+		y = 2
+		cost = 5
+
+		available = {
+					        has_country_leader = {
+			          ruling_only = yes
+			          name = "Jacobo Arbenz"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_arbenz
+
+		prerequisite = { focus = GUA_hit_ufc_harder }
+		prerequisite = { focus = GUA_cement_guatemalan_politics }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+			add_stability = 0.10
+			add_political_power = 50
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = GUA_progressive_military
+		icon = GFX_goal_GUA_Root_Out_Tyranny_Army
+		x = 2
+		y = 3
+		cost = 5
+
+		available = {
+			has_country_leader = {
+			          ruling_only = yes
+			          name = "Jacobo Arbenz"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_arbenz
+
+		prerequisite = { focus = GUA_cement_guatemalan_politics }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+			
+		}
+	}
+	focus = {
+		id = GUA_build_up_guatamala_without_foreign
+		icon = GFX_goal_GUA_No_Foreign_Invest
+		x = -1
+		y = 2
+		cost = 5
+
+		available = {
+					        has_country_leader = {
+			          ruling_only = yes
+			          name = "Jacobo Arbenz"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_arbenz
+
+		prerequisite = { focus = GUA_hit_ufc_harder }
+		prerequisite = { focus = GUA_reform_agriculture_act }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = GUA_modernized_capitalist_state
+		icon = GFX_goal_GUA_Only_Modernized_Capitalist_State
+		x = -2
+		y = 3
+		cost = 5
+
+		available = {
+					        has_country_leader = {
+			          ruling_only = yes
+			          name = "Jacobo Arbenz"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_arbenz
+
+		prerequisite = { focus = GUA_reform_agriculture_act }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+		}
+	}
+	focus = {
+		id = GUA_pardon_communists
+		icon = GFX_goal_GUA_Pardon_Communist_Allies
+		x = 0
+		y = 3
+		cost = 5
+
+		available = {
+					        has_country_leader = {
+			          ruling_only = yes
+			          name = "Jacobo Arbenz"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_arbenz
+
+		prerequisite = { focus = GUA_reconcile_with_mayans }
+		prerequisite = { focus = GUA_build_up_guatamala_without_foreign }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+			
+		}
+	}
+	focus = {
+		id = GUA_socialism_without_communism
+		icon = GFX_goal_GUA_Arbenz_Liberty
+		x = 0
+		y = 4
+		cost = 5
+
+		available = {
+					        has_country_leader = {
+			          ruling_only = yes
+			          name = "Jacobo Arbenz"
+			}
+		}
+
+		relative_position_id = GUA_victory_of_arbenz
+
+		prerequisite = { focus = GUA_pardon_communists }
+		prerequisite = { focus = GUA_modernized_capitalist_state }
+		prerequisite = { focus = GUA_progressive_military }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+			add_stability = 0.15
+			add_political_power = 150
+                        add_ideas = GUA_soc_without_com
+		}
+	}
+	focus = {
+		id = GUA_americanist_victory
+		icon = GFX_goal_GUA_Castillo_Victory
+		x = -12
+		y = 1
+		cost = 5
+
+		available = {
+			has_government = market_liberal
+		}
+
+		relative_position_id = GUA_new_elections
+
+		prerequisite = { focus = GUA_new_elections }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+                        custom_effect_tooltip = unlock_focuses
+                     
+		}
+	}
+	focus = {
+		id = GUA_western_style_capitalism
+		icon = GFX_goal_capitalist_system
+		x = 0
+		y = 1
+		cost = 5
+
+		relative_position_id = GUA_americanist_victory
+
+		prerequisite = { focus = GUA_americanist_victory }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+                        add_ideas = GUA_introduction_to_capitalism
+		}
+	}
+	focus = {
+		id = GUA_stab_heart_of_socialism
+		icon = GFX_goal_COR_Socialist_Knife
+		x = -2
+		y = 1
+		cost = 5
+
+		relative_position_id = GUA_americanist_victory
+
+		prerequisite = { focus = GUA_americanist_victory }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+                        add_popularity = { ideology = totalist popularity = -0.1 }
+                        add_popularity = { ideology = syndicalist popularity = -0.1 }
+                        add_popularity = { ideology = radical_socialist popularity = -0.1 }
+                        add_stability = 0.05
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = GUA_voice_of_liberation
+		icon = GFX_goal_GUA_Form_Voice_Liberation
+		x = -2
+		y = 3
+		cost = 5
+
+		relative_position_id = GUA_americanist_victory
+
+		prerequisite = { focus = GUA_stab_heart_of_socialism }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+                        
+		}
+	}
+	focus = {
+		id = GUA_protect_freedom
+		icon = GFX_goal_GUA_Protect_People
+		x = 2
+		y = 1
+		cost = 5
+
+		relative_position_id = GUA_americanist_victory
+
+		prerequisite = { focus = GUA_americanist_victory }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+                        
+		}
+	}
+	focus = {
+		id = GUA_allies_guardia_civil
+		icon = GFX_goal_GUA_Allies_Civil_Guard
+		x = 2
+		y = 3
+		cost = 5
+
+		relative_position_id = GUA_americanist_victory
+
+		prerequisite = { focus = GUA_protect_freedom }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+                        
+		}
+	}
+	focus = {
+		id = GUA_support_feds
+		icon = GFX_goal_GUA_Support_Americans
+		x = -1
+		y = 2
+		cost = 5
+
+		relative_position_id = GUA_americanist_victory
+
+		prerequisite = { focus = GUA_stab_heart_of_socialism }
+                prerequisite = { focus = GUA_western_style_capitalism }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		 completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+                   
+                 USA = {
+	                add_opinion_modifier = { 
+                        target = GUA modifier = medium_increase
+                    }
+                    add_equipment_to_stockpile = {
+			  type = infantry_equipment_1
+			  amount = 1000
+			  producer = GUA
+                                }
+                        }
+                        add_ideas = GUA_federal_gov_support
+		}
+	}
+	focus = {
+		id = GUA_spread_privitization
+		icon = GFX_RUS_Private_Property_Solidarist
+		x = 1
+		y = 2
+		cost = 5
+
+		relative_position_id = GUA_americanist_victory
+
+		prerequisite = { focus = GUA_protect_freedom }
+                prerequisite = { focus = GUA_western_style_capitalism }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+                        add_ideas = GUA_vast_privitization
+		}
+	}
+	focus = {
+		id = GUA_true_national_liberation
+		icon = GFX_goal_GUA_Onwards_True_National_Liberation
+		x = 0
+		y = 3
+		cost = 5
+
+		relative_position_id = GUA_americanist_victory
+
+		prerequisite = { focus = GUA_spread_privitization }
+                prerequisite = { focus = GUA_support_feds }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+                        
+		}
+	}
+	focus = {
+		id = GUA_freedom_in_guatemala
+		icon = GFX_goal_GUA_Castillo_Boss
+		x = 0
+		y = 4
+		cost = 5
+
+		relative_position_id = GUA_americanist_victory
+
+		prerequisite = { focus = GUA_allies_guardia_civil }
+                prerequisite = { focus = GUA_true_national_liberation }
+                prerequisite = { focus = GUA_voice_of_liberation }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+                        add_stability = 0.10
+			add_political_power = 200
+                        add_ideas = GUA_freedom_in_guatamala
+		}
+	}
+	focus = {
+		id = GUA_libre_crezca_fucundo
+		icon = GFX_goal_GUA_Fertile
+		x = 0
+		y = 6
+		cost = 5
+
+		relative_position_id = GUA_new_elections
+
+		prerequisite = { 
+                        focus = GUA_socialism_without_communism 
+                        focus = GUA_guatamalas_intellectual_pillar 
+                        focus = GUA_military_ready_guatamala 
+                        focus = GUA_freedom_in_guatemala
+                        focus = GUA_guatemala_for_the_free
+                }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_scavenge_UFC"
+                        add_stability = 0.15
+                        add_ideas = GUA_model_democracy
+		}
+	}
+	focus = {
+		id = GUA_anti_commie_coup
+		icon = GFX_goal_GUA_Fuentes_Restores_Harmony
+		x = 25
+		y = 6
+		cost = 5
+
+		available = {
+			has_government = paternal_autocrat
+			NOT = {
+		             has_country_leader = {
+			             ruling_only = yes
+			             name = "Jorge Ubico Castañeda"
+				}
+			}
+		}
+		bypass = {
+			has_government = paternal_autocrat
+			NOT = {
+		             has_country_leader = {
+			             ruling_only = yes
+			             name = "Jorge Ubico Castañeda"
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"
+			add_popularity = { ideology = authoritarian_democrat popularity = 0.1 }
+		}
+	}
+	focus = {
+		id = GUA_expose_agents_of_paris
+		icon = GFX_goal_GUA_Paris_Agents
+		x = -2
+		y = 1
+		cost = 5
+
+		relative_position_id = GUA_anti_commie_coup
+
+		prerequisite = {
+                        focus = GUA_anti_commie_coup
+                }
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"
+                        add_ideas = GUA_anti_communist_sentiment
+			add_popularity = { ideology = syndicalist popularity = -0.1 }
+			add_popularity = { ideology = radical_socialist popularity = -0.1 }
+			add_popularity = { ideology = social_democrat popularity = -0.1 }
+		}
+	}
+	focus = {
+		id = GUA_ally_southern_autocrats
+		icon = GFX_goal_GUA_Fellow_Anti_Socialists
+		x = -3
+		y = 2
+		cost = 5
+
+		prerequisite = {
+                        focus = GUA_expose_agents_of_paris
+                }
+
+		relative_position_id = GUA_anti_commie_coup
+
+
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"
+                        add_ideas = GUA_fellow_autocrats_aligned 
+			add_popularity = { ideology = paternal_autocrat popularity = 0.1 }
+		}
+	}
+	focus = {
+		id = GUA_support_or_oppose_mexico
+		icon = GFX_goal_GUA_Question_Mexico
+		x = -2
+		y = 3
+		cost = 5
+
+		prerequisite = {
+                        focus = GUA_ally_southern_autocrats
+                }
+
+		relative_position_id = GUA_anti_commie_coup
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"
+			#This will fire an event that depends on if mexico is authoritarian or not
+		}
+	}
+	focus = {
+		id = GUA_stainless_steel_hand
+		icon = GFX_goal_GUA_Steel_Hand
+		x = 0
+		y = 1
+		cost = 5
+
+		prerequisite = {
+                        focus = GUA_anti_commie_coup
+                }
+
+		relative_position_id = GUA_anti_commie_coup
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"
+			add_ideas = GUA_steel_hand
+		}
+	}
+	focus = {
+		id = GUA_control_congress
+		icon = GFX_goal_GUA_Boot_Congress
+		x = 1
+		y = 2
+		cost = 5
+
+		prerequisite = {
+                        focus = GUA_stainless_steel_hand
+                }
+
+		relative_position_id = GUA_anti_commie_coup
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"
+			add_ideas = GUA_booted_congress
+		}
+	}
+	focus = {
+		id = GUA_deradicalize_students
+		icon = GFX_goal_GUA_Deradicalize_Students
+		x = -1
+		y = 2
+		cost = 5
+
+		prerequisite = {
+                        focus = GUA_stainless_steel_hand
+                }
+
+		relative_position_id = GUA_anti_commie_coup
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"
+                        add_stability = 0.10
+			add_popularity = { ideology = paternal_autocrat popularity = 0.1 }
+		}
+	}
+	focus = {
+		id = GUA_control_the_people
+		icon = GFX_goal_GUA_People_Supervision
+		x = 0
+		y = 3
+		cost = 5
+
+		prerequisite = {
+                        focus = GUA_deradicalize_students
+                }
+
+		prerequisite = {
+                        focus = GUA_control_congress
+                }
+
+		relative_position_id = GUA_anti_commie_coup
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"
+			add_ideas = GUA_people_controlled
+		}
+	}
+	focus = {
+		id = GUA_every_pot_a_chicken
+		icon = GFX_goal_GUA_Chicken_Every_Pot
+		x = 2
+		y = 1
+		cost = 5
+
+		prerequisite = {
+                        focus = GUA_anti_commie_coup
+                }
+
+		relative_position_id = GUA_anti_commie_coup
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"
+                        add_stability = 0.10
+			add_ideas = GUA_pot_the_chicken
+		}
+	}
+	focus = {
+		id = GUA_expand_food_industry
+		icon = GFX_goal_GUA_Expand_Food_Industry
+		x = 3
+		y = 2
+		cost = 5
+
+		prerequisite = {
+                        focus = GUA_every_pot_a_chicken
+                }
+
+		relative_position_id = GUA_anti_commie_coup
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"
+			add_stability = 0.10
+		}
+	}
+	focus = {
+		id = GUA_increased_living_standards
+		icon = GFX_goal_GUA_Increase_Living_Standards
+		x = 2
+		y = 3
+		cost = 5
+
+		prerequisite = {
+                        focus = GUA_expand_food_industry
+                }
+
+		relative_position_id = GUA_anti_commie_coup
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"
+			add_stability = 0.10
+                        add_ideas = GUA_living_standards_bros
+		}
+	}
+	focus = {
+		id = GUA_guatemala_free_of_commies
+		icon = GFX_goal_GUA_Bleeds_Red
+		x = 1
+		y = 4
+		cost = 5
+
+		prerequisite = {
+                        focus = GUA_increased_living_standards
+                }
+
+		prerequisite = {
+                        focus = GUA_control_the_people
+                }
+
+		relative_position_id = GUA_anti_commie_coup
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"
+			swap_ideas = {
+				add_idea = GUA_anti_communist_sentiment2
+				remove_idea = GUA_anti_communist_sentiment 
+			}
+			add_popularity = { ideology = paternal_autocrat popularity = 0.1 }
+		}
+	}
+	focus = {
+		id = GUA_a_cabinet_of_power
+		icon = GFX_goal_GUA_Power_Cabinet
+		x = -1
+		y = 4
+		cost = 5
+
+		prerequisite = {
+                        focus = GUA_support_or_oppose_mexico
+                }
+
+		prerequisite = {
+                        focus = GUA_control_the_people
+                }
+
+		relative_position_id = GUA_anti_commie_coup
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"
+			swap_ideas = {
+				add_idea = GUA_steel_hand2
+				remove_idea = GUA_steel_hand
+			}
+		}
+	}
+	focus = {
+		id = GUA_guatemala_in_our_grip
+		icon = GFX_goal_GUA_Guatemala_Grip
+		x = 0
+		y = 5
+		cost = 5
+		prerequisite = {
+                        focus = GUA_a_cabinet_of_power
+                }
+
+		prerequisite = {
+                        focus = GUA_guatemala_free_of_commies
+                }
+
+		relative_position_id = GUA_anti_commie_coup
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"
+                        add_ideas = GUA_grip_the_guatemala
+			add_popularity = { ideology = paternal_autocrat popularity = 0.1 }
+		}
 	}
 
+        #
+	focus = {
+		id = GUA_PGT_countercoup
+		icon = GFX_goal_GUA_PGT_Countercoup
+		x = 16
+		y = 6
+		cost = 5
+
+		available = {
+			has_government = radical_socialist
+		}
+		bypass = {
+			has_government = radical_socialist
+		}
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"	
+		}
+	}
+	focus = {
+		id = GUA_crossroads_of_party
+		icon = GFX_goal_GUA_Party_At_Crossroad
+		x = 0
+		y = 1
+		cost = 5
+
+		available = {
+			has_government = radical_socialist
+		}
+		prerequisite = {
+                        focus = GUA_PGT_countercoup
+                }
+
+		relative_position_id = GUA_PGT_countercoup
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"
+                        
+		}
+	}
+	focus = {
+		id = GUA_block_further_expansion_of_UFC
+		icon = GFX_goal_GUA_Block_Further_Expansion_UFC
+		x = 2
+		y = 2
+		cost = 5
+
+		available = {
+			has_government = radical_socialist
+		}
+		prerequisite = {
+                        focus = GUA_crossroads_of_party
+                }
+
+		relative_position_id = GUA_PGT_countercoup
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"	
+		}
+	}
+	focus = {
+		id = GUA_octubre_newspaper
+		icon = GFX_goal_GUA_Distribute_Octubre_Newspaper
+		x = 2
+		y = 4
+		cost = 5
+
+		available = {
+			has_government = radical_socialist
+		}
+		prerequisite = {
+                        focus = GUA_block_further_expansion_of_UFC
+                }
+
+		relative_position_id = GUA_PGT_countercoup
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"	
+		}
+	}
+	focus = {
+		id = GUA_pacify_military
+		icon = GFX_goal_GUA_Pacify_Military
+		x = 1
+		y = 5
+		cost = 5
+
+		available = {
+			has_government = radical_socialist
+		}
+		prerequisite = {
+                        focus = GUA_octubre_newspaper
+                }
+
+		relative_position_id = GUA_PGT_countercoup
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"	
+		}
+	}
+	focus = {
+		id = GUA_direct_action
+		icon = GFX_goal_GUA_Question_Direct_Action
+		x = 0
+		y = 2
+		cost = 5
+
+		available = {
+			has_government = radical_socialist
+		}
+		prerequisite = {
+                        focus = GUA_crossroads_of_party
+                }
+
+		relative_position_id = GUA_PGT_countercoup
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"	
+		}
+	}
+	focus = {
+		id = GUA_all_forms_of_struggle
+		icon = GFX_goal_GUA_Towards_All_Forms_Struggle_Doctrine
+		x = 1
+		y = 3
+		cost = 5
+
+		available = {
+			has_government = totalist
+		}
+		prerequisite = {
+                        focus = GUA_direct_action
+                }
+                mutually_exclusive = {
+                        focus = GUA_international_pacifism
+                }
+
+		relative_position_id = GUA_PGT_countercoup
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"	
+		}
+	}
+	focus = {
+		id = GUA_international_pacifism
+		icon = GFX_goal_GUA_Pacifism_World_Stage
+		x = -1
+		y = 3
+		cost = 5
+
+		available = {
+			has_government = radical_socialist
+		}
+		prerequisite = {
+                        focus = GUA_direct_action
+                }
+                mutually_exclusive = {
+                        focus = GUA_all_forms_of_struggle
+                }
+
+		relative_position_id = GUA_PGT_countercoup
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"	
+		}
+	}
+	focus = {
+		id = GUA_encourage_union_participation
+		icon = GFX_goal_GUA_Encourage_Union_Participation
+		x = 0
+		y = 4
+		cost = 5
+
+		available = {
+			has_government = radical_socialist
+		}
+		prerequisite = {
+                        focus = GUA_international_pacifism
+                        focus = GUA_all_forms_of_struggle
+                }
+
+		relative_position_id = GUA_PGT_countercoup
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"	
+		}
+	}
+	focus = {
+		id = GUA_adopt_arbenz_preffered_project
+		icon = GFX_goal_GUA_Adopt_Arbenzs_Preferred_Project
+		x = -2
+		y = 2
+		cost = 5
+
+		available = {
+			has_government = radical_socialist
+		}
+		prerequisite = {
+                        focus = GUA_crossroads_of_party
+                }
+
+		relative_position_id = GUA_PGT_countercoup
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"	
+		}
+	}
+	focus = {
+		id = GUA_cooperate_with_student_movements
+		icon = GFX_goal_GUA_Cooperate_With_School_Movements
+		x = -2
+		y = 4
+		cost = 5
+
+		available = {
+			has_government = radical_socialist
+		}
+		prerequisite = {
+                        focus = GUA_adopt_arbenz_preffered_project
+                }
+
+		relative_position_id = GUA_PGT_countercoup
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"	
+		}
+	}
+	focus = {
+		id = GUA_uplift_the_popular_sector
+		icon = GFX_goal_GUA_Uplift_Popular_Sector
+		x = -1
+		y = 5
+		cost = 5
+
+		available = {
+			has_government = radical_socialist
+		}
+		prerequisite = {
+                        focus = GUA_cooperate_with_student_movements
+                }
+
+		relative_position_id = GUA_PGT_countercoup
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"	
+		}
+	}
+	focus = {
+		id = GUA_studying_works_of_miguel_angel_asturias
+		icon = GFX_goal_GUA_Backbone_Socialism_Central_America
+		x = 0
+		y = 6
+		cost = 5
+
+		available = {
+			has_government = radical_socialist
+		}
+		prerequisite = {
+                        focus = GUA_uplift_the_popular_sector
+                }
+		prerequisite = {
+                        focus = GUA_pacify_military
+                }
+		prerequisite = {
+                        focus = GUA_encourage_union_participation
+                }
+
+		relative_position_id = GUA_PGT_countercoup
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"	
+		}
+	}
+	focus = {
+		id = GUA_backbone_of_socialism
+		icon = GFX_goal_GUA_Backbone_Socialism_Central_America
+		x = 0
+		y = 7
+		cost = 5
+
+		available = {
+			has_government = radical_socialist
+		}
+		prerequisite = {
+                        focus = GUA_studying_works_of_miguel_angel_asturias
+                }
+
+		relative_position_id = GUA_PGT_countercoup
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_dont_depose_me"	
+		}
+	}
+
+
+        #
 	focus = {
 		id = GUA_abandon_monroe_thought
 		icon = GFX_goal_GUA_Army
-		x = 11
+		x = 16
 		y = 0
-		cost = 6
-
-		available = {
-			OR = {
-				has_global_flag = USA_civil_war_begun_flag
-				has_global_flag = USA_civil_war_avoided_flag
-			}
-		}
+		cost = 5
 
 		ai_will_do = {
 			factor = 100
@@ -1410,6 +3953,12 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GUA_abandon_monroe_thought"
+			USA = {
+				add_opinion_modifier = {
+					target = GUA
+					modifier = embargo
+					}
+			}
 			remove_ideas = {
 				CEN_monroe_doctrine
 			}
@@ -1421,7 +3970,7 @@ focus_tree = {
 		icon = GFX_RUS_Enlist_Army_Support
 		x = -2
 		y = 1
-		cost = 6
+		cost = 5
 
 		relative_position_id = GUA_abandon_monroe_thought
 
@@ -1443,7 +3992,7 @@ focus_tree = {
 	name = land_doc_bonus
 	cost_reduction = 0.5
 	uses = 1
-	category = land_doctrine
+	category = cat_superior_firepower
 			}
 			army_experience = 25
 		}
@@ -1455,7 +4004,7 @@ focus_tree = {
 		icon = GFX_goal_generic_mountain_artillery
 		x = -3
 		y = 2
-		cost = 6
+		cost = 5
 
 		relative_position_id = GUA_abandon_monroe_thought
 
@@ -1483,7 +4032,7 @@ focus_tree = {
 		icon = GFX_goal_generic_support_equipment
 		x = -4
 		y = 3
-		cost = 6
+		cost = 5
 
 		relative_position_id = GUA_abandon_monroe_thought
 
@@ -1511,7 +4060,7 @@ focus_tree = {
 		icon = GFX_goal_USA_integral_mechanization
 		x = -2
 		y = 3
-		cost = 6
+		cost = 5
 
 		relative_position_id = GUA_abandon_monroe_thought
 
@@ -1539,7 +4088,7 @@ focus_tree = {
 		icon = GFX_goal_generic_army_superior_firepower
 		x = -3
 		y = 4
-		cost = 6
+		cost = 5
 
 		relative_position_id = GUA_abandon_monroe_thought
 
@@ -1558,7 +4107,7 @@ focus_tree = {
 	name = land_doc_bonus
 	cost_reduction = 0.5
 	uses = 1
-	category = land_doctrine
+	category = cat_superior_firepower
 			}
 			add_ideas = {
 				GUA_military_quality_production
@@ -1573,7 +4122,7 @@ focus_tree = {
 		icon = GFX_goal_KEN_peoples_army
 		x = 2
 		y = 1
-		cost = 6
+		cost = 5
 
 		relative_position_id = GUA_abandon_monroe_thought
 
@@ -1594,7 +4143,7 @@ focus_tree = {
 	name = land_doc_bonus
 	cost_reduction = 0.5
 	uses = 1
-	category = land_doctrine
+	category = cat_mass_assault
 			}
 			army_experience = 25
 		}
@@ -1606,7 +4155,7 @@ focus_tree = {
 		icon = GFX_goal_ZAM_arms_factory
 		x = 3
 		y = 2
-		cost = 6
+		cost = 5
 
 		relative_position_id = GUA_abandon_monroe_thought
 
@@ -1630,7 +4179,7 @@ focus_tree = {
 		icon = GFX_TRM_Obligatory_Conscription
 		x = 4
 		y = 3
-		cost = 6
+		cost = 5
 
 		relative_position_id = GUA_abandon_monroe_thought
 
@@ -1654,7 +4203,7 @@ focus_tree = {
 		icon = GFX_goal_BAN_gray_army
 		x = 2
 		y = 3
-		cost = 6
+		cost = 5
 
 		relative_position_id = GUA_abandon_monroe_thought
 
@@ -1678,7 +4227,7 @@ focus_tree = {
 		icon = GFX_goal_generic_army_mass_assault
 		x = 3
 		y = 4
-		cost = 6
+		cost = 5
 
 		relative_position_id = GUA_abandon_monroe_thought
 
@@ -1696,7 +4245,7 @@ focus_tree = {
 	name = land_doc_bonus
 	cost_reduction = 0.5
 	uses = 1
-	category = land_doctrine
+	category = cat_mass_assault
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -1737,7 +4286,7 @@ focus_tree = {
 		icon = GFX_HUN_fighters
 		x = 1
 		y = 2
-		cost = 6
+		cost = 5
 
 		relative_position_id = GUA_abandon_monroe_thought
 
@@ -1763,7 +4312,7 @@ focus_tree = {
 		icon = GFX_goal_GUA_Airforce
 		x = 0
 		y = 3
-		cost = 6
+		cost = 5
 
 		relative_position_id = GUA_abandon_monroe_thought
 
@@ -1794,9 +4343,9 @@ focus_tree = {
 	focus = {
 		id = GUA_computers_are_cool
 		icon = GFX_goal_PAN_Create_the_Universidad_de_Panama
-		x = 20
+		x = 25
 		y = 0
-		cost = 6
+		cost = 5
 
 
 		ai_will_do = {
@@ -1809,7 +4358,6 @@ focus_tree = {
 			add_ideas = {
 				GUA_university_investments
 			}
-			add_research_slot = 1
 		}
 	}
 
@@ -1818,7 +4366,7 @@ focus_tree = {
 		icon = GFX_RUS_Moderate_Industrialization
 		x = -3
 		y = 1
-		cost = 7
+		cost = 5
 
 		relative_position_id = GUA_computers_are_cool
 
@@ -1849,7 +4397,7 @@ focus_tree = {
 		icon = GFX_thenorthernraillink
 		x = -3
 		y = 2
-		cost = 6
+		cost = 5
 
 		relative_position_id = GUA_computers_are_cool
 
@@ -1878,7 +4426,7 @@ focus_tree = {
 		icon = GFX_GRU_CORPORATE_MILITARY_INDUSTRIAL_COMPLEX
 		x = -3
 		y = 3
-		cost = 7
+		cost = 5
 
 		relative_position_id = GUA_computers_are_cool
 
@@ -1908,7 +4456,7 @@ focus_tree = {
 		icon = GFX_NEE_needy_farmers
 		x = 0
 		y = 1
-		cost = 6
+		cost = 5
 
 		relative_position_id = GUA_computers_are_cool
 
@@ -1931,7 +4479,7 @@ focus_tree = {
 		icon = GFX_HON_sugar_plantations
 		x = -1
 		y = 2
-		cost = 6
+		cost = 5
 
 		relative_position_id = GUA_computers_are_cool
 
@@ -1954,7 +4502,7 @@ focus_tree = {
 		icon = GFX_goal_SZC_improvised_farming_machinery
 		x = 1
 		y = 2
-		cost = 6
+		cost = 5
 
 		relative_position_id = GUA_computers_are_cool
 
@@ -1977,7 +4525,7 @@ focus_tree = {
 		icon = GFX_goal_HON_BANANA
 		x = 0
 		y = 3
-		cost = 6
+		cost = 5
 
 		relative_position_id = GUA_computers_are_cool
 
@@ -2004,7 +4552,7 @@ focus_tree = {
 		icon = GFX_goal_generic_shipyard
 		x = 3
 		y = 1
-		cost = 6
+		cost = 5
 
 		relative_position_id = GUA_computers_are_cool
 
@@ -2032,7 +4580,7 @@ focus_tree = {
 		icon = GFX_USA_ports_atlantic
 		x = 3
 		y = 2
-		cost = 6
+		cost = 5
 
 		relative_position_id = GUA_computers_are_cool
 
@@ -2065,7 +4613,7 @@ focus_tree = {
 		icon = GFX_goal_GUA_Navy
 		x = 3
 		y = 3
-		cost = 6
+		cost = 5
 
 		relative_position_id = GUA_computers_are_cool
 
@@ -2093,7 +4641,7 @@ focus_tree = {
 		icon = GFX_goal_NFA_industrial_push_command
 		x = 0
 		y = 4
-		cost = 6
+		cost = 5
 
 		relative_position_id = GUA_computers_are_cool
 
@@ -2114,7 +4662,6 @@ focus_tree = {
 				uses = 2
 				category = industry
 			}
-			add_research_slot = 1
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -2122,9 +4669,9 @@ focus_tree = {
 	focus = {
 		id = GUA_ubico_returns
 		icon = GFX_RUS_I_Was_Never_A_Socialist
-		x = 18
-		y = 5
-		cost = 6
+		x = 21
+		y = 10
+		cost = 5
 
 		available = {
 			has_government = paternal_autocrat
@@ -2150,7 +4697,7 @@ focus_tree = {
 		icon = GFX_goal_GUA_Ubico_Return
 		x = 0
 		y = 1
-		cost = 6
+		cost = 5
 
 		available = {
 			has_government = paternal_autocrat
@@ -2178,7 +4725,7 @@ focus_tree = {
 		icon = GFX_goal_generic_build_housing
 		x = -1
 		y = 2
-		cost = 6
+		cost = 5
 
 		available = {
 			has_government = paternal_autocrat
@@ -2205,9 +4752,9 @@ focus_tree = {
 	focus = {
 		id = GUA_final_cleansing
 		icon = GFX_HUN_social_democracy
-		x = -1
+		x = -2
 		y = 3
-		cost = 6
+		cost = 5
 
 		available = {
 			has_government = paternal_autocrat
@@ -2236,7 +4783,7 @@ focus_tree = {
 		icon = GFX_goal_CRO_autonomous_government
 		x = -1
 		y = 4
-		cost = 6
+		cost = 5
 
 		available = {
 			has_government = paternal_autocrat
@@ -2260,10 +4807,10 @@ focus_tree = {
 
 	focus = {
 		id = GUA_ufc_puppet
-		icon = GFX_HON_ufc
+		icon = GFX_goal_GUA_True_Savior
 		x = 1
 		y = 2
-		cost = 6
+		cost = 5
 
 		available = {
 			has_government = paternal_autocrat
@@ -2294,9 +4841,9 @@ focus_tree = {
 	focus = {
 		id = GUA_tighten_ufc_grip
 		icon = GFX_goal_GUA_More_Fruit_Land
-		x = 1
+		x = 2
 		y = 3
-		cost = 6
+		cost = 5
 
 		available = {
 			has_government = paternal_autocrat
@@ -2330,7 +4877,7 @@ focus_tree = {
 		icon = GFX_goal_NFA_junta_prisoners
 		x = 1
 		y = 4
-		cost = 6
+		cost = 5
 
 		available = {
 			has_government = paternal_autocrat
@@ -2352,1175 +4899,33 @@ focus_tree = {
 			}
 		}
 	}
-	
 	focus = {
-		id = GUA_hail_emperor
-		icon = GFX_goal_GUA_Ubico_Larper
-		x = 33
-		y = 0
+		id = GUA_militarized_society
+		icon = GFX_goal_GUA_Militarized_Society
+		x = 0
+		y = 5
 		cost = 5
 
 		available = {
-			has_country_flag = ubico_emperor
+			has_government = paternal_autocrat
 		}
-		
-		bypass = {
-			has_country_flag = ubico_emperor
+
+		relative_position_id = GUA_ubico_returns
+
+		prerequisite = { focus = GUA_shadow_napoleon }
+		prerequisite = { focus = GUA_a_clean_guatemala }
+
+		ai_will_do = {
+			factor = 100
 		}
+
 
 		completion_reward = {
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	
-	focus = {
-		id = GUA_strenghten_position
-		icon = GFX_goal_NFA_review_army
-		x = 0
-		y = 1
-		cost = 2
-		
-		prerequisite = { focus = GUA_hail_emperor }
-		
-		relative_position_id = GUA_hail_emperor
-
-		completion_reward = {
-			add_popularity = { ideology = paternal_autocrat popularity = 0.10 }
-		}
-	}
-	
-	focus = {
-		id = GUA_put_end_to_socialist
-		icon = GFX_goal_NFA_strike_hidden_socialism
-		x = 2
-		y = 1
-		cost = 2
-		
-		relative_position_id = GUA_hail_emperor
-		
-		prerequisite = { focus = GUA_hail_emperor }
-
-		completion_reward = {
-			add_popularity = { ideology = totalist popularity = -0.10 }
-			add_popularity = { ideology = syndicalist popularity = -0.10 }
-			add_popularity = { ideology = radical_socialist popularity = -0.10 }
-		}
-	}
-	
-	focus = {
-		id = GUA_convince_military
-		icon = GFX_goal_NFA_colonial_pacification_campaign
-		x = -2
-		y = 1
-		cost = 2
-		
-		relative_position_id = GUA_hail_emperor
-		
-		prerequisite = { focus = GUA_hail_emperor }
-
-		completion_reward = {
-			add_popularity = { ideology = authoritarian_democrat popularity = -0.05 }
-			add_popularity = { ideology = national_populist popularity = -0.05 }
-			add_stability = 0.05
-		}
-	}
-	
-	focus = {
-		id = GUA_que_faire
-		icon = GFX_goal_GUA_Que_Faire
-		x = 0
-		y = 2
-		cost = 5
-		
-		relative_position_id = GUA_hail_emperor
-		
-		prerequisite = { focus = GUA_convince_military }
-		prerequisite = { focus = GUA_put_end_to_socialist }
-		prerequisite = { focus = GUA_strenghten_position }
-
-		completion_reward = {
-			country_event = {
-			id = french_guatemala.1
-			}
-		}
-	}
-	
-	focus = {
-		id = GUA_first_empire_larp
-		icon = GFX_goal_GUA_Napoleon_I
-		x = 4
-		y = 1
-		cost = 5
-		
-		relative_position_id = GUA_que_faire
-
-		available = {
-			has_country_flag = GUA_Empire_Authoritaire
-		}
-		
-		bypass = {
-			has_country_flag = GUA_Empire_Authoritaire
-		}
-		
-		prerequisite = { focus = GUA_que_faire }
-
-		completion_reward = {
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	
-	focus = {
-		id = GUA_second_empire_larp
-		icon = GFX_goal_GUA_Napoleon_III
-		x = -4
-		y = 1
-		cost = 5
-		
-		relative_position_id = GUA_que_faire
-
-		available = {
-			has_country_flag = GUA_Empire_Liberal
-		}
-		
-		bypass = {
-			has_country_flag = GUA_Empire_Liberal
-		}
-		
-		prerequisite = { focus = GUA_que_faire }
-
-		completion_reward = {
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	
-	focus = {
-		id = GUA_code_civil
-		icon = GFX_goal_GUA_Civil_Code
-		x = 0
-		y = 2
-		cost = 5
-		
-		relative_position_id = GUA_que_faire
-		
-		prerequisite = {
-			focus = GUA_second_empire_larp
-			focus = GUA_first_empire_larp
-		}
-
-		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GUA_shadow_napoleon"
 			add_ideas = {
-				GUA_code_civil_idea
+				GUA_militarized_society
 			}
 		}
 	}
-	
-	focus = {
-		id = GUA_french_cuck
-		icon = GFX_goal_NFA_frenchpurity
-		x = 2
-		y = 1
-		cost = 5
-		
-		relative_position_id = GUA_code_civil
-		
-		prerequisite = { focus = GUA_code_civil }
-		
-		mutually_exclusive = {
-			focus = GUA_french_friend
-		}
-
-		completion_reward = {
-			add_ideas = {
-				GUA_one_culture_idea
-			}
-			random_owned_state = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}
-		}
-	}
-	
-	focus = {
-		id = GUA_french_friend
-		icon = GFX_goal_GUA_Central_Values
-		x = -2
-		y = 1
-		cost = 5
-		
-		relative_position_id = GUA_code_civil
-		
-		prerequisite = { focus = GUA_code_civil }
-		
-		mutually_exclusive = {
-			focus = GUA_french_cuck
-		}
-
-		completion_reward = {
-			add_ideas = {
-				GUA_two_culture_idea
-			}
-			random_owned_state = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}
-			custom_effect_tooltip = GUA_no_conquest
-		}
-	}
-	
-	focus = {
-		id = GUA_french_settlers
-		icon = GFX_goal_NFA_army_prestige
-		x = 0
-		y = 2
-		cost = 5
-		
-		relative_position_id = GUA_code_civil
-		
-		prerequisite = {
-			focus = GUA_french_cuck
-			focus = GUA_french_friend
-		}
-
-		completion_reward = {
-			add_research_slot = 1
-			add_manpower = 5000
-		}
-	}
-	
-	focus = {
-		id = GUA_limited_liberalisation
-		icon = GFX_goal_NFA_liberal_era
-		x = 0
-		y = 1
-		cost = 5
-		
-		relative_position_id = GUA_second_empire_larp
-		
-		prerequisite = { focus = GUA_second_empire_larp }
-
-		completion_reward = {
-			add_stability = 0.10
-			add_popularity = {
-				ideology = social_conservative
-				popularity = 0.05
-			}
-		
-			add_popularity = {
-				ideology = market_liberal
-				popularity = 0.04
-			}
-		
-			add_popularity = {
-				ideology = social_liberal
-				popularity = 0.03
-			}
-		
-			add_popularity = {
-				ideology = social_democrat
-				popularity = 0.02
-			}
-		}
-	}
-	
-	focus = {
-		id = GUA_legislature_power
-		icon = GFX_goal_NFA_republican_rejuvenation
-		x = 0
-		y = 2
-		cost = 5
-		
-		relative_position_id = GUA_second_empire_larp
-		
-		prerequisite = { focus = GUA_limited_liberalisation }
-
-		completion_reward = {
-			country_event = {
-			id = french_guatemala.2
-			}
-		}
-	}
-	
-	focus = {
-		id = GUA_plebiscite
-		icon = GFX_goal_GUA_Plebiscite
-		x = -2
-		y = 1
-		cost = 5
-		
-		relative_position_id = GUA_second_empire_larp
-		
-		prerequisite = { focus = GUA_second_empire_larp }
-
-		completion_reward = {
-			add_political_power = 175
-			increase_ruling_party_popularity_by_10 = yes
-		}
-	}
-	
-	focus = {
-		id = GUA_Loi_Ollivier_2
-		icon = GFX_goal_GUA_Loi_Ollivier
-		x = -2
-		y = 2
-		cost = 5
-		
-		relative_position_id = GUA_second_empire_larp
-		
-		prerequisite = { focus = GUA_plebiscite }
-
-		completion_reward = {
-			add_ideas = {
-				GUA_social_empire
-			}
-			random_owned_state = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}
-			add_tech_bonus = {
-				bonus = 1
-				uses = 2
-				category = industry
-			}
-		}
-	}
-	
-	focus = {
-		id = GUA_napy3_dream
-		icon = GFX_goal_GUA_Napoleon_III_Dream
-		x = 0
-		y = 3
-		cost = 5
-		
-		relative_position_id = GUA_second_empire_larp
-		
-		prerequisite = { focus = GUA_Loi_Ollivier_2 }
-		prerequisite = { focus = GUA_legislature_power }
-
-		completion_reward = {
-			add_ideas = {
-				GUA_napy3_idea
-			}
-		}
-	}
-	
-	focus = {
-		id = GUA_departements
-		icon = GFX_goal_GUA_Departements
-		x = 0
-		y = 1
-		cost = 5
-		
-		relative_position_id = GUA_first_empire_larp
-		
-		prerequisite = { focus = GUA_first_empire_larp }
-
-		completion_reward = {
-			add_political_power = 125
-			increase_ruling_party_popularity_by_10 = yes
-			add_tech_bonus = {
-				bonus = 1
-				uses = 2
-				category = industry
-			}
-		}
-	}
-	
-	focus = {
-		id = GUA_military_legacy
-		icon = GFX_goal_GUA_Military_Legacy
-		x = 0
-		y = 2
-		cost = 5
-		
-		relative_position_id = GUA_first_empire_larp
-		
-		prerequisite = { focus = GUA_departements }
-
-		completion_reward = {
-			add_equipment_to_stockpile = {
-				type = infantry_equipment
-				amount = 1000
-				producer = GUA
-			}
-			random_owned_controlled_state = {
-				add_extra_state_shared_building_slots = 3
-				add_building_construction = {
-					type = arms_factory
-					level = 3
-					instant_build = yes
-				}
-			}
-			army_experience = 100
-		}
-	}
-	
-	focus = {
-		id = GUA_renovation
-		icon = GFX_goal_NFA_post_syndie_boom
-		x = 2
-		y = 1
-		cost = 5
-		
-		relative_position_id = GUA_first_empire_larp
-		
-		prerequisite = { focus = GUA_first_empire_larp }
-
-		completion_reward = {
-			random_owned_state = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
-			random_owned_state = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
-			random_owned_state = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
-		}
-	}
-	
-	focus = {
-		id = GUA_cult_of_personnality
-		icon = GFX_goal_GUA_Napoleon_Cult
-		x = 2
-		y = 2
-		cost = 5
-		
-		relative_position_id = GUA_first_empire_larp
-		
-		prerequisite = { focus = GUA_renovation }
-
-		completion_reward = {
-			add_ideas = {
-				GUA_personality_cult_idea
-			}
-		}
-	}
-	
-	focus = {
-		id = GUA_napy_dream
-		icon = GFX_goal_napoleonic_state
-		x = 0
-		y = 3
-		cost = 5
-		
-		relative_position_id = GUA_first_empire_larp
-		
-		prerequisite = { focus = GUA_military_legacy }
-		prerequisite = { focus = GUA_cult_of_personnality }
-
-		completion_reward = {
-			add_ideas = {
-				GUA_napy1_idea
-			}
-		}
-	}
-	
-	focus = {
-		id = GUA_conquest_larp
-		icon = GFX_goal_GUA_Napoleon_Horse
-		x = 0
-		y = 2
-		cost = 5
-		
-		relative_position_id = GUA_french_cuck
-		
-		prerequisite = { focus = GUA_french_settlers }
-		
-		prerequisite = {
-			focus = GUA_napy_dream
-			focus = GUA_napy3_dream
-		}
-		
-		mutually_exclusive = {
-			focus = GUA_neutrality_fp
-		}
-
-		completion_reward = {
-			add_stability = -0.05
-			add_war_support = 0.10
-		}
-	}
-	
-	focus = {
-		id = GUA_russia
-		icon = GFX_goal_GUA_Ruxcio
-		x = 0
-		y = 1
-		cost = 5
-		
-		available = {
-			has_war = no
-			is_subject = no
-		}
-		
-		relative_position_id = GUA_conquest_larp
-		
-		prerequisite = { focus = GUA_conquest_larp }
-
-		completion_reward = {
-			create_wargoal = {
-				type = annex_everything
-				target = MEX
-			}
-			
-			add_state_core = 1253
-			add_state_core = 475
-			add_state_core = 1252
-			add_state_core = 1254
-			add_state_core = 474
-			add_state_core = 1255
-		}
-	}
-	
-	focus = {
-		id = GUA_britain
-		icon = GFX_goal_GUA_Albion
-		x = 2
-		y = 1
-		cost = 5
-		
-		available = {
-			has_war = no
-			is_subject = no
-		}
-		
-		relative_position_id = GUA_conquest_larp
-		
-		prerequisite = { focus = GUA_conquest_larp }
-
-		completion_reward = {
-			create_wargoal = {
-				type = annex_everything
-				target = CUB
-			}
-		}
-	}
-	
-	focus = {
-		id = GUA_could_not_do
-		icon = GFX_goal_GUA_Ubico_Best
-		x = 1
-		y = 2
-		cost = 5
-		
-		available = {
-			has_war = no
-			is_subject = no
-			OR = {
-				277 = { is_owned_and_controlled_by = GUA }
-				AND = {
-					277 = { is_owned_and_controlled_by = MEX }
-					MEX = {
-						is_subject_of = GUA
-					}
-				}
-			}
-			OR = {
-				315 = { is_owned_and_controlled_by = GUA }
-				AND = {
-					315 = { is_owned_and_controlled_by = CUB }
-					CUB = {
-						is_subject_of = GUA
-					}
-				}
-			}
-		}
-		
-		relative_position_id = GUA_conquest_larp
-		
-		prerequisite = { focus = GUA_russia }
-		prerequisite = { focus = GUA_britain }
-
-		completion_reward = {
-			add_ideas = GUA_heir_napoleon
-			add_war_support = 0.15
-		}
-	}
-	
-	focus = {
-		id = GUA_spain
-		icon = GFX_goal_NFE_peninsular_war
-		x = 0
-		y = 3
-		cost = 5
-		
-		available = {
-			has_war = no
-			is_subject = no
-			NOT = { has_completed_focus = GUA_french_friend }
-		}
-		
-		relative_position_id = GUA_conquest_larp
-		
-		prerequisite = { focus = GUA_could_not_do }
-
-		completion_reward = {
-			if = {
-				limit = { SPR = { exists = yes } }
-				create_wargoal = {
-					type = annex_everything
-					target = SPR
-				}
-			}
-			if = {
-				limit = { CAR = { exists = yes } }
-				create_wargoal = {
-					type = annex_everything
-					target = CAR
-				}
-			}
-			if = {
-				limit = { CNT = { exists = yes } }
-				create_wargoal = {
-					type = annex_everything
-					target = CNT
-				}
-			}
-		}
-	}
-	
-	focus = {
-		id = GUA_france
-		icon = GFX_goal_NFA_liberation
-		x = 2
-		y = 3
-		cost = 5
-		
-		available = {
-			has_war = no
-			is_subject = no
-			NOT = { has_completed_focus = GUA_french_friend }
-		}
-		
-		relative_position_id = GUA_conquest_larp
-		
-		prerequisite = { focus = GUA_could_not_do }
-
-		completion_reward = {
-			create_wargoal = {
-				type = annex_everything
-				target = FRA
-			}
-			every_state = {
-				limit = {
-					OR = {
-						is_core_of = FRA
-						is_core_of = NFA
-					}
-				}
-				add_core_of = GUA
-			}
-		}
-	}
-	
-	focus = {
-		id = GUA_new_empire
-		icon = GFX_goal_GUA_Napoleon_Splendour
-		x = 1
-		y = 4
-		cost = 5
-		
-		available = {
-			has_war = no
-			is_subject = no
-			owns_state = 16
-		}
-		
-		relative_position_id = GUA_conquest_larp
-		
-		prerequisite = { focus = GUA_france }
-		prerequisite = { focus = GUA_spain }
-
-		completion_reward = {
-			set_cosmetic_tag = GUA_EMPIRE_FRANCE
-			set_capital = { state = 16 }
-		}
-		
-	}
-	
-	focus = {
-		id = GUA_neutrality_fp
-		icon = GFX_goal_GUA_Preserve_Empire
-		x = 0
-		y = 2
-		cost = 5
-		
-		relative_position_id = GUA_french_friend
-		
-		prerequisite = { focus = GUA_french_settlers }
-		
-		prerequisite = {
-			focus = GUA_napy_dream
-			focus = GUA_napy3_dream
-		}
-		
-		mutually_exclusive = {
-			focus = GUA_conquest_larp
-		}
-
-		completion_reward = {
-			add_stability = 0.10
-			add_war_support = -0.10
-		}
-	}
-	
-	focus = {
-		id = GUA_infrastcture_dev
-		icon = GFX_goal_NFA_nationalise_inf
-		x = 0
-		y = 1
-		cost = 5
-		
-		relative_position_id = GUA_neutrality_fp
-		
-		prerequisite = { focus = GUA_neutrality_fp }
-
-		completion_reward = {
-			every_owned_state = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-		}
-	}
-	
-	focus = {
-		id = GUA_focus_people
-		icon = GFX_goal_NFA_economic_mob
-		x = -2
-		y = 1
-		cost = 5
-		
-		relative_position_id = GUA_neutrality_fp
-		
-		prerequisite = { focus = GUA_neutrality_fp }
-
-		completion_reward = {
-			random_owned_state = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
-		}
-	}
-	
-	focus = {
-		id = GUA_nfa_remnants
-		icon = GFX_goal_NFA_kingdom_from_ashes
-		x = -1
-		y = 2
-		cost = 5
-		
-		available = {
-			NFA = {
-				exists = no
-			}
-		}
-		
-		relative_position_id = GUA_neutrality_fp
-		
-		prerequisite = { focus = GUA_focus_people }
-		prerequisite = { focus = GUA_infrastcture_dev }
-
-		completion_reward = {
-			add_political_power = 25
-			country_event = {
-			id = french_guatemala.3
-			}
-		}
-	}
-	
-	focus = {
-		id = GUA_nfa_start
-		icon = GFX_goal_GUA_Second_Exil
-		x = -2
-		y = 1
-		cost = 5
-		
-		relative_position_id = GUA_nfa_remnants
-		
-		available = {
-			has_country_flag = GUA_NFA
-		}
-		
-		bypass = {
-			has_country_flag = GUA_NFA
-		}
-
-		completion_reward = {
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	
-	focus = {
-		id = GUA_crush_false_emperor
-		icon = GFX_goal_GUA_Deal_With_Ubico
-		x = -1
-		y = 1
-		cost = 5
-
-		relative_position_id = GUA_nfa_start
-
-		prerequisite = { focus = GUA_nfa_start }
-
-		completion_reward = {
-			add_popularity = { ideology = authoritarian_democrat popularity = -0.15 }
-			add_popularity = { ideology = social_conservative popularity = -0.15 }
-		}
-	}
-
-	focus = {
-		id = GUA_not_lost_yet
-		icon = GFX_goal_GUA_Resistance
-		x = 1
-		y = 1
-		cost = 5
-
-		relative_position_id = GUA_nfa_start
-
-		prerequisite = { focus = GUA_nfa_start }
-
-		completion_reward = {
-			add_ideas = {
-				GUA_nfa_resistance
-			}
-		}
-	}
-	
-	focus = {
-		id = GUA_not_lost_yet_2
-		icon = GFX_goal_GUA_Liberation
-		x = 1
-		y = 2
-		cost = 5
-
-		relative_position_id = GUA_nfa_start
-
-		prerequisite = { focus = GUA_not_lost_yet }
-
-		completion_reward = {
-			add_political_power = 150
-			add_war_support = 0.10
-			add_tech_bonus = {
-				bonus = 1
-				uses = 2
-				category = infantry_weapons
-			}
-			add_equipment_to_stockpile = {
-				type = infantry_equipment
-				amount = 5000
-				producer = NFA
-			}
-		}
-	}
-	
-	focus = {
-		id = GUA_silence_locals
-		icon = GFX_goal_GUA_Silence_People
-		x = -1
-		y = 2
-		cost = 5
-
-		relative_position_id = GUA_nfa_start
-
-		prerequisite = { focus = GUA_crush_false_emperor }
-
-		completion_reward = {
-			add_popularity = { ideology = social_liberal popularity = -0.05 }
-			add_popularity = { ideology = social_democrat popularity = -0.05 }
-			add_popularity = { ideology = market_liberal popularity = -0.05 }
-			add_popularity = { ideology = radical_socialist popularity = -0.05 }
-			add_popularity = { ideology = national_populist popularity = -0.05 }
-			add_popularity = { ideology = syndicalist popularity = -0.05 }
-			add_popularity = { ideology = totalist popularity = -0.05 }
-			add_stability = -0.10
-		}
-	}
-	
-	focus = {
-		id = GUA_our_base
-		icon = GFX_goal_NFA_morality_and_service
-		x = -2
-		y = 3
-		cost = 5
-
-		relative_position_id = GUA_nfa_start
-		
-		mutually_exclusive = {
-			focus = GUA_our_home
-		}
-
-		prerequisite = { focus = GUA_silence_locals }
-		prerequisite = { focus = GUA_not_lost_yet_2 }
-
-		completion_reward = {
-			add_ideas = {
-				GUA_nfa_base
-			}
-			random_owned_state = {
-				add_extra_state_shared_building_slots = 3
-				add_building_construction = {
-					type = dockyard
-					level = 3
-					instant_build = yes
-				}
-			}
-		}
-	}
-	
-	focus = {
-		id = GUA_our_home
-		icon = GFX_goal_GUA_Notre_Maison
-		x = 2
-		y = 3
-		cost = 5
-
-		relative_position_id = GUA_nfa_start
-		
-		mutually_exclusive = {
-			focus = GUA_our_base
-		}
-
-		prerequisite = { focus = GUA_silence_locals }
-		prerequisite = { focus = GUA_not_lost_yet_2 }
-
-		completion_reward = {
-			add_ideas = {
-				GUA_nfa_home
-			}
-		}
-	}
-	
-	focus = {
-		id = GUA_mass_conscription
-		icon = GFX_goal_NFA_All_For_the_Liberation
-		x = 1
-		y = 1
-		cost = 5
-
-		relative_position_id = GUA_our_base
-
-		prerequisite = { focus = GUA_our_base }
-
-		completion_reward = {
-			add_stability = -0.15
-			add_manpower = 30000
-		}
-	}
-	
-	focus = {
-		id = GUA_mass_militarisation
-		icon = GFX_goal_GUA_Jungle_Warfare
-		x = -1
-		y = 1
-		cost = 5
-
-		relative_position_id = GUA_our_base
-
-		prerequisite = { focus = GUA_our_base }
-
-		completion_reward = {
-			add_stability = -0.15
-			random_owned_controlled_state = {
-				add_extra_state_shared_building_slots = 5
-				add_building_construction = {
-					type = arms_factory
-					level = 5
-					instant_build = yes
-				}
-			}
-		}
-	}
-	
-	focus = {
-		id = GUA_en_avant
-		icon = GFX_goal_GUA_Avant
-		x = 0
-		y = 2
-		cost = 5
-
-		relative_position_id = GUA_our_base
-
-		prerequisite = { focus = GUA_mass_conscription }
-		prerequisite = { focus = GUA_mass_militarisation }
-
-		completion_reward = {
-			add_war_support = 0.25
-			create_wargoal = {
-				type = annex_everything
-				target = FRA
-			}
-			every_state = {
-				limit = {
-					OR = {
-						is_core_of = FRA
-						is_core_of = NFA
-					}
-				}
-				add_core_of = GUA
-			}
-		}
-	}
-	
-	focus = {
-		id = GUA_la_liberation
-		icon = GFX_goal_NFA_government_consensus
-		x = 0
-		y = 3
-		cost = 5
-
-		relative_position_id = GUA_our_base
-
-		prerequisite = { focus = GUA_en_avant }
-		
-		available = {
-			has_war = no
-			is_subject = no
-			owns_state = 16
-		}
-
-		completion_reward = {
-			add_political_power = 300
-			add_stability = 0.30
-			add_war_support = -0.20
-			set_capital = { state = 16 }
-		}
-	}
-	
-	focus = {
-		id = GUA_segregation
-		icon = GFX_goal_LPD_segregation
-		x = 1
-		y = 1
-		cost = 5
-
-		relative_position_id = GUA_our_home
-
-		prerequisite = { focus = GUA_our_home }
-
-		completion_reward = {
-			add_stability = -0.05
-			add_ideas = {
-				GUA_nfa_segregation
-			}
-		}
-	}
-	
-	focus = {
-		id = GUA_frenchisation
-		icon = GFX_goal_NFA_marianne
-		x = -1
-		y = 1
-		cost = 5
-
-		relative_position_id = GUA_our_home
-
-		prerequisite = { focus = GUA_our_home }
-
-		completion_reward = {
-			add_stability = -0.05
-			add_manpower = -2000
-			random_owned_state = {
-				add_extra_state_shared_building_slots = 5
-				add_building_construction = {
-					type = industrial_complex
-					level = 5
-					instant_build = yes
-				}
-			}
-		}
-	}
-	
-	focus = {
-		id = GUA_nouvelle_france
-		icon = GFX_goal_GUA_Nouvelle_France
-		x = 0
-		y = 2
-		cost = 5
-
-		relative_position_id = GUA_our_home
-
-		prerequisite = { focus = GUA_segregation }
-		prerequisite = { focus = GUA_frenchisation }
-
-		completion_reward = {
-			country_event = french_guatemala.6
-			add_popularity = {
-			ideology = paternal_autocrat
-			popularity = 0.10
-			}
-			add_stability = 0.10
-			add_tech_bonus = {
-				bonus = 1
-				uses = 2
-				category = industry
-			}
-			add_research_slot = 1
-		}
-	}
-	
-	focus = {
-		id = GUA_louis_michel_aury
-		icon = GFX_goal_GUA_Aury
-		x = 0
-		y = 3
-		cost = 5
-
-		relative_position_id = GUA_our_home
-
-		prerequisite = { focus = GUA_nouvelle_france }
-
-		completion_reward = {
-			every_owned_state = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-			random_owned_state = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = dockyard
-					level = 2
-					instant_build = yes
-				}
-			}
-			add_political_power = 300
-		}
-	}
-	
 }
 

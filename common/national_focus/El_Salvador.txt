@@ -1,7 +1,8 @@
 ##############################
 ### El Salvador Focus Tree ###
 ### Done by Drozdovite and ###
-### Beelzebub			###
+### Beelzebub		   ###
+### Reworked by Pogge      ###
 ##############################
 
 focus_tree = {
@@ -14,43 +15,22 @@ focus_tree = {
 		}
 	}
 	default = no
-	continuous_focus_position = { x = 100 y = 1100 }
+	continuous_focus_position = { x = -400 y = 1100 }
 
 	#Political Tree
-	focus = {
-		id = ELS_37_revolution
-		icon = GFX_RUS_Panic_In_Petrograd
-		x = 8
-		y = 0
-		cost = 7.2
-		ai_will_do = {
-			factor = 5
-		}
-		available = {
-			always = no
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_37_revolution"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
 
 	focus = {
 		id = ELS_vanguard_stands
-		icon = GFX_RUS_Revive_National_Identity
-		x = -5
-		y = 1
+		icon = GFX_goal_ELS_The_Vanguard_Stands
+		x = -30
+		y = 0
 		cost = 7.2
 
-		relative_position_id = ELS_37_revolution
 
 		ai_will_do = {
 			factor = 5
 		}
-		prerequisite = {
-			focus = ELS_37_revolution
-		}
+
 		available = {
 			always = no
 		}
@@ -64,13 +44,12 @@ focus_tree = {
 
 	focus = {
 		id = ELS_new_guard
-		icon = GFX_RUS_Kerensky_Martial_Law
-		x = -8
-		y = 2
+		icon = GFX_goal_ELS_Salinas_New_Guard
+		x = -6
+		y = 1
 		cost = 7.2
 
-		relative_position_id = ELS_37_revolution
-
+		relative_position_id = ELS_vanguard_stands
 		ai_will_do = {
 			factor = 5
 		}
@@ -92,19 +71,14 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
-		id = ELS_small_liberties
-		icon = GFX_goal_generic_controlled_board
-		x = -8
-		y = 3
+		id = ELS_police_crackdown_on_opponents
+		icon = GFX_goal_ELS_Crackdown_On_Opposition
+		x = -1
+		y = 1
 		cost = 7.2
 
-		relative_position_id = ELS_37_revolution
-		available = {
-			has_government = paternal_autocrat
-		}
-
+		relative_position_id = ELS_new_guard
 		ai_will_do = {
 			factor = 5
 		}
@@ -113,174 +87,287 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_small_liberties"
-			add_ideas = ELS_new_guard1
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-	}
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
 
+		}
+	}
 	focus = {
-		id = ELS_strengthen_police
-		icon = GFX_goal_generic_police_state
-		x = -8
+		id = ELS_dismissing_the_constitutional_chamber
+		icon = GFX_goal_ELS_Influence_Supreme_Court
+		x = 1
+		y = 1
+		cost = 7.2
+
+		relative_position_id = ELS_new_guard
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_new_guard
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
+
+		}
+	}
+	focus = {
+		id = ELS_enacting_martial_law
+		icon = GFX_goal_ELS_Solidify_Our_Party
+		x = 0
+		y = 2
+		cost = 7.2
+
+		relative_position_id = ELS_new_guard
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_dismissing_the_constitutional_chamber
+		}
+		prerequisite = {
+			focus = ELS_police_crackdown_on_opponents
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
+
+		}
+	}
+	focus = {
+		id = ELS_trialing_the_rebels
+		icon = GFX_goal_ELS_Break_Student_Protests
+		x = -2
+		y = 3
+		cost = 7.2
+
+		relative_position_id = ELS_new_guard
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_enacting_martial_law
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
+
+		}
+	}
+	focus = {
+		id = ELS_empowering_the_police_force
+		icon = GFX_goal_ELS_Fund_National_Police
+		x = 0
+		y = 3
+		cost = 7.2
+
+		relative_position_id = ELS_new_guard
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_enacting_martial_law
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
+
+		}
+	}
+	focus = {
+		id = ELS_fighting_american_influence
+		icon = GFX_goal_ELS_Move_Against_American_Interests
+		x = 2
+		y = 3
+		cost = 7.2
+
+		relative_position_id = ELS_new_guard
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_enacting_martial_law
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
+
+		}
+	}
+	focus = {
+		id = ELS_regulating_the_executive
+		icon = GFX_goal_ELS_Introduce_Executive_Regulations
+		x = 1
 		y = 4
 		cost = 7.2
 
-		relative_position_id = ELS_37_revolution
-		available = {
-			has_government = paternal_autocrat
-		}
-
+		relative_position_id = ELS_new_guard
 		ai_will_do = {
 			factor = 5
 		}
+                mutually_exclusive = { 
+                        focus = ELS_the_state_of_siege
+                }
 		prerequisite = {
-			focus = ELS_small_liberties
+			focus = ELS_fighting_american_influence
+		}
+		prerequisite = {
+			focus = ELS_empowering_the_police_force
+		}
+		prerequisite = {
+			focus = ELS_trialing_the_rebels
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_strengthen_police"
-			swap_ideas = {
-				remove_idea = ELS_new_guard1
-				add_idea = ELS_new_guard2
-			}
-		}
-		search_filters = { FOCUS_FILTER_RESISTANCE FOCUS_FILTER_INDUSTRY }
-	}
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
 
+		}
+	}
 	focus = {
-		id = ELS_military_loyalties
-		icon = GFX_RUS_Get_Military
-		x = -8
+		id = ELS_meeting_with_minority_parties
+		icon = GFX_UKR_Conference_Federalist_Parties
+		x = 2
 		y = 5
 		cost = 7.2
 
-		relative_position_id = ELS_37_revolution
-		available = {
-			has_government = paternal_autocrat
-		}
-
+		relative_position_id = ELS_new_guard
 		ai_will_do = {
 			factor = 5
 		}
 		prerequisite = {
-			focus = ELS_strengthen_police
+			focus = ELS_regulating_the_executive
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_military_loyalties"
-			swap_ideas = {
-				remove_idea = ELS_new_guard2
-				add_idea = ELS_new_guard3
-			}
-			add_popularity = { ideology = paternal_autocrat popularity = 0.2 }
-		}
-		search_filters = { FOCUS_FILTER_RESISTANCE FOCUS_FILTER_INDUSTRY }
-	}
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
 
+		}
+	}
 	focus = {
-		id = ELS_new_republic
-		icon = GFX_goal_MEX_imperial_presidency
-		x = -8
+		id = ELS_softer_hand
+		icon = GFX_goal_NZL_abolish_head_tax
+		x = 1
 		y = 6
 		cost = 7.2
 
-		relative_position_id = ELS_37_revolution
-		available = {
-			has_government = paternal_autocrat
-		}
-
+		relative_position_id = ELS_new_guard
 		ai_will_do = {
 			factor = 5
 		}
 		prerequisite = {
-			focus = ELS_military_loyalties
+			focus = ELS_meeting_with_minority_parties
 		}
 		prerequisite = {
-			focus = ELS_rooting_memories
+			focus = ELS_coffee_economic_recovery
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_republic"
-			swap_ideas = {
-				remove_idea = ELS_new_guard3
-				add_idea = ELS_new_guard4
-			}
-			add_research_slot = 1
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_RESISTANCE FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
-	}
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
 
+		}
+	}
 	focus = {
-		id = ELS_constitution
-		icon = GFX_goal_MEX_new_constitution
-		x = -8
-		y = 7
+		id = ELS_coffee_economic_recovery
+		icon = GFX_goal_VIN_agricultural_modernization
+		x = 0
+		y = 5
 		cost = 7.2
 
-		relative_position_id = ELS_37_revolution
-		available = {
-			has_government = paternal_autocrat
-		}
-
+		relative_position_id = ELS_new_guard
 		ai_will_do = {
 			factor = 5
 		}
 		prerequisite = {
-			focus = ELS_new_republic
+			focus = ELS_the_state_of_siege
+			focus = ELS_regulating_the_executive
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_constitution"
-			swap_ideas = {
-				remove_idea = ELS_new_guard4
-				add_idea = ELS_new_guard5
-			}
-			remove_ideas = ELS_memories_32_part_3
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_RESISTANCE FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY }
-	}
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
 
+		}
+	}
 	focus = {
-		id = ELS_military_state
-		icon = GFX_RUS_Prussian_Constitutionalism
-		x = -6
-		y = 7
+		id = ELS_the_state_of_siege
+		icon = GFX_goal_ELS_Constitution_For_Salinas
+		x = -1
+		y = 4
 		cost = 7.2
 
-		relative_position_id = ELS_37_revolution
-		available = {
-			has_government = paternal_autocrat
+		relative_position_id = ELS_new_guard
+		ai_will_do = {
+			factor = 5
+		}
+                mutually_exclusive = { 
+                        focus = ELS_regulating_the_executive
+                }
+		prerequisite = {
+			focus = ELS_fighting_american_influence
+		}
+		prerequisite = {
+			focus = ELS_empowering_the_police_force
+		}
+		prerequisite = {
+			focus = ELS_trialing_the_rebels
 		}
 
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
+
+		}
+	}
+	focus = {
+		id = ELS_order_in_the_streets
+		icon = GFX_goal_ELS_Order_In_Streets
+		x = -2
+		y = 5
+		cost = 7.2
+
+		relative_position_id = ELS_new_guard
 		ai_will_do = {
 			factor = 5
 		}
 		prerequisite = {
-			focus = ELS_new_republic
+			focus = ELS_the_state_of_siege
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
+
+		}
+	}
+	focus = {
+		id = ELS_secure_republic
+		icon = GFX_goal_ELS_Secure_Military_Republic
+		x = -1
+		y = 6
+		cost = 7.2
+
+		relative_position_id = ELS_new_guard
+		ai_will_do = {
+			factor = 5
 		}
 		prerequisite = {
-			focus = ELS_military_relations
+			focus = ELS_order_in_the_streets
 		}
+		prerequisite = {
+			focus = ELS_coffee_economic_recovery
+		}
+
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_military_state"
-			swap_ideas = {
-				remove_idea = ELS_militirazation15
-				add_idea = ELS_militirazation2_left
-			}
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
+
 		}
-		search_filters = { FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_MANPOWER }
 	}
 
 	focus = {
 		id = ELS_pro_patria_stands
-		icon = GFX_goal_NFA_Endless_Devotion_Patrie_Imperiale
-		x = -2
-		y = 2
+		icon = GFX_goal_ELS_Pro_Patria_Holds_On
+		x = 6
+		y = 1
 		cost = 7.2
 
-		relative_position_id = ELS_37_revolution
-
+		relative_position_id = ELS_vanguard_stands
 		ai_will_do = {
 			factor = 5
 		}
@@ -302,19 +389,14 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
-		id = ELS_expand_military_youth
-		icon = GFX_goal_generic_paramilitary
-		x = -2
-		y = 3
+		id = ELS_hunt_socialists
+		icon = GFX_goal_BEL_Crush_Socialist_Rabble
+		x = -1
+		y = 1
 		cost = 7.2
 
-		relative_position_id = ELS_37_revolution
-		available = {
-			has_government = national_populist
-		}
-
+		relative_position_id = ELS_pro_patria_stands
 		ai_will_do = {
 			factor = 5
 		}
@@ -323,338 +405,752 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_expand_military_youth"
-			add_ideas = ELS_propatriaholds
-		}
-		search_filters = { FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_MANPOWER }
-	}
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_pro_patria_stands"
 
+		}
+	}
 	focus = {
-		id = ELS_promote_national_board
-		icon = GFX_goal_gold_jungle
+		id = ELS_ban_other_parties
+		icon = GFX_focus_HKG_Dem_Central
+		x = -1
+		y = 2
+		cost = 7.2
+
+		relative_position_id = ELS_pro_patria_stands
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_hunt_socialists
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_pro_patria_stands"
+
+		}
+	}
+	focus = {
+		id = ELS_revise_police_law
+		icon = GFX_goal_NFA_Discipline_Police
 		x = -2
-		y = 4
-		cost = 7.2
-
-		relative_position_id = ELS_37_revolution
-		available = {
-			has_government = national_populist
-		}
-
-		ai_will_do = {
-			factor = 5
-		}
-
-		prerequisite = {
-			focus = ELS_expand_military_youth
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_promote_national_board"
-			swap_ideas = {
-				remove_idea = ELS_propatriaholds
-				add_idea = ELS_propatriaholds2
-			}
-		}
-		search_filters = { FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY }
-	}
-
-	focus = {
-		id = ELS_power_one
-		icon = GFX_goal_ELS_Power_to_One
-		x = -2
-		y = 5
-		cost = 7.2
-
-		relative_position_id = ELS_37_revolution
-		available = {
-			has_government = national_populist
-		}
-
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = ELS_promote_national_board
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_power_one"
-			swap_ideas = {
-				remove_idea = ELS_propatriaholds2
-				add_idea = ELS_propatriaholds3
-			}
-			add_popularity = { ideology = national_populist popularity = 0.2 }
-		}
-		search_filters = { FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL }
-	}
-
-	focus = {
-		id = ELS_consolidate_state
-		icon = GFX_goal_COR_caesars_legacy
-		x = -2
-		y = 6
-		cost = 7.2
-
-		relative_position_id = ELS_37_revolution
-		available = {
-			has_government = national_populist
-		}
-
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = ELS_power_one
-		}
-		prerequisite = {
-			focus = ELS_rooting_memories
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_consolidate_state"
-			swap_ideas = {
-				remove_idea = ELS_propatriaholds3
-				add_idea = ELS_propatriaholds4
-			}
-			add_research_slot = 1
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_MANPOWER FOCUS_FILTER_POLITICAL FOCUS_FILTER_RESEARCH }
-	}
-
-	focus = {
-		id = ELS_law_reform
-		icon = GFX_RUS_Reform_Senate
-		x = -2
-		y = 7
-		cost = 7.2
-		relative_position_id = ELS_37_revolution
-		available = {
-			has_government = national_populist
-		}
-
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = ELS_consolidate_state
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_law_reform"
-			swap_ideas = {
-				remove_idea = ELS_propatriaholds4
-				add_idea = ELS_propatriaholds5
-			}
-			remove_ideas = ELS_memories_32_part_3
-			hidden_effect = { country_event = { id = els.212 days = 45 } }
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_MANPOWER FOCUS_FILTER_POLITICAL FOCUS_FILTER_RESEARCH }
-	}
-
-	focus = {
-		id = ELS_military_grants
-		icon = GFX_goal_COR_industrial_security_act
-		x = -4
-		y = 7
-		cost = 7.2
-
-		relative_position_id = ELS_37_revolution
-		available = {
-			has_government = national_populist
-		}
-
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = ELS_consolidate_state
-		}
-		prerequisite = {
-			focus = ELS_military_relations
-		}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_military_grants"
-			swap_ideas = {
-				remove_idea = ELS_militirazation15
-				add_idea = ELS_militirazation2_right
-			}
-		}
-		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY }
-	}
-
-	focus = {
-		id = ELS_eliminating_socialists
-		icon = GFX_RUS_Remember_1917
-		x = -5
 		y = 3
 		cost = 7.2
 
-		relative_position_id = ELS_37_revolution
-		available = {
-			OR = {
-				has_government = national_populist
-				has_government = paternal_autocrat
-			}
-		}
-
+		relative_position_id = ELS_pro_patria_stands
 		ai_will_do = {
 			factor = 5
 		}
 		prerequisite = {
-			focus = ELS_pro_patria_stands focus = ELS_new_guard
+			focus = ELS_ban_other_parties
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_eliminating_socialists"
-			add_timed_idea = { idea = ELS_cleanse_gommies days = 180}
-			swap_ideas = {
-				remove_idea = ELS_memories_32
-				add_idea = ELS_memories_32_part_2
-			}
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_pro_patria_stands"
+
 		}
-		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_MANPOWER FOCUS_FILTER_STABILITY }
 	}
-
 	focus = {
-		id = ELS_loyal_military_board
-		icon = GFX_goal_NFA_national_propaganda
-		x = -4
-		y = 4
-		cost = 7.2
-
-		relative_position_id = ELS_37_revolution
-
-		ai_will_do = {
-			factor = 5
-		}
-		available = {
-			OR = {
-				has_government = national_populist
-				has_government = paternal_autocrat
-			}
-		}
-		prerequisite = {
-			focus = ELS_eliminating_socialists
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_loyal_military_board"
-			add_stability = 0.10
-			add_war_support = 0.10
-		}
-		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_STABILITY }
-	}
-
-	focus = {
-		id = ELS_militarization
-		icon = GFX_Focus_Military_Mobilisation
-		x = -6
-		y = 4
-		cost = 7.2
-
-		relative_position_id = ELS_37_revolution
-		available = {
-			OR = {
-				has_government = national_populist
-				has_government = paternal_autocrat
-			}
-		}
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = ELS_eliminating_socialists
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_militarization"
-			add_ideas = ELS_militirazation1
-		}
-		search_filters = { FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_MANPOWER }
-	}
-
-	focus = {
-		id = ELS_rooting_memories
-		icon = GFX_goal_generic_stable_government
-		x = -5
+		id = ELS_restore_order
+		icon = GFX_goal_AUS_destroy_nationalism
+		x = -2
 		y = 5
 		cost = 7.2
 
-		relative_position_id = ELS_37_revolution
-		available = {
-			OR = {
-				has_government = national_populist
-				has_government = paternal_autocrat
-			}
-		}
+		relative_position_id = ELS_pro_patria_stands
 		ai_will_do = {
 			factor = 5
 		}
 		prerequisite = {
-			focus = ELS_militarization
-		}
-		prerequisite = {
-			focus = ELS_loyal_military_board
+			focus = ELS_revise_police_law
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_rooting_memories"
-			swap_ideas = {
-				remove_idea = ELS_memories_32_part_2
-				add_idea = ELS_memories_32_part_3
-			}
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_pro_patria_stands"
+
 		}
-		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_STABILITY }
+	}
+	focus = {
+		id = ELS_ensure_military_loyalty
+		icon = GFX_goal_AUS_Bolster_Standing_Prasident
+		x = 0
+		y = 3
+		cost = 7.2
+
+		relative_position_id = ELS_pro_patria_stands
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_hunt_socialists
+		}
+		prerequisite = {
+			focus = ELS_centralize_government
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_pro_patria_stands"
+
+		}
+	}
+	focus = {
+		id = ELS_ratify_new_const
+		icon = GFX_goal_NIC_Authoritarian_Constitution
+		x = -1
+		y = 4
+		cost = 7.2
+
+		relative_position_id = ELS_pro_patria_stands
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_ensure_military_loyalty
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_pro_patria_stands"
+
+		}
+	}
+	focus = {
+		id = ELS_coffee_growth
+		icon = GFX_goal_NIC_Coffee_Must_Grow
+		x = 1
+		y = 4
+		cost = 7.2
+
+		relative_position_id = ELS_pro_patria_stands
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_ensure_military_loyalty
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_pro_patria_stands"
+
+		}
+	}
+	focus = {
+		id = ELS_modernized_nation
+		icon = GFX_goal_NEE_Nationalize_Key_Industries_Railways
+		x = 0
+		y = 5
+		cost = 7.2
+
+		relative_position_id = ELS_pro_patria_stands
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_coffee_growth
+		}
+		prerequisite = {
+			focus = ELS_ratify_new_const
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_pro_patria_stands"
+
+		}
+	}
+	focus = {
+		id = ELS_centralize_government
+		icon = GFX_RUS_Presidential_Government
+		x = 1
+		y = 1
+		cost = 7.2
+
+		relative_position_id = ELS_pro_patria_stands
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_pro_patria_stands
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_pro_patria_stands"
+
+		}
+	}
+	focus = {
+		id = ELS_ally_cath_church
+		icon = GFX_goal_BEL_Catholic_Morality
+		x = 1
+		y = 2
+		cost = 7.2
+
+		relative_position_id = ELS_pro_patria_stands
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_centralize_government
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_pro_patria_stands"
+
+		}
+	}
+	focus = {
+		id = ELS_censor_press
+		icon = GFX_AFG_watch_press
+		x = 2
+		y = 3
+		cost = 7.2
+
+		relative_position_id = ELS_pro_patria_stands
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_ally_cath_church
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_pro_patria_stands"
+
+		}
+	}
+	focus = {
+		id = ELS_theosophist_ideal
+		icon = GFX_goal_AUS_Emplace_Aryan_Paragraphs
+		x = 2
+		y = 5
+		cost = 7.2
+
+		relative_position_id = ELS_pro_patria_stands
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_censor_press
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_pro_patria_stands"
+
+		}
+	}
+	focus = {
+		id = ELS_peace_order_justice_probity
+		icon = GFX_goal_NEE_Military_Justice
+		x = 0
+		y = 6
+		cost = 7.2
+
+		relative_position_id = ELS_pro_patria_stands
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_theosophist_ideal
+		}
+		prerequisite = {
+			focus = ELS_modernized_nation
+		}
+		prerequisite = {
+			focus = ELS_restore_order
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_pro_patria_stands"
+
+		}
 	}
 
 	focus = {
-		id = ELS_military_relations
-		icon = GFX_goal_ideology_paternal_autocrat
-		x = -5
-		y = 6
+		id = ELS_theosophy_prevails
+		icon = GFX_goal_ELS_Towards_Salvadorian_Theosophic_Ascension
+		x = 0
+		y = 7
 		cost = 7.2
-		available = {
-			OR = {
-				has_government = national_populist
-				has_government = paternal_autocrat
-			}
-		}
-		relative_position_id = ELS_37_revolution
 
+                allow_branch = {
+                     has_country_flag = ELS_DID_YOU_KNOW
+                }
+
+		relative_position_id = ELS_pro_patria_stands
+		ai_will_do = {
+			factor = 5
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_pro_patria_stands"
+
+		}
+	}
+	focus = {
+		id = ELS_rely_on_invisible_doctors_and_blue_water
+		icon = GFX_goal_ELS_Trust_Invisible_Doctors_Blue_Water
+		x = -2
+		y = 1
+		cost = 7.2
+
+		prerequisite = {
+			focus = ELS_theosophy_prevails
+		}
+
+		relative_position_id = ELS_theosophy_prevails
+		ai_will_do = {
+			factor = 5
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_pro_patria_stands"
+
+		}
+	}
+	focus = {
+		id = ELS_the_glory_of_reincarnation
+		icon = GFX_goal_ELS_Glory_Reincarnation
+		x = 0
+		y = 1
+		cost = 7.2
+
+		prerequisite = {
+			focus = ELS_theosophy_prevails
+		}
+
+		relative_position_id = ELS_theosophy_prevails
+		ai_will_do = {
+			factor = 5
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_pro_patria_stands"
+
+		}
+	}
+	focus = {
+		id = ELS_studying_the_occult
+		icon = GFX_goal_ELS_Study_Occultic_Unknown
+		x = 2
+		y = 1
+		cost = 7.2
+
+		prerequisite = {
+			focus = ELS_theosophy_prevails
+		}
+
+		relative_position_id = ELS_theosophy_prevails
+		ai_will_do = {
+			factor = 5
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_pro_patria_stands"
+
+		}
+	}
+	focus = {
+		id = ELS_cult_of_the_warlock
+		icon = GFX_goal_ELS_Cult_Warlock
+		x = 0
+		y = 2
+		cost = 7.2
+
+		prerequisite = {
+			focus = ELS_studying_the_occult
+		}
+		prerequisite = {
+			focus = ELS_rely_on_invisible_doctors_and_blue_water
+		}
+		prerequisite = {
+			focus = ELS_the_glory_of_reincarnation
+		}
+
+		relative_position_id = ELS_theosophy_prevails
+		ai_will_do = {
+			factor = 5
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_pro_patria_stands"
+
+		}
+	}
+	focus = {
+		id = ELS_promote_vegetarianism
+		icon = GFX_goal_ELS_Ending_Meat_Eating_Sin
+		x = -1
+		y = 3
+		cost = 7.2
+
+		prerequisite = {
+			focus = ELS_cult_of_the_warlock
+		}
+
+		relative_position_id = ELS_theosophy_prevails
+		ai_will_do = {
+			factor = 5
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_pro_patria_stands"
+
+		}
+	}
+	focus = {
+		id = ELS_discourage_education
+		icon = GFX_goal_ELS_Punishing_Educated
+		x = 1
+		y = 3
+		cost = 7.2
+
+		prerequisite = {
+			focus = ELS_cult_of_the_warlock
+		}
+
+		relative_position_id = ELS_theosophy_prevails
+		ai_will_do = {
+			factor = 5
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_pro_patria_stands"
+
+		}
+	}
+
+	focus = {
+		id = ELS_young_officers_coup
+		icon = GFX_goal_NFA_Galvanize_Officer_Corp
+		x = 0
+		y = 1
+		cost = 7.2
+
+		relative_position_id = ELS_vanguard_stands
 		ai_will_do = {
 			factor = 5
 		}
 		prerequisite = {
-			focus = ELS_rooting_memories
+			focus = ELS_vanguard_stands
+		}
+		available = {
+			always = no
+		}
+		bypass = {
+			has_country_flag = ELS_military_takeover_flag
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_military_relations"
-			swap_ideas = {
-				remove_idea = ELS_militirazation1
-				add_idea = ELS_militirazation15
-			}
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
+			custom_effect_tooltip = unlock_focuses
 		}
-		search_filters = { FOCUS_FILTER_MANPOWER }
+	}
+	focus = {
+		id = ELS_divide_and_conquer_unions
+		icon = GFX_GRU_Shatter_Trade_Unionists
+		x = -1
+		y = 1
+		cost = 7.2
+
+		relative_position_id = ELS_young_officers_coup
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_young_officers_coup
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
+			
+		}
+	}
+	focus = {
+		id = ELS_pandering_to_oligarchs
+		icon = GFX_goal_FIU_no_feeling_like_money
+		x = 1
+		y = 1
+		cost = 7.2
+
+		relative_position_id = ELS_young_officers_coup
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_young_officers_coup
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
+			
+		}
+	}
+	focus = {
+		id = ELS_introducing_controlled_revolution
+		icon = GFX_goal_GUA_People_Supervision
+		x = 0
+		y = 2
+		cost = 7.2
+
+		relative_position_id = ELS_young_officers_coup
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_pandering_to_oligarchs
+		}
+		prerequisite = {
+			focus = ELS_divide_and_conquer_unions
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
+			
+		}
+	}
+	focus = {
+		id = ELS_economic_calm
+		icon = GFX_goal_MNT_north_agriculture
+		x = -2
+		y = 1
+		cost = 7.2
+
+		relative_position_id = ELS_introducing_controlled_revolution
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_introducing_controlled_revolution
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
+			
+		}
+	}
+	focus = {
+		id = ELS_helping_the_workers
+		icon = GFX_BAY_POOR_WORKERS
+		x = -3
+		y = 2
+		cost = 7.2
+
+		relative_position_id = ELS_introducing_controlled_revolution
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_economic_calm
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
+			
+		}
+	}
+	focus = {
+		id = ELS_limited_industrialization
+		icon = GFX_goal_MEX_Leashed_Industrializtion
+		x = -1
+		y = 2
+		cost = 7.2
+
+		relative_position_id = ELS_introducing_controlled_revolution
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_economic_calm
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
+			
+		}
+	}
+	focus = {
+		id = ELS_forming_CEPA
+		icon = GFX_goal_CSA_communications_infrastructure
+		x = -2
+		y = 3
+		cost = 7.2
+
+		relative_position_id = ELS_introducing_controlled_revolution
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_limited_industrialization
+		}
+		prerequisite = {
+			focus = ELS_helping_the_workers
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
+			
+		}
+	}
+	focus = {
+		id = ELS_law_constitutional_order
+		icon = GFX_goal_SRI_liquidate_northern_law_order
+		x = 0
+		y = 1
+		cost = 7.2
+
+		relative_position_id = ELS_introducing_controlled_revolution
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_introducing_controlled_revolution
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
+			
+		}
+	}
+	focus = {
+		id = ELS_empowering_reactionary_movement
+		icon = GFX_goal_ROM_Send_Out_Greenshirts
+		x = 0
+		y = 3
+		cost = 7.2
+
+		relative_position_id = ELS_introducing_controlled_revolution
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_law_constitutional_order
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
+			
+		}
+	}
+	focus = {
+		id = ELS_new_constitution
+		icon = GFX_goal_AUS_Rewrite_Prototype_Constitution
+		x = 2
+		y = 1
+		cost = 7.2
+
+		relative_position_id = ELS_introducing_controlled_revolution
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_introducing_controlled_revolution
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
+			
+		}
+	}
+	focus = {
+		id = ELS_bolstering_the_arts
+		icon = GFX_goal_TIB_Move_Masses_Art_Faith
+		x = 3
+		y = 2
+		cost = 7.2
+
+		relative_position_id = ELS_introducing_controlled_revolution
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_new_constitution
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
+			
+		}
+	}
+	focus = {
+		id = ELS_an_apolitical_military
+		icon = GFX_goal_MEX_apolitical_judges
+		x = 1
+		y = 2
+		cost = 7.2
+
+		relative_position_id = ELS_introducing_controlled_revolution
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_new_constitution
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
+			
+		}
+	}
+	focus = {
+		id = ELS_guaranteed_suffrage_for_all
+		icon = GFX_goal_SRD_womens_suffrage
+		x = 2
+		y = 3
+		cost = 7.2
+
+		relative_position_id = ELS_introducing_controlled_revolution
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_an_apolitical_military
+		}
+		prerequisite = {
+			focus = ELS_bolstering_the_arts
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
+			
+		}
+	}
+	focus = {
+		id = ELS_salvadorian_golden_age
+		icon = GFX_goal_AUS_Sprouting_Blossoming_Future
+		x = 0
+		y = 4
+		cost = 7.2
+
+		relative_position_id = ELS_introducing_controlled_revolution
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_guaranteed_suffrage_for_all
+		}
+		prerequisite = {
+			focus = ELS_empowering_reactionary_movement
+		}
+		prerequisite = {
+			focus = ELS_forming_CEPA
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_guard"
+			
+		}
 	}
 
+        #########
 	focus = {
 		id = ELS_revolutionary_ideals
 		icon = GFX_goal_FRA_workers_and_peasants_party
 		x = 5
-		y = 1
+		y = 0
 		cost = 7.2
 
-		relative_position_id = ELS_37_revolution
 		available = {
 			always = no
 		}
 		ai_will_do = {
 			factor = 5
-		}
-		prerequisite = {
-			focus = ELS_37_revolution
 		}
 
 		completion_reward = {
@@ -669,16 +1165,14 @@ focus_tree = {
 	}
 
 	focus = {
-		id = ELS_social_ideal
-		icon = GFX_goal_syndicalism
-		x = 7
-		y = 2
+		id = ELS_commie_party
+		icon = GFX_goal_AUS_central_committee
+		x = 8
+		y = 1
 		cost = 7.2
-
-		relative_position_id = ELS_37_revolution
+		relative_position_id = ELS_revolutionary_ideals
 		available = {
-			always = no
-			has_government = syndicalist
+			has_government = totalist
 		}
 		ai_will_do = {
 			factor = 5
@@ -692,176 +1186,252 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
-			custom_effect_tooltip = unlock_focuses
 		}
 	}
-
 	focus = {
-		id = ELS_trade_unionism
-		icon = GFX_goal_syndicalist_industry
-		x = 7
+		id = ELS_promote_school_unions
+		icon = GFX_goal_FRA_union_education
+		x = -1
+		y = 1
+		cost = 7.2
+		relative_position_id = ELS_commie_party
+		available = {
+			has_government = totalist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_commie_party
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_popular_fury
+		icon = GFX_goal_AUS_anarchist_social_revolution
+		x = 1
+		y = 1
+		cost = 7.2
+		relative_position_id = ELS_commie_party
+		available = {
+			has_government = totalist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_commie_party
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_whip_army_into_loyalty
+		icon = GFX_goal_CSA_revolutionary_guards
+		x = 0
+		y = 2
+		cost = 7.2
+		relative_position_id = ELS_commie_party
+		available = {
+			has_government = totalist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_popular_fury
+		}
+		prerequisite = {
+			focus = ELS_promote_school_unions
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_true_liberty
+		icon = GFX_goal_TEX_liberty_conscience2
+		x = -2
 		y = 3
 		cost = 7.2
-
-		relative_position_id = ELS_37_revolution
-		available = {
-			has_government = syndicalist
+		relative_position_id = ELS_commie_party
+		prerequisite = {
+			focus = ELS_whip_army_into_loyalty
 		}
 		ai_will_do = {
 			factor = 5
 		}
-		prerequisite = {
-			focus = ELS_social_ideal
-		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_trade_unionism"
-			add_popularity = { ideology = syndicalist popularity = 0.20 }
-			add_stability = 0.20
-			add_political_power = 100
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 	}
-
 	focus = {
-		id = ELS_removing_class
-		icon = GFX_goal_CSA_class_fusion
-		x = 7
-		y = 4
+		id = ELS_the_red_phantom
+		icon = GFX_goal_NIC_Empower_Sandinistas
+		x = -2
+		y = 5
 		cost = 7.2
-
-		relative_position_id = ELS_37_revolution
-		available = {
-			has_government = syndicalist
+		relative_position_id = ELS_commie_party
+		prerequisite = {
+			focus = ELS_true_liberty
 		}
 		ai_will_do = {
 			factor = 5
 		}
-		prerequisite = {
-			focus = ELS_trade_unionism
-		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_removing_class"
-			add_ideas = ELS_classless_society
-			add_research_slot = 1
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
-
 	focus = {
-		id = ELS_native_rights
-		icon = GFX_TRM_Minorities_Government
-		x = 5
+		id = ELS_wipe_legacy_martinez
+		icon = GFX_goal_CSA_all_for_revolution
+		x = 0
 		y = 3
 		cost = 7.2
-
-		relative_position_id = ELS_37_revolution
+		relative_position_id = ELS_commie_party
 		available = {
-			has_government = syndicalist
+			has_government = totalist
 		}
 		ai_will_do = {
 			factor = 5
 		}
 		prerequisite = {
-			focus = ELS_social_ideal
+			focus = ELS_whip_army_into_loyalty
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_native_rights"
-			add_timed_idea = { idea = ELS_native_rights_for_all days = 180}
-			hidden_effect = {
-				country_event = { id = els.201 days = 25 }
-			}
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
 		}
 	}
-
 	focus = {
-		id = ELS_unifying_salvador
-		icon = GFX_socialist_constitution
-		x = 5
+		id = ELS_high_spirit_revolution
+		icon = GFX_RUS_Truly_Socialist_Party
+		x = -1
 		y = 4
 		cost = 7.2
-
-		relative_position_id = ELS_37_revolution
-		available = {
-			has_government = syndicalist
+		relative_position_id = ELS_commie_party
+		prerequisite = {
+			focus = ELS_wipe_legacy_martinez
 		}
 		ai_will_do = {
 			factor = 5
 		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_legacy_of_SCOPI
+		icon = GFX_goal_ALB_Communist_Internationalism
+		x = 1
+		y = 4
+		cost = 7.2
+		relative_position_id = ELS_commie_party
 		prerequisite = {
-			focus = ELS_native_rights
+			focus = ELS_wipe_legacy_martinez
+		}
+		ai_will_do = {
+			factor = 5
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_unifying_salvador"
-			add_ideas = ELS_divided_no_more
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
 		}
-		search_filters = { FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_MANPOWER }
+	}
+	focus = {
+		id = ELS_curb_oligarchs
+		icon = GFX_focus_HKG_Silence_Liberals
+		x = 0
+		y = 5
+		cost = 7.2
+		relative_position_id = ELS_commie_party
+		prerequisite = {
+			focus = ELS_high_spirit_revolution
+		}
+		prerequisite = {
+			focus = ELS_legacy_of_SCOPI
+		}
+		ai_will_do = {
+			factor = 5
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
 	}
 
 	focus = {
-		id = ELS_snapping_military
-		icon = GFX_goal_DSR_Purge
-		x = 9
+		id = ELS_true_liberation
+		icon = GFX_goal_AUS_Circle_Red_Counts_Countesses
+		x = 2
 		y = 3
 		cost = 7.2
-
-		relative_position_id = ELS_37_revolution
-		available = {
-			has_government = syndicalist
-		}
+		relative_position_id = ELS_commie_party
 		ai_will_do = {
 			factor = 5
 		}
 		prerequisite = {
-			focus = ELS_social_ideal
+			focus = ELS_whip_army_into_loyalty
 		}
 
+
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_snapping_military"
-			if = {
-				limit = {
-					has_idea = ELS_unruly_military
-				}
-				remove_ideas = ELS_unruly_military
-			}
-			if = {
-				limit = {
-					has_idea = ELS_unruly_military2
-				}
-				remove_ideas = ELS_unruly_military2
-			}
-			add_timed_idea = { idea = ELS_military_purge days = 60}
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
 		}
 	}
-
 	focus = {
-		id = ELS_removing_censorship
-		icon = GFX_goal_NFA_relax_censor
-		x = 9
-		y = 4
+		id = ELS_never_another_32
+		icon = GFX_RUS_Reach_Out_To_Peasantry
+		x = 2
+		y = 5
 		cost = 7.2
-
-		relative_position_id = ELS_37_revolution
-		available = {
-			has_government = syndicalist
+		relative_position_id = ELS_commie_party
+		prerequisite = {
+			focus = ELS_true_liberation
 		}
 		ai_will_do = {
 			factor = 5
 		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_communist_centroamerican_dream
+		icon = GFX_RUS_Revolutionary_Terror
+		x = 0
+		y = 6
+		cost = 7.2
+		relative_position_id = ELS_commie_party
+		available = {
+			has_government = radical_socialist
+		}
 		prerequisite = {
-			focus = ELS_snapping_military
+			focus = ELS_never_another_32
+		}
+		prerequisite = {
+			focus = ELS_curb_oligarchs
+		}
+		prerequisite = {
+			focus = ELS_the_red_phantom
+		}
+		ai_will_do = {
+			factor = 5
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_removing_censorship"
-			add_political_power = 100
-			add_stability = 0.10
-			add_ideas = ELS_no_censorship
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 	}
 
 
@@ -869,11 +1439,10 @@ focus_tree = {
 	focus = {
 		id = ELS_presidency_restoration
 		icon = GFX_goal_ELS_Presidential_Restoration_1
-		x = 3
-		y = 2
+		x = -7
+		y = 1
 		cost = 7.2
-
-		relative_position_id = ELS_37_revolution
+		relative_position_id = ELS_revolutionary_ideals
 		available = {
 			always = no
 			has_government = social_democrat
@@ -891,15 +1460,14 @@ focus_tree = {
 			country_event = els.5
 		}
 	}
-
 	focus = {
 		id = ELS_ensure_liberties
-		icon = GFX_goal_democratic
-		x = 3
-		y = 3
+		icon = GFX_flag_el_salvador
+		x = -1
+		y = 1
 		cost = 7.2
 
-		relative_position_id = ELS_37_revolution
+		relative_position_id = ELS_presidency_restoration
 		available = {
 			has_government = social_democrat
 		}
@@ -917,23 +1485,50 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 	}
+	focus = {
+		id = ELS_ease_strikes
+		icon = GFX_goal_GUA_Peace_People
+		x = 1
+		y = 1
+		cost = 7.2
+
+		relative_position_id = ELS_presidency_restoration
+		available = {
+			has_government = social_democrat
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_presidency_restoration
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_ensure_liberties"
+
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+	}
 
 	focus = {
 		id = ELS_recall_election
-		icon = GFX_goal_KTG_Elections
-		x = 3
-		y = 4
+		icon = GFX_goal_LIC_elections
+		x = 0
+		y = 2
 		cost = 7.2
 		available = {
 			has_government = social_democrat
 		}
-		relative_position_id = ELS_37_revolution
+		relative_position_id = ELS_presidency_restoration
 
 		ai_will_do = {
 			factor = 100
 		}
 		prerequisite = {
 			focus = ELS_ensure_liberties
+		}
+		prerequisite = {
+			focus = ELS_ease_strikes
 		}
 
 		completion_reward = {
@@ -953,14 +1548,279 @@ focus_tree = {
 			}
 		}
 	}
+
 	focus = {
-		id = ELS_labour_secured
-		icon = GFX_RUS_Stronghold_Of_Social_Democracy
-		x = 3
+		id = ELS_syndie_farabundo
+		icon = GFX_goal_CEA_new_syndicalist_society
+		x = -9
+		y = 1
+		cost = 7.2
+		relative_position_id = ELS_recall_election
+		available = {
+                        has_country_flag = ELS_dem_syndicalist_country_flag
+			has_government = syndicalist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_recall_election
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_fate_of_the_barons
+		icon = GFX_goal_TEX_Oppose_Coastal_Elitism_Monopoly
+		x = -2
+		y = 1
+		cost = 7.2
+		relative_position_id = ELS_syndie_farabundo
+		available = {
+			has_government = syndicalist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_syndie_farabundo
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_collab_with_FRTS
+		icon = GFX_goal_FIU_syndicalize_unions
+		x = -2
+		y = 3
+		cost = 7.2
+		relative_position_id = ELS_syndie_farabundo
+		available = {
+			has_government = syndicalist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_fate_of_the_barons
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_ending_poor_exploitation
+		icon = GFX_BBR_feed_the_poor
+		x = -1
+		y = 4
+		cost = 7.2
+		relative_position_id = ELS_syndie_farabundo
+		available = {
+			has_government = syndicalist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_collab_with_FRTS
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_internationale_inspiration
+		icon = GFX_goal_CEA_phone_paris
+		x = 0
+		y = 1
+		cost = 7.2
+		relative_position_id = ELS_syndie_farabundo
+		available = {
+			has_government = syndicalist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_syndie_farabundo
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_centroamerican_internationalism
+		icon = GFX_goal_ALB_Communist_Internationalism
+		x = -1
+		y = 2
+		cost = 7.2
+		relative_position_id = ELS_syndie_farabundo
+		available = {
+			has_government = syndicalist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_internationale_inspiration
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_inspiration_from_jose_marti
+		icon = GFX_goal_NYC_Intellectual_Socialism
+		x = 1
+		y = 2
+		cost = 7.2
+		relative_position_id = ELS_syndie_farabundo
+		available = {
+			has_government = syndicalist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_internationale_inspiration
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_reconciliation_with_sandino
+		icon = GFX_goal_NIC_Sandino_Savior_Our_Armies
+		x = 0
+		y = 3
+		cost = 7.2
+		relative_position_id = ELS_syndie_farabundo
+		available = {
+			has_government = syndicalist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_inspiration_from_jose_marti
+		}
+		prerequisite = {
+			focus = ELS_centroamerican_internationalism
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_subsidies_to_peasant_farmers
+		icon = GFX_goal_NZL_court_farmer_unions
+		x = 2
+		y = 1
+		cost = 7.2
+		relative_position_id = ELS_syndie_farabundo
+		available = {
+			has_government = syndicalist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_syndie_farabundo
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_calling_on_international_red_aid
+		icon = GFX_goal_NIC_Prospering_Healthcare
+		x = 2
+		y = 3
+		cost = 7.2
+		relative_position_id = ELS_syndie_farabundo
+		available = {
+			has_government = syndicalist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_subsidies_to_peasant_farmers
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_working_with_feliciano
+		icon = GFX_goal_MEX_Include_Natives_in_Reforms
+		x = 1
+		y = 4
+		cost = 7.2
+		relative_position_id = ELS_syndie_farabundo
+		available = {
+			has_government = syndicalist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_calling_on_international_red_aid
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_towards_unity_of_isthimus
+		icon = GFX_goal_ARZ_Racial_Unity_Upon_Red_Mesa
+		x = 0
 		y = 5
 		cost = 7.2
+		relative_position_id = ELS_syndie_farabundo
+		available = {
+			has_government = syndicalist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_working_with_feliciano
+		}
+		prerequisite = {
+			focus = ELS_reconciliation_with_sandino
+		}
+		prerequisite = {
+			focus = ELS_ending_poor_exploitation
+		}
 
-		relative_position_id = ELS_37_revolution
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+
+	focus = {
+		id = ELS_labour_secured
+		icon = GFX_goal_NZL_first_labour_victory
+		x = -3
+		y = 1
+		cost = 7.2
+
+		relative_position_id = ELS_recall_election
 		available = {
 			always = no
 			has_government = social_democrat
@@ -980,15 +1840,14 @@ focus_tree = {
 			custom_effect_tooltip = unlock_focuses
 		}
 	}
-
 	focus = {
-		id = ELS_land_redistribution
-		icon = GFX_BBR_land_redistribution
-		x = 3
-		y = 6
+		id = ELS_healing_organized_labour
+		icon = GFX_goal_AUS_ear_labor
+		x = 1
+		y = 1
 		cost = 7.2
 
-		relative_position_id = ELS_37_revolution
+		relative_position_id = ELS_labour_secured
 		available = {
 			has_government = social_democrat
 		}
@@ -1000,22 +1859,239 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_land_redistribution"
-			add_popularity = { ideology = social_democrat popularity = 0.15 }
-			add_stability = 0.15
-			add_political_power = 100
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
-	}
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_labour_secured"
 
+		}
+	}
 	focus = {
-		id = ELS_national_liberal_comeback
-		icon = GFX_RUS_Lessons_Of_Democracy
-		x = 5
+		id = ELS_land_reform_for_masses
+		icon = GFX_goal_ICE_nordic_agrarianism_fit_land_fire_ice
+		x = -1
+		y = 1
+		cost = 7.2
+
+		relative_position_id = ELS_labour_secured
+		available = {
+			has_government = social_democrat
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_labour_secured
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_labour_secured"
+
+		}
+	}
+	focus = {
+		id = ELS_six_points_of_vitalismo
+		icon = GFX_RUS_six_year_plan
+		x = -2
+		y = 2
+		cost = 7.2
+
+		relative_position_id = ELS_labour_secured
+		available = {
+			has_government = social_democrat
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_land_reform_for_masses
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_labour_secured"
+
+		}
+	}
+	focus = {
+		id = ELS_an_honest_democracy
+		icon = GFX_goal_AUS_Present_Firmness_Future_Democracy
+		x = -1
+		y = 3
+		cost = 7.2
+
+		relative_position_id = ELS_labour_secured
+		available = {
+			has_government = social_democrat
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_six_points_of_vitalismo
+		}
+		prerequisite = {
+			focus = ELS_defang_the_military
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_labour_secured"
+
+		}
+	}
+	focus = {
+		id = ELS_restoring_economic_faith
+		icon = GFX_goal_TEX_labor_economics
+		x = -1
+		y = 4
+		cost = 7.2
+
+		relative_position_id = ELS_labour_secured
+		available = {
+			has_government = social_democrat
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_an_honest_democracy
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_labour_secured"
+
+		}
+	}
+	focus = {
+		id = ELS_defang_the_military
+		icon = GFX_goal_COR_Enact_Universal_Disarmament
+		x = 0
+		y = 2
+		cost = 7.2
+
+		relative_position_id = ELS_labour_secured
+		available = {
+			has_government = social_democrat
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_land_reform_for_masses
+		}
+		prerequisite = {
+			focus = ELS_healing_organized_labour
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_labour_secured"
+
+		}
+	}
+	focus = {
+		id = ELS_learning_from_british_labour
+		icon = GFX_goal_CAN_towards_demsoc
+		x = 2
+		y = 2
+		cost = 7.2
+
+		relative_position_id = ELS_labour_secured
+		available = {
+			has_government = social_democrat
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_healing_organized_labour
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_labour_secured"
+
+		}
+	}
+	focus = {
+		id = ELS_purging_corruption_from_system
+		icon = GFX_UKR_Anti_Corruption
+		x = 1
+		y = 3
+		cost = 7.2
+
+		relative_position_id = ELS_labour_secured
+		available = {
+			has_government = social_democrat
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_learning_from_british_labour
+		}
+		prerequisite = {
+			focus = ELS_defang_the_military
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_labour_secured"
+
+		}
+	}
+	focus = {
+		id = ELS_fate_of_landowners
+		icon = GFX_goal_AUS_Children_of_Land
+		x = 1
+		y = 4
+		cost = 7.2
+
+		relative_position_id = ELS_labour_secured
+		available = {
+			has_government = social_democrat
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_purging_corruption_from_system
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_labour_secured"
+
+		}
+	}
+	focus = {
+		id = ELS_benefactor_of_working_class
+		icon = GFX_goal_AUS_Empower_Regional_Worker_Councils
+		x = 0
 		y = 5
 		cost = 7.2
 
-		relative_position_id = ELS_37_revolution
+		relative_position_id = ELS_labour_secured
+		available = {
+			has_government = social_democrat
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_fate_of_landowners
+		}
+		prerequisite = {
+			focus = ELS_restoring_economic_faith
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_labour_secured"
+
+		}
+	}
+
+        ###
+	focus = {
+		id = ELS_national_liberal_comeback
+		icon = GFX_RUS_Lessons_Of_Democracy
+		x = 3
+		y = 1
+		cost = 7.2
+
+		relative_position_id = ELS_recall_election
 
 		ai_will_do = {
 			factor = 100
@@ -1028,7 +2104,295 @@ focus_tree = {
 			has_government = social_liberal
 		}
 		bypass = {
-			has_country_flag = ELS_national_democratic_victory_flag
+			has_country_flag = ELS_national_liberal_victory_flag
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_national_liberal_comeback"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = ELS_natural_mix
+		icon = GFX_goal_MEX_Balance
+		x = -1
+		y = 1
+		cost = 7.2
+
+		relative_position_id = ELS_national_liberal_comeback
+
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_national_liberal_comeback
+		}
+		available = {
+			has_government = social_liberal
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_national_liberal_comeback"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = ELS_restore_administrative_confidence
+		icon = GFX_goal_LPD_allow_blacks_to_run
+		x = 1
+		y = 1
+		cost = 7.2
+
+		relative_position_id = ELS_national_liberal_comeback
+
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_national_liberal_comeback
+		}
+		available = {
+			has_government = social_liberal
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_national_liberal_comeback"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = ELS_bash_oligarchy
+		icon = GFX_goal_TEX_punish_wealth
+		x = -2
+		y = 2
+		cost = 7.2
+
+		relative_position_id = ELS_national_liberal_comeback
+
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_natural_mix
+		}
+		prerequisite = {
+			focus = ELS_restore_administrative_confidence
+		}
+		available = {
+			has_government = social_liberal
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_national_liberal_comeback"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = ELS_protectionist_measures
+		icon = GFX_RUS_Reaffirm_Protectionism
+		x = -2
+		y = 3
+		cost = 7.2
+
+		relative_position_id = ELS_national_liberal_comeback
+
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_bash_oligarchy
+		}
+		prerequisite = {
+			focus = ELS_eliminate_corruption
+		}
+		available = {
+			has_government = social_liberal
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_national_liberal_comeback"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = ELS_eliminate_corruption
+		icon = GFX_goal_NIC_Destroy_Corruption
+		x = 0
+		y = 2
+		cost = 7.2
+
+		relative_position_id = ELS_national_liberal_comeback
+
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_natural_mix
+		}
+		prerequisite = {
+			focus = ELS_restore_administrative_confidence
+		}
+		available = {
+			has_government = social_liberal
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_national_liberal_comeback"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = ELS_freedom_of_the_press
+		icon = GFX_UKR_Borotba_Newspaper
+		x = 2
+		y = 2
+		cost = 7.2
+
+		relative_position_id = ELS_national_liberal_comeback
+
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_natural_mix
+		}
+		prerequisite = {
+			focus = ELS_restore_administrative_confidence
+		}
+		available = {
+			has_government = social_liberal
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_national_liberal_comeback"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = ELS_bashing_the_natdems
+		icon = GFX_goal_CZE_war_of_words
+		x = 2
+		y = 3
+		cost = 7.2
+
+		relative_position_id = ELS_national_liberal_comeback
+
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_freedom_of_the_press
+		}
+		prerequisite = {
+			focus = ELS_eliminate_corruption
+		}
+		available = {
+			has_government = social_liberal
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_national_liberal_comeback"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = ELS_allow_rural_urban_unions
+		icon = GFX_RUS_Trade_Unions_Impartiality_Act
+		x = 0
+		y = 3
+		cost = 7.2
+
+		relative_position_id = ELS_national_liberal_comeback
+
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_freedom_of_the_press
+		}
+		prerequisite = {
+			focus = ELS_eliminate_corruption
+		}
+		prerequisite = {
+			focus = ELS_bash_oligarchy
+		}
+		available = {
+			has_government = social_liberal
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_national_liberal_comeback"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = ELS_promote_tourism
+		icon = GFX_goal_AUS_Reincentivize_Tourism_Travel
+		x = -1
+		y = 4
+		cost = 7.2
+
+		relative_position_id = ELS_national_liberal_comeback
+
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_allow_rural_urban_unions
+		}
+		available = {
+			has_government = social_liberal
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_national_liberal_comeback"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = ELS_workplace_regulations
+		icon = GFX_MAF_workplace_regulations
+		x = 1
+		y = 4
+		cost = 7.2
+
+		relative_position_id = ELS_national_liberal_comeback
+
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_allow_rural_urban_unions
+		}
+		available = {
+			has_government = social_liberal
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_national_liberal_comeback"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = ELS_determined_drive_for_progress
+		icon = GFX_goal_NEE_Libertarian_Torch_Held_Aloft_By_Worker
+		x = 0
+		y = 5
+		cost = 7.2
+
+		relative_position_id = ELS_national_liberal_comeback
+
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_promote_tourism
+		}
+		prerequisite = {
+			focus = ELS_workplace_regulations
+		}
+		available = {
+			has_government = social_liberal
 		}
 
 		completion_reward = {
@@ -1037,106 +2401,525 @@ focus_tree = {
 		}
 	}
 
+
 	focus = {
-		id = ELS_natural_mix
-		icon = GFX_RUS_Appease_Socialists
-		x = 5
-		y = 6
+		id = ELS_soccon_oligarchs
+		icon = GFX_RUS_Oligarchs_Triumphant
+		x = 9
+		y = 1
 		cost = 7.2
 
-		relative_position_id = ELS_37_revolution
-		available = {
-			has_government = social_liberal
-		}
+		relative_position_id = ELS_recall_election
+
 		ai_will_do = {
 			factor = 100
 		}
 		prerequisite = {
-			focus = ELS_national_liberal_comeback
+			focus = ELS_recall_election
+		}
+		available = {
+			always = no
+			has_government = social_conservative
+		}
+		bypass = {
+			has_country_flag = ELS_national_democratic_victory_flag
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_natural_mix"
-			add_popularity = { ideology = social_liberal popularity = 0.15 }
-			add_stability = 0.15
-			add_political_power = 100
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_national_liberal_comeback"
+			custom_effect_tooltip = unlock_focuses
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 	}
-
 	focus = {
-		id = ELS_rooting_military
-		icon = GFX_RUS_Combat_Army_Mutiny
-		x = 4
-		y = 7
+		id = ELS_reintroduce_quinonez_dynasty
+		icon = GFX_goal_NFA_Take_Crown
+		x = -2
+		y = 1
 		cost = 7.2
-		available = {
-			OR = {
-				has_government = social_liberal
-				has_government = social_democrat
-			}
-		}
-		relative_position_id = ELS_37_revolution
+
+		relative_position_id = ELS_soccon_oligarchs
 
 		ai_will_do = {
-			factor = 10000
+			factor = 100
 		}
 		prerequisite = {
-			focus = ELS_natural_mix focus = ELS_land_redistribution
+			focus = ELS_soccon_oligarchs
+		}
+		available = {
+			has_government = social_conservative
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_rooting_military"
-			remove_ideas = ELS_unruly_military2
-			hidden_effect = {
-				country_event = {
-					id = els.209
-					days = 45
-				}
-			}
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_national_liberal_comeback"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = ELS_legacy_of_melendez
+		icon = GFX_goal_BEL_How_To_Remember_Degrelle
+		x = 0
+		y = 1
+		cost = 7.2
+
+		relative_position_id = ELS_soccon_oligarchs
+
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_soccon_oligarchs
+		}
+		available = {
+			has_government = social_conservative
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_national_liberal_comeback"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = ELS_revive_red_league
+		icon = GFX_goal_AUS_bring_together_classes
+		x = -1
+		y = 2
+		cost = 7.2
+
+		relative_position_id = ELS_soccon_oligarchs
+
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_legacy_of_melendez
+		}
+		prerequisite = {
+			focus = ELS_reintroduce_quinonez_dynasty
+		}
+		available = {
+			has_government = social_conservative
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_national_liberal_comeback"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = ELS_call_upon_general_security_corps
+		icon = GFX_goal_USA_Parochial_Policing
+		x = 0
+		y = 3
+		cost = 7.2
+
+		relative_position_id = ELS_soccon_oligarchs
+
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_revive_red_league
+		}
+		prerequisite = {
+			focus = ELS_support_from_coffee_defense_society
+		}
+		available = {
+			has_government = social_conservative
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_national_liberal_comeback"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = ELS_private_housing_projects
+		icon = GFX_RUS_Private_Property
+		x = -2
+		y = 3
+		cost = 7.2
+
+		relative_position_id = ELS_soccon_oligarchs
+
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_revive_red_league
+		}
+		available = {
+			has_government = social_conservative
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_national_liberal_comeback"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = ELS_harass_opposition
+		icon = GFX_goal_BEL_Crush_Socialist_Rabble
+		x = 2
+		y = 1
+		cost = 7.2
+
+		relative_position_id = ELS_soccon_oligarchs
+
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_soccon_oligarchs
+		}
+		available = {
+			has_government = social_conservative
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_national_liberal_comeback"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = ELS_support_from_coffee_defense_society
+		icon = GFX_goal_GUA_People_Supervision_alt
+		x = 1
+		y = 2
+		cost = 7.2
+
+		relative_position_id = ELS_soccon_oligarchs
+
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_harass_opposition
+		}
+		prerequisite = {
+			focus = ELS_legacy_of_melendez
+		}
+		available = {
+			has_government = social_conservative
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_national_liberal_comeback"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = ELS_legitimize_the_fraud
+		icon = GFX_goal_MEX_bribe_judges
+		x = 2
+		y = 3
+		cost = 7.2
+
+		relative_position_id = ELS_soccon_oligarchs
+
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_support_from_coffee_defense_society
+		}
+		available = {
+			has_government = social_conservative
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_national_liberal_comeback"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = ELS_new_successor_question
+		icon = GFX_goal_ROM_Future_Direction
+		x = -1
+		y = 4
+		cost = 7.2
+
+		relative_position_id = ELS_soccon_oligarchs
+
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_private_housing_projects
+		}
+		prerequisite = {
+			focus = ELS_call_upon_general_security_corps
+		}
+		available = {
+			has_government = social_conservative
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_national_liberal_comeback"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = ELS_protect_private_interests
+		icon = GFX_goal_USA_Privatized_Progress
+		x = 1
+		y = 4
+		cost = 7.2
+
+		relative_position_id = ELS_soccon_oligarchs
+
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_legitimize_the_fraud
+		}
+		prerequisite = {
+			focus = ELS_call_upon_general_security_corps
+		}
+		available = {
+			has_government = social_conservative
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_national_liberal_comeback"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = ELS_true_coffee_republic
+		icon = GFX_goal_NIC_Coffee_Must_Grow
+		x = 0
+		y = 5
+		cost = 7.2
+
+		relative_position_id = ELS_soccon_oligarchs
+
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = ELS_protect_private_interests
+		}
+		prerequisite = {
+			focus = ELS_new_successor_question
+		}
+		available = {
+			has_government = social_conservative
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_national_liberal_comeback"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+
+        #I FUCKING LOVE NATIVE PATHS
+
+	focus = {
+		id = ELS_natives_win
+		icon = GFX_goal_MEX_Include_Natives_in_Reforms
+		x = 13
+		y = 10
+		cost = 7.2
+
+
+		ai_will_do = {
+			factor = 5
+		}
+
+		available = {
+			always = no
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_natives_win"
+			custom_effect_tooltip = unlock_focuses
+			set_country_flag = ELS_revolution_over_flag
+		}
+	}
+	focus = {
+		id = ELS_leadership_bros
+		icon = GFX_RUS_Transitional_Council
+		x = 0
+		y = 1
+		cost = 7.2
+		prerequisite = {
+			focus = ELS_natives_win
+		}
+		relative_position_id = ELS_natives_win
+
+		ai_will_do = {
+			factor = 5
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_natives_win"
+			#event abt leadership
 		}
 	}
 
 	focus = {
-		id = ELS_ending_strife
-		icon = GFX_RUS_Social_Welfare_Act
-		x = 4
-		y = 8
+		id = ELS_tot_sanchez
+		icon = GFX_goal_ALB_Communist_Internationalism
+		x = 3
+		y = 1
 		cost = 7.2
-
-		relative_position_id = ELS_37_revolution
+		relative_position_id = ELS_leadership_bros
 		available = {
-			OR = {
-				has_government = social_liberal
-				has_government = social_democrat
-			}
+			has_government = totalist
 		}
 		ai_will_do = {
 			factor = 5
 		}
 		prerequisite = {
-			focus = ELS_rooting_military
+			focus = ELS_leadership_bros
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_ending_strife"
-			add_research_slot = 1
-			swap_ideas = {
-				remove_idea = ELS_democratic_salvador
-				add_idea = ELS_democratic_salvador2
-			}
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_RESEARCH FOCUS_FILTER_STABILITY }
+	}
+	focus = {
+		id = ELS_establish_councils
+		icon = GFX_RUS_eurasian_soviets
+		x = 2
+		y = 1
+		cost = 7.2
+		relative_position_id = ELS_tot_sanchez
+		available = {
+			has_government = totalist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_tot_sanchez
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_assist_needy_neighboorhoods
+		icon = GFX_goal_USA_To_You_The_People
+		x = 0
+		y = 1
+		cost = 7.2
+		relative_position_id = ELS_tot_sanchez
+		available = {
+			has_government = totalist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_tot_sanchez
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_hammer_and_sickle_held_high
+		icon = GFX_goal_AUS_paris_marx_fusion
+		x = 1
+		y = 2
+		cost = 7.2
+		relative_position_id = ELS_tot_sanchez
+		available = {
+			has_government = totalist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_assist_needy_neighboorhoods
+		}
+		prerequisite = {
+			focus = ELS_establish_councils
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_biased_redistribution
+		icon = GFX_goal_SKM_Socialized_Land_Redistribution
+		x = 2
+		y = 3
+		cost = 7.2
+		relative_position_id = ELS_tot_sanchez
+		available = {
+			has_government = totalist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_hammer_and_sickle_held_high
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_discard_booze
+		icon = GFX_CAL_prohibition
+		x = 0
+		y = 3
+		cost = 7.2
+		relative_position_id = ELS_tot_sanchez
+		available = {
+			has_government = totalist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_hammer_and_sickle_held_high
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_companero_of_el_salvador
+		icon = GFX_goal_AUS_commandments_comrades
+		x = 1
+		y = 4
+		cost = 7.2
+		relative_position_id = ELS_tot_sanchez
+		available = {
+			has_government = totalist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_biased_redistribution
+		}
+		prerequisite = {
+			focus = ELS_discard_booze
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
 	}
 
+        #
 	focus = {
-		id = ELS_rooting_up_poor
-		icon = GFX_ITA_poor
-		x = 3
-		y = 9
+		id = ELS_socdem_ayala
+		icon = GFX_goal_MEX_Pink_Roses
+		x = 0
+		y = 1
 		cost = 7.2
-
-		relative_position_id = ELS_37_revolution
+		relative_position_id = ELS_leadership_bros
 		available = {
 			has_government = social_democrat
 		}
@@ -1144,200 +2927,364 @@ focus_tree = {
 			factor = 5
 		}
 		prerequisite = {
-			focus = ELS_ending_strife
-		}
-		prerequisite = {
-			focus = ELS_land_redistribution
+			focus = ELS_leadership_bros
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_rooting_up_poor"
-			swap_ideas = {
-				remove_idea = ELS_democratic_salvador2
-				add_idea = ELS_democratic_salvador3left
-			}
-			add_popularity = { ideology = social_democrat popularity = 0.15 }
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY }
 	}
-
 	focus = {
-		id = ELS_establish_middle_class
-		icon = GFX_BBR_support_black_middle_class
-		x = 5
-		y = 9
+		id = ELS_limit_alcohol_consumption_distribution
+		icon = GFX_goal_LPD_no_booze
+		x = -1
+		y = 1
 		cost = 7.2
-
-		relative_position_id = ELS_37_revolution
+		relative_position_id = ELS_socdem_ayala
 		available = {
-			has_government = social_liberal
+			has_government = social_democrat
 		}
 		ai_will_do = {
 			factor = 5
 		}
 		prerequisite = {
-			focus = ELS_ending_strife
-		}
-		prerequisite = {
-			focus = ELS_natural_mix
+			focus = ELS_socdem_ayala
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_establish_middle_class"
-			swap_ideas = {
-				remove_idea = ELS_democratic_salvador2
-				add_idea = ELS_democratic_salvador3right
-			}
-			add_popularity = { ideology = social_liberal popularity = 0.15 }
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY }
 	}
-
 	focus = {
-		id = ELS_military_back
-		icon = GFX_RUS_Destroy_Democracy
+		id = ELS_diary_of_the_west
+		icon = GFX_goal_NIC_Strong_Anti_Imperialism
 		x = 1
-		y = 5
+		y = 1
 		cost = 7.2
-
-		relative_position_id = ELS_37_revolution
-
+		relative_position_id = ELS_socdem_ayala
+		available = {
+			has_government = social_democrat
+		}
 		ai_will_do = {
 			factor = 5
 		}
 		prerequisite = {
-			focus = ELS_recall_election
-		}
-		available = {
-			always = no
-			has_government = authoritarian_democrat
+			focus = ELS_socdem_ayala
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_military_back"
-			custom_effect_tooltip = unlock_focuses
-			remove_ideas = ELS_unruly_military
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_unions_honesty_transparency
+		icon = GFX_goal_BRG_Moderate_Unions
+		x = 0
+		y = 2
+		cost = 7.2
+		relative_position_id = ELS_socdem_ayala
+		available = {
+			has_government = social_democrat
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_diary_of_the_west
+		}
+		prerequisite = {
+			focus = ELS_limit_alcohol_consumption_distribution
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_full_universal_suffrage
+		icon = GFX_goal_AUS_Gild_Opressed_Women
+		x = -1
+		y = 3
+		cost = 7.2
+		relative_position_id = ELS_socdem_ayala
+		available = {
+			has_government = social_democrat
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_unions_honesty_transparency
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_protect_freedom_of_speech
+		icon = GFX_goal_CSA_protect_freedom_of_speech
+		x = 1
+		y = 3
+		cost = 7.2
+		relative_position_id = ELS_socdem_ayala
+		available = {
+			has_government = social_democrat
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_unions_honesty_transparency
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_la_sibila_santaneca
+		icon = GFX_goal_NEE_Aesthetic_Socialist_Reformation
+		x = 0
+		y = 4
+		cost = 7.2
+		relative_position_id = ELS_socdem_ayala
+		available = {
+			has_government = social_democrat
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_protect_freedom_of_speech
+		}
+		prerequisite = {
+			focus = ELS_full_universal_suffrage
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
 		}
 	}
 
+        #
 	focus = {
-		id = ELS_reform_constitution
-		icon = GFX_goal_NFA_safe_elections
-		x = 1
+		id = ELS_radsoc_feliciano
+		icon = GFX_goal_SKM_Soothe_Socialist_Radicals
+		x = -3
+		y = 1
+		cost = 7.2
+		relative_position_id = ELS_leadership_bros
+		available = {
+			has_government = radical_socialist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_leadership_bros
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_lift_up_peasants
+		icon = GFX_RUS_Prosperity_For_Peasants
+		x = -2
+		y = 1
+		cost = 7.2
+		relative_position_id = ELS_radsoc_feliciano
+		available = {
+			has_government = radical_socialist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_radsoc_feliciano
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_form_native_councils
+		icon = GFX_BRY_Land_Socialization
+		x = 0
+		y = 1
+		cost = 7.2
+		relative_position_id = ELS_radsoc_feliciano
+		available = {
+			has_government = radical_socialist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_radsoc_feliciano
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_pipil_supremacy
+		icon = GFX_goal_YUC_Mayan_Agrarian_Economics
+		x = -1
+		y = 2
+		cost = 7.2
+		relative_position_id = ELS_radsoc_feliciano
+		available = {
+			has_government = radical_socialist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_form_native_councils
+		}
+		prerequisite = {
+			focus = ELS_lift_up_peasants
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_shake_hands_with_moderates
+		icon = GFX_goal_NFA_Reconvene_Moderate_Left
+		x = -2
+		y = 3
+		cost = 7.2
+		relative_position_id = ELS_radsoc_feliciano
+		available = {
+			has_government = radical_socialist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_pipil_supremacy
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_empower_cofradia_del_corpus_christi
+		icon = GFX_ITA_christbol
+		x = 0
+		y = 3
+		cost = 7.2
+		relative_position_id = ELS_radsoc_feliciano
+		available = {
+			has_government = radical_socialist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_pipil_supremacy
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+	focus = {
+		id = ELS_peasant_socialist_republic
+		icon = GFX_goal_MEX_Empower_Peasantry
+		x = -2
+		y = 4
+		cost = 7.2
+		relative_position_id = ELS_radsoc_feliciano
+		available = {
+			has_government = radical_socialist
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = ELS_empower_cofradia_del_corpus_christi
+		}
+		prerequisite = {
+			focus = ELS_shake_hands_with_moderates
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
+		}
+	}
+        #
+
+	focus = {
+		id = ELS_free_the_peasants
+		icon = GFX_goal_SKM_Grant_Rights_Peasantry
+		x = 0
 		y = 6
 		cost = 7.2
-
-		relative_position_id = ELS_37_revolution
-		available = {
-			has_government = authoritarian_democrat
-		}
+		relative_position_id = ELS_leadership_bros
 		ai_will_do = {
 			factor = 5
 		}
 		prerequisite = {
-			focus = ELS_military_back
+			focus = ELS_peasant_socialist_republic
+			focus = ELS_la_sibila_santaneca
+			focus = ELS_companero_of_el_salvador
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_reform_constitution"
-			add_ideas = ELS_remade_constitution
-			add_popularity = { ideology = authoritarian_democrat popularity = 0.15 }
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
 	}
-
 	focus = {
-		id = ELS_stacked_cabinet
-		icon = GFX_goal_generic_civilian_oversight
-		x = 0
-		y = 7
+		id = ELS_punish_landlords
+		icon = GFX_RUS_Land_Socialization
+		x = -1
+		y = 1
 		cost = 7.2
-
-		relative_position_id = ELS_37_revolution
-		available = {
-			has_government = authoritarian_democrat
-		}
+		relative_position_id = ELS_free_the_peasants
 		ai_will_do = {
 			factor = 5
 		}
 		prerequisite = {
-			focus = ELS_reform_constitution
+			focus = ELS_free_the_peasants
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_stacked_cabinet"
-			swap_ideas = {
-				remove_idea = ELS_remade_constitution
-				add_idea = ELS_remade_constitution2
-			}
-			add_popularity = { ideology = authoritarian_democrat popularity = 0.15 }
-			add_research_slot = 1
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
 	}
-
 	focus = {
-		id = ELS_removing_socialist_ideals
-		icon = GFX_RUS_I_Was_Never_A_Socialist
-		x = 2
-		y = 7
-		cost = 7.2
-
-		relative_position_id = ELS_37_revolution
-		available = {
-			has_government = authoritarian_democrat
-		}
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = ELS_reform_constitution
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_removing_socialist_ideals"
-			add_political_power = 100
-			add_stability = 0.20
-			add_popularity = { ideology = totalist popularity = -0.10 }
-			add_popularity = { ideology = syndicalist popularity = -0.10 }
-			add_popularity = { ideology = radical_socialist popularity = -0.10 }
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
-	}
-
-	focus = {
-		id = ELS_new_dynasty
-		icon = GFX_focus_generic_authoritarian_government
+		id = ELS_agricultural_revolution
+		icon = GFX_RUS_Agricultural_Committee
 		x = 1
-		y = 8
+		y = 1
 		cost = 7.2
-
-		relative_position_id = ELS_37_revolution
-		available = {
-			has_government = authoritarian_democrat
-		}
+		relative_position_id = ELS_free_the_peasants
 		ai_will_do = {
 			factor = 5
 		}
 		prerequisite = {
-			focus = ELS_removing_socialist_ideals
-		}
-		prerequisite = {
-			focus = ELS_stacked_cabinet
+			focus = ELS_free_the_peasants
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ELS_new_dynasty"
-			country_event = els.30
+			log = "[GetDateText]: [Root.GetName]: Focus ELS_social_ideal"
 		}
 	}
-
 
 	#Economic Tree
 	focus = {
 		id = ELS_coffee_republic
 		icon = GFX_goal_coffee_boom
-		x = 22
+		x = 21
 		y = 0
 		cost = 7.2
 		ai_will_do = {
@@ -2397,7 +4344,7 @@ focus_tree = {
 				name = ELS_foreign_doctrine
 				cost_reduction = 0.5
 				uses = 2
-				category = land_doctrine
+				category = cat_superior_firepower
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
