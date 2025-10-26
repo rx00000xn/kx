@@ -3002,6 +3002,7 @@ country_event = { #Centralised power
 		name = finland.45.a
 		add_ideas = FIN_centralised_power_idea
 		set_country_leader_ideology = zinovievism_subtype
+		custom_effect_tooltip = tot_zinovievism_subtype_swap_tt
 	}
 }
 
@@ -4462,6 +4463,10 @@ country_event = { #Russia's terms
 				factor = 10
 				has_war = yes
 			}
+			modifier = {
+				factor = 0
+				has_government = national_populist
+			}
 		}
 		add_ideas = RUS_FIN_neutrality
 		ROOT = {
@@ -4548,6 +4553,20 @@ country_event = { #Russia's terms
 					is_claimed_by = ROOT
 				}
 				remove_claim_by = ROOT
+			}
+		}
+		hidden_effect = { 
+			if = {
+				limit = { 
+					OR = {
+						has_idea = RUS_moscow_accord_leader_expansionist
+						has_idea = RUS_moscow_accord_leader_realpolitik
+					}
+				}
+				country_event = {
+					id = rusfor.7
+					days = 7
+				}
 			}
 		}
 		activate_targeted_decision = { target = RUS decision = fin_join_russia }
@@ -5763,11 +5782,7 @@ country_event = { #Finland joins the 4 Internationale
 	option = { #We are glad to be part of the global struggle!
 		name = finland.137.a
 		add_political_power = 25
-		effect_tooltip = {
-			FROM = {
-				add_to_faction = FIN
-			}
-		}
+		add_to_faction = FIN
 	}
 }
 

@@ -1909,7 +1909,13 @@ ideas = {
 			allowed = { always = no }
 			picture = FRA_lenin_idea
 			available = {
-				has_country_flag = SOV_rkp_in_politburo
+				OR = {
+					has_country_flag = SOV_rkp_in_politburo
+					SOV_has_zinoviev_resistance = yes
+					SOV_hardliners_in_power = yes
+					SOV_bukharin_in_power = yes
+					NOT = { has_completed_focus = SOV_Party_Unity }
+				}
 			}
 			picture = RUS_zinovievite_line
 			name = SOV_zinovievite_resistance
@@ -1924,7 +1930,13 @@ ideas = {
 			allowed = { always = no }
 			picture = FRA_lenin_idea
 			available = {
-				has_country_flag = SOV_rkp_in_politburo
+				OR = {
+					has_country_flag = SOV_rkp_in_politburo
+					SOV_has_zinoviev_resistance = yes
+					SOV_hardliners_in_power = yes
+					SOV_bukharin_in_power = yes
+					NOT = { has_completed_focus = SOV_Party_Unity }
+				}
 			}
 			picture = RUS_zinovievite_line
 			name = SOV_zinovievite_resistance
@@ -1939,7 +1951,13 @@ ideas = {
 			allowed = { always = no }
 			picture = FRA_lenin_idea
 			available = {
-				has_country_flag = SOV_rkp_in_politburo
+				OR = {
+					has_country_flag = SOV_rkp_in_politburo
+					SOV_has_zinoviev_resistance = yes
+					SOV_hardliners_in_power = yes
+					SOV_bukharin_in_power = yes
+					NOT = { has_completed_focus = SOV_Party_Unity }
+				}
 			}
 			picture = RUS_zinovievite_line
 			name = SOV_zinovievite_resistance
@@ -1954,7 +1972,13 @@ ideas = {
 			allowed = { always = no }
 			picture = FRA_lenin_idea
 			available = {
-				has_country_flag = SOV_rkp_in_politburo
+				OR = {
+					has_country_flag = SOV_rkp_in_politburo
+					SOV_has_zinoviev_resistance = yes
+					SOV_hardliners_in_power = yes
+					SOV_bukharin_in_power = yes
+					NOT = { has_completed_focus = SOV_Party_Unity }
+				}
 			}
 			picture = RUS_zinovievite_line
 			name = SOV_zinovievite_resistance
@@ -2335,6 +2359,7 @@ ideas = {
 				SOV_krestinsky_in_power = no
 				SOV_radek_in_power = no
 				SOV_pyatnitsky_in_power = no
+				SOV_anarchists_in_power = no
 			}
 			name = SOV_council_of_labor_and_defense
 			modifier = {
@@ -2348,6 +2373,9 @@ ideas = {
 		SOV_council_of_labor_and_defense_2 = { #initial
 			on_add = {log = "[GetDateText]: [Root.GetName]: add idea SOV_council_of_labor_and_defense_2"}
 			allowed = { always = no }
+			available = {
+				SOV_anarchists_in_power = no
+			}
 			name = SOV_council_of_labor_and_defense
 			modifier = {
 				industrial_capacity_factory = 0.08
@@ -2360,6 +2388,9 @@ ideas = {
 		SOV_council_of_labor_and_defense_1_weak = { #initial
 			on_add = {log = "[GetDateText]: [Root.GetName]: add idea SOV_council_of_labor_and_defense_1_weak"}
 			allowed = { always = no }
+			available = {
+				SOV_anarchists_in_power = no
+			}
 			name = SOV_council_of_labor_and_defense
 			modifier = {
 				industrial_capacity_factory = 0.03
@@ -2372,6 +2403,9 @@ ideas = {
 		SOV_council_of_labor_and_defense_1_rykov = { #initial
 			on_add = {log = "[GetDateText]: [Root.GetName]: add idea SOV_council_of_labor_and_defense_1_rykov"}
 			allowed = { always = no }
+			available = {
+				SOV_anarchists_in_power = no
+			}
 			name = SOV_council_of_labor_and_defense
 			modifier = {
 				production_factory_efficiency_gain_factor = 0.05
@@ -2383,6 +2417,9 @@ ideas = {
 		SOV_socialism_in_one_contry_policies_1 = { #start
 			on_add = {log = "[GetDateText]: [Root.GetName]: add idea SOV_socialism_in_one_contry_policies_1"}
 			allowed = { always = no }
+			available = {
+				SOV_anarchists_in_power = no
+			}
 			available = {
 				SOV_hardliners_in_power = yes
 				has_government = totalist
@@ -2502,7 +2539,11 @@ ideas = {
 			}
 		}
 		SOV_anarchist_communes = {
+			on_add = {log = "[GetDateText]: [Root.GetName]: add idea SOV_anarchist_communes"}
 			picture = SOV_communes
+			available = {
+				SOV_anarchists_in_power = yes
+			}
 			allowed = {
 				always = no # Added via event
 			}
@@ -2515,8 +2556,12 @@ ideas = {
 			}
 		}
 		SOV_anarchist_communes_1 = {
+			on_add = {log = "[GetDateText]: [Root.GetName]: add idea SOV_anarchist_communes_1"}
 			picture = SOV_communes
 			name = SOV_anarchist_communes
+			available = {
+				SOV_anarchists_in_power = yes
+			}
 			allowed = {
 				always = no # Added via event
 			}
@@ -2529,7 +2574,11 @@ ideas = {
 			}
 		}
 		SOV_mass_looting = {
+			on_add = {log = "[GetDateText]: [Root.GetName]: add idea SOV_mass_looting"}
 			picture = FRA_raiders
+			available = {
+				SOV_anarchists_in_power = yes
+			}
 			allowed = {
 				always = no # Added via event
 			}
@@ -2540,7 +2589,11 @@ ideas = {
 			}
 		}
 		SOV_anarchist_militia = {
+			on_add = {log = "[GetDateText]: [Root.GetName]: add idea SOV_anarchist_militia"}
 			picture = FRA_black_guard_insurgency_idea
+			available = {
+				SOV_anarchists_in_power = yes
+			}
 			allowed = {
 				always = no # Added via event
 			}
@@ -2552,7 +2605,11 @@ ideas = {
 			}
 		}
 		SOV_anarcho_communism = {
+			on_add = {log = "[GetDateText]: [Root.GetName]: add idea SOV_anarcho_communism"}
 			picture = SOV_anarchism
+			available = {
+				SOV_anarchists_in_power = yes
+			}
 			allowed = {
 				always = no # Added via event
 			}

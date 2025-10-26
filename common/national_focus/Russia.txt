@@ -1890,8 +1890,8 @@ shared_focus = {
 			limit = { has_dlc_aat = yes }
 			add_doctrine_cost_reduction = {
 				name = RUS_Special_Forces_Office
-				cost_reduction = 1
-				uses = 2
+				cost_reduction = 0.5
+				uses = 3
 				category = special_forces_doctrine
 			}
 		}
@@ -2286,10 +2286,10 @@ shared_focus = {
 		air_experience = 20
 		add_doctrine_cost_reduction = {
 			name = RUS_Standardise_Pilot_Training
-			uses = 1
-			cost_reduction = 1 
-			category = air_doctrine		}
-		
+			uses = 2
+			cost_reduction = 0.5 
+			category = air_doctrine
+		}
 		add_ideas = RUS_improved_pilot_training_1
 	}
 	search_filters = { FOCUS_FILTER_AIRFORCE_BONUS }
@@ -5548,6 +5548,9 @@ shared_focus = {
 					has_country_flag = make_savinkov_tree_visible	
 					has_country_flag = make_savinkov_successors_tree_visible	
 					has_country_flag = make_russia_plsr_nsp_democratic_tree_visible
+					has_focus_tree = RUS_EURASIAN_UNION_FOCUS
+					has_focus_tree = RUS_LEFT_EURASIAN_UNION_FOCUS
+					has_focus_tree = Russia_Socialist
 				}
 				NOT = { has_country_flag = make_kerensky_tree_visible }
 			}
@@ -5578,6 +5581,34 @@ shared_focus = {
 				tooltip = russia_must_wait_unlock
 				has_country_flag = unlock_foreign
 			}
+			if = {
+			limit = {
+				psr_in_power = yes
+				NOT = {
+					has_country_leader = {
+						name = "Alexandr Kerensky"
+						ruling_only = yes
+					}
+				}
+			}
+			OR = {
+				has_completed_focus = RUS_The_Land_Quotas_Bill
+				has_completed_focus = RUS_soc_land
+			}
+		}
+		if = {
+			limit = {
+				rsdrp_in_power = yes 
+			}
+			OR = {
+				has_country_flag = RUS_vi_congress_moderates
+				AND = {
+					has_country_flag = RUS_vi_congress_internationalists
+					has_country_flag = RUS_decided_to_stay_democratic
+				}
+			}
+		}
+		RUS_focus_blocked_for_non_decided_socialists = yes
 		}
 	}
 	completion_reward = {
@@ -7071,7 +7102,14 @@ shared_focus = {
 	}
 	available = {
 		is_subject = no
-		is_neighbor_of = POL
+		OR = {
+			is_neighbor_of = POL
+			POL = {
+				any_neighbor_country = {
+					is_subject_of = ROOT
+				}
+			}
+		}
 		NOT = { is_in_faction_with = POL }
 		if = {
 			limit = { has_completed_focus = RUS_Realpolitik }
@@ -7402,10 +7440,7 @@ shared_focus = {
 	available = {
 		is_subject = no
 		has_socialist_government = no
-		OR = {
-			any_allied_country = { is_owner_neighbor_of = FRA }
-			FRA = { any_allied_country = { is_owner_neighbor_of = ROOT } }
-		}
+		country_exists = INT 
 		NOT = {
 			has_war_with = INT
 			has_war_with = ENT
@@ -10213,6 +10248,7 @@ focus_tree = {
 		}
 		available = {
 			psr_in_power = yes
+			lpsr_in_power = no
 		}
 		ai_will_do = {
 			factor = 100
@@ -10418,6 +10454,7 @@ focus_tree = {
 					NOT = { has_country_leader_ideology = popular_patriotism_subtype }
 				}
 				set_country_leader_ideology = popular_patriotism_subtype 
+				custom_effect_tooltip = socdem_popular_patriotism_subtype_swap_tt
 			}
 		}
 	}
@@ -13298,6 +13335,7 @@ focus_tree = {
 			set_country_flag = RUS_DPROM
 			set_country_flag = RUS_duma_dissolved
 			set_country_leader_ideology = moderate_authoritarianism_subtype
+			custom_effect_tooltip = soccon_moderate_authoritarianism_subtype_swap_tt
 			hidden_effect = {
 				RUS = {
 					country_event = {
@@ -18292,6 +18330,7 @@ focus_tree = {
 				portrait = "gfx/leaders/RUS/Portrait_RUS_Aleksandr_Kerenskiy_Dictator.png"
 			}
 			set_country_leader_ideology = kerenskyism_subtype
+			custom_effect_tooltip = soclib_kerenskyism_subtype_swap_tt
 			set_country_flag = RUS_KER_DICT
 			add_country_leader_trait = rus_soc_lib_dictator
 			if = {
@@ -19483,6 +19522,7 @@ focus_tree = {
 					NOT = { has_country_leader_ideology = pataut_bonapartism_subtype }
 				}
 				set_country_leader_ideology = pataut_bonapartism_subtype
+				custom_effect_tooltip = pataut_pataut_bonapartism_subtype_swap_tt
 			}
 		}
 	}

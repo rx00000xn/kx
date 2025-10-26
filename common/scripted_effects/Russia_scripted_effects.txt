@@ -4123,6 +4123,16 @@ RUS_install_puppet_monarchy = {
 		}
 	}
 	else_if = {
+		limit = { has_government = authoritarian_democrat }
+		create_country_leader = {
+			name = "Tsar of All-Russia"
+			desc = "POLITICS_TSAR_OF_ALL_RUSSIA_DESC"
+			picture = "gfx/leaders/RUS/Portrait_RUS_Imperial_Administration.png"
+			expire = "1.1.1"
+			ideology = oligarchy_subtype
+		}
+	}
+	else_if = {
 		limit = { has_government = social_conservative }
 		create_country_leader = {
 			name = "Tsar of All-Russia"
@@ -4140,6 +4150,26 @@ RUS_install_puppet_monarchy = {
 			picture = "gfx/leaders/RUS/Portrait_RUS_Imperial_Administration.png"
 			expire = "1.1.1"
 			ideology = liberal_conservative_subtype
+		}
+	}
+	else_if = {
+		limit = { has_government = social_liberal }
+		create_country_leader = {
+			name = "Tsar of All-Russia"
+			desc = "POLITICS_TSAR_OF_ALL_RUSSIA_DESC"
+			picture = "gfx/leaders/RUS/Portrait_RUS_Imperial_Administration.png"
+			expire = "1.1.1"
+			ideology = social_liberal_subtype
+		}
+	}
+	else_if = {
+		limit = { has_government = social_democrat }
+		create_country_leader = {
+			name = "Tsar of All-Russia"
+			desc = "POLITICS_TSAR_OF_ALL_RUSSIA_DESC"
+			picture = "gfx/leaders/RUS/Portrait_RUS_Imperial_Administration.png"
+			expire = "1.1.1"
+			ideology = revisionist_marxism_subtype
 		}
 	}
 	else_if = {
@@ -7355,4 +7385,38 @@ RUS_change_siberian_war_morale = {
 	clamp_variable = { var = global.siberian_war_chance min = 0 max = 1 }
 	
 	log = "Morale is now [?global.siberian_war_chance]"
+}
+RUS_add_to_rostorg = {
+	if = {
+		limit = { RUS_is_in_rostorg = no }
+		custom_effect_tooltip = RUS_add_to_rostorg
+		set_country_flag = RUS_is_in_rostorg
+		add_to_array = { RUS.RUS_rostorg_members = THIS }
+		if = {
+			limit = {
+				RUS = { has_idea = RUS_moscow_accord_leader_expansionist }
+			}
+			add_ideas = RUS_moscow_accord_member_expansionist
+		}
+		else_if = {
+			limit = {
+				RUS = { has_idea = RUS_moscow_accord_leader_realpolitik }
+			}
+			add_ideas = RUS_moscow_accord_member_realpolitik
+		}
+	}
+}
+
+RUS_remove_from_rostorg = {
+	if = {
+		limit = { RUS_is_in_rostorg = yes }
+		custom_effect_tooltip = RUS_remove_from_rostorg
+		hidden_effect = {
+			remove_from_array = { RUS.RUS_rostorg_members = THIS }
+			remove_ideas = {
+				RUS_moscow_accord_member_realpolitik
+				RUS_moscow_accord_member_expansionist
+			}
+		}
+	}
 }

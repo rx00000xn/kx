@@ -3020,9 +3020,9 @@ country_event = { #France Decides on Wallonian Protection
 	option = {
 		name = bel.324.a
 		ai_chance = {
-			factor = 0
+			base = 0
 			modifier = {
-				factor = 100
+				add = 100
 				OR = {
 					WLL = {
 						is_ai = no
@@ -3135,6 +3135,18 @@ country_event = { #Germany attacks Wallonia
 
 	option = {
 		name = bel.3261.a
+		hidden_effect = {
+			if = { 
+				limit = { WLL = { is_guaranteed_by = FRA } }
+				FRA = {
+				diplomatic_relation = {
+					country = WLL
+					relation = guarantee
+					active = no
+				}
+				}
+			}
+		}
 		declare_war_on = {
 			target = WLL
 			type = annex_everything
@@ -3693,11 +3705,16 @@ country_event = { #Treaty of Terneuzen goes in effect
 
 	immediate = {
 		log = "[GetDateText]: [Root.GetName]: event bel.77"
-		GER = {
+		hidden_effect = {
+		if = {
+			limit = { HOL = { NOT = { is_in_faction_with = GER } } }
+			GER = {
 			country_event = {
 				id = bel.771
 				days = 3
 			}
+			}
+		}
 		}
 	}
 
@@ -4771,6 +4788,9 @@ country_event = { #
 
 	fire_only_once = yes
 	is_triggered_only = yes
+	trigger = {
+		has_government = paternal_autocrat
+	}
 
 	option = { #
 		name = bel.850.a
@@ -4795,6 +4815,7 @@ country_event = { #
 		else_if = {
 		set_country_leader_ideology = natpop_pan_netherlandism_subtype
 		}
+		custom_effect_tooltip = natpop_natpop_pan_netherlandism_subtype_swap_tt
 		add_popularity = {
 			ideology = national_populist
 			popularity = 0.2
@@ -4811,12 +4832,14 @@ country_event = { #
 		add_war_support = 0.05
 		increase_ruling_party_popularity_by_2 = yes
 		set_country_leader_ideology = pataut_maurrassism_subtype
+		custom_effect_tooltip = pataut_pataut_maurrassism_subtype_swap_tt
 	}
 	option = { #
 		name = bel.850.c
 		add_command_power = 10
 		increase_ruling_party_popularity_by_3 = yes
 		set_country_leader_ideology = pataut_solidarism_subtype
+		custom_effect_tooltip = pataut_pataut_solidarism_subtype_swap_tt
 	}
 	option = { #
 		name = bel.850.e
@@ -4828,12 +4851,14 @@ country_event = { #
 		add_stability = 0.05
 		increase_ruling_party_popularity_by_2 = yes
 		set_country_leader_ideology = pataut_christian_democracy_subtype
+		custom_effect_tooltip = pataut_pataut_christian_democracy_subtype_swap_tt
 	}
 	option = { #
 		name = bel.850.g
 		add_stability = 0.02
 		increase_ruling_party_popularity_by_5 = yes
 		set_country_leader_ideology = pataut_belgicism_subtype
+		custom_effect_tooltip = pataut_pataut_belgicism_subtype_swap_tt
 	}
 }
 
