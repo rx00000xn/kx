@@ -1,5 +1,5 @@
 ﻿capital = 306
-OOB = "COL"
+oob = "COL"
 set_naval_oob= "COL_naval"
 set_research_slots = 3
 set_technology = {
@@ -7,6 +7,7 @@ set_technology = {
 	infantry_weapons = 1
 	basic_train = 1
 	tech_mountaineers = 1
+	tech_trucks = 1
 	tech_support = 1
 	tech_recon = 1
 	gw_artillery = 1
@@ -86,163 +87,207 @@ if = {
 	}
 }
 
-set_war_support = 0.1
+### LaR ###
 
-country_event = { id = col.1 days = 1 }
-
-set_politics = {
-	ruling_party = social_democrat
-	last_election = "1888.6.15"
-	election_frequency = 48
-	elections_allowed = no
-}
-
-set_popularities = {
-	totalist = 0
-	radical_socialist = 15
-	syndicalist = 0
-	social_democrat = 33
-	social_liberal = 2
-	market_liberal = 3
-	social_conservative = 29
-	authoritarian_democrat = 0
-	paternal_autocrat = 11
-	national_populist = 7
+if = {
+	limit = {
+		has_dlc = "La Resistance"
+	}
+	set_technology = {
+		armored_car1 = 1
+	}
 }
 
 set_convoys = 30
 
+set_stability = 0.5
+set_war_support = 0.2
+
+create_import = {
+	resource = steel
+	factories = 1
+	exporter = USA
+}
+
+country_event = { id = col.1 days = 1 } #INTRO EVENT
+country_event = { id = col.2 days = 28 } #PINILLA RETURNS - SINGLE EVENT
+country_event = { id = col.19 days = 135 } #SHOULD WE HAVE AN EARLY ELECTION? - CHAIN OF EVENTS
+country_event = { id = col.37 days = 566 } #DIA DEL INDIPENDENCIA CELEBRATIONS - SINGLE EVENT
+
+set_politics = {
+	ruling_party = social_liberal
+	last_election = "1934.4.3"
+	election_frequency = 48
+	elections_allowed = yes
+}
+
+set_temp_variable = { coalition_partner_var = token:social_conservative }
+add_to_coalition = yes
+set_temp_variable = { coalition_partner_var = token:market_liberal }
+add_to_coalition = yes
+
+set_popularities = {
+	totalist = 4
+	radical_socialist = 14
+	syndicalist = 3
+	social_democrat = 10
+	social_liberal = 26
+	market_liberal = 7
+	social_conservative = 12
+	authoritarian_democrat = 15
+	paternal_autocrat = 5
+	national_populist = 4
+}
+
 add_ideas = {
-	COL_Eduardo_Santos_Montejo_hog_sde
-	COL_Alfonso_Lopez_Michelsen_for_sde
-	COL_Francisco_Antonio_Barberi_Zamorano_eco_sde
-	COL_Felix_Restrepo_Mejia_S_J_sec_sde
+	COL_lost_war
+	COL_political_turmoil
+	COL_factionalized_army
+	
+	#cabinet
+	COL_Eduardo_Santos_Montejo_hog_sli 
+	COL_Felix_Restrepo_Mejia_S_J_for_sli
+	COL_Jorge_Soto_Del_Corral_eco_sli
+	COL_Tulio_Enrique_Tascon_Quintero_sec_sli 
 }
 
 create_country_leader = {
-	name = "Elíseo Arango Ramos"
-	picture = "gfx/leaders/COL/Portrait_Columbia_Eliseo_Arango.png"
+	name = "Carlos Cortes Vargas"
+	picture = "gfx/leaders/COL/Portrait_Colombia_Carlos_Cortes_Vargas.png"
 	expire = "1.1.1"
 	ideology = leopardism_subtype
 }
 
 create_country_leader = {
 	name = "Gustavo Rojas Pinilla"
-	picture = "gfx/leaders/COL/Portrait_Columbia_Rojas_Pinilla.png"
+	picture = "gfx/leaders/COL/Portrait_Colombia_Gustavo_Rojas_Pinilla.png"
 	expire = "1.1.1"
 	ideology = junta_subtype
 }
 
 create_country_leader = {
-	name = "Laureano Goméz Castro"
-	picture = "gfx/leaders/COL/Portrait_Columbia_Lauro_Gomez_Castro.png"
+	name = "Laureano Gómez Castro"
+	desc = "POLITICS_COL_GOMEZ_CASTRO_DESC"
+	picture = "gfx/leaders/COL/Portrait_Colombia_Laureano_Gomez_Castro.png"
 	expire = "1.1.1"
 	ideology = autdem_christian_democracy_subtype
 }
 
 create_country_leader = {
-	name = "Alfredo Vazquez Cobo"
-	picture = "gfx/leaders/COL/Portrait_Columbia_Alfredo_Cobo.png"
-	expire = "1.1.1"
-	ideology = moderate_authoritarianism_subtype
-}
-
-create_country_leader = {
 	name = "Mariano Ospina Pérez"
-	picture = "gfx/leaders/COL/Portrait_Columbia_Mariano_Ospina.png"
+	desc = "POLITICS_COL_PEREZ_DESC"
+	picture = "gfx/leaders/COL/Portrait_Colombia_Mariano_Ospina.png"
 	expire = "1.1.1"
-	ideology = marlib_national_liberalism_subtype
+	ideology = christian_democracy_subtype
 }
 
 create_country_leader = {
-	name = "Eduardo Santos Montejo"
-	picture = "gfx/leaders/COL/Portrait_Columbia_Eduardo_Montejo.png"
+	name = "Francisco Anastasio Pérez"
+	desc = "POLITICS_COL_FRANCISCO_PEREZ_DESC"
+	picture = "gfx/leaders/Generic/Portrait_Colombia_Francisco_Anastasio_Perez.png"
 	expire = "1.1.1"
-	ideology = social_liberal_subtype
+	ideology = marlib_police_state_subtype
+	traits = {
+		COL_mamatoco
+	}
+}
+
+create_country_leader = {
+	name = "Juan Lozano y Lozano"
+	desc = "POLITICS_COL_LOZANO_Y_LOZANO_DESC"
+	picture = "gfx/leaders/COL/Portrait_Colombia_Lozano_y_Lozano.png"
+	expire = "1.1.1"
+	ideology = centrist_subtype
 }
 
 create_country_leader = {
 	name = "Alfonso López Pumarejo"
-	picture = "gfx/leaders/COL/Portrait_Columbia_Alfonso_Pumarejo.png"
+	desc = "POLITICS_COL_PUMAREJO_DESC"
+	picture = "gfx/leaders/COL/Portrait_Colombia_Alfonso_Lopez_Pumarejo.png"
 	expire = "1.1.1"
 	ideology = socdem_radical_progressivism_subtype
 }
 
 create_country_leader = {
-	name = "Jorge Eliecer Gaitan"
-	picture = "gfx/leaders/COL/Portrait_Columbia_Jorge_Gaitan.png"
+	name = "Jorge Eliécer Gaitán"
+	picture = "gfx/leaders/COL/Portrait_Colombia_Jorge_Gaitan.png"
 	expire = "1.1.1"
 	ideology = agrarian_socialism_subtype
 }
 
 create_country_leader = {
-	name = "Pedro Nel Gomez Agudelo"
+	name = "Diego Luis Córdoba"
+	desc = "POLITICS_COL_LUIS_CORDOBA_DESC"
+	picture = "gfx/leaders/COL/Portrait_Colombia_Diego_Luis_Cordoba.png"
 	expire = "1.1.1"
-	picture = "gfx/leaders/COL/Portrait_Columbia_Pedro_Nel_Gomez.png"
 	ideology = anarcho_syndicalist_subtype
 }
 
 create_country_leader = {
-	name = "Gilberto Vieira"
-	picture = "gfx/leaders/COL/Portrait_Columbia_Gilberto_Vieira.png"
+	name = "Augusto Durán Ospino"
+	desc = "POLITICS_COL_DURAN_OSPINO_DESC"
+	picture = "gfx/leaders/COL/Portrait_Colombia_Augusto_Duran_Ospino.png"
 	expire = "1.1.1"
-	ideology = totalist_subtype
+	ideology = popcom_subtype
 }
 
 ### Field Marshals ###
 create_field_marshal = {
-	name = "Gustavo Rojas Pinilla"
+	name = "Gustavo Rojas Pinilla "
 	id = 87561
-	portrait_path = "gfx/leaders/COL/Portrait_Columbia_Rojas_Pinilla.png"
+	portrait_path = "gfx/leaders/COL/Portrait_Colombia_Gustavo_Rojas_Pinilla.png"
 	traits = {
+		war_hero
 		media_personality
 		politically_connected
-		expert_delegator
 	}
 	skill = 3
 	attack_skill = 3
 	defense_skill = 2
 	planning_skill = 2
-	logistics_skill = 3
-}
-
-create_field_marshal = {
-	name = "Alfredo Vazquez Cobo "
-	portrait_path = "gfx/leaders/COL/Portrait_Columbia_Alfredo_Cobo_general.png"
-	traits = {
-		politically_connected
-		old_guard
-	}
-	skill = 2
-	attack_skill = 1
-	defense_skill = 3
-	planning_skill = 1
 	logistics_skill = 2
 }
 
-create_corps_commander = {
-	name = "Gabriel Paris Gordillo"
+create_field_marshal = {
+	name = "Gabriel París Gordillo"
 	id = 87562
-	portrait_path = "gfx/leaders/COL/Portrait_Columbia_Gordillo.png"
+	portrait_path = "gfx/leaders/COL/Portrait_Colombia_Gabriel_Paris_Gordillo.png"
 	traits = {
-		cavalry_officer
+		expert_delegator
+		harsh_leader
 	}
 	skill = 2
-	attack_skill = 3
+	attack_skill = 2
 	defense_skill = 2
 	planning_skill = 1
 	logistics_skill = 1
 }
 
+#create_field_marshal = {
+	#name = "Germán Ocampo Herrera"
+	#portrait_path = "gfx/leaders/COL/Portrait_Colombia_German_Ocampo_Herrera.png"
+	#traits = {
+		#career_officer
+		#trait_cautious
+		#cavalry_officer
+	#}
+	#skill = 2
+	#attack_skill = 1
+	#defense_skill = 2
+	#planning_skill = 1
+	#logistics_skill = 2
+#}
+
 create_corps_commander = {
-	name = "Germán Ocampo"
-	portrait_path = "gfx/leaders/COL/Portrait_Colombia_German_Ocampo.png"
+	name = "Deogracias Fonseca Espinosa"
+	portrait_path = "gfx/leaders/COL/Portrait_Colombia_Deogracias_Fonseca_Espinosa.png"
 	traits = {
+		trait_reckless
 	}
 	skill = 2
-	attack_skill = 3
+	attack_skill = 1
 	defense_skill = 2
-	planning_skill = 1
+	planning_skill = 2
 	logistics_skill = 1
 }
 
@@ -252,6 +297,7 @@ create_corps_commander = {
 	portrait_path = "gfx/leaders/COL/Portrait_Colombia_Diogenes_Gil.png"
 	traits = {
 		organizer
+		combined_arms_expert
 	}
 	skill = 2
 	attack_skill = 1
@@ -272,7 +318,7 @@ create_corps_commander = {
 	defense_skill = 2
 	planning_skill = 1
 	logistics_skill = 2
-}
+}	
 
 create_corps_commander = {
 	name = "Carlos Pinzón Azuero"
@@ -281,6 +327,19 @@ create_corps_commander = {
 	traits = {
 		trait_cautious
 		cavalry_officer
+	}
+	skill = 2
+	attack_skill = 2
+	defense_skill = 1
+	planning_skill = 2
+	logistics_skill = 1
+}	
+
+create_corps_commander = {
+	name = "Luis Ernesto Ordóñez Castillo"
+	portrait_path = "gfx/leaders/COL/Portrait_Colombia_Luis_Ernesto_Ordonez_Castillo.png"
+	traits = {
+		trait_reckless
 	}
 	skill = 1
 	attack_skill = 1
@@ -302,18 +361,56 @@ create_corps_commander = {
 	defense_skill = 1
 	planning_skill = 1
 	logistics_skill = 1
+}	
+
+create_corps_commander = {
+	name = "Rafael Navas Pardo"
+	portrait_path = "gfx/leaders/COL/Portrait_Colombia_Rafael_Navas_Pardo.png"
+	traits = {
+	}
+	skill = 1
+	attack_skill = 1
+	defense_skill = 1
+	planning_skill = 1
+	logistics_skill = 1
 }
+
 
 ### Corps Commanders ###
 
 ### Admirals ###
+
 create_navy_leader = {
 	name = "Froilán Valenzuela Urueña"
 	id = 87566
 	portrait_path = "gfx/leaders/COL/Portrait_Colombia_Froilan_Valenzuela_Uruena.png"
 	traits = {
-		old_guard
-		spotter
+		blue_water_expert
+	}
+	skill = 2
+	attack_skill = 1
+	defense_skill = 2
+	maneuvering_skill = 1
+	coordination_skill = 2
+}
+
+create_navy_leader = {
+	name = "Rubén Piedrahíta Arango"
+	portrait_path = "gfx/leaders/COL/Portrait_Colombia_Ruben_Piedrahíta_Arango.png"
+	traits = {
+	}
+	skill = 1
+	attack_skill = 2
+	defense_skill = 1
+	maneuvering_skill = 1
+	coordination_skill = 1
+}
+
+create_navy_leader = {
+	name = "Mario Espinosa Gacitúa"
+	id = 87567
+	portrait_path = "gfx/leaders/COL/Portrait_Colombia_Mario_Espinosa_Gacitua.png"
+	traits = { 
 	}
 	skill = 1
 	attack_skill = 1
@@ -322,16 +419,19 @@ create_navy_leader = {
 	coordination_skill = 2
 }
 
-create_navy_leader = {
-	name = "Mario Espinosa Gacitúa"
-	id = 87567
-	portrait_path = "gfx/leaders/COL/Portrait_Colombia_Mario_Espinosa_Gacitua.png"
-	traits = { }
-	skill = 1
-	attack_skill = 1
-	defense_skill = 1
-	maneuvering_skill = 1
-	coordination_skill = 1
+#Operatives#
+if = {
+	limit = { has_dlc = "La Resistance" }
+	create_operative_leader = {
+		name = "Yoland Emiliani Roman"
+		GFX = GFX_Portrait_COL_Yolanda_Emiliani_Roman
+		traits = {
+			seducer
+		}
+		bypass_recruitment = no
+		available_to_spy_master = yes
+		nationalities = { COL COC }
+	}
 }
 
 COL_start_naval_variant = yes

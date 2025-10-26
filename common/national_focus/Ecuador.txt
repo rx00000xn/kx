@@ -13,104 +13,177 @@ focus_tree = {
 		}
 	}
 	default = no
-	continuous_focus_position = { x = 50 y = 700 }
+	reset_on_civilwar = no
+	continuous_focus_position = { x = 1900 y = 1300 }
 
 	focus = {
-		id = ECU_isidro
-		icon = GFX_goal_ECU_Isidro_takes_the_reins_of_the_government
+		id = ECU_neptali
+		icon = GFX_focus_generic_air_defense
 		x = 3
 		y = 0
 		cost = 8
 		available = {
-			has_country_flag = ECU_dem_ayora
-		}
-
-		ai_will_do = {
-			factor = 1
+			has_country_leader = { 
+				name = "Neptalí Bonifaz Ascázubi"
+				ruling_only = yes
+			}
 		}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ECU_isidro"
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_neptali"
 			add_stability = 0.05
-			country_event = {
-				id = ecu.15
-				days = 5
-			}
 		}
 		search_filters = { FOCUS_FILTER_STABILITY }
 	}
 
 	focus = {
-		id = ECU_isidro2
-		icon = GFX_goal_ARZ_Authoritarian_Liberalism
+		id = ECU_investigate_socialist_secret_society
+		icon = GFX_goal_purge_opposition
 		prerequisite = {
-			focus = ECU_isidro
+			focus = ECU_neptali
 		}
-		x = 0
+		x = 2
 		y = 1
-		relative_position_id = ECU_isidro
+		relative_position_id = ECU_neptali
 		cost = 8
 		available = {
-			has_country_flag = ECU_dem_ayora
-		}
-
-		ai_will_do = {
-			factor = 1
+			has_country_leader = { 
+				name = "Neptalí Bonifaz Ascázubi"
+				ruling_only = yes
+			}
 		}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ECU_isidro2"
-			add_political_power = 100
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_investigate_socialist_secret_society"
+			country_event = ecu.32
 			add_popularity = {
-				ideology = market_liberal popularity = 0.15
+				ideology = totalist
+				popularity = -0.02
 			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 
 	focus = {
-		id = ECU_isidro3
-		icon = GFX_goal_AUS_Enlightenment_Liberal_Vienna
+		id = ECU_neptali2
+		icon = GFX_focus_generic_air_defense
 		prerequisite = {
-			focus = ECU_isidro2
+			focus = ECU_neptali
 		}
 		x = 0
-		y = 2
-		relative_position_id = ECU_isidro
+		y = 1
+		relative_position_id = ECU_neptali
 		cost = 8
 		available = {
-			has_country_flag = ECU_dem_ayora
-		}
-
-		ai_will_do = {
-			factor = 1
+			has_country_leader = { 
+				name = "Neptalí Bonifaz Ascázubi"
+				ruling_only = yes
+			}
 		}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ECU_isidro3"
-			add_war_support = 0.05
-			add_stability = 0.1
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_neptali2"
+			add_political_power = 100
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	focus = {
+		id = ECU_paint_peru_as_saviours
+		icon = GFX_goal_authoritarian
+		prerequisite = {
+			focus = ECU_neptali
+		}
+		x = -2
+		y = 1
+		relative_position_id = ECU_neptali
+		cost = 8
+		available = {
+			has_country_leader = { 
+				name = "Neptalí Bonifaz Ascázubi"
+				ruling_only = yes
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_investigate_socialist_secret_society"
+			swap_ideas = {
+				add_idea = ECU_anti_PRU_sentiment2
+				remove_idea = ECU_anti_PRU_sentiment1
+			}
+			add_autonomy_score = {
+				value = 100
+				localization = ECU_paint_peru_as_saviours
+			}
+			490 = {
+				if = {
+					limit = {
+						NOT = {
+							is_owned_by = ECU
+						}
+					}
+					ECU = { remove_state_claim = PREV }
+					ECU = { remove_state_core = PREV }
+				}
+			}
+			649 = {
+				if = {
+					limit = {
+						NOT = {
+							is_owned_by = ECU
+						}
+					}
+					ECU = { remove_state_claim = PREV }
+					ECU = { remove_state_core = PREV }
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	focus = {
+		id = ECU_neptali3
+		icon = GFX_goal_AUS_Enlightenment_Liberal_Vienna
+		prerequisite = { focus = ECU_investigate_socialist_secret_society }
+		prerequisite = { focus = ECU_neptali2 }
+		prerequisite = { focus = ECU_paint_peru_as_saviours }
+		x = 0
+		y = 2
+		relative_position_id = ECU_neptali
+		cost = 8
+		available = {
+			has_country_leader = { 
+				name = "Neptalí Bonifaz Ascázubi"
+				ruling_only = yes
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_neptali3"
+			add_stability = 0.035
+			add_popularity = {
+				ideology = authoritarian_democrat popularity = 0.1
+			}
 		}
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_STABILITY }
 	}
 
 	focus = {
-		id = ECU_poltechsloty
-		icon = GFX_CAL_new_sciences
+		id = ECU_intellectual_amnesty
+		icon = GFX_goal_brain
 		prerequisite = {
-			focus = ECU_isidro3
+			focus = ECU_neptali3
 		}
 		available = {
-			has_country_flag = ECU_dem_ayora
+			has_country_leader = { 
+				name = "Neptalí Bonifaz Ascázubi"
+				ruling_only = yes
+			}
 		}
 
-		ai_will_do = {
-			factor = 1
-		}
+		
 		x = 0
 		y = 3
-		relative_position_id = ECU_isidro
+		relative_position_id = ECU_neptali
 		cost = 8
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ECU_poltechsloty"
-			add_research_slot = 1
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_intellectual_amnesty"
+			add_ideas = ECU_intellectual_amnesty_idea
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -119,24 +192,21 @@ focus_tree = {
 		id = ECU_legalfacade
 		icon = GFX_goal_MEX_Appointed_judges
 		prerequisite = {
-			focus = ECU_isidro
+			focus = ECU_neptali
 		}
-		x = -3
+		x = -4
 		y = 1
-		relative_position_id = ECU_isidro
+		relative_position_id = ECU_neptali
 		cost = 8
 		available = {
-			has_country_flag = ECU_dem_ayora
-		}
-
-		ai_will_do = {
-			factor = 1
+			has_country_leader = { 
+				name = "Neptalí Bonifaz Ascázubi"
+				ruling_only = yes
+			}
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_legalfacade"
-			add_political_power = 75
 			country_event = ecu.17
-			hidden_effect = { country_event = { id = ecu.16 days = 30 } }
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -147,17 +217,18 @@ focus_tree = {
 		prerequisite = {
 			focus = ECU_legalfacade
 		}
-		x = -2
+		x = -3
 		y = 2
-		relative_position_id = ECU_isidro
+		relative_position_id = ECU_neptali
 		cost = 8
 		available = {
-			has_country_flag = ECU_dem_ayora
+			has_country_leader = { 
+				name = "Neptalí Bonifaz Ascázubi"
+				ruling_only = yes
+			}
 		}
 
-		ai_will_do = {
-			factor = 1
-		}
+		
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_justice"
 			add_ideas = ECU_inthecriminaljusticesystem
@@ -166,31 +237,28 @@ focus_tree = {
 	}
 
 	focus = {
-		id = ECU_laicity
-		icon = GFX_goal_COL_Church_State_Separation
+		id = ECU_fund_naval_high_education
+		icon = GFX_focus_generic_air_defense
 		prerequisite = {
 			focus = ECU_justice
 		}
+		prerequisite = {
+			focus = ECU_neptali3
+		}
 		x = -2
 		y = 3
-		relative_position_id = ECU_isidro
+		relative_position_id = ECU_neptali
 		cost = 8
 		available = {
-			has_country_flag = ECU_dem_ayora
-		}
-
-		ai_will_do = {
-			factor = 1
+			has_country_leader = { 
+				name = "Neptalí Bonifaz Ascázubi"
+				ruling_only = yes
+			}
 		}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ECU_laicity"
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_fund_naval_high_education"
 			add_stability = 0.05
-			add_popularity = {
-				ideology = social_conservative popularity = -0.15
-			}
-			add_popularity = {
-				ideology = authoritarian_democrat popularity = -0.1
-			}
+			add_ideas = ECU_fund_naval_high_education_idea
 		}
 		search_filters = { FOCUS_FILTER_STABILITY }
 	}
@@ -199,25 +267,26 @@ focus_tree = {
 		id = ECU_bankers
 		icon = GFX_goal_TEX_banks_for_america
 		prerequisite = {
-			focus = ECU_isidro
+			focus = ECU_neptali
 		}
-		x = 3
+		x = 4
 		y = 1
-		relative_position_id = ECU_isidro
+		relative_position_id = ECU_neptali
 		cost = 8
 		available = {
-			has_country_flag = ECU_dem_ayora
+			has_country_leader = { 
+				name = "Neptalí Bonifaz Ascázubi"
+				ruling_only = yes
+			}
 		}
 
-		ai_will_do = {
-			factor = 1
-		}
+		
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_bankers"
 			add_ideas = ECU_banker_power
 			add_tech_bonus = {
 				name = ECU_bankers
-				bonus = 1
+				bonus = 0.5
 				uses = 1
 				category = industry
 			}
@@ -231,82 +300,103 @@ focus_tree = {
 		prerequisite = {
 			focus = ECU_bankers
 		}
-		x = 2
+		x = 3
 		y = 2
-		relative_position_id = ECU_isidro
+		relative_position_id = ECU_neptali
 		cost = 8
 		available = {
-			has_country_flag = ECU_dem_ayora
-			controls_state = 305
+			has_country_leader = { 
+				name = "Neptalí Bonifaz Ascázubi"
+				ruling_only = yes
+			}
+			controls_state = 1280
 		}
 
-		ai_will_do = {
-			factor = 1
-		}
+		
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_guayaquil"
-			305 = {
-				add_extra_state_shared_building_slots = 2
+			1280 = {
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
 					level = 1
 					instant_build = yes
 				}
 			}
+			1280 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
 			hidden_effect = {
-				country_event = { id = ecu.19 days = 270 random_days = 180 } #The rebirth of Guayaquil
+				country_event = { id = ecu.19 days = 180 } #The rebirth of Guayaquil
 			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
 	}
 
 	focus = {
-		id = ECU_liberal_boom
+		id = ECU_economic_boom
 		icon = GFX_goal_KSV_man_who_sold_the_world
 		x = 2
 		y = 3
-		relative_position_id = ECU_isidro
+		relative_position_id = ECU_neptali
 		cost = 8
 		prerequisite = {
 			focus = ECU_guayaquil
 		}
+		prerequisite = {
+			focus = ECU_neptali3
+		}
 		available = {
-			has_country_flag = ECU_dem_ayora
+			has_country_leader = { 
+				name = "Neptalí Bonifaz Ascázubi"
+				ruling_only = yes
+			}
 		}
 
-		ai_will_do = {
-			factor = 1
-		}
+		
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ECU_liberal_boom"
-			add_ideas = ECU_economic_boom
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_economic_boom"
+			swap_ideas = {
+				remove_idea = ECU_banker_power
+				add_idea = ECU_economic_boom
+			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 
 	focus = {
-		id = ECU_liberty_not_implore_knees
-		icon = GFX_goal_ECU_coa
-		prerequisite = {
-			focus = ECU_laicity
-		}
-		prerequisite = {
-			focus = ECU_liberal_boom
-		}
+		id = ECU_loyal_as_a_dog
+		icon = GFX_goal_generic_defence
+		prerequisite = { focus = ECU_fund_naval_high_education }
+		prerequisite = { focus = ECU_intellectual_amnesty }
+		prerequisite = { focus = ECU_economic_boom }
 		x = 0
 		y = 4
-		relative_position_id = ECU_isidro
+		relative_position_id = ECU_neptali
 		cost = 8
 		available = {
-			has_country_flag = ECU_dem_ayora
+			has_country_leader = { 
+				name = "Neptalí Bonifaz Ascázubi"
+				ruling_only = yes
+			}
 		}
 
-		ai_will_do = {
-			factor = 1
-		}
+		
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ECU_liberty_not_implore_knees"
-			add_stability = 0.15
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_loyal_as_a_dog"
+			add_autonomy_score = {
+				value = 175
+				localization = ECU_loyal_as_a_dog
+			}
+			swap_ideas = {
+				add_idea = ECU_anti_PRU_sentiment3
+				remove_idea = ECU_anti_PRU_sentiment2
+			}
 		}
 		search_filters = { FOCUS_FILTER_STABILITY }
 	}
@@ -316,20 +406,15 @@ focus_tree = {
 	focus = {
 		id = ECU_gallo
 		icon = GFX_goal_ECU_Gallo_Steps_In
-		x = 10
-		y = 0
+		x = 12
+		y = 6
 		cost = 8
 		available = {
-			has_country_flag = ECU_notyet
-		}
-
-		ai_will_do = {
-			factor = 1
+			has_government = totalist
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_gallo"
 			add_stability = 0.1
-			country_event = ecu.21
 		}
 		search_filters = { FOCUS_FILTER_STABILITY }
 	}
@@ -345,11 +430,7 @@ focus_tree = {
 		relative_position_id = ECU_gallo
 		cost = 8
 		available = {
-			has_country_flag = ECU_notyet
-		}
-
-		ai_will_do = {
-			factor = 1
+			has_government = totalist
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_stateofexecao"
@@ -359,26 +440,22 @@ focus_tree = {
 	}
 
 	focus = {
-		id = ECU_chilean_spies
+		id = ECU_deal_with_reactionaries_spies
 		icon = GFX_goal_GUA_Paris_Agents
 		prerequisite = {
 			focus = ECU_stateofexecao
 		}
-		x = 0
-		y = 2
-		relative_position_id = ECU_gallo
+		x = -1
+		y = 1
+		relative_position_id = ECU_stateofexecao
 		cost = 8
 		available = {
-			has_country_flag = ECU_notyet
-		}
-
-		ai_will_do = {
-			factor = 1
+			has_government = totalist
 		}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ECU_chilean_spies"
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_deal_with_reactionaries_spies"
 			add_war_support = 0.1
-			add_popularity = { ideology = authoritarian_democrat popularity = 0.1 }
+			add_popularity = { ideology = totalist popularity = 0.1 }
 			hidden_effect = {
 				country_event = { id = ecu.22 days = 207 random_days = 138 } #Syndicalist spies!
 			}
@@ -390,51 +467,281 @@ focus_tree = {
 		id = ECU_gommiegone
 		icon = GFX_goal_ALB_Smashing_Communism
 		prerequisite = {
-			focus = ECU_chilean_spies
+			focus = ECU_loyal_as_a_dog
 		}
 		x = 0
-		y = 3
-		relative_position_id = ECU_gallo
+		y = 1
+		relative_position_id = ECU_loyal_as_a_dog
 		cost = 8
 		available = {
-			has_country_flag = ECU_notyet
+			has_country_leader = { 
+				name = "Neptalí Bonifaz Ascázubi"
+				ruling_only = yes
+			}
 		}
 
-		ai_will_do = {
-			factor = 1
-		}
+		
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_gommiegone"
+			add_political_power = 25
 			add_popularity = {
-				ideology = syndicalist popularity = -0.2
+				ideology = syndicalist 
+				popularity = -0.15
 			}
-			add_stability = 0.1
+			add_popularity = {
+				ideology = radical_socialist 
+				popularity = -0.15
+			}
 		}
 		search_filters = { FOCUS_FILTER_STABILITY }
 	}
 
 	focus = {
-		id = ECU_loyalty
-		icon = GFX_goal_ALB_Purge_Purgers
+		id = ECU_help_PRU_with_pastaza
+		icon = GFX_goal_HOL_crackdown_totalist
+		prerequisite = {
+			focus = ECU_loyal_as_a_dog
+		}
+		x = 2
+		y = 1
+		relative_position_id = ECU_loyal_as_a_dog
+		cost = 8
+		available = { 
+			has_country_leader = { 
+				name = "Neptalí Bonifaz Ascázubi"
+				ruling_only = yes
+			}
+			is_puppet_of = PRU
+			PRU = {
+				owns_state = 490 
+				controls_state = 490 
+			}
+		}
+		bypass = {
+			PRU = {
+				NOT = {
+					owns_state = 490
+				}
+			}
+		}
+		
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_gommiegone"
+			PRU = {
+				add_resource = {
+					type = rubber
+					amount = 14
+					state = 490
+				}
+				490 = {
+					add_extra_state_shared_building_slots = 2
+				}
+			}
+			add_popularity = {
+				ideology = authoritarian_democrat popularity = 0.07
+			}
+		}
+		search_filters = { FOCUS_FILTER_STABILITY }
+	}
+
+	focus = {
+		id = ECU_anti_colombian_propaganda
+		icon = GFX_focus_generic_air_defense
 		available = {
-			has_idea = ECU_army_dissent
-			has_country_flag = ECU_notyet
+			has_country_leader = { 
+				name = "Neptalí Bonifaz Ascázubi"
+				ruling_only = yes
+			}
+		}
+		bypass = {
+			AND = {
+				COL = {
+					OR = {
+						exists = no
+						is_in_faction_with = ROOT
+						is_puppet_of = ECU
+						AND = {
+							is_puppet_of = PRU
+							ROOT = {
+								is_puppet_of = PRU
+							}
+						}
+					}
+				}
+				COC = {
+					OR = {
+						exists = no
+						is_in_faction_with = ROOT
+						is_puppet_of = ECU
+						AND = {
+							is_puppet_of = PRU
+							ROOT = {
+								is_puppet_of = PRU
+							}
+						}
+					}
+				}
+				CAU = {
+					OR = {
+						exists = no
+						is_in_faction_with = ROOT
+						is_puppet_of = ECU
+						AND = {
+							is_puppet_of = PRU
+							ROOT = {
+								is_puppet_of = PRU
+							}
+						}
+					}
+				}
+			}
 		}
 		prerequisite = {
-			focus = ECU_stateofexecao
+			focus = ECU_loyal_as_a_dog
 		}
 		x = -2
-		y = 3
-		relative_position_id = ECU_gallo
+		y = 1
+		relative_position_id = ECU_loyal_as_a_dog
 		cost = 8
-		ai_will_do = {
-			factor = 1
-		}
+		
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_loyalty"
-			army_experience = -25
-			add_stability = -0.05
-			remove_ideas = ECU_army_dissent
+			army_experience = 5
+			add_war_support = 0.11
+			swap_ideas = {
+				add_idea = ECU_revanchist_sentiment2
+				remove_idea = ECU_revanchist_sentiment
+			}
+			PRU = {
+				add_opinion_modifier = { 
+					target = ROOT
+					modifier = small_increase
+				}
+			}
+			COL = {
+				add_opinion_modifier = { 
+					target = ROOT 
+					modifier = small_decrease
+				}
+			}
+			add_opinion_modifier = { 
+				target = COL
+				modifier = small_decrease
+			}
+			if = {
+				limit = {
+					COC = { 
+						exists = yes 
+						NOT = {
+							is_in_faction_with = ROOT
+							is_puppet_of = ROOT
+							AND = {
+								is_puppet_of = PRU
+								ROOT = {
+									is_puppet_of = PRU
+								}
+							}
+						}
+					}
+				}
+				COC = {
+					add_opinion_modifier = { 
+						target = ROOT 
+						modifier = small_decrease
+					}
+				}
+				add_opinion_modifier = { 
+					target = COC
+					modifier = small_decrease
+				}
+			}
+			if = {
+				limit = {
+					CAU = { 
+						exists = yes 
+						NOT = {
+							is_in_faction_with = ROOT
+							is_puppet_of = ROOT
+							AND = {
+								is_puppet_of = PRU
+								ROOT = {
+									is_puppet_of = PRU
+								}
+							}
+						}
+					}
+				}
+				CAU = {
+					add_opinion_modifier = { 
+						target = ROOT 
+						modifier = small_decrease
+					}
+				}
+				add_opinion_modifier = { 
+					target = CAU
+					modifier = small_decrease
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_STABILITY }
+	}
+
+	focus = {
+		id = ECU_neptali_successful
+		icon = GFX_focus_generic_air_defense
+		available = {
+			has_country_leader = { 
+				name = "Neptalí Bonifaz Ascázubi"
+				ruling_only = yes
+			}
+		}
+		prerequisite = {
+			focus = ECU_anti_colombian_propaganda
+		}
+		prerequisite = {
+			focus = ECU_gommiegone
+		}
+		prerequisite = {
+			focus = ECU_help_PRU_with_pastaza
+		}
+		x = 0
+		y = 1
+		relative_position_id = ECU_gommiegone
+		cost = 8
+		
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_loyalty"
+			add_political_power = 50
+			add_stability = 0.075
+			add_popularity = {
+				ideology = authoritarian_democrat popularity = 0.075
+			}
+			if = {
+				limit = {
+					has_autonomy_state = kr_autonomous_puppet
+				}
+				add_autonomy_score = {
+					value = 200
+					localization = ECU_neptali_successful
+				}
+			}
+			else = {
+				get_current_government_type = yes
+				PRU = {
+					set_autonomy = {
+						target = ROOT
+						autonomy_state = kr_autonomous_puppet
+					}
+				}
+				restore_previous_government_type = yes
+				hidden_effect = {
+					set_politics = {
+						ruling_party = authoritarian_democrat
+						election_frequency = 48
+						elections_allowed = no
+					}
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_STABILITY }
 	}
@@ -443,35 +750,63 @@ focus_tree = {
 		id = ECU_bossgallo
 		icon = GFX_goal_GUA_Root_Out_Tyranny_Army
 		prerequisite = {
-			focus = ECU_stateofexecao
+			focus = ECU_deal_with_reactionaries_spies
 		}
-		x = 2
-		y = 3
+		x = 0
+		y = 1
 		cost = 8
-		relative_position_id = ECU_gallo
+		relative_position_id = ECU_deal_with_reactionaries_spies
 		available = {
-			has_country_flag = ECU_notyet
-		}
-
-		ai_will_do = {
-			factor = 1
+			has_government = totalist
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_bossgallo"
 			increase_conscription = yes
 			add_war_support = 0.05
 			add_popularity = {
-				ideology = authoritarian_democrat popularity = 0.1
+				ideology = totalist popularity = 0.1
 			}
 			add_popularity = {
-				ideology = social_conservative popularity = -0.1
+				ideology = paternal_autocrat popularity = -0.1
 			}
 			add_popularity = {
-				ideology = market_liberal popularity = -0.1
+				ideology = authoritarian_democrat popularity = -0.035
 			}
-			hidden_effect = {
-				country_event = { id = ecu.24 days = 25 random_days = 50 } #Purifying the press
-			}
+			country_event = { id = ecu.24 days = 12 } #Purifying the press
+		}
+		search_filters = { FOCUS_FILTER_STABILITY }
+	}
+
+	focus = {
+		id = ECU_liberty_not_implore_knees
+		icon = GFX_goal_ECU_coa
+		prerequisite = { focus = ECU_stateofexecao }
+		x = 1
+		y = 1
+		relative_position_id = ECU_stateofexecao
+		cost = 8
+		available = {
+			has_government = totalist
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_liberty_not_implore_knees"
+		}
+		search_filters = { FOCUS_FILTER_STABILITY }
+	}
+
+	focus = {
+		id = ECU_centralizing_the_economy
+		icon = GFX_goal_generic_national_unity
+		prerequisite = { focus = ECU_liberty_not_implore_knees }
+		x = 0
+		y = 1
+		relative_position_id = ECU_liberty_not_implore_knees
+		cost = 8
+		available = {
+			has_government = totalist
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_centralizing_the_economy"
 		}
 		search_filters = { FOCUS_FILTER_STABILITY }
 	}
@@ -479,26 +814,17 @@ focus_tree = {
 	focus = {
 		id = ECU_purifying_country
 		icon = GFX_goal_NIC_Destroy_Corruption
-		prerequisite = {
-			focus = ECU_bossgallo
-		}
-		prerequisite = {
-			focus = ECU_loyalty
-		}
-		prerequisite = {
-			focus = ECU_gommiegone
-		}
+		prerequisite = { focus = ECU_bossgallo }
+		prerequisite = { focus = ECU_centralizing_the_economy }
 		x = 0
 		y = 4
 		relative_position_id = ECU_gallo
 		cost = 8
 		available = {
-			has_country_flag = ECU_notyet
+			has_government = totalist
 		}
 
-		ai_will_do = {
-			factor = 1
-		}
+		
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_purifying_country"
 			add_political_power = 75
@@ -518,11 +844,7 @@ focus_tree = {
 		cost = 8
 		relative_position_id = ECU_gallo
 		available = {
-			has_country_flag = ECU_notyet
-		}
-
-		ai_will_do = {
-			factor = 1
+			has_government = totalist
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_populist_measures"
@@ -532,7 +854,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = ECU_uphold_traditions
+		id = ECU_swift_modernization
 		icon = GFX_goal_HON_Work_With_Church
 		prerequisite = {
 			focus = ECU_purifying_country
@@ -542,17 +864,16 @@ focus_tree = {
 		cost = 8
 		relative_position_id = ECU_gallo
 		available = {
-			has_country_flag = ECU_notyet
-		}
-
-		ai_will_do = {
-			factor = 1
+			has_government = totalist
 		}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ECU_uphold_traditions"
-
-			add_popularity = {
-				ideology = authoritarian_democrat popularity = 0.1
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_swift_modernization"
+			add_tech_bonus = {
+				name = ECU_swift_modernization
+				bonus = 1
+				uses = 1
+				category = synth_resources
+				category = electronics
 			}
 		}
 	}
@@ -564,19 +885,17 @@ focus_tree = {
 			focus = ECU_populist_measures
 		}
 		prerequisite = {
-			focus = ECU_uphold_traditions
+			focus = ECU_swift_modernization
 		}
 		x = 0
 		y = 6
 		cost = 8
 		relative_position_id = ECU_gallo
 		available = {
-			has_country_flag = ECU_notyet
+			has_government = totalist
 		}
 
-		ai_will_do = {
-			factor = 1
-		}
+		
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_new_constitution"
 			if = {
@@ -599,68 +918,24 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 	}
 
-	focus = {
-		id = ECU_intellectual_amnesty
-		icon = GFX_goal_WCC_civilian_allies
-		prerequisite = {
-			focus = ECU_new_constitution
-		}
-		x = 0
-		y = 7
-		cost = 8
-		relative_position_id = ECU_gallo
-		available = {
-			has_country_flag = ECU_notyet
-		}
-
-		ai_will_do = {
-			factor = 1
-		}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ECU_intellectual_amnesty"
-			add_research_slot = 1
-		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
-	}
-
 	##### DEMOCRACY TREE
 
 	focus = {
-		id = ECU_balance_powers
-		icon = GFX_goal_NIC_Stable_Democracy
-		x = 16
-		y = 0
-		cost = 8
-		available = {
-			has_country_flag = ECU_democracy_balance_powers
-		}
-
-		ai_will_do = {
-			factor = 1
-		}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ECU_balance_powers"
-			add_stability = 0.05
-		}
-		search_filters = { FOCUS_FILTER_STABILITY }
-	}
-
-	focus = {
 		id = ECU_democracy_restored
-		icon = GFX_goal_NFA_Entrench_Democracy
-		x = 18
+		icon = GFX_goal_democratic
+		x = 15
 		y = 0
 		cost = 8
 		available = {
-			has_country_flag = ECU_democracy_restored_by_gallo
+			is_subject = no
+			has_war = no
 		}
 
-		ai_will_do = {
-			factor = 1
-		}
+		
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_democracy_restored"
-			add_political_power = 50
+			add_political_power = 75
+			add_stability = 0.03
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -670,18 +945,14 @@ focus_tree = {
 		icon = GFX_goal_NFA_empower_parliament
 		prerequisite = {
 			focus = ECU_democracy_restored
-			focus = ECU_balance_powers
 		}
-		x = -1
+		x = 0
 		y = 1
 		cost = 8
 		relative_position_id = ECU_democracy_restored
 		available = {
-			has_country_flag = ECU_true_dem
-		}
-
-		ai_will_do = {
-			factor = 1
+			is_subject = no
+			has_war = no
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_power_parliament"
@@ -691,24 +962,21 @@ focus_tree = {
 	}
 
 	focus = {
-		id = ECU_bipartisan_organisation
+		id = ECU_assure_bipartisan_peace
 		icon = GFX_goal_NFA_Talk_Parties
 		prerequisite = {
 			focus = ECU_power_parliament
 		}
-		x = -1
+		x = 0
 		y = 2
 		cost = 8
 		relative_position_id = ECU_democracy_restored
 		available = {
-			has_country_flag = ECU_true_dem
-		}
-
-		ai_will_do = {
-			factor = 1
+			is_subject = no
+			has_war = no
 		}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ECU_bipartisan_organisation"
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_assure_bipartisan_peace"
 			add_popularity = {
 				ideology = market_liberal popularity = 0.1
 			}
@@ -724,27 +992,30 @@ focus_tree = {
 		id = ECU_marginalisation
 		icon = GFX_GRU_CONS_SIDELINE_RADICALS
 		prerequisite = {
-			focus = ECU_bipartisan_organisation
+			focus = ECU_assure_bipartisan_peace
 		}
-		x = -1
+		x = 1
 		y = 3
 		cost = 8
 		relative_position_id = ECU_democracy_restored
 		available = {
-			has_country_flag = ECU_true_dem
-		}
-
-		ai_will_do = {
-			factor = 1
+			is_subject = no
+			has_war = no
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_marginalisation"
 			add_stability = 0.05
 			add_popularity = {
-				ideology = syndicalist popularity = -0.1
+				ideology = totalist popularity = -0.07
 			}
 			add_popularity = {
-				ideology = paternal_autocrat popularity = -0.1
+				ideology = syndicalist popularity = -0.05
+			}
+			add_popularity = {
+				ideology = radical_socialist popularity = -0.025
+			}
+			add_popularity = {
+				ideology = national_populist popularity = -0.025
 			}
 		}
 		search_filters = { FOCUS_FILTER_STABILITY }
@@ -755,19 +1026,17 @@ focus_tree = {
 		icon = GFX_goal_NEE_Meritocracy_Focused_Growing_Urban_Heart
 		prerequisite = {
 			focus = ECU_democracy_restored
-			focus = ECU_balance_powers
 		}
-		x = 1
+		x = 3
 		y = 1
 		cost = 8
 		relative_position_id = ECU_democracy_restored
 		available = {
-			has_country_flag = ECU_true_dem
+			is_subject = no
+			has_war = no
 		}
 
-		ai_will_do = {
-			factor = 1
-		}
+		
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_building_meritocracy"
 			add_political_power = 100
@@ -781,16 +1050,13 @@ focus_tree = {
 		prerequisite = {
 			focus = ECU_building_meritocracy
 		}
-		x = 1
+		x = 3
 		y = 2
 		cost = 8
 		relative_position_id = ECU_democracy_restored
 		available = {
-			has_country_flag = ECU_true_dem
-		}
-
-		ai_will_do = {
-			factor = 1
+			is_subject = no
+			has_war = no
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_rally_army"
@@ -806,17 +1072,16 @@ focus_tree = {
 		prerequisite = {
 			focus = ECU_rally_army
 		}
-		x = 1
+		x = 3
 		y = 3
 		cost = 8
 		relative_position_id = ECU_democracy_restored
 		available = {
-			has_country_flag = ECU_true_dem
+			is_subject = no
+			has_war = no
 		}
 
-		ai_will_do = {
-			factor = 1
-		}
+		
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_technocrat_rule"
 			add_ideas = ECU_technocrat_idea
@@ -825,10 +1090,88 @@ focus_tree = {
 	}
 
 	focus = {
+		id = ECU_reestablish_communications
+		icon = GFX_goal_generic_national_unity
+		prerequisite = {
+			focus = ECU_democracy_restored
+		}
+		x = 5
+		y = 1
+		cost = 8
+		relative_position_id = ECU_democracy_restored
+		available = {	
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_reestablish_communications"
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = ECU_sell_resources_to_foreign_powers
+		icon = GFX_goal_generic_national_unity
+		prerequisite = {
+			focus = ECU_reestablish_communications
+		}
+		x = 0
+		y = 2
+		cost = 8
+		relative_position_id = ECU_reestablish_communications
+		available = {
+			is_subject = no
+			has_war = no
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_cities_cooperation"
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = ECU_missionaries
+		icon = GFX_goal_generic_national_unity
+		prerequisite = {
+			focus = ECU_democracy_restored
+		}
+		x = -5
+		y = 1
+		cost = 8
+		relative_position_id = ECU_democracy_restored
+		available = {
+			is_subject = no
+			has_war = no
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_cities_cooperation"
+			add_ideas = ECU_charity
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = ECU_bonuses_for_large_families
+		icon = GFX_goal_generic_national_unity
+		prerequisite = {
+			focus = ECU_missionaries
+		}
+		x = 0
+		y = 2
+		cost = 8
+		relative_position_id = ECU_missionaries
+		available = {
+			is_subject = no
+			has_war = no
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_cities_cooperation"
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
 		id = ECU_cities_cooperation
 		icon = GFX_goal_NYC_City_Communes
 		prerequisite = {
-			focus = ECU_balance_powers
 			focus = ECU_democracy_restored
 		}
 		x = -3
@@ -836,12 +1179,11 @@ focus_tree = {
 		cost = 8
 		relative_position_id = ECU_democracy_restored
 		available = {
-			has_country_flag = ECU_true_dem
+			is_subject = no
+			has_war = no
 		}
 
-		ai_will_do = {
-			factor = 1
-		}
+		
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_cities_cooperation"
 			add_ideas = ECU_demo_eco_1
@@ -850,8 +1192,8 @@ focus_tree = {
 	}
 
 	focus = {
-		id = ECU_centralisation
-		icon = GFX_goal_NIC_Strong_Presidency
+		id = ECU_expand_the_lesser_milirary_branches
+		icon = GFX_goal_generic_demand_territory
 		prerequisite = {
 			focus = ECU_cities_cooperation
 		}
@@ -860,14 +1202,35 @@ focus_tree = {
 		cost = 8
 		relative_position_id = ECU_democracy_restored
 		available = {
-			has_country_flag = ECU_true_dem
+			is_subject = no
+			has_war = no
 		}
 
-		ai_will_do = {
-			factor = 1
+		
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_expand_the_lesser_milirary_branches"
+			air_experience = 25
+			navy_experience = 25
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = ECU_rationalised_banking
+		icon = GFX_goal_generic_banking_legislation
+		prerequisite = {
+			focus = ECU_expand_the_lesser_milirary_branches
+		}
+		x = -3
+		y = 3
+		cost = 8
+		relative_position_id = ECU_democracy_restored
+		available = {
+			is_subject = no
+			has_war = no
 		}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ECU_centralisation"
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_rationalised_banking"
 			swap_ideas = {
 				add_idea = ECU_demo_eco_2
 				remove_idea = ECU_demo_eco_1
@@ -877,27 +1240,26 @@ focus_tree = {
 	}
 
 	focus = {
-		id = ECU_rationalised_banking
-		icon = GFX_goal_generic_banking_legislation
+		id = ECU_remove_all_trace_of_our_previous_masters
+		icon = GFX_goal_gold_jungle
 		prerequisite = {
-			focus = ECU_centralisation
+			focus = ECU_assure_bipartisan_peace
 		}
-		x = -3
+		x = -1
 		y = 3
 		cost = 8
 		relative_position_id = ECU_democracy_restored
 		available = {
-			has_country_flag = ECU_true_dem
-		}
-
-		ai_will_do = {
-			factor = 1
+			is_subject = no
+			has_war = no
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_rationalised_banking"
-			swap_ideas = {
-				add_idea = ECU_demo_eco_3
-				remove_idea = ECU_demo_eco_2
+			add_popularity = {
+				ideology = paternal_autocrat popularity = -0.5
+			}
+			add_popularity = {
+				ideology = authoritarian_democrat popularity = -0.075
 			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
@@ -912,21 +1274,505 @@ focus_tree = {
 		prerequisite = {
 			focus = ECU_marginalisation
 		}
-		x = 0
-		y = 4
+		prerequisite = {
+			focus = ECU_remove_all_trace_of_our_previous_masters
+		}
+		prerequisite = {
+			focus = ECU_rationalised_banking
+		}
+		prerequisite = {
+			focus = ECU_bonuses_for_large_families
+			focus = ECU_sell_resources_to_foreign_powers
+		}
+		x = 1
+		y = 1
 		cost = 8
-		relative_position_id = ECU_democracy_restored
+		relative_position_id = ECU_remove_all_trace_of_our_previous_masters
 		available = {
-			has_country_flag = ECU_true_dem
+			is_subject = no
+			has_war = no
 		}
-
-		ai_will_do = {
-			factor = 1
-		}
+		
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_democracy_at_last"
 			add_political_power = 150
 			remove_ideas = ECU_new_grounds
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	
+	##### PERUVIAN OCCUPATION TREE
+
+	focus = {
+		id = ECU_peruvian_occupation
+		icon = GFX_goal_democratic
+		x = 3
+		y = 8
+		cost = 8
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = unlock_focuses
+				always = no
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_peruvian_occupation"
+			custom_effect_tooltip = unlock_focuses
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	focus = {
+		id = ECU_swift_changes_to_army_protocols
+		icon = GFX_goal_democratic
+		prerequisite = { focus = ECU_peruvian_occupation }
+		x = -4
+		y = 1
+		cost = 8
+		relative_position_id = ECU_peruvian_occupation
+		available = {
+			has_government = paternal_autocrat
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_democracy_restored"
+			add_stability = -0.05
+			add_command_power = -20
+			army_experience = 10
+			navy_experience = 7
+			air_experience = 7
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	focus = {
+		id = ECU_air_land_cooperation
+		icon = GFX_goal_democratic
+		prerequisite = {
+			focus = ECU_swift_changes_to_army_protocols
+		}
+		x = 0
+		y = 1
+		cost = 8
+		relative_position_id = ECU_swift_changes_to_army_protocols
+		available = {
+			has_government = paternal_autocrat
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_democracy_restored"
+			add_ideas = ECU_air_land_cooperation_idea
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	focus = {
+		id = ECU_quantity_over_quality
+		icon = GFX_goal_democratic
+		prerequisite = {
+			focus = ECU_air_land_cooperation
+		}
+		x = 0
+		y = 1
+		cost = 8
+		relative_position_id = ECU_air_land_cooperation
+		available = {
+			has_government = paternal_autocrat
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_democracy_restored"
+			add_manpower = 100000
+			add_ideas = ECU_expand_reserves
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	focus = {
+		id = ECU_absolute_power
+		icon = GFX_goal_democratic
+		prerequisite = { focus = ECU_peruvian_occupation }
+		x = -2
+		y = 1
+		cost = 8
+		relative_position_id = ECU_peruvian_occupation
+		available = {
+			has_government = paternal_autocrat
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_democracy_restored"
+			add_political_power = 55
+			add_popularity = {
+				ideology = paternal_autocrat popularity = 0.1
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	focus = {
+		id = ECU_crack_down_non_aligned_groups
+		icon = GFX_goal_democratic
+		prerequisite = { focus = ECU_peruvian_occupation }
+		x = 0
+		y = 1
+		cost = 8
+		relative_position_id = ECU_peruvian_occupation
+		available = {
+			has_government = paternal_autocrat
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_democracy_restored"
+			swap_ideas = {
+				remove_idea = ECU_forbidden_parties
+				add_idea = ECU_eliminating_our_biggest_threat
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	focus = {
+		id = ECU_peruvianization
+		icon = GFX_goal_democratic
+		prerequisite = { focus = ECU_peruvian_occupation }
+		x = 2
+		y = 1
+		cost = 8
+		relative_position_id = ECU_peruvian_occupation
+		available = {
+			has_government = paternal_autocrat
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_democracy_restored"
+			add_ideas = ECU_peruvianization_idea
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	focus = {
+		id = ECU_calm_the_masses
+		icon = GFX_goal_democratic
+		prerequisite = { focus = ECU_absolute_power }
+		prerequisite = { focus = ECU_crack_down_non_aligned_groups }
+		prerequisite = { focus = ECU_peruvianization }
+		mutually_exclusive = {
+			focus = ECU_exile_dissidents_to_the_galapagos
+		}
+		x = 1
+		y = 1
+		cost = 8
+		relative_position_id = ECU_absolute_power
+		available = {
+			has_government = paternal_autocrat
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_democracy_restored"
+			add_stability = 0.07
+			add_popularity = {
+				ideology = paternal_autocrat popularity = 0.025
+			}
+			if = {
+				limit = {
+					has_idea = ECU_anti_PRU_sentiment1
+				}
+				swap_ideas = {
+					remove_idea = ECU_anti_PRU_sentiment1
+					add_idea = ECU_anti_PRU_sentiment4
+				}
+			}
+			else = {
+				add_war_support = 0.15
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	focus = {
+		id = ECU_exile_dissidents_to_the_galapagos
+		icon = GFX_goal_democratic
+		prerequisite = { focus = ECU_absolute_power }
+		prerequisite = { focus = ECU_crack_down_non_aligned_groups }
+		prerequisite = { focus = ECU_peruvianization }
+		mutually_exclusive = {
+			focus = ECU_calm_the_masses
+		}
+		x = -1
+		y = 1
+		cost = 8
+		relative_position_id = ECU_peruvianization
+		available = {
+			has_government = paternal_autocrat
+		}		
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_democracy_restored"
+			add_stability = 0.02
+			add_popularity = {
+				ideology = social_liberal popularity = -0.035
+			}
+			add_popularity = {
+				ideology = social_democrat popularity = -0.025
+			}
+			add_popularity = {
+				ideology = market_liberal popularity = -0.025
+			}
+			add_popularity = {
+				ideology = social_conservative popularity = -0.015
+			}
+			if = {
+				limit = {
+					has_idea = ECU_anti_PRU_sentiment1
+				}
+				swap_ideas = {
+					remove_idea = ECU_anti_PRU_sentiment1
+					add_idea = ECU_anti_PRU_sentiment6
+				}
+			}
+			else = {
+				add_war_support = 0.12
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	focus = {
+		id = ECU_plan_the_defenses
+		icon = GFX_goal_democratic
+		prerequisite = { focus = ECU_calm_the_masses }
+		x = -1
+		y = 1
+		cost = 8
+		relative_position_id = ECU_calm_the_masses
+		available = {
+			has_government = paternal_autocrat
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_plan_the_defenses"
+			add_war_support = 0.025
+			305 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					province = 12798
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					province = 8075
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					province = 8074
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	focus = {
+		id = ECU_the_constitutional_assembly
+		icon = GFX_goal_democratic
+		prerequisite = { focus = ECU_calm_the_masses focus = ECU_exile_dissidents_to_the_galapagos }
+		x = -1
+		y = 1
+		cost = 8
+		relative_position_id = ECU_exile_dissidents_to_the_galapagos
+		available = {
+			has_government = paternal_autocrat
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_the_new_constitution"
+			add_political_power = 75
+			add_stability = 0.03
+			PRU = {
+				add_opinion_modifier = { 
+					target = ROOT
+					modifier = medium_increase
+				}
+				reverse_add_opinion_modifier = { 
+					target = ROOT
+					modifier = small_increase
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	focus = {
+		id = ECU_forced_labour_in_galapagos
+		icon = GFX_goal_democratic
+		prerequisite = { focus = ECU_exile_dissidents_to_the_galapagos }
+		x = 1
+		y = 1
+		cost = 8
+		relative_position_id = ECU_exile_dissidents_to_the_galapagos
+		available = {
+			has_government = paternal_autocrat
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_forced_labour_in_galapagos"
+			add_stability = 0.05
+			add_popularity = {
+				ideology = paternal_autocrat popularity = 0.05
+			}
+			490 = {
+				add_dynamic_modifier = {
+					modifier = ECU_forced_labour_dyn_mod
+				}
+			}
+			add_offsite_building = { type = industrial_complex level = 1 }
+			PRU = {
+				add_resource = {
+					type = rubber
+					amount = 3
+					state = 490
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	focus = {
+		id = ECU_reset_production_focuses
+		icon = GFX_goal_democratic
+		prerequisite = { focus = ECU_peruvian_occupation }
+		x = 4
+		y = 1
+		cost = 8
+		relative_position_id = ECU_peruvian_occupation
+		available = {
+			has_government = paternal_autocrat
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_reset_production_focuses"
+			swap_ideas = {
+				remove_idea = ECU_foreign_industry_PRU
+				add_idea = ECU_foreign_industry_PRU_2
+			}
+			add_tech_bonus = {
+				name = ECU_reset_production_focuses
+				bonus = 0.5
+				uses = 1
+				category = dispersed_industry_tech
+				category = concentrated_industry_tech
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	focus = {
+		id = ECU_requisite_natives_lands
+		icon = GFX_goal_democratic
+		prerequisite = {
+			focus = ECU_reset_production_focuses
+		}
+		x = 0
+		y = 1
+		cost = 8
+		relative_position_id = ECU_reset_production_focuses
+		available = {
+			has_government = paternal_autocrat
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_democracy_restored"
+			add_political_power = 10
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					is_core_of = ECU
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				limit = {
+					is_coastal = yes
+					free_building_slots = {
+						building = dockyard
+						size > 0
+						include_locked = yes
+					}
+					NOT = { state = 649 }
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	focus = {
+		id = ECU_forced_privatization
+		icon = GFX_goal_democratic
+		prerequisite = {
+			focus = ECU_requisite_natives_lands
+		}
+		x = 0
+		y = 1
+		cost = 8
+		relative_position_id = ECU_requisite_natives_lands
+		available = {
+			has_government = paternal_autocrat
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_democracy_restored"
+			add_ideas = ECU_forced_privatization_idea
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	focus = {
+		id = ECU_the_turning_point
+		icon = GFX_goal_democratic
+		prerequisite = { focus = ECU_quantity_over_quality }
+		prerequisite = { focus = ECU_the_constitutional_assembly }
+		prerequisite = { focus = ECU_forced_privatization }
+		prerequisite = { focus = ECU_plan_the_defenses focus = ECU_forced_labour_in_galapagos }
+		x = 0
+		y = 1
+		cost = 8
+		relative_position_id = ECU_the_constitutional_assembly
+		available = {
+			has_government = paternal_autocrat
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_democracy_restored"
+			add_political_power = 50
+			add_war_support = 0.025
+			swap_ideas = {
+				remove_idea = ECU_peruvianization_idea
+				add_idea = ECU_peruvianization_idea_2
+			}
+			swap_ideas = {
+				remove_idea = ECU_expand_reserves
+				add_idea = ECU_expand_reserves_2
+			}
+			if = {
+				limit = {
+					has_idea = ECU_anti_PRU_sentiment4
+				}
+				swap_ideas = {
+					remove_idea = ECU_anti_PRU_sentiment4
+					add_idea = ECU_anti_PRU_sentiment5
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = ECU_anti_PRU_sentiment6
+					add_idea = ECU_anti_PRU_sentiment7
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -936,18 +1782,14 @@ focus_tree = {
 	focus = {
 		id = ECU_cacao_farmers
 		icon = GFX_goal_NIC_Coffee_Must_Grow
-		x = 25
+		x = 27
 		y = 0
 		cost = 8
 		available = { has_country_flag = ECU_blackmondaycrisisflag }
-
-		ai_will_do = {
-			factor = 1
-		}
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_cacao_farmers"
-			add_stability = 0.1
+			add_political_power = 50
+			add_stability = 0.025
 		}
 		search_filters = { FOCUS_FILTER_STABILITY }
 	}
@@ -960,9 +1802,7 @@ focus_tree = {
 		}
 		available = { controls_state = 305 }
 
-		ai_will_do = {
-			factor = 1
-		}
+		
 
 		x = -2
 		y = 1
@@ -988,9 +1828,7 @@ focus_tree = {
 			focus = ECU_expand_transandino
 		}
 
-		ai_will_do = {
-			factor = 1
-		}
+		
 
 		x = -2
 		y = 2
@@ -1015,11 +1853,10 @@ focus_tree = {
 		prerequisite = {
 			focus = ECU_improve_port_infrastructure
 		}
-
-		ai_will_do = {
-			factor = 1
+		prerequisite = {
+			focus = ECU_lesserblackmonday
 		}
-
+		
 		x = -2
 		y = 3
 		relative_position_id = ECU_cacao_farmers
@@ -1034,7 +1871,6 @@ focus_tree = {
 						include_locked = yes
 					}
 					is_core_of = ROOT
-					NOT = { state = 649 }
 				}
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
@@ -1060,9 +1896,7 @@ focus_tree = {
 			}
 		}
 
-		ai_will_do = {
-			factor = 1
-		}
+		
 
 		x = 2
 		y = 1
@@ -1072,8 +1906,38 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_ecuatorianrubberboom"
 			add_resource = {
 				type = rubber
-				amount = 14
-				state = 490
+				amount = 5
+				state = 305
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = ECU_lesserblackmonday
+		icon = GFX_goal_generic_construct_civ_factory
+		x = 2
+		y = 1
+		relative_position_id = ECU_expand_transandino
+		cost = 8
+		prerequisite = {
+			focus = ECU_expand_transandino
+		}
+		prerequisite = {
+			focus = ECU_ecuatorianrubberboom
+		}
+		available = { owns_state = 490 controls_state = 490 }
+		bypass = {
+			NOT = {
+				owns_state = 490
+			}
+		}
+		
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_ecuatorianrubberboom"
+			swap_ideas = {
+				add_idea = ECU_blackmonday2
+				remove_idea = ECU_blackmonday
 			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -1085,19 +1949,19 @@ focus_tree = {
 		prerequisite = {
 			focus = ECU_ecuatorianrubberboom
 		}
-
-		ai_will_do = {
-			factor = 1
-		}
-
+		
 		x = 2
 		y = 2
 		relative_position_id = ECU_cacao_farmers
 		cost = 8
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_diversify_agriculture"
-			add_stability = 0.05
-			add_political_power = 75
+			add_tech_bonus = {
+				name = ECU_diversify_agriculture
+				bonus = 0.5
+				uses = 2
+				category = efficiency_tech
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 	}
@@ -1106,13 +1970,12 @@ focus_tree = {
 		id = ECU_local_consumption
 		icon = GFX_goal_GUA_Expand_Food_Industry
 		prerequisite = {
+			focus = ECU_lesserblackmonday
+		}
+		prerequisite = {
 			focus = ECU_diversify_agriculture
 		}
-
-		ai_will_do = {
-			factor = 1
-		}
-
+		
 		x = 2
 		y = 3
 		relative_position_id = ECU_cacao_farmers
@@ -1134,9 +1997,7 @@ focus_tree = {
 			focus = ECU_local_consumption
 		}
 
-		ai_will_do = {
-			factor = 1
-		}
+		
 
 		x = 0
 		y = 4
@@ -1145,8 +2006,8 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_neweconomicplan"
 			swap_ideas = {
-				add_idea = ECU_blackmonday2
-				remove_idea = ECU_blackmonday
+				add_idea = ECU_blackmonday3
+				remove_idea = ECU_blackmonday2
 			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -1243,7 +2104,6 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_mechanization"
 			add_ideas = ECU_mechanization_idea
-			add_stability = 0.05
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY }
 	}
@@ -1266,10 +2126,34 @@ focus_tree = {
 		cost = 8
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_industrial_agriculture"
-			305 = {
-				add_extra_state_shared_building_slots = 1
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = yes
+					}
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
 					level = 1
 					instant_build = yes
 				}
@@ -1296,12 +2180,25 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_quito_industry"
 			305 = {
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
 					level = 1
 					instant_build = yes
 				}
+			}
+			305 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_resource = {
+				type = steel
+				amount = 3
+				state = 305
 			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -1347,7 +2244,13 @@ focus_tree = {
 		cost = 8
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_recovery"
-			remove_ideas = ECU_blackmonday2
+			remove_ideas = ECU_blackmonday3
+			add_tech_bonus = {
+				name = ECU_recovery
+				bonus = 1
+				uses = 1
+				category = industry
+			}
 		}
 	}
 
@@ -1357,11 +2260,9 @@ focus_tree = {
 		prerequisite = {
 			focus = ECU_neweconomicplan
 		}
-
 		ai_will_do = {
 			factor = 0.4
 		}
-
 		x = 4
 		y = 5
 		relative_position_id = ECU_cacao_farmers
@@ -1376,7 +2277,6 @@ focus_tree = {
 						include_locked = yes
 					}
 					is_core_of = ECU
-					NOT = { state = 649 }
 				}
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
@@ -1384,6 +2284,10 @@ focus_tree = {
 					level = 1
 					instant_build = yes
 				}
+			}
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 300
 			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -1394,7 +2298,7 @@ focus_tree = {
 	focus = {
 		id = ECU_army
 		icon = GFX_goal_ECU_army
-		x = 39
+		x = 43
 		y = 0
 		cost = 8
 
@@ -1404,8 +2308,8 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_army"
-			increase_conscription = yes
 			army_experience = 25
+
 		}
 		search_filters = { FOCUS_FILTER_ARMY_BONUS }
 	}
@@ -1430,21 +2334,17 @@ focus_tree = {
 			add_tech_bonus = {
 				name = ECU_army2
 				bonus = 1
-				uses = 1
-				category = industry
-			}
-			add_tech_bonus = {
-				name = ECU_army2
-				bonus = 1
-				uses = 1
+				uses = 2
 				category = infantry_weapons
+				category = cat_mechanized_equipment
+				category = support_tech
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 
 	focus = {
-		id = ECU_plan_against_peru
+		id = ECU_military_plans
 		icon = GFX_goal_generic_army_high_command
 		prerequisite = {
 			focus = ECU_army2
@@ -1459,34 +2359,12 @@ focus_tree = {
 		relative_position_id = ECU_army
 		cost = 8
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ECU_plan_against_peru"
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_military_plans"
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
 				cost_reduction = 0.5
-				uses = 1
+				uses = 2
 				category = land_doctrine
-			}
-			custom_effect_tooltip = ECU_bunker_loja
-			hidden_effect = {
-				305 = {
-					add_building_construction = {
-						type = bunker
-						province = 5120
-						level = 2
-					}
-				}
-				if = {
-					limit = {
-						controls_state = 490
-					}
-					490 = {
-						add_building_construction = {
-							type = bunker
-							province = 13540
-							level = 2
-						}
-					}
-				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
@@ -1497,7 +2375,7 @@ focus_tree = {
 		id = ECU_jungle_reco
 		icon = GFX_goal_Generic_Jungle_Ratways
 		prerequisite = {
-			focus = ECU_plan_against_peru
+			focus = ECU_military_plans
 		}
 
 		ai_will_do = {
@@ -1544,7 +2422,7 @@ focus_tree = {
 		id = ECU_trenchperimeters
 		icon = GFX_goal_SKM_Modern_Artillery
 		prerequisite = {
-			focus = ECU_plan_against_peru
+			focus = ECU_military_plans
 		}
 
 		ai_will_do = {
@@ -1559,8 +2437,8 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_trenchperimeters"
 			add_tech_bonus = {
 				name = ECU_trenchperimeters
-				bonus = 0.5
-				uses = 2
+				bonus = 1
+				uses = 1
 				category = artillery
 			}
 		}
@@ -1698,13 +2576,11 @@ focus_tree = {
 		}
 	}
 
-
-
 	focus = {
 		id = ECU_tothelastman
 		icon = GFX_goal_NVN_Fortify_Fort_Defiance
 		prerequisite = {
-			focus = ECU_plan_against_peru
+			focus = ECU_military_plans
 		}
 		available = {
 			controls_state = 305
@@ -1732,6 +2608,30 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 
+	focus = {
+		id = ECU_study_the_territory
+		icon = GFX_goal_generic_fortify_city
+		prerequisite = {
+			focus = ECU_tothelastman
+		}
+		available = {
+			controls_state = 305
+		}
+
+		ai_will_do = {
+			factor = 2
+		}
+
+		x = 0
+		y = 1
+		relative_position_id = ECU_tothelastman
+		cost = 8
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ECU_tothelastman"
+			add_ideas = ECU_attrition
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
 
 	focus = {
 		id = ECU_navy
@@ -2032,13 +2932,7 @@ focus_tree = {
 		cost = 8
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_develop_school_aviation"
-			add_doctrine_cost_reduction = {
-				name = air_doc_bonus
-				cost_reduction = 0.5
-				uses = 1
-				category = air_doctrine
-			}
-			air_experience = 25
+			air_experience = 20
 		}
 		search_filters = { FOCUS_FILTER_AIRFORCE_BONUS FOCUS_FILTER_RESEARCH }
 	}
@@ -2088,10 +2982,16 @@ focus_tree = {
 		cost = 8
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ECU_first_fighters"
-			add_political_power = -50
+			add_political_power = -25
 			add_equipment_to_stockpile = { type = small_plane_airframe amount = 50 producer = USA }
+			add_doctrine_cost_reduction = {
+				name = air_doc_bonus
+				cost_reduction = 0.5
+				uses = 1
+				category = air_doctrine
+			}
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_AIRFORCE_BONUS FOCUS_FILTER_POLITICAL }
 	}
 
 	focus = {

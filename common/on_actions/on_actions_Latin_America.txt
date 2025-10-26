@@ -1,12 +1,28 @@
 on_actions = {
 	on_startup = {
 		effect = {
+			COL = {
+				set_temp_variable = { coalition_partner_var = token:social_conservative }
+				add_to_coalition = yes
+				set_temp_variable = { coalition_partner_var = token:market_liberal }
+				add_to_coalition = yes
+			}
+			ECU = {
+				set_temp_variable = { coalition_partner_var = token:paternal_autocrat }
+				add_to_coalition = yes
+			}
 			512 = {
 				create_unit = {
 					division = "division_template = \"Third Internationale Expeditionary Force\" start_experience_factor = 1.0 start_equipment_factor = 1.0"
 					owner = FOP
 					prioritize_location = 10953
 				}
+			}
+			851 = { 
+				add_dynamic_modifier = { modifier = COL_border_states_dynamic_mod } 
+			}
+			1215 = { 
+				add_dynamic_modifier = { modifier = COL_border_states_dynamic_mod } 
 			}
 		}
 	}
@@ -112,7 +128,7 @@ on_actions = {
 						days = 1
 					}
 				}
-			}
+			}	
 		}
 	}
 
@@ -143,6 +159,244 @@ on_actions = {
 				}
 				CAF = {
 					country_event = wiffor.9
+				}
+			}
+		}
+	}
+
+	#ROOT is winner #FROM gets annexed - This fires just before FROM gets annexed, meaning the country and everything it owns still exists. It will also fire on_annex and on_civil_war_end
+	on_civil_war_end_before_annexation = {
+		effect = {
+			if = {
+				limit = {
+					ROOT = {
+						has_focus_tree = generic_focus
+					}
+					FROM = {
+						tag = ECU
+					}
+				}
+				load_focus_tree = { tree = ecuador_focus keep_completed = yes }
+			}
+			else_if = {
+				limit = {
+					ROOT = {
+						has_focus_tree = generic_focus
+					}
+					FROM = {
+						tag = VEN
+					}
+				}
+				load_focus_tree = { tree = kleinevenedig_focus keep_completed = yes }
+			}
+			else_if = {
+				limit = {
+					ROOT = {
+						has_focus_tree = generic_focus
+					}
+					FROM = {
+						tag = BRA
+					}
+				}
+				load_focus_tree = { tree = brazilian_focus keep_completed = yes }
+			}
+			else_if = {
+				limit = {
+					ROOT = {
+						has_focus_tree = generic_focus
+					}
+					FROM = {
+						tag = PRU
+					}
+				}
+				load_focus_tree = { tree = peru_focus keep_completed = yes }
+			}
+			else_if = {
+				limit = {
+					ROOT = {
+						has_focus_tree = generic_focus
+					}
+					FROM = {
+						tag = BOL
+					}
+				}
+				load_focus_tree = { tree = bolivia_focus keep_completed = yes }
+			}
+			else_if = {
+				limit = {
+					ROOT = {
+						has_focus_tree = generic_focus
+					}
+					FROM = {
+						tag = PAR
+					}
+				}
+				load_focus_tree = { tree = paraguay_focus keep_completed = yes }
+			}
+			else_if = {
+				limit = {
+					ROOT = {
+						has_focus_tree = generic_focus
+					}
+					FROM = {
+						tag = URG
+					}
+				}
+				load_focus_tree = { tree = uruguay_focus keep_completed = yes }
+			}
+			else_if = {
+				limit = {
+					ROOT = {
+						has_focus_tree = generic_focus
+					}
+					FROM = {
+						tag = CHL
+					}
+				}
+				load_focus_tree = { tree = chile_focus keep_completed = yes }
+			}
+			else_if = {
+				limit = {
+					ROOT = {
+						has_focus_tree = generic_focus
+					}
+					FROM = {
+						OR = {
+							tag = ARG
+							tag = FOP
+						}
+					}
+				}
+				load_focus_tree = { tree = Patagonia_Focus keep_completed = yes }
+			}
+		}
+	}
+
+	on_civil_war_end = {
+		effect = {
+			if = {
+				limit = {
+					ROOT = {
+						has_idea = COL_foreign_cw_participant_idea
+					}
+				}
+				ROOT = {
+					remove_ideas = COL_foreign_cw_participant_idea
+					add_timed_idea = {
+						idea = COL_foreign_cw_after_war_idea
+						days = 200
+					}
+					if = {
+						limit = {
+							OR = {
+								COL = {
+									is_faction_leader = yes
+									OR = {
+										has_government = totalist
+										has_government = radical_socialist
+									}
+								}
+								COC = {
+									is_faction_leader = yes
+									OR = {
+										has_government = totalist
+										has_government = radical_socialist
+									}
+								}
+							}
+						}
+						COL = {
+							add_to_faction = ROOT
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					ROOT = {
+						owns = 500
+					}
+				}
+				ROOT = { set_capital = 500 }
+			}
+			else_if = {
+				limit = {
+					ROOT = {
+						owns = 303
+					}
+				}
+				ROOT = { set_capital = 303 }
+			}
+			else_if = {
+				limit = {
+					ROOT = {
+						owns = 849
+					}
+				}
+				ROOT = { set_capital = 849 }
+			}
+			else_if = {
+				limit = {
+					ROOT = {
+						owns = 305
+					}
+				}
+				ROOT = { set_capital = 305 }
+			}
+			else_if = {
+				limit = {
+					ROOT = {
+						owns = 302
+					}
+				}
+				ROOT = { set_capital = 302 }
+			}
+			else_if = {
+				limit = {
+					ROOT = {
+						owns = 301
+					}
+				}
+				ROOT = { set_capital = 301 }
+			}
+			else_if = {
+				limit = {
+					ROOT = {
+						owns = 278
+					}
+				}
+				ROOT = { set_capital = 278 }
+			}
+		}
+	}
+
+	on_offer_join_faction = {
+		effect = {
+			FROM = {
+				if = {
+					limit = {
+						is_in_south_america = yes
+						has_socialist_government = yes
+						NOT = { has_war_with = COL }
+						OR = {
+							is_in_faction_with = COL
+							AND = {
+								is_guaranteed_by = INT
+								NOT = { has_war_with = INT }
+							}						
+							AND = {
+								is_in_faction_with = INT
+								NOT = { has_war_with = INT }
+							}
+						}
+						OR = {
+							any_state = { is_coastal = yes }
+							is_neighbor_of = COL
+							is_puppet_of = COL
+						}
+					}
+					add_political_power = 100
+					add_ideas = COL_socialist_trade
 				}
 			}
 		}
@@ -298,6 +552,23 @@ on_actions = {
 				country_event = chl.48 #1941 Democratic Elections
 				country_event = chl.49 #1947 Democratic Elections
 			}
+			### Colombia ###
+			else_if = {
+				limit = { 
+					tag = COL 
+					NOT = { has_completed_focus = COL_a_new_united_parlament }
+				}
+				country_event = colelection.1 #First Elections any date
+				country_event = colelection.2 #Second Elections any date
+				country_event = colelection.3 #Third Elections any date
+			}
+			else_if = {
+				limit = { 
+					tag = COL 
+					has_completed_focus = COL_a_new_united_parlament
+				}
+				country_event = colelection.4 #FN First Election any date
+			}
 			### Costa Rica ###
 			else_if = {
 				limit = { tag = COS }
@@ -417,6 +688,36 @@ on_actions = {
 					}
 				}
 			}
+			#COLOMBIA DOVES VS EAGLES#
+			if = {
+				limit = {
+					ROOT = { 
+						tag = COL
+						OR = {
+							has_country_flag = COL_VEN_hostile
+							has_country_flag = COL_VEN_rejected_friendship
+							has_country_flag = COL_PRU_hostile
+							has_country_flag = COL_PRU_rejected_friendship
+						}
+					}
+					FROM = {
+						OR = {
+							tag = VEN
+							AND = {
+								owns_state = 1214
+								NOT = { tag = VEN }
+							}
+						}
+					}
+
+				}
+				COL = {
+					country_event = {
+						id = colfocus.32
+						days = 7
+					}
+				}
+			}
 		}
 	}
 
@@ -485,6 +786,79 @@ on_actions = {
 					}
 				}
 			}
+
+			#Colombian Civil War check for ceasefire - COL is losing
+			else_if = {
+				limit = {
+					FROM = COL
+					ROOT = {
+						OR = {
+							tag = COC
+							tag = CAU
+						}
+					}
+					FROM = {
+						surrender_progress > 0.7
+						NOT = { 
+							COL = {
+								has_country_flag = COL_cw_ceasefire_flag
+							}
+							COC = {
+								has_country_flag = COC_cw_ceasefire_flag
+							}
+						}
+						is_subject = no
+						has_capitulated = no
+						OR = {
+							has_war_with = COC
+							has_war_with = CAU
+						}
+					}
+				}
+				COL = {
+					country_event = {
+						id = colcw.7
+						days = 2
+					}
+				}
+			}
+
+			#Colombian Civil War check for ceasefire - COC is losing
+			else_if = {
+				limit = {
+					FROM = COC
+					ROOT = {
+						OR = {
+							tag = COL
+							tag = CAU
+						}
+					}
+					FROM = {
+						surrender_progress > 0.55
+						NOT = { 
+							COL = {
+								has_country_flag = COL_cw_ceasefire_flag
+							}
+							COC = {
+								has_country_flag = COC_cw_ceasefire_flag
+							}
+						}
+						is_subject = no
+						has_capitulated = no
+						OR = {
+							has_war_with = COL
+							has_war_with = CAU
+						}
+					}
+				}
+				COL = {
+					country_event = {
+						id = coc.2
+						days = 2
+					}
+				}
+			}
+
 		}
 		effect = {
 			if = {
