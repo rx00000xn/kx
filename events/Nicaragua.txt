@@ -1947,50 +1947,7 @@ country_event = { #Collaborating with Emiliano Chamorro Vargas
 		}
 	}
 }
-country_event = { #Collaborating with Moncada
-	id = nic.530
-	immediate = {log = "[GetDateText]: [Root.GetName]: event nic.53"}
-	title = nic.530.t
-	desc = nic.530.d
-	is_triggered_only = yes
-	fire_only_once = yes
 
-	option = {
-		name = nic.530.a
-		add_popularity = {
-			ideology = market_liberal
-			popularity = 0.08
-		}
-		if = {
-			limit = {
-				NOT = {
-					has_unit_leader = 1606
-				}
-			}
-			create_corps_commander = {
-				name = "José María Moncada"
-				desc = ""
-				portrait_path = "gfx/leaders/NIC/Portrait_NIC_Jose_Maria_Moncada.png"
-				traits = {}
-				skill = 3
-				id = 1606
-				attack_skill = 2
-				defense_skill = 4
-				planning_skill = 2
-				logistics_skill = 3
-			}
-		}
-		add_stability = 0.05
-		create_country_leader = {
-			name = "José María Moncada"
-			desc = ""
-			picture = "gfx/leaders/NIC/Portrait_NIC_Jose_Maria_Moncada.png"
-	        expire = "1965.1.1"
-	        ideology = marlib_national_liberalism_subtype
-			traits = {}
-		}
-	}
-}
 country_event = { #Elections announced in a month
 	id = nic.54
 	immediate = {log = "[GetDateText]: [Root.GetName]: event nic.54"}
@@ -2027,34 +1984,13 @@ country_event = { #Conservative party formed under Emiliano Chamorro Vargas
 		}
 		hidden_effect = {
 			country_event = {
-				id = nic.550
-				days = 7
-			}
-		}
-	}
-}
-country_event = { #Constitutional Liberal formed under Moncada
-	id = nic.550
-	immediate = {log = "[GetDateText]: [Root.GetName]: event nic.55"}
-	title = nic.550.t
-	desc = nic.550.d
-	is_triggered_only = yes
-	fire_only_once = yes
-
-	option = {
-		name = nic.55.a
-		add_popularity = {
-			ideology = market_liberal
-			popularity = 0.07
-		}
-		hidden_effect = {
-			country_event = {
 				id = nic.56
 				days = 7
 			}
 		}
 	}
 }
+
 country_event = { #Conservative and liberal campaigning
 	id = nic.56
 	immediate = {log = "[GetDateText]: [Root.GetName]: event nic.56"}
@@ -2078,12 +2014,7 @@ country_event = { #Conservative and liberal campaigning
 					popularity = 0.05
 				}
 			}
-			10 = {	
-                            add_popularity = {
-					ideology = market_liberal
-					popularity = 0.05
-				}
-                        }
+			10 = {}
 		}
 		hidden_effect = {
 			country_event = {
@@ -2099,11 +2030,6 @@ country_event = { #Election
 	immediate = {log = "[GetDateText]: [Root.GetName]: event nic.57"}
 	immediate = {
 		hidden_effect = {
-			country_event = {
-				id = nic.5500 
-                                days = 15
-			}
-                        set_cosmetic_tag = NIC_REP
 			remove_ideas_with_trait = head_of_government
 			remove_ideas_with_trait = foreign_minister
 			remove_ideas_with_trait = economy_minister
@@ -2126,7 +2052,6 @@ country_event = { #Election
 		OR = {
 			has_government = social_liberal
 			has_government = social_conservative
-			has_government = market_liberal
 		}
 		has_country_flag = NIC_liberal_revolution_flag
 	}
@@ -2174,24 +2099,6 @@ country_event = { #Election
 		add_ideas = NIC_Guillermo_Sevilla_Sacasa_for_sco
 		add_ideas = NIC_Carlos_Alberto_Brenes_Jarquin_eco_sco
 		add_ideas = NIC_Fernando_Aguero_Rocha_sec_sco
-	}
-	option = { #Con Lib Victory
-		name = nic.57.c
-		ai_chance = {
-			base = 30
-		}
-		add_popularity = {
-			ideology = market_liberal
-			popularity = 0.05
-		}
-		set_politics = {
-			ruling_party = market_liberal
-			elections_allowed = yes
-		}
-		add_ideas = NIC_Leonardo_Arguello_Barreto_hog_sco
-		add_ideas = NIC_Guillermo_Sevilla_Sacasa_for_sco
-		add_ideas = NIC_Edwin_Castro_Rivera_eco_sli
-		add_ideas = NIC_Juan_Escamilla_sec_sli
 	}
 }
 
@@ -2336,22 +2243,7 @@ country_event = { #What to do with Moreno?
 		}
 	}
 }
-country_event = { #Republic Flag Picker
-	id = nic.5500
-	immediate = {log = "[GetDateText]: [Root.GetName]: event nic.55"}
-	title = nic.5500.t
-	desc = nic.5500.d
-	is_triggered_only = yes
-	fire_only_once = yes
 
-	option = {
-		name = nic.5500.a
-	}
-	option = {
-		name = nic.5500.b
-        set_cosmetic_tag = NIC_REP2
-	}
-}
 
 ### SOCIALIST EVENTS ###
 
@@ -2959,131 +2851,8 @@ country_event = { #Elections for socialists
 		add_ideas = NIC_Jose_Maria_Jiron_Ruano_Marin_eco_sde
 		add_ideas = NIC_Celestino_Zeledon_sec_sde
 	}
-	option = { #Elections are cancelled last minute
-		name = nic.76.c
-		add_popularity = {
-			ideology = radical_socialist
-			popularity = -1.00
-		}
-		country_event = {
-			id = nic.7700
-			days = 2
-		}
-		add_political_power = -100
-	}
 }
 
-country_event = { #Country fucking dies overnight
-	id = nic.7700
-	immediate = {log = "[GetDateText]: [Root.GetName]: event nic.77"}
-	title = nic.7700.t
-	desc = nic.7700.d
-	is_triggered_only = yes
-	fire_only_once = yes
-
-	option = {
-		name = nic.7700.a
-		country_event = {
-			id = nic.7701
-			days = 5
-		}
-		add_political_power = -100
-	}
-}
-country_event = { #Moncada and the Guard reenters Nicaragua during the chaos
-	id = nic.7701
-	immediate = {log = "[GetDateText]: [Root.GetName]: event nic.77"}
-	title = nic.7701.t
-	desc = nic.7701.d
-	is_triggered_only = yes
-	fire_only_once = yes
-
-	option = {
-		name = nic.7701.a
-		country_event = {
-			id = nic.7702
-			days = 2
-		}	
-	}
-}
-country_event = { #Guardia Marches to the capital
-	id = nic.7702
-	immediate = {log = "[GetDateText]: [Root.GetName]: event nic.77"}
-	title = nic.7702.t
-	desc = nic.7702.d
-	is_triggered_only = yes
-	fire_only_once = yes
-
-	option = {
-		name = nic.7702.a
-		add_popularity = {
-			ideology = paternal_autocrat
-			popularity = 0.1
-		}
-		country_event = {
-			id = nic.7703
-			days = 2
-		}	
-	}
-}
-country_event = { #They coup lol
-	id = nic.7703
-	immediate = {log = "[GetDateText]: [Root.GetName]: event nic.77"}
-	title = nic.7703.t
-	desc = nic.7703.d
-	is_triggered_only = yes
-	fire_only_once = yes
-
-	option = {
-		name = nic.7703.a
-                set_cosmetic_tag = NIC_MIL
-		create_corps_commander = {
-			name = "Anastasio Somoza García"
-			portrait_path = "gfx/leaders/NIC/Portrait_NIC_Anastasio_Somoza_Garcia_general.png"
-			traits = { trickster brilliant_strategist }
-			skill = 2
-			attack_skill = 3
-			defense_skill = 2
-			planning_skill = 3
-			logistics_skill = 2
-		}
-		create_corps_commander = {
-			name = "Adolfo Díaz"
-			portrait_path = "gfx/leaders/NIC/Portrait_NIC_Adolfo_Diaz.png"
-			traits = { trickster }
-			skill = 2
-			attack_skill = 1
-			defense_skill = 3
-			planning_skill = 2
-			logistics_skill = 3
-		}
-		set_politics = {
-			ruling_party = paternal_autocrat
-			elections_allowed = yes
-		}	
-	}
-}
-country_event = { #Diaz or Somoza
-	id = nic.7704
-	immediate = {log = "[GetDateText]: [Root.GetName]: event nic.77"}
-	title = nic.7704.t
-	desc = nic.7704.d
-	is_triggered_only = yes
-	fire_only_once = yes
-
-	option = {
-		name = nic.7704.a
-                set_country_flag = NIC_national_guard_flag	
-	}
-	option = {
-		name = nic.7704.b
-                set_country_flag = NIC_national_guard_flag
-		set_politics = {
-			ruling_party = authoritarian_democrat
-			elections_allowed = yes
-		}	
-	}
-}
 country_event = { #Rigged Sandino elections
 	id = nic.77
 	immediate = {log = "[GetDateText]: [Root.GetName]: event nic.77"}
@@ -3189,234 +2958,7 @@ country_event = { #Yank begins training program
 		add_ideas = NIC_yank_promise_1
 	}
 }
-country_event = { #Universal Commune
-	id = nic.82
-	immediate = { log = "[GetDateText]: [Root.GetName]: event guatemala.106" }
-	title = nic.82.t
-	desc = nic.82.d
 
-	fire_only_once = yes
-
-	is_triggered_only = yes
-
-	option = { #Hell yeah
-		name = nic.82.a
-                custom_effect_tooltip = NIC_universal_commune_warning
-                hidden_effect = {
-                set_cosmetic_tag = NIC_INDO
-                create_wargoal = {
-			target = MEX
-			type = annex_everything
-		}
-                create_wargoal = {
-			target = GUA
-			type = annex_everything
-		}
-                create_wargoal = {
-			target = ELS
-			type = annex_everything
-		}
-                create_wargoal = {
-			target = HON
-			type = annex_everything
-		}
-                create_wargoal = {
-			target = COS
-			type = annex_everything
-		}
-                create_wargoal = {
-			target = PAN
-			type = annex_everything
-		}
-                create_wargoal = {
-			target = CUB
-			type = annex_everything
-		}
-                create_wargoal = {
-			target = DOM
-			type = annex_everything
-		}
-                create_wargoal = {
-			target = COL
-			type = annex_everything
-		}
-                create_wargoal = {
-			target = VEN
-			type = annex_everything
-		}
-                create_wargoal = {
-			target = ECU
-			type = annex_everything
-		}
-                create_wargoal = {
-			target = PRU
-			type = annex_everything
-		}
-                create_wargoal = {
-			target = BOL
-			type = annex_everything
-		}
-                create_wargoal = {
-			target = CHL
-			type = annex_everything
-		}
-                create_wargoal = {
-			target = ARG
-			type = annex_everything
-		}
-                create_wargoal = {
-			target = FOP
-			type = annex_everything
-		}
-                create_wargoal = {
-			target = PAR
-			type = annex_everything
-		}
-                create_wargoal = {
-			target = URG
-			type = annex_everything
-		}
-                create_wargoal = {
-			target = BRA
-			type = annex_everything
-		}
-                set_country_flag = NIC_universal
-		every_state = {
-			limit = {
-				OR = {
-					is_core_of = MEX
-					is_core_of = GUA
-					is_core_of = ELS
-					is_core_of = HON
-					is_core_of = COS
-					is_core_of = PAN
-					is_core_of = CUB
-					is_core_of = DOM
-					is_core_of = COL
-					is_core_of = VEN
-					is_core_of = ECU
-					is_core_of = PRU
-					is_core_of = BOL
-					is_core_of = CHL
-					is_core_of = ARG
-					is_core_of = FOP
-					is_core_of = PAR
-					is_core_of = URG
-					is_core_of = BRA
-				}
-			}
-			add_core_of = NIC
-		        }
-                }
-		add_political_power = -10
-	}
-	option = { #That's stupid
-		name = nic.82.b
-		add_political_power = 10
-	}
-}
-### Miskitu gang ###
-
-country_event = { #Miskitos want more autonomy
-	id = nic.800
-	immediate = {log = "[GetDateText]: [Root.GetName]: event nic.80"}
-	title = nic.80.t
-	desc = nic.80.d
-	is_triggered_only = yes
-
-	option = { #yes
-		name = nic.80.a
-		hidden_effect = {
-			country_event = {
-				id = nic.801
-				days = 30
-			}
-		}
-		add_political_power = -20
-	}
-	option = { #no
-		name = nic.80.b
-		add_political_power = 20
-	}
-}
-country_event = { #Miskitos increase unrest in the east
-	id = nic.801
-	immediate = {log = "[GetDateText]: [Root.GetName]: event nic.80"}
-	title = nic.801.t
-	desc = nic.801.d
-	is_triggered_only = yes
-
-	option = { #fine
-		name = nic.801.a
-		hidden_effect = {
-			country_event = {
-				id = nic.802
-				days = 30
-			}
-		}
-		add_political_power = -20
-	}
-	option = { #no
-		name = nic.801.b
-		add_political_power = 20
-	}
-}
-country_event = { #Nawww bruh fr bruh?
-	id = nic.8020
-	immediate = {log = "[GetDateText]: [Root.GetName]: event nic.80"}
-	title = nic.8020.t
-	desc = nic.8020.d
-
-	is_triggered_only = yes
-	fire_only_once = yes
-
-	trigger = {
-		GER = {
-		   has_authoritarian_government = yes
-                }
-		ENG = {
-		   has_authoritarian_government = yes
-                }
-                CAN = {
-		   has_authoritarian_government = yes
-                }
-                CAL = {
-		   has_country_leader = {
-			        name = "Norton II"
-				ruling_only = yes
-			}
-                }
-		RUS = {
-		    RUS_russian_monarch = yes 
-                }
-	}
-
-	option = { #yes
-		name = nic.8020.a
-                set_cosmetic_tag = NIC_monarchy
-		set_party_name = {
-			ideology = paternal_autocrat
-			long_name = "House of Somoza"
-			name = "Somoza Dynasty"
-		}
-		set_politics = {
-			ruling_party = paternal_autocrat
-			elections_allowed = no
-		}
-		add_popularity = {
-			ideology = paternal_autocrat
-			popularity = 1.0
-		}
-		create_country_leader = {
-			     name = "Somoza I"
-			     desc = ""
-			     picture = "gfx/leaders/NIC/Portrait_NIC_Somoza_King.png"
-			     expire = "1965.1.1"
-			     ideology = absolute_monarchy_subtype
-			     traits = {}
-                }
-        }
-}
 ### MILITARY EVENTS ###
 
 country_event = { #Hidden event to trigger next attack, trigged from the event to go aut dem
@@ -3985,7 +3527,7 @@ country_event = {
 	option = {
 		if = {
 			limit = {
-				has_idea = NIC_sandino_resistance_base
+				has_idea = NIC_sandino_resistance_super_high
 			}
 			country_event = {
 				id = nic.123
@@ -3994,7 +3536,7 @@ country_event = {
 		}
 		else_if = {
 			limit = {
-				has_idea = NIC_sandino_resistance_low
+				has_idea = NIC_sandino_resistance_super_low
 			}
 			country_event = {
 				id = nic.124
@@ -4004,8 +3546,11 @@ country_event = {
 		else_if = {
 			limit = {
 				OR = {
+					has_idea = NIC_sandino_resistance_really_high
+					has_idea = NIC_sandino_resistance_high
 					has_idea = NIC_sandino_resistance_base
 					has_idea = NIC_sandino_resistance_low
+					has_idea = NIC_sandino_resistance_really_low
 				}
 			}
 			country_event = {
@@ -4117,6 +3662,24 @@ country_event = { #Clash at the capital! Sandino completely destroys the opposit
 
 		if = { #Remove the idea
 			limit = {
+				has_idea = NIC_sandino_resistance_super_high
+			}
+			remove_ideas = NIC_sandino_resistance_super_high
+		}
+		else_if = {
+			limit = {
+				has_idea = NIC_sandino_resistance_really_high
+			}
+			remove_ideas = NIC_sandino_resistance_really_high
+		}
+		else_if = {
+			limit = {
+				has_idea = NIC_sandino_resistance_high
+			}
+			remove_ideas = NIC_sandino_resistance_high
+		}
+		else_if = {
+			limit = {
 				has_idea = NIC_sandino_resistance_base
 			}
 			remove_ideas = NIC_sandino_resistance_base
@@ -4126,6 +3689,18 @@ country_event = { #Clash at the capital! Sandino completely destroys the opposit
 				has_idea = NIC_sandino_resistance_low
 			}
 			remove_ideas = NIC_sandino_resistance_low
+		}
+		else_if = {
+			limit = {
+				has_idea = NIC_sandino_resistance_really_low
+			}
+			remove_ideas = NIC_sandino_resistance_really_low
+		}
+		else_if = {
+			limit = {
+				has_idea = NIC_sandino_resistance_super_low
+			}
+			remove_ideas = NIC_sandino_resistance_super_low
 		}
 
 		hidden_effect = {
@@ -4157,7 +3732,25 @@ country_event = { #Clash at the capital! Sandino completely destroyed
 		}
 
 		if = {
-		        limit = {
+			limit = {
+				has_idea = NIC_sandino_resistance_super_high
+			}
+			remove_ideas = NIC_sandino_resistance_super_high
+		}
+		else_if = {
+			limit = {
+				has_idea = NIC_sandino_resistance_really_high
+			}
+			remove_ideas = NIC_sandino_resistance_really_high
+		}
+		else_if = {
+			limit = {
+				has_idea = NIC_sandino_resistance_high
+			}
+			remove_ideas = NIC_sandino_resistance_high
+		}
+		else_if = {
+			limit = {
 				has_idea = NIC_sandino_resistance_base
 			}
 			remove_ideas = NIC_sandino_resistance_base
@@ -4167,6 +3760,18 @@ country_event = { #Clash at the capital! Sandino completely destroyed
 				has_idea = NIC_sandino_resistance_low
 			}
 			remove_ideas = NIC_sandino_resistance_low
+		}
+		else_if = {
+			limit = {
+				has_idea = NIC_sandino_resistance_really_low
+			}
+			remove_ideas = NIC_sandino_resistance_really_low
+		}
+		else_if = {
+			limit = {
+				has_idea = NIC_sandino_resistance_super_low
+			}
+			remove_ideas = NIC_sandino_resistance_super_low
 		}
 	}
 }
@@ -4189,7 +3794,21 @@ country_event = { #Clash at the capital! Contested
 			popularity = -0.05
 		}
 		if = { #Deciding how much to hurt
-		       limit = {
+			limit = {
+				has_idea = NIC_sandino_resistance_really_high
+			}
+			add_stability = -0.1
+			add_war_support = -0.1
+		}
+		else_if = {
+			limit = {
+				has_idea = NIC_sandino_resistance_high
+			}
+			add_stability = -0.08
+			add_war_support = -0.08
+		}
+		else_if = {
+			limit = {
 				has_idea = NIC_sandino_resistance_base
 			}
 			add_stability = -0.06
@@ -4202,8 +3821,33 @@ country_event = { #Clash at the capital! Contested
 			add_stability = -0.04
 			add_war_support = -0.04
 		}
+		else_if = {
+			limit = {
+				has_idea = NIC_sandino_resistance_really_low
+			}
+			add_stability = -0.02
+			add_war_support = -0.02
+		}
 
 		if = { #Removing the idea
+			limit = {
+				has_idea = NIC_sandino_resistance_super_high
+			}
+			remove_ideas = NIC_sandino_resistance_super_high
+		}
+		else_if = {
+			limit = {
+				has_idea = NIC_sandino_resistance_really_high
+			}
+			remove_ideas = NIC_sandino_resistance_really_high
+		}
+		else_if = {
+			limit = {
+				has_idea = NIC_sandino_resistance_high
+			}
+			remove_ideas = NIC_sandino_resistance_high
+		}
+		else_if = {
 			limit = {
 				has_idea = NIC_sandino_resistance_base
 			}
@@ -4215,6 +3859,18 @@ country_event = { #Clash at the capital! Contested
 			}
 			remove_ideas = NIC_sandino_resistance_low
 		}
+		else_if = {
+			limit = {
+				has_idea = NIC_sandino_resistance_really_low
+			}
+			remove_ideas = NIC_sandino_resistance_really_low
+		}
+		else_if = {
+			limit = {
+				has_idea = NIC_sandino_resistance_super_low
+			}
+			remove_ideas = NIC_sandino_resistance_super_low
+		}
 	}
 
 	option = { #Sandino wins out
@@ -4222,12 +3878,20 @@ country_event = { #Clash at the capital! Contested
 		ai_chance = {
 			base = 50
 			modifier = {
+				factor = 0.8
+				has_idea = NIC_sandino_resistance_high
+			}
+			modifier = {
 				factor = 0.6
 				has_idea = NIC_sandino_resistance_base
 			}
 			modifier = {
 				factor = 0.4
 				has_idea = NIC_sandino_resistance_low
+			}
+			modifier = {
+				factor = 0.2
+				has_idea = NIC_sandino_resistance_really_low
 			}
 		}
 		set_politics = {
@@ -4322,6 +3986,20 @@ country_event = { #Clash at the capital! Contested
 
 		if = { #Deciding how much to hurt
 			limit = {
+				has_idea = NIC_sandino_resistance_really_high
+			}
+			add_stability = -0.02
+			add_war_support = -0.02
+		}
+		else_if = {
+			limit = {
+				has_idea = NIC_sandino_resistance_high
+			}
+			add_stability = -0.04
+			add_war_support = -0.04
+		}
+		else_if = {
+			limit = {
 				has_idea = NIC_sandino_resistance_base
 			}
 			add_stability = -0.06
@@ -4334,8 +4012,33 @@ country_event = { #Clash at the capital! Contested
 			add_stability = -0.08
 			add_war_support = -0.08
 		}
+		else_if = {
+			limit = {
+				has_idea = NIC_sandino_resistance_really_low
+			}
+			add_stability = -0.1
+			add_war_support = -0.1
+		}
 
 		if = { #Removing ideas
+			limit = {
+				has_idea = NIC_sandino_resistance_super_high
+			}
+			remove_ideas = NIC_sandino_resistance_super_high
+		}
+		else_if = {
+			limit = {
+				has_idea = NIC_sandino_resistance_really_high
+			}
+			remove_ideas = NIC_sandino_resistance_really_high
+		}
+		else_if = {
+			limit = {
+				has_idea = NIC_sandino_resistance_high
+			}
+			remove_ideas = NIC_sandino_resistance_high
+		}
+		else_if = {
 			limit = {
 				has_idea = NIC_sandino_resistance_base
 			}
@@ -4346,6 +4049,18 @@ country_event = { #Clash at the capital! Contested
 				has_idea = NIC_sandino_resistance_low
 			}
 			remove_ideas = NIC_sandino_resistance_low
+		}
+		else_if = {
+			limit = {
+				has_idea = NIC_sandino_resistance_really_low
+			}
+			remove_ideas = NIC_sandino_resistance_really_low
+		}
+		else_if = {
+			limit = {
+				has_idea = NIC_sandino_resistance_super_low
+			}
+			remove_ideas = NIC_sandino_resistance_super_low
 		}
 
 		hidden_effect = {
@@ -6021,7 +5736,6 @@ country_event = { #rip Nicaragua, if Honduras is Soc Con or further right
 		add_war_support = -0.2
 		hidden_effect = {
 			country_event = nic.107
-                        country_event = nic.2004
 		}
 		create_corps_commander = {
 			name = "Demas T. Craw"
@@ -6070,76 +5784,7 @@ country_event = { #rip Nicaragua, if Honduras is Soc Con or further right
 		}
 	}
 }
-country_event = { #Puppet Gov or Nah?
-	id = nic.2003
-	immediate = { log = "[GetDateText]: [Root.GetName]: event hon_ufc.9" }
-	title = nic.2003.t
-	desc = nic.2003.d
 
-	fire_only_once = yes
-	
-	is_triggered_only = yes
-
-	option = {
-		name = nic.2003.a
-		add_popularity = {
-			ideology = national_populist
-			popularity = 0.10
-		}
-		set_party_name = {
-			ideology = national_populist
-			long_name = "Fillibusters"
-			name = "Guardia Nacional"
-		}
-		create_country_leader = {
-	                     name = "Anastasio Somoza García"
-	                     desc = "POLITICS_ANASTASIO_SOMOZA_GARCIA_DESC"
-	                     picture = "gfx/leaders/NIC/Portrait_NIC_Anastasio_Somoza_Garcia_general.png"
-	                     expire = "1965.1.1"
-	                     ideology = natpop_corporatocracy_subtype
-			     traits = {}
-                }
-	}
-	option = {
-		name = nic.2003.b
-		add_popularity = {
-			ideology = national_populist
-			popularity = 0.10
-		}
-		create_country_leader = {
-	                     name = "Pedro del Valle"
-	                     desc = ""
-	                     picture = "gfx/leaders/TEX/Portrait_TEX_Pedro_Del_Valle.png"
-	                     expire = "1965.1.1"
-	                     ideology = militarism_subtype
-			     traits = {}
-                }
-	}
-	option = {
-		name = nic.2003.c
-		add_popularity = {
-			ideology = national_populist
-			popularity = 0.10
-		}
-		create_country_leader = {
-	                     name = "Claire Lee Chennault"
-	                     desc = ""
-	                     picture = "gfx/leaders/NIC/Portrait_NIC_Claire_Lee_Chennault.png"
-	                     expire = "1965.1.1"
-	                     ideology = militarism_subtype
-			     traits = {}
-                }
-	}
-	option = {
-		name = nic.2003.e
-		add_stability = 0.05
-		add_political_power = 50
-		add_popularity = {
-			ideology = national_populist
-			popularity = 0.10
-		}
-	}
-}
 ###AMERICAN SHIP 194 - 199
 country_event = {
 	id = nic.10000
@@ -7084,51 +6729,5 @@ country_event = { #They said no
 
 	option = {
 		name = nicind.13.a
-	}
-}
-country_event = { #Nicaraguan Canal
-	id = nic.1300
-	immediate = {log = "[GetDateText]: [Root.GetName]: event constate.6775"}
-	title = nic.1300.t
-	desc = nic.1300.d
-	picture = OTT_Suez_Canal
-
-	fire_only_once = yes
-	
-	is_triggered_only = yes
-
-	option = {
-		name = nic.1300.a
-                add_ideas = NIC_canal
-		1071 = {
-			add_building_construction = {
-				type = naval_base
-				level = 10
-				province = 1988
-				instant_build = yes
-			}
-			add_extra_state_shared_building_slots = 5
-			add_building_construction = {
-				type = dockyard
-				level = 5
-				instant_build = yes
-			        }
-			}
-		317 = {
-			add_building_construction = {
-				type = naval_base
-				level = 10
-				province = 13439
-				instant_build = yes
-			}
-			add_extra_state_shared_building_slots = 5
-			add_building_construction = {
-				type = dockyard
-				level = 5
-				instant_build = yes
-				}
-			}
-		add_political_power = 100
-		
 	}
 }

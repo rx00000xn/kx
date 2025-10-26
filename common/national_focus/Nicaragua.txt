@@ -1,6 +1,5 @@
 ##############################
 ### Nicaragua Focus Tree   ###
-### Reworked by Pogge      ###
 ##############################
 
 focus_tree = {
@@ -13,14 +12,14 @@ focus_tree = {
 		}
 	}
 	default = no
-	continuous_focus_position = { x = 0 y = 1200 }
+	continuous_focus_position = { x = 0 y = 800 }
 
 	## Political Tree ##
 
 	focus = {
 		id = NIC_36_election
 		icon = GFX_goal_generic_elections
-		x = -5
+		x = 4
 		y = 0
 		cost = 7
 		ai_will_do = {
@@ -40,7 +39,7 @@ focus_tree = {
 
 	focus = {
 		id = NIC_freeing_people
-		icon = GFX_flag_nicaragua
+		icon = GFX_goal_NIC_Defend_Indo_Hispanic_Race
 		x = -2
 		y = 1
 		relative_position_id = NIC_36_election
@@ -72,7 +71,7 @@ focus_tree = {
 
 	focus = {
 		id = NIC_establish_sandinistas
-		icon = GFX_BRY_Every_Hand_A_Rifle
+		icon = GFX_goal_NIC_Strong_Guerilla_Doctrine
 		x = -2
 		y = 2
 		relative_position_id = NIC_36_election
@@ -200,7 +199,7 @@ focus_tree = {
 
 	focus = {
 		id = NIC_for_common_man
-		icon = GFX_goal_CZE_common_man_politics
+		icon = GFX_goal_NIC_Peasant_Prosperity
 		x = 0
 		y = 3
 		relative_position_id = NIC_36_election
@@ -224,7 +223,7 @@ focus_tree = {
 
 	focus = {
 		id = NIC_new_liberal_mindset
-		icon = GFX_RUS_Lessons_Of_Democracy
+		icon = GFX_goal_NIC_Legacy_Liberal_Revolution
 		x = 2
 		y = 1
 		relative_position_id = NIC_36_election
@@ -307,7 +306,7 @@ focus_tree = {
 
 	focus = {
 		id = NIC_seizing_countryside
-		icon = GFX_BRY_Land_Socialization
+		icon = GFX_goal_NIC_Grasp_Nicaragua
 		x = -1
 		y = 4
 		relative_position_id = NIC_36_election
@@ -375,7 +374,7 @@ focus_tree = {
 	focus = {
 		id = NIC_liberal_revolution
 		icon = GFX_goal_NIC_Liberal_Revolution
-		x = 26
+		x = 10
 		y = 0
 		cost = 7
 		ai_will_do = {
@@ -396,7 +395,7 @@ focus_tree = {
 	focus = {
 		id = NIC_collaborate_exiles
 		icon = GFX_goal_NIC_Collaborate_With_Exiles
-		x = -2
+		x = -1
 		y = 1
 		relative_position_id = NIC_liberal_revolution
 		cost = 7
@@ -418,39 +417,13 @@ focus_tree = {
 			country_event = {
 				id = nic.53 days = 1
 			}
-			country_event = {
-				id = nic.530 days = 5
-			}
 		}
 	}
-	focus = {
-		id = NIC_defend_free_speech
-		icon = GFX_goal_NIC_Defend_Free_Press
-		x = 0
-		y = 1
-		relative_position_id = NIC_liberal_revolution
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_liberal_revolution
-		}
-		available = {
-                     OR = {
-			has_government = social_liberal
-                        has_government = social_conservative
-                     }
-		}
 
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-		}
-	}
 	focus = {
 		id = NIC_removing_personality
 		icon = GFX_goal_NIC_Removing_Cult_Personality
-		x = 2
+		x = 1
 		y = 1
 		relative_position_id = NIC_liberal_revolution
 		cost = 7
@@ -474,6 +447,7 @@ focus_tree = {
 			}
 		}
 	}
+
 	focus = {
 		id = NIC_new_bastion
 		icon = GFX_goal_NIC_New_Bastion_Democracy
@@ -489,9 +463,6 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = NIC_collaborate_exiles
-		}
-		prerequisite = {
-			focus = NIC_defend_free_speech
 		}
 		available = {
 			OR = {
@@ -516,13 +487,14 @@ focus_tree = {
 			}
 		}
 	}
+
 	focus = {
-		id = NIC_victory_of_vargas
-		icon = GFX_goal_NIC_Vargas_Victory
-		x = 6
-		y = 1
-		relative_position_id = NIC_new_bastion
-		cost = 7
+		id = NIC_free_press
+		icon = GFX_goal_NIC_Defend_Free_Press
+		x = 2
+		y = 3
+		relative_position_id = NIC_liberal_revolution
+		cost = 8
 		ai_will_do = {
 			factor = 5
 		}
@@ -530,247 +502,53 @@ focus_tree = {
 			focus = NIC_new_bastion
 		}
 		available = {
-			has_government = social_conservative
-		}
-		bypass = {
-			has_government = social_conservative
+			OR = {
+				has_government = social_liberal
+				has_government = social_conservative
+			}
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_free_press"
+			add_ideas = NIC_free_press_idea
 		}
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 	}
+
 	focus = {
-		id = NIC_new_money_law
+		id = NIC_shifting_economy
 		icon = GFX_goal_NIC_Monetary_Law
-		x = -1
-		y = 1
-		relative_position_id = NIC_victory_of_vargas
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_victory_of_vargas
-		}
-		available = {
-			has_government = social_conservative
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-			random_owned_state = {
-				limit = {
-					is_core_of = NIC
-					is_controlled_by = NIC
-					industrial_complex > 0
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}
-                        add_ideas = NIC_new_money
-		}
-	}
-	focus = {
-		id = NIC_oppose_liberals
-		icon = GFX_goal_NIC_Move_Against_Liberals
-		x = 0
-		y = 2
-		relative_position_id = NIC_victory_of_vargas
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_victory_of_vargas
-		}
-		available = {
-			has_government = social_conservative
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-                        add_ideas = NIC_go_against_libs
-		}
-	}
-	focus = {
-		id = NIC_empowered_presidency
-		icon = GFX_goal_NIC_Strong_President_Strong_Nation
-		x = 1
-		y = 1
-		relative_position_id = NIC_victory_of_vargas
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_victory_of_vargas
-		}
-		available = {
-			has_government = social_conservative
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-                        add_ideas = NIC_strong_executive
-		}
-	}
-	focus = {
-		id = NIC_influx_of_immigrants
-		icon = GFX_goal_NIC_Promote_Immigration
 		x = 2
-		y = 2
-		relative_position_id = NIC_victory_of_vargas
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_empowered_presidency
-		}
-		available = {
-			has_government = social_conservative
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-                        add_ideas = NIC_immigrant_influx
-		}
-	}
-	focus = {
-		id = NIC_strong_n_stable_economy
-		icon = GFX_goal_NIC_Strong_Stable_Economy
-		x = -2
-		y = 2
-		relative_position_id = NIC_victory_of_vargas
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_new_money_law
-		}
-		available = {
-			has_government = social_conservative
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-			add_stability = 0.10
-			random_owned_state = {
-				limit = {
-					is_core_of = NIC
-					is_controlled_by = NIC
-					industrial_complex > 0
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}
-			random_owned_state = {
-				limit = {
-					is_core_of = NIC
-					is_controlled_by = NIC
-					industrial_complex > 0
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}
-		}
-	}
-	focus = {
-		id = NIC_reinvite_the_guard
-		icon = GFX_goal_NIC_Question_National_Guard
-		x = -1
-		y = 3
-		relative_position_id = NIC_victory_of_vargas
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_strong_n_stable_economy
-		}
-		prerequisite = {
-			focus = NIC_oppose_liberals
-		}
-		available = {
-			has_government = social_conservative
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-
-		}
-	}
-	focus = {
-		id = NIC_establish_conservative_dominance
-		icon = GFX_RUS_Secure_Coalition
-		x = 1
-		y = 3
-		relative_position_id = NIC_victory_of_vargas
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_influx_of_immigrants
-		}
-		prerequisite = {
-			focus = NIC_oppose_liberals
-		}
-		available = {
-			has_government = social_conservative
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-
-		}
-	}
-	focus = {
-		id = NIC_presidential_republic
-		icon = GFX_goal_NIC_Vargas_Final
-		x = 0
 		y = 4
-		relative_position_id = NIC_victory_of_vargas
-		cost = 7
+		relative_position_id = NIC_liberal_revolution
+		cost = 8
 		ai_will_do = {
 			factor = 5
 		}
 		prerequisite = {
-			focus = NIC_reinvite_the_guard
-		}
-		prerequisite = {
-			focus = NIC_establish_conservative_dominance
+			focus = NIC_free_press
 		}
 		available = {
-			has_government = social_conservative
+			OR = {
+				has_government = social_liberal
+				has_government = social_conservative
+			}
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-                        add_ideas = NIC_president_republic 
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_shifting_economy"
+			add_offsite_building = { type = industrial_complex level = 1 }
 		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
+
 	focus = {
-		id = NIC_victory_of_moncada
-		icon = GFX_goal_NIC_Moncada_Victory
+		id = NIC_proper_military
+		icon = GFX_goal_NIC_Army
 		x = 0
-		y = 1
-		relative_position_id = NIC_new_bastion
-		cost = 7
+		y = 3
+		relative_position_id = NIC_liberal_revolution
+		cost = 8
 		ai_will_do = {
 			factor = 5
 		}
@@ -778,837 +556,411 @@ focus_tree = {
 			focus = NIC_new_bastion
 		}
 		available = {
-			has_government = market_liberal
-		}
-		bypass = {
-			has_government = market_liberal
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-		}
-	}
-	focus = {
-		id = NIC_the_ideal_citizen
-		icon = GFX_goal_BEL_Rural_Ideal
-		x = 1
-		y = 1
-		relative_position_id = NIC_victory_of_moncada
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_victory_of_moncada
-		}
-		available = {
-			has_government = market_liberal
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-                        add_ideas = NIC_liberal_party_unity
-		}
-	}
-	focus = {
-		id = NIC_congressional_support
-		icon = GFX_goal_COR_Judicial_Reform
-		x = 0
-		y = 2
-		relative_position_id = NIC_victory_of_moncada
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_victory_of_moncada
-		}
-		available = {
-			has_government = market_liberal
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-                        add_ideas = NIC_conservative_reconciliation
-		}
-	}
-	focus = {
-		id = NIC_seperation_of_church_state
-		icon = GFX_goal_NIC_Separation_Church_State
-		x = -1
-		y = 1
-		relative_position_id = NIC_victory_of_moncada
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_victory_of_moncada
-		}
-		available = {
-			has_government = market_liberal
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-                        add_ideas = NIC_seperate_church_state
-		}
-	}
-	focus = {
-		id = NIC_increase_election_supervision
-		icon = GFX_goal_NIC_Election_Monitoring
-		x = -2
-		y = 2
-		relative_position_id = NIC_victory_of_moncada
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_seperation_of_church_state
-		}
-		available = {
-			has_government = market_liberal
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-			add_popularity = { ideology = market_liberal popularity = 0.1 }
-			add_popularity = { ideology = social_liberal popularity = 0.1 }
-			add_popularity = { ideology = social_conservative popularity = 0.1 }
-                        add_political_power = 75
-			add_stability = 0.05
-		}
-	}
-	focus = {
-		id = NIC_nicaraguan_liberalism_born_anew
-		icon = GFX_goal_NIC_Nicaraguan_Liberalism_Born_Anew
-		x = 2
-		y = 2
-		relative_position_id = NIC_victory_of_moncada
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_the_ideal_citizen
-		}
-		available = {
-			has_government = market_liberal
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-			swap_ideas = {
-				remove_idea = NIC_liberal_party_unity
-				add_idea = NIC_liberal_party_unity2
+			OR = {
+				has_government = social_liberal
+				has_government = social_conservative
 			}
 		}
-	}
-	focus = {
-		id = NIC_advocate_manhood_suffrage
-		icon = GFX_focus_HKG_Strong_President
-		x = 1
-		y = 3
-		relative_position_id = NIC_victory_of_moncada
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_nicaraguan_liberalism_born_anew
-		}
-		prerequisite = {
-			focus = NIC_congressional_support
-		}
-		available = {
-			has_government = market_liberal
-		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_proper_military"
+			add_doctrine_cost_reduction = {
+				name = NIC_proper_military
+				cost_reduction = 0.5
+				uses = 3
+				category = land_doctrine
+			}
 		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
-	focus = {
-		id = NIC_question_of_amnesty
-		icon = GFX_RUS_Downplay_State_Terror
-		x = -1
-		y = 3
-		relative_position_id = NIC_victory_of_moncada
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_increase_election_supervision
-		}
-		prerequisite = {
-			focus = NIC_congressional_support
-		}
-		available = {
-			has_government = market_liberal
-		}
 
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-
-		}
-	}
 	focus = {
-		id = NIC_coalition_democracy
-		icon = GFX_goal_NIC_Moncada_Final
-		x = 0
-		y = 4
-		relative_position_id = NIC_victory_of_moncada
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_question_of_amnesty
-		}
-		prerequisite = {
-			focus = NIC_advocate_manhood_suffrage
-		}
-		available = {
-			has_government = market_liberal
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-                        add_ideas = NIC_coalition_democracy
-		}
-	}
-	focus = {
-		id = NIC_victory_of_juan
-		icon = GFX_goal_NIC_Sacasa_Victory
-		x = -6
-		y = 1
-		relative_position_id = NIC_new_bastion
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_new_bastion
-		}
-		available = {
-			has_government = social_liberal
-		}
-		bypass = {
-			has_government = social_liberal
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-		}
-	}
-	focus = {
-		id = NIC_defang_national_guard
+		id = NIC_new_national_guard
 		icon = GFX_goal_NIC_Defang_National_Guard
-		x = -1
-		y = 1
-		relative_position_id = NIC_victory_of_juan
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_victory_of_juan
-		}
-		available = {
-				has_government = social_liberal
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-                        add_ideas = NIC_guard_no_fangs
-		}
-	}
-	focus = {
-		id = NIC_legacy_of_liberal_rev
-		icon = GFX_goal_NIC_Legacy_Liberal_Revolution
-		x = 0
-		y = 2
-		relative_position_id = NIC_victory_of_juan
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_victory_of_juan
-		}
-		available = {
-				has_government = social_liberal
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-                        add_ideas = NIC_legacy_of_rev
-		}
-	}
-	focus = {
-		id = NIC_tackle_corruption
-		icon = GFX_goal_NIC_Destroy_Corruption
-		x = 1
-		y = 1
-		relative_position_id = NIC_victory_of_juan
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_victory_of_juan
-		}
-		available = {
-				has_government = social_liberal
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-                        add_political_power = 100
-			add_stability = 0.10
-		}
-	}
-	focus = {
-		id = NIC_democracy_set_in_stone
-		icon = GFX_goal_NIC_Stable_Democracy
-		x = 2
-		y = 2
-		relative_position_id = NIC_victory_of_juan
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_tackle_corruption
-		}
-		available = {
-				has_government = social_liberal
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-                        add_ideas = NIC_democracy_n_shit
-		}
-	}
-	focus = {
-		id = NIC_liberal_constitution
-		icon = GFX_goal_NIC_Liberal_Constitution
-		x = -2
-		y = 2
-		relative_position_id = NIC_victory_of_juan
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_defang_national_guard
-		}
-		available = {
-				has_government = social_liberal
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-                        add_ideas = NIC_liberal_const
-		}
-	}
-	focus = {
-		id = NIC_integrate_sandinista_support
-		icon = GFX_goal_NIC_Defang_Sandinistas
-		x = -1
-		y = 3
-		relative_position_id = NIC_victory_of_juan
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_liberal_constitution
-		}
-		prerequisite = {
-			focus = NIC_legacy_of_liberal_rev
-		}
-		available = {
-				has_government = social_liberal
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-                        add_ideas = NIC_liberal_const
-		}
-	}
-	focus = {
-		id = NIC_absorb_moderate_conservatives
-		icon = GFX_RUS_Oust_Liberals_Conservatives
-		x = 1
-		y = 3
-		relative_position_id = NIC_victory_of_juan
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_democracy_set_in_stone
-		}
-		prerequisite = {
-			focus = NIC_legacy_of_liberal_rev
-		}
-		available = {
-				has_government = social_liberal
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-                        
-		}
-	}
-	focus = {
-		id = NIC_parlimentary_democracy
-		icon = GFX_goal_NIC_Sacasa_Final
 		x = 0
 		y = 4
-		relative_position_id = NIC_victory_of_juan
-		cost = 7
+		relative_position_id = NIC_liberal_revolution
+		cost = 8
 		ai_will_do = {
 			factor = 5
 		}
 		prerequisite = {
-			focus = NIC_absorb_moderate_conservatives
-		}
-		prerequisite = {
-			focus = NIC_integrate_sandinista_support
+			focus = NIC_proper_military
 		}
 		available = {
+			OR = {
 				has_government = social_liberal
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-                        add_ideas = NIC_parliament_demo
-		}
-	}
-	focus = {
-		id = NIC_our_friends_to_the_very_north
-		icon = GFX_goal_NIC_Rightful_Spot_Entente
-		x = 0
-		y = 6
-		relative_position_id = NIC_new_bastion
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_parlimentary_democracy
-		}
-		prerequisite = {
-			focus = NIC_coalition_democracy
-		}
-		prerequisite = {
-			focus = NIC_presidential_republic
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-		}
-	}
-	focus = {
-		id = NIC_hail_to_thee_nicaragua
-		icon = GFX_goal_NIC_Hail_Thee_Nicaragua
-		x = 0
-		y = 7
-		relative_position_id = NIC_new_bastion
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_our_friends_to_the_very_north
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_bastion"
-                        add_ideas = NIC_parliament_demo
-		}
-	}
-	## Socialist Revolution ##
-	focus = {
-		id = NIC_socdem_coalition
-		icon = GFX_goal_NIC_Victory_Social_Democracy
-		x = 12
-		y = 0
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		available = {
-			always = no
-		}
-		bypass = {
-                        has_country_flag = NIC_socialist_revolution_flag
-			has_government = social_democrat
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-		}
-	}
-	focus = {
-		id = NIC_government_for_people
-		icon = GFX_goal_NIC_Government_For_People
-		x = 0
-		y = 1
-		relative_position_id = NIC_socdem_coalition
-		cost = 5
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_socdem_coalition
-		}
-		available = {
-			has_government = social_democrat
-			is_subject = no
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-                        add_political_power = 150
-                        add_ideas = NIC_for_people
-		}
-	}
-	focus = {
-		id = NIC_ensure_prosperity_for_peasants
-		icon = GFX_goal_NIC_Peasant_Prosperity
-		x = -1
-		y = 1
-		relative_position_id = NIC_government_for_people
-		cost = 5
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_government_for_people
-		}
-		available = {
-			has_government = social_democrat
-			is_subject = no
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-                        add_political_power = 100
-			add_stability = 0.10
-			random_owned_state = {
-				limit = {
-					is_core_of = NIC
-					is_controlled_by = NIC
-					industrial_complex > 0
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
+				has_government = social_conservative
 			}
 		}
-	}
-	focus = {
-		id = NIC_expanding_peasant_revolution
-		icon = GFX_goal_NIC_Prospering_Society
-		x = -1
-		y = 1
-		relative_position_id = NIC_ensure_prosperity_for_peasants
-		cost = 2
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_ensure_prosperity_for_peasants
-		}
-		available = {
-			has_government = social_democrat
-			is_subject = no
-		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-		}
-	}
-	focus = {
-		id = NIC_easing_cult_of_sandino
-		icon = GFX_goal_NIC_Puppet_Sandinistas
-		x = 0
-		y = 2
-		relative_position_id = NIC_ensure_prosperity_for_peasants
-		cost = 2
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_ensure_prosperity_for_peasants
-		}
-		available = {
-			has_government = social_democrat
-			is_subject = no
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-                        add_ideas = NIC_controlled_sandinistas
-		}
-	}
-	focus = {
-		id = NIC_reconciling_sacasa
-		icon = GFX_goal_NIC_Legacy_Liberal_Revolution
-		x = -1
-		y = 3
-		relative_position_id = NIC_ensure_prosperity_for_peasants
-		cost = 5
-		ai_will_do = {
-			factor = 5
-		}
-	        prerequisite = {
-			focus = NIC_easing_cult_of_sandino
-		}
-	        prerequisite = {
-			focus = NIC_expanding_peasant_revolution
-		}
-		available = {
-			has_government = social_democrat
-			is_subject = no
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-                        add_ideas = NIC_health_for_all
-		}
-	}
-	focus = {
-		id = NIC_agriculture_industry
-		icon = GFX_goal_NIC_Triumph_Agriculture
-		x = 0
-		y = 2
-		relative_position_id = NIC_government_for_people
-		cost = 5
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_ensure_prosperity_for_peasants
-		}
-		prerequisite = {
-			focus = NIC_large_education_funding
-		}
-		available = {
-			has_government = social_democrat
-			is_subject = no
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-			add_stability = 0.10
-			random_owned_state = {
-				limit = {
-					is_core_of = NIC
-					is_controlled_by = NIC
-					industrial_complex > 0
-				}
-				add_extra_state_shared_building_slots = 4
-				add_building_construction = {
-					type = industrial_complex
-					level = 3
-					instant_build = yes
-				}
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_national_guard"
+			country_event = {
+				id = nic.58 days = 1
 			}
+			add_ideas = NIC_new_national_guard_idea
 		}
+		search_filters = { FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_MANPOWER }
 	}
-	focus = {
-		id = NIC_reject_sandinista_conquests
-		icon = GFX_goal_NIC_Move_Against_Yanks
-		x = 0
-		y = 4
-		relative_position_id = NIC_government_for_people
-		cost = 5
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_agriculture_industry
-		}
-		prerequisite = {
-			focus = NIC_easing_cult_of_sandino
-			focus = NIC_form_the_MRS
-		}
-                available = {
-			has_government = social_democrat
-			is_subject = no
-		}
 
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-                        add_ideas = NIC_UFC_gone
-                        
-		}
-	}
 	focus = {
-		id = NIC_large_education_funding
-		icon = GFX_goal_NIC_Educated_Populace
-		x = 1
-		y = 1
-		relative_position_id = NIC_government_for_people
-		cost = 5
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_government_for_people
-		}
-		available = {
-			has_government = social_democrat
-			is_subject = no
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-			add_stability = 0.10
-			random_owned_state = {
-				limit = {
-					is_core_of = NIC
-					is_controlled_by = NIC
-					industrial_complex > 0
-				}
-				add_extra_state_shared_building_slots = 3
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}
-		}
-	}
-	focus = {
-		id = NIC_contacts_with_internationale
-		icon = GFX_goal_NIC_Puppet_Guards
-		x = 1
-		y = 1
-		relative_position_id = NIC_large_education_funding
-		cost = 2
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_large_education_funding
-		}
-		available = {
-			has_government = social_democrat
-			is_subject = no
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-                        add_ideas = NIC_controlled_guard
-		}
-	}
-	focus = {
-		id = NIC_prospering_peasant_class
-		icon = GFX_goal_NIC_Prospering_People
-		x = 1
-		y = 3
-		relative_position_id = NIC_large_education_funding
-		cost = 5
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_contacts_with_internationale
-		}
-		prerequisite = {
-			focus = NIC_form_the_MRS
-		}
-		available = {
-			has_government = social_democrat
-			is_subject = no
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-			add_stability = 0.10
-			random_owned_state = {
-				limit = {
-					is_core_of = NIC
-					is_controlled_by = NIC
-					industrial_complex > 0
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}
-		}
-	}
-	focus = {
-		id = NIC_form_the_MRS
-		icon = GFX_goal_NIC_Form_MRS
-		x = 0
-		y = 2
-		relative_position_id = NIC_large_education_funding
-		cost = 2
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_large_education_funding
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_coalition"
-
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	}
-	focus = {
-		id = NIC_triumph_of_cabuya
-		icon = GFX_goal_NIC_Triumph_Pancho_Cabuya
+		id = NIC_resolving_high_command
+		icon = GFX_goal_NIC_National_Guard_Without_Tyrants
 		x = 0
 		y = 5
-		relative_position_id = NIC_government_for_people
-		cost = 5
+		relative_position_id = NIC_liberal_revolution
+		cost = 8
 		ai_will_do = {
 			factor = 5
 		}
 		prerequisite = {
-			focus = NIC_prospering_peasant_class
-		}
-		prerequisite = {
-			focus = NIC_reconciling_sacasa
-		}
-		prerequisite = {
-			focus = NIC_reject_sandinista_conquests
+			focus = NIC_new_national_guard
 		}
 		available = {
-			has_government = social_democrat
-			is_subject = no
+			OR = {
+				has_government = social_liberal
+				has_government = social_conservative
+			}
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-                        add_political_power = 100
-			add_stability = 0.10
-                        add_ideas = NIC_cabuya
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_resolving_high_command"
+			if = {
+				limit = {
+					has_government = social_liberal
+				}
+				country_event = {
+					id = nic.59 days = 1
+				}
+			}
+			else_if = {
+				limit = {
+					has_government = social_conservative
+				}
+				swap_ideas = { #Vargas is elected so he is gonna pick his own doctrine
+					remove_idea = NIC_new_national_guard_idea
+					add_idea = NIC_new_national_guard_idea_vargas_1
+				}
+			}
+			else_if = {
+				limit = {
+					NOT = {
+						has_government = social_conservative
+						has_government = social_liberal
+					}
+				}
+				custom_effect_tooltip = NIC_choose_command
+			}
+		}
+		search_filters = { FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_MANPOWER }
+	}
+
+	focus = {
+		id = NIC_removing_military_divides
+		icon = GFX_goal_NFA_military_supremacy
+		x = 0
+		y = 6
+		relative_position_id = NIC_liberal_revolution
+		cost = 8
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = NIC_resolving_high_command
+		}
+		available = {
+			OR = {
+				has_government = social_liberal
+				has_government = social_conservative
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_removing_military_divides"
+			if = {
+				limit = {
+					has_idea = NIC_new_national_guard_idea_vargas_1
+				}
+				swap_ideas = {
+					remove_idea = NIC_new_national_guard_idea_vargas_1
+					add_idea = NIC_new_national_guard_idea_vargas_2
+				}
+			}
+
+			else_if = {
+				limit = {
+					has_idea = NIC_new_national_guard_idea_cuadra_1
+				}
+				swap_ideas = {
+					remove_idea = NIC_new_national_guard_idea_cuadra_1
+					add_idea = NIC_new_national_guard_idea_cuadra_2
+				}
+			}
+
+			else_if = {
+				limit = {
+					NOT = {
+						has_idea = NIC_new_national_guard_idea_cuadra_1
+						has_idea = NIC_new_national_guard_idea_vargas_1
+					}
+				}
+				custom_effect_tooltip = NIC_idea_upgraded
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESISTANCE FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_MANPOWER }
+	}
+
+	focus = {
+		id = NIC_rebuild_academy
+		icon = GFX_goal_PAN_Create_the_Universidad_de_Panama
+		x = -2
+		y = 5
+		relative_position_id = NIC_liberal_revolution
+		cost = 8
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = NIC_new_national_guard
+		}
+		available = {
+			OR = {
+				has_government = social_liberal
+				has_government = social_conservative
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_rebuild_academy"
+			add_research_slot = 1
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+
+	focus = {
+		id = NIC_ending_political_influence
+		icon = GFX_RUS_Get_Military
+		x = -2
+		y = 6
+		relative_position_id = NIC_liberal_revolution
+		cost = 8
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = NIC_rebuild_academy
+		}
+		available = {
+			OR = {
+				has_government = social_liberal
+				has_government = social_conservative
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_ending_political_influence"
+			add_popularity = {
+				ideology = paternal_autocrat popularity = -0.10
+			}
+			add_popularity = {
+				ideology = authoritarian_democrat popularity = -0.10
+			}
+			add_stability = 0.05
+		}
+		search_filters = { FOCUS_FILTER_STABILITY }
+	}
+
+	focus = {
+		id = NIC_recruitment_standard
+		icon = GFX_focus_generic_military_academy
+		x = 2
+		y = 5
+		relative_position_id = NIC_liberal_revolution
+		cost = 8
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = NIC_new_national_guard
+		}
+		available = {
+			OR = {
+				has_government = social_liberal
+				has_government = social_conservative
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_recruitment_standard"
+			if = {
+				limit = {
+					has_country_flag = NIC_east_no_conscription
+				}
+				1071 = {
+					add_core_of = NIC
+				}
+			}
+			else = {
+				increase_conscription = yes
+			}
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+	}
+
+	focus = {
+		id = NIC_a_modern_force
+		icon = GFX_goal_generic_army_training
+		x = 0
+		y = 7
+		relative_position_id = NIC_liberal_revolution
+		cost = 7
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = NIC_ending_political_influence
+		}
+		prerequisite = {
+			focus = NIC_removing_military_divides
+		}
+		available = {
+			OR = {
+				has_government = social_liberal
+				has_government = social_conservative
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_a_modern_force"
+			army_experience = 30
+			add_doctrine_cost_reduction = {
+	name = land_doc_bonus
+	cost_reduction = 0.5
+	uses = 1
+	category = land_doctrine
+			}
+			317 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+	}
+
+	focus = {
+		id = NIC_southern_friends
+		icon = GFX_goal_COS_COA
+		x = -2
+		y = 3
+		relative_position_id = NIC_liberal_revolution
+		cost = 7
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = NIC_new_bastion
+		}
+		available = {
+			COS = {
+				exists = yes
+				NOT = {
+					has_government = social_democrat
+					has_government = radical_socialist
+					has_government = syndicalist
+					has_government = totalist
+				}
+				is_subject = no
+			}
+			OR = {
+				has_government = social_liberal
+				has_government = social_conservative
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_southern_friends"
+			COS = {
+				country_event = {
+					id = nic.60 days = 1
+				}
+			}
 		}
 	}
 
+	focus = {
+		id = NIC_international_standing
+		icon = GFX_goal_NIC_Rightful_Spot_Entente
+		x = -2
+		y = 4
+		relative_position_id = NIC_liberal_revolution
+		cost = 7
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = NIC_southern_friends
+		}
+		available = {
+			OR = {
+				CAN = {
+					exists = yes
+					is_subject = no
+				}
+				GER = {
+					exists = yes
+					is_subject = no
+				}
+			}
+			OR = {
+				has_government = social_liberal
+				has_government = social_conservative
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_international_standing"
+			if = {
+				limit = {
+					has_country_flag = NIC_GER_friends
+					GER = {
+						exists = yes
+						is_subject = no
+					}
+				}
+				GER = {
+					country_event = {
+						id = nic.60 days = 1
+					}
+				}
+			}
+
+			else_if = {
+				limit = {
+					CAN = {
+						exists = yes
+						is_subject = no
+					}
+				}
+				CAN = {
+					country_event = {
+						id = nic.60 days = 1
+					}
+				}
+			}
+		}
+	}
+
+	## Socialist Revolution ##
 
 	focus = {
 		id = NIC_socialist_revolution
 		icon = GFX_goal_NIC_Socialist_Revolution
-		x = 3
+		x = 17
 		y = 0
 		cost = 7
 		ai_will_do = {
@@ -1640,7 +992,10 @@ focus_tree = {
 			focus = NIC_socialist_revolution
 		}
 		available = {
-			has_government = radical_socialist
+			OR = {
+				has_government = social_democrat
+				has_government = radical_socialist
+			}
 		}
 
 		completion_reward = {
@@ -1674,12 +1029,13 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
+
 	focus = {
-		id = NIC_victory_of_sandino
-		icon = GFX_goal_NIC_Victory_National_Hero
+		id = NIC_religous_zeal
+		icon = GFX_goal_NIC_Empower_Sandinistas
 		x = 0
-		y = 1
-		relative_position_id = NIC_new_coalition
+		y = 2
+		relative_position_id = NIC_socialist_revolution
 		cost = 8
 		ai_will_do = {
 			factor = 5
@@ -1688,424 +1044,442 @@ focus_tree = {
 			focus = NIC_new_coalition
 		}
 		available = {
+			OR = {
+				has_government = social_democrat
 				has_government = radical_socialist
+			}
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_coalition"
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_religous_zeal"
+			add_ideas = NIC_religous_zeal_idea
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_MANPOWER }
 	}
-	focus = {
-		id = NIC_oppose_dems
-		icon = GFX_goal_NIC_Destroy_Democratic_Ideology
-		x = 0
-		y = 1
-		relative_position_id = NIC_victory_of_sandino
-		cost = 8
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_victory_of_sandino
-		}
-		available = {
-			has_government = radical_socialist
-		}
 
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_coalition"
-                        add_political_power = 50
-			add_stability = -0.05
-                        add_ideas = NIC_dems_weakened
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	}
 	focus = {
-		id = NIC_go_against_auths
-		icon = GFX_goal_NIC_No_Place_Tyrants
-		x = 0
-		y = 3
-		relative_position_id = NIC_victory_of_sandino
-		cost = 8
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_oppose_dems
-		}
-		prerequisite = {
-			focus = NIC_free_homeland_or_die
-		}
-		prerequisite = {
-			focus = NIC_strengthen_the_workers_centre
-		}
-		available = {
-				has_government = radical_socialist
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_coalition"
-                        add_political_power = -50
-			add_stability = 0.05
-                       add_ideas = NIC_auths_weakened
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	}
-	focus = {
-		id = NIC_indo_hispanisism
-		icon = GFX_goal_NIC_Defend_Indo_Hispanic_Race
-		x = 0
-		y = 4
-		relative_position_id = NIC_victory_of_sandino
-		cost = 8
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_go_against_auths
-		}
-		available = {
-				has_government = radical_socialist
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_coalition"
-                        add_political_power = 100
-			add_stability = 0.10
-                        add_ideas = NIC_defend_indo_hispanic_race
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	}
-	focus = {
-		id = NIC_root_out_yanqui_influence
-		icon = GFX_goal_NIC_Kick_Out_Yanquis
-		x = 2
-		y = 1
-		relative_position_id = NIC_victory_of_sandino
-		cost = 8
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_victory_of_sandino
-		}
-		available = {
-				has_government = radical_socialist
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_coalition"
-			add_stability = 0.10
-                        add_ideas = NIC_remaining_UFC_influence_oof
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	}
-	focus = {
-		id = NIC_give_ufc_land_to_people
+		id = NIC_distributing_UFC_land
 		icon = GFX_goal_NIC_Redestribute_Lands
-		x = 3
+		x = 2
 		y = 2
-		relative_position_id = NIC_victory_of_sandino
+		relative_position_id = NIC_socialist_revolution
+		cost = 7
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = NIC_new_coalition
+		}
+		available = {
+			OR = {
+				has_government = social_democrat
+				has_government = radical_socialist
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_distributing_UFC_land"
+			1071 = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = NIC_socialist_standard
+		icon = GFX_goal_CSA_Emblem
+		x = 3
+		y = 3
+		relative_position_id = NIC_socialist_revolution
+		cost = 7
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = NIC_distributing_UFC_land
+		}
+		available = {
+			OR = {
+				has_government = social_democrat
+				has_government = radical_socialist
+			}
+			CSA = {
+				OR = {
+					has_war_with = TEX
+					has_war_with = USA
+					has_war_with = CAL
+				}
+			}
+		}
+		bypass = {
+			CSA = {
+				NOT = {
+					has_war_with = TEX
+					has_war_with = USA
+					has_war_with = CAL
+				}
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_standard"
+			add_equipment_to_stockpile = { type = infantry_equipment_1 amount = -1000 }
+			CSA = { add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1000 } }
+			set_country_flag = ACW_supported_csa
+		}
+	}
+
+	focus = {
+		id = NIC_socialist_ties
+		icon = GFX_RUS_Internationalists
+		x = 2
+		y = 4
+		relative_position_id = NIC_socialist_revolution
+		cost = 7
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = NIC_distributing_UFC_land
+		}
+		prerequisite = {
+			focus = NIC_religous_zeal
+		}
+		available = {
+			OR = {
+				has_government = social_democrat
+				has_government = radical_socialist
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_ties"
+			FRA = {
+				country_event = {
+					id = nic.78 days = 1
+				}
+			}
+			ENG = {
+				country_event = {
+					id = nic.78 days = 1
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = NIC_preparing_liberation
+		icon = GFX_goal_GUA_Centro_Dream
+		x = 3
+		y = 5
+		relative_position_id = NIC_socialist_revolution
 		cost = 8
 		ai_will_do = {
 			factor = 5
 		}
 		prerequisite = {
-			focus = NIC_root_out_yanqui_influence
+			focus = NIC_socialist_ties
+		}
+		prerequisite = {
+			focus = NIC_socialist_standard
 		}
 		available = {
+			OR = {
+				has_government = social_democrat
 				has_government = radical_socialist
+			}
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_coalition"
-                        add_political_power = 100
-                        add_ideas = NIC_remaining_UFC_influence_oof_2
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_preparing_liberation"
+			custom_effect_tooltip = NIC_preparing_final_war
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
+
 	focus = {
-		id = NIC_free_homeland_or_die
+		id = NIC_arming_militias
+		icon = GFX_BBR_red_militia_justice
+		x = 1
+		y = 5
+		relative_position_id = NIC_socialist_revolution
+		cost = 8
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = NIC_foreign_influence_ded
+		}
+		prerequisite = {
+			focus = NIC_military_budgets
+		}
+		available = {
+			OR = {
+				has_government = social_democrat
+				has_government = radical_socialist
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_arming_militias"
+			if = {
+				limit = {
+					has_template = "Sandinistas"
+				}
+				317 = {
+					create_unit = {
+						division = "name = \"3. Regimiento Sandinistas\" division_template = \"Sandinistas\"  start_experience_factor = 0.1  start_equipment_factor = 0.5"
+						owner = NIC
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					load_oob = NIC_sandinistas_1
+				}
+				custom_effect_tooltip = NIC_good_sandinistas_deploy
+			}
+		}
+		search_filters = { FOCUS_FILTER_MANPOWER }
+	}
+
+	focus = {
+		id = NIC_foreign_influence_ded
 		icon = GFX_goal_NIC_No_Foreign_Grip_Nicaragua
 		x = 1
-		y = 2
-		relative_position_id = NIC_victory_of_sandino
-		cost = 8
+		y = 3
+		relative_position_id = NIC_socialist_revolution
+		cost = 9
 		ai_will_do = {
 			factor = 5
 		}
 		prerequisite = {
-			focus = NIC_root_out_yanqui_influence
-		}
-		available = {
-				has_government = radical_socialist
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_coalition"
-                        add_political_power = 100
-			add_stability = 0.10
-			random_owned_state = {
-				limit = {
-					is_core_of = NIC
-					is_controlled_by = NIC
-					arms_factory > 0
-				}
-				add_extra_state_shared_building_slots = 4
-				add_building_construction = {
-					type = arms_factory
-					level = 3
-					instant_build = yes
-				}
-			}
-			random_owned_state = {
-				limit = {
-					is_core_of = NIC
-					is_controlled_by = NIC
-					arms_factory > 0
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	}
-	focus = {
-		id = NIC_pure_anti_imperialism
-		icon = GFX_goal_NIC_Strong_Anti_Imperialism
-		x = 2
-		y = 4
-		relative_position_id = NIC_victory_of_sandino
-		cost = 8
-		ai_will_do = {
-			factor = 5
+			focus = NIC_distributing_UFC_land
 		}
 		prerequisite = {
-			focus = NIC_give_ufc_land_to_people
+			focus = NIC_religous_zeal
 		}
 		available = {
+			OR = {
+				has_government = social_democrat
 				has_government = radical_socialist
+			}
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_coalition"
-                        add_ideas = NIC_UFC_gone 
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_foreign_influence_ded"
+			if = {
+				limit = {
+					has_country_flag = NIC_east_no_conscription
+				}
+				1071 = {
+					add_core_of = NIC
+				}
+			}
+			else = {
+				increase_conscription = yes
+			}
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}
+
 	focus = {
-		id = NIC_voz_del_sandinismo
-		icon = GFX_goal_NIC_Voz_Sandinismo
+		id = NIC_arming_youth
+		icon = GFX_goal_FRA_syndicalistmilitarism
 		x = -2
-		y = 1
-		relative_position_id = NIC_victory_of_sandino
-		cost = 8
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_victory_of_sandino
-		}
-		available = {
-				has_government = radical_socialist
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_coalition"
-                        add_ideas = NIC_strong_party
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	}
-	focus = {
-		id = NIC_empower_AMNLAE
-		icon = GFX_goal_NIC_Empower_AMNLAE
-		x = -3
 		y = 2
-		relative_position_id = NIC_victory_of_sandino
+		relative_position_id = NIC_socialist_revolution
 		cost = 8
 		ai_will_do = {
 			factor = 5
 		}
 		prerequisite = {
-			focus = NIC_voz_del_sandinismo
+			focus = NIC_new_coalition
 		}
 		available = {
+			OR = {
+				has_government = social_democrat
 				has_government = radical_socialist
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_coalition"
-			add_ideas = NIC_empowered_women
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	}
-	focus = {
-		id = NIC_strengthen_the_workers_centre
-		icon = GFX_goal_NIC_Strengthen_Sandinista_Workers_Centre
-		x = -1
-		y = 2
-		relative_position_id = NIC_victory_of_sandino
-		cost = 8
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_voz_del_sandinismo
-		}
-		available = {
-				has_government = radical_socialist
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_coalition"
-			random_owned_state = {
-				limit = {
-					is_core_of = NIC
-					is_controlled_by = NIC
-					arms_factory > 0
-				}
-				add_extra_state_shared_building_slots = 4
-				add_building_construction = {
-					type = arms_factory
-					level = 3
-					instant_build = yes
-				}
-			}
-			random_owned_state = {
-				limit = {
-					is_core_of = NIC
-					is_controlled_by = NIC
-					arms_factory > 0
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
 			}
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_arming_youth"
+			add_ideas = NIC_inspired_youth
+		}
+		search_filters = { FOCUS_FILTER_MANPOWER }
 	}
+
 	focus = {
-		id = NIC_elevate_liberal_revolution
-		icon = GFX_goal_FRA_revolutionary_party
+		id = NIC_yank_promise
+		icon = GFX_goal_CAN_levys_return
+		x = -2
+		y = 3
+		relative_position_id = NIC_socialist_revolution
+		cost = 8
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = NIC_arming_youth
+		}
+		available = {
+			OR = {
+				has_government = social_democrat
+				has_government = radical_socialist
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_yank_promise"
+			country_event = {
+				id = nic.81 days = 1
+			}
+		}
+	}
+
+	focus = {
+		id = NIC_inspiring_armies
+		icon = GFX_goal_NIC_Replaced_Guardia_Nacional
 		x = -2
 		y = 4
-		relative_position_id = NIC_victory_of_sandino
-		cost = 5
+		relative_position_id = NIC_socialist_revolution
+		cost = 8
 		ai_will_do = {
 			factor = 5
 		}
 		prerequisite = {
-			focus = NIC_empower_AMNLAE
+			focus = NIC_yank_promise
 		}
 		available = {
-			has_government = radical_socialist
+			OR = {
+				has_government = social_democrat
+				has_government = radical_socialist
+			}
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_inspiring_armies"
 			swap_ideas = {
-				remove_idea = NIC_empowered_women
-				add_idea = NIC_political_pluralism
+				remove_idea = NIC_yank_promise_1
+				add_idea = NIC_yank_promise_2
 			}
 		}
+		search_filters = { FOCUS_FILTER_ARMY_BONUS }
 	}
-	focus = {
-		id = NIC_empower_sandinistas
-		icon = GFX_goal_NIC_Empower_Sandinistas
-		x = 1
-		y = 5
-		relative_position_id = NIC_victory_of_sandino
-		cost = 8
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_pure_anti_imperialism
-		}
-		prerequisite = {
-			focus = NIC_indo_hispanisism
-		}
-		available = {
-				has_government = radical_socialist
-		}
 
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_coalition"
-                        add_political_power = 100
-                        add_ideas = NIC_sandinistas_empowered
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	}
 	focus = {
-		id = NIC_spiritism
-		icon = GFX_goal_NIC_Universal_Commune
-		x = -1
-		y = 5
-		relative_position_id = NIC_victory_of_sandino
-		cost = 8
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_elevate_liberal_revolution
-		}
-		prerequisite = {
-			focus = NIC_indo_hispanisism
-		}
-		available = {
-				has_government = radical_socialist
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_coalition"
-                        add_political_power = 100
-			add_stability = 0.10
-                        add_ideas = NIC_universal_commune
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	}
-	focus = {
-		id = NIC_general_of_free_men
-		icon = GFX_goal_NIC_General_Free_Men
+		id = NIC_military_budgets
+		icon = GFX_HUN_revive_military_funding
 		x = 0
-		y = 6
-		relative_position_id = NIC_victory_of_sandino
+		y = 4
+		relative_position_id = NIC_socialist_revolution
 		cost = 8
 		ai_will_do = {
 			factor = 5
 		}
 		prerequisite = {
-			focus = NIC_spiritism
+			focus = NIC_yank_promise
 		}
 		prerequisite = {
-			focus = NIC_empower_sandinistas
+			focus = NIC_foreign_influence_ded
 		}
 		available = {
+			OR = {
+				has_government = social_democrat
 				has_government = radical_socialist
+			}
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_coalition"
-                        add_ideas = NIC_general_of_free_men
-                        add_political_power = 100
-			add_stability = 0.10
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_military_budgets"
+			317 = {
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
+
+	focus = {
+		id = NIC_revolutionary_guerilla_academy
+		icon = GFX_goal_NIC_Army_True_Guerillas
+		x = -2
+		y = 5
+		relative_position_id = NIC_socialist_revolution
+		cost = 7
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = NIC_inspiring_armies
+		}
+		available = {
+			OR = {
+				has_government = social_democrat
+				has_government = radical_socialist
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_revolutionary_guerilla_academy"
+			add_research_slot = 1
+			add_doctrine_cost_reduction = {
+	name = land_doc_bonus
+	cost_reduction = 0.5
+	uses = 1
+	category = land_doctrine
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+
+	focus = {
+		id = NIC_jungle_warfare
+		icon = GFX_SIA_jungletraining
+		x = -1
+		y = 6
+		relative_position_id = NIC_socialist_revolution
+		cost = 7
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = NIC_revolutionary_guerilla_academy
+		}
+		prerequisite = {
+			focus = NIC_military_budgets
+		}
+		available = {
+			OR = {
+				has_government = social_democrat
+				has_government = radical_socialist
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_jungle_warfare"
+			hidden_effect = {
+				set_technology = { jungle_warfare = 1 }
+			}
+			custom_effect_tooltip = jungle_warfare_effect
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+
 	## Occupation tree ##
 
 	focus = {
 		id = NIC_second_occupation
 		icon = GFX_goal_NIC_Second_Occupation
-		x = 42
+		x = 24
 		y = 0
 		cost = 7
 		ai_will_do = {
@@ -2124,1694 +1498,598 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
 		}
 	}
+
 	focus = {
-		id = NIC_go_against_sandino
-		icon = GFX_goal_NIC_Socialism_Death
-		x = 1
+		id = NIC_crushing_resistance
+		icon = GFX_goal_NIC_Destroy_Democratic_Ideology
+		x = -1
 		y = 1
+		relative_position_id = NIC_second_occupation
 		cost = 7
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				factor = 4
+				has_country_flag = NIC_sandino_attack_flag
+			}
+		}
 		prerequisite = {
 			focus = NIC_second_occupation
 		}
-		relative_position_id = NIC_second_occupation
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-                        country_event = nic.115
-                        hidden_effect = {
-                            add_ideas = NIC_sandino_resistance_base
-                        }
-		}
-	}
-	focus = {
-		id = NIC_crush_liberals
-		icon = GFX_goal_NIC_Decapitate_Democracy_Lovers
-		x = -1
-		y = 1
-		cost = 7
-		prerequisite = {
-			focus = NIC_second_occupation
-		}
-		relative_position_id = NIC_second_occupation
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-                        add_ideas = NIC_political_repression
-                        add_ideas = NIC_sandino_resistance_low
-		}
-	}
-	focus = {
-		id = NIC_nicaragua_in_our_palms
-		icon = GFX_goal_NIC_Grasp_Nicaragua
-		x = 0
-		y = 2
-		cost = 7
-		prerequisite = {
-			focus = NIC_crush_liberals
-		}
-		prerequisite = {
-			focus = NIC_go_against_sandino
-		}
-		relative_position_id = NIC_second_occupation
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-			country_event = nic.121
-                        add_ideas = NIC_sandino_resistance_crushed
-		}
-	}
-	focus = {
-		id = NIC_garcia_in_power
-		icon = GFX_goal_NIC_Somoza_Occupation
-		x = -2
-		y = 1
-		cost = 7
-		prerequisite = {
-			focus = NIC_nicaragua_in_our_palms
-		}
-		relative_position_id = NIC_nicaragua_in_our_palms
-		ai_will_do = {
-			factor = 5
-		}
 		available = {
-			always = no
+			OR = {
+				has_country_flag = NIC_national_guard_flag
+			}
+			has_country_flag = NIC_sandino_attack_flag
+			has_authoritarian_government = yes
 		}
 		bypass = {
-			has_country_leader = {
-				name = "Anastasio Somoza García"
-				ruling_only = yes
-			}
-		}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-		}
-	}
-	focus = {
-		id = NIC_bigger_coffee_farms
-		icon = GFX_goal_NIC_Coffee_Must_Grow
-		x = 1
-		y = 1
-		cost = 7
-		prerequisite = {
-			focus = NIC_garcia_in_power
-		}
-		relative_position_id = NIC_garcia_in_power
-		ai_will_do = {
-			factor = 5
-		}
-		available = {
-			has_country_leader = {
-				name = "Anastasio Somoza García"
-				ruling_only = yes
+			NOT = {
+				has_country_flag = NIC_sandino_attack_flag
 			}
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-			random_owned_state = {
-				limit = {
-					is_core_of = NIC
-					is_controlled_by = NIC
-					industrial_complex > 0
-				}
-				add_extra_state_shared_building_slots = 5
-				add_building_construction = {
-					type = industrial_complex
-					level = 3
-					instant_build = yes
-				}
-			}
-                        add_ideas = NIC_coffee_must_grow
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_crushing_resistance"
+			country_event = nic.115
 		}
 	}
-	focus = {
-		id = NIC_pacific_railroad
-		icon = GFX_goal_NIC_Pacific_Rail_Expansion
-		x = 0
-		y = 2
-		cost = 7
-		prerequisite = {
-			focus = NIC_bigger_coffee_farms
-		}
-		relative_position_id = NIC_garcia_in_power
-		ai_will_do = {
-			factor = 5
-		}
-		available = {
-			has_country_leader = {
-				name = "Anastasio Somoza García"
-				ruling_only = yes
-			}
-		}
 
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-			random_owned_state = {
-				limit = {
-					is_core_of = NIC
-					is_controlled_by = NIC
-					industrial_complex > 0
-				}
-				add_building_construction = {
-					type = infrastructure
-					level = 3
-					instant_build = yes
-				}
-			}
-		}
-	}
 	focus = {
-		id = NIC_modernize_national_guard
-		icon = GFX_goal_NIC_Modernize_National_Guard
-		x = 1
-		y = 3
-		cost = 7
-		prerequisite = {
-			focus = NIC_pacific_railroad
-		}
-		relative_position_id = NIC_garcia_in_power
-		ai_will_do = {
-			factor = 5
-		}
-		available = {
-			has_country_leader = {
-				name = "Anastasio Somoza García"
-				ruling_only = yes
-			}
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-			add_ideas = NIC_big_guard
-			hidden_effect = {
-				load_oob = NIC_guardia_deployment
-			}
-			country_event = nic.guardia
-			custom_effect_tooltip = NIC_guardia_deployment_tooltip
-		}
-	}
-	focus = {
-		id = NIC_family_dictatorship
-		icon = GFX_goal_NIC_Familia_Somoza
-		x = -1
-		y = 1
-		cost = 7
-		prerequisite = {
-			focus = NIC_garcia_in_power
-		}
-		relative_position_id = NIC_garcia_in_power
-		ai_will_do = {
-			factor = 5
-		}
-		available = {
-			has_country_leader = {
-				name = "Anastasio Somoza García"
-				ruling_only = yes
-			}
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-                        add_ideas = NIC_dynastic_dictatorship
-		}
-	}
-	focus = {
-		id = NIC_biased_constitution
-		icon = GFX_goal_NIC_Authoritarian_Constitution
+		id = NIC_us_imports
+		icon = GFX_USA_a_pile_of_fucking_cash
 		x = -2
 		y = 2
+		relative_position_id = NIC_second_occupation
 		cost = 7
-		prerequisite = {
-			focus = NIC_family_dictatorship
-		}
-		relative_position_id = NIC_garcia_in_power
 		ai_will_do = {
 			factor = 5
+			modifier = {
+				factor = 4
+				has_country_flag = NIC_sandino_attack_flag
+			}
+		}
+		prerequisite = {
+			focus = NIC_crushing_resistance
 		}
 		available = {
-			has_country_leader = {
-				name = "Anastasio Somoza García"
-				ruling_only = yes
+			OR = {
+				has_country_flag = NIC_national_guard_flag
 			}
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-                        add_ideas = NIC_no_bias_at_all_bro
-		}
-	}
-	focus = {
-		id = NIC_foreign_concessions
-		icon = GFX_goal_NIC_Foreign_Concessions
-		x = -1
-		y = 3
-		cost = 7
-		prerequisite = {
-			focus = NIC_biased_constitution
-		}
-		relative_position_id = NIC_garcia_in_power
-		ai_will_do = {
-			factor = 5
-		}
-		available = {
-			has_country_leader = {
-				name = "Anastasio Somoza García"
-				ruling_only = yes
-			}
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-			random_owned_state = {
-				limit = {
-					is_core_of = NIC
-					is_controlled_by = NIC
-					industrial_complex > 0
-				}
-				add_extra_state_shared_building_slots = 5
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}
-			add_ideas = NIC_foreign_companies
-		}
-	}
-	focus = {
-		id = NIC_tacho_victorious
-		icon = GFX_goal_NIC_Somoza_Final
-		x = 0
-		y = 4
-		cost = 7
-		prerequisite = {
-			focus = NIC_foreign_concessions
-		}
-		prerequisite = {
-			focus = NIC_modernize_national_guard
-		}
-		prerequisite = {
-			focus = NIC_nicaragua_in_our_palms
-		}
-		relative_position_id = NIC_garcia_in_power
-		ai_will_do = {
-			factor = 5
-		}
-		available = {
-			has_country_leader = {
-				name = "Anastasio Somoza García"
-				ruling_only = yes
-			}
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-                        add_ideas = NIC_tacho_gang
-		}
-	}
-	focus = {
-		id = NIC_diaz_in_power
-		icon = GFX_goal_NIC_Diaz_Occupation
-		x = 2
-		y = 1
-		cost = 7
-		prerequisite = {
-			focus = NIC_nicaragua_in_our_palms
-		}
-		relative_position_id = NIC_nicaragua_in_our_palms
-		ai_will_do = {
-			factor = 5
-		}
-		available = {
-			always = no
-		}
-                bypass = {
-		        has_country_leader = {
-			       name = "Adolfo Díaz"
-			       ruling_only = yes
-			}
-                }
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-		}
-	}
-	focus = {
-		id = NIC_empower_presidency
-		icon = GFX_goal_NIC_Strong_Presidency
-		x = 1
-		y = 1
-		cost = 7
-		prerequisite = {
-			focus = NIC_diaz_in_power
-		}
-		relative_position_id = NIC_diaz_in_power
-		ai_will_do = {
-			factor = 5
-		}
-		available = {
-			has_country_leader = {
-			       name = "Adolfo Díaz"
-			       ruling_only = yes
-			}
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-                        add_ideas = NIC_presidential_power
-		}
-	}
-	focus = {
-		id = NIC_use_the_nicaraguan_national_guard
-		icon = GFX_goal_NIC_Use_National_Guard
-		x = 2
-		y = 2
-		cost = 7
-		prerequisite = {
-			focus = NIC_empower_presidency
-		}
-		relative_position_id = NIC_diaz_in_power
-		ai_will_do = {
-			factor = 5
-		}
-		available = {
-			has_country_leader = {
-			       name = "Adolfo Díaz"
-			       ruling_only = yes
-			}
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-			add_ideas = NIC_big_guard
-			hidden_effect = {
-				load_oob = NIC_guardia_deployment
-			}
-			country_event = nic.guardia
-			custom_effect_tooltip = NIC_guardia_deployment_tooltip
-		}
-	}
-	focus = {
-		id = NIC_a_newer_better_canal
-		icon = GFX_goal_NIC_Nicaragua_Canal
-		x = 1
-		y = 3
-		cost = 7
-		prerequisite = {
-			focus = NIC_use_the_nicaraguan_national_guard
-		}
-		relative_position_id = NIC_diaz_in_power
-		ai_will_do = {
-			factor = 5
-		}
-		available = {
-			has_country_leader = {
-			       name = "Adolfo Díaz"
-			       ruling_only = yes
-			}
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-                        country_event = nic.1300
-		}
-	}
-	focus = {
-		id = NIC_build_up_industry
-		icon = GFX_goal_NIC_Military_Industry
-		x = -1
-		y = 1
-		cost = 7
-		prerequisite = {
-			focus = NIC_diaz_in_power
-		}
-		relative_position_id = NIC_diaz_in_power
-		ai_will_do = {
-			factor = 5
-		}
-		available = {
-			has_country_leader = {
-			       name = "Adolfo Díaz"
-			       ruling_only = yes
-			}
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-			317 = {
-				add_extra_state_shared_building_slots = 5
-				add_building_construction = {
-					type = arms_factory
-					level = 3
-					instant_build = yes
-				}
-			}
-		}
-	}
-	focus = {
-		id = NIC_keep_good_relations_with_yanquis
-		icon = GFX_goal_NIC_American_Support
-		x = 0
-		y = 2
-		cost = 7
-		prerequisite = {
-			focus = NIC_build_up_industry
-		}
-		relative_position_id = NIC_diaz_in_power
-		ai_will_do = {
-			factor = 5
-		}
-		available = {
-			has_country_leader = {
-			       name = "Adolfo Díaz"
-			       ruling_only = yes
-			}
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-                        add_ideas = NIC_secret_american_support
-			add_equipment_to_stockpile = {
-				type = infantry_equipment
-				amount = 1500
-				producer = USA
-			}
-			add_ideas = NIC_reopened_trade
-		}
-	}
-	focus = {
-		id = NIC_build_up_roads
-		icon = GFX_goal_NIC_Road_Expansion
-		x = -1
-		y = 3
-		cost = 7
-		prerequisite = {
-			focus = NIC_keep_good_relations_with_yanquis
-		}
-		relative_position_id = NIC_diaz_in_power
-		ai_will_do = {
-			factor = 5
-		}
-		available = {
-			has_country_leader = {
-			       name = "Adolfo Díaz"
-			       ruling_only = yes
-			}
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-			random_owned_state = {
-				limit = {
-					is_core_of = NIC
-					is_controlled_by = NIC
-					industrial_complex > 0
-				}
-				add_building_construction = {
-					type = infrastructure
-					level = 3
-					instant_build = yes
-				}
-			}
-                      hidden_effect = {
-			    swap_ideas = {
-				   remove_idea = NIC_reopened_trade
-				   add_idea = NIC_reopened_trade_2
-			        }
-                        }
-		}
-	}
-	focus = {
-		id = NIC_the_eternal_presidency
-		icon = GFX_goal_NIC_Diaz_Final
-		x = 0
-		y = 4
-		cost = 7
-		prerequisite = {
-			focus = NIC_nicaragua_in_our_palms
-		}
-		prerequisite = {
-			focus = NIC_a_newer_better_canal
-		}
-		prerequisite = {
-			focus = NIC_build_up_roads
-		}
-		relative_position_id = NIC_diaz_in_power
-		ai_will_do = {
-			factor = 5
-		}
-		available = {
-			has_country_leader = {
-			       name = "Adolfo Díaz"
-			       ruling_only = yes
-			}
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-                        add_ideas = NIC_eternal_president
-		}
-	}
-	focus = {
-		id = NIC_aragua_free_secure
-		icon = GFX_goal_NIC_Diaz_Final
-		x = 0
-		y = 6
-		cost = 7
-		prerequisite = {
-			focus = NIC_the_eternal_presidency
-			focus = NIC_tacho_victorious
-		}
-		relative_position_id = NIC_nicaragua_in_our_palms
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-		}
-	}
-        
-        ## Syndicalist Sandino Redeemed (not really)
-
-	focus = {
-		id = NIC_anarchist_revolution
-		icon = GFX_SOV_towards_anarchy
-		x = 8
-		y = 12
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		available = {
-			always = no
+			has_country_flag = NIC_sandino_attack_flag
+			has_authoritarian_government = yes
 		}
 		bypass = {
-			has_country_flag = NIC_anarchists_in_power
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-		}
-	}
-	focus = {
-		id = NIC_the_great_three
-		icon = GFX_RUS_Power_To_Local_Councils
-		x = 0
-		y = 1
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_anarchist_revolution
-		}
-		relative_position_id = NIC_anarchist_revolution
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-		}
-	}
-	focus = {
-		id = NIC_fate_of_sandinistas
-		icon = GFX_goal_NIC_Question_Sandinistas
-		x = -1
-		y = 1
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_the_great_three
-		}
-		relative_position_id = NIC_the_great_three
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-		}
-	}
-	focus = {
-		id = NIC_rights_of_man_and_citizen
-		icon = GFX_goal_NYC_Enforce_Civil_Rights
-		x = -2
-		y = 2
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_fate_of_sandinistas
-		}
-		relative_position_id = NIC_the_great_three
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-		}
-	}
-	focus = {
-		id = NIC_dedication_to_union_activism
-		icon = GFX_goal_FIU_syndicalize_unions
-		x = -3
-		y = 4
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_rights_of_man_and_citizen
-		}
-		relative_position_id = NIC_the_great_three
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-		}
-	}
-	focus = {
-		id = NIC_ties_to_paris
-		icon = GFX_goal_AUS_fly_red_flag
-		x = -2
-		y = 5
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_dedication_to_union_activism
-		}
-		relative_position_id = NIC_the_great_three
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-		}
-	}
-	focus = {
-		id = NIC_legacy_of_don_dario
-		icon = GFX_goal_AUS_anarchist_social_revolution
-		x = 0
-		y = 2
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_fate_of_sandinistas
-		}
-		prerequisite = {
-			focus = NIC_affiliations_with_AFL
-		}
-		relative_position_id = NIC_the_great_three
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-		}
-	}
-	focus = {
-		id = NIC_connection_with_centro_germinal
-		icon = GFX_goal_AUS_Empower_Regional_Worker_Councils
-		x = 0
-		y = 3
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_legacy_of_don_dario
-		}
-		relative_position_id = NIC_the_great_three
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-		}
-	}
-	focus = {
-		id = NIC_the_unknown_soldier
-		icon = GFX_goal_CSA_peoples_military_academy
-		x = -1
-		y = 4
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_connection_with_centro_germinal
-		}
-		relative_position_id = NIC_the_great_three
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-		}
-	}
-	focus = {
-		id = NIC_bringing_repertorio_americano_nicaragua
-		icon = GFX_UKR_Borotba_Newspaper
-		x = 1
-		y = 4
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_connection_with_centro_germinal
-		}
-		relative_position_id = NIC_the_great_three
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-		}
-	}
-	focus = {
-		id = NIC_bastion_of_latin_american_modernismo
-		icon = GFX_goals_FRA_avant_garde
-		x = 0
-		y = 5
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_bringing_repertorio_americano_nicaragua
-		}
-		prerequisite = {
-			focus = NIC_the_unknown_soldier
-		}
-		relative_position_id = NIC_the_great_three
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-		}
-	}
-	focus = {
-		id = NIC_affiliations_with_AFL
-		icon = GFX_goal_CSA_revolutionize_monroeism
-		x = 1
-		y = 1
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_the_great_three
-		}
-		relative_position_id = NIC_the_great_three
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-		}
-	}
-	focus = {
-		id = NIC_awarding_scholarships
-		icon = GFX_GRU_syndicalist_education-3980
-		x = 2
-		y = 2
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_affiliations_with_AFL
-		}
-		relative_position_id = NIC_the_great_three
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-		}
-	}
-	focus = {
-		id = NIC_friends_in_tropical_town
-		icon = GFX_goal_NYC_Big_Red_Apple
-		x = 3
-		y = 4
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_awarding_scholarships
-		}
-		relative_position_id = NIC_the_great_three
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-		}
-	}
-	focus = {
-		id = NIC_introducing_neopopularism
-		icon = GFX_goal_SKM_Patron_Arts
-		x = 2
-		y = 5
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_friends_in_tropical_town
-		}
-		relative_position_id = NIC_the_great_three
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-		}
-	}
-	focus = {
-		id = NIC_odysseys_on_ishtimus
-		icon = GFX_goal_FRA_Anarchist_Mobilization_Techniques
-		x = 0
-		y = 6
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-		prerequisite = {
-			focus = NIC_introducing_neopopularism
-		}
-		prerequisite = {
-			focus = NIC_bastion_of_latin_american_modernismo
-		}
-		prerequisite = {
-			focus = NIC_ties_to_paris
-		}
-		relative_position_id = NIC_the_great_three
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_socialist_revolution"
-		}
-	}
-
-        ## Army Tree ##
-	focus = {
-		id = NIC_new_nicaraguan_army
-		icon = GFX_goal_NIC_Army
-		x = 69
-		y = 0
-		cost = 7
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-		}
-	}
-	focus = {
-		id = NIC_naval_expansion
-		icon = GFX_goal_MAG_naval_research_department
-		x = -4
-		y = 1
-		cost = 7
-		relative_position_id = NIC_new_nicaraguan_army
-		prerequisite = {
-			focus = NIC_new_nicaraguan_army
-		}
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-		}
-	}
-	focus = {
-		id = NIC_modern_ports
-		icon = GFX_USA_ports_atlantic
-		x = -4
-		y = 2
-		cost = 7
-		relative_position_id = NIC_new_nicaraguan_army
-		prerequisite = {
-			focus = NIC_naval_expansion
-		}
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-		}
-	}
-	focus = {
-		id = NIC_foreign_expertise
-		icon = GFX_goal_GEA_Supremacy_of_the_Admirality
-		x = -4
-		y = 3
-		cost = 7
-		relative_position_id = NIC_new_nicaraguan_army
-		prerequisite = {
-			focus = NIC_modern_ports
-		}
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-		}
-	}
-	focus = {
-		id = NIC_air_industry
-		icon = GFX_goal_CZE_air_industry
-		x = 4
-		y = 1
-		cost = 7
-		relative_position_id = NIC_new_nicaraguan_army
-		prerequisite = {
-			focus = NIC_new_nicaraguan_army
-		}
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-		}
-	}
-	focus = {
-		id = NIC_trained_pilots
-		icon = GFX_goal_KSV_rule_from_the_air
-		x = 4
-		y = 2
-		cost = 7
-		relative_position_id = NIC_new_nicaraguan_army
-		prerequisite = {
-			focus = NIC_air_industry
-		}
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-		}
-	}
-	focus = {
-		id = NIC_battlefield_support
-		icon = GFX_goal_taking_to_sky
-		x = 4
-		y = 3
-		cost = 7
-		relative_position_id = NIC_new_nicaraguan_army
-		prerequisite = {
-			focus = NIC_trained_pilots
-		}
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-		}
-	}
-	focus = {
-		id = NIC_guerilla_army
-		icon = GFX_goal_NIC_Replaced_Guardia_Nacional
-		x = -8
-		y = 1
-		cost = 7
-		relative_position_id = NIC_new_nicaraguan_army
-		prerequisite = {
-			focus = NIC_new_nicaraguan_army
-		}
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-		}
-	}
-	focus = {
-		id = NIC_ambush_training
-		icon = GFX_goal_NIC_Strong_Guerilla_Doctrine
-		x = -1
-		y = 1
-		cost = 7
-		relative_position_id = NIC_guerilla_army
-		prerequisite = {
-			focus = NIC_guerilla_army
-		}
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-			country_event = {
-				id = nic.81 days = 1
-			}
-			hidden_effect = {
-				set_technology = { jungle_warfare = 1 }
-			}
-			custom_effect_tooltip = jungle_warfare_effect
-		}
-	}
-	focus = {
-		id = NIC_support_socialist_brothers
-		icon = GFX_goal_generic_Syndicalist_Marines
-		x = 1
-		y = 1
-		cost = 7
-		relative_position_id = NIC_guerilla_army
-		prerequisite = {
-			focus = NIC_guerilla_army
-		}
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-			FRA = {
-				country_event = {
-					id = nic.78 days = 1
-				}
-			}
-			ENG = {
-				country_event = {
-					id = nic.78 days = 1
-				}
-                        }
-			add_equipment_to_stockpile = { type = infantry_equipment_1 amount = -1000 }
-			CSA = { add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1000 } }
-			set_country_flag = ACW_supported_csa
-		}
-	}
-	focus = {
-		id = NIC_lessons_from_mexico
-		icon = GFX_goal_NIC_Support_Mexican_Friends
-		x = -2
-		y = 2
-		cost = 7
-		relative_position_id = NIC_guerilla_army
-		prerequisite = {
-			focus = NIC_ambush_training
-		}
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-		}
-	}
-	focus = {
-		id = NIC_recon_research
-		icon = GFX_goal_USA_modern_recon
-		x = 0
-		y = 2
-		cost = 7
-		relative_position_id = NIC_guerilla_army
-		prerequisite = {
-			focus = NIC_support_socialist_brothers
-		}
-		prerequisite = {
-			focus = NIC_ambush_training
-		}
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-		}
-	}
-	focus = {
-		id = NIC_small_units
-		icon = GFX_goal_NIC_Army_True_Guerillas
-		x = 2
-		y = 2
-		cost = 7
-		relative_position_id = NIC_guerilla_army
-		prerequisite = {
-			focus = NIC_support_socialist_brothers
-		}
-		prerequisite = {
-			focus = NIC_ambush_training
-		}
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-			add_doctrine_cost_reduction = {
-	                              name = land_doc_bonus
-	                              cost_reduction = 0.5
-	                              uses = 1
-	                              category = cat_mass_assault
+			is_subject = no
+			NOT = {
+				has_country_flag = NIC_sandino_attack_flag
 			}
 		}
-	}
-	focus = {
-		id = NIC_cult_of_personality
-		icon = GFX_goal_NIC_Sandino_Savior_Our_Armies
-		x = 1
-		y = 3
-		cost = 7
-		relative_position_id = NIC_guerilla_army
-		prerequisite = {
-			focus = NIC_small_units
-		}
-		prerequisite = {
-			focus = NIC_recon_research
-		}
-		ai_will_do = {
-			factor = 5
-		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-			if = {
-				limit = {
-					has_template = "Sandinistas"
-				}
-				317 = {
-					create_unit = {
-						division = "name = \"3. Regimiento Sandinistas\" division_template = \"Sandinistas\"  start_experience_factor = 0.1  start_equipment_factor = 0.5"
-						owner = NIC
-					}
-					create_unit = {
-						division = "name = \"4. Regimiento Sandinistas\" division_template = \"Sandinistas\"  start_experience_factor = 0.1  start_equipment_factor = 0.5"
-						owner = NIC
-					}
-					create_unit = {
-						division = "name = \"5. Regimiento Sandinistas\" division_template = \"Sandinistas\"  start_experience_factor = 0.1  start_equipment_factor = 0.5"
-						owner = NIC
-					}
-				}
-			}
-			hidden_effect = {
-				load_oob = NIC_sandinistas_1
-			}
-			custom_effect_tooltip = NIC_good_sandinistas_deploy
-		}
-	}
-	focus = {
-		id = NIC_sandinista_youth
-		icon = GFX_goal_HON_Social_Youth
-		x = -1
-		y = 3
-		cost = 7
-		relative_position_id = NIC_guerilla_army
-		prerequisite = {
-			focus = NIC_lessons_from_mexico
-		}
-		prerequisite = {
-			focus = NIC_recon_research
-		}
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-			add_ideas = NIC_inspired_youth
-                        hidden_effect = {
-			       swap_ideas = {
-				       remove_idea = NIC_yank_promise_1
-				       add_idea = NIC_yank_promise_2
-			        }
-                        }
-		}
-	}
-	focus = {
-		id = NIC_salve_ti_nicaragua
-		icon = GFX_goal_NIC_Salve_Sandino
-		x = 0
-		y = 4
-		cost = 7
-		relative_position_id = NIC_guerilla_army
-		prerequisite = {
-			focus = NIC_sandinista_youth
-		}
-		prerequisite = {
-			focus = NIC_cult_of_personality
-		}
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-		}
-	}
-	focus = {
-		id = NIC_national_guard
-		icon = GFX_goal_NIC_Use_National_Guard
-		x = 8
-		y = 1
-		cost = 7
-		relative_position_id = NIC_new_nicaraguan_army
-		prerequisite = {
-			focus = NIC_new_nicaraguan_army
-		}
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-		}
-	}
-	focus = {
-		id = NIC_presidents_personal_tool
-		icon = GFX_goal_NIC_Familia_Somoza
-		x = 0
-		y = 1
-		cost = 7
-		relative_position_id = NIC_national_guard
-		prerequisite = {
-			focus = NIC_national_guard
-		}
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-		}
-	}
-	focus = {
-		id = NIC_blind_eye_corruption
-		icon = GFX_goal_HON_Deal_Corruption
-		x = 2
-		y = 2
-		cost = 7
-		relative_position_id = NIC_national_guard
-		prerequisite = {
-			focus = NIC_presidents_personal_tool
-		}
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-		}
-	}
-	focus = {
-		id = NIC_american_military_support
-		icon = GFX_goal_NIC_American_Support
-		x = 0
-		y = 2
-		cost = 7
-		relative_position_id = NIC_national_guard
-		prerequisite = {
-			focus = NIC_presidents_personal_tool
-		}
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-			USA = {
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_us_imports"
+			OVERLORD = {
 				country_event = {
 					id = nic.116 days = 1
 				}
 			}
 		}
 	}
-	focus = {
-		id = NIC_internal_security
-		icon = GFX_goal_NFA_internalenemy
-		x = -2
-		y = 2
-		cost = 7
-		relative_position_id = NIC_national_guard
-		prerequisite = {
-			focus = NIC_presidents_personal_tool
-		}
-		ai_will_do = {
-			factor = 5
-		}
 
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-		}
-	}
 	focus = {
-		id = NIC_new_training_institutions
-		icon = GFX_goal_NIC_Second_Occupation
-		x = 1
-		y = 3
-		cost = 7
-		relative_position_id = NIC_national_guard
-		prerequisite = {
-			focus = NIC_blind_eye_corruption
-		}
-		prerequisite = {
-			focus = NIC_american_military_support
-		}
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-		}
-	}
-	focus = {
-		id = NIC_control_nicaraguan_institutions
-		icon = GFX_goal_generic_army_training
-		x = -1
-		y = 3
-		cost = 7
-		relative_position_id = NIC_national_guard
-		prerequisite = {
-			focus = NIC_internal_security
-		}
-		prerequisite = {
-			focus = NIC_american_military_support
-		}
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-		}
-	}
-	focus = {
-		id = NIC_honor_patria_disciplina
-		icon = GFX_goal_UMN_mercanary_army
-		x = 0
-		y = 4
-		cost = 7
-		relative_position_id = NIC_national_guard
-		prerequisite = {
-			focus = NIC_control_nicaraguan_institutions
-		}
-		prerequisite = {
-			focus = NIC_new_training_institutions
-		}
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-		}
-	}
-	focus = {
-		id = NIC_new_guardia
+		id = NIC_summon_national_guard
 		icon = GFX_goal_NIC_Use_National_Guard
 		x = 0
-		y = 1
-		cost = 7
-		relative_position_id = NIC_new_nicaraguan_army
-		prerequisite = {
-			focus = NIC_new_nicaraguan_army
-		}
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-		}
-	}
-	focus = {
-		id = NIC_democratized_army
-		icon = GFX_goal_GUA_Military_Ready
-		x = 0
-		y = 1
-		cost = 7
-		relative_position_id = NIC_new_guardia
-		prerequisite = {
-			focus = NIC_new_guardia
-		}
-		ai_will_do = {
-			factor = 5
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-			country_event = {
-				id = nic.58 days = 1
-			}
-		}
-	}
-	focus = {
-		id = NIC_entente_advisors
-		icon = GFX_goal_NEE_joint_entente_excercises
-		x = 0
 		y = 2
+		relative_position_id = NIC_second_occupation
 		cost = 7
-		relative_position_id = NIC_new_guardia
-		prerequisite = {
-			focus = NIC_democratized_army
-		}
 		ai_will_do = {
 			factor = 5
+			modifier = {
+				factor = 4
+				has_country_flag = NIC_sandino_attack_flag
+			}
+		}
+		prerequisite = {
+			focus = NIC_crushing_resistance
+		}
+		available = {
+			OR = {
+				has_country_flag = NIC_national_guard_flag
+			}
+			has_country_flag = NIC_sandino_attack_flag
+			has_authoritarian_government = yes
+		}
+		bypass = {
+			NOT = {
+				has_country_flag = NIC_sandino_attack_flag
+			}
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-			CAN = {
-				country_event = {
-					id = nic.60 days = 1
-				}
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_summon_national_guard"
+			hidden_effect = {
+				load_oob = NIC_guardia_deployment
 			}
+			country_event = nic.guardia
+			custom_effect_tooltip = NIC_guardia_deployment_tooltip
 		}
+		search_filters = { FOCUS_FILTER_MANPOWER }
 	}
-	focus = {
-		id = NIC_modern_army_doctrine
-		icon = GFX_MON_doctrines_I
-		x = -2
-		y = 2
-		cost = 7
-		relative_position_id = NIC_new_guardia
-		prerequisite = {
-			focus = NIC_democratized_army
-		}
-		ai_will_do = {
-			factor = 5
-		}
 
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-			add_tech_bonus = {
-				name = NIC_proper_military
-				bonus = 0.5
-				uses = 3
-				category = cat_grand_battle_plan
-			}
-		}
-	}
 	focus = {
-		id = NIC_import_foreign_arms
-		icon = GFX_goal_ZAM_arms_factory
+		id = NIC_ending_sandino
+		icon = GFX_goal_NIC_Decapitate_Democracy_Lovers
 		x = -1
-		y = 1
+		y = 3
+		relative_position_id = NIC_second_occupation
 		cost = 7
-		relative_position_id = NIC_modern_army_doctrine
-		prerequisite = {
-			focus = NIC_modern_army_doctrine
-		}
 		ai_will_do = {
 			factor = 5
+			modifier = {
+				factor = 4
+				has_country_flag = NIC_sandino_attack_flag
+			}
+		}
+		prerequisite = {
+			focus = NIC_summon_national_guard
+		}
+		prerequisite = {
+			focus = NIC_us_imports
+		}
+		available = {
+			OR = {
+				has_country_flag = NIC_national_guard_flag
+			}
+			has_country_flag = NIC_sandino_attack_flag
+			has_authoritarian_government = yes
+		}
+		bypass = {
+			NOT = {
+				has_country_flag = NIC_sandino_attack_flag
+			}
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_ending_sandino"
+			country_event = {
+				id = nic.121 days = 1
+			}
 		}
 	}
+
 	focus = {
-		id = NIC_work_smarter
-		icon = GFX_goal_GEO_Artillery_Tactics
+		id = NIC_republic_relations
+		icon = GFX_goal_authoritarian
 		x = 1
 		y = 1
-		cost = 7
-		relative_position_id = NIC_modern_army_doctrine
-		prerequisite = {
-			focus = NIC_modern_army_doctrine
-		}
+		relative_position_id = NIC_second_occupation
+		cost = 8
 		ai_will_do = {
 			factor = 5
 		}
+		prerequisite = {
+			focus = NIC_second_occupation
+		}
+		available = {
+			OR = {
+				has_country_flag = NIC_national_guard_flag
+			}
+			has_authoritarian_government = yes
+		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-			add_doctrine_cost_reduction = {
-	                                  name = land_doc_bonus
-	                                  cost_reduction = 0.5
-	                                  uses = 1
-	                                  category = cat_grand_battle_plan
-			}
-			317 = {
-				add_extra_state_shared_building_slots = 4
-				add_building_construction = {
-					type = arms_factory
-					level = 3
-					instant_build = yes
-				}
-			}
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_republic_relations"
+			add_ideas = NIC_reopened_trade
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
+
 	focus = {
-		id = NIC_modern_equipment
-		icon = GFX_goal_KIV_modern
-		x = 0
-		y = 2
-		cost = 7
-		relative_position_id = NIC_modern_army_doctrine
-		prerequisite = {
-			focus = NIC_work_smarter
-		}
-		prerequisite = {
-			focus = NIC_import_foreign_arms
-		}
+		id = NIC_promoting_ufc
+		icon = GFX_HON_ufc
+		x = 3
+		y = 1
+		relative_position_id = NIC_second_occupation
+		cost = 8
 		ai_will_do = {
 			factor = 5
 		}
+		prerequisite = {
+			focus = NIC_second_occupation
+		}
+		available = {
+			OR = {
+				has_country_flag = NIC_national_guard_flag
+			}
+			has_authoritarian_government = yes
+		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-			add_research_slot = 1
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_promoting_ufc"
+			add_ideas = NIC_foreign_companies
 		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
+
 	focus = {
-		id = NIC_destroy_army_corruption
-		icon = GFX_goal_MAF_fuck_up_corrupt_officials
+		id = NIC_ending_sandino_cult
+		icon = GFX_goal_NIC_Socialism_Death
 		x = 2
 		y = 2
-		cost = 7
-		relative_position_id = NIC_new_guardia
-		prerequisite = {
-			focus = NIC_democratized_army
-		}
+		relative_position_id = NIC_second_occupation
+		cost = 8
 		ai_will_do = {
 			factor = 5
 		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-			add_popularity = {
-				ideology = paternal_autocrat popularity = -0.10
-			}
-			add_popularity = {
-				ideology = authoritarian_democrat popularity = -0.10
-			}
-			add_stability = 0.1
-		}
-	}
-	focus = {
-		id = NIC_american_model
-		icon = GFX_goal_NIC_american_avisors
-		x = 1
-		y = 1
-		cost = 7
-		relative_position_id = NIC_destroy_army_corruption
 		prerequisite = {
-			focus = NIC_destroy_army_corruption
+			focus = NIC_promoting_ufc
 		}
-		ai_will_do = {
-			factor = 5
+		prerequisite = {
+			focus = NIC_republic_relations
+		}
+		available = {
+			OR = {
+				has_country_flag = NIC_national_guard_flag
+			}
+			has_authoritarian_government = yes
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-			if = {
-				limit = {
-					has_country_flag = NIC_east_no_conscription
-				}
-				1071 = {
-					add_core_of = NIC
-				}
-			}
-			else = {
-				increase_conscription = yes
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_ending_sandino_cult"
+			add_popularity = {
+				ideology = radical_socialist popularity = -0.07
 			}
 		}
 	}
+
 	focus = {
-		id = NIC_centralized_command
-		icon = GFX_goal_NFA_industrial_push_command
-		x = -1
-		y = 1
-		cost = 7
-		relative_position_id = NIC_destroy_army_corruption
-		prerequisite = {
-			focus = NIC_destroy_army_corruption
-		}
+		id = NIC_preparing_integration
+		icon = GFX_goal_NIC_Move_Against_Liberals
+		x = 2
+		y = 3
+		relative_position_id = NIC_second_occupation
+		cost = 8
 		ai_will_do = {
 			factor = 5
 		}
+		prerequisite = {
+			focus = NIC_ending_sandino_cult
+		}
+		available = {
+			OR = {
+				has_country_flag = NIC_national_guard_flag
+			}
+			has_authoritarian_government = yes
+		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_preparing_integration"
 			if = {
 				limit = {
-					has_government = social_liberal
+					has_government = paternal_autocrat
 				}
-				country_event = {
-					id = nic.59 days = 1
+				add_popularity = {
+					ideology = paternal_autocrat popularity = 0.05
 				}
+			}
+			if = {
+				limit = {
+					has_government = authoritarian_democrat
+				}
+				add_popularity = {
+					ideology = authoritarian_democrat popularity = 0.05
+				}
+			}
+			add_war_support = 0.05
+			add_stability = 0.05
+			if = {
+				limit = {
+					has_idea = NIC_remaining_UFC_influence
+				}
+				remove_ideas = NIC_remaining_UFC_influence
 			}
 			else_if = {
+				limit = {
+					has_idea = NIC_remaining_UFC_influence_oof
+				}
+				remove_ideas = NIC_remaining_UFC_influence_oof
+			}
+			else_if = {
+				limit = {
+					has_idea = NIC_remaining_UFC_influence_oof_2
+				}
+				remove_ideas = NIC_remaining_UFC_influence_oof_2
+			}
+		}
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_STABILITY }
+	}
+
+	focus = {
+		id = NIC_into_republic
+		icon = GFX_goal_CEN_COA
+		x = 2
+		y = 4
+		relative_position_id = NIC_second_occupation
+		cost = 8
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				factor = 3
+				CEN = {
+					is_ai = no
+				}
+			}
+		}
+		prerequisite = {
+			focus = NIC_preparing_integration
+		}
+		prerequisite = {
+			focus = NIC_ending_sandino
+		}
+		mutually_exclusive = {
+			focus = NIC_new_independence
+		}
+		available = {
+			is_subject_of = CEN
+			CEN = {
+				has_authoritarian_government = yes
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_into_republic"
+			CEN = {
+				annex_country = {
+					target = NIC
+					transfer_troops = yes
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+	}
+
+	focus = {
+		id = NIC_new_independence
+		icon = GFX_goal_NIC_Hail_Thee_Nicaragua
+		x = -1
+		y = 4
+		relative_position_id = NIC_second_occupation
+		cost = 7
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = NIC_preparing_integration
+		}
+		prerequisite = {
+			focus = NIC_ending_sandino
+		}
+		mutually_exclusive = {
+			focus = NIC_into_republic
+		}
+		available = {
+			OR = {
+				has_country_flag = NIC_national_guard_flag
+			}
+			has_authoritarian_government = yes
+			is_subject = yes
+		}
+		bypass = {
+			OR = {
+				has_country_flag = NIC_national_guard_flag
+			}
+			is_subject = no
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_new_independence"
+			add_war_support = 0.05
+			if = {
+				limit = {
+					has_government = paternal_autocrat
+				}
+				add_popularity = {
+					ideology = paternal_autocrat popularity = 0.03
+				}
+			}
+			if = {
 				limit = {
 					has_government = social_conservative
 				}
-				swap_ideas = {
-					remove_idea = NIC_new_national_guard_idea
-					add_idea = NIC_new_national_guard_idea_vargas_1
+				add_popularity = {
+					ideology = social_conservative popularity = 0.03
 				}
 			}
 		}
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
 	}
+
 	focus = {
-		id = NIC_modern_army_structure
-		icon = GFX_TRM_Restructure_Army
-		x = 0
-		y = 2
-		cost = 7
-		relative_position_id = NIC_destroy_army_corruption
-		prerequisite = {
-			focus = NIC_centralized_command
-		}
-		prerequisite = {
-			focus = NIC_american_model
-		}
+		id = NIC_expand_national_guard
+		icon = GFX_goal_NIC_Modernize_National_Guard
+		x = -2
+		y = 5
+		relative_position_id = NIC_second_occupation
+		cost = 8
 		ai_will_do = {
 			factor = 5
 		}
+		prerequisite = {
+			focus = NIC_new_independence
+		}
+		available = {
+			OR = {
+				has_country_flag = NIC_national_guard_flag
+			}
+			has_authoritarian_government = yes
+		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_second_occupation"
-			if = {
-				limit = {
-					has_idea = NIC_new_national_guard_idea_vargas_1
-				}
-				swap_ideas = {
-					remove_idea = NIC_new_national_guard_idea_vargas_1
-					add_idea = NIC_new_national_guard_idea_vargas_2
-				}
-			}
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_expand_national_guard"
+			add_ideas = NIC_big_guard
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY }
+	}
 
-			else_if = {
-				limit = {
-					has_idea = NIC_new_national_guard_idea_cuadra_1
-				}
-				swap_ideas = {
-					remove_idea = NIC_new_national_guard_idea_cuadra_1
-					add_idea = NIC_new_national_guard_idea_cuadra_2
-				}
+	focus = {
+		id = NIC_arm_imports
+		icon = GFX_goal_MEX_open_markets_for_entente
+		x = 0
+		y = 5
+		relative_position_id = NIC_second_occupation
+		cost = 8
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = NIC_new_independence
+		}
+		available = {
+			OR = {
+				has_country_flag = NIC_national_guard_flag
+			}
+			has_authoritarian_government = yes
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_arm_imports"
+			swap_ideas = {
+				remove_idea = NIC_reopened_trade
+				add_idea = NIC_reopened_trade_2
 			}
 		}
 	}
+
+	focus = {
+		id = NIC_assert_independence
+		icon = GFX_goal_NIC_Strong_Presidency
+		x = -1
+		y = 6
+		relative_position_id = NIC_second_occupation
+		cost = 7
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = NIC_expand_national_guard focus = NIC_arm_imports
+		}
+		available = {
+			OR = {
+				has_country_flag = NIC_national_guard_flag
+			}
+			has_authoritarian_government = yes
+			is_subject = yes
+		}
+		bypass = {
+			is_subject = no
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_assert_independence"
+			HON = {
+				end_puppet = NIC
+				country_event = {
+					id = nic.129 days = 1
+				}
+
+			}
+			add_stability = 0.1
+		}
+		search_filters = { FOCUS_FILTER_STABILITY }
+	}
+
+	focus = {
+		id = NIC_more_terms
+		icon = GFX_goal_NIC_Authoritarian_Constitution
+		x = -2
+		y = 7
+		relative_position_id = NIC_second_occupation
+		cost = 7
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = NIC_assert_independence
+		}
+		available = {
+			OR = {
+				has_country_flag = NIC_national_guard_flag
+			}
+			has_authoritarian_government = yes
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_more_terms"
+			add_stability = -0.1
+			add_war_support = -0.05
+			add_popularity = {
+				ideology = totalist popularity = -0.02
+			}
+			add_popularity = {
+				ideology = syndicalist popularity = -0.02
+			}
+			add_popularity = {
+				ideology = radical_socialist popularity = -0.02
+			}
+			add_popularity = {
+				ideology = social_democrat popularity = -0.02
+			}
+			add_popularity = {
+				ideology = social_liberal popularity = -0.02
+			}
+			add_popularity = {
+				ideology = market_liberal popularity = -0.02
+			}
+		}
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_STABILITY }
+	}
+
+	focus = {
+		id = NIC_tighten_hold
+		icon = GFX_goal_NIC_Election_Monitoring
+		x = 0
+		y = 7
+		relative_position_id = NIC_second_occupation
+		cost = 7
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = {
+			focus = NIC_assert_independence
+		}
+		available = {
+			OR = {
+				has_country_flag = NIC_national_guard_flag
+			}
+			has_authoritarian_government = yes
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_tighten_hold"
+			add_ideas = NIC_political_repression
+			if = {
+				limit = {
+					NOT = {
+						317 = {
+							is_core_of = NIC
+						}
+					}
+				}
+				317 = {
+					add_core_of = NIC
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_ANNEXATION FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+	}
+
 	## Industrial Tree ##
 
 	focus = {
 		id = NIC_ground_up
-		icon = GFX_BBR_industrializing_land
-		x = 53
+		icon = GFX_goal_NFA_review_economy
+		x = 33
 		y = 0
 		cost = 2
 		ai_will_do = {
@@ -3832,7 +2110,7 @@ focus_tree = {
 
 	focus = {
 		id = NIC_revolution_economy
-		icon = GFX_goal_CSA_new_economic_planning
+		icon = GFX_goal_NIC_United_Liberalism
 		x = -3
 		y = 1
 		relative_position_id = NIC_ground_up
@@ -3866,7 +2144,7 @@ focus_tree = {
 
 	focus = {
 		id = NIC_attempt_industry
-		icon = GFX_goal_CSA_protect_working_class
+		icon = GFX_RUS_Begin_Industrialization
 		x = -4
 		y = 2
 		relative_position_id = NIC_ground_up
@@ -3900,7 +2178,7 @@ focus_tree = {
 
 	focus = {
 		id = NIC_outside_world
-		icon = GFX_RUS_Foreign_Concessions
+		icon = GFX_RUS_Foreign_Investments
 		x = -2
 		y = 2
 		relative_position_id = NIC_ground_up
@@ -3967,7 +2245,7 @@ focus_tree = {
 
 	focus = {
 		id = NIC_navigate_east
-		icon = GFX_CSA_red_roads
+		icon = GFX_goal_NIC_Road_Expansion
 		x = -3
 		y = 3
 		relative_position_id = NIC_ground_up
@@ -4015,7 +2293,7 @@ focus_tree = {
 
 	focus = {
 		id = NIC_moving_fruit
-		icon = GFX_CRM_Fruit
+		icon = GFX_goal_generic_industry_reallocation
 		x = -3
 		y = 4
 		relative_position_id = NIC_ground_up
@@ -4049,7 +2327,7 @@ focus_tree = {
 
 	focus = {
 		id = NIC_new_industries
-		icon = GFX_goal_FRA_social_free_market
+		icon = GFX_goal_NIC_Strong_Stable_Economy
 		x = -2
 		y = 5
 		relative_position_id = NIC_ground_up
@@ -4086,7 +2364,7 @@ focus_tree = {
 
 	focus = {
 		id = NIC_expand_funding
-		icon = GFX_goal_CSA_capital_investments
+		icon = GFX_goal_TEX_keynesian_economics
 		x = -2
 		y = 6
 		relative_position_id = NIC_ground_up
@@ -4129,7 +2407,7 @@ focus_tree = {
 
 	focus = {
 		id = NIC_food_distribution
-		icon = GFX_RUS_Land_Quotas_Bill
+		icon = GFX_goal_HON_Agrarian
 		x = -4
 		y = 6
 		relative_position_id = NIC_ground_up
@@ -4162,7 +2440,7 @@ focus_tree = {
 
 	focus = {
 		id = NIC_appeasment_economy
-		icon = GFX_goal_generic_financial_markets
+		icon = GFX_goal_HON_BANANA
 		x = 3
 		y = 1
 		relative_position_id = NIC_ground_up
@@ -4174,6 +2452,10 @@ focus_tree = {
 			focus = NIC_ground_up
 		}
 		available = {
+			OR = {
+				has_completed_focus = NIC_promoting_ufc
+				has_completed_focus = NIC_bananas_for_america
+			}
 			OR = {
 				has_government = market_liberal
 				has_government = authoritarian_democrat
@@ -4193,7 +2475,7 @@ focus_tree = {
 
 	focus = {
 		id = NIC_rely_overlord
-		icon = GFX_goal_USA_america_economic_miracle
+		icon = GFX_goal_GUA_More_Fruit_Land
 		x = 2
 		y = 2
 		relative_position_id = NIC_ground_up
@@ -4205,7 +2487,10 @@ focus_tree = {
 			focus = NIC_appeasment_economy
 		}
 		available = {
-			is_subject = yes
+			OR = {
+				is_subject = yes
+				has_completed_focus = NIC_bananas_for_america
+			}
 			OR = {
 				has_government = market_liberal
 				has_government = authoritarian_democrat
@@ -4227,7 +2512,7 @@ focus_tree = {
 
 	focus = {
 		id = NIC_stick_agriculture
-		icon = GFX_goal_AUS_agrarian_icon
+		icon = GFX_goal_NIC_Triumph_Agriculture
 		x = 4
 		y = 2
 		relative_position_id = NIC_ground_up
@@ -4256,7 +2541,7 @@ focus_tree = {
 
 	focus = {
 		id = NIC_develop_pesticide
-		icon = GFX_goal_TXS_Bugs
+		icon = GFX_goal_volunteer_alliance
 		x = 3
 		y = 3
 		relative_position_id = NIC_ground_up
@@ -4291,7 +2576,7 @@ focus_tree = {
 
 	focus = {
 		id = NIC_stick_fruit
-		icon = GFX_NEE_crop_insurance
+		icon = GFX_goal_GUA_Expand_Food_Industry
 		x = 3
 		y = 4
 		relative_position_id = NIC_ground_up
@@ -4321,7 +2606,7 @@ focus_tree = {
 
 	focus = {
 		id = NIC_cash_crop_profit
-		icon = GFX_USA_a_pile_of_fucking_cash
+		icon = GFX_goal_coffee_boom
 		x = 2
 		y = 5
 		relative_position_id = NIC_ground_up
@@ -4353,7 +2638,7 @@ focus_tree = {
 
 	focus = {
 		id = NIC_world_market
-		icon = GFX_goal_KSV_man_who_sold_the_world
+		icon = GFX_goal_CZE_export_work
 		x = 2
 		y = 6
 		relative_position_id = NIC_ground_up
@@ -4385,7 +2670,7 @@ focus_tree = {
 
 	focus = {
 		id = NIC_foreign_reliance
-		icon = GFX_goal_generic_foreign_investments
+		icon = GFX_goal_NIC_Foreign_Concessions
 		x = 4
 		y = 6
 		relative_position_id = NIC_ground_up
@@ -4415,7 +2700,7 @@ focus_tree = {
 
 	focus = {
 		id = NIC_jack_all_trade
-		icon = GFX_goal_MEX_open_markets_for_entente
+		icon = GFX_BBR_means_of_production
 		x = 0
 		y = 2
 		relative_position_id = NIC_ground_up
@@ -4459,7 +2744,7 @@ focus_tree = {
 
 	focus = {
 		id = NIC_coffee
-		icon = GFX_goal_coffee_exports
+		icon = GFX_goal_NIC_Coffee_Must_Grow
 		x = -1
 		y = 4
 		relative_position_id = NIC_ground_up
@@ -4528,7 +2813,7 @@ focus_tree = {
 
 	focus = {
 		id = NIC_central_university
-		icon = GFX_goal_FIU_italian_school
+		icon = GFX_goal_BUL_university_sofia
 		x = 0
 		y = 6
 		relative_position_id = NIC_ground_up
@@ -4551,7 +2836,8 @@ focus_tree = {
 	focus = {# American Mandate
 		id = NIC_americans
 		icon = GFX_goal_NIC_american_mandate
-		cost = 7.2
+		cost = 5
+		prerequisite = {}
 		available = {
 			has_country_leader = {
 				name = "George Van Horn Moseley"
@@ -4567,8 +2853,8 @@ focus_tree = {
 				popularity = 0.13
 			}
 		}
-		x = 26
-		y = 12
+		x = 19
+		y = 8
 		ai_will_do = {
 			factor = 100
 		}
@@ -4577,16 +2863,15 @@ focus_tree = {
 	focus = {# The Real Craw
 		id = NIC_autocratic_mandate
 		icon = GFX_goal_NIC_old_leatherface
-		cost = 7.2
-                relative_position_id = NIC_americans
+		cost = 5
 		prerequisite = {
 			focus = NIC_americans
 		}
 		available = {
 			has_government = national_populist
 		}
-		x = 3
-		y = 1
+		x = 19
+		y = 9
 		ai_will_do = {
 			factor = 100
 		}
@@ -4597,20 +2882,44 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 
-	focus = {# American Brigade
-		id = NIC_wills_walkers
-		icon = GFX_HON_wills_walkers
-		cost = 7.2
-                relative_position_id = NIC_autocratic_mandate
+	focus = {# The Red Scare!
+		id = NIC_red_scare
+		icon = GFX_goal_NIC_red_scare
+		cost = 5
 		prerequisite = {
-			focus = NIC_american_advisors
-                        focus = NIC_freedom_isnt_free
+			focus = NIC_autocratic_mandate
 		}
 		available = {
 			has_government = national_populist
 		}
-		x = 0
-		y = 2
+		x = 19
+		y = 10
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NIC_red_scare"
+			add_war_support = 0.2
+			add_popularity = {
+				ideology = radical_socialist
+				popularity = -0.2
+			}
+		}
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
+	}
+
+	focus = {# American Brigade
+		id = NIC_wills_walkers
+		icon = GFX_HON_wills_walkers
+		cost = 5
+		prerequisite = {
+			focus = NIC_red_scare
+		}
+		available = {
+			has_government = national_populist
+		}
+		x = 19
+		y = 11
 		ai_will_do = {
 			factor = 100
 		}
@@ -4626,11 +2935,10 @@ focus_tree = {
 
 	focus = {# Banana Industry
 		id = NIC_bananas_for_america
-		icon = GFX_goal_HON_Banana_Boy
-		cost = 7.2
-                relative_position_id = NIC_americans
+		icon = GFX_goal_bananas
+		cost = 5
 		prerequisite = {
-			focus = NIC_rouge_government
+			focus = NIC_americans
 		}
 		available = {
 			has_government = national_populist
@@ -4640,8 +2948,8 @@ focus_tree = {
 			add_ideas = HON_more_bananas
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
-		x = 0
-		y = 2
+		x = 21
+		y = 9
 		ai_will_do = {
 			factor = 100
 		}
@@ -4650,10 +2958,9 @@ focus_tree = {
 	focus = {# Invite American Advisors
 		id = NIC_american_advisors
 		icon = GFX_goal_NIC_american_avisors
-		cost = 7.2
-                relative_position_id = NIC_autocratic_mandate
+		cost = 5
 		prerequisite = {
-			focus = NIC_autocratic_mandate
+			focus = NIC_rouge_government
 		}
 		available = {
 			has_government = national_populist
@@ -4668,8 +2975,8 @@ focus_tree = {
 			}
 		}
 		search_filters = { FOCUS_FILTER_ARMY_BONUS }
-		x = 1
-		y = 1
+		x = 23
+		y = 10
 		ai_will_do = {
 			factor = 100
 		}
@@ -4678,8 +2985,7 @@ focus_tree = {
 	focus = {# Invite American Advisors
 		id = NIC_rouge_government
 		icon = GFX_goal_NIC_Rouge_Government
-		cost = 7.2
-                relative_position_id = NIC_americans
+		cost = 5
 		prerequisite = {
 			focus = NIC_americans
 		}
@@ -4697,8 +3003,8 @@ focus_tree = {
 			}
 		}
 		search_filters = { FOCUS_FILTER_ARMY_BONUS }
-		x = 0
-		y = 1
+		x = 23
+		y = 9
 		ai_will_do = {
 			factor = 100
 		}
@@ -4707,19 +3013,12 @@ focus_tree = {
 	focus = {# Buy the USS South Dakota
 		id = NIC_buy_ship
 		icon = GFX_goal_NIC_buy_ship 
-		cost = 7.2
-                relative_position_id = NIC_autocratic_mandate 
+		cost = 5
 		prerequisite = {
-			focus = NIC_freedom_isnt_free
+			focus = NIC_american_advisors
 		}
-		prerequisite = {
-			focus = NIC_wills_walkers
-		}
-		prerequisite = {
-			focus = NIC_concede_territory
-		}
-		x = -2
-		y = 3
+		x = 23
+		y = 11
 		ai_will_do = {
 			factor = 100
 		}
@@ -4733,94 +3032,61 @@ focus_tree = {
 	focus = {# Kneel or Die
 		id = NIC_neel_or_die
 		icon = GFX_goal_NIC_kneel_or_die
-                relative_position_id = NIC_americans
+		cost = 5
 		prerequisite = {
 			focus = NIC_long_life
 		}
 		prerequisite = {
 			focus = NIC_spread_the_joy
 		}
-		prerequisite = {
-			focus = NIC_be_healthy
-		}
-		cost = 7.2
-		x = -2
-		y = 5
+		x = 16
+		y = 12
 		ai_will_do = {
 			factor = 100
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus NIC_neel_or_die"
 			add_manpower = -500
-			remove_ideas = NIC_bend_the_knee_buckaroo
+			remove_ideas = NIC_no_Support
 		}
 	}
 	
 	focus = {# End Resistance
 		id = NIC_end_resistance
 		icon = GFX_goal_NIC_end_resistance
-		cost = 7.2
-                relative_position_id = NIC_americans
+		cost = 5
 		prerequisite = {
-			focus = NIC_buy_ship
+			focus = NIC_wills_walkers
 		}
 		prerequisite = {
-			focus = NIC_long_life
+			focus = NIC_concede_territory
 		}
-		x = 0
-		y = 5
+		x = 20
+		y = 12
 		ai_will_do = {
 			factor = 100
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus NIC_end_resistance"
 			1071 = { set_demilitarized_zone = no }
-                        add_ideas = NIC_sandino_resistance_crushed
+			1247 = { set_demilitarized_zone = no }
+			1261 = { set_demilitarized_zone = no }
 			remove_ideas = NIC_undying_resistance
-		}
-	}
-
-	focus = {# Nicaraguan Canal
-		id = NIC_dreams_of_canal
-		icon = GFX_goal_NIC_Nicaragua_Canal
-		cost = 7.2
-                relative_position_id = NIC_americans
-		prerequisite = {
-			focus = NIC_buy_ship
-		}
-		prerequisite = {
-			focus = NIC_great_admiral
-		}
-		prerequisite = {
-			focus = NIC_naval_support
-		}
-		x = 2
-		y = 5
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_end_resistance"
-			
 		}
 	}
 	
 	focus = {# Become Nicaragua
 		id = NIC_conquers_no_more
 		icon = GFX_goal_NIC_new_nation
-		cost = 7.2
-                relative_position_id = NIC_americans
-		prerequisite = {
-			focus = NIC_neel_or_die
-		}
+		cost = 5
 		prerequisite = {
 			focus = NIC_end_resistance
 		}
 		prerequisite = {
-			focus = NIC_dreams_of_canal
+			focus = NIC_neel_or_die
 		}
-		x = 0
-		y = 6
+		x = 18
+		y = 13
 		ai_will_do = {
 			factor = 100
 		}
@@ -4828,8 +3094,6 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus NIC_conquers_no_more"
 			add_command_power = 100
 			add_stability = 0.10
-			add_state_core = 317
-			add_state_core = 1071
 			set_cosmetic_tag = NIC
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
@@ -4838,13 +3102,12 @@ focus_tree = {
 	focus = {# The Great Admiral
 		id = NIC_great_admiral
 		icon = GFX_goal_NIC_great_admiral
-		cost = 7.2
-                relative_position_id = NIC_autocratic_mandate
+		cost = 5
 		prerequisite = {
-			focus = NIC_wills_walkers
+			focus = NIC_american_advisors
 		}
-		x = 0
-		y = 3
+		x = 25
+		y = 11
 		ai_will_do = {
 			factor = 100
 		}
@@ -4863,16 +3126,15 @@ focus_tree = {
 	focus = {# Naval Support
 		id = NIC_naval_support
 		icon = GFX_goal_NIC_USS_south_dakota
-		cost = 7.2
-                relative_position_id = NIC_autocratic_mandate
+		cost = 5
 		prerequisite = {
-			focus = NIC_american_advisors
+			focus = NIC_great_admiral
 		}
 		prerequisite = {
-			focus = NIC_wills_walkers
+			focus = NIC_buy_ship
 		}
-		x = 2
-		y = 3
+		x = 24
+		y = 12
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus NIC_naval_support"
 			add_tech_bonus = {
@@ -4898,16 +3160,15 @@ focus_tree = {
 	focus = {# Freedom Aint' Free
 		id = NIC_freedom_isnt_free
 		icon = GFX_goal_NIC_freedom_aint_free
-		cost = 7.2
-                relative_position_id = NIC_autocratic_mandate
+		cost = 5
 		prerequisite = {
-			focus = NIC_autocratic_mandate
+			focus = NIC_bananas_for_america
 		}
 		available = {
 			has_government = national_populist
 		}
-		x = -1
-		y = 1
+		x = 21
+		y = 10
 		ai_will_do = {
 			factor = 100
 		}
@@ -4926,16 +3187,15 @@ focus_tree = {
 	focus = {# Concede Territory to the UFC
 		id = NIC_concede_territory
 		icon = GFX_goal_NIC_sell_our_land_to_the_ufc
-		cost = 7.2
-                relative_position_id = NIC_americans
+		cost = 5
 		prerequisite = {
-			focus = NIC_bananas_for_america
+			focus = NIC_freedom_isnt_free
 		}
 		available = {
 			has_government = national_populist
 		}
-		x = 0
-		y = 3
+		x = 21
+		y = 11
 		ai_will_do = {
 			factor = 100
 		}
@@ -4957,7 +3217,7 @@ focus_tree = {
 			has_government = national_populist
 		}
 		relative_position_id = NIC_americans
-		x = -3
+		x = -4
 		y = 1
 		ai_will_do = {
 			factor = 100
@@ -4972,47 +3232,20 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
 	}
-
-	focus = {# The Red Scare!
-		id = NIC_red_scare
-		icon = GFX_goal_NIC_red_scare
-		cost = 7.2
-                relative_position_id = NIC_benevolent_governor
-		prerequisite = {
-			focus = NIC_benevolent_governor
-		}
-		available = {
-			has_government = national_populist
-		}
-		x = 1
-		y = 1
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus NIC_red_scare"
-			add_war_support = 0.2
-			add_popularity = {
-				ideology = radical_socialist
-				popularity = -0.2
-			}
-		}
-		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
-	}
 	
 	focus = {# Walker's Legacy
 		id = NIC_grey_eyed_man_of_destiny
 		icon = GFX_NIC_grey_eyed_man_of_destiny
-		cost = 7.2 
+		cost = 5
 		prerequisite = {
 			focus = NIC_benevolent_governor
 		}
 		available = {
 			has_government = national_populist
 		}
-		relative_position_id = NIC_benevolent_governor
-		x = -1
-		y = 1
+		relative_position_id = NIC_americans
+		x = -4
+		y = 2
 		ai_will_do = {
 			factor = 100
 		}
@@ -5030,16 +3263,16 @@ focus_tree = {
 	focus = {#Invade Honduras
 		id = NIC_spread_the_joy
 		icon = GFX_goal_NIC_take_honduras
-		cost = 7.2
-                relative_position_id = NIC_benevolent_governor
+		cost = 5
 		prerequisite = {
-			focus = NIC_be_happy
+			focus = NIC_grey_eyed_man_of_destiny
 		}
 		available = {
 			has_government = national_populist
 			has_completed_focus = NIC_end_resistance
 		}
-		x = 0
+		relative_position_id = NIC_americans
+		x = -4
 		y = 3
 		ai_will_do = {
 			factor = 100
@@ -5058,23 +3291,20 @@ focus_tree = {
 	focus = {# Be Happy...
 		id = NIC_be_happy
 		icon = GFX_goal_NIC_be_happy
-		cost = 7.2
-                relative_position_id = NIC_benevolent_governor
+		cost = 5
 		prerequisite = {
-			focus = NIC_red_scare
-			focus = NIC_grey_eyed_man_of_destiny
+			focus = NIC_americans
 		}
 		available = {
 			has_government = national_populist
 		}
-		x = 0
-		y = 2
+		x = 17
+		y = 9
 		ai_will_do = {
 			factor = 100
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus NIC_be_happy"
-                        remove_ideas = NIC_no_Support
 			add_stability = 0.1
 		}
 		search_filters = { FOCUS_FILTER_STABILITY }
@@ -5083,19 +3313,15 @@ focus_tree = {
 	focus = {# Be healthy...
 		id = NIC_be_healthy
 		icon = GFX_goal_NIC_be_healthy
-		cost = 7.2
-                relative_position_id = NIC_benevolent_governor
+		cost = 5
 		prerequisite = {
 			focus = NIC_be_happy
-		}
-		prerequisite = {
-			focus = NIC_grey_eyed_man_of_destiny
 		}
 		available = {
 			has_government = national_populist
 		}
-		x = -2
-		y = 3
+		x = 17
+		y = 10
 		ai_will_do = {
 			factor = 100
 		}
@@ -5106,25 +3332,18 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
 	}
 
-	focus = {# Long Life!
+	focus = { # Long Life!
 		id = NIC_long_life
 		icon = GFX_goal_NIC_long_life
-		cost = 7.2
-                relative_position_id = NIC_benevolent_governor
+		cost = 5
 		prerequisite = {
-			focus = NIC_concede_territory
-		}
-		prerequisite = {
-			focus = NIC_be_happy
-		}
-		prerequisite = {
-			focus = NIC_red_scare
+			focus = NIC_be_healthy
 		}
 		available = {
 			has_government = national_populist
 		}
-		x = 2
-		y = 3
+		x = 17
+		y = 11
 		ai_will_do = {
 			factor = 100
 		}
@@ -5137,5 +3356,5 @@ focus_tree = {
 			}
 		}
 		search_filters = { FOCUS_FILTER_ARMY_BONUS }
-                }
+	}
 }

@@ -3,7 +3,6 @@
 # By JakeR2000
 # also let's sell some drugs and larp as america
 # By yo mama
-# Unfucked by Pogge and Canal Path by Amcath
 ###########################
 
 focus_tree = {
@@ -17,7 +16,13 @@ focus_tree = {
 	}
 
 	default = no
-	continuous_focus_position = { x = 2250 y = 2400 }
+	continuous_focus_position = { x = 225 y = 2400 }
+
+	shared_focus = PAN_canal_in_crisis
+	shared_focus = PAN_protect_interests
+	shared_focus = PAN_defend_our_homeland
+	shared_focus = PAN_invest_in_industry
+	shared_focus = PAN_improve_agriculture
 
 	focus = {
 		id = PAN_36_elections
@@ -25,7 +30,7 @@ focus_tree = {
 		available = {
 			hidden_trigger = { always = no }
 		}
-		x = -2
+		x = 5
 		y = 0
 		cost = 0
 		completion_reward = {
@@ -34,16 +39,15 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = PAN_PNR_holds_on
+		id = PAN_PNR_holds_on #PNR wins elections
 		icon = GFX_goal_ideology_authoritarian_democrat
 		available = {
 			hidden_trigger = { always = no }
 		}
-		relative_position_id = PAN_36_elections
 		prerequisite = {
 			focus = PAN_36_elections
 		}
-		x = -8
+		x = 0
 		y = 1
 		cost = 0
 		completion_reward = {
@@ -52,183 +56,133 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = PAN_fight_police_corruption
-		icon = GFX_goal_NYC_Target_Corrupt_Cops
+		id = PAN_encourage_farming
+		relative_position_id = PAN_PNR_holds_on
+		icon = GFX_goal_TEX_Power_to_Farmers
+		prerequisite = {
+			focus = PAN_PNR_holds_on
+		}
 		available = {
 			has_government = authoritarian_democrat
+			NOT = { has_country_flag = PAN_Canal_Victory }
 		}
-		prerequisite = {
-			focus = PAN_PNR_holds_on 
-		}
-		relative_position_id = PAN_PNR_holds_on 
-		x = 1
+		x = 0
 		y = 1
-		cost = 0
+		cost = 5
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_encourage_farming"
+			add_ideas = PAN_farming_encouraged
 		}
-	}
-	focus = {
-		id = PAN_birth_panamanian_nationalism
-		icon = GFX_goal_NIC_Rouge_Government
-		available = {
-			has_government = authoritarian_democrat
-		}
-		prerequisite = {
-			focus = PAN_PNR_holds_on 
-		}
-		relative_position_id = PAN_PNR_holds_on 
-		x = -1
-		y = 1
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			
-		}
-	}
-	focus = {
-		id = PAN_legacy_of_coup
-		icon = GFX_goal_AUS_tactical_flexibility
-		available = {
-			has_government = authoritarian_democrat
-		}
-		prerequisite = {
-			focus = PAN_birth_panamanian_nationalism
-		}
-		relative_position_id = PAN_PNR_holds_on 
-		x = -2
-		y = 2
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			
-		}
-	}
-	focus = {
-		id = PAN_dreams_of_greater_panama
-		icon = GFX_RUS_Reassure_The_Workers
-		available = {
-			has_government = authoritarian_democrat
-		}
-		prerequisite = {
-			focus = PAN_fight_police_corruption
-		}
-		prerequisite = {
-			focus = PAN_birth_panamanian_nationalism
-		}
-		relative_position_id = PAN_PNR_holds_on 
-		x = 0
-		y = 2
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			
-		}
-	}
-	focus = {
-		id = PAN_against_yanqui_imperialism
-		icon = GFX_goal_NIC_Kick_Out_Yanquis
-		available = {
-			has_government = authoritarian_democrat
-		}
-		prerequisite = {
-			focus = PAN_fight_police_corruption
-		}
-		relative_position_id = PAN_PNR_holds_on 
-		x = 2
-		y = 2
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			
-		}
-	}
-	focus = {
-		id = PAN_clean_up_government
-		icon = GFX_goal_MAF_fuck_up_corrupt_officials
-		available = {
-			has_government = authoritarian_democrat
-		}
-		prerequisite = {
-			focus = PAN_legacy_of_coup
-		}
-		prerequisite = {
-			focus = PAN_dreams_of_greater_panama
-		}
-		relative_position_id = PAN_PNR_holds_on 
-		x = -1
-		y = 3
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			
-		}
-	}
-	focus = {
-		id = PAN_reject_foreign_influence
-		icon = GFX_BBR_economic_independence
-		available = {
-			has_government = authoritarian_democrat
-		}
-		prerequisite = {
-			focus = PAN_against_yanqui_imperialism
-		}
-		prerequisite = {
-			focus = PAN_dreams_of_greater_panama
-		}
-		relative_position_id = PAN_PNR_holds_on 
-		x = 1
-		y = 3
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			
-		}
-	}
-	focus = {
-		id = PAN_order_work_economy
-		icon = GFX_goal_AUS_walking_book
-		available = {
-			has_government = authoritarian_democrat
-		}
-		prerequisite = {
-			focus = PAN_reject_foreign_influence
-		}
-		prerequisite = {
-			focus = PAN_clean_up_government
-		}
-		prerequisite = {
-			focus = PAN_dreams_of_greater_panama
-		}
-		relative_position_id = PAN_PNR_holds_on 
-		x = 0
-		y = 4
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			
-		}
-	}
-	focus = {
-		id = PAN_better_panama
-		icon = GFX_goal_PAR_better_future
-		available = {
-			has_government = authoritarian_democrat
-		}
-		prerequisite = {
-			focus = PAN_order_work_economy
-		}
-		relative_position_id = PAN_PNR_holds_on 
-		x = 0
-		y = 5
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			
-		}
+		search_filters = { FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_MANPOWER }
 	}
 
+	focus = {
+		id = PAN_foreign_investments
+		relative_position_id = PAN_PNR_holds_on
+		prerequisite = {
+			focus = PAN_encourage_farming
+		}
+		available = {
+			has_government = authoritarian_democrat
+			NOT = { has_country_flag = PAN_Canal_Victory }
+		}
+		icon = GFX_goal_bag_of_money 
+		x = -1
+		y = 2
+		cost = 5
+		bypass = {
+			NOT = {
+				country_exists = CAN
+				AND = {
+					country_exists = USA
+					OR = {
+						NOT = { has_global_flag = USA_civil_war_begun_flag }
+						has_global_flag = USA_civil_war_over_flag
+					}
+				}
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_foreign_investments"
+			country_event = panama.13
+		}
+	}
+	focus = {
+		id = PAN_ensure_police_loyalty #Triggers an event about how to ensure police loyalty. Depending on how you do it, it will effect the success of the next focus. Basically, if you're too harsh on them or too soft, they'll coup you.
+		relative_position_id = PAN_PNR_holds_on
+		prerequisite = {
+			focus = PAN_encourage_farming
+		}
+		available = {
+			has_government = authoritarian_democrat
+			NOT = { has_country_flag = PAN_Canal_Victory }
+		}
+		icon = GFX_GRU_CORPORATE_POLICE
+		x = 1
+		y = 2
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_ensure_police_loyalty"
+			country_event = panama.9
+		}
+	}
+	focus = {
+		id = PAN_support_investments #Supporting the foreign investment policy decided in the last focus. This goes against the doctrine of the PNR, but it could solve the current economic problems. However, the National Police is watching...
+		relative_position_id = PAN_PNR_holds_on
+		prerequisite = {
+			focus = PAN_ensure_police_loyalty
+		}
+		available = {
+			has_government = authoritarian_democrat
+			NOT = { has_country_flag = PAN_Canal_Victory }
+		}
+		prerequisite = {
+			focus = PAN_foreign_investments
+		}
+		icon = GFX_goal_generic_foreign_investments
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_support_investments"
+			hidden_effect = {
+				if = {
+					limit = { has_country_flag = PAN_police_untouched }
+					clr_country_flag = PAN_police_untouched
+					country_event = { id = panama.3 days = 1 }
+				}
+				else = {
+					swap_ideas = {
+						add_idea = PAN_further_investments_idea
+						remove_idea = PAN_foreign_investments_idea
+					}
+				}
+			}
+			custom_effect_tooltip = PAN_support_investments_tooltip
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		x = 0
+		y = 3
+		cost = 5
+	}
+	focus = {
+		id = PAN_start_recovery
+		relative_position_id = PAN_PNR_holds_on
+		prerequisite = {
+			focus = PAN_support_investments
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_start_recovery"
+			add_ideas = PAN_economic_prosperity
+			remove_ideas = PAN_economic_depression
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY }
+		available = {
+			has_government = authoritarian_democrat
+			NOT = { has_country_flag = PAN_Canal_Victory }
+		}
+		icon = GFX_RUS_Foreign_Investments
+		x = 0
+		y = 4
+		cost = 5
+	}
 
 	focus = {
 		id = PAN_liberal_victory
@@ -236,394 +190,6 @@ focus_tree = {
 		available = {
 			hidden_trigger = { always = no }
 		}
-		relative_position_id = PAN_36_elections
-		prerequisite = {
-			focus = PAN_36_elections
-		}
-		x = -3
-		y = 1
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_liberal_victory"
-		}
-	}
-	focus = {
-		id = PAN_status_quo_with_america
-		icon = GFX_goal_COS_buy_canal
-		available = {
-			has_government = social_liberal
-		}
-		relative_position_id = PAN_liberal_victory
-		prerequisite = {
-			focus = PAN_liberal_victory
-		}
-		x = 1
-		y = 1
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_liberal_victory"
-		}
-	}
-	focus = {
-		id = PAN_absorb_libcons
-		icon = GFX_goal_NIC_Nicaraguan_Liberalism_Born_Anew
-		available = {
-			has_government = social_liberal
-		}
-		relative_position_id = PAN_liberal_victory
-		prerequisite = {
-			focus = PAN_liberal_victory
-		}
-		x = 1
-		y = 2
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_liberal_victory"
-		}
-	}
-	focus = {
-		id = PAN_enshrine_human_rights
-		icon = GFX_goal_NGR_native_rights
-		available = {
-			has_government = social_liberal
-		}
-		relative_position_id = PAN_liberal_victory
-		prerequisite = {
-			focus = PAN_absorb_libcons
-		}
-		x = 2
-		y = 3
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_liberal_victory"
-		}
-	}
-	focus = {
-		id = PAN_establish_colon_free_zone
-		icon = GFX_goal_generic_free_market
-		available = {
-			has_government = social_liberal
-		}
-		relative_position_id = PAN_liberal_victory
-		prerequisite = {
-			focus = PAN_liberal_victory
-		}
-		x = -1
-		y = 1
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_liberal_victory"
-		}
-	}
-	focus = {
-		id = PAN_new_constitution
-		icon = GFX_goal_HON_Rewrite_Constitution
-		available = {
-			has_government = social_liberal
-		}
-		relative_position_id = PAN_liberal_victory
-		prerequisite = {
-			focus = PAN_establish_colon_free_zone
-		}
-		x = -1
-		y = 2
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_liberal_victory"
-		}
-	}
-	focus = {
-		id = PAN_concessions_to_kuna
-		icon = GFX_SAF_native_reform
-		available = {
-			has_government = social_liberal
-		}
-		relative_position_id = PAN_liberal_victory
-		prerequisite = {
-			focus = PAN_new_constitution
-		}
-		x = -2
-		y = 3
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_liberal_victory"
-		}
-	}
-	focus = {
-		id = PAN_undermine_police_influence
-		icon = GFX_goal_TEX_Squeeze_Police_Force
-		available = {
-			has_government = social_liberal
-		}
-		relative_position_id = PAN_liberal_victory
-		prerequisite = {
-			focus = PAN_absorb_libcons
-		}
-		prerequisite = {
-			focus = PAN_new_constitution
-		}
-		x = 0
-		y = 3
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_liberal_victory"
-		}
-	}
-	focus = {
-		id = PAN_public_works
-		icon = GFX_goal_CZE_worker
-		available = {
-			has_government = social_liberal
-		}
-		relative_position_id = PAN_liberal_victory
-		prerequisite = {
-			focus = PAN_concessions_to_kuna
-		}
-		prerequisite = {
-			focus = PAN_undermine_police_influence
-		}
-		x = -1
-		y = 4
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_liberal_victory"
-		}
-	}
-	focus = {
-		id = PAN_secularize_education
-		icon = GFX_goal_MEX_secular_but_catholic
-		available = {
-			has_government = social_liberal
-		}
-		relative_position_id = PAN_liberal_victory
-		prerequisite = {
-			focus = PAN_enshrine_human_rights
-		}
-		prerequisite = {
-			focus = PAN_undermine_police_influence
-		}
-		x = 1
-		y = 4
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_liberal_victory"
-		}
-	}
-	focus = {
-		id = PAN_shining_light_of_liberalism
-		icon = GFX_RUS_Get_Along_With_Liberals
-		available = {
-			has_government = social_liberal
-		}
-		relative_position_id = PAN_liberal_victory
-		prerequisite = {
-			focus = PAN_secularize_education
-		}
-		prerequisite = {
-			focus = PAN_public_works
-		}
-		x = 0
-		y = 5
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_liberal_victory"
-		}
-	}
-
-
-	focus = {
-		id = PAN_police_coup
-		icon = GFX_goal_NFA_Discipline_Police
-		available = {
-			hidden_trigger = { always = no }
-		}
-		relative_position_id = PAN_36_elections
-		prerequisite = {
-			focus = PAN_36_elections
-		}
-		x = 8
-		y = 1
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_police_coup"
-		}
-	}
-	focus = {
-		id = PAN_pro_american_stance
-		icon = GFX_goal_NIC_American_Support
-		available = {
-			has_government = paternal_autocrat
-		}
-		relative_position_id = PAN_police_coup
-		prerequisite = {
-			focus = PAN_police_coup
-		}
-		x = 1
-		y = 1
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_police_coup"
-		}
-	}
-	focus = {
-		id = PAN_repress_socialists_and_opposition
-		icon = GFX_goal_LPD_colonials_only
-		available = {
-			has_government = paternal_autocrat
-		}
-		relative_position_id = PAN_police_coup
-		prerequisite = {
-			focus = PAN_police_coup
-		}
-		x = -1
-		y = 1
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_police_coup"
-		}
-	}
-	focus = {
-		id = PAN_concessions_to_canal_zone
-		icon = GFX_goal_USA_american_panama
-		available = {
-			has_government = paternal_autocrat
-		}
-		relative_position_id = PAN_police_coup
-		prerequisite = {
-			focus = PAN_pro_american_stance
-		}
-		x = 2
-		y = 2
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_police_coup"
-		}
-	}
-	focus = {
-		id = PAN_police_state
-		icon = GFX_GRU_CORPORATE_POLICE
-		available = {
-			has_government = paternal_autocrat
-		}
-		relative_position_id = PAN_police_coup
-		prerequisite = {
-			focus = PAN_pro_american_stance
-		}
-		prerequisite = {
-			focus = PAN_repress_socialists_and_opposition
-		}
-		x = 0
-		y = 2
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_police_coup"
-		}
-	}
-	focus = {
-		id = PAN_electoral_success
-		icon = GFX_NEE_right_of_contract
-		available = {
-			has_government = paternal_autocrat
-		}
-		relative_position_id = PAN_police_coup
-		prerequisite = {
-			focus = PAN_repress_socialists_and_opposition
-		}
-		x = -2
-		y = 2
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_police_coup"
-		}
-	}
-	focus = {
-		id = PAN_seize_illegal_ships
-		icon = GFX_goal_NYC_Kill_Mob
-		available = {
-			has_government = paternal_autocrat
-		}
-		relative_position_id = PAN_police_coup
-		prerequisite = {
-			focus = PAN_concessions_to_canal_zone
-		}
-		prerequisite = {
-			focus = PAN_police_state
-		}
-		x = 1
-		y = 3
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_police_coup"
-		}
-	}
-	focus = {
-		id = PAN_neither_millions_alms
-		icon = GFX_goal_NFA_economic_mob
-		available = {
-			has_government = paternal_autocrat
-		}
-		relative_position_id = PAN_police_coup
-		prerequisite = {
-			focus = PAN_electoral_success
-		}
-		prerequisite = {
-			focus = PAN_police_state
-		}
-		x = -1
-		y = 3
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_police_coup"
-		}
-	}
-	focus = {
-		id = PAN_ensure_justice
-		icon = GFX_RUS_Social_Justice
-		available = {
-			has_government = paternal_autocrat
-		}
-		relative_position_id = PAN_police_coup
-		prerequisite = {
-			focus = PAN_neither_millions_alms
-		}
-		prerequisite = {
-			focus = PAN_seize_illegal_ships
-		}
-		prerequisite = {
-			focus = PAN_police_state
-		}
-		x = 0
-		y = 4
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_police_coup"
-		}
-	}
-	focus = {
-		id = PAN_panamas_strongman
-		icon = GFX_focus_HKG_Strong_President
-		available = {
-			has_government = paternal_autocrat
-		}
-		relative_position_id = PAN_police_coup
-		prerequisite = {
-			focus = PAN_ensure_justice
-		}
-		x = 0
-		y = 5
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_police_coup"
-		}
-	}
-
-	focus = {
-		id = PAN_conservative_government
-		icon = GFX_goal_ideology_social_conservative
-		available = {
-			hidden_trigger = { always = no }
-		}
-		relative_position_id = PAN_36_elections
 		prerequisite = {
 			focus = PAN_36_elections
 		}
@@ -631,1030 +197,356 @@ focus_tree = {
 		y = 1
 		cost = 0
 		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_liberal_victory"
+		}
+	}
+	focus = {
+		id = PAN_protect_worker_rights #
+		relative_position_id = PAN_liberal_victory
+		prerequisite = {
+			focus = PAN_liberal_victory
+		}
+		available = {
+			has_government = social_liberal
+		}
+		icon = GFX_goal_CZE_worker_justice
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_protect_worker_rights"
+			add_ideas = PAN_worker_rights_protected
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		x = 0
+		y = 1
+		cost = 5
+	}
+	focus = {
+		id = PAN_encourage_unions
+		relative_position_id = PAN_liberal_victory
+		prerequisite = {
+			focus = PAN_protect_worker_rights
+		}
+		available = {
+			has_government = social_liberal
+		}
+		icon = GFX_RUS_Promote_Trade_Unionism
+		x = 0
+		y = 2
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_encourage_unions"
+			country_event = panama.10
+		}
+	}
+	focus = {
+		id = PAN_invest_in_businesses###PAN_investing
+		relative_position_id = PAN_liberal_victory
+		prerequisite = {
+			focus = PAN_encourage_unions
+		}
+		available = {
+			has_government = social_liberal
+		}
+		icon = GFX_RUS_Imperial_Benevolence
+		x = -1
+		y = 3
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_invest_in_businesses"
+			add_ideas = PAN_business_investments
+			add_timed_idea = {
+				idea = PAN_investing
+				days = 30
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = PAN_stimulate_economy
+		relative_position_id = PAN_liberal_victory
+		prerequisite = {
+			focus = PAN_encourage_unions
+		}
+		available = {
+			has_government = social_liberal
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_stimulate_economy"
+			add_ideas = PAN_economic_stimulation
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		icon = GFX_RUS_Support_Small_Business
+		x = 1
+		y = 3
+		cost = 5
+	}
+	focus = {
+		id = PAN_a_liberal_panama
+		relative_position_id = PAN_liberal_victory
+		prerequisite = {
+			focus = PAN_stimulate_economy
+		}
+		available = {
+			has_government = social_liberal
+		}
+		prerequisite = {
+			focus = PAN_invest_in_businesses
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_a_liberal_panama"
+			swap_ideas = {
+				add_idea = PAN_liberal_panama
+				remove_idea = PAN_economic_stimulation
+			}
+			remove_ideas = PAN_economic_depression
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		icon = GFX_RUS_Support_Pluralism
+		x = 0
+		y = 4
+		cost = 5
+	}
+	focus = {
+		id = PAN_police_coup
+		icon = GFX_goal_ideology_paternal_autocrat
+		available = {
+			hidden_trigger = { always = no }
+		}
+		prerequisite = {
+			focus = PAN_36_elections
+		}
+		x = 10
+		y = 1
+		cost = 0
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_police_coup"
+		}
+	}
+	focus = {
+		id = PAN_military_dictatorship
+		relative_position_id = PAN_police_coup
+		icon = GFX_goal_NFA_military_supremacy
+		available = {
+			has_government = paternal_autocrat
+		}
+		prerequisite = {
+			focus = PAN_police_coup
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_military_dictatorship"
+			swap_ideas = {
+				add_idea = PAN_military_government
+				remove_idea = PAN_empowered_national_police
+			}
+			hidden_effect = {
+				country_event = panama.20
+			}
+		}
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_STABILITY }
+		x = 0
+		y = 1
+		cost = 5
+	}
+	focus = {
+		id = PAN_new_economy
+		relative_position_id = PAN_police_coup
+		icon = GFX_goal_generic_autarky
+		available = {
+			has_government = paternal_autocrat
+		}
+		prerequisite = {
+			focus = PAN_military_dictatorship
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_new_economy"
+			add_ideas = PAN_military_jobs
+			remove_ideas = PAN_economic_depression
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		x = 0
+		y = 2
+		cost = 5
+	}
+	focus = {
+		id = PAN_standing_army
+		relative_position_id = PAN_police_coup
+		icon = GFX_goal_PAN_Army
+		available = {
+			has_government = paternal_autocrat
+		}
+		prerequisite = {
+			focus = PAN_new_economy
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_standing_army"
+			add_war_support = 0.05
+		}
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
+		x = -1
+		y = 3
+		cost = 5
+	}
+	focus = {
+		id = PAN_a_new_constitution
+		relative_position_id = PAN_police_coup
+		icon = GFX_goal_NFA_A_New_Constitution
+		available = {
+			has_government = paternal_autocrat
+		}
+		prerequisite = {
+			focus = PAN_new_economy
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_a_new_constitution"
+			country_event = panama.21
+		}
+		x = 1
+		y = 3
+		cost = 5
+	}
+	focus = {
+		id = PAN_preemptive_buildup
+		relative_position_id = PAN_police_coup
+		icon = GFX_goal_KEN_peoples_army
+		available = {
+			has_government = paternal_autocrat
+		}
+		prerequisite = {
+			focus = PAN_a_new_constitution
+		}
+		prerequisite = {
+			focus = PAN_standing_army
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_preemptive_buildup"
+			add_ideas = PAN_war_preparations
+		}
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_MANPOWER }
+		x = 0
+		y = 4
+		cost = 5
+	}
+	focus = {
+		id = PAN_conservative_government
+		icon = GFX_goal_ideology_market_liberal
+		available = {
+			always = no
+		}
+		prerequisite = {
+			focus = PAN_36_elections
+		}
+		x = 7
+		y = 1
+		cost = 0
+		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus PAN_conservative_government"
 		}
 	}
 	focus = {
-		id = PAN_disband_progressive_reforms
-		icon = GFX_goal_CSA_destroy_social_capitalists
-		available = {
-			has_government = social_conservative
-		}
+		id = PAN_create_export_goods
 		relative_position_id = PAN_conservative_government
+		icon = GFX_RUS_Oligarchs_Triumphant
+		available = {
+			has_government = market_liberal
+		}
 		prerequisite = {
 			focus = PAN_conservative_government
 		}
-		x = 1
-		y = 1
-		cost = 0
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_conservative_government"
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_create_export_goods"
+			add_ideas = PAN_creating_export_goods
+			remove_ideas = PAN_economic_depression
 		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		x = 0
+		y = 1
+		cost = 5
 	}
 	focus = {
-		id = PAN_promote_agriculture_and_commerce
-		icon = GFX_goal_HON_Agrarian
-		available = {
-			has_government = social_conservative
-		}
+		id = PAN_capitalist_economics
 		relative_position_id = PAN_conservative_government
+		icon = GFX_RUS_New_Liberal_Era
+		available = {
+			has_government = market_liberal
+		}
 		prerequisite = {
-			focus = PAN_disband_progressive_reforms
+			focus = PAN_create_export_goods
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_capitalist_economics"
+			swap_ideas = {
+				add_idea = PAN_capitalist_economics
+				remove_idea = PAN_creating_export_goods
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		x = -1
+		y = 2
+		cost = 5
+	}
+	focus = {
+		id = PAN_undo_progressive_reforms
+		relative_position_id = PAN_conservative_government
+		icon = GFX_goal_UK_ban_unions
+		available = {
+			has_government = market_liberal
+		}
+		prerequisite = {
+			focus = PAN_create_export_goods
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_undo_progressive_reforms"
+			country_event = panama.18
 		}
 		x = 1
 		y = 2
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_conservative_government"
-		}
+		cost = 5
 	}
 	focus = {
-		id = PAN_all_eyes_on_canal
-		icon = GFX_goal_ideology_social_conservative
-		available = {
-			has_government = social_conservative
-		}
+		id = PAN_status_of_party
 		relative_position_id = PAN_conservative_government
-		prerequisite = {
-			focus = PAN_conservative_government
+		icon = GFX_RUS_Talk_To_Senators
+		available = {
+			has_government = market_liberal
 		}
-		x = -1
-		y = 1
-		cost = 0
+		prerequisite = {
+			focus = PAN_undo_progressive_reforms
+		}
+		prerequisite = {
+			focus = PAN_capitalist_economics
+		}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_conservative_government"
-		}
-	}
-	focus = {
-		id = PAN_yoink_panamanian_nationalism
-		icon = GFX_goal_CAN_eyes_south
-		available = {
-			has_government = social_conservative
-		}
-		relative_position_id = PAN_conservative_government
-		prerequisite = {
-			focus = PAN_all_eyes_on_canal
-		}
-		x = -1
-		y = 2
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_conservative_government"
-		}
-	}
-	focus = {
-		id = PAN_win_over_libcons
-		icon = GFX_goal_NFA_Conservative_Republicanism
-		available = {
-			has_government = social_conservative
-		}
-		relative_position_id = PAN_conservative_government
-		prerequisite = {
-			focus = PAN_promote_agriculture_and_commerce
-		}
-		x = 2
-		y = 3
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_conservative_government"
-		}
-	}
-	focus = {
-		id = PAN_legacy_conservatives
-		icon = GFX_focus_RUS_conserv
-		available = {
-			has_government = social_conservative
-		}
-		relative_position_id = PAN_conservative_government
-		prerequisite = {
-			focus = PAN_promote_agriculture_and_commerce
-		}
-		prerequisite = {
-			focus = PAN_yoink_panamanian_nationalism
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_status_of_party"
+			country_event = panama.19
 		}
 		x = 0
 		y = 3
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_conservative_government"
-		}
+		cost = 5
 	}
 	focus = {
-		id = PAN_new_trade_partners
-		icon = GFX_HUN_trade_war
-		available = {
-			has_government = social_conservative
-		}
+		id = PAN_forming_new_government
 		relative_position_id = PAN_conservative_government
-		prerequisite = {
-			focus = PAN_yoink_panamanian_nationalism
-		}
-		x = -2
-		y = 3
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_conservative_government"
-		}
-	}
-	focus = {
-		id = PAN_united_coalition
-		icon = GFX_RUS_Secure_Coalition
+		icon = GFX_RUS_Strong_Government
 		available = {
-			has_government = social_conservative
-		}
-		relative_position_id = PAN_conservative_government
-		prerequisite = {
-			focus = PAN_legacy_conservatives
+			has_government = market_liberal
 		}
 		prerequisite = {
-			focus = PAN_win_over_libcons
+			focus = PAN_status_of_party
 		}
-		x = 1
-		y = 4
-		cost = 0
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_conservative_government"
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_forming_new_government"
+			add_ideas = PAN_new_conservative_government
 		}
-	}
-	focus = {
-		id = PAN_oppose_liberals
-		icon = GFX_RUS_I_Was_Never_A_Liberal
-		available = {
-			has_government = social_conservative
-		}
-		relative_position_id = PAN_conservative_government
-		prerequisite = {
-			focus = PAN_legacy_conservatives
-		}
-		prerequisite = {
-			focus = PAN_new_trade_partners
-		}
-		x = -1
-		y = 4
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_conservative_government"
-		}
-	}
-	focus = {
-		id = PAN_panamanian_democracy
-		icon = GFX_goal_MEX_democratic_judges
-		available = {
-			has_government = social_conservative
-		}
-		relative_position_id = PAN_conservative_government
-		prerequisite = {
-			focus = PAN_oppose_liberals
-		}
-		prerequisite = {
-			focus = PAN_united_coalition
-		}
-		x = 0
-		y = 5
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_conservative_government"
-        }
-	}
-        # Second Terms
-
-	focus = {
-		id = PAN_41_elections
-		icon = GFX_goal_LIC_elections
-		available = {
-			hidden_trigger = { always = no }
-		}
-		x = -2
-		y = 9
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_36_elections"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_PNR_win
-		icon = GFX_goal_ideology_authoritarian_democrat
-		available = {
-			hidden_trigger = { always = no }
-		}
-		relative_position_id = PAN_41_elections
-		prerequisite = {
-			focus = PAN_41_elections
-		}
-		x = -4
-		y = 1
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_cutting_out_cancer
-		icon = GFX_goal_NYC_Combat_Police_Corruption
-		available = {
-                     has_government = authoritarian_democrat
-		}
-		relative_position_id = PAN_PNR_win
-		prerequisite = {
-			focus = PAN_PNR_win
-		}
-		x = 1
-		y = 1
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_reject_foreign_interventionism
-		icon = GFX_RUS_Downplay_State_Terror
-		available = {
-                     has_government = authoritarian_democrat
-		}
-		relative_position_id = PAN_PNR_win
-		prerequisite = {
-			focus = PAN_PNR_win
-		}
-		x = -1
-		y = 1
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_reformist_modern_constitution
-		icon = GFX_goal_MEX_rewrite_constitution
-		available = {
-                     has_government = authoritarian_democrat
-		}
-		relative_position_id = PAN_PNR_win
-		prerequisite = {
-			focus = PAN_reject_foreign_interventionism
-			focus = PAN_cutting_out_cancer
-		}
-		x = 0
-		y = 2
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_national_values_forefront
-		icon = GFX_goal_LIB_star_of_liberty
-		available = {
-                     has_government = authoritarian_democrat
-		}
-		relative_position_id = PAN_PNR_win
-		prerequisite = {
-			focus = PAN_reject_foreign_interventionism
-		}
-		x = -1
-		y = 3
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_ensure_nationalist_victories
-		icon = GFX_goal_USA_National_Machine
-		available = {
-                     has_government = authoritarian_democrat
-		}
-		relative_position_id = PAN_PNR_win
-		prerequisite = {
-			focus = PAN_cutting_out_cancer
-		}
-		x = 1
-		y = 3
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_icon_panamanian_nationalism
-		icon = GFX_RUS_Corporatist_Lean
-		available = {
-                     has_government = authoritarian_democrat
-		}
-		relative_position_id = PAN_PNR_win
-		prerequisite = {
-			focus = PAN_ensure_nationalist_victories
-		}
-		prerequisite = {
-			focus = PAN_national_values_forefront
-		}
-		prerequisite = {
-			focus = PAN_reformist_modern_constitution
-		}
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY }
 		x = 0
 		y = 4
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-
-	focus = {
-		id = PAN_liberals_win
-		icon = GFX_goal_ideology_social_liberal
-		available = {
-			hidden_trigger = { always = no }
-		}
-		relative_position_id = PAN_41_elections
-		prerequisite = {
-			focus = PAN_41_elections
-		}
-		x = 0
-		y = 1
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_liberal_internationalism
-		icon = GFX_BRY_International
-		available = {
-			hidden_trigger = { always = no }
-		}
-		relative_position_id = PAN_liberals_win
-		prerequisite = {
-			focus = PAN_liberals_win
-		}
-		x = 1
-		y = 1
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_unify_liberal_party
-		icon = GFX_goal_AUS_liberal_innards
-		available = {
-			hidden_trigger = { always = no }
-		}
-		relative_position_id = PAN_liberals_win
-		prerequisite = {
-			focus = PAN_liberals_win
-		}
-		x = -1
-		y = 1
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_bastion_of_freedom
-		icon = GFX_goal_AUS_every_man_freedom
-		available = {
-			hidden_trigger = { always = no }
-		}
-		relative_position_id = PAN_liberals_win
-		prerequisite = {
-			focus = PAN_unify_liberal_party
-			focus = PAN_liberal_internationalism
-		}
-		x = 0
-		y = 2
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_sideline_conservatives
-		icon = GFX_goal_ARZ_Anti_Conservatism
-		available = {
-			hidden_trigger = { always = no }
-		}
-		relative_position_id = PAN_liberals_win
-		prerequisite = {
-			focus = PAN_unify_liberal_party
-		}
-		x = -1
-		y = 3
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_autonomise_university
-		icon = GFX_goal_CZE_autonomy_bills
-		available = {
-			hidden_trigger = { always = no }
-		}
-		relative_position_id = PAN_liberals_win
-		prerequisite = {
-			focus = PAN_liberal_internationalism
-		}
-		x = 1
-		y = 3
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_panamanian_democracy_lives
-		icon = GFX_goal_NIC_Stable_Democracy
-		available = {
-			hidden_trigger = { always = no }
-		}
-		relative_position_id = PAN_liberals_win
-		prerequisite = {
-			focus = PAN_autonomise_university
-		}
-		prerequisite = {
-			focus = PAN_sideline_conservatives
-		}
-		prerequisite = {
-			focus = PAN_bastion_of_freedom
-		}
-		x = 0
-		y = 4
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-
-	focus = {
-		id = PAN_CPN_victory
-		icon = GFX_goal_ideology_social_conservative
-		available = {
-			hidden_trigger = { always = no }
-		}
-		relative_position_id = PAN_41_elections
-		prerequisite = {
-			focus = PAN_41_elections
-		}
-		x = 4
-		y = 1
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_coalition_with_PNR
-		icon = GFX_RUS_Secure_Coalition
-		available = {
-			hidden_trigger = { always = no }
-		}
-		relative_position_id = PAN_CPN_victory
-		prerequisite = {
-			focus = PAN_CPN_victory
-		}
-		x = 1
-		y = 1
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_keep_police_grounded
-		icon = GFX_goal_TEX_Squeeze_Police_Force
-		available = {
-			hidden_trigger = { always = no }
-		}
-		relative_position_id = PAN_CPN_victory
-		prerequisite = {
-			focus = PAN_CPN_victory
-		}
-		x = -1
-		y = 1
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_foster_panamanian_patriotism
-		icon = GFX_goal_NFA_Civic_Patriotism
-		available = {
-			hidden_trigger = { always = no }
-		}
-		relative_position_id = PAN_CPN_victory
-		prerequisite = {
-			focus = PAN_keep_police_grounded
-			focus = PAN_coalition_with_PNR
-		}
-		x = 0
-		y = 2
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_never_another_canal_zone
-		icon = GFX_goal_AUS_canal_me_thee
-		available = {
-			hidden_trigger = { always = no }
-		}
-		relative_position_id = PAN_CPN_victory
-		prerequisite = {
-			focus = PAN_keep_police_grounded
-		}
-		x = -1
-		y = 3
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_united_in_nationalism
-		icon = GFX_goal_NEE_United_Federalist_Front
-		available = {
-			hidden_trigger = { always = no }
-		}
-		relative_position_id = PAN_CPN_victory
-		prerequisite = {
-			focus = PAN_coalition_with_PNR
-		}
-		x = 1
-		y = 3
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_for_benefit_of_panamanians
-		icon = GFX_goal_GUA_Our_People
-		available = {
-			hidden_trigger = { always = no }
-		}
-		relative_position_id = PAN_CPN_victory
-		prerequisite = {
-			focus = PAN_united_in_nationalism
-		}
-		prerequisite = {
-			focus = PAN_never_another_canal_zone
-		}
-		prerequisite = {
-			focus = PAN_foster_panamanian_patriotism
-		}
-		x = 0
-		y = 4
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_PNR_holds_on"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-        
-        # Socialists
-
-	focus = {
-		id = PAN_socialist_coup
-		icon = GFX_goal_CSA_Socialism_first
-		available = {
-			hidden_trigger = { always = no }
-		}
-		x = -19
-		y = 0
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_socialist_coup"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_workers_constitution
-		icon = GFX_goal_ALB_Constitution
-		available = {
-			has_socialist_government = yes
-		}
-		relative_position_id = PAN_socialist_coup
-		prerequisite = {
-			focus = PAN_socialist_coup
-		}
-		x = 1
-		y = 1
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_socialist_coup"
-
-		}
-	}
-	focus = {
-		id = PAN_broad_coalition
-		icon = GFX_goal_ZIM_broad
-		available = {
-			has_socialist_government = yes
-		}
-		relative_position_id = PAN_socialist_coup
-		prerequisite = {
-			focus = PAN_socialist_coup
-		}
-		x = -1
-		y = 1
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_socialist_coup"
-
-		}
-	}
-	focus = {
-		id = PAN_socialist_congress
-		icon = GFX_GRU_union_congress-4049
-		available = {
-			has_socialist_government = yes
-		}
-		relative_position_id = PAN_socialist_coup
-		prerequisite = {
-			focus = PAN_broad_coalition
-		}
-		prerequisite = {
-			focus = PAN_workers_constitution
-		}
-		x = 0
-		y = 2
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_socialist_coup"
-
-		}
-	}
-
-	focus = {
-		id = PAN_PL_victory
-		icon = GFX_goal_MEX_PLM_alt
-		available = {
-			has_government = social_democrat
-		}
-		relative_position_id = PAN_socialist_congress
-		prerequisite = {
-			focus = PAN_socialist_congress
-		}
-		x = -4
-		y = 1
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_socialist_coup"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_El_Mazo
-		icon = GFX_HUN_red_news
-		available = {
-			has_government = social_democrat
-		}
-		relative_position_id = PAN_PL_victory
-		prerequisite = {
-			focus = PAN_PL_victory
-		}
-		x = 0
-		y = 1
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_socialist_coup"
-
-		}
-	}
-	focus = {
-		id = PAN_repair_national_dignity
-		icon = GFX_goal_COL_Make_America_Pay
-		available = {
-			has_government = social_democrat
-		}
-		relative_position_id = PAN_PL_victory
-		prerequisite = {
-			focus = PAN_El_Mazo
-		}
-		x = -1
-		y = 2
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_socialist_coup"
-
-		}
-	}
-	focus = {
-		id = PAN_perm_revolution
-		icon = GFX_goal_CSA_final_revolution
-		available = {
-			has_government = social_democrat
-		}
-		relative_position_id = PAN_PL_victory
-		prerequisite = {
-			focus = PAN_El_Mazo
-		}
-		x = 1
-		y = 2
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_socialist_coup"
-
-		}
-	}
-	focus = {
-		id = PAN_rose_tinted_communism
-		icon = GFX_goal_MEX_Full_Communist_Orthodoxy
-		available = {
-			has_government = social_democrat
-		}
-		relative_position_id = PAN_PL_victory
-		prerequisite = {
-			focus = PAN_repair_national_dignity
-		}
-		prerequisite = {
-			focus = PAN_perm_revolution
-		}
-		x = 0
-		y = 3
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_socialist_coup"
-
-		}
-	}
-	focus = {
-		id = PAN_PPP_victory
-		icon = GFX_goal_CSA_townhall_democarcy
-		available = {
-			has_government = radical_socialist
-		}
-		relative_position_id = PAN_socialist_congress
-		prerequisite = {
-			focus = PAN_socialist_congress
-		}
-		x = 0
-		y = 1
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_socialist_coup"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_support_student_unions
-		icon = GFX_NEE_local_union
-		available = {
-			has_government = radical_socialist
-		}
-		relative_position_id = PAN_PPP_victory
-		prerequisite = {
-			focus = PAN_PPP_victory
-		}
-		x = 0
-		y = 1
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_socialist_coup"
-
-		}
-	}
-	focus = {
-		id = PAN_influence_unions
-		icon = GFX_goal_CSA_craft_unions_committee
-		available = {
-			has_government = radical_socialist
-		}
-		relative_position_id = PAN_PPP_victory
-		prerequisite = {
-			focus = PAN_support_student_unions
-		}
-		x = -1
-		y = 2
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_socialist_coup"
-
-		}
-	}
-	focus = {
-		id = PAN_support_from_internationale
-		icon = GFX_BBR_internationale_struggle
-		available = {
-			has_government = radical_socialist
-		}
-		relative_position_id = PAN_PPP_victory
-		prerequisite = {
-			focus = PAN_support_student_unions
-		}
-		x = 1
-		y = 2
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_socialist_coup"
-
-		}
-	}
-	focus = {
-		id = PAN_true_peoples_party
-		icon = GFX_goal_WHR_People
-		available = {
-			has_government = radical_socialist
-		}
-		relative_position_id = PAN_PPP_victory
-		prerequisite = {
-			focus = PAN_support_from_internationale
-		}
-		prerequisite = {
-			focus = PAN_influence_unions
-		}
-		x = 0
-		y = 3
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_socialist_coup"
-
-		}
-	}
-	focus = {
-		id = PAN_PS_victory
-		icon = GFX_RUS_Syndical_Cooperative_Federation
-		available = {
-			has_government = syndicalist
-		}
-		relative_position_id = PAN_socialist_congress
-		prerequisite = {
-			focus = PAN_socialist_congress
-		}
-		x = 4
-		y = 1
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_socialist_coup"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_urban_support
-		icon = GFX_BBR_rubber_stamped_urbanization
-		available = {
-			has_government = syndicalist
-		}
-		relative_position_id = PAN_PS_victory
-		prerequisite = {
-			focus = PAN_PS_victory
-		}
-		x = 0
-		y = 1
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_socialist_coup"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_organize_FSTP
-		icon = GFX_goal_FRA_union_dominance
-		available = {
-			has_government = syndicalist
-		}
-		relative_position_id = PAN_PS_victory
-		prerequisite = {
-			focus = PAN_urban_support
-		}
-		x = -1
-		y = 2
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_socialist_coup"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_idealistic_youth
-		icon = GFX_goal_FRA_Coop_Dominance
-		available = {
-			has_government = syndicalist
-		}
-		relative_position_id = PAN_PS_victory
-		prerequisite = {
-			focus = PAN_urban_support
-		}
-		x = 1
-		y = 2
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_socialist_coup"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_popular_front_of_workers
-		icon = GFX_goal_FRA_general_states_of_workers
-		available = {
-			has_government = syndicalist
-		}
-		relative_position_id = PAN_PS_victory
-		prerequisite = {
-			focus = PAN_idealistic_youth
-		}
-		prerequisite = {
-			focus = PAN_organize_FSTP
-		}
-		x = 0
-		y = 3
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_socialist_coup"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_anti_imperialism
-		icon = GFX_goal_NIC_Strong_Anti_Imperialism
-		available = {
-			has_government = syndicalist
-		}
-		relative_position_id = PAN_socialist_congress
-		prerequisite = {
-			focus = PAN_PPP_victory
-			focus = PAN_PL_victory
-			focus = PAN_PS_victory
-		}
-		x = -2
-		y = 2
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_socialist_coup"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-	focus = {
-		id = PAN_move_against_oligarchs
-		icon = GFX_goal_CSA_subdue_bourgeoisie
-		available = {
-			has_government = syndicalist
-		}
-		relative_position_id = PAN_socialist_congress
-		prerequisite = {
-			focus = PAN_PPP_victory
-			focus = PAN_PL_victory
-			focus = PAN_PS_victory
-		}
-		x = 2
-		y = 2
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_socialist_coup"
-			custom_effect_tooltip = unlock_focuses
-		}
-	}
-
-	focus = {
-		id = PAN_red_tide_on_isthmus
-		icon = GFX_goal_CSA_union_army
-		available = {
-			has_government = syndicalist
-		}
-		relative_position_id = PAN_socialist_congress
-		prerequisite = {
-			focus = PAN_rose_tinted_communism
-			focus = PAN_true_peoples_party
-			focus = PAN_popular_front_of_workers
-		}
-		x = 0
-		y = 5
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_socialist_coup"
-			custom_effect_tooltip = unlock_focuses
-		}
+		cost = 5
 	}
 	
-	## Panama Canal Path
+	# Panama Canal path
 
 	focus = {
-		id = PAN_The_Canal_Above_All
+		id = PAN_Americans_in_charge
 		icon = GFX_goal_PAN_canal_zone
-		cost = 4
 		available = {
 			has_country_flag = PAN_Canal_Victory
 		}
@@ -1662,472 +554,921 @@ focus_tree = {
 			has_country_flag = PAN_Canal_Victory
 		}
 		
-		x = -16
-		y = 9
+		x = 5
+		y = 6
+		cost = 0
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_The_Canal_Above_All"
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
 		}
 	}
-	
+
 	focus = {
-		id = PAN_Calm_the_Mariners_Down
-		icon = GFX_goal_PAN_canal_zone
-		cost = 4
-		relative_position_id = PAN_The_Canal_Above_All
+		id = PAN_deal_with_reds
+		icon = GFX_goal_SRI_end_reds
+		available = {
+			has_country_flag = PAN_Canal_Victory
+		}
+		relative_position_id = PAN_Americans_in_charge
 		prerequisite = {
-			focus = PAN_The_Canal_Above_All
+			focus = PAN_Americans_in_charge
 		}
 		
-		x = -1
+		x = -2
 		y = 1
+		cost = 1
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_Calm_the_Mariners_Down"
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			increase_ruling_party_popularity_by_5 = yes
+		}
+	}
+
+	focus = {
+		id = PAN_assure_international_community
+		icon = GFX_goal_PAN_global_approval
+		available = {
+			has_country_flag = PAN_Canal_Victory
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_Americans_in_charge
+		}
+		
+		x = 0
+		y = 1
+		cost = 1
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = PAN_cleaning_house
+		icon = GFX_cleaningourownhouse
+		available = {
+			has_country_flag = PAN_Canal_Victory
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_Americans_in_charge
+		}
+		
+		x = 2
+		y = 1
+		cost = 1
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			add_stability = 0.15
+		}
+	}
+
+	focus = {
+		id = PAN_future_of_the_zone
+		icon = GFX_goal_PAN_zone_question
+		available = {
+			has_country_flag = PAN_Canal_Victory
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_deal_with_reds
+		}
+		prerequisite = {
+			focus = PAN_assure_international_community
+		}
+		prerequisite = {
+			focus = PAN_cleaning_house
+		}
+		
+		x = 0
+		y = 2
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
 			country_event = canalzone.5
 		}
 	}
-	
+
 	focus = {
-		id = PAN_The_Poisoned_Cup_of_Panama
-		icon = GFX_goal_PAN_canal_zone
-		cost = 4
-		relative_position_id = PAN_The_Canal_Above_All
+		id = PAN_need_money
+		icon = GFX_goal_PAN_cash_crop
+		available = {
+			has_country_flag = PAN_Canal_Victory
+		}
+		relative_position_id = PAN_Americans_in_charge
 		prerequisite = {
-			focus = PAN_The_Canal_Above_All
+			focus = PAN_future_of_the_zone
+		}
+		
+		x = 0
+		y = 4
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			country_event = canalzone.18
+		}
+	}
+	focus = {
+		id = PAN_right_people
+		icon = GFX_goal_PAN_right_people
+		available = {
+			has_country_flag = PAN_Canal_Victory
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_need_money
 		}
 		
 		x = 1
-		y = 1
+		y = 5
+		cost = 5
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_The_Poisoned_Cup_of_Panama"
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			country_event = canalzone.16
+		}
+	}
+
+	focus = {
+		id = PAN_right_ships
+		icon = GFX_goal_PAN_right_ships
+		available = {
+			has_country_flag = PAN_Canal_Victory
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_need_money
+		}
+		
+		x = -1
+		y = 5
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			country_event = canalzone.17
+		}
+	}
+
+	focus = {
+		id = PAN_blind_eye
+		icon = GFX_goal_taking_to_sky
+		available = {
+			has_country_flag = PAN_Canal_Victory
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_right_ships
+		}
+		
+		x = -1
+		y = 6
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			add_equipment_to_stockpile = { type = small_plane_airframe amount = 100 producer = USA }
+		}
+	}
+
+	focus = {
+		id = PAN_bridge_gap
+		icon = GFX_goal_PAN_gapthing
+		available = {
+			has_country_flag = PAN_Canal_Victory
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_right_people
+		}
+		
+		x = 1
+		y = 6
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			country_event = canalzone.12
+
+		}
+	}
+
+	focus = {
+		id = PAN_cash_crop
+		icon = GFX_goal_PAN_cash_crop_but_real
+		available = {
+			has_country_flag = PAN_Canal_Victory
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_blind_eye
+		}
+		prerequisite = {
+			focus = PAN_bridge_gap
+		}
+		
+		x = 0
+		y = 7
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			set_country_flag = PAN_time_to_sell_drugs
+			set_variable = { PAN_drugs = 0 }	
+			custom_effect_tooltip = PAN_drug_tt
+		}
+	}
+
+	focus = {
+		id = PAN_expand_market
+		icon = GFX_goal_PAN_expand_market
+		available = {
+			has_country_flag = PAN_Canal_Victory
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_cash_crop
+		}
+		mutually_exclusive = {
+			focus = PAN_expand_product
+		}
+		
+		x = -1
+		y = 8
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			set_country_flag = PAN_bigger_drug_market
+			custom_effect_tooltip = PAN_bigger_market
+		}
+	}
+
+	focus = {
+		id = PAN_expand_product
+		icon = GFX_goal_PAN_expand_product
+		available = {
+			has_country_flag = PAN_Canal_Victory
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_cash_crop
+		}
+		mutually_exclusive = {
+			focus = PAN_expand_market
+		}
+		
+		x = 1
+		y = 8
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			set_country_flag = PAN_more_then_drug
+			set_variable = { PAN_peoplevar = 0 }										
+			set_variable = { PAN_gunsvar = 0 }	
+			custom_effect_tooltip = PAN_morethendrugtt
+		}
+	}
+
+	focus = {
+		id = PAN_loyalty_to_america
+		icon = GFX_goal_USA_american_panama
+		available = {
+			has_country_flag = PAN_Canal_americangang
+		}
+		bypass = {
+			has_country_flag = PAN_Canal_americangang
+		}
+		mutually_exclusive = {
+			focus = PAN_back_entente
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_future_of_the_zone
+		}
+		
+		x = -4
+		y = 3
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+
+	focus = {
+		id = PAN_gather_rufgeees
+		icon = GFX_goal_PAR_refugees
+		available = {
+			has_country_flag = PAN_Canal_americangang
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_loyalty_to_america
+		}
+		
+		x = -7
+		y = 4
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			add_ideas = pan_stealing_peoples1
+		}
+	}
+
+	focus = {
+		id = PAN_open_for_business
+		icon = GFX_openforbusiness
+		available = {
+			has_country_flag = PAN_Canal_americangang
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_loyalty_to_america
+		}
+		
+		x = -5
+		y = 4
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			country_event = canalzone.19
+		}
+	}
+
+	focus = {
+		id = PAN_christe_plan
+		icon = GFX_goal_PAN_christe_plan
+		available = {
+			has_country_flag = PAN_Canal_americangang
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_gather_rufgeees
+		}
+		
+		x = -7
+		y = 5
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			swap_ideas = {
+			remove_idea = pan_stealing_peoples1
+			add_idea = pan_stealing_peoples2
+			}
+		}
+	}
+
+	focus = {
+		id = PAN_connections_to_fbi
+		icon = GFX_goal_PAN_intel_bois
+		available = {
+			has_country_flag = PAN_Canal_americangang
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_open_for_business
+		}
+		
+		x = -5
+		y = 5
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			create_intelligence_agency = {
+					name = "Joint Panama Section of the FBI and OSS"
+					icon = GFX_intelligence_agency_logo_HOTB_oss
+				}
+			add_ideas = PAN_OSS_FBI
+			hidden_effect = {
+				country_event = {
+					id = canalzone.32
+					days = 15
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = PAN_home_away_from_home
+		icon = GFX_goal_PAN_homeaway
+		available = {
+			has_country_flag = PAN_Canal_americangang
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_christe_plan
+		}
+		prerequisite = {
+			focus = PAN_connections_to_fbi
+		}
+		
+		x = -6
+		y = 6
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			country_event = canalzone.20
+		}
+	}
+
+	focus = {
+		id = PAN_status_of_zone
+		icon = GFX_goal_PAN_zone_statusganng
+		available = {
+			has_country_flag = PAN_Canal_americangang
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_home_away_from_home
+		}
+		
+		x = -6
+		y = 7
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
 			country_event = canalzone.6
 		}
 	}
 
 	focus = {
-		id = PAN_The_Zones_Keepers
+		id = PAN_zone_with_state
 		icon = GFX_goal_PAN_zone_with_state
-		cost = 4
-		relative_position_id = PAN_The_Canal_Above_All
-		prerequisite = {
-			focus = PAN_Calm_the_Mariners_Down
+		available = {
+			has_country_flag = PAN_Canal_zonewithstate
 		}
+		relative_position_id = PAN_Americans_in_charge
 		prerequisite = {
-			focus = PAN_The_Poisoned_Cup_of_Panama
+			focus = PAN_status_of_zone
 		}
 		
-		x = 0
-		y = 2
+		x = -7
+		y = 8
+		cost = 5
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_The_Zones_Keepers"
-			country_event = canalzone.7
-		}
-	}
-	
-	focus = {
-		id = PAN_Schley_Development_Plan
-		icon = GFX_goal_PAN_canal_zone
-		cost = 4
-		relative_position_id = PAN_The_Zones_Keepers
-		prerequisite = {
-			focus = PAN_The_Zones_Keepers
-		}
-		
-		x = -3
-		y = 1
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_Schley_Development_Plan"
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
 			country_event = canalzone.8
 		}
 	}
-	
+
 	focus = {
-		id = PAN_An_American_Dream_Elsewhere
-		icon = GFX_goal_PAN_america_broke_lets_make_a_new_one
-		cost = 4
-		relative_position_id = PAN_Schley_Development_Plan
-		prerequisite = {
-			focus = PAN_Schley_Development_Plan
-		}
-		
-		x = -3
-		y = 1
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_An_American_Dream_Elsewhere"
-			country_event = canalzone.9
-			# Add custom tooltip here about integration possibility
-		}
-	}
-	
-	focus = {
-		id = PAN_From_Silver_to_Gold
-		icon = GFX_goal_PAN_canal_zone
-		cost = 4
-		relative_position_id = PAN_An_American_Dream_Elsewhere
-		prerequisite = {
-			focus = PAN_An_American_Dream_Elsewhere
-		}
-		
-		x = 1
-		y = 1
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_From_Silver_to_Gold"
-			PAN_improve_integration = yes
-		}
-	}
-	
-	focus = {
-		id = PAN_Essayons_Engineers
-		icon = GFX_goal_PAN_canal_zone
-		cost = 4
-		relative_position_id = PAN_Schley_Development_Plan
-		prerequisite = {
-			focus = PAN_Schley_Development_Plan
-		}
-		
-		x = -1
-		y = 1
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_Essayons_Engineers"
-			swap_ideas = {
-				remove_idea = PAN_army_corps_idea_1
-				add_idea = PAN_army_corps_idea_2
-			}
-		}
-	}
-	
-	focus = {
-		id = PAN_Universal_Sapper_Training
-		icon = GFX_goal_PAN_canal_zone
-		cost = 4
-		relative_position_id = PAN_Essayons_Engineers
-		prerequisite = {
-			focus = PAN_Essayons_Engineers
-		}
-		
-		x = 1
-		y = 1
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_Universal_Sapper_Training"
-			swap_ideas = {
-				remove_idea = PAN_army_corps_idea_2
-				add_idea = PAN_army_corps_idea_3
-			}
-			hidden_effect = {
-				country_event = { id = canalzone.12 days = 100 }
-			}
-		}
-	}
-	
-	focus = {
-		id = PAN_Bright_Spot_Between_the_Seas
-		icon = GFX_goal_PAN_homeaway
-		cost = 2
+		id = PAN_no_more_pussyfooting
+		icon = GFX_goal_PAN_pussyfooting
 		available = {
-			has_country_flag = PAN_Schley_Finished  #From Schley Decision Category
+			has_country_flag = PAN_Canal_zonewithstate
 		}
-		relative_position_id = PAN_Schley_Development_Plan
+		relative_position_id = PAN_Americans_in_charge
 		prerequisite = {
-			focus = PAN_Universal_Sapper_Training
-		}
-		prerequisite = {
-			focus = PAN_From_Silver_to_Gold
+			focus = PAN_zone_with_state
 		}
 		
-		x = 1
-		y = 3
+		x = -7
+		y = 9
+		cost = 5
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_Bright_Spot_Between_the_Seas"
-			add_ideas = PAN_bright_spot_idea
-		}
-	}
-	
-	focus = {
-		id = PAN_Hoovers_Dirty_Tricks
-		icon = GFX_goal_PAN_hooverbaby
-		cost = 4
-		relative_position_id = PAN_The_Zones_Keepers
-		prerequisite = {
-			focus = PAN_The_Zones_Keepers
-		}
-		
-		x = 0
-		y = 1
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_Hoovers_Dirty_Tricks"
-			country_event = canalzone.13
-			add_ideas = PAN_dirty_tricks_idea_1
-		}
-	}
-	
-	focus = {
-		id = PAN_Sweeten_the_Honeypot
-		icon = GFX_goal_PAN_canal_zone
-		cost = 4
-		relative_position_id = PAN_Hoovers_Dirty_Tricks
-		prerequisite = {
-			focus = PAN_Hoovers_Dirty_Tricks
-		}
-		
-		x = -2
-		y = 1
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_Sweeten_the_Honeypot"
-			swap_ideas = {
-				remove_idea = PAN_dirty_tricks_idea_1
-				add_idea = PAN_dirty_tricks_idea_2
-			}
-			hidden_effect = {
-				country_event = { id = canalzone.15 days = 60 }
-			}
-		}
-	}
-	
-	focus = {
-		id = PAN_The_Bureaus_Media
-		icon = GFX_goal_PAN_canal_zone
-		cost = 4
-		relative_position_id = PAN_Sweeten_the_Honeypot
-		prerequisite = {
-			focus = PAN_Sweeten_the_Honeypot
-		}
-		
-		x = 1
-		y = 1
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_The_Bureaus_Media"
-			swap_ideas = {
-				remove_idea = PAN_dirty_tricks_idea_2
-				add_idea = PAN_dirty_tricks_idea_3
-			}
-			hidden_effect = {
-				country_event = { id = canalzone.16 days = 80 }
-			}
-		}
-	}
-	
-	focus = {
-		id = PAN_The_Zone_Laboratory
-		icon = GFX_goal_PAN_canal_zone
-		cost = 4
-		relative_position_id = PAN_Hoovers_Dirty_Tricks
-		prerequisite = {
-			focus = PAN_Hoovers_Dirty_Tricks
-		}
-		
-		x = 0
-		y = 1
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_The_Zone_Laboratory"
-			add_ideas = PAN_fbi_idea_1
-		}
-	}
-	
-	focus = {
-		id = PAN_Commandos_and_Detectives
-		icon = GFX_goal_PAN_canal_zone
-		cost = 4
-		relative_position_id = PAN_Hoovers_Dirty_Tricks
-		prerequisite = {
-			focus = PAN_Hoovers_Dirty_Tricks
-		}
-		
-		x = 2
-		y = 1
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_Commandos_and_Detectives"
-			add_ideas = PAN_militarized_investigators
-		}
-	}
-	
-	focus = {
-		id = PAN_An_Eye_on_the_Homeland
-		icon = GFX_goal_PAN_canal_zone
-		cost = 4
-		relative_position_id = PAN_Commandos_and_Detectives
-		prerequisite = {
-			focus = PAN_Commandos_and_Detectives
-		}
-		
-		x = -1
-		y = 1
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_An_Eye_on_the_Homeland"
-			country_event = canalzone.18
-		}
-	}
-	
-	focus = {
-		id = PAN_World_Wide_Intelligence_Service
-		icon = GFX_goal_PAN_canal_zone
-		cost = 4
-		relative_position_id = PAN_Hoovers_Dirty_Tricks
-		prerequisite = {
-			focus = PAN_An_Eye_on_the_Homeland
-		}
-		prerequisite = {
-			focus = PAN_The_Zone_Laboratory
-		}
-		prerequisite = {
-			focus = PAN_The_Bureaus_Media
-		}
-		
-		x = 0
-		y = 3
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_World_Wide_Intelligence_Service"
-			swap_ideas = {
-				remove_idea = PAN_fbi_idea_1
-				add_idea = PAN_fbi_idea_2
-			}
-		}
-	}
-	
-	focus = {
-		id = PAN_New_Canal_Company
-		icon = GFX_goal_PAN_canal_zone
-		cost = 4
-		relative_position_id = PAN_The_Zones_Keepers
-		prerequisite = {
-			focus = PAN_The_Zones_Keepers
-		}
-		
-		x = 3
-		y = 1
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PAN_New_Canal_Company"
-			country_event = canalzone.19
-			swap_ideas = {
-				remove_idea = PAN_zone_economic_chaos_1
-				add_idea = PAN_zone_economic_chaos_2
-			}
-		}
-	}
-	
-	focus = {
-		id = PAN_Clear_Out_the_Inns_of_Sin
-		icon = GFX_goal_PAN_canal_zone
-		cost = 4
-		relative_position_id = PAN_New_Canal_Company
-		prerequisite = {
-			focus = PAN_New_Canal_Company
-		}
-		
-		x = 1
-		y = 1
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: PAN_Clear_Out_the_Inns_of_Sin"
-			country_event = canalzone.20
-			PAN_combat_corruption = yes
-		}
-	}
-	
-	focus = {
-		id = PAN_Commissary_Blues
-		icon = GFX_goal_PAN_canal_zone
-		cost = 4
-		relative_position_id = PAN_Clear_Out_the_Inns_of_Sin
-		prerequisite = {
-			focus = PAN_Clear_Out_the_Inns_of_Sin
-		}
-		
-		x = -1
-		y = 1
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: PAN_Commissary_Blues"
-			country_event = canalzone.21
-		}
-	}
-	
-	focus = {
-		id = PAN_Security_Beyond_Our_Pond
-		icon = GFX_goal_PAN_into_ca
-		cost = 4
-		relative_position_id = PAN_New_Canal_Company
-		prerequisite = {
-			focus = PAN_New_Canal_Company
-		}
-		
-		x = 3
-		y = 1
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: PAN_Security_Beyond_Our_Pond"
-			country_event = canalzone.22
-			swap_ideas = {
-				remove_idea = PAN_all_alone
-				add_idea = PAN_spreading_wings
-			}
-		}
-	}
-	
-	focus = {
-		id = PAN_A_New_Face_for_the_People
-		icon = GFX_goal_PAN_public_face
-		cost = 4
-		relative_position_id = PAN_Security_Beyond_Our_Pond
-		prerequisite = {
-			focus = PAN_Security_Beyond_Our_Pond
-		}
-		
-		x = -1
-		y = 1
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: PAN_A_New_Face_for_the_People"
-			country_event = canalzone.23
-		}
-	}
-	
-	focus = {
-		id = PAN_Freshen_Up_the_Bureaucracy
-		icon = GFX_goal_PAN_canal_zone
-		cost = 4
-		relative_position_id = PAN_New_Canal_Company
-		prerequisite = {
-			focus = PAN_A_New_Face_for_the_People
-		}
-		prerequisite = {
-			focus = PAN_Commissary_Blues
-		}
-		
-		x = -1
-		y = 3
-		cost = 0
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: PAN_Freshen_Up_the_Bureaucracy"
-			country_event = canalzone.24
-		}
-	}
-	
-	focus = {
-		id = PAN_The_Eagle_Safe_Among_the_Palms
-		icon = GFX_goal_PAN_canal_zone
-		cost = 4
-		relative_position_id = PAN_World_Wide_Intelligence_Service
-		prerequisite = {
-			focus = PAN_World_Wide_Intelligence_Service
-		}
-		prerequisite = {
-			focus = PAN_Freshen_Up_the_Bureaucracy
-		}
-		prerequisite = {
-			focus = PAN_Bright_Spot_Between_the_Seas
-		}
-		
-		x = 0
-		y = 1
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: PAN_The_Eagle_Safe_Among_the_Palms"
-			country_event = canalzone.25
-			add_ideas = PAN_eagle_palms_idea
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			add_ideas = PAN_pussyfootingidea
 		}
 	}
 
-focus = {
+	focus = {
+		id = PAN_public_face
+		icon = GFX_goal_PAN_public_face
+		available = {
+			has_country_flag = PAN_Canal_publicface
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_status_of_zone
+		}
+		
+		x = -9
+		y = 8
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			country_event = canalzone.7
+		}
+	}
+
+	focus = {
+		id = PAN_totally_real_elections
+		icon = GFX_goal_WCC_election_puppeteering
+		available = {
+			has_country_flag = PAN_Canal_publicface
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_public_face
+		}
+		
+		x = -9
+		y = 9
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			add_ideas = PAN_realelections_totally
+		}
+	}
+
+	focus = {
+		id = PAN_fbi_playground
+		icon = GFX_goal_PAN_hooverbaby
+		available = {
+			has_country_flag = PAN_canal_fbifunni
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_status_of_zone
+		}
+		
+		x = -5
+		y = 8
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			country_event = canalzone.9
+			hidden_effect = {
+				country_event = {
+					id = canalzone.33
+					days = 20
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = PAN_here_to_help
+		icon = GFX_goal_PAN_here_to_help
+		available = {
+			has_country_flag = PAN_canal_fbifunni
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_fbi_playground
+		}
+		
+		x = -5
+		y = 9
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			add_ideas = PAN_ciaidea
+		}
+	}
+
+	focus = {
+		id = PAN_invite_legit_prez
+		icon = GFX_goal_PAN_legit_pres
+		available = {
+			has_country_flag = PAN_Canal_legitpresgang
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_status_of_zone
+		}
+		
+		x = -3
+		y = 8
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			country_event = canalzone.10
+		}
+	}
+
+	focus = {
+		id = PAN_restoring_the_union
+		icon = GFX_goal_PAN_america_broke_lets_make_a_new_one
+		available = {
+			has_country_flag = PAN_Canal_legitpresgang
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_invite_legit_prez
+		}
+		
+		x = -3
+		y = 9
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			add_ideas = PAN_legitpresidea
+			set_country_flag = PAN_US_PRESIDENT
+		}
+	}
+
+	focus = {
+		id = PAN_eating_ca
+		icon = GFX_goal_PAN_into_ca
+		available = {
+			has_country_flag = PAN_Canal_americangang
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_totally_real_elections
+			focus = PAN_no_more_pussyfooting
+			focus = PAN_here_to_help
+			focus = PAN_restoring_the_union
+		}
+		
+		x = -6
+		y = 10
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			every_state = {
+				limit = {
+					is_core_of = COS
+					is_core_of = HON
+					is_core_of = NIC
+					is_core_of = GUA
+					is_core_of = ELS
+				}
+				add_claim_by = PAN
+			}
+			create_wargoal = {
+					type = annex_everything
+					target = COS
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = HON
+					
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = NIC
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = GUA
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = ELS
+				}
+			hidden_effect = {
+				if = {
+				limit = { CEN = { exists = yes } }
+				create_wargoal = {
+					type = annex_everything
+					target = CEN
+				}
+				every_state = {
+					limit = {
+						is_core_of = CEN
+					}
+					add_claim_by = PAN
+				}
+			    }
+			}	
+		}
+	}
+
+	focus = {
+		id = PAN_back_entente
+		icon = GFX_goal_PAN_backentetnetetet
+		available = {
+			has_country_flag = PAN_Canal_Backed_ENT
+		}
+		bypass = {
+			has_country_flag = PAN_Canal_Backed_ENT
+		}
+		mutually_exclusive = {
+			focus = PAN_loyalty_to_america
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_future_of_the_zone
+		}
+		
+		x = 4
+		y = 3
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+
+	focus = {
+		id = PAN_redirct_traffic
+		icon = GFX_goal_PAN_traffic_gang
+		available = {
+			has_country_flag = PAN_Canal_Backed_ENT
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_back_entente
+		}
+		
+		x = 5
+		y = 4
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			add_ideas = PAN_redirct_trafficidea
+		}
+	}
+
+	focus = {
+		id = PAN_new_ships
+		icon = GFX_goal_ALA_seize_ships
+		available = {
+			has_country_flag = PAN_Canal_Backed_ENT
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_redirct_traffic
+		}
+		
+		x = 5
+		y = 5
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			custom_effect_tooltip = PAN_zone_ships
+			hidden_effect = {
+				load_oob = PAN_new_shipsobb
+			}
+		}
+	}
+
+	focus = {
+		id = PAN_favor_entente_shipping
+		icon = GFX_goal_ZAM_shipments
+		available = {
+			has_country_flag = PAN_Canal_Backed_ENT
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_back_entente
+		}
+		
+		x = 7
+		y = 4
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			add_ideas = PAN_favorentententnete
+		}
+	}
+
+	focus = {
+		id = PAN_quid_pro_quo
+		icon = GFX_goal_PAN_quidprojoe
+		available = {
+			has_country_flag = PAN_Canal_Backed_ENT
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_favor_entente_shipping
+		}
+		
+		x = 7
+		y = 5
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			country_event = canalzone.21
+		}
+	}
+
+	focus = {
+		id = PAN_geared_and_ready
+		icon = GFX_goal_ZAM_liberation
+		available = {
+			has_country_flag = PAN_Canal_Backed_ENT
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_new_ships
+		}
+		prerequisite = {
+			focus = PAN_quid_pro_quo
+		}
+
+		x = 6
+		y = 6
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			add_ideas = PAN_gearedidea
+		}
+	}
+	focus = {
+		id = PAN_fuck_ca_allmyhomieshateca
+		icon = GFX_goal_taming_ca
+		available = {
+			has_country_flag = PAN_Canal_Backed_ENT
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_geared_and_ready
+		}
+
+		x = 6
+		y = 7
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			every_state = {
+				limit = {
+					is_core_of = COS
+					is_core_of = HON
+					is_core_of = NIC
+					is_core_of = GUA
+					is_core_of = ELS
+				}
+				add_claim_by = PAN
+			}
+			if = {
+				limit = {
+					country_exists = CEN
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = CEN
+				}
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = COS
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = HON
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = NIC
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = GUA
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = ELS
+			}
+		}
+	}
+	focus = {
+		id = PAN_domonion_of_ca
+		icon = GFX_goal_PAN_domionananan
+		available = {
+			314 = {
+			owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+			317 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+			313 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+			312 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		relative_position_id = PAN_Americans_in_charge
+		prerequisite = {
+			focus = PAN_fuck_ca_allmyhomieshateca
+		}
+		
+		x = 6
+		y = 8
+		cost = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PAN_Americans_in_charge"
+			country_event = canalzone.22
+		}
+	}
+
+###################################################################################################################################################END ELECTION EVENTS
+}
+
+shared_focus = {
 	id = PAN_canal_in_crisis
 	icon = GFX_goal_PAN_canal_in_crisis
 	available = {
 		hidden_trigger = { always = no }
 	}
-	x = 15
+	x = 14
 	y = 0
 	cost = 0
 	completion_reward = {
@@ -2135,7 +1476,7 @@ focus = {
 		unlock_decision_tooltip = PAN_seize_canal
 	}
 }
-focus = {
+shared_focus = {
 	id = PAN_entente_support
 	icon = GFX_TRM_Entente_Support
 	relative_position_id = PAN_canal_in_crisis
@@ -2147,9 +1488,8 @@ focus = {
 	}
 	mutually_exclusive = {
 		focus = PAN_stand_alone
-            focus = PAN_support_from_far_east
 	}
-	x = -4
+	x = -1
 	y = 1
 	cost = 0
 	completion_reward = {
@@ -2157,7 +1497,7 @@ focus = {
 		custom_effect_tooltip = unlock_focuses
 	}
 }
-focus = {
+shared_focus = {
 	id = PAN_request_ship_tech
 	relative_position_id = PAN_entente_support
 	icon = GFX_goal_CRO_naval_academy
@@ -2174,16 +1514,16 @@ focus = {
 		}
 	}
 	search_filters = { FOCUS_FILTER_RESEARCH }
-	x = -1
+	x = 0
 	y = 1
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_encourage_entente_trade
 	relative_position_id = PAN_entente_support
 	icon = GFX_goal_MEX_open_markets_for_entente
 	prerequisite = {
-		focus = PAN_entente_support
+		focus = PAN_request_ship_tech
 	}
 	completion_reward = {
 		log = "[GetDateText]: [Root.GetName]: Focus PAN_encourage_entente_trade"
@@ -2194,73 +1534,12 @@ focus = {
 			}
 		}
 	}
-	x = 1
-	y = 1
+	x = 0
+	y = 2
 	cost = 5
 }
 
-focus = {
-	id = PAN_support_from_far_east
-	icon = GFX_goal_CAL_work_with_japan_markets
-	relative_position_id = PAN_canal_in_crisis
-	prerequisite = {
-		focus = PAN_canal_in_crisis
-	}
-	available = {
-		hidden_trigger = { always = no }
-	}
-	mutually_exclusive = {
-		focus = PAN_entente_support
-            focus = PAN_stand_alone
-	}
-	x = 4
-	y = 1
-	cost = 0
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_stand_alone"
-		custom_effect_tooltip = unlock_focuses
-	}
-}
-focus = {
-	id = PAN_adapt_japanese_doctrine
-	icon = GFX_goal_FNG_Japanese_Schooling
-	relative_position_id = PAN_support_from_far_east
-	prerequisite = {
-		focus = PAN_support_from_far_east
-	}
-
-	x = -1
-	y = 1
-	cost = 0
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_stand_alone"
-		custom_effect_tooltip = unlock_focuses
-	}
-}
-focus = {
-	id = PAN_join_the_sphere
-	icon = GFX_goal_FNG_Empires_Stockpile
-	relative_position_id = PAN_support_from_far_east
-	prerequisite = {
-		focus = PAN_support_from_far_east
-	}
-	available = {
-		NOT = {
-               has_war_with = CAN
-            }
-            owns_state = 685
-            has_completed_focus = PAN_adapt_japanese_doctrine
-	}
-
-	x = 1
-	y = 1
-	cost = 0
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_stand_alone"
-		custom_effect_tooltip = unlock_focuses
-	}
-}
-focus = {
+shared_focus = {
 	id = PAN_stand_alone
 	icon = GFX_goal_NFA_review_army
 	relative_position_id = PAN_canal_in_crisis
@@ -2272,9 +1551,8 @@ focus = {
 	}
 	mutually_exclusive = {
 		focus = PAN_entente_support
-            focus = PAN_support_from_far_east
 	}
-	x = 0
+	x = 1
 	y = 1
 	cost = 0
 	completion_reward = {
@@ -2282,7 +1560,445 @@ focus = {
 		custom_effect_tooltip = unlock_focuses
 	}
 }
-focus = {
+shared_focus = {
+	id = PAN_protect_interests
+	icon = GFX_goal_army_guy
+	x = 29
+	y = 0
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAN_protect_interests"
+		add_war_support = 0.05
+	}
+	search_filters = { FOCUS_FILTER_WAR_SUPPORT }
+	cost = 5
+}
+shared_focus = {
+	id = PAN_by_air
+	icon = GFX_goal_PAN_Airforce
+	relative_position_id = PAN_protect_interests
+	prerequisite = {
+		focus = PAN_protect_interests
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAN_by_air"
+		304 = {
+			if = {
+				limit = { is_owned_by = PAN }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	search_filters = { FOCUS_FILTER_INDUSTRY }
+	x = -1
+	y = 1
+	cost = 5
+}
+shared_focus = {
+	id = PAN_study_foreign_designs
+	icon = GFX_focus_jap_zero
+	relative_position_id = PAN_by_air
+	prerequisite = {
+		focus = PAN_by_air
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAN_study_foreign_designs"
+		add_tech_bonus = {
+			name = PAN_study_foreign_designs
+			bonus = 0.5
+			uses = 1
+			category = light_fighter
+		}
+	}
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	x = 0
+	y = 1
+	cost = 5
+}
+shared_focus = {
+	id = PAN_purchase_aircraft
+	icon = GFX_goal_generic_intelligence_exchange
+	relative_position_id = PAN_by_air
+	prerequisite = {
+		focus = PAN_study_foreign_designs
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAN_purchase_aircraft"
+		add_equipment_to_stockpile = { type = small_plane_airframe amount = 25 producer = USA }
+	}
+	x = -1
+	y = 2
+	cost = 5
+}
+shared_focus = {
+	id = PAN_CAS_focus
+	icon = GFX_goal_generic_CAS
+	relative_position_id = PAN_by_air
+	prerequisite = {
+		focus = PAN_purchase_aircraft
+	}
+	mutually_exclusive = {
+		focus = PAN_tac_bombing_focus
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAN_CAS_focus"
+		add_tech_bonus = {
+			name = PAN_CAS_focus
+			bonus = 0.5
+			uses = 1
+			category = cas_bomber
+		}
+	}
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	x = -2
+	y = 3
+	cost = 5
+}
+shared_focus = {
+	id = PAN_logistics_improvement
+	icon = GFX_focus_generic_cryptologic_bomb
+	relative_position_id = PAN_by_air
+	prerequisite = {
+		focus = PAN_CAS_focus
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAN_logistics_improvement"
+		add_ideas = PAN_improved_logistics
+	}
+	search_filters = { FOCUS_FILTER_AIRFORCE_BONUS }
+	x = -2
+	y = 4
+	cost = 5
+}
+shared_focus = {
+	id = PAN_fighter_interceptors
+	icon = GFX_goal_generic_air_fighter2
+	relative_position_id = PAN_by_air
+	prerequisite = {
+		focus = PAN_logistics_improvement
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAN_fighter_interceptors"
+		add_tech_bonus = {
+			name = PAN_fighter_interceptors
+			bonus = 0.5
+			uses = 1
+			category = light_fighter
+		}
+	}
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	x = -2
+	y = 5
+	cost = 5
+}
+shared_focus = {
+	id = PAN_tac_bombing_focus
+	icon = GFX_goal_generic_air_bomber
+	relative_position_id = PAN_by_air
+	prerequisite = {
+		focus = PAN_purchase_aircraft
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAN_tac_bombing_focus"
+		add_tech_bonus = {
+			name = PAN_tac_bombing_focus
+			bonus = 0.5
+			uses = 1
+			category = tactical_bomber
+		}
+	}
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	mutually_exclusive = {
+		focus = PAN_CAS_focus
+	}
+	x = 0
+	y = 3
+	cost = 5
+}
+shared_focus = {
+	id = PAN_fighter_escorts
+	icon = GFX_goal_generic_air_fighter
+	relative_position_id = PAN_by_air
+	prerequisite = {
+		focus = PAN_tac_bombing_focus
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAN_fighter_escorts"
+		add_ideas = PAN_fighter_escort
+	}
+	search_filters = { FOCUS_FILTER_AIRFORCE_BONUS }
+	x = 0
+	y = 4
+	cost = 5
+}
+shared_focus = {
+	id = PAN_all_weather_training
+	icon = GFX_goal_generic_air_production
+	relative_position_id = PAN_by_air
+	prerequisite = {
+		focus = PAN_fighter_escorts
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAN_all_weather_training"
+		swap_ideas = {
+			add_idea = PAN_weather_training
+			remove_idea = PAN_fighter_escort
+		}
+	}
+	search_filters = { FOCUS_FILTER_AIRFORCE_BONUS }
+	x = 0
+	y = 5
+	cost = 5
+}
+shared_focus = {
+	id = PAN_invest_in_our_planes
+	icon = GFX_goal_continuous_air_production
+	relative_position_id = PAN_by_air
+	prerequisite = {
+		focus = PAN_all_weather_training focus = PAN_fighter_interceptors
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAN_invest_in_our_planes"
+		add_ideas = PAN_our_own_air_force
+	}
+	search_filters = { FOCUS_FILTER_AIRFORCE_BONUS }
+	x = -1
+	y = 6
+	cost = 5
+}
+shared_focus = {
+	id = PAN_by_sea
+	icon = GFX_goal_PAN_Navy
+	prerequisite = {
+		focus = PAN_protect_interests
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAN_by_sea"
+		304 = {
+			if = {
+				limit = { is_owned_by = PAN }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					province = 7630
+					instant_build = yes
+				}
+			}
+		}
+	}
+	search_filters = { FOCUS_FILTER_INDUSTRY }
+	relative_position_id = PAN_protect_interests
+	x = 1
+	y = 1
+	cost = 5
+}
+shared_focus = {
+	id = PAN_protect_trade
+	icon = GFX_goal_generic_positive_trade_relations
+	relative_position_id = PAN_by_sea
+	prerequisite = {
+		focus = PAN_by_sea
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAN_protect_trade"
+		add_ideas = PAN_begone_subs
+	}
+	search_filters = { FOCUS_FILTER_NAVY_BONUS }
+	x = 0
+	y = 1
+	cost = 5
+}
+shared_focus = {
+	id = PAN_convoy_hunting
+	icon = GFX_goal_generic_navy_battleship
+	relative_position_id = PAN_by_sea
+	prerequisite = {
+		focus = PAN_protect_trade
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAN_convoy_hunting"
+		navy_experience = 10
+		add_doctrine_cost_reduction = {
+	name = naval_doc_bonus
+	cost_reduction = 0.5
+	uses = 1
+	category = naval_doctrine
+		}
+	}
+	search_filters = { FOCUS_FILTER_NAVY_BONUS FOCUS_FILTER_RESEARCH }
+	x = 1
+	y = 2
+	cost = 5
+}
+shared_focus = {
+	id = PAN_sub_fleet
+	icon = GFX_goal_generic_navy_submarine
+	relative_position_id = PAN_by_sea
+	prerequisite = {
+		focus = PAN_convoy_hunting
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAN_sub_fleet"
+		navy_experience = 10
+		add_tech_bonus = {
+			name = PAN_sub_fleet
+			bonus = 0.5
+			uses = 1
+			category = ss_tech
+		}
+	}
+	search_filters = { FOCUS_FILTER_NAVY_BONUS FOCUS_FILTER_RESEARCH }
+	mutually_exclusive = {
+		focus = PAN_escort_fleet
+	}
+	x = 0
+	y = 3
+	cost = 5
+}
+shared_focus = {
+	id = PAN_raiding_tactics
+	icon = GFX_goal_generic_sea_focused_navy
+	relative_position_id = PAN_by_sea
+	prerequisite = {
+		focus = PAN_sub_fleet
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAN_raiding_tactics"
+		add_ideas = PAN_con_raiding_tactics
+	}
+	search_filters = { FOCUS_FILTER_NAVY_BONUS }
+	x = 0
+	y = 4
+	cost = 5
+}
+shared_focus = {
+	id = PAN_improved_torpedoes
+	icon = GFX_goal_generic_air_naval_bomber
+	relative_position_id = PAN_by_sea
+	prerequisite = {
+		focus = PAN_raiding_tactics
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAN_improved_torpedoes"
+		swap_ideas = {
+			add_idea = PAN_better_torps
+			remove_idea = PAN_con_raiding_tactics
+		}
+	}
+	search_filters = { FOCUS_FILTER_NAVY_BONUS }
+	x = 0
+	y = 5
+	cost = 5
+}
+shared_focus = {
+	id = PAN_escort_fleet
+	icon = GFX_focus_generic_destroyer
+	relative_position_id = PAN_by_sea
+	prerequisite = {
+		focus = PAN_convoy_hunting
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAN_escort_fleet"
+		navy_experience = 10
+		add_tech_bonus = {
+			name = PAN_escort_fleet
+			bonus = 0.5
+			uses = 1
+			category = dd_tech
+		}
+	}
+	search_filters = { FOCUS_FILTER_NAVY_BONUS FOCUS_FILTER_RESEARCH }
+	mutually_exclusive = {
+		focus = PAN_sub_fleet
+	}
+	x = 2
+	y = 3
+	cost = 5
+}
+shared_focus = {
+	id = PAN_countering_subs
+	icon = GFX_goal_generic_navy_anti_submarine
+	relative_position_id = PAN_by_sea
+	prerequisite = {
+		focus = PAN_escort_fleet
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAN_countering_subs"
+		add_ideas = PAN_anti_sub_tactics
+	}
+	search_filters = { FOCUS_FILTER_NAVY_BONUS }
+	x = 2
+	y = 4
+	cost = 5
+}
+shared_focus = {
+	id = PAN_cruiser_designs #2 50% research bonuses on the next CL and CA
+	icon = GFX_focus_generic_cruiser2
+	relative_position_id = PAN_by_sea
+	prerequisite = {
+		focus = PAN_countering_subs
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAN_cruiser_designs"
+		navy_experience = 10
+		add_tech_bonus = {
+			name = PAN_cruiser_designs			bonus = 0.5
+			uses = 2
+			category = cl_tech
+		}
+		navy_experience = 10
+		add_tech_bonus = {
+			name = PAN_cruiser_designs			bonus = 0.15
+			uses = 1
+			category = bc_tech
+		}
+	}
+	search_filters = { FOCUS_FILTER_NAVY_BONUS FOCUS_FILTER_RESEARCH }
+	x = 2
+	y = 5
+	cost = 5
+}
+shared_focus = {
+	id = PAN_increase_naval_production
+	icon = GFX_goal_continuous_naval_production
+	relative_position_id = PAN_by_sea
+	prerequisite = {
+		focus = PAN_cruiser_designs focus = PAN_improved_torpedoes
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAN_increase_naval_production"
+		add_ideas = PAN_increased_naval_production
+	}
+	search_filters = { FOCUS_FILTER_INDUSTRY }
+	x = 1
+	y = 6
+	cost = 5
+}
+shared_focus = {
+	id = PAN_new_military_academy
+	icon = GFX_goal_tfv_generic_tech_sharing
+	relative_position_id = PAN_by_sea
+	prerequisite = {
+		focus = PAN_increase_naval_production
+	}
+	prerequisite = {
+		focus = PAN_invest_in_our_planes
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAN_new_military_academy"
+		add_research_slot = 1
+	}
+	search_filters = { FOCUS_FILTER_RESEARCH }
+	x = -1
+	y = 7
+	cost = 5
+}
+shared_focus = {
 	id = PAN_hold_the_canal
 	relative_position_id = PAN_stand_alone
 	icon = GFX_goal_USA_panama_control
@@ -2312,19 +2028,19 @@ focus = {
 		}
 	}
 	search_filters = { FOCUS_FILTER_INDUSTRY }
-	x = 1
+	x = 0
 	y = 1
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_fortify_the_coast
 	relative_position_id = PAN_stand_alone
 	icon = GFX_USA_secure_coastline
 	prerequisite = {
-		focus = PAN_stand_alone
+		focus = PAN_hold_the_canal
 	}
-	x = -1
-	y = 1
+	x = 0
+	y = 2
 	cost = 5
 	completion_reward = {
 		log = "[GetDateText]: [Root.GetName]: Focus PAN_fortify_the_coast"
@@ -2357,527 +2073,7 @@ focus = {
 	}
 	search_filters = { FOCUS_FILTER_INDUSTRY }
 }
-focus = {
-	id = PAN_on_global_stage
-	icon = GFX_goal_PAN_COA
-	prerequisite = {
-		focus = PAN_fortify_the_coast focus = PAN_encourage_entente_trade focus = PAN_adapt_japanese_doctrine
-	}
-	prerequisite = {
-		focus = PAN_request_ship_tech focus = PAN_hold_the_canal focus = PAN_join_the_sphere
-	}
-	available = {
-		OR = {
-			ENT = {
-				exists = yes
-				is_subject = no
-				NOT = {
-					has_war_with = ROOT
-					has_country_flag = PAN_refused_invesment
-				}
-			}
-			GER = {
-				exists = yes
-				is_subject = no
-				NOT = {
-					has_war_with = ROOT
-					has_country_flag = PAN_refused_invesment
-				}
-			}
-		}
-	}
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_on_global_stage"
-		unlock_decision_category_tooltip = PAN_foreign_category
-	}
-	relative_position_id = PAN_canal_in_crisis
-	x = 0
-	y = 3
-	cost = 5
-}
-focus = {
-	id = PAN_towards_bolivars_dream
-	icon = GFX_goal_COL_Final_Blow
-	relative_position_id = PAN_canal_in_crisis
-	x = 1
-	y = 4
-	cost = 5
-        mutually_exclusive = {
-                focus = PAN_eyes_to_north
-        }
-	prerequisite = {
-		focus = PAN_on_global_stage
-	}
-
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_on_global_stage"
-                hidden_effect = {
-                       	unlock_decision_category_tooltip = PAN_conquest
-                }
-		set_country_flag = PAN_bolivar_chads
-	}
-}
-focus = {
-	id = PAN_eyes_to_north
-	icon = GFX_goal_YUC_Free_Central_America
-	relative_position_id = PAN_canal_in_crisis
-	x = -1
-	y = 4
-	cost = 5
-        mutually_exclusive = {
-                focus = PAN_towards_bolivars_dream
-        }
-	prerequisite = {
-		focus = PAN_on_global_stage
-	}
-
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_on_global_stage"
-                hidden_effect = {
-                       	unlock_decision_category_tooltip = PAN_conquest
-                }
-		set_country_flag = PAN_CA_time
-	}
-}
-focus = {
-	id = PAN_protect_interests
-	icon = GFX_goal_army_guy
-	x = 35
-	y = 0
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_protect_interests"
-		add_war_support = 0.05
-	}
-	search_filters = { FOCUS_FILTER_WAR_SUPPORT }
-	cost = 5
-}
-focus = {
-	id = PAN_by_air
-	icon = GFX_goal_PAN_Airforce
-	relative_position_id = PAN_protect_interests
-	prerequisite = {
-		focus = PAN_protect_interests
-	}
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_by_air"
-		304 = {
-			if = {
-				limit = { is_owned_by = PAN }
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = air_base
-					level = 2
-					instant_build = yes
-				}
-			}
-		}
-	}
-	search_filters = { FOCUS_FILTER_INDUSTRY }
-	x = -1
-	y = 1
-	cost = 5
-}
-focus = {
-	id = PAN_study_foreign_designs
-	icon = GFX_focus_jap_zero
-	relative_position_id = PAN_by_air
-	prerequisite = {
-		focus = PAN_by_air
-	}
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_study_foreign_designs"
-		add_tech_bonus = {
-			name = PAN_study_foreign_designs
-			bonus = 0.5
-			uses = 1
-			category = light_fighter
-		}
-	}
-	search_filters = { FOCUS_FILTER_RESEARCH }
-	x = 0
-	y = 1
-	cost = 5
-}
-focus = {
-	id = PAN_purchase_aircraft
-	icon = GFX_goal_generic_intelligence_exchange
-	relative_position_id = PAN_by_air
-	prerequisite = {
-		focus = PAN_study_foreign_designs
-	}
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_purchase_aircraft"
-		add_equipment_to_stockpile = { type = small_plane_airframe amount = 25 producer = USA }
-	}
-	x = -1
-	y = 2
-	cost = 5
-}
-focus = {
-	id = PAN_CAS_focus
-	icon = GFX_goal_generic_CAS
-	relative_position_id = PAN_by_air
-	prerequisite = {
-		focus = PAN_purchase_aircraft
-	}
-	mutually_exclusive = {
-		focus = PAN_tac_bombing_focus
-	}
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_CAS_focus"
-		add_tech_bonus = {
-			name = PAN_CAS_focus
-			bonus = 0.5
-			uses = 1
-			category = cas_bomber
-		}
-	}
-	search_filters = { FOCUS_FILTER_RESEARCH }
-	x = -2
-	y = 3
-	cost = 5
-}
-focus = {
-	id = PAN_logistics_improvement
-	icon = GFX_focus_generic_cryptologic_bomb
-	relative_position_id = PAN_by_air
-	prerequisite = {
-		focus = PAN_CAS_focus
-	}
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_logistics_improvement"
-		add_ideas = PAN_improved_logistics
-	}
-	search_filters = { FOCUS_FILTER_AIRFORCE_BONUS }
-	x = -2
-	y = 4
-	cost = 5
-}
-focus = {
-	id = PAN_fighter_interceptors
-	icon = GFX_goal_generic_air_fighter2
-	relative_position_id = PAN_by_air
-	prerequisite = {
-		focus = PAN_logistics_improvement
-	}
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_fighter_interceptors"
-		add_tech_bonus = {
-			name = PAN_fighter_interceptors
-			bonus = 0.5
-			uses = 1
-			category = light_fighter
-		}
-	}
-	search_filters = { FOCUS_FILTER_RESEARCH }
-	x = -2
-	y = 5
-	cost = 5
-}
-focus = {
-	id = PAN_tac_bombing_focus
-	icon = GFX_goal_generic_air_bomber
-	relative_position_id = PAN_by_air
-	prerequisite = {
-		focus = PAN_purchase_aircraft
-	}
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_tac_bombing_focus"
-		add_tech_bonus = {
-			name = PAN_tac_bombing_focus
-			bonus = 0.5
-			uses = 1
-			category = tactical_bomber
-		}
-	}
-	search_filters = { FOCUS_FILTER_RESEARCH }
-	mutually_exclusive = {
-		focus = PAN_CAS_focus
-	}
-	x = 0
-	y = 3
-	cost = 5
-}
-focus = {
-	id = PAN_fighter_escorts
-	icon = GFX_goal_generic_air_fighter
-	relative_position_id = PAN_by_air
-	prerequisite = {
-		focus = PAN_tac_bombing_focus
-	}
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_fighter_escorts"
-		add_ideas = PAN_fighter_escort
-	}
-	search_filters = { FOCUS_FILTER_AIRFORCE_BONUS }
-	x = 0
-	y = 4
-	cost = 5
-}
-focus = {
-	id = PAN_all_weather_training
-	icon = GFX_goal_generic_air_production
-	relative_position_id = PAN_by_air
-	prerequisite = {
-		focus = PAN_fighter_escorts
-	}
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_all_weather_training"
-		swap_ideas = {
-			add_idea = PAN_weather_training
-			remove_idea = PAN_fighter_escort
-		}
-	}
-	search_filters = { FOCUS_FILTER_AIRFORCE_BONUS }
-	x = 0
-	y = 5
-	cost = 5
-}
-focus = {
-	id = PAN_invest_in_our_planes
-	icon = GFX_goal_continuous_air_production
-	relative_position_id = PAN_by_air
-	prerequisite = {
-		focus = PAN_all_weather_training focus = PAN_fighter_interceptors
-	}
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_invest_in_our_planes"
-		add_ideas = PAN_our_own_air_force
-	}
-	search_filters = { FOCUS_FILTER_AIRFORCE_BONUS }
-	x = -1
-	y = 6
-	cost = 5
-}
-focus = {
-	id = PAN_by_sea
-	icon = GFX_goal_PAN_Navy
-	prerequisite = {
-		focus = PAN_protect_interests
-	}
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_by_sea"
-		304 = {
-			if = {
-				limit = { is_owned_by = PAN }
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = naval_base
-					level = 2
-					province = 7630
-					instant_build = yes
-				}
-			}
-		}
-	}
-	search_filters = { FOCUS_FILTER_INDUSTRY }
-	relative_position_id = PAN_protect_interests
-	x = 1
-	y = 1
-	cost = 5
-}
-focus = {
-	id = PAN_protect_trade
-	icon = GFX_goal_generic_positive_trade_relations
-	relative_position_id = PAN_by_sea
-	prerequisite = {
-		focus = PAN_by_sea
-	}
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_protect_trade"
-		add_ideas = PAN_begone_subs
-	}
-	search_filters = { FOCUS_FILTER_NAVY_BONUS }
-	x = 0
-	y = 1
-	cost = 5
-}
-focus = {
-	id = PAN_convoy_hunting
-	icon = GFX_goal_generic_navy_battleship
-	relative_position_id = PAN_by_sea
-	prerequisite = {
-		focus = PAN_protect_trade
-	}
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_convoy_hunting"
-		navy_experience = 10
-		add_doctrine_cost_reduction = {
-	name = naval_doc_bonus
-	cost_reduction = 0.5
-	uses = 1
-	category = cat_trade_interdiction
-		}
-	}
-	search_filters = { FOCUS_FILTER_NAVY_BONUS FOCUS_FILTER_RESEARCH }
-	x = 1
-	y = 2
-	cost = 5
-}
-focus = {
-	id = PAN_sub_fleet
-	icon = GFX_goal_generic_navy_submarine
-	relative_position_id = PAN_by_sea
-	prerequisite = {
-		focus = PAN_convoy_hunting
-	}
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_sub_fleet"
-		navy_experience = 10
-		add_tech_bonus = {
-			name = PAN_sub_fleet
-			bonus = 0.5
-			uses = 1
-			category = ss_tech
-		}
-	}
-	search_filters = { FOCUS_FILTER_NAVY_BONUS FOCUS_FILTER_RESEARCH }
-	mutually_exclusive = {
-		focus = PAN_escort_fleet
-	}
-	x = 0
-	y = 3
-	cost = 5
-}
-focus = {
-	id = PAN_raiding_tactics
-	icon = GFX_goal_generic_sea_focused_navy
-	relative_position_id = PAN_by_sea
-	prerequisite = {
-		focus = PAN_sub_fleet
-	}
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_raiding_tactics"
-		add_ideas = PAN_con_raiding_tactics
-	}
-	search_filters = { FOCUS_FILTER_NAVY_BONUS }
-	x = 0
-	y = 4
-	cost = 5
-}
-focus = {
-	id = PAN_improved_torpedoes
-	icon = GFX_goal_generic_air_naval_bomber
-	relative_position_id = PAN_by_sea
-	prerequisite = {
-		focus = PAN_raiding_tactics
-	}
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_improved_torpedoes"
-		swap_ideas = {
-			add_idea = PAN_better_torps
-			remove_idea = PAN_con_raiding_tactics
-		}
-	}
-	search_filters = { FOCUS_FILTER_NAVY_BONUS }
-	x = 0
-	y = 5
-	cost = 5
-}
-focus = {
-	id = PAN_escort_fleet
-	icon = GFX_focus_generic_destroyer
-	relative_position_id = PAN_by_sea
-	prerequisite = {
-		focus = PAN_convoy_hunting
-	}
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_escort_fleet"
-		navy_experience = 10
-		add_tech_bonus = {
-			name = PAN_escort_fleet
-			bonus = 0.5
-			uses = 1
-			category = dd_tech
-		}
-	}
-	search_filters = { FOCUS_FILTER_NAVY_BONUS FOCUS_FILTER_RESEARCH }
-	mutually_exclusive = {
-		focus = PAN_sub_fleet
-	}
-	x = 2
-	y = 3
-	cost = 5
-}
-focus = {
-	id = PAN_countering_subs
-	icon = GFX_goal_generic_navy_anti_submarine
-	relative_position_id = PAN_by_sea
-	prerequisite = {
-		focus = PAN_escort_fleet
-	}
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_countering_subs"
-		add_ideas = PAN_anti_sub_tactics
-	}
-	search_filters = { FOCUS_FILTER_NAVY_BONUS }
-	x = 2
-	y = 4
-	cost = 5
-}
-focus = {
-	id = PAN_cruiser_designs #2 50% research bonuses on the next CL and CA
-	icon = GFX_focus_generic_cruiser2
-	relative_position_id = PAN_by_sea
-	prerequisite = {
-		focus = PAN_countering_subs
-	}
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_cruiser_designs"
-		navy_experience = 10
-		add_tech_bonus = {
-			name = PAN_cruiser_designs			bonus = 0.5
-			uses = 2
-			category = cl_tech
-		}
-		navy_experience = 10
-		add_tech_bonus = {
-			name = PAN_cruiser_designs			bonus = 0.15
-			uses = 1
-			category = bc_tech
-		}
-	}
-	search_filters = { FOCUS_FILTER_NAVY_BONUS FOCUS_FILTER_RESEARCH }
-	x = 2
-	y = 5
-	cost = 5
-}
-focus = {
-	id = PAN_increase_naval_production
-	icon = GFX_goal_continuous_naval_production
-	relative_position_id = PAN_by_sea
-	prerequisite = {
-		focus = PAN_cruiser_designs focus = PAN_improved_torpedoes
-	}
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_increase_naval_production"
-		add_ideas = PAN_increased_naval_production
-	}
-	search_filters = { FOCUS_FILTER_INDUSTRY }
-	x = 1
-	y = 6
-	cost = 5
-}
-focus = {
-	id = PAN_new_military_academy
-	icon = GFX_goal_tfv_generic_tech_sharing
-	relative_position_id = PAN_by_sea
-	prerequisite = {
-		focus = PAN_increase_naval_production
-	}
-	prerequisite = {
-		focus = PAN_invest_in_our_planes
-	}
-	completion_reward = {
-		log = "[GetDateText]: [Root.GetName]: Focus PAN_new_military_academy"
-		add_research_slot = 1
-	}
-	search_filters = { FOCUS_FILTER_RESEARCH }
-	x = -1
-	y = 7
-	cost = 5
-}
-focus = {
+shared_focus = {
 	id = PAN_defend_our_homeland
 	completion_reward = {
 		log = "[GetDateText]: [Root.GetName]: Focus PAN_defend_our_homeland"
@@ -2898,11 +2094,11 @@ focus = {
 	}
 	search_filters = { FOCUS_FILTER_INDUSTRY }
 	icon = GFX_focus_generic_coastal_fort
-	x = 26
+	x = 21
 	y = 0
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_elastic_defense
 	relative_position_id = PAN_defend_our_homeland
 	prerequisite = {
@@ -2917,7 +2113,7 @@ focus = {
 	name = land_doc_bonus
 	cost_reduction = 0.5
 	uses = 1
-	category = cat_mass_assault
+	category = land_doctrine
 		}
 	}
 	search_filters = { FOCUS_FILTER_RESEARCH }
@@ -2926,7 +2122,7 @@ focus = {
 	y = 1
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_training_the_masses
 	relative_position_id = PAN_defend_our_homeland
 	prerequisite = {
@@ -2942,7 +2138,7 @@ focus = {
 	y = 2
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_every_man_rifle ####Tbh I didn't even mean for this to be a Huey Long meme.
 	relative_position_id = PAN_defend_our_homeland
 	prerequisite = {
@@ -2961,7 +2157,7 @@ focus = {
 	y = 3
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_increase_recruitment
 	prerequisite = {
 		focus = PAN_elastic_defense
@@ -2977,7 +2173,7 @@ focus = {
 	y = 2
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_new_weaponry
 	relative_position_id = PAN_defend_our_homeland
 	prerequisite = {
@@ -2998,7 +2194,7 @@ focus = {
 	y = 3
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_static_defense
 	relative_position_id = PAN_defend_our_homeland
 	prerequisite = {
@@ -3013,7 +2209,7 @@ focus = {
 	name = land_doc_bonus
 	cost_reduction = 0.5
 	uses = 1
-	category = cat_grand_battle_plan
+	category = land_doctrine
 		}
 	}
 	search_filters = { FOCUS_FILTER_RESEARCH }
@@ -3022,7 +2218,7 @@ focus = {
 	y = 1
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_purchase_foreign_guns
 	relative_position_id = PAN_defend_our_homeland
 	prerequisite = {
@@ -3041,7 +2237,7 @@ focus = {
 	y = 2
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_support_artillery
 	relative_position_id = PAN_defend_our_homeland
 	prerequisite = {
@@ -3062,7 +2258,7 @@ focus = {
 	y = 3
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_mobilize_economy
 	relative_position_id = PAN_defend_our_homeland
 	prerequisite = {
@@ -3078,7 +2274,7 @@ focus = {
 	y = 2
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_propaganda_campaign
 	relative_position_id = PAN_defend_our_homeland
 	prerequisite = {
@@ -3094,7 +2290,7 @@ focus = {
 	y = 3
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_invest_in_industry
 	icon = GFX_focus_generic_industry_2
 	available = {
@@ -3114,7 +2310,7 @@ focus = {
 		custom_effect_tooltip = unlock_focuses
 	}
 }
-focus = {
+shared_focus = {
 	id = PAN_build_new_factories
 	icon = GFX_goal_generic_construct_civ_factory
 	prerequisite = {
@@ -3137,7 +2333,7 @@ focus = {
 	y = 1
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_military_production
 	icon = GFX_goal_generic_construct_mil_factory
 	prerequisite = {
@@ -3160,7 +2356,7 @@ focus = {
 	y = 2
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_drilling_for_oil
 	icon = GFX_goal_further_oil
 	completion_reward = {
@@ -3181,7 +2377,7 @@ focus = {
 	y = 3
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_an_industrialized_panama
 	icon = GFX_focus_generic_industry_3
 	prerequisite = {
@@ -3203,7 +2399,7 @@ focus = {
 	y = 4
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_improved_roads
 	icon = GFX_goal_generic_construct_infrastructure
 	prerequisite = {
@@ -3226,7 +2422,7 @@ focus = {
 	y = 1
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_aerial_infrastructure
 	icon = GFX_goal_generic_build_airforce
 	prerequisite = {
@@ -3255,7 +2451,7 @@ focus = {
 	y = 2
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_widespread_economic_growth
 	icon = GFX_goal_gold_up
 	prerequisite = {
@@ -3271,7 +2467,7 @@ focus = {
 	y = 3
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_improve_agriculture
 	icon = GFX_goal_generic_construction2
 	available = {
@@ -3280,7 +2476,7 @@ focus = {
 	bypass = {
 		OR = {
 			has_completed_focus = PAN_PNR_holds_on
-			has_completed_focus = PAN_The_Canal_Above_All
+			has_completed_focus = PAN_Americans_in_charge
 		}
 	}
 	completion_reward = {
@@ -3291,7 +2487,7 @@ focus = {
 	y = 4
 	cost = 0
 }
-focus = {
+shared_focus = {
 	id = PAN_domestic_farms
 	icon = GFX_goal_generic_construct_civilian
 	prerequisite = {
@@ -3307,7 +2503,7 @@ focus = {
 	y = 1
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_countering_panama_disease
 	icon = GFX_goal_agriculture
 	prerequisite = {
@@ -3326,7 +2522,7 @@ focus = {
 	y = 2
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_buying_foreign_influences
 	icon = GFX_goal_constitutional_guarantees
 	prerequisite = {
@@ -3349,7 +2545,7 @@ focus = {
 	y = 3
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_an_agrarian_panama
 	icon = GFX_IRE_Zinc
 	prerequisite = {
@@ -3368,7 +2564,7 @@ focus = {
 	y = 4
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_improve_sugar_farms
 	icon = GFX_goal_coffee_boom
 	prerequisite = {
@@ -3384,7 +2580,7 @@ focus = {
 	y = 1
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_increase_banana_exports
 	icon = GFX_goal_bananas
 	prerequisite = {
@@ -3403,7 +2599,7 @@ focus = {
 	y = 2
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_encourage_coffee_production
 	icon = GFX_goal_coffee_exports
 	prerequisite = {
@@ -3422,7 +2618,7 @@ focus = {
 	y = 3
 	cost = 5
 }
-focus = {
+shared_focus = {
 	id = PAN_found_university
 	icon = GFX_goal_PAN_Create_the_Universidad_de_Panama
 	prerequisite = {
@@ -3439,16 +2635,38 @@ focus = {
 	cost = 5
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
+shared_focus = {
+	id = PAN_on_global_stage
+	icon = GFX_goal_PAN_COA
+	prerequisite = {
+		focus = PAN_fortify_the_coast focus = PAN_encourage_entente_trade
+	}
+	available = {
+		OR = {
+			ENT = {
+				exists = yes
+				is_subject = no
+				NOT = {
+					has_war_with = ROOT
+					has_country_flag = PAN_refused_invesment
+				}
+			}
+			GER = {
+				exists = yes
+				is_subject = no
+				NOT = {
+					has_war_with = ROOT
+					has_country_flag = PAN_refused_invesment
+				}
+			}
+		}
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAN_on_global_stage"
+		unlock_decision_category_tooltip = PAN_foreign_category
+	}
+	relative_position_id = PAN_canal_in_crisis
+	x = 0
+	y = 4
+	cost = 5
 }
