@@ -17,23 +17,217 @@ country_event = { #intro
 	}
 }
 
-country_event = { #Black Monday first reaction
-
+country_event = { #reception of the Peruvian semester review - positive
 	id = ecu.1
 	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.1" }
 	title = ecu.1.t
 	desc = ecu.1.d
 
+	fire_only_once = yes
 	is_triggered_only = yes
 
 	option = {
-		name = ecu.1.a
-		add_political_power = 20
+		name = col.1.a
+		add_political_power = 50
+		add_stability = 0.025
+	}
+}
 
-		hidden_effect = {
+country_event = { #reception of the Peruvian semester review - negative
+	id = ecu.16
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.16" }
+	title = ecu.16.t
+	desc = ecu.16.d
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ecu.16.a
+		add_political_power = -50
+		hidden_effect = { 
 			country_event = {
-				id = ecu.2
-				days = 30
+				id = ecu.3
+				days = 4
+			} 
+		}
+	}
+
+	option = {
+		name = ecu.16.a
+		add_political_power = 10
+		add_command_power = 25
+		hidden_effect = { 
+			country_event = {
+				id = ecu.35
+				days = 6
+			} 
+		}
+	}
+}
+
+country_event = { #Peru wants take direct control
+	id = ecu.3
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.3" }
+	title = ecu.3.t
+	desc = ecu.3.d
+	is_triggered_only = yes
+	fire_only_once = yes
+
+
+	option = {
+		name = ecu.3.a
+		PRU = {
+			set_autonomy = {
+				target = ECU
+				autonomy_state = kr_occupied_puppet
+			}
+		}
+		ECU = {
+			add_stability = -0.05
+			set_politics = {
+				ruling_party = paternal_autocrat
+				elections_allowed = no
+			}
+			remove_all_ministers = yes
+			add_ideas = ECU_Bayardo_Tobar_hog_pau
+			add_ideas = ECU_Marcos_Gandara_Enriquez_for_pau
+			add_ideas = ECU_Guillermo_Freire_Posso_eco_pau
+			add_ideas = ECU_Manuel_Borrero_Gonzalez_sec_pau
+			add_popularity = {
+				ideology = paternal_autocrat
+				popularity = 0.25
+			}
+			add_popularity = {
+				ideology = authoritarian_democrat
+				popularity = -0.2
+			}
+			hidden_effect = {
+				end_coalition = yes
+			}
+		}
+	}
+
+	option = {
+		name = ecu.3.b
+		add_political_power = -50
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = -0.055
+		}
+		hidden_effect = {
+			PRU = { 
+				country_event = {
+					id = pruecu.2
+					days = 2
+				}
+			}
+		}
+	}
+}
+
+country_event = { #PRU TAKES OVER ECU IN COUP
+	id = ecu.33
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.33"}
+	title = ecu.33.t
+	desc = ecu.33.d
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { 
+		name = ecu.33.a
+		PRU = {
+			set_autonomy = {
+				target = ECU
+				autonomy_state = kr_occupied_puppet
+			}
+		}
+		ECU = {
+			add_stability = -0.05
+			set_politics = {
+				ruling_party = paternal_autocrat
+				elections_allowed = no
+			}
+			remove_all_ministers = yes
+			add_ideas = ECU_Bayardo_Tobar_hog_pau
+			add_ideas = ECU_Marcos_Gandara_Enriquez_for_pau
+			add_ideas = ECU_Guillermo_Freire_Posso_eco_pau
+			add_ideas = ECU_Manuel_Borrero_Gonzalez_sec_pau 
+			add_popularity = {
+				ideology = paternal_autocrat
+				popularity = 0.25
+			}
+			add_popularity = {
+				ideology = authoritarian_democrat
+				popularity = -0.2
+			}
+			hidden_effect = {
+				end_coalition = yes
+			}
+		}
+	}
+}
+
+country_event = { #NO PERUVIAN INTERVENTION
+	id = ecu.34
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.34"}
+	title = ecu.34.t
+	desc = ecu.34.d
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { 
+		name = ecu.34.a
+		add_political_power = 20
+		add_stability = 0.02
+	}
+}
+
+country_event = { #Gallo takes over
+	id = ecu.35
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.35"}
+	title = ecu.35.t
+	desc = ecu.35.d
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { 
+		name = ecu.35.a
+		clear_all_relations = yes
+		drop_cosmetic_tag = yes
+		set_politics = {
+			ruling_party = totalist
+			elections_allowed = no
+		}
+		remove_all_ministers = yes 
+		add_political_power = 25
+		add_stability = -0.1
+		add_popularity = {
+			ideology = paternal_autocrat
+			popularity = -1
+		}
+		add_popularity = {
+			ideology = totalist
+			popularity = 0.1
+		}
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = -0.1
+		}
+		hidden_effect = {
+			end_coalition = yes
+			ECU = { 
+				break_embargo = COL
+				break_embargo = CHL
+			}
+			COL = {
+				break_embargo = ECU
+			}
+			CHL = {
+				break_embargo = ECU
 			}
 		}
 	}
@@ -51,100 +245,85 @@ country_event = { #Black Monday crisis
 		name = ecu.2.a #Hot Damn
 		set_country_flag = ECU_blackmondaycrisisflag
 		add_ideas = ECU_blackmonday
-		add_stability = -0.4 #oof
+		add_stability = -0.2 #oof
+		decrease_ruling_party_popularity_by_5 = yes
 		add_popularity = {
-			ideology = paternal_autocrat
-			popularity = 0.1
+			ideology = totalist
+			popularity = 0.025
+		}
+		add_popularity = {
+			ideology = national_populist
+			popularity = 0.025
+		}
+		add_popularity = {
+			ideology = radical_socialist
+			popularity = 0.015
 		}
 		add_popularity = {
 			ideology = syndicalist
-			popularity = 0.05
+			popularity = 0.015
 		}
-		country_event = ecu.3
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.015
+		}
+		hidden_effect = { 
+			country_event = {
+				id = ecu.30
+				days = 15
+			} 
+		}
 	}
 }
 
-country_event = { #In the name of the Ecuadorian senate, you are under arrest
-	id = ecu.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.3" }
-	title = ecu.3.t
-	desc = ecu.3.d
+country_event = { #Gallo situation presented
+	id = ecu.30
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.30" }
+	title = ecu.30.t
+	desc = ecu.30.d
+
 	is_triggered_only = yes
 
-
 	option = {
-		name = ecu.3.a
-		ai_chance = {
-			factor = 65
-			modifier = {
-				factor = 0
-				has_game_rule = {
-					rule = ECU_now_forever
-					option = ECU_NOW_FOREVER_GALLO
-				}
-			}
+		name = ecu.30.a
+		add_political_power = -20
+		add_stability = -0.02
+		hidden_effect = {
+			country_event = {
+				id = ecu.31
+				days = 12
+			} 
 		}
-		set_country_flag = ECU_dem_ayora
-		add_stability = -0.1
-		remove_all_ministers = yes
-		add_ideas = {
-			ECU_Carlos_Arroyo_del_Rio_hog_mli
-			ECU_Juan_de_Dios_Mera_for_mli
-			ECU_Isidro_Ayora_eco_mli
-			ECU_Abelardo_Montalvo_Alvear_sec_mli
-		}
-		set_politics = {
-			ruling_party = market_liberal
-			elections_allowed = no
-		}
-		add_soclib_to_coalition = yes
-		add_popularity = {
-			ideology = market_liberal
-			popularity = 0.2
-		}
-	}
-
-	option = {
-		name = ecu.3.b
-		ai_chance = {
-			factor = 35
-			modifier = {
-				factor = 0
-				has_game_rule = {
-					rule = ECU_now_forever
-					option = ECU_NOW_FOREVER_LIBERAL
-				}
-			}
-			modifier = {
-				factor = 0
-				has_game_rule = {
-					rule = ECU_now_forever
-					option = ECU_NOW_FOREVER_SOCCON
-				}
-			}
-		}
-		set_country_flag = ECU_notyet
-		add_stability = -0.2
-		remove_all_ministers = yes
-		add_ideas = {
-			ECU_Alberto_Enriquez_Gallo_hog_ade
-			ECU_Marcos_Gandara_Enriquez_for_ade
-			ECU_Guillermo_Freire_Posso_eco_ade
-			ECU_Manuel_Borrero_Gonzalez_sec_ade
-		}
-		set_politics = {
-			ruling_party = authoritarian_democrat
-			elections_allowed = no
-		}
-		add_socdem_to_coalition = yes
-		add_popularity = {
-			ideology = authoritarian_democrat
-			popularity = 0.15
-		}
-		hidden_effect = { news_event = worldnews.169 }
 	}
 }
 
+country_event = { #FLAVOR - Secret societies
+	id = ecu.31
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.31" }
+	title = ecu.31.t
+	desc = ecu.31.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = ecu.31.a
+	}
+}
+
+country_event = { #Gallo into hiding
+	id = ecu.32
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.32" }
+	title = ecu.32.t
+	desc = ecu.32.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = ecu.32.a
+		add_political_power = 50
+		add_stability = 0.05
+	}
+}
 
 country_event = { #first Ayora elections 1936
 	id = ecu.4
@@ -157,14 +336,14 @@ country_event = { #first Ayora elections 1936
 		date > 1936.8.1
 		date < 1936.9.1
 		is_subject = no
-		has_country_flag = ECU_dem_ayora
 	}
+	is_triggered_only = yes
 	fire_only_once = yes
 
 	option = {
 		name = ecu.4.a
 		ai_chance = {
-			factor = 90
+			factor = 99
 			modifier = {
 				factor = 0
 				has_game_rule = {
@@ -178,7 +357,6 @@ country_event = { #first Ayora elections 1936
 			ruling_party = market_liberal
 			elections_allowed = no
 		}
-		add_soclib_to_coalition = yes
 		add_popularity = {
 			ideology = market_liberal
 			popularity = 0.15
@@ -186,9 +364,9 @@ country_event = { #first Ayora elections 1936
 	}
 
 	option = {
-		name = ecu.4.b
+		name = ecu.4.a
 		ai_chance = {
-			factor = 10
+			factor = 1
 			modifier = {
 				factor = 0
 				has_game_rule = {
@@ -203,7 +381,7 @@ country_event = { #first Ayora elections 1936
 			desc = "POLITICS_CARLOS_TOLA_DESC"
 			picture = "gfx/leaders/ECU/Portrait_Ecuador_Carlos_Julio_Arosemena_Tola.png"
 			expire = "1.1.1"
-			ideology = soccon_liberal_conservative_subtype
+			ideology = christian_democracy_subtype
 		}
 
 		hidden_effect = {
@@ -218,7 +396,55 @@ country_event = { #first Ayora elections 1936
 			ruling_party = social_conservative
 			elections_allowed = no
 		}
-		add_pataut_to_coalition = yes
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.3
+		}
+
+		clr_country_flag = ECU_dem_ayora
+		set_country_flag = ECU_true_dem
+		set_country_flag = ECU_democracy_balance_powers
+		add_ideas = ECU_new_grounds
+		hidden_effect = {
+			remove_ideas = ECU_banker_power
+			remove_ideas = ECU_economic_boom
+			remove_ideas = ECU_inthecriminaljusticesystem
+		}
+	}
+
+	option = {
+		name = ecu.4.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_game_rule = {
+					rule = ECU_now_forever
+					option = ECU_NOW_FOREVER_LIBERAL
+				}
+			}
+		}
+
+		create_country_leader = {
+			name = "Julio Tobar Donoso"
+			desc = "POLITICS_JULIO_TOBAR_DONOSO_DESC"
+			picture = "gfx/leaders/ECU/Portrait_ECU_Julio_Tobar_Donoso.png"
+			expire = "1965.1.1"
+			ideology = social_conservative_subtype
+		}
+
+		hidden_effect = {
+			remove_all_ministers = yes
+		}
+
+		add_ideas = ECU_Neptali_Bonifaz_Ascasubi_hog_sco
+		add_ideas = ECU_Jose_Maria_Velasco_Ibarra_for_sco
+		add_ideas = ECU_Antonio_Pons_Campuzano_eco_sco
+		add_ideas = ECU_Camillo_Ponce_Enriquez_sec_sco
+		set_politics = {
+			ruling_party = social_conservative
+			elections_allowed = no
+		}
 		add_popularity = {
 			ideology = social_conservative
 			popularity = 0.3
@@ -255,14 +481,13 @@ country_event = { #Ayora elections 1941
 	option = {
 		name = ecu.5.a
 		ai_chance = {
-			factor = 90
+			factor = 99
 		}
 
 		set_politics = {
 			ruling_party = market_liberal
 			elections_allowed = no
 		}
-		add_soclib_to_coalition = yes
 		add_popularity = {
 			ideology = market_liberal
 			popularity = 0.15
@@ -272,7 +497,7 @@ country_event = { #Ayora elections 1941
 	option = {
 		name = ecu.5.b
 		ai_chance = {
-			factor = 10
+			factor = 1
 		}
 
 		create_country_leader = {
@@ -295,7 +520,6 @@ country_event = { #Ayora elections 1941
 			ruling_party = social_conservative
 			elections_allowed = no
 		}
-		add_pataut_to_coalition = yes
 		add_popularity = {
 			ideology = social_conservative
 			popularity = 0.3
@@ -332,14 +556,13 @@ country_event = { #Ayora elections 1946
 	option = {
 		name = ecu.6.a
 		ai_chance = {
-			factor = 90
+			factor = 99
 		}
 
 		set_politics = {
 			ruling_party = market_liberal
 			elections_allowed = no
 		}
-		add_soclib_to_coalition = yes
 		add_popularity = {
 			ideology = market_liberal
 			popularity = 0.15
@@ -349,7 +572,7 @@ country_event = { #Ayora elections 1946
 	option = {
 		name = ecu.6.b
 		ai_chance = {
-			factor = 10
+			factor = 1
 		}
 
 		create_country_leader = {
@@ -357,7 +580,7 @@ country_event = { #Ayora elections 1946
 			desc = "POLITICS_NEPTALI_BONIFAZ_DESC"
 			picture = "gfx/leaders/ECU/Portrait_Ecuador_Neptali_Ascasubi.png"
 			expire = "1.1.1"
-			ideology = soccon_agrarianism_subtype
+			ideology = christian_democracy_subtype
 		}
 
 		hidden_effect = {
@@ -372,7 +595,6 @@ country_event = { #Ayora elections 1946
 			ruling_party = social_conservative
 			elections_allowed = no
 		}
-		add_pataut_to_coalition = yes
 		add_popularity = {
 			ideology = social_conservative
 			popularity = 0.3
@@ -409,14 +631,13 @@ country_event = { #Ayora elections 1951
 	option = {
 		name = ecu.7.a
 		ai_chance = {
-			factor = 90
+			factor = 99
 		}
 
 		set_politics = {
 			ruling_party = market_liberal
 			elections_allowed = no
 		}
-		add_soclib_to_coalition = yes
 		add_popularity = {
 			ideology = market_liberal
 			popularity = 0.15
@@ -426,7 +647,7 @@ country_event = { #Ayora elections 1951
 	option = {
 		name = ecu.7.b
 		ai_chance = {
-			factor = 10
+			factor = 1
 		}
 
 		create_country_leader = {
@@ -434,7 +655,7 @@ country_event = { #Ayora elections 1951
 			desc = "POLITICS_JOSE_IBARRA_DESC"
 			picture = "gfx/leaders/ECU/Portrait_ECU_Jose_Ibarra.png"
 			expire = "1.1.1"
-			ideology = conservative_populism_subtype
+			ideology = christian_democracy_subtype
 		}
 
 		hidden_effect = {
@@ -449,7 +670,6 @@ country_event = { #Ayora elections 1951
 			ruling_party = social_conservative
 			elections_allowed = no
 		}
-		add_pataut_to_coalition = yes
 		add_popularity = {
 			ideology = social_conservative
 			popularity = 0.3
@@ -486,14 +706,13 @@ country_event = { #Ayora elections 1956
 	option = {
 		name = ecu.8.a
 		ai_chance = {
-			factor = 90
+			factor = 99
 		}
 
 		set_politics = {
 			ruling_party = market_liberal
 			elections_allowed = no
 		}
-		add_soclib_to_coalition = yes
 		add_popularity = {
 			ideology = market_liberal
 			popularity = 0.15
@@ -503,7 +722,7 @@ country_event = { #Ayora elections 1956
 	option = {
 		name = ecu.8.b
 		ai_chance = {
-			factor = 10
+			factor = 1
 		}
 
 		create_country_leader = {
@@ -525,7 +744,6 @@ country_event = { #Ayora elections 1956
 			ruling_party = social_conservative
 			elections_allowed = no
 		}
-		add_pataut_to_coalition = yes
 		add_popularity = {
 			ideology = social_conservative
 			popularity = 0.3
@@ -626,7 +844,7 @@ country_event = { #New elections after Gallo 1941
 			desc = "POLITICS_CARLOS_ARROYO_DESC"
 			picture = "gfx/leaders/ECU/Portrait_ECU_Carlos_Arroyo.png"
 			expire = "1.1.1"
-			ideology = marlib_clientelism_subtype
+			ideology = marlib_radical_liberalism_subtype
 		}
 
 		add_ideas = ECU_Alfredo_Baquerizo_Moreno_hog_sli
@@ -637,7 +855,6 @@ country_event = { #New elections after Gallo 1941
 			ruling_party = market_liberal
 			elections_allowed = no
 		}
-		add_soclib_to_coalition = yes
 		add_popularity = {
 			ideology = market_liberal
 			popularity = 0.15
@@ -666,7 +883,6 @@ country_event = { #New elections after Gallo 1941
 			ruling_party = social_conservative
 			elections_allowed = no
 		}
-		add_pataut_to_coalition = yes
 		add_popularity = {
 			ideology = social_conservative
 			popularity = 0.15
@@ -707,7 +923,7 @@ country_event = { #Democratic elections 1941 without Gallo
 			desc = "POLITICS_CARLOS_ARROYO_DESC"
 			picture = "gfx/leaders/ECU/Portrait_ECU_Carlos_Arroyo.png"
 			expire = "1.1.1"
-			ideology = marlib_clientelism_subtype
+			ideology = marlib_radical_liberalism_subtype
 		}
 
 		add_ideas = ECU_Alfredo_Baquerizo_Moreno_hog_sli
@@ -718,7 +934,6 @@ country_event = { #Democratic elections 1941 without Gallo
 			ruling_party = market_liberal
 			elections_allowed = no
 		}
-		add_soclib_to_coalition = yes
 		add_popularity = {
 			ideology = market_liberal
 			popularity = 0.15
@@ -747,7 +962,6 @@ country_event = { #Democratic elections 1941 without Gallo
 			ruling_party = social_conservative
 			elections_allowed = no
 		}
-		add_pataut_to_coalition = yes
 		add_popularity = {
 			ideology = social_conservative
 			popularity = 0.15
@@ -788,7 +1002,7 @@ country_event = { #Democratic elections 1946
 			desc = "POLITICS_ALFREDO_MORENO_DESC"
 			picture = "gfx/leaders/ECU/Portrait_Ecuador_Alfredo_Baquerizo_Moreno.png"
 			expire = "1.1.1"
-			ideology = progressive_democracy_subtype
+			ideology = marlib_radical_liberalism_subtype
 		}
 
 		add_ideas = ECU_Aurelio_Mosquera_Narvaez_hog_mli
@@ -799,7 +1013,6 @@ country_event = { #Democratic elections 1946
 			ruling_party = market_liberal
 			elections_allowed = no
 		}
-		add_soclib_to_coalition = yes
 		add_popularity = {
 			ideology = market_liberal
 			popularity = 0.15
@@ -817,7 +1030,7 @@ country_event = { #Democratic elections 1946
 			desc = "POLITICS_NEPTALI_BONIFAZ_DESC"
 			picture = "gfx/leaders/ECU/Portrait_Ecuador_Neptali_Ascasubi.png"
 			expire = "1.1.1"
-			ideology = soccon_agrarianism_subtype
+			ideology = christian_democracy_subtype
 		}
 
 		add_ideas = ECU_Carlos_Arosemena_Tola_hog_sco
@@ -828,7 +1041,6 @@ country_event = { #Democratic elections 1946
 			ruling_party = social_conservative
 			elections_allowed = no
 		}
-		add_pataut_to_coalition = yes
 		add_popularity = {
 			ideology = social_conservative
 			popularity = 0.15
@@ -869,7 +1081,7 @@ country_event = { #Democratic elections 1951
 			desc = "POLITICS_ISIDORO_AYORA_DESC"
 			picture = "gfx/leaders/ECU/Portrait_Ecuador_Isidoro_Ayora.png"
 			expire = "1.1.1"
-			ideology = progressive_democracy_subtype
+			ideology = marlib_radical_liberalism_subtype
 		}
 
 		add_ideas = ECU_Alfredo_Baquerizo_Moreno_hog_sli
@@ -880,7 +1092,6 @@ country_event = { #Democratic elections 1951
 			ruling_party = market_liberal
 			elections_allowed = no
 		}
-		add_soclib_to_coalition = yes
 		add_popularity = {
 			ideology = market_liberal
 			popularity = 0.15
@@ -898,7 +1109,7 @@ country_event = { #Democratic elections 1951
 			desc = "POLITICS_JOSE_IBARRA_DESC"
 			picture = "gfx/leaders/ECU/Portrait_ECU_Jose_Ibarra.png"
 			expire = "1.1.1"
-			ideology = conservative_populism_subtype
+			ideology = christian_democracy_subtype
 		}
 
 		add_ideas = ECU_Carlos_Arosemena_Tola_hog_sco
@@ -909,7 +1120,6 @@ country_event = { #Democratic elections 1951
 			ruling_party = social_conservative
 			elections_allowed = no
 		}
-		add_pataut_to_coalition = yes
 		add_popularity = {
 			ideology = social_conservative
 			popularity = 0.15
@@ -949,7 +1159,7 @@ country_event = { #Democratic elections 1956
 			name = "Andrés Fernández de Córdova Nieto"
 			picture = "gfx/leaders/ECU/Portrait_ECU_Andres_Cordova_Nieto.png"
 			expire = "1.1.1"
-			ideology = humanistic_capitalism_subtype
+			ideology = marlib_radical_liberalism_subtype
 		}
 
 		add_ideas = ECU_Alfredo_Baquerizo_Moreno_hog_sli
@@ -960,7 +1170,6 @@ country_event = { #Democratic elections 1956
 			ruling_party = market_liberal
 			elections_allowed = no
 		}
-		add_soclib_to_coalition = yes
 		add_popularity = {
 			ideology = market_liberal
 			popularity = 0.15
@@ -988,7 +1197,6 @@ country_event = { #Democratic elections 1956
 			ruling_party = social_conservative
 			elections_allowed = no
 		}
-		add_pataut_to_coalition = yes
 		add_popularity = {
 			ideology = social_conservative
 			popularity = 0.15
@@ -1000,49 +1208,16 @@ country_event = { #Democratic elections 1956
 #Ayora events
 #########
 
-country_event = { #La Argolla crumbles
-	id = ecu.15
-	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.15" }
-	title = ecu.15.t
-	desc = ecu.15.d
-	is_triggered_only = yes
-
-	option = {
-		name = ecu.15.a #good riddance
-
-		add_political_power = 100
-		add_popularity = {
-			ideology = social_conservative
-			popularity = -0.05
-		}
-	}
-}
-
-country_event = { #Dictator Ayora?
-	id = ecu.16
-	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.16" }
-	title = ecu.16.t
-	desc = ecu.16.d
-
-	trigger = {
-		has_country_flag = ECU_dem_ayora
-	}
-
-	is_triggered_only = yes
-	fire_only_once = yes
-
-	option = {
-		name = ecu.16.a #A dictator? don't you remember you elected me democratically?
-
-		add_war_support = -0.1
-	}
-}
 
 country_event = { #voting new laws at the corrupt assembly
 	id = ecu.17
 	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.17" }
 	title = ecu.17.t
 	desc = ecu.17.d
+
+	trigger = {
+		has_government = market_liberal
+	}
 
 	is_triggered_only = yes
 
@@ -1051,7 +1226,7 @@ country_event = { #voting new laws at the corrupt assembly
 		ai_chance = {
 			factor = 25
 		}
-		add_political_power = -35
+		add_political_power = 50
 	}
 
 	option = {
@@ -1059,22 +1234,22 @@ country_event = { #voting new laws at the corrupt assembly
 		ai_chance = {
 			factor = 75
 		}
-		add_stability = 0.02
+		add_stability = 0.025
 		add_popularity = {
 			ideology = market_liberal
-			popularity = -0.05
+			popularity = 0.05
 		}
 	}
 }
 
-country_event = { #The coastal Argolla
+country_event = { #The coastal elite
 	id = ecu.18
 	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.18" }
 	title = ecu.18.t
 	desc = ecu.18.d
 
 	trigger = {
-		has_country_flag = ECU_dem_ayora
+		has_government = market_liberal
 	}
 
 	is_triggered_only = yes
@@ -1097,7 +1272,7 @@ country_event = { #The rebirth of Guayaquil
 	desc = ecu.19.d
 
 	trigger = {
-		has_country_flag = ECU_dem_ayora
+		has_government = market_liberal
 	}
 
 	is_triggered_only = yes
@@ -1106,7 +1281,7 @@ country_event = { #The rebirth of Guayaquil
 	option = {
 		name = ecu.19.a #all hail the baaaaankers
 
-		add_stability = 0.05
+		add_stability = 0.01
 		hidden_effect = {
 			country_event = {
 				id = ecu.20
@@ -1123,7 +1298,7 @@ country_event = { #The banks endanger the farmers
 	desc = ecu.20.d
 
 	trigger = {
-		has_country_flag = ECU_dem_ayora
+		has_government = market_liberal
 	}
 
 	is_triggered_only = yes
@@ -1133,7 +1308,8 @@ country_event = { #The banks endanger the farmers
 		ai_chance = {
 			factor = 50
 		}
-		add_political_power = -150
+		add_political_power = -35
+		add_stability = -0.05
 	}
 
 	option = {
@@ -1141,10 +1317,26 @@ country_event = { #The banks endanger the farmers
 		ai_chance = {
 			factor = 50
 		}
-		add_stability = -0.1
+		if = {
+			limit = {
+				has_manpower > 1000
+			}
+			add_manpower = -1000
+		}
+		else = {
+			add_political_power = -50
+		}
 		add_popularity = {
 			ideology = market_liberal
-			popularity = -0.15
+			popularity = -0.05
+		}
+		add_popularity = {
+			ideology = social_liberal
+			popularity = -0.025
+		}
+		add_popularity = {
+			ideology = social_democrat
+			popularity = -0.025
 		}
 	}
 }
@@ -1152,74 +1344,6 @@ country_event = { #The banks endanger the farmers
 #########
 #Gallo events
 #########
-
-country_event = { #Forming the government
-	id = ecu.21
-	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.21" }
-	title = ecu.21.t
-	desc = ecu.21.d
-
-	is_triggered_only = yes
-
-	option = {
-		name = ecu.21.a #Take some people from the Compactacion
-		ai_chance = {
-			factor = 40
-		}
-		set_country_flag = ECU_CON_partly_in_power
-		add_popularity = {
-			ideology = authoritarian_democrat
-			popularity = 0.05
-		}
-		add_popularity = {
-			ideology = paternal_autocrat
-			popularity = 0.1
-		}
-		add_stability = 0.05
-		add_pataut_to_coalition = yes
-	}
-
-	option = {
-		name = ecu.21.b #Compromise with all sides of the spectrum
-		ai_chance = {
-			factor = 45
-		}
-		hidden_effect = {
-			remove_ideas_with_trait = economy_minister
-			remove_ideas_with_trait = foreign_minister
-		}
-		add_ideas = ECU_Carlos_Arroyo_del_Rio_eco_mli
-		add_ideas = ECU_Camillo_Ponce_Enriquez_for_sco
-		add_popularity = {
-			ideology = social_democrat
-			popularity = 0.02
-		}
-		add_popularity = {
-			ideology = market_liberal
-			popularity = 0.03
-		}
-		add_popularity = {
-			ideology = social_conservative
-			popularity = 0.05
-		}
-		add_marlib_to_coalition = yes
-		add_soccon_to_coalition = yes
-		add_stability = 0.02
-	}
-
-	option = {
-		name = ecu.21.c #only the army knows best
-		ai_chance = {
-			factor = 15
-		}
-		add_stability = -0.1
-		add_political_power = 30
-		add_popularity = {
-			ideology = authoritarian_democrat
-			popularity = 0.05
-		}
-	}
-}
 
 country_event = { #Syndicalist spies!
 	id = ecu.22
@@ -1240,14 +1364,14 @@ country_event = { #Syndicalist spies!
 			factor = 30
 		}
 		add_popularity = {
-			ideology = authoritarian_democrat
+			ideology = totalist
 			popularity = 0.02
 		}
 		add_manpower = -1
 	}
 
 	option = {
-		name = ecu.22.b #make a legal example of him, that will show those syndies!
+		name = ecu.22.b #make a legal example of him
 		ai_chance = {
 			factor = 70
 		}
@@ -1268,7 +1392,7 @@ country_event = { #a grandiose trial for the spy
 
 	option = {
 		name = ecu.23.a #and plop! the head falls
-		add_stability = 0.05
+		add_stability = 0.03
 		add_manpower = -1
 	}
 }
@@ -1289,10 +1413,8 @@ country_event = { #Purifying the press
 	option = {
 		name = ecu.24.a #only the real patriots will stay
 		add_political_power = 50
-		add_popularity = {
-			ideology = authoritarian_democrat
-			popularity = -0.05
-		}
+		add_command_power = 15
+		add_war_support = 0.1
 	}
 }
 
@@ -1351,206 +1473,6 @@ country_event = { #Rallying the army
 #Misc events
 #########
 
-country_event = { #The Compactacion Obrera Nacional
-	id = ecu.30
-	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.30" }
-	title = ecu.30.t
-	desc = {
-		text = ecu.30.d_normal
-		trigger = {
-			NOT = {
-				has_country_flag = ECU_CON_partly_in_power
-			}
-		}
-	}
-	desc = {
-		text = ecu.30.d_CON_power
-		trigger = {
-			has_country_flag = ECU_CON_partly_in_power
-		}
-	}
-
-	is_triggered_only = yes
-
-	option = {
-		name = ecu.30.a #Interesting
-	}
-}
-
-# country_event = { #troubles with the indian farmers (Dolores Cacuango)
-# id = ecu.31
-# title = ecu.31.t
-# desc = ecu.31.d
-
-# trigger = {
-# tag = ECU
-# date > 1943.2.1
-# NOT = { has_completed_focus = ECU_gommiegone }
-#}
-
-# fire_only_once = yes
-
-# option = {
-# name = ecu.31.a #goddammit
-# add_stability = -0.05
-#}
-
-#}
-
-country_event = { #Peruvian incursion in Pastaza
-	id = ecu.32
-	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.32" }
-	title = ecu.32.t
-	desc = ecu.32.d
-
-	trigger = {
-		is_subject = no
-		NOT = {
-			has_war_with = PRU
-		}
-		PRU = {
-			is_subject = no
-		}
-		country_exists = PRU
-		owns_state = 490
-	}
-
-	is_triggered_only = yes
-	fire_only_once = yes
-
-	option = {
-		name = ecu.32.a #Threatening...
-		ai_chance = {
-			factor = 50
-		}
-		add_war_support = 0.05
-	}
-
-	option = {
-		name = ecu.32.b #warn peru
-		ai_chance = {
-			factor = 50
-		}
-		add_war_support = 0.07
-		PRU = {
-			country_event = ecu.33
-		}
-	}
-}
-
-country_event = { #Peruvian incursion in Pastaza - from PRU
-	id = ecu.33
-	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.33" }
-	title = ecu.33.t
-	desc = ecu.33.d
-
-	is_triggered_only = yes
-
-	option = {
-		name = ecu.33.a #klol
-		add_war_support = 0.03
-	}
-}
-
-country_event = { #River boats from Iquitos
-	id = ecu.34
-	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.34" }
-	title = ecu.34.t
-	desc = ecu.34.d
-
-	is_triggered_only = yes
-
-	option = {
-		name = ecu.34.a #Ignore it...
-		ai_chance = {
-			factor = 50
-		}
-		add_stability = -0.03
-		add_war_support = 0.05
-	}
-
-	option = {
-		name = ecu.34.b #Confront Peru about this
-		ai_chance = {
-			factor = 50
-		}
-		add_war_support = 0.05
-		PRU = {
-			country_event = ecu.35
-		}
-	}
-}
-
-country_event = { #River boats from Iquitos - from PRU
-	id = ecu.35
-	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.35" }
-	title = ecu.35.t
-	desc = ecu.35.d
-
-	is_triggered_only = yes
-
-	option = {
-		name = ecu.35.a #never!
-		ai_chance = {
-			factor = 100
-		}
-		add_war_support = 0.05
-		ECU = {
-			country_event = ecu.36
-		}
-	}
-
-	option = {
-		name = ecu.35.b #excuse ourselves
-		ai_chance = {
-			factor = 0
-		}
-		add_stability = -0.1
-	}
-}
-
-country_event = { #River boats from Iquitos - PRU doesn't care
-	id = ecu.36
-	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.36" }
-	title = ecu.36.t
-	desc = ecu.36.d
-
-	is_triggered_only = yes
-
-	option = {
-		name = ecu.36.a #it's really too unfair...
-		add_political_power = -40
-	}
-}
-
-country_event = { #Garrisons face in Pastaza
-	id = ecu.37
-	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.37" }
-	title = ecu.37.t
-	desc = ecu.37.d
-
-	trigger = {
-		is_subject = no
-		NOT = {
-			has_war_with = PRU
-		}
-		PRU = {
-			is_subject = no
-		}
-		country_exists = PRU
-		owns_state = 490
-	}
-
-	fire_only_once = yes
-	is_triggered_only = yes
-	
-	option = {
-		name = ecu.37.a #Outrageous!
-		add_war_support = 0.05
-		add_manpower = -3
-	}
-}
-
 country_event = { #some dumb ass american explorer dies while exploring a volcano
 	id = ecu.38
 	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.38" }
@@ -1564,152 +1486,74 @@ country_event = { #some dumb ass american explorer dies while exploring a volcan
 	}
 }
 
-# country_event = { #modernist indigenous art movement, wtf? Camilo egas, eduardo kingman
-# id = ecu.39
-# title = ecu.39.t
-# desc = ecu.39.d
-
-# trigger = {
-# tag = ECU
-# date > 1940.3.1
-#}
-
-# fire_only_once = yes
-
-# option = {
-# name = ecu.39.a #nice
-# ai_chance = { factor = 60 }
-# add_political_power = 20
-#}
-
-# option = {
-# name = ecu.39.b #Forbid the subversive art!
-# ai_chance = {
-# factor = 30
-# modifier = {
-# factor = 3
-# has_country_flag = ECU_notyet
-#}
-#}
-# add_political_power = -20
-# add_stability = 0.02
-#}
-#}
-
-
-####
-# Peace event with Peru
-####
-
-country_event = { #Peru is too strong :tfwno: ask for peace?
-	id = ecu.40
-	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.40" }
-	title = ecu.40.t
-	desc = ecu.40.d
+country_event = { #Gallo's new flag - regular version
+	id = ecu.44
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.44" }
+	title = ecu.44.t
+	desc = ecu.44.d
 
 	trigger = {
-		tag = ECU
+		date > 1938.1.1
 		is_subject = no
-		is_in_faction = no
-		has_war_with = PRU
-		owns_state = 490
-		OR = {
-			surrender_progress > 0.45
-			AND = {
-				PRU = {
-					is_subject = no
-					is_in_faction = no
-					controls_state = 490
-				}
-				surrender_progress > 0.1
-			}
-		}
+		has_government = totalist
+		NOT = { has_country_flag = ECU_galloandalfaro }
+		NOT = { has_country_flag = ECU_galloandalfaro_fun }
+		NOT = { has_global_flag = KX_POLICEMAN_SWEAR_TO_GOD }
 	}
 
 	fire_only_once = yes
+	is_triggered_only = yes
 
 	option = {
-		name = ecu.40.a #concede pastaza, we can't win
+		name = ecu.44.a #change
+		ai_chance = {
+			factor = 40
+		}
+		hidden_effect = {
+			set_cosmetic_tag = ECU_galloandalfaro
+		}
+	}
+
+	option = {
+		name = ecu.44.b #keep the current one
+		ai_chance = {
+			factor = 60
+		}
+	}
+}
+
+country_event = { #Gallo's new flag
+	id = ecu.45
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.44" }
+	title = ecu.45.t
+	desc = ecu.45.d
+
+	trigger = {
+		date > 1938.1.1
+		is_subject = no
+		has_government = totalist
+		NOT = { has_country_flag = ECU_galloandalfaro }
+		NOT = { has_country_flag = ECU_galloandalfaro_fun }
+		has_global_flag = KX_POLICEMAN_SWEAR_TO_GOD
+	}
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = ecu.45.a #change to the meme one
 		ai_chance = {
 			factor = 100
 		}
-		add_stability = -0.05
-		PRU = {
-			country_event = ecu.41
+		hidden_effect = {
+			set_cosmetic_tag = ECU_galloandalfaro_fun
 		}
 	}
 
 	option = {
-		name = ecu.40.b #we haven't yet lost!
+		name = ecu.45.b #keep the current one
 		ai_chance = {
 			factor = 0
 		}
-		add_political_power = 40
-	}
-}
-
-country_event = { #Ecuador asks for peace in exchange of Pastaza
-	id = ecu.41
-	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.41" }
-	title = ecu.41.t
-	desc = ecu.41.d
-
-	is_triggered_only = yes
-
-	option = {
-		name = ecu.41.a #We can accept that deal
-		ai_chance = {
-			factor = 50
-		}
-		add_stability = 0.05
-		ECU = {
-			white_peace_with_ROOT = yes
-		}
-		ECU = {
-			country_event = {
-				id = ecu.42
-				days = 1
-			}
-		}
-	}
-
-	option = {
-		name = ecu.41.b #The Peruvian flag will fly over Quito!
-		ai_chance = {
-			factor = 50
-		}
-		ECU = {
-			country_event = ecu.43
-		}
-	}
-}
-
-country_event = { #Transfer Pastaza
-	id = ecu.42
-	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.42" }
-	title = ecu.42.t
-	desc = ecu.42.d
-
-	is_triggered_only = yes
-
-	option = {
-		name = ecu.42.a #Welp
-		PRU = {
-			transfer_state = 490
-		}
-	}
-}
-
-country_event = { #Peru continues the fight
-	id = ecu.43
-	immediate = { log = "[GetDateText]: [Root.GetName]: event ecu.43" }
-	title = ecu.43.t
-	desc = ecu.43.d
-
-	is_triggered_only = yes
-
-	option = {
-		name = ecu.43.a #It's a fight for survival then...
-		add_war_support = 0.1
 	}
 }
