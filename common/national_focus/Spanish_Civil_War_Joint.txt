@@ -8,9 +8,20 @@ joint_focus = {
 	x = 0
 	y = 0
 	offset = {
-		x = -45
+		x = -30
 		trigger = {
-			tag = CNT
+			OR = {
+				tag = CNT
+				tag = RIF
+				tag = CAR
+			}
+		}
+	}
+	offset = {
+		x = 21
+		y = 15
+		trigger = {
+			tag = CAT
 		}
 	}
 	offset = {
@@ -26,18 +37,18 @@ joint_focus = {
 			has_allied_with_anyone_republic = yes
 		}
 	}
-	allow_branch = {
-		always = no
-		#SPR = {
-		#	NOT = { has_completed_focus = SPR_post_civil_war }
-		#}
-		#CNT = {
-		#	NOT = { has_completed_focus = CNT_election_success }
-		#}
+	offset = {
+		y = 2
+		trigger = {
+			tag = SPR
+			has_power_balance = {
+				id = SPR_burning_house_of_cards
+			}
+		}
 	}
 	available = { always = no }
-	bypass = {
-		hidden_trigger = { is_spanish_civil_war_tag = yes }
+	allow_branch = {
+		is_spanish_civil_war_tag_regardless_of_war = yes
 	}
 	completion_reward  = {
 		custom_effect_tooltip = unlock_focuses
@@ -142,6 +153,54 @@ joint_focus = {
 	search_filters = { FOCUS_FILTER_SPR_CIVILWAR FOCUS_FILTER_INDUSTRY }
 }
 joint_focus = {
+	id = SCW_Joint_kingdom_the_national_front
+	icon = GFX_goal_spain
+	cost = 5
+	joint_trigger = {
+		hidden_trigger = { is_spanish_civil_war_tag_regardless_of_war = yes }
+	}
+	x = -1
+	y = 1
+	relative_position_id = SCW_Joint_car_cnt_kingdom_the_engines_of_war
+	prerequisite = {
+		focus = SCW_Joint_car_cnt_kingdom_the_engines_of_war
+	}
+	available = {
+		tag = SPR
+		spanish_civil_war_will_happen_or_is_happening = yes
+	}
+	completion_reward_joint_originator = {
+		add_stability = 0.07
+		country_event = sprc.130
+	}
+	search_filters = { FOCUS_FILTER_SPR_CIVILWAR FOCUS_FILTER_POLITICAL }
+}
+joint_focus = {
+	id = SCW_Joint_kingdom_the_kingdom_fights_until_death
+	icon = GFX_goal_spain
+	cost = 5
+	joint_trigger = {
+		hidden_trigger = { is_spanish_civil_war_tag_regardless_of_war = yes }
+	}
+	x = 1
+	y = 1
+	relative_position_id = SCW_Joint_car_cnt_kingdom_the_engines_of_war
+	prerequisite = {
+		focus = SCW_Joint_car_cnt_kingdom_the_engines_of_war
+	}
+	available = {
+		tag = SPR
+		spanish_civil_war_will_happen_or_is_happening = yes
+	}
+	completion_reward_joint_originator = {
+		add_timed_idea = {
+			idea = SCW_kingdom_until_death
+			days = 90
+		}
+	}
+	search_filters = { FOCUS_FILTER_SPR_CIVILWAR FOCUS_FILTER_ARMY_BONUS }
+}
+joint_focus = {
 	id = SCW_Joint_cnt_start
 	icon = GFX_goal_cntfai
 	cost = 9
@@ -179,6 +238,10 @@ joint_focus = {
 		custom_effect_tooltip = SCW_can_now_raise_militias_tt
 		hidden_effect = {
 			set_country_flag = SCW_can_now_raise_militias_flag
+			country_event = {
+				id = sprc.16
+				days = 14
+			}
 		}
 	}
 	search_filters = { FOCUS_FILTER_SPR_CIVILWAR FOCUS_FILTER_ARMY_BONUS }
@@ -201,12 +264,356 @@ joint_focus = {
 		spanish_civil_war_will_happen_or_is_happening = yes
 	}
 	completion_reward_joint_member = {
-		add_political_power = -20
+		add_timed_idea = {
+			idea = SCW_gang_warfare
+			days = 120
+		}
 	}
 	completion_reward_joint_originator = {
-		add_political_power = 20
+		increase_ruling_party_popularity_by_10 = yes
 	}
-	search_filters = { FOCUS_FILTER_SPR_CIVILWAR }
+	search_filters = { FOCUS_FILTER_SPR_CIVILWAR FOCUS_FILTER_POLITICAL }
+}
+joint_focus = {
+	id = SCW_Joint_cnt_catalan_crisis
+	icon = GFX_goal_SCW_Joint_cnt_catalan_crisis
+	cost = 0
+	joint_trigger = {
+		hidden_trigger = { is_spanish_civil_war_tag_regardless_of_war = yes }
+	}
+	x = -6
+	y = 1
+	relative_position_id = SCW_Joint_cnt_start
+	prerequisite = {
+		focus = SCW_Joint_cnt_start
+	}
+	available = {
+		tag = CNT
+		custom_override_tooltip = {
+			tooltip = CAT_catalan_crisis_is_happening_tt
+			always = no
+		}
+	}
+	completion_reward_joint_originator = {
+		custom_effect_tooltip = unlock_focuses
+	}
+	search_filters = { FOCUS_FILTER_SPR_CIVILWAR FOCUS_FILTER_POLITICAL }
+}
+joint_focus = {
+	id = SCW_Joint_cat_start
+	icon = GFX_goal_SCW_Joint_cnt_catalan_crisis
+	cost = 5
+	joint_trigger = {
+		hidden_trigger = { is_spanish_civil_war_tag_regardless_of_war = yes }
+	}
+	x = -13
+	y = 1
+	relative_position_id = SCW_Joint_the_final_fall
+	prerequisite = {
+		focus = SCW_Joint_the_final_fall
+	}
+	available = {
+		tag = CAT
+		spanish_civil_war_will_happen_or_is_happening = yes
+	}
+	completion_reward_joint_originator = {
+		custom_effect_tooltip = SCW_can_now_raise_militias_tt
+		hidden_effect = {
+			set_country_flag = SCW_can_now_raise_militias_flag
+		}
+	}
+	search_filters = { FOCUS_FILTER_SPR_CIVILWAR FOCUS_FILTER_POLITICAL }
+}
+joint_focus = {
+	id = SCW_Joint_rif_start
+	icon = GFX_goal_RIF_The_Protectorate
+	cost = 5
+	joint_trigger = {
+		hidden_trigger = { is_spanish_civil_war_tag_regardless_of_war = yes }
+	}
+	x = 13
+	y = 1
+	relative_position_id = SCW_Joint_the_final_fall
+	prerequisite = {
+		focus = SCW_Joint_the_final_fall
+	}
+	available = {
+		tag = RIF
+		spanish_civil_war_will_happen_or_is_happening = yes
+	}
+	completion_reward_joint_originator = {
+		custom_effect_tooltip = SCW_can_now_raise_militias_tt
+		hidden_effect = {
+			set_country_flag = SCW_can_now_raise_militias_flag
+		}
+	}
+	search_filters = { FOCUS_FILTER_SPR_CIVILWAR FOCUS_FILTER_POLITICAL }
+}
+joint_focus = {
+	id = SCW_Joint_rif_the_wrath_of_africa
+	icon = GFX_goal_RIF_The_Protectorate
+	cost = 5
+	joint_trigger = {
+		hidden_trigger = { is_spanish_civil_war_tag_regardless_of_war = yes }
+	}
+	x = 1
+	y = 1
+	relative_position_id = SCW_Joint_rif_start
+	prerequisite = {
+		focus = SCW_Joint_rif_start
+	}
+	available = {
+		tag = RIF
+		spanish_civil_war_will_happen_or_is_happening = yes
+	}
+	completion_reward_joint_member = {
+		if = {
+			limit = { RIF = { is_subject = yes } }
+			var:RIF.overlord = {
+				add_manpower = 5000
+			}
+		}
+	}
+	completion_reward_joint_originator = {
+		add_ideas = SCW_RIF_wrath_of_africa
+		add_manpower = 15000
+	}
+	search_filters = { FOCUS_FILTER_SPR_CIVILWAR FOCUS_FILTER_ARMY_BONUS }
+}
+joint_focus = {
+	id = SCW_Joint_rif_a_very_african_army
+	icon = GFX_goal_RIF_The_Protectorate
+	cost = 5
+	joint_trigger = {
+		hidden_trigger = { is_spanish_civil_war_tag_regardless_of_war = yes }
+	}
+	x = -1
+	y = 1
+	relative_position_id = SCW_Joint_rif_start
+	prerequisite = {
+		focus = SCW_Joint_rif_start
+	}
+	available = {
+		tag = RIF
+		spanish_civil_war_will_happen_or_is_happening = yes
+	}
+	completion_reward_joint_member = {
+		if = {
+			limit = { RIF = { is_subject = yes } }
+			var:RIF.overlord = {
+				add_ideas = SCW_RIF_African_Resourcefulness
+				add_doctrine_cost_reduction = {
+					name = land_doc_bonus
+					cost_reduction = 0.25
+					uses = 1
+					category = land_doctrine
+				}
+			}
+		}
+	}
+	completion_reward_joint_originator = {
+		add_ideas = SCW_RIF_African_Resourcefulness
+		add_doctrine_cost_reduction = {
+			name = land_doc_bonus
+			cost_reduction = 0.5
+			uses = 2
+			category = land_doctrine
+		}
+	}
+	search_filters = { FOCUS_FILTER_SPR_CIVILWAR FOCUS_FILTER_ARMY_BONUS }
+}
+joint_focus = {
+	id = SCW_Joint_rif_iron_rif
+	icon = GFX_goal_RIF_The_Protectorate
+	cost = 5
+	joint_trigger = {
+		hidden_trigger = { is_spanish_civil_war_tag_regardless_of_war = yes }
+	}
+	x = 1
+	y = 1
+	relative_position_id = SCW_Joint_rif_a_very_african_army
+	prerequisite = {
+		focus = SCW_Joint_rif_a_very_african_army
+	}
+	prerequisite = {
+		focus = SCW_Joint_rif_the_wrath_of_africa
+	}
+	available = {
+		tag = RIF
+		spanish_civil_war_will_happen_or_is_happening = yes
+	}
+	completion_reward_joint_originator = {
+		every_owned_state = {
+			add_building_construction = {
+				type = bunker
+				level = 2
+				instant_build = yes
+				province = {
+					all_provinces = yes
+					limit_to_border = yes
+				}
+			}
+		}
+	}
+	search_filters = { FOCUS_FILTER_SPR_CIVILWAR FOCUS_FILTER_INDUSTRY }
+}
+joint_focus = {
+	id = SCW_Joint_cnt_secure_the_rurals
+	icon = GFX_goal_cntfai
+	cost = 6
+	joint_trigger = {
+		hidden_trigger = { is_spanish_civil_war_tag_regardless_of_war = yes }
+	}
+	x = -1
+	y = 1
+	relative_position_id = SCW_Joint_cnt_catalan_crisis
+	prerequisite = {
+		focus = SCW_Joint_cnt_catalan_crisis
+	}
+	available = {
+		tag = CNT
+		CNT_catalan_crisis_trigger = yes
+	}
+	completion_reward_joint_originator = {
+		add_political_power = -25
+		165 = {
+			add_building_construction = {
+				type = industrial_complex
+				level = 2
+				instant_build = yes
+			}
+			increase_state_category_by_one_level = yes
+		}
+		add_days_mission_timeout = {
+			mission = CNT_catalan_revolt_mission
+			days = 14
+		}
+	}
+	search_filters = { FOCUS_FILTER_SPR_CIVILWAR FOCUS_FILTER_POLITICAL }
+}
+joint_focus = {
+	id = SCW_Joint_cnt_sway_the_leftist_separatists
+	icon = GFX_goal_cntfai
+	cost = 5
+	joint_trigger = {
+		hidden_trigger = { is_spanish_civil_war_tag_regardless_of_war = yes }
+	}
+	x = 1
+	y = 1
+	relative_position_id = SCW_Joint_cnt_catalan_crisis
+	mutually_exclusive = {
+		focus = SCW_Joint_cnt_send_the_protesters_to_the_front
+	}
+	prerequisite = {
+		focus = SCW_Joint_cnt_catalan_crisis
+	}
+	available = {
+		tag = CNT
+		CNT_catalan_crisis_trigger = yes
+	}
+	completion_reward_joint_originator = {
+		add_political_power = -50
+		add_stability = 0.03
+		add_days_mission_timeout = {
+			mission = CNT_catalan_revolt_mission
+			days = 14
+		}
+	}
+	search_filters = { FOCUS_FILTER_SPR_CIVILWAR FOCUS_FILTER_POLITICAL }
+}
+joint_focus = {
+	id = SCW_Joint_cnt_send_the_protesters_to_the_front
+	icon = GFX_goal_cntfai
+	cost = 2
+	joint_trigger = {
+		hidden_trigger = { is_spanish_civil_war_tag_regardless_of_war = yes }
+	}
+	x = 3
+	y = 1
+	relative_position_id = SCW_Joint_cnt_catalan_crisis
+	mutually_exclusive = {
+		focus = SCW_Joint_cnt_sway_the_leftist_separatists
+	}
+	prerequisite = {
+		focus = SCW_Joint_cnt_catalan_crisis
+	}
+	prerequisite = {
+		focus = SCW_Joint_cnt_wrath_of_the_working_man
+	}
+	available = {
+		tag = CNT
+		CNT_catalan_crisis_trigger = yes
+	}
+	completion_reward_joint_originator = {
+		add_stability = -0.05
+		add_war_support = -0.05
+		add_manpower = 15000
+		add_days_mission_timeout = {
+			mission = CNT_catalan_revolt_mission
+			days = 40
+		}
+	}
+	search_filters = { FOCUS_FILTER_SPR_CIVILWAR FOCUS_FILTER_POLITICAL }
+}
+joint_focus = {
+	id = SCW_Joint_cnt_compromise_with_the_right
+	icon = GFX_goal_cntfai
+	cost = 4
+	joint_trigger = {
+		hidden_trigger = { is_spanish_civil_war_tag_regardless_of_war = yes }
+	}
+	x = -1
+	y = 1
+	relative_position_id = SCW_Joint_cnt_send_the_protesters_to_the_front
+	prerequisite = {
+		focus = SCW_Joint_cnt_send_the_protesters_to_the_front
+		focus = SCW_Joint_cnt_sway_the_leftist_separatists
+	}
+	available = {
+		tag = CNT
+		CNT_catalan_crisis_trigger = yes
+	}
+	completion_reward_joint_originator = {
+		country_event = sprc.17
+	}
+	search_filters = { FOCUS_FILTER_SPR_CIVILWAR FOCUS_FILTER_POLITICAL }
+}
+joint_focus = {
+	id = SCW_Joint_cnt_the_one_good_idea_the_barbarian_had
+	icon = GFX_goal_cntfai
+	cost = 8
+	joint_trigger = {
+		hidden_trigger = { is_spanish_civil_war_tag_regardless_of_war = yes }
+	}
+	x = -1
+	y = 1
+	relative_position_id = SCW_Joint_cnt_compromise_with_the_right
+	prerequisite = {
+		focus = SCW_Joint_cnt_compromise_with_the_right
+	}
+	prerequisite = {
+		focus = SCW_Joint_cnt_secure_the_rurals
+	}
+	available = {
+		tag = CNT
+		CNT_catalan_crisis_trigger = yes
+	}
+	completion_reward_joint_originator = {
+		custom_override_tooltip = {
+			tooltip = CNT_ends_catalan_crisis_tt
+			remove_ideas = SCW_CNT_catalan_crisis_idea
+			remove_mission = CNT_catalan_revolt_mission
+			every_state = {
+				limit = {
+					has_dynamic_modifier = { modifier = SPR_catalan_nationalists }
+				}
+				remove_dynamic_modifier = { modifier = SPR_catalan_nationalists }
+			}
+		}
+		add_stability = 0.15
+		add_political_power = 100
+	}
+	search_filters = { FOCUS_FILTER_SPR_CIVILWAR FOCUS_FILTER_POLITICAL }
 }
 joint_focus = {
 	id = SCW_Joint_cnt_kingdom_appeal_to_the_common_man
@@ -239,7 +646,7 @@ joint_focus = {
 }
 joint_focus = {
 	id = SCW_Joint_car_start
-	icon = GFX_goal_carlist
+	icon = GFX_goal_SCW_Joint_car_start
 	cost = 9
 	joint_trigger = {
 		hidden_trigger = { is_spanish_civil_war_tag_regardless_of_war = yes }
@@ -312,12 +719,34 @@ joint_focus = {
 		spanish_civil_war_will_happen_or_is_happening = yes
 	}
 	completion_reward_joint_member = {
-		add_political_power = -20
+		if = {
+			limit = {
+				original_tag = CAR
+			}
+			add_timed_idea = {
+				idea = SCW_kingdom_gang_warfare
+				days = 120
+			}
+		}
+		else_if = {
+			limit = {
+				original_tag = SPR
+			}
+			add_timed_idea = {
+				idea = SCW_carlist_gang_warfare
+				days = 120
+			}
+		}
 	}
 	completion_reward_joint_originator = {
-		add_political_power = 20
+		add_ideas = SCW_legacy_of_the_carlist_wars_idea
+		add_tech_bonus = {
+			bonus = 3
+			uses = 1
+			category = artillery
+		}
 	}
-	search_filters = { FOCUS_FILTER_SPR_CIVILWAR }
+	search_filters = { FOCUS_FILTER_SPR_CIVILWAR FOCUS_FILTER_RESEARCH FOCUS_FILTER_ARMY_BONUS }
 }
 joint_focus = {
 	id = SCW_Joint_car_mend_the_carlist_divisons
@@ -338,11 +767,51 @@ joint_focus = {
 	}
 	completion_reward_joint_member = {
 		add_political_power = -20
+		add_popularity = {
+			ideology = national_populist
+			popularity = 0.07
+		}
+		if = {
+			limit = {
+				NOT = { has_government = paternal_autocrat }
+			}
+			add_popularity = {
+				ideology = paternal_autocrat
+				popularity = 0.07
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_government = authoritarian_democrat }
+			}
+			add_popularity = {
+				ideology = authoritarian_democrat
+				popularity = 0.07
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_government = syndicalist }
+			}
+			add_popularity = {
+				ideology = syndicalist
+				popularity = 0.07
+			}
+		}
 	}
 	completion_reward_joint_originator = {
-		add_political_power = 20
+		if = {
+			limit = { NOT = { has_government = national_populist } }
+			add_natpop_to_coalition = yes
+		}
+		if = {
+			limit = { NOT = { has_government = paternal_autocrat } }
+			add_pataut_to_coalition = yes
+		}
+		add_authdem_to_coalition = yes
+		add_synd_to_coalition = yes
 	}
-	search_filters = { FOCUS_FILTER_SPR_CIVILWAR }
+	search_filters = { FOCUS_FILTER_SPR_CIVILWAR FOCUS_FILTER_POLITICAL }
 }
 joint_focus = {
 	id = SCW_Joint_car_we_love_portugal
@@ -370,5 +839,5 @@ joint_focus = {
 			set_country_flag = SCW_can_ask_POR_to_join_flag
 		}
 	}
-	search_filters = { FOCUS_FILTER_SPR_CIVILWAR }
+	search_filters = { FOCUS_FILTER_SPR_CIVILWAR FOCUS_FILTER_POLITICAL }
 }

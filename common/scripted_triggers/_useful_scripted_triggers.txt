@@ -603,20 +603,42 @@ is_in_china = {
 	is_in_array = { global.china_tags_array = THIS }
 }
 
-is_spanish_civil_war_tag = {
-	OR = {
-		tag = CAR
-		tag = CNT
-		tag = SPR
+is_spanish_civil_war_tag_regardless_of_war = {
+	custom_override_tooltip = {
+		tooltip = is_a_country_in_the_spanish_civil_war
+		OR = {
+			tag = CAR
+			tag = CNT
+			tag = SPR
+			AND = {
+				tag = CAT
+				OR = {
+					has_country_flag = SCW_CNT_CAT_Catalan_Crisis_Revolt
+					has_active_mission = SCW_catalonia_revolt_standoff_mission
+				}
+			}
+			AND = {
+				tag = RIF
+				has_country_flag = SCW_RIF_inervention
+			}
+		}
 	}
-	has_global_flag = spanish_civil_war
 }
 
-is_spanish_civil_war_tag_regardless_of_war = {
+is_spanish_civil_war_tag = {
+	custom_override_tooltip = {
+		tooltip = is_a_country_in_the_spanish_civil_war
+		is_spanish_civil_war_tag_regardless_of_war = yes
+		has_global_flag = spanish_civil_war
+		has_war = yes
+	}
+}
+is_major_spanish_civil_war_tag = {
+	is_spanish_civil_war_tag = yes
 	OR = {
-		tag = CAR
-		tag = CNT
 		tag = SPR
+		tag = CNT
+		tag = CAR
 	}
 }
 

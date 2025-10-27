@@ -2725,6 +2725,84 @@ SPR_civil_war_decisions = {
 			}
 		}
 	}
+	SCW_catalonia_revolt_standoff_mission = {
+		icon = generic_ignite_civil_war
+		activation = {
+			always = no
+		}
+		available = {
+			always = no
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				CAT = { exists = no }
+			}
+		}
+		is_good = no
+		priority = 20
+		days_mission_timeout = 30
+		selectable_mission = no
+		timeout_effect = {
+			custom_override_tooltip = {
+				tooltip = SCW_catalonia_revolt_standoff_mission_tt
+				if = {
+					limit = {
+						tag = CAT
+					}
+					every_country = {
+						limit = {
+							is_spanish_civil_war_tag = yes
+							NOT = { tag = ROOT }
+						}
+						declare_war_on = {
+							target = PREV
+							type = annex_everything
+						}
+						activate_mission = SCW_catalonia_revolt_timeout_mission
+					}
+					set_country_flag = SCW_CNT_CAT_Catalan_Crisis_Revolt
+				}
+				if = {
+					limit = {
+						tag = CNT
+						has_idea = SCW_CNT_catalan_crisis_idea
+					}
+					remove_ideas = SCW_CNT_catalan_crisis_idea
+				}
+			}
+		}
+	}
+	SCW_catalonia_revolt_timeout_mission = {
+		icon = generic_ignite_civil_war
+		activation = {
+			always = no
+		}
+		available = {
+			always = no
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				CAT = { exists = no }
+			}
+		}
+		is_good = no
+		priority = 20
+		days_mission_timeout = 365
+		selectable_mission = no
+		timeout_effect = {
+			custom_override_tooltip = {
+				tooltip = SCW_catalonia_revolt_timeout_mission_tt
+				CAT = {
+					every_enemy_country = {
+						limit = {
+							is_subject = no
+						}
+						country_event = sprc.21
+					}
+				}
+			}
+		}
+	}
 	SPR_SCW_give_selected_side_infantry = {
 		icon = ger_military_buildup
 		custom_cost_trigger = {
@@ -3139,7 +3217,7 @@ SPR_civil_war_decisions = {
 	SCW_attack_opposing_side_buildings = {
 		icon = generic_military
 		target_root_trigger = {
-			is_spanish_civil_war_tag_regardless_of_war = yes
+			is_spanish_civil_war_tag = yes
 		}
 		priority = 10
 		days_remove = 21
@@ -3148,15 +3226,20 @@ SPR_civil_war_decisions = {
 			has_manpower > 499
 		}
 		custom_cost_text = SPR_SCW_decision_cost_500_manpower_500_infa
-		targets = { SPR CNT CAR }
 		target_trigger = {
 			FROM = {
+				is_spanish_civil_war_tag = yes
+				is_ally_of_ROOT = no
 				NOT = { tag = ROOT }
+				OR = {
+					num_of_civilian_factories > 0
+					num_of_military_factories > 0
+				}
 			}
 		}
 		visible = {
 			is_spanish_civil_war_tag = yes
-			has_war = yes
+			has_war_with = FROM
 		}
 		complete_effect = {
 			hidden_effect = {
@@ -3167,32 +3250,35 @@ SPR_civil_war_decisions = {
 				add_manpower = -500
 			}
 		}
+		cancel_if_not_visible = yes
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove SCW_attack_opposing_side_buildings"
 			FROM = {
-				random_owned_state = {
+				if = {
 					limit = {
-						arms_factory > 0
-						is_owned_by = FROM
+						num_of_civilian_factories > 0
 					}
-					random_list = {
-						33 = {
-							damage_building = {
-								type = arms_factory
-								damage = 0.5
-							}
+					random_owned_state = {
+						limit = {
+							industrial_complex > 0
 						}
-						33 = {
-							damage_building = {
-								type = arms_factory
-								damage = 0.75
-							}
+						damage_building = {
+							type = industrial_complex
+							damage = 0.8
 						}
-						33 = {
-							damage_building = {
-								type = arms_factory
-								damage = 1
-							}
+					}
+				}
+				if = {
+					limit = {
+						num_of_military_factories > 0
+					}
+					random_owned_state = {
+						limit = {
+							arms_factory > 0
+						}
+						damage_building = {
+							type = arms_factory
+							damage = 0.8
 						}
 					}
 				}
@@ -3207,15 +3293,24 @@ SPR_civil_war_decisions = {
 		fire_only_once = yes
 		priority = 15
 		cost = 10
+		days_remove = 7
 		available = {
 			surrender_progress > 0.35
 		}
 		visible = {
 			is_spanish_civil_war_tag = yes
-			has_country_flag = SCW_can_ask_POR_to_join_flag
+			hidden_trigger = { has_country_flag = SCW_can_ask_POR_to_join_flag }
 			has_war = yes
+			NOT = { has_war_with = POR }
 		}
+		cancel_if_not_visible = yes
 		complete_effect = {
+			every_other_country = {
+				limit = { is_spanish_civil_war_tag = yes }
+				country_event = sprc.20
+			}
+		}
+		remove_effect = {
 			POR = { country_event = sprc.14 }
 		}
 		ai_will_do = {
@@ -3270,6 +3365,7 @@ SPR_civil_war_decisions = {
 			is_spanish_civil_war_tag = yes
 			has_war = yes
 		}
+		cancel_if_not_visible = yes
 		complete_effect = {
 			add_timed_idea = {
 				idea = SPR_desperate_measures_idea
@@ -3278,6 +3374,92 @@ SPR_civil_war_decisions = {
 		}
 		ai_will_do = {
 			base = 100
+		}
+	}
+	SCW_core_fully_controlled_state = {
+		icon = infiltrate_state
+		state_target = yes
+		target_trigger = {
+			FROM = {
+				OR = {
+					is_core_of = SPR
+					is_core_of = CAR
+					is_core_of = CNT
+				}
+				NOT = {
+					is_core_of = ROOT
+					state = 118
+					state = 1313
+					state = 1316
+				}
+			}
+		}
+		target_root_trigger = {
+			is_spanish_civil_war_tag_regardless_of_war = yes
+			is_major_spanish_civil_war_tag = yes
+		}
+		cost = 30
+		days_remove = 60
+		fire_only_once = yes
+		available = {
+			FROM = {
+				is_fully_controlled_by = ROOT
+			}
+		}
+		cancel_trigger = {
+			FROM = {
+				NOT = { is_fully_controlled_by = ROOT }
+			}
+		}
+		modifier = {
+			political_power_factor = -0.5
+			consumer_goods_factor = 0.25
+		}
+		visible = {
+			is_spanish_civil_war_tag = yes
+			has_war = yes
+			FROM = {
+				any_neighbor_state = {
+					is_core_of = ROOT
+				}
+			}
+		}
+		remove_effect = {
+			if = {
+				limit = { FROM = { is_claimed_by = ROOT } }
+				FROM = { remove_claim_by = ROOT }
+			}
+			FROM = { add_core_of = ROOT }
+			if = { #andorra
+				limit = {
+					FROM = { state = 165 }
+				}
+				if = {
+					limit = { 1313 = { is_claimed_by = ROOT } }
+					1313 = { remove_claim_by = ROOT }
+				}
+				1313 = { add_core_of = ROOT }
+			}
+			if = { #gibraltar
+				limit = {
+					FROM = { state = 169 }
+				}
+				if = {
+					limit = { 118 = { is_claimed_by = ROOT } }
+					118 = { remove_claim_by = ROOT }
+				}
+				118 = { add_core_of = ROOT }
+			}
+			if = { #olivenza
+				limit = {
+					FROM = { state = 1337 }
+				}
+				if = {
+					limit = { 1316 = { is_claimed_by = ROOT } }
+					1316 = { remove_claim_by = ROOT }
+				}
+				1316 = { add_core_of = ROOT }
+			}
 		}
 	}
 }
@@ -3324,11 +3506,23 @@ SCW_military_decisions = {
 		}
 		remove_effect = {
 			FROM = {
-				create_unit = {
-					division = "name = \"Milicia de Emergencia\" division_template = \"Milicia de Emergencia\" start_experience_factor = 0.1"
-					owner = ROOT
-					id = 15
-					count = 2
+				if = {
+					limit = {
+						ROOT = { tag = RIF }
+					}
+					create_unit = {
+						division = "division_template = \"Regulares\" start_experience_factor = 0.4 start_experience_factor = 0.6"
+						owner = RIF
+						count = 1
+					}
+				}
+				else = {
+					create_unit = {
+						division = "name = \"Milicia de Emergencia\" division_template = \"Milicia de Emergencia\" start_experience_factor = 0.1"
+						owner = ROOT
+						id = 15
+						count = 2
+					}
 				}
 			}
 		}

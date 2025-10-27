@@ -1,4 +1,4 @@
-# Galician events by Immortal Jörmund
+# Riffian events by Immortal Jörmund
 add_namespace = RIF
 
 country_event = { 
@@ -25,7 +25,7 @@ country_event = {
 		add_war_support = -0.05
 	}
 }
-country_event = { 
+country_event = {
 	id = RIF.3
 	title = RIF.3.t 
 	desc = RIF.3.d 
@@ -34,56 +34,31 @@ country_event = {
 	fire_only_once = yes
 	option = {
 		name = RIF.3.a
-				division_template = {
-				name = "Regulares"
-				division_names_group = SPR_INF_01  
-				regiments = {
-					irregular_infantry = { x = 0 y = 0 }
-					irregular_infantry = { x = 0 y = 1 }
-					irregular_infantry = { x = 0 y = 2 }
-					irregular_infantry = { x = 1 y = 0 }
-					irregular_infantry = { x = 1 y = 1 }
-					irregular_infantry = { x = 1 y = 2 }
-					irregular_infantry = { x = 2 y = 0 }
-					irregular_infantry = { x = 2 y = 1 }
-					irregular_infantry = { x = 2 y = 2 }
-				}
+		division_template = {
+			name = "Regulares"
+			division_names_group = SPR_INF_01  
+			regiments = {
+				irregular_infantry = { x = 0 y = 0 }
+				irregular_infantry = { x = 0 y = 1 }
+				irregular_infantry = { x = 0 y = 2 }
+				irregular_infantry = { x = 1 y = 0 }
+				irregular_infantry = { x = 1 y = 1 }
+				irregular_infantry = { x = 1 y = 2 }
+				irregular_infantry = { x = 2 y = 0 }
+				irregular_infantry = { x = 2 y = 1 }
+				irregular_infantry = { x = 2 y = 2 }
 			}
-			random_owned_controlled_state = {
-				prioritize = { 290 }
-				create_unit = {
-					division = "division_template = \"Regulares\" start_experience_factor = 0.4"
-					owner = RIF
-					prioritize_location = 6966
-				}
-				create_unit = {
-					division = "division_template = \"Regulares\" start_experience_factor = 0.4"
-					owner = RIF
-					prioritize_location = 6906
-				}
-				create_unit = {
-					division = "division_template = \"Regulares\" start_experience_factor = 0.4"
-					owner = RIF
-					prioritize_location = 3799
-				}
-				create_unit = {
-					division = "division_template = \"Regulares\" start_experience_factor = 0.4"
-					owner = RIF
-					prioritize_location = 6966
-				}
-				create_unit = {
-					division = "division_template = \"Regulares\" start_experience_factor = 0.4"
-					owner = RIF
-					prioritize_location = 6906
-				}
-				create_unit = {
-					division = "division_template = \"Regulares\" start_experience_factor = 0.4"
-					owner = RIF
-					prioritize_location = 3799
-				}
+		}
+		random_owned_controlled_state = {
+			prioritize = { 290 }
+			create_unit = {
+				division = "division_template = \"Regulares\" start_experience_factor = 0.4"
+				owner = RIF
+				count = 6
 			}
 		}
 	}
+}
 country_event = { 
 	id = RIF.4
 	title = RIF.4.t 
@@ -93,7 +68,7 @@ country_event = {
 	fire_only_once = yes
 	option = {
 		name = RIF.4.a
-				division_template = {
+			division_template = {
 				name = "Tiradores"
 				division_names_group = SPR_INF_01  
 				regiments = {
@@ -127,7 +102,7 @@ country_event = {
 	fire_only_once = yes
 	option = {
 		name = RIF.5.a
-				division_template = {
+			division_template = {
 				name = "Tropas Nomadas"
 				division_names_group = SPR_INF_01  
 				regiments = {
@@ -164,17 +139,17 @@ country_event = {
 		add_manpower = -550
 		add_command_power = -50
 		country_event = {
-		id = RIF.7
-		days = 15
-			}
+			id = RIF.7
+			days = 15
 		}
+	}
 	option = {
 		name = RIF.6.b
 		add_manpower = -1559
 		add_command_power = -100
 		country_event = {
-		id = RIF.8
-		days = 15
+			id = RIF.8
+			days = 15
 		}		
 	}
 }
@@ -219,17 +194,17 @@ country_event = {
 		add_political_power = 75
 		add_stability = -0.1
 		country_event = {
-		id = RIF.10
-		days = 7
-			}
+			id = RIF.10
+			days = 7
 		}
+	}
 	option = {
 		name = RIF.9.b
 		add_political_power = -50
 		add_stability = 0.05
 		country_event = {
-		id = RIF.11
-		days = 7
+			id = RIF.11
+			days = 7
 		}		
 	}
 }
@@ -272,11 +247,13 @@ country_event = {
 		name = RIF.12.a
 		add_political_power = -75
 		add_command_power = -75
-		RIF = {
-			transfer_state = 178
-			add_state_core = 178
-			}
+		add_state_core = 178
+		if = {
+			limit = { var:178.owner = { has_war = yes } }
+			set_temp_variable = { target = RIF }
+			178 = { transfer_state_during_war = yes }
 		}
+	}
 	option = {
 		name = RIF.12.b
 		add_political_power = 50	
@@ -292,7 +269,7 @@ country_event = {
 		name = RIF.13.a
 		add_political_power = -25	
 		NFA = { country_event = { id = RIF.14 days = 5 } }
-		}
+	}
 	option = {
 		name = RIF.13.b
 		add_political_power = 25	
@@ -309,12 +286,12 @@ country_event = {
 		name = RIF.14.a
 		add_political_power = 50
 		RIF = { country_event = { id = RIF.15 days = 5 } }
-		}
+	}
 	option = {
 		name = RIF.14.b
 		add_political_power = 50
 		RIF = { country_event = { id = RIF.16 days = 5 } }
-		}
+	}
 	option = {
 		name = RIF.14.c
 		RIF = { country_event = { id = RIF.17 days = 5 } }
@@ -344,12 +321,12 @@ country_event = {
 		name = RIF.16.a
 		add_political_power = -50
 		add_offsite_building = {
-		type = arms_factory
-		level = 1
+			type = arms_factory
+			level = 1
 		}
 		add_offsite_building = {
-		type = industrial_complex
-		level = 1
+			type = industrial_complex
+			level = 1
 		}
 	}
 }
@@ -486,5 +463,52 @@ country_event = {
 			ideology = radical_socialist
 			popularity = 0.15
 		}
+	}
+}
+country_event = { 
+	id = RIF.100
+	title = RIF.100.t 
+	desc = RIF.100.d 
+	picture = GFX_report_event_generic_riot
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = RIF.100.a #we love the kingdom
+		ai_chance = {
+			base = 60
+			modifier = {
+				CAR = { is_ai = no }
+				factor = 0
+			}
+		}
+		trigger = {
+			SPR = { exists = yes }
+		}
+		SPR = {
+			RIF_get_puppeted_by_SPR_or_CAR_effect = yes
+		}
+	}
+	option = {
+		name = RIF.100.b #we love carlists
+		ai_chance = {
+			base = 40
+			modifier = {
+				SPR = { is_ai = no }
+				factor = 0
+			}
+		}
+		trigger = {
+			CAR = { exists = yes }
+		}
+		CAR = {
+			RIF_get_puppeted_by_SPR_or_CAR_effect = yes
+		}
+	}
+	option = {
+		name = RIF.100.c #spain sucks we should get outta here
+		ai_chance = {
+			base = 0
+		}
+		add_political_power = 50
 	}
 }

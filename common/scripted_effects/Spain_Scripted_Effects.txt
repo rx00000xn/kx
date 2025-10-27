@@ -856,15 +856,8 @@ SCW_prelude_setup = {
 	}
 	every_country = {
 		limit = {
-			OR = {
-				tag = SPR
-				tag = CAR
-				tag = CNT
-			}
-			exists = yes
+			is_spanish_civil_war_tag_regardless_of_war = yes
 		}
-		set_country_flag = SCW_can_now_build_mils_via_decisions_flag
-		set_country_flag = SCW_can_now_raise_militias_flag
 		division_template = {
 			name = "Milicia de Emergencia"
 			regiments = {
@@ -882,6 +875,21 @@ SCW_prelude_setup = {
 				NOT = { has_idea = SPR_social_breakdown_civil_war_unavoidable }
 			}
 			add_ideas = SPR_social_breakdown_civil_war_unavoidable
+		}
+		every_other_country = {
+			limit = {
+				is_spanish_civil_war_tag_regardless_of_war = yes
+				exists = yes
+			}
+			embargo_PREV = yes
+			add_opinion_modifier = {
+				target = PREV
+				modifier = KR_hostile
+			}
+			reverse_add_opinion_modifier = {
+				target = PREV
+				modifier = KR_hostile
+			}
 		}
 	}
 }
@@ -932,7 +940,10 @@ SCW_CAR_prelude_setup = {
 			limit = {
 				owns_state = 1344
 			}
-			set_capital = { state = 1344 }
+			set_capital = {
+				state = 1344
+				remember_old_capital = no
+			}
 		}
 		division_template = {
 			name = "Guardia Carlista"
@@ -1017,34 +1028,6 @@ SCW_CAR_prelude_setup = {
 					has_dynamic_modifier = { modifier = SPR_galicia_nationalists }
 				}
 				remove_dynamic_modifier = { modifier = SPR_galicia_nationalists }
-			}
-		}
-		if = {
-			limit = {
-				SPR = { exists = yes }
-			}
-			embargo_PREV = yes
-			add_opinion_modifier = {
-				target = PREV
-				modifier = KR_hostile
-			}
-			reverse_add_opinion_modifier = {
-				target = PREV
-				modifier = KR_hostile
-			}
-		}
-		if = {
-			limit = {
-				CNT = { exists = yes }
-			}
-			embargo_PREV = yes
-			add_opinion_modifier = {
-				target = PREV
-				modifier = KR_hostile
-			}
-			reverse_add_opinion_modifier = {
-				target = PREV
-				modifier = KR_hostile
 			}
 		}
 		if = {
@@ -1197,8 +1180,24 @@ SCW_CNT_prelude_setup = {
 			limit = {
 				owns_state = 165
 			}
-			set_capital = { state = 165 }
+			set_capital = {
+				state = 165
+				remember_old_capital = no
+			}
 		}
+		end_coalition = yes
+		if = {
+			limit = {
+				has_country_flag = popular_front_on_start_flag
+			}
+			add_soccon_to_coalition = yes
+			add_marlib_to_coalition = yes
+			add_soclib_to_coalition = yes
+			add_socdem_to_coalition = yes
+		}
+		add_radsoc_to_coalition = yes
+		add_synd_to_coalition = yes
+		add_tot_to_coalition = yes
 		division_template = {
 			name = "Milicia Popular Revolucionaria"
 			priority = 1
@@ -1246,44 +1245,17 @@ SCW_CNT_prelude_setup = {
 			}
 			army_experience = 50
 			every_unit_leader = {
-				limit = { has_id = 47590 }
-				set_nationality = CNT
-			}
-			every_unit_leader = {
-				limit = { has_id = 47591 }
+				limit = {
+					OR = {
+						has_id = 47590
+						has_id = 47591
+					}
+				}
 				set_nationality = CNT
 			}
 			add_opinion_modifier = {
 				target = FRA
 				modifier = KR_pleased
-			}
-		}
-		if = {
-			limit = {
-				SPR = { exists = yes }
-			}
-			embargo_PREV = yes
-			add_opinion_modifier = {
-				target = PREV
-				modifier = KR_hostile
-			}
-			reverse_add_opinion_modifier = {
-				target = PREV
-				modifier = KR_hostile
-			}
-		}
-		if = {
-			limit = {
-				CAR = { exists = yes }
-			}
-			embargo_PREV = yes
-			add_opinion_modifier = {
-				target = PREV
-				modifier = KR_hostile
-			}
-			reverse_add_opinion_modifier = {
-				target = PREV
-				modifier = KR_hostile
 			}
 		}
 		if = {
@@ -1299,19 +1271,19 @@ SCW_CNT_prelude_setup = {
 	}
 }
 CNT_setup_effect = {
+	FRA = {
+		country_event = {
+			id = comfrance.22
+			days = 7
+		}
+		country_event = {
+			id = sprf.17
+			days = 14
+		}
+	}
 	CNT = {
 		country_event = { id = sprc.207 days = 7 }
 		country_event = { id = sprc.208 days = 15  }
-		FRA = {
-			country_event = {
-				id = comfrance.22
-				days = 7
-			}
-			country_event = {
-				id = sprf.17
-				days = 14
-			}
-		}
 		if = {
 			limit = {
 				has_country_flag = CNT_Add_Anarchy_Idea_On_Civil_War_Start
@@ -1319,19 +1291,6 @@ CNT_setup_effect = {
 			add_ideas = CNT_SCW_we_love_anarchy
 		}
 		set_cosmetic_tag = CNT_PROV_GOV
-		end_coalition = yes
-		if = {
-			limit = {
-				has_country_flag = popular_front_on_start_flag
-			}
-			add_soccon_to_coalition = yes
-			add_marlib_to_coalition = yes
-			add_soclib_to_coalition = yes
-			add_socdem_to_coalition = yes
-		}
-		add_radsoc_to_coalition = yes
-		add_synd_to_coalition = yes
-		add_tot_to_coalition = yes
 	}
 	SPR = {
 		add_popularity = {
@@ -1372,28 +1331,26 @@ SCW_start_effect = {
 	}
 	every_country = {
 		limit = {
-			is_spanish_civil_war_tag = yes
+			is_spanish_civil_war_tag_regardless_of_war = yes
 		}
 		set_stability = 0.25
+		set_war_support = 0.5
 		set_political_power = 0
-		if = {
-			limit = {
-				has_idea = SPR_social_breakdown_civil_war_unavoidable
-			}
-			swap_ideas = {
-				remove_idea = SPR_social_breakdown_civil_war_unavoidable
-				add_idea = SPR_civil_war_idea
-			}
-		}
-		else = {
-			add_ideas = SPR_civil_war_idea
-		}
+		country_lock_all_division_template = no
+		remove_ideas = SPR_social_breakdown_civil_war_unavoidable
+		add_ideas = SPR_civil_war_idea
 		add_ideas = {
 			SPR_black_monday_scw
 			extensive_conscription
 			closed_economy
 			war_economy
 		}
+	}
+	random_country = {
+		limit = {
+			is_spanish_civil_war_tag_regardless_of_war = yes
+		}
+		unlock_national_focus = SCW_Joint_the_final_fall
 	}
 	if = {
 		limit = {
@@ -1516,27 +1473,6 @@ SCW_start_effect = {
 					NOT = { is_core_of = CAR }
 				}
 				CAR = { add_state_claim = PREV }
-			}
-		}
-	}
-}
-SPR_civil_war_rif_garrison_spawn = {
-	every_owned_state = {
-		limit = {
-			OR = {
-				is_core_of = MOR
-				state = 178
-			}
-		}
-		transfer_state_to = RIF
-		add_core_of = RIF
-	}
-	hidden_effect = {
-		RIF = {
-			transfer_technology = yes
-			hidden_effect = { get_current_government_type = yes }
-			set_politics = {
-				ruling_party = national_populist
 			}
 		}
 	}
@@ -1753,18 +1689,14 @@ SRR_civil_war_end_effect = {
 		limit = {
 			tag = CNT
 		}
-		if = {
+		every_unit_leader = {
 			limit = {
-				has_country_flag = CNT_French_Support
+				OR = {
+					has_id = 47590
+					has_id = 47591
+				}
 			}
-			every_unit_leader = {
-				limit = { has_id = 47590 }
-				set_nationality = FRA
-			}
-			every_unit_leader = {
-				limit = { has_id = 47591 }
-				set_nationality = FRA
-			}
+			set_nationality = FRA
 		}
 		drop_cosmetic_tag = yes
 		create_country_leader = {
@@ -1843,6 +1775,15 @@ SRR_civil_war_end_effect = {
 	remove_ideas = {
 		SPR_has_bop_idea
 		SPR_civil_war_idea
+		SPR_national_front
+		SPR_desperate_measures_idea
+		SCW_gang_warfare
+		SCW_legacy_of_the_carlist_wars_idea
+		SCW_carlist_gang_warfare
+		SCW_kingdom_gang_warfare
+		SCW_CNT_catalan_crisis_idea
+		SCW_RIF_wrath_of_africa
+		SCW_RIF_African_Resourcefulness
 	}
 	delete_unit_template_and_units = {
 		division_template = "Guardia Carlista"
@@ -1890,7 +1831,7 @@ SPR_switch_to_CNT_effect = { #For if the left wins the power struggle after stab
 			target = SPR
 			transfer_troops = yes
 		}
-		set_capital = { state = 41 }
+		set_capital = { state = 41 remember_old_capital = no }
 		set_cosmetic_tag = CNT_PROV_GOV
 		set_country_flag = CNT_coup_after_scw_avoided
 		set_popularities = {
@@ -1932,7 +1873,7 @@ SPR_switch_to_CAR_effect = { #For if the right wins the power struggle after sta
 			target = SPR
 			transfer_troops = yes
 		}
-		set_capital = { state = 41 }
+		set_capital = { state = 41 remember_old_capital = no }
 		set_cosmetic_tag = CAR_PROV_GOV
 		set_country_flag = CAR_coup_after_scw_avoided
 		set_popularities = {
@@ -1950,7 +1891,33 @@ SPR_switch_to_CAR_effect = { #For if the right wins the power struggle after sta
 		change_tag_from = SPR
 	}
 }
-
+SCW_rif_garrison_spawn = {
+	every_owned_state = {
+		limit = {
+			is_core_of = MOR
+		}
+		transfer_state_to = RIF
+		add_core_of = RIF
+	}
+	hidden_effect = {
+		RIF = {
+			transfer_technology = yes
+			get_current_government_type = yes
+			set_politics = {
+				ruling_party = national_populist
+			}
+			set_cosmetic_tag = RIF_LEGION
+			add_ideas = {
+				RIF_legion_idea
+				RIF_kingdom_or_carlists
+			}
+			country_event = {
+				id = sprc.18
+				days = 3
+			}
+		}
+	}
+}
 SPR_equatorial_guinea_stolen_effect = {
 	var:539.owner = {
 		add_to_temp_array = { temp_countries = THIS }
@@ -2042,14 +2009,12 @@ SPR_remove_separatist_effect = {
 				has_dynamic_modifier = { modifier = SPR_basque_nationalists }
 			}
 			remove_dynamic_modifier = { modifier = SPR_basque_nationalists }
-			force_disable_resistance = SPR
 		}
 		every_state = {
 			limit = {
 				has_dynamic_modifier = { modifier = SPR_galicia_nationalists }
 			}
 			remove_dynamic_modifier = { modifier = SPR_galicia_nationalists }
-			force_disable_resistance = SPR
 		}
 	}
 	remove_ideas = SPR_Rising_Separatism
@@ -2414,25 +2379,38 @@ SPR_form_iberia_effect_no_annex = {
 	}
 }
 CAT_revolt_during_scw_effect = {
-	every_state = {
-		limit = {
-			AND = {
-				is_core_of = CAT
-				NOT = {
-					state = 167
+	set_variable = { CAT.previous_catalonia_owner = 165.owner }
+	var:CAT.previous_catalonia_owner = {
+		every_owned_state = {
+			limit = {
+				AND = {
+					is_core_of = CAT
+					NOT = {
+						state = 167
+					}
 				}
 			}
-		}
-		CAT = {
-			transfer_state = PREV
+			transfer_state_to = CAT
 		}
 	}
 	CAT = {
+		transfer_technology = yes
 		set_cosmetic_tag = CAT_PROV_GOV
-		declare_war_on = {
-			target = 165.owner
-			type = annex_everything
+	}
+	every_country = {
+		limit = {
+			OR = {
+				is_spanish_civil_war_tag_regardless_of_war = yes
+				tag = CAT
+			}
 		}
+		activate_mission = SCW_catalonia_revolt_standoff_mission
+	}
+	every_state = {
+		limit = {
+			has_dynamic_modifier = { modifier = SPR_catalan_nationalists }
+		}
+		remove_dynamic_modifier = { modifier = SPR_catalan_nationalists }
 	}
 }
 SPR_RIF_Revolt_Effect = {
@@ -3171,6 +3149,27 @@ SPR_Morocco_war_peace_out_effect = {
 				clear_variable = MOR.previous_overlord
 				restore_previous_government_type = yes
 			}
+		}
+	}
+}
+RIF_get_puppeted_by_SPR_or_CAR_effect = {
+	every_enemy_country = {
+		RIF = {
+			declare_war_on = {
+				target = PREV
+				type = annex_everything
+			}
+		}
+	}
+	hidden_effect = {
+		RIF = {
+			puppet_country_without_changing_government = yes
+			set_country_flag = SCW_RIF_inervention
+		}
+		set_automony = {
+			target = RIF
+			autonomous_state = kx_colored_puppet
+			freedom_level = 0.75
 		}
 	}
 }
