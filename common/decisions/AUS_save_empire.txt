@@ -2778,10 +2778,11 @@ EUU_paneuropean_council = {
 }   
 
 
-foreign_politics = {
+austria_collapse_category = {
 	AUS_borderwar_bohemia = {
 		cost = 25
 		icon = GFX_decision_generic_flags
+		priority = 2
 		allowed = {
 			OR = {
 				tag = AUS
@@ -2841,6 +2842,7 @@ foreign_politics = {
 	AUS_borderwar_heizenland = {
 		cost = 25
 		icon = GFX_decision_generic_flags
+		priority = 2
 		allowed = {
 			OR = {
 				tag = AUS
@@ -2889,6 +2891,7 @@ foreign_politics = {
 	
 	AUS_surrender_slovenia = {
 		icon = GFX_decision_peace_dove
+		priority = 3
 		allowed = {
 			OR = {
 				tag = AUS
@@ -3043,6 +3046,7 @@ foreign_politics = {
 	AUS_tyrol_reunification = {
 		icon = GFX_decision_generic_hand_out
 		cost = 100
+		priority = 2
 		allowed = {
 			tag = AUS
 		}
@@ -3082,18 +3086,20 @@ foreign_politics = {
 	}
 	
 	AUS_german_bohemia_annexation = {
-		icon = GFX_decision_generic_hand_out
-		cost = 50
+		icon = GFX_decision_AUS_republic_flag
+		cost = 25
+		priority = 2
 		allowed = {
 			tag = AUS
 		}
 		visible = {
-			country_exists = PGU
-			PGU = {
-				is_subject = no
-			}
-			is_subject = no
-			has_country_flag = AUS_annex_PGU
+			#country_exists = PGU
+			#PGU = {
+			#	is_subject = no
+			#}
+			#is_subject = no
+			#has_country_flag = AUS_annex_PGU
+			always = yes
 		}
 		available = {
 			PGU = {
@@ -3106,8 +3112,45 @@ foreign_politics = {
 			factor = 100
 		}
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_german_bohemia_annexation"
+			log = "[GetDateText]: [Root.GetName]: Decision complete AUS_german_bohemia_annexation"
 			PGU = {
+				country_event = {
+					id = bdeausfor.124
+					days = 10
+				}
+			}
+		}
+	}
+	
+	AUS_heizenland_annexation = {
+		icon = GFX_decision_AUS_republic_flag
+		cost = 15
+		priority = 2
+		allowed = {
+			tag = AUS
+		}
+		visible = {
+			#country_exists = HNZ
+			#HNZ = {
+			#	is_subject = no
+			#}
+			#is_subject = no
+			#has_country_flag = AUS_annex_HNZ
+			always = yes
+		}
+		available = {
+			HNZ = {
+				at_peace_or_same_enemies_as_ROOT = yes
+			}
+			is_owner_neighbor_of = HNZ
+		}
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision complete AUS_heizenland_annexation"
+			HNZ = {
 				country_event = {
 					id = bdeausfor.124
 					days = 10
@@ -3271,6 +3314,18 @@ foreign_politics = {
 					country_event = {
 						id = bdeausfor.178
 					}
+					else_if = {
+						limit = {
+							CZE = {
+								has_country_flag = AUS_CZE_rollover
+							}
+						}
+						custom_effect_tooltip = AUS_rollover
+						annex_country = {
+							target = CZE
+							transfer_troops = yes
+						}
+					}
 					else = {
 						custom_effect_tooltip = AUS_pending
 					}
@@ -3314,12 +3369,18 @@ foreign_politics = {
 			}
 		}
 	}
+}
+
+foreign_politics = {
 	
 	AUS_blutpakt = {
 		icon = GFX_decision_DAP_flag
 		cost = 25
 		allowed = {
-			tag = AUS
+			OR = {
+				tag = AUS
+				tag = AWR
+			}
 		}
 		visible = {
 			#has_completed_focus = AUS_volkisch_heralds
@@ -3371,7 +3432,10 @@ foreign_politics = {
 		}
 		available = {
 			has_completed_focus = AUS_volkisch_heralds
-			is_in_faction = no
+			OR = {
+				is_in_faction = no
+				is_faction_leader = yes
+			}
 		}
 		fire_only_once = yes
 		ai_will_do = {
@@ -3379,8 +3443,19 @@ foreign_politics = {
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision complete AUS_blutpakt"
-			create_faction = "Blutpakt"
-			set_global_flag = AUS_blutpakt
+			if = {
+				limit = {
+					is_faction_leader = no
+				}
+				create_faction = "Blutpakt"
+				set_global_flag = AUS_blutpakt
+			}
+			FROM = {
+				country_event = {
+					id = bdeausfor.2
+					days = 1
+				}
+			}
 		}
 	}
 	

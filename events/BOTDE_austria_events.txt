@@ -9637,13 +9637,13 @@ country_event = { #Tyrol Denies
 	
 }
 
-country_event = { #Austria Proposes Unification with German-Bohemia
+country_event = { #Austria Proposes Unification with FROM (DAP EVENT, PAN-GERMAN)
 	id = bdeausfor.124
 	title = bdeausfor.124.t
 	desc = bdeausfor.124.d
 	picture = GFX_event_AUS_revolution
 
-	fire_only_once = yes
+	fire_only_once = no
 
 	is_triggered_only = yes
 	
@@ -9652,12 +9652,15 @@ country_event = { #Austria Proposes Unification with German-Bohemia
 		ai_chance = { factor = 100 }
 		AUS = {
 			annex_country = {
-				target = PGU
+				target = ROOT
 				transfer_troops = yes
 			}
 			if = {
 				limit = {
 					has_country_flag = AUS_DAP
+					ROOT = {
+						tag = PGU
+					}
 				}
 				country_event = {
 					id = bdeausflavor.63
@@ -9693,14 +9696,14 @@ country_event = { #German-Bohemia Accepts
 	desc = bdeausfor.125.d
 	picture = GFX_event_AUS_revolution
 
-	fire_only_once = yes
+	fire_only_once = no
 
 	is_triggered_only = yes
 	
 	option = { #We accept
 		name = bdeausfor.125.a
-		add_political_power = 100
-		add_stability = 0.1
+		add_political_power = 30
+		add_stability = 0.03
 		
 	}
 }
@@ -9711,7 +9714,7 @@ country_event = { #German-Bohemia Denies
 	desc = bdeausfor.126.d
 	picture = GFX_event_AUS_revolution
 
-	fire_only_once = yes
+	fire_only_once = no
 
 	is_triggered_only = yes
 	
@@ -11787,6 +11790,20 @@ country_event = { #CZE - Austrians harass us
 		add_war_support = 0.25
 		custom_effect_tooltip = CZE_war_incoming
 		set_country_flag = AUS_CZE_war_flag
+	}
+	
+	option = { #Roll over
+		name = bdeausfor.177.c
+		ai_chance = { factor = 10 }
+		trigger = {
+			is_ai = yes
+			NOT = {
+				owns_state = 1123
+			}
+			is_in_faction = no
+			is_subject = no
+		}
+		set_country_flag = AUS_CZE_rollover
 	}
 	
 }
@@ -27131,7 +27148,7 @@ country_event = { #The E.M.F. Project Begins
 	title = bdeausflavor.9.t
 	desc = bdeausflavor.9.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_atomic_fission
 
 	fire_only_once = yes
 
@@ -27216,7 +27233,7 @@ country_event = { #GER - A Ripple Across the Border
 	title = bdeausflavor.12.t
 	desc = bdeausflavor.12.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_Frederick_III_Bomb
 
 	fire_only_once = yes
 
@@ -27270,7 +27287,7 @@ country_event = { #(1944) 30th Anniversary of Franz Ferdinand's Death
 	title = bdeausflavor.15.t
 	desc = bdeausflavor.15.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_they_just_shot_the_archduke
 
 	fire_only_once = yes
 
@@ -27289,7 +27306,7 @@ country_event = { #(1941) 30th Anniversary of Franz Josef's Death
 	title = bdeausflavor.16.t
 	desc = bdeausflavor.16.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_karl_franz_joseph_ist_dod_wat_nou
 
 	fire_only_once = yes
 
@@ -27357,7 +27374,7 @@ country_event = { #Victor Francis Hess wins the Nobel Prize for Physics
 	title = bdeausflavor.19.t
 	desc = bdeausflavor.19.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_victor_hess
 
 	fire_only_once = yes
 
@@ -27366,6 +27383,7 @@ country_event = { #Victor Francis Hess wins the Nobel Prize for Physics
 	option = { #Eureka!
 		name = bdeausflavor.19.a
 		add_political_power = 20
+		increase_ruling_party_popularity_by_2 = yes
 		add_breakthrough_progress = {
 			specialization = specialization_nuclear
 			value = 0.25
@@ -27379,7 +27397,7 @@ country_event = { #The Emperor Wins the Nobel Peace Prize (a chance of firing if
 	title = bdeausflavor.20.t
 	desc = bdeausflavor.20.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_karl_drawing
 
 	fire_only_once = yes
 
@@ -27406,6 +27424,8 @@ country_event = { #The Emperor and Empress' Silver Jubilee
 	option = { #Gott erhalte Karl, den Kaiser, und Zita, die Kaiserin!
 		name = bdeausflavor.21.a
 		add_political_power = 30
+		AUS_subtract_three_collapse = yes
+		ALL_subtract_three_collapse = yes
 	}
 }
 
@@ -28583,14 +28603,13 @@ country_event = { #Vorarlberg Votes to Become Swiss
 
 	is_triggered_only = yes
 
-	option = { #Sieg fur Deutsch-Osterreich
+	option = { #Damn
 		name = bdeausflavor.64.a
 		add_political_power = -30
 		SWI = {
 			transfer_state = 942
 		}
 	}
-	
 }
 
 country_event = { #Invention of the Sudetenland (DAP/German Nationalists)
@@ -28742,14 +28761,7 @@ country_event = { #Fourtieth Anniversary of the Empress Elizabeth's Death
 	option = { #Éljen, Erzsébet!
 		name = bdeausflavor.71.a
 		add_political_power = 5
-		if = {
-			limit = {
-				HUN = {
-					is_subject_of = AUS
-				}
-			}
-			HUN_subtract_ten_collapse = yes
-		}
+		HUN_subtract_ten_collapse = yes
 	}
 }
 
@@ -28857,10 +28869,10 @@ country_event = { #The Rotunde Repaired
 	fire_only_once = yes
 
 	is_triggered_only = yes
-	option = { #Make a devoted repair effort at once!
+	option = { #Hooray
 		name = bdeausflavor.76.b
-		add_political_power = 100
-		add_stability = 0.1
+		add_political_power = 50
+		add_stability = 0.05
 		1137 = {
 			add_building_construction = {
 				type = industrial_complex
@@ -29055,6 +29067,46 @@ country_event = { #Herman Potočnik- 'Zum Mond und zum Wohnrad'
 		add_political_power = 50
 	}
 	
+}
+
+country_event = { #Vorarlberg Votes to Become Liechtensteiner
+	id = bdeausflavor.83
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.83" }
+	title = bdeausflavor.83.t
+	desc = bdeausflavor.83.d
+	
+	picture = GFX_event_AUS_parliament
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #What?
+		name = bdeausflavor.83.a
+		add_political_power = -15
+		LIC = {
+			transfer_state = 942
+			add_state_core = 942
+		}
+	}
+}
+
+country_event = { #Vorarlberg Votes to Stay Austrian
+	id = bdeausflavor.84
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.84" }
+	title = bdeausflavor.84.t
+	desc = bdeausflavor.84.d
+	
+	picture = GFX_event_AUS_parliament
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Hooray
+		name = bdeausflavor.84.a
+		add_political_power = 20
+	}
 }
 
 news_event = { #Second Hungarian Revolution
@@ -29687,7 +29739,7 @@ news_event = { #Anschluss of Bohemia (If DAP takes over Bohemia without a shot f
 	title = bdeausnews.11.t
 	desc = bdeausnews.11.d
 	
-	picture = GFX_news_event_AUS_civil_war
+	picture = GFX_news_event_AUS_anschluss
 
 	fire_only_once = yes
 	
@@ -29783,4 +29835,44 @@ news_event = { #A Republican Compromise
 	option = { #And look how well that went over in Russia...
 		name = bdeausnews.14.a
 	}
+}
+
+news_event = { #The Blutpakt
+	id = bdeausnews.15
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausnews.15" }
+	title = bdeausnews.15.t
+	desc = bdeausnews.15.d
+	
+	picture = GFX_news_event_AUS_troops
+
+	fire_only_once = yes
+	
+	major = yes
+	
+	trigger = {
+		wants_world_news = yes
+	}
+
+	is_triggered_only = yes
+
+	option = { #A surefire method of security.
+		name = bdeausnews.15.a
+		trigger = {
+			OR = {
+				tag = AUS
+				is_in_faction_with = AUS
+			}
+		}
+	}
+	
+	option = { #Worrying.
+		name = bdeausnews.15.b
+		trigger = {
+			NOT = {
+				tag = AUS
+				is_in_faction_with = AUS
+			}
+		}
+	}
+	
 }
