@@ -5196,9 +5196,12 @@ country_event = { #Franco's Speech
 		}
 		hidden_effect = {
 			SPR = {
-				country_event = {
-					id = sprd.113
-					days = 15
+				if = {
+					limit = { SPR_separatist_revolt_allowed_trigger = yes }
+					country_event = {
+						id = sprd.113
+						days = 15
+					}
 				}
 			}
 		}
@@ -5223,9 +5226,12 @@ country_event = { #The King's Speech
 		}
 		hidden_effect = {
 			SPR = {
-				country_event = {
-					id = sprd.113
-					days = 15
+				if = {
+					limit = { SPR_separatist_revolt_allowed_trigger = yes }
+					country_event = {
+						id = sprd.113
+						days = 15
+					}
 				}
 			}
 		}
@@ -14636,6 +14642,9 @@ country_event = {#skip CW, trigger another
 
 	option = {
 		name = sprd.575.a
+		ai_chance = {
+			base = 30
+		}
 		add_political_power = -100
 		add_war_support = -0.07
 		add_stability = -0.12
@@ -14645,6 +14654,16 @@ country_event = {#skip CW, trigger another
 	}
 	option = {
 		name = sprd.575.b
+		ai_chance = {
+			base = 70
+			modifier = {
+				has_game_rule = {
+					rule = SPR_civil_war
+					option = SPR_CIVIL_WAR_AVOIDED_SPR_MARTIAL_LAW
+				}
+				factor = 0
+			}
+		}
 		add_political_power = 50
 		add_stability = 0.08
 	}
@@ -17804,6 +17823,10 @@ country_event = { #To Save Spain
 					}
 					has_game_rule = {
 						rule = SPR_civil_war
+						option = SPR_CIVIL_WAR_AVOIDED_SPR_MARTIAL_LAW
+					}
+					has_game_rule = {
+						rule = SPR_civil_war
 						option = SPR_CIVIL_WAR_AVOIDED_SPR_RIGHT
 					}
 					has_game_rule = {
@@ -17893,6 +17916,10 @@ country_event = { #To Save Spain
 					has_game_rule = {
 						rule = SPR_civil_war
 						option = SPR_CIVIL_WAR_AVOIDED_SPR_CENTER
+					}
+					has_game_rule = {
+						rule = SPR_civil_war
+						option = SPR_CIVIL_WAR_AVOIDED_SPR_MARTIAL_LAW
 					}
 				}
 			}
