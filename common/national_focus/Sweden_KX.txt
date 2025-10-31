@@ -949,6 +949,11 @@ focus_tree = {
 				category = radar_tech
 			}
 			add_political_power = 20
+			
+			hidden_effect = {
+				country_event = { id = sweden.26 days = 50 random_days = 80  }
+			}
+			
 		}
 	}
 
@@ -5905,7 +5910,11 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SWE_sweden_industrial_congress"
 		
-			country_event = { id = swerev.10 } 			
+			country_event = { id = swerev.10 }
+
+			hidden_effect = {
+				country_event = { id = swerev.44 days = 190 random_days = 100 }
+			}
 		}
 	}
 
@@ -6561,7 +6570,10 @@ focus_tree = {
 			add_popularity = { ideology = paternal_autocrat popularity = -0.08 }	
 			add_popularity = { ideology = authoritarian_democrat popularity = -0.06 }
 			add_popularity = { ideology = social_conservative popularity = -0.1 }
-			add_popularity = { ideology = market_liberal popularity = -0.06 }			
+			add_popularity = { ideology = market_liberal popularity = -0.06 }
+			
+			custom_effect_tooltip = tooltip_white_line
+			country_event = { id = swerev.43 }
 		
 		}
 	}
@@ -7274,6 +7286,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SWE_agrarian_unions"
 			SWE_syndicalist_agrarian_effect = yes
+			custom_effect_tooltip = tooltip_white_line
 
 	
 		}
@@ -7500,6 +7513,13 @@ focus_tree = {
 		}
 		available = {
 			has_country_flag = SWE_flag_flyg_victory
+			NOT = {
+				OR = {
+					has_country_flag = SWE_flag_linderot_victory
+					has_country_flag = SWE_flag_lindholm_tot
+				}
+			}
+			
 		}		
 				
 		completion_reward = {
@@ -8004,7 +8024,7 @@ focus_tree = {
 		y = 9
 		cost = 6
 		offset = {
-			x = -8
+			x = -6
 			y = -12
 			trigger = {
 				has_country_flag = SWE_flag_linderot_victory
@@ -8034,6 +8054,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SWE_linderot_seizes_control"
 			add_ideas = SWE_linderot1
+			add_popularity = { ideology = totalist popularity = 0.03 }
 			hidden_effect = {
 				country_event = { id = swerev.66 }
 			}
@@ -8121,6 +8142,7 @@ focus_tree = {
 				
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SWE_restructure_the_party"
+			add_popularity = { ideology = totalist popularity = 0.02 }
 			
 			add_equipment_to_stockpile = {
 				type = infantry_equipment
@@ -8158,6 +8180,8 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SWE_pluralism"
 			
+			add_popularity = { ideology = totalist popularity = 0.06 }
+			add_popularity = { ideology = radical_socialist popularity = 0.03 }
 			add_ideas = SWE_linderot_socialism
 
 		}
@@ -8185,7 +8209,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SWE_central_authority"
 			
-			
+			add_popularity = { ideology = totalist popularity = 0.04 }
 			add_ideas = SWE_linderot_communism
 
 		}
@@ -8344,8 +8368,8 @@ focus_tree = {
 				
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SWE_prepare_against_imperialism"
-
-
+			
+			add_popularity = { ideology = totalist popularity = 0.02 }
 			every_owned_state = {
 				limit = {
 					is_controlled_by = SWE
@@ -8452,6 +8476,7 @@ focus_tree = {
 				
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SWE_against_conmen"
+			add_popularity = { ideology = totalist popularity = 0.05 }
 			
 			if = {
 				limit = { 
@@ -8493,7 +8518,8 @@ focus_tree = {
 			
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SWE_light_of_communism"
-				
+			
+			add_popularity = { ideology = totalist popularity = 0.03 }
 			country_event = { id = swerev.73 }
 
 			division_template = {
@@ -8570,7 +8596,7 @@ focus_tree = {
 		
 			add_political_power = 50
 			
-			increase_ruling_party_popularity_by_5 = yes 
+			add_popularity = { ideology = totalist popularity = 0.05 } 
 			
 			add_manpower = 5000
 			
@@ -8655,6 +8681,7 @@ focus_tree = {
 			
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SWE_workers_at_the_ready"
+			add_popularity = { ideology = totalist popularity = 0.08 }
 
 			random_owned_controlled_state = {
 				increase_state_category_by_one_level = yes
@@ -8740,7 +8767,12 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SWE_party_land"
 		
-				
+			random_owned_controlled_state = {
+				increase_state_category_by_one_level = yes
+			}
+			random_owned_controlled_state = {
+				increase_state_category_by_one_level = yes
+			}			
 			random_owned_state = {
 				limit = {
 					is_valid_state_for_development = yes
@@ -8763,7 +8795,7 @@ focus_tree = {
 					is_core_of = SWE
 					is_controlled_by = SWE
 				}
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 1
 			}			
 		}
 	}
@@ -8864,7 +8896,16 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus SWE_vast_industrialisation"
 			custom_effect_tooltip = SWE_red_folkhemmet_available_tt
 			custom_effect_tooltip = tooltip_white_line
-			
+			every_owned_state = {
+				limit = {
+					is_controlled_by = SWE
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}			
 			random_owned_controlled_state = {
 				limit = {
 					is_core_of = ROOT
@@ -8872,10 +8913,10 @@ focus_tree = {
 					prefer_home_area_states_unless_filled = yes
 					is_valid_state_for_development = yes
 				}
-				add_extra_state_shared_building_slots = 1
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 			}
@@ -8958,6 +8999,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SWE_militaristic_buildup"
 			SWE_militarist_buildup_effect = yes
+			custom_effect_tooltip = tooltip_white_line
 				
 				
 				
