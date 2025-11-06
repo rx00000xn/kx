@@ -16161,30 +16161,20 @@ country_event = { #Japan is our mutual enemy, should we approach the Dutch to jo
 	fire_only_once = yes
 
 	trigger = {
-		original_tag = AST
-		JAP = {
-			has_war_with = HOL
-			is_subject = no
-		}
+		tag = AST
 		is_in_faction_with = ENT
-		is_subject = no
 		HOL = {
-			is_in_faction = no
+			has_defensive_war_with = JAP
+			NOT = { has_country_flag = hol_radicalleft }
 			is_subject = no
-			has_socialist_government = no
-			NOT = { has_war_with = ENT }
-			all_enemy_country = {
-				OR = {
-					is_ally_with = JAP
-					has_war_with = ROOT
-				}
-			}
+			is_in_faction = no
 		}
 	}
+
 	option = { #Let's do it!
 		name = holfocus.75.a
 		ai_chance = {
-			factor = 100
+			factor = 70
 			modifier = {
 				factor = 0
 				OR = {
@@ -16221,7 +16211,7 @@ country_event = { #Japan is our mutual enemy, should we approach the Dutch to jo
 	option = { #No, it doesn't seem worth it
 		name = holfocus.75.b
 		ai_chance = {
-			factor = 0
+			factor = 30
 			modifier = {
 				factor = 0
 				has_game_rule = {
@@ -16253,7 +16243,9 @@ country_event = { #Australasia approaches us to join the entente
 			factor = 70
 		}
 		trigger = {
-			is_in_faction = no
+			NOT = {
+				is_in_faction = yes
+			}
 		}
 		AST = {
 			country_event = {
@@ -16292,7 +16284,7 @@ country_event = { #Australasia approaches the Netherlands to join the entente
 	option = { #Which is fine
 		name = holfocus.76.a
 		ai_chance = {
-			factor = 100
+			factor = 70
 		}
 		ENT = {
 			add_to_faction = HOL
@@ -16302,7 +16294,14 @@ country_event = { #Australasia approaches the Netherlands to join the entente
 	option = { #No, we don't want the Netherlands in the entente
 		name = holfocus.76.b
 		ai_chance = {
-			factor = 0
+			factor = 30
+			modifier = {
+				factor = 0
+				has_game_rule = {
+					rule = HOL_foreign_policy
+					option = HOL_FOREIGN_POLICY_ENTENTE
+				} 
+			}
 		}
 		FROM = {
 			country_event = {
