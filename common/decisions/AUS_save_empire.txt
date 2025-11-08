@@ -667,6 +667,9 @@ save_austria = {
 						every_unit_leader = {
 							set_nationality = AUS
 						}
+						every_scientist = {
+							set_nationality = AUS
+						}
 					}
 				}
 			}
@@ -681,6 +684,9 @@ save_austria = {
 				add_core_of = AUS
 				HUN = {
 					every_unit_leader = {
+						set_nationality = AUS
+					}
+					every_scientist = {
 						set_nationality = AUS
 					}
 				}
@@ -1068,7 +1074,7 @@ AUS_constituent_influence = {
 		
 		
 		state_target = yes
-		on_map_mode = map_only
+		on_map_mode = map_and_decisions_view
 		targets = { 1126 89 }
 		target_trigger = {
 			FROM = { is_owned_by_ROOT_or_ally = yes }
@@ -1126,7 +1132,7 @@ AUS_constituent_influence = {
 		}
 		
 		state_target = yes
-		on_map_mode = map_only
+		on_map_mode = map_and_decisions_view
 		
 		targets = { 1206 }
 		target_trigger = {
@@ -1134,8 +1140,7 @@ AUS_constituent_influence = {
 		}
 		
 		modifier = {
-			local_resources_factor = -0.12
-			civilian_factory_use = 3
+			civilian_factory_use = 2
 		}
 		
 		cost = 20
@@ -1151,6 +1156,117 @@ AUS_constituent_influence = {
 				add_two_random_dockyards = yes
 			}
 			HUN_subtract_fifteen_collapse = yes
+		}
+	}
+	
+	AUS_expand_pressburger_bahn = {
+		icon = GFX_decision_generic_industry
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 2
+		}
+		
+		cancel_trigger = {
+			hidden_trigger = {
+				FROM = { is_owned_by_ROOT_or_ally = no }
+			}
+		}
+		
+		modifier = {
+			civilian_factory_use = 2
+		}
+		
+		visible = {
+			has_completed_focus = AUS_pressburger_bahn
+		}
+		
+		state_target = yes
+		on_map_mode = map_and_decisions_view
+		
+		targets = { 1123 }
+		target_trigger = {
+			FROM = { is_owned_by_ROOT_or_ally = yes }
+		}
+		
+		cost = 30
+		fire_only_once = yes		
+		days_remove = 40
+		ai_will_do = {
+			factor = 100
+		}
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_expand_pressburger_bahn"
+			build_railway = {
+				level = 3
+				start_province = 6690
+				target_province = 9692
+			}
+			build_railway = {
+				level = 1
+				start_province = 9692
+				target_province = 3537
+			}
+			AUS_lower_slovaks = yes
+		}
+	}
+	
+	AUS_build_up_triest = {
+		icon = GFX_decision_generic_merge_plant_ship
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 3
+		}
+		
+		cancel_trigger = {
+			hidden_trigger = {
+				FROM = { is_owned_by_ROOT_or_ally = no }
+			}
+		}
+		
+		modifier = {
+			civilian_factory_use = 3
+		}
+		
+		visible = {
+			has_completed_focus = AUS_reach_out_to_STT
+		}
+		
+		state_target = yes
+		on_map_mode = map_and_decisions_view
+		
+		targets = { 1100 }
+		target_trigger = {
+			FROM = { is_owned_by_ROOT_or_ally = yes }
+		}
+		
+		cost = 50
+		fire_only_once = yes		
+		days_remove = 50
+		ai_will_do = {
+			factor = 100
+		}
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_build_up_triest"
+			FROM = {
+				add_building_construction = {
+					type = naval_facility
+					level = 1
+					instant_build = yes
+					province = {
+						limit_to_coastal = yes
+					}
+				}
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 3
+			}
+			AUS_lower_slovenes = yes
+			AUS_subtract_five_collapse = yes
 		}
 	}
 	
@@ -3042,6 +3158,71 @@ austria_collapse_category = {
 			}
 		}
 	}
+}
+
+foreign_politics = {
+	
+	AUS_blutpakt = {
+		icon = GFX_decision_DAP_flag
+		cost = 25
+		allowed = {
+			OR = {
+				tag = AUS
+				tag = AWR
+			}
+		}
+		visible = {
+			#has_completed_focus = AUS_blood_pact
+		}
+		target_trigger = {
+			FROM = {
+				OR = {
+					tag = HUN
+					tag = BUL
+					tag = SWI
+					tag = MNT
+					tag = POL
+					tag = SIC
+					tag = SRI
+					tag = LIC
+				}
+				is_in_faction = no
+				is_subject = no
+				has_country_flag = AUS_blutpakt_tag
+				OR = {
+					has_government = totalist
+					has_government = national_populist
+				}
+			}
+		}
+		available = {
+			has_completed_focus = AUS_blood_pact
+			OR = {
+				is_in_faction = no
+				is_faction_leader = yes
+			}
+		}
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision complete AUS_blutpakt"
+			if = {
+				limit = {
+					is_faction_leader = no
+				}
+				create_faction = "Blutpakt"
+				set_global_flag = AUS_blutpakt
+			}
+			FROM = {
+				country_event = {
+					id = bdeausfor.2
+					days = 1
+				}
+			}
+		}
+	}
 	
 	AUS_tyrol_reunification = {
 		icon = GFX_decision_generic_hand_out
@@ -3093,12 +3274,12 @@ austria_collapse_category = {
 			tag = AUS
 		}
 		visible = {
-			#country_exists = PGU
-			#PGU = {
-			#	is_subject = no
-			#}
-			#is_subject = no
-			#has_country_flag = AUS_annex_PGU
+			country_exists = PGU
+			PGU = {
+				is_subject = no
+			}
+			is_subject = no
+			has_country_flag = AUS_annex_PGU
 			always = yes
 		}
 		available = {
@@ -3130,12 +3311,12 @@ austria_collapse_category = {
 			tag = AUS
 		}
 		visible = {
-			#country_exists = HNZ
-			#HNZ = {
-			#	is_subject = no
-			#}
-			#is_subject = no
-			#has_country_flag = AUS_annex_HNZ
+			country_exists = HNZ
+			HNZ = {
+				is_subject = no
+			}
+			is_subject = no
+			has_country_flag = AUS_annex_HNZ
 			always = yes
 		}
 		available = {
@@ -3335,7 +3516,7 @@ austria_collapse_category = {
 	}
 	
 	AUS_south_german_bund = {
-		icon = GFX_decision_generic_hand_out
+		icon = GFX_decision_generic_flags
 		cost = 50
 		allowed = {
 			tag = AUS
@@ -3343,7 +3524,10 @@ austria_collapse_category = {
 		visible = {
 			country_exists = BAY
 			BAY = {
-				is_subject = no
+				OR = {
+					is_subject = no
+					is_in_faction_with = AUS
+				}
 			}
 			is_subject = no
 			has_country_flag = AUS_annex_BAY
@@ -3353,14 +3537,19 @@ austria_collapse_category = {
 				same_government_type_as_ROOT = yes
 				at_peace_or_same_enemies_as_ROOT = yes
 			}
-			is_neighbor_of = PGU
+			is_neighbor_of = BAY
 		}
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
 		}
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_south_german_bund"
+			log = "[GetDateText]: [Root.GetName]: Decision complete AUS_south_german_bund"
+			add_state_claim = 52
+			add_state_claim = 53
+			add_state_claim = 54
+			add_state_claim = 50
+			add_state_claim = 780
 			BAY = {
 				country_event = {
 					id = bdeausfor.124
@@ -3369,12 +3558,9 @@ austria_collapse_category = {
 			}
 		}
 	}
-}
-
-foreign_politics = {
 	
-	AUS_blutpakt = {
-		icon = GFX_decision_DAP_flag
+	AUS_deal_with_devil_decision = {
+		icon = GFX_decision_generic_flags
 		cost = 25
 		allowed = {
 			OR = {
@@ -3383,58 +3569,29 @@ foreign_politics = {
 			}
 		}
 		visible = {
-			#has_completed_focus = AUS_volkisch_heralds
-			NOT = {
-				has_global_flag = AUS_blutpakt
-			}
+			has_completed_focus = AUS_deal_with_the_devil
+			#is_faction_leader = yes
 		}
 		target_trigger = {
 			FROM = {
 				OR = {
-					tag = HUN
-					tag = BUL
-					tag = SWI
+					tag = INT
+					tag = RUS
 				}
-				if = {
-					limit = {
-						FROM = {
-							tag = HUN
-						}
-					}
-					OR = {
-						has_government = national_populist
-						has_government = totalist
-					}
+				is_faction_leader = yes
+				NOT = {
+					has_war_with = ROOT
+					has_country_flag = AUS_bloodpact_nomerger
 				}
-				if = {
-					limit = {
-						FROM = {
-							tag = BUL
-						}
-					}
-					OR = {
-						has_government = national_populist
-						#has_government = totalist
-					}
-				}
-				if = {
-					limit = {
-						FROM = {
-							tag = SWI
-						}
-					}
-					OR = {
-						has_government = national_populist
-						#has_government = totalist
-					}
-				}
+				
 			}
 		}
 		available = {
-			has_completed_focus = AUS_volkisch_heralds
-			OR = {
-				is_in_faction = no
-				is_faction_leader = yes
+			is_faction_leader = yes
+			any_allied_country = {
+				NOT = {
+					has_war_with = FROM
+				}
 			}
 		}
 		fire_only_once = yes
@@ -3443,16 +3600,9 @@ foreign_politics = {
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision complete AUS_blutpakt"
-			if = {
-				limit = {
-					is_faction_leader = no
-				}
-				create_faction = "Blutpakt"
-				set_global_flag = AUS_blutpakt
-			}
 			FROM = {
 				country_event = {
-					id = bdeausfor.2
+					id = bdeausfor.180
 					days = 1
 				}
 			}
@@ -3804,16 +3954,80 @@ foreign_politics = {
 		}
 	}
 	
-	AUS_demand_state = {
+	AUS_blutpakt_attack = { #Blutpakt allies can attack certain nations in line with your philosophy.
 		icon = GFX_decision_generic_flags
 		allowed = { always = no }
+		visible = {
+			is_in_faction_with = AUS
+			AUS = {
+				is_faction_leader = yes
+				has_country_flag = AUS_DAP
+			}
+		}
+		available = {
+			FROM = {
+				is_ally_of_ROOT = no
+				NOT = {
+					has_war_with = ROOT
+				}
+			}
+		}
+		cost = 20
+		days_remove = 30
+		war_with_target_on_remove = yes
 		
-		targets = { 942.OWNER 783.OWNER 1100.OWNER }
+		fire_only_once = yes
+		cancel_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision cancel AUS_blutpakt_attack target: [From.GetName]"
+			clear_decision_attack_AI = yes
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision AUS_blutpakt_attack target: [From.GetName]"
+			setup_decision_attack_AI = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_blutpakt_attack target: [From.GetName]"
+			declare_war_on = {
+				target = FROM
+				type = annex_everything
+			}
+			clear_decision_attack_AI = yes
+		}
+		ai_will_do = {
+			factor = 30
+			modifier = {
+				factor = 300
+				FROM = {
+					has_country_flag = AUS_important_target
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					FROM = { dont_start_major_faction_wars = yes }
+					ROOT_is_threatened_cautious = yes
+					FROM = { default_attack_AI_trigger_FROM = yes }
+				}
+			}
+		}
+	}
+	
+	AUS_demand_state = {
+		icon = GFX_decision_generic_flags
+		allowed = { tag = AUS }
+		
+		targets = { 942.OWNER 783.OWNER 1100.OWNER 1272.OWNER }
 		target_trigger = {
 			any_owned_state = { has_state_flag = AUS_demand_target }
+			NOT = {
+				is_owned_by = ROOT
+			}
 		}
 		target_root_trigger = {
-			has_completed_focus = AUS_reintroduction_world_stage
+			OR = {
+				has_completed_focus = AUS_reintroduction_world_stage
+				has_completed_focus = AUS_fourth_empire
+			}
 		}
 		war_with_target_on_remove = yes
 		available = {
@@ -4399,6 +4613,7 @@ foreign_politics = {
 		allowed = {
 			tag = AUS
 		}
+		fire_only_once = yes
 		targets = { USA CAL WCC CSA TEX COR NEE TXS NYC ALA LIB PAR BBR }
 		target_trigger = {
 			FROM = {
@@ -4504,7 +4719,7 @@ foreign_politics = {
 				country_event = {
 					id = bdeausflavor.25
 					days = 30
-					random = 500
+					random_hours = 500
 				}
 			}
 			send_equipment = {

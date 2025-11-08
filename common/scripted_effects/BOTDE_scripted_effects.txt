@@ -3079,6 +3079,13 @@ AUS_lower_slovenes = {
 	}
 }
 
+AUS_lower_slovaks = {
+	SVK = { 
+		set_temp_variable = { revolt_progress_change = -0.1 }
+		BOTDE_add_collapse = yes
+	}
+}
+
 AUS_lower_italians = {
 	VNC = { 
 		set_temp_variable = { revolt_progress_change = -0.1 }
@@ -4138,7 +4145,7 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 			country_event = {
 				id = constituents.14 #Austrian Natpops go insane
 				days = 5
-				random = 24
+				random_hours = 24
 			}
 		}
 		
@@ -4157,7 +4164,7 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 			country_event = {
 				id = constituents.6 #Tyrol declares independence
 				days = 6
-				random = 24
+				random_hours = 24
 			}
 		}
 		
@@ -4192,7 +4199,7 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 			country_event = {
 				id = constituents.7 #Slovenia Secession
 				days = 3
-				random = 12
+				random_hours = 12
 			}
 		}
 		if = {
@@ -4213,7 +4220,7 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 			country_event = {
 				id = constituents.52 #Venice Secession
 				days = 3
-				random = 12
+				random_hours = 12
 			}
 		}
 		#if = {
@@ -4293,7 +4300,7 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 				country_event = {
 					id = bdecze.3
 					days = 3
-					random = 24
+					random_hours = 24
 				}
 			}
 			else_if = {
@@ -4358,8 +4365,46 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 			}
 			leave_faction = yes
 			drop_cosmetic_tag = yes
-			country_event = constituents.2
 			add_ideas = AUS_fighting_for_the_people
+			country_event = constituents.2
+			if = {
+				limit = {
+					NOT = { tag = CRO }
+					has_relation_modifier = {
+						target = SER
+						modifier = KR_hostile
+					}
+				}
+				remove_opinion_modifier = {
+					target = SER
+					modifier = KR_hostile
+				}
+				SER = {
+					remove_opinion_modifier = {
+						target = PREV
+						modifier = KR_hostile
+					}
+				}
+			}
+			if = {
+				limit = {
+					NOT = { tag = HUN }
+					has_relation_modifier = {
+						target = ROM
+						modifier = KR_hostile
+					}
+				}
+				remove_opinion_modifier = {
+					target = ROM
+					modifier = KR_hostile
+				}
+				ROM = {
+					remove_opinion_modifier = {
+						target = PREV
+						modifier = KR_hostile
+					}
+				}
+			}
 			if = {
 				limit = {
 					has_subject = FIU
@@ -4469,7 +4514,7 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 		country_event = {
 			id = bdeausfor.130
 			days = 20
-			random = 120
+			random_hours = 120
 		}
 		
 		every_country = {
@@ -4479,7 +4524,7 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 			country_event = {
 				id = constituents.56 #Event that tells all minorities at war they can peace out
 				days = 150
-				random = 72
+				random_hours = 72
 			}
 		}
 		
@@ -4493,7 +4538,7 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 			country_event = {
 				id = constituents.62 #Stabilized Danube System
 				days = 210
-				random = 72
+				random_hours = 72
 			}
 		}
 		
@@ -7763,28 +7808,6 @@ AUS_federalize_effect = {
 				}
 			}
 			THIS = {
-				if = {
-					limit = {
-						has_subject = FIU
-					}
-					AUS = {
-						set_autonomy = {
-							target = FIU
-							autonomy_state = botde_constituent_integrated
-						}
-					}
-					FIU = {
-						if = {
-							limit = {
-								has_idea = AUS_transleithanian_sphere
-							}
-							swap_ideas = {
-								remove_idea = AUS_transleithanian_sphere
-								add_idea = AUS_cisleithanian_sphere
-							}
-						}
-					}
-				}
 				every_state = {
 					limit = {
 						is_core_of = PREV
@@ -7804,36 +7827,16 @@ AUS_federalize_effect = {
 					set_nationality = AUS
 				}
 			}
-			else = {
-				THIS = {
-					every_core_state = {
-						add_core_of = AUS
-					}
+		}
+		else = {
+			THIS = {
+				every_core_state = {
+					add_core_of = AUS
 				}
 			}
 		}
 	}
 	hidden_effect = {
-		HUN = {
-			every_core_state = {
-				add_core_of = AUS
-			}
-		}
-		CZE = {
-			every_core_state = {
-				add_core_of = AUS
-			}
-		}
-		CRO = {
-			every_core_state = {
-				add_core_of = AUS
-			}
-		}
-		GAL = {
-			every_core_state = {
-				add_core_of = AUS
-			}
-		}
 		if = {
 			limit = {
 				has_global_flag = BRG_selected_AUS_emperor
@@ -10985,7 +10988,7 @@ AUS_coalition_value = {
 			country_event = {
 				id = bdeausfor.169
 				days = 5
-				random = 96
+				random_hours = 96
 			}
 		}
 	}
@@ -11834,7 +11837,10 @@ AUS_ausgleich_ending_effect = {
 		}
 		CRO = {
 			set_variable = { AUS_subject_status = 1 }
-			add_ideas = AUS_cisleithanian_sphere
+			swap_ideas = {
+				remove_idea = CRO_special_status
+				add_idea = AUS_cisleithanian_sphere
+			}
 		}
 	}
 	if = {
@@ -11851,14 +11857,23 @@ AUS_ausgleich_ending_effect = {
 			}
 			restore_previous_government_type = yes
 			set_variable = { AUS_subject_status = 3 }
-			add_ideas = AUS_transleithanian_sphere
+			swap_ideas = {
+				remove_idea = CRO_special_status
+				add_idea = AUS_transleithanian_sphere
+			}
 		}
 	}
 	if = {
 		limit = {
 			has_global_flag = ausgleich_eu_illyria
 		}
-		CRO = { set_variable = { AUS_subject_status = 6 } }
+		CRO = {
+			set_variable = { AUS_subject_status = 6 }
+			swap_ideas = {
+				remove_idea = CRO_special_status
+				add_idea = CRO_proto_european_state
+			}
+		}
 	}
 	if = {
 		limit = {
@@ -12193,6 +12208,7 @@ AUS_restore_BOH_after_revolt_effect = {
 			BOH_legacy_of_coronation
 		}
 		clr_country_flag = CZE_will_revolt
+		clr_country_flag = CONST_no_evidenzbureau
 		set_country_flag = CONST_proper
 		set_global_flag = AUS_no_more_CZE_revolt
 		if = {
@@ -12246,6 +12262,7 @@ AUS_restore_HUN_after_ausgleich_revolt_effect = {
 				}
 				set_country_flag = going_to_le_ausgleich
 				set_country_flag = HUN_always_accept_ausgleich_demands
+				clr_country_flag = CONST_no_evidenzbureau
 				if = {
 					limit = {
 						NOT = {
@@ -12346,5 +12363,12 @@ AUS_occupy_SER_effect = {
 			}
 			AUS_add_to_DWV = yes
 		}
+	}
+}
+AUS_unlock_foreign_policy_small = {
+	set_country_flag = AUS_foreign_policy_available_small
+	custom_override_tooltip = {
+		tooltip = AUS_foreign_policy_available_small_tt
+		complete_national_focus = AUS_foreign_policy_small
 	}
 }
