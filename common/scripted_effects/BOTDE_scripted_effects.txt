@@ -1,12 +1,11 @@
 
 
 d_ausd1 = {
-	set_variable = { HUN.subject_revolt_progress = 0.54 }
+	BOTDE_event_roulette_lets_go_gambling = yes
 }
 
 d_ausd2 = {
-	activate_mission = BOTDE_collapse_headsup
-	set_variable = { AUS.subject_revolt_progress = 0.90 }
+	remove_ideas = AUS_bm_4
 }
 
 d_awrbopr = {
@@ -47,24 +46,25 @@ d_auscol5 = {
 }
 
 AUS_debug_effect = {
-	AUS_ausgleich_const_revolt_success_effect = yes
+	every_possible_country = {
+		limit = { has_variable = THIS.subject_revolt_progress }
+		set_variable = { THIS.subject_revolt_progress = 0 }
+	}
 }
 
 AUS_debug_effect2 = {
-	for_each_scope_loop = {
-		array = global.AUS_all_possible_array
-		AUS = {
-			remove_opinion_modifier = {
-				target = PREV
-				modifier = faction_traitor
-			}
+	every_collection_element = {
+		input = collection:botde_ausgleich_countries
+		country_event = {
+			id = bdeausgleich.25 #Illyria Promoted to Constituent Kingdom
 		}
 	}
 }
 
 AUS_debug_effect3 = {
-	every_owned_state = {
-		clr_state_flag = rev_point
+	every_collection_element = {
+		input = collection:basic_core_constituents
+		set_country_flag = going_to_le_ausgleich
 	}
 }
 
@@ -735,6 +735,7 @@ BOTDE_add_collapse = {
 	if = {
 		limit = {
 			AUS_is_constituent_or_minority = yes
+			NOT = { has_global_flag = AUS_collapsed }
 		}
 		custom_override_tooltip = {
 			tooltip = BOTDE_collapse_tt
@@ -2638,38 +2639,31 @@ AUS_add_to_DWV = {
 		}
 		if = {
 			limit = {
-				is_in_tech_sharing_group = austrian_research
-			}
-			remove_from_tech_sharing_group = austrian_research
-		}
-		add_to_tech_sharing_group = AUS_sphere_research
-		if = {
-			limit = {
-				has_global_flag = DWV_upgrade_5
+				check_variable = { AUS.DWV_upgrade = 5 }
 			}
 			add_ideas = AUS_DWV_5
 		}
 		else_if = {
 			limit = {
-				has_global_flag = DWV_upgrade_4
+				check_variable = { AUS.DWV_upgrade = 4 }
 			}
 			add_ideas = AUS_DWV_4
 		}
 		else_if = {
 			limit = {
-				has_global_flag = DWV_upgrade_3
+				check_variable = { AUS.DWV_upgrade = 3 }
 			}
 			add_ideas = AUS_DWV_3
 		}
 		else_if = {
 			limit = {
-				has_global_flag = DWV_upgrade_2
+				check_variable = { AUS.DWV_upgrade = 2 }
 			}
 			add_ideas = AUS_DWV_2
 		}
 		else_if = {
 			limit = {
-				has_global_flag = DWV_upgrade_1
+				check_variable = { AUS.DWV_upgrade = 1 }
 			}
 			add_ideas = AUS_DWV_1
 		}
@@ -2692,41 +2686,16 @@ AUS_remove_from_DWV = {
 			}
 		}
 		if = {
-			limit = { is_in_tech_sharing_group = AUS_sphere_research }
-			remove_from_tech_sharing_group = AUS_sphere_research
+			limit = { is_in_tech_sharing_group = austrian_research }
+			remove_from_tech_sharing_group = austrian_research
 		}
-		if = {
-			limit = {
-				has_global_flag = DWV_upgrade_5
-			}
-			remove_ideas = AUS_DWV_5
-		}
-		else_if = {
-			limit = {
-				has_global_flag = DWV_upgrade_4
-			}
-			remove_ideas = AUS_DWV_4
-		}
-		else_if = {
-			limit = {
-				has_global_flag = DWV_upgrade_3
-			}
-			remove_ideas = AUS_DWV_3
-		}
-		else_if = {
-			limit = {
-				has_global_flag = DWV_upgrade_2
-			}
-			remove_ideas = AUS_DWV_2
-		}
-		else_if = {
-			limit = {
-				has_global_flag = DWV_upgrade_1
-			}
-			remove_ideas = AUS_DWV_1
-		}
-		else = {
-			remove_ideas = AUS_DWV
+		remove_ideas = {
+			AUS_DWV
+			AUS_DWV_1
+			AUS_DWV_2
+			AUS_DWV_3
+			AUS_DWV_4
+			AUS_DWV_5
 		}
 	}
 }
@@ -3371,60 +3340,6 @@ AUS_raise_all_minorities = {
 	}
 }
 
-AUS_reduce_military_penalty = {
-	if = {
-		limit = {
-			has_idea = AUS_obsolete_military
-		}
-		swap_ideas = {
-			remove_idea = AUS_obsolete_military
-			add_idea = AUS_obsolete_military_2
-		}
-	}
-	else_if = {
-		limit = {
-			has_idea = AUS_obsolete_military_2
-		}
-		swap_ideas = {
-			remove_idea = AUS_obsolete_military_2
-			add_idea = AUS_obsolete_military_3
-		}
-	}
-	else_if = {
-		limit = {
-			has_idea = AUS_obsolete_military_3
-		}
-		swap_ideas = {
-			remove_idea = AUS_obsolete_military_3
-			add_idea = AUS_obsolete_military_4
-		}
-	}
-	else_if = {
-		limit = {
-			has_idea = AUS_obsolete_military_4
-		}
-		swap_ideas = {
-			remove_idea = AUS_obsolete_military_4
-			add_idea = AUS_obsolete_military_5
-		}
-	}
-	else_if = {
-		limit = {
-			has_idea = AUS_obsolete_military_4
-		}
-		swap_ideas = {
-			remove_idea = AUS_obsolete_military_4
-			add_idea = AUS_obsolete_military_5
-		}
-	}
-	else_if = {
-		limit = {
-			has_idea = AUS_obsolete_military_5
-		}
-		remove_ideas = AUS_obsolete_military_5
-	}
-}
-
 AUS_reduce_collapse_idea = {
 	if = {
 		limit = {
@@ -3735,7 +3650,7 @@ CZE_bohemian_revolution_effect = {
 			logistics_skill = 2
 		}
 		create_corps_commander = {
-			name = "Rudolf Viest"
+			name = "Rudolf Viest "
 			portrait_path = "gfx/leaders/SVK/general/SVK_Rudolf_Viest.png"
 			traits = {
 				infantry_officer
@@ -4098,6 +4013,7 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 		set_stability = 0
 		set_political_power = 0
 		load_focus_tree = austria_small_focus
+		clr_global_flag = no_more_collapse
 		set_global_flag = AUS_collapsed
 		for_each_scope_loop = {
 			array = AUS.faction_members
@@ -4182,26 +4098,6 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 				set_country_flag = VNC_revolt_schuschniggs_stay
 			}
 		}
-		
-		if = {
-			limit = {
-				OR = {
-					NOT = { country_exists = SLO }
-					SLO = { is_subject_of = AUS }
-				}
-				OR = {
-					owns_state = 102
-					owns_state = 1104
-					owns_state = 1101
-					owns_state = 1103
-				}
-			}
-			country_event = {
-				id = constituents.7 #Slovenia Secession
-				days = 3
-				random_hours = 12
-			}
-		}
 		if = {
 			limit = {
 				OR = {
@@ -4223,55 +4119,58 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 				random_hours = 12
 			}
 		}
-		#if = {
-		#	limit = {
-		#		NOT = {
-		#			has_country_flag = AUS_collapse_HUN_stays
-		#		}
-		#	}
-		#	HUN = {
-		#		country_event = constituents.2
-		#		leave_faction = yes
-		#	}
-		#}
-		#else_if = {
-		#	limit = {
-		#		owns_state = 43
-		#		NOT = {
-		#			country_exists = HUN
-		#		}
-		#	}
-		#	country_event = constituents.47 #Hungarian Revolution! Triggers all Hungarian collapse states.
-		#}
-		#else_if = {
-		#	limit = {
-		#		has_country_flag = AUS_collapse_HUN_stays
-		#	}
-		#	country_event = {
-		#		id = bdeausint.58
-		#		days = 3
-		#	}
-		#	HUN = {
-		#		country_event = {
-		#			id = bdeausint.58
-		#			days = 3
-		#		}
-		#	}
-		#}
 		if = {
 			limit = {
-				HUN = {
-					is_in_faction_with = AUS
+				NOT = {
+					has_country_flag = AUS_collapse_HUN_stays
+					has_global_flag = AUS_federalized
 				}
 			}
-			else_if = {
+			HUN = {
+				country_event = constituents.2
+				leave_faction = yes
+			}
+		}
+		else_if = {
+			limit = {
+				owns_state = 43
+				NOT = {
+					country_exists = HUN
+					has_country_flag = AUS_collapse_HUN_stays
+					has_global_flag = AUS_federalized
+				}
+			}
+			HUN = { transfer_state = 43 }
+			country_event = constituents.47 #Hungarian Revolution! Triggers all Hungarian collapse states.
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_country_flag = AUS_collapse_HUN_stays
+					has_global_flag = AUS_federalized
+				}
+			}
+			if = {
 				limit = {
-					owns_state = 34
-					NOT = {
-						country_exists = HUN
+					is_ai = no
+				}
+				country_event = {
+					id = bdeausint.58
+					days = 6
+				}
+			}
+			if = {
+				limit = {
+					HUN = {
+						is_ai = no
 					}
 				}
-				country_event = constituents.47 #Illyrian Revolution! Triggers all Illyrian collapse states.
+				HUN = {
+					country_event = {
+						id = bdeausint.58
+						days = 6
+					}
+				}
 			}
 		}
 		if = {
@@ -4280,15 +4179,16 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 					is_in_faction_with = AUS
 				}
 			}
-			else_if = {
-				limit = {
-					owns_state = 109
-					NOT = {
-						country_exists = CRO
-					}
+		}
+		else_if = {
+			limit = {
+				owns_state = 109
+				NOT = {
+					country_exists = CRO
 				}
-				country_event = constituents.48 #Illyrian Revolution! Triggers all Illyrian collapse states.
 			}
+			CRO = { transfer_state = 109 }
+			country_event = constituents.48 #Illyrian Revolution! Triggers all Illyrian collapse states.
 		}
 		if = {
 			limit = {
@@ -4303,15 +4203,16 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 					random_hours = 24
 				}
 			}
-			else_if = {
-				limit = {
-					owns_state = 1129
-					NOT = {
-						country_exists = CZE
-					}
+		}
+		else_if = {
+			limit = {
+				owns_state = 1129
+				NOT = {
+					country_exists = CZE
 				}
-				country_event = constituents.49 #Bohemian Revolution! Triggers just Bohemia rising up.
 			}
+			CZE = { transfer_state = 1129 }
+			country_event = constituents.49 #Bohemian Revolution! Triggers just Bohemia rising up.
 		}
 		
 		if = {
@@ -4320,91 +4221,124 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 					is_in_faction_with = AUS
 				}
 			}
-			else_if = {
-				limit = {
-					owns_state = 91
-					NOT = {
-						country_exists = GAL
-					}
+		}
+		else_if = {
+			limit = {
+				owns_state = 91
+				NOT = {
+					country_exists = GAL
 				}
-				country_event = constituents.50 #Galician Revolution! Triggers all Galician collapse states.
+			}
+			GAL = { transfer_state = 91 }
+			country_event = constituents.50 #Galician Revolution! Triggers all Galician collapse states.
+		}
+		every_unit_leader = {
+			limit = { has_trait = BOTDE_HUN_unit_trait }
+			set_nationality = HUN
+			remove_trait = { trait = BOTDE_HUN_unit_trait }
+		}
+		every_unit_leader = {
+			limit = { has_trait = BOTDE_CZE_unit_trait }
+			set_nationality = CZE
+			remove_trait = { trait = BOTDE_CZE_unit_trait }
+		}
+		every_unit_leader = {
+			limit = { has_trait = BOTDE_CRO_unit_trait }
+			set_nationality = CRO
+			remove_trait = { trait = BOTDE_CRO_unit_trait }
+		}
+		every_unit_leader = {
+			limit = { has_trait = BOTDE_GAL_unit_trait }
+			set_nationality = GAL
+			remove_trait = { trait = BOTDE_GAL_unit_trait }
+		}
+		every_scientist = {
+			limit = { has_trait = BOTDE_HUN_scientist_trait }
+			set_nationality = HUN
+			remove_trait = { trait = BOTDE_HUN_scientist_trait }
+		}
+		every_scientist = {
+			limit = { has_trait = BOTDE_CZE_scientist_trait }
+			set_nationality = CZE
+			remove_trait = { trait = BOTDE_CZE_scientist_trait }
+		}
+		every_scientist = {
+			limit = { has_trait = BOTDE_CRO_scientist_trait }
+			set_nationality = CRO
+			remove_trait = { trait = BOTDE_CRO_scientist_trait }
+		}
+		every_scientist = {
+			limit = { has_trait = BOTDE_GAL_scientist_trait }
+			set_nationality = GAL
+			remove_trait = { trait = BOTDE_GAL_scientist_trait }
+		}
+		
+		if = {
+			limit = {
+				owns_state = 1206
+			}
+			CRO = { transfer_state = 1206 }
+		}
+		
+		AUS = {
+			every_state = {
+				teleport_armies = {
+					to_state_array = owned_states
+				}
 			}
 		}
-		# hashed out for now since no leaders 
-		#if = {
-		#	limit = {
-		#		OR = {
-		#			NOT = {
-		#				country_exists = HNZ
-		#			}
-		#			HNZ = {
-		#				is_subject_of = HUN
-		#			}
-		#			
-		#		}
-		#		owns_state = 784
-		#	}
-		#	country_event = {
-		#		id = constituents.36 #Heizenland Secession
-		#		days = 5
-		#		random = 24
-		#	}
-		#}
+		
+		every_country = {
+			limit = {
+				has_war_with = AUS
+			}
+			every_owned_state = {
+				limit = {
+					NOT = { is_fully_controlled_by = PREV }
+				}
+				set_state_controller = PREV
+			}
+		}
 		
 		every_country = {
 			limit = {
 				OR = {
-					tag = HUN
+					AND = {
+						tag = HUN
+						NOT = { AUS = { has_country_flag = AUS_collapse_HUN_stays } }
+					}
 					tag = CZE
 					tag = GAL
 					tag = CRO
 				}
+				exists = yes
+				NOT = {
+					has_war_with = AUS
+				}
 			}
-			AUS = {
-				end_puppet = PREV
+			if = {
+				limit = {
+					has_global_flag = AUS_federalized
+				}
+				every_core_state = {
+					limit = {
+						has_state_flag = default_danubian_state
+						NOT = {
+							state = 784
+							is_core_of = PGU
+						}
+					}
+					AUS = {
+						remove_core_and_add_claim = yes
+					}
+				}
 			}
+			AUS = { end_puppet = PREV }
 			leave_faction = yes
 			drop_cosmetic_tag = yes
+			clear_all_relations = yes
 			add_ideas = AUS_fighting_for_the_people
 			country_event = constituents.2
-			if = {
-				limit = {
-					NOT = { tag = CRO }
-					has_relation_modifier = {
-						target = SER
-						modifier = KR_hostile
-					}
-				}
-				remove_opinion_modifier = {
-					target = SER
-					modifier = KR_hostile
-				}
-				SER = {
-					remove_opinion_modifier = {
-						target = PREV
-						modifier = KR_hostile
-					}
-				}
-			}
-			if = {
-				limit = {
-					NOT = { tag = HUN }
-					has_relation_modifier = {
-						target = ROM
-						modifier = KR_hostile
-					}
-				}
-				remove_opinion_modifier = {
-					target = ROM
-					modifier = KR_hostile
-				}
-				ROM = {
-					remove_opinion_modifier = {
-						target = PREV
-						modifier = KR_hostile
-					}
-				}
-			}
 			if = {
 				limit = {
 					has_subject = FIU
@@ -4421,6 +4355,7 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 			if = { #failsafe for testing collapse at game start
 				limit = {
 					tag = ITA
+					has_cosmetic_tag = ITA_LOMBARDY_VENITA
 				}
 				AUS = { country_event = italianrepublic.150 }
 			}
@@ -4500,15 +4435,27 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 		}
 		
 		SWI = {
-			country_event = constituents.100 #Austria collapses, shall we take land?
+			country_event = {
+				id = constituents.100 #Austria collapses, shall we take land?
+				hours = 2
+				random_hours = 10
+			}
 		}
 		
 		ITA = {
-			country_event = constituents.101 #Austria collapses, shall we take land?
+			country_event = {
+				id = constituents.101 #Austria collapses, shall we take land?
+				hours = 2
+				random_hours = 10
+			}
 		}
 		
 		GER = {
-			country_event = constituents.102 #The Austrian Empire collapses!
+			country_event = {
+				id = constituents.102 #The Austrian Empire collapses!
+				hours = 2
+				random_hours = 10
+			}
 		}
 		
 		country_event = {
@@ -4530,10 +4477,7 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 		
 		every_country = {
 			limit = {
-				is_in_array = { global.AUS_all_possible_array = THIS }
-				NOT = {
-					tag = AUS
-				}
+				is_in_array = { global.AUS_all_possible_array = THIS.id }
 			}
 			country_event = {
 				id = constituents.62 #Stabilized Danube System
@@ -4547,24 +4491,32 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 			AUS_postcollapse_army_idea
 		}
 		remove_ideas = {
+			AUS_bm_1
+			AUS_bm_2
+			AUS_bm_3
+			AUS_bm_4
+			AUS_bm_5
 			AUS_national_instability
 			AUS_national_instability_2
 			AUS_national_instability_3
-			AUS_obsolete_military
+			AUS_obsolete_military_1
 			AUS_obsolete_military_2
 			AUS_obsolete_military_3
 			AUS_obsolete_military_4
 			AUS_obsolete_military_5
-			AUS_divided_society_BOTDE
+			AUS_divided_society_botde
 			AUS_federal_plan
 			AUS_unsupported_rebels
+			AUS_common_army_reform
+			AUS_gleich_payments
+			AUS_gleich_payments_small
 		}
 		if = {
 			limit = { has_country_flag = subject_unrest_window_open }
 			clr_country_flag = subject_unrest_window_open
 		}
 		
-		every_country = {
+		random_other_country = {
 			news_event = {
 				id = colnews.1
 				days = 1
@@ -4608,15 +4560,379 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 		}
 		for_each_scope_loop = {
 			array = temp_austrian_subject_countries
-			PREV = {
-				reverse_add_opinion_modifier = {
-					target = AUS
-					modifier = BOTDE_collapsed_empire_opinion
+			reverse_add_opinion_modifier = {
+				target = AUS
+				modifier = BOTDE_collapsed_empire_opinion
+			}
+			add_opinion_modifier = {
+				target = AUS
+				modifier = BOTDE_collapsed_empire_opinion
+			}
+		}
+		country_event = {
+			id = constituents.3000 #event triggers AUS_collapse_splinter_setup after a day because hoi4 jank
+			days = 1
+		}
+	}
+}
+
+AUS_collapse_splinter_setup = {
+	# Austria Splinters #
+	if = {
+		limit = {
+			SLO = { exists = no }
+			102 = {
+				owner = {
+					OR = {
+						tag = AUS
+						tag = HUN
+						tag = CZE
+						tag = CRO
+						tag = GAL
+					}
 				}
-				add_opinion_modifier = {
-					target = AUS
-					modifier = BOTDE_collapsed_empire_opinion
+			}
+		}
+		102 = {
+			owner = {
+				log = "AUS_collapse_splinter_setup - [?102.GetName] owner: [?102.owner.GetName]"
+				country_event = {
+					id = constituents.7 #Slovenia Secession
+					days = 3
+					random_hours = 12
 				}
+			}
+		}
+	}
+	# Hungary Splinters #
+	if = {
+		limit = {
+			HNZ = { exists = no }
+			784 = {
+				owner = {
+					OR = {
+						AND = {
+							tag = AUS
+							NOT = { has_country_flag = AUS_collapse_HUN_stays }
+						}
+						tag = HUN
+						tag = CZE
+						tag = CRO
+						tag = GAL
+					}
+				}
+			}
+		}
+		784 = {
+			owner = {
+				log = "AUS_collapse_splinter_setup - [?784.GetName] owner: [?784.owner.GetName]"
+				country_event = {
+					id = constituents.36 #Heizenland Secession
+					days = 5
+					random = 24
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			TRS = { exists = no }
+			1112 = {
+				owner = {
+					OR = {
+						tag = AUS
+						tag = HUN
+						tag = CZE
+						tag = CRO
+						tag = GAL
+					}
+				}
+			}
+		}
+		1112 = {
+			owner = {
+				log = "AUS_collapse_splinter_setup - [?1112.GetName] owner: [?1112.owner.GetName]"
+				country_event = {
+					id = constituents.9 #Transylvania Secession
+					days = 2
+					random_hours = 24
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			BAN = { exists = no }
+			82 = {
+				owner = {
+					OR = {
+						tag = AUS
+						tag = HUN
+						tag = CZE
+						tag = CRO
+						tag = GAL
+					}
+				}
+			}
+		}
+		82 = {
+			owner = {
+				log = "AUS_collapse_splinter_setup - [?82.GetName] owner: [?82.owner.GetName]"
+				country_event = {
+					id = constituents.8 #Banat Secession
+					days = 1
+					random_hours = 12
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			SVK = { exists = no }
+			1123 = {
+				owner = {
+					OR = {
+						tag = AUS
+						tag = HUN
+						tag = CZE
+						tag = CRO
+						tag = GAL
+					}
+				}
+			}
+		}
+		1123 = {
+			owner = {
+				log = "AUS_collapse_splinter_setup - [?1123.GetName] owner: [?1123.owner.GetName]"
+				country_event = {
+					id = constituents.12 #Slovakia Secession
+					days = 2
+					random_hours = 12
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			CPU = { exists = no }
+			73 = {
+				owner = {
+					OR = {
+						tag = AUS
+						tag = HUN
+						tag = CZE
+						tag = CRO
+						tag = GAL
+					}
+				}
+			}
+		}
+		73 = {
+			owner = {
+				log = "AUS_collapse_splinter_setup - [?73.GetName] owner: [?73.owner.GetName]"
+				country_event = {
+					id = constituents.13 #Carpatho-Ukraine Secession
+					days = 5
+					random_hours = 12
+				}
+			}
+		}
+	}
+	# Illyria Splinters #
+	if = {
+		limit = {
+			BOS = { exists = no }
+			1142 = {
+				owner = {
+					OR = {
+						tag = AUS
+						tag = HUN
+						tag = CZE
+						tag = CRO
+						tag = GAL
+					}
+				}
+			}
+		}
+		1142 = {
+			owner = {
+				log = "AUS_collapse_splinter_setup - [?1142.GetName] owner: [?1142.owner.GetName]"
+				country_event = {
+					id = constituents.17 #Bosnia and Herzegovina Secession
+					days = 3
+					random_hours = 12
+				}
+			}
+		}
+	}
+	
+	#BSE is up to the BOS tag
+	
+	if = {
+		limit = {
+			SKS = { exists = no }
+			794 = {
+				owner = {
+					OR = {
+						tag = AUS
+						tag = HUN
+						tag = CZE
+						tag = CRO
+						tag = GAL
+					}
+				}
+			}
+		}
+		794 = {
+			owner = {
+				log = "AUS_collapse_splinter_setup - [?794.GetName] owner: [?794.owner.GetName]"
+				country_event = {
+					id = constituents.18 #Republika Srpska Secedes
+					days = 6
+					random_hours = 24
+				}
+			}
+		}
+	}
+	
+	if = {
+		limit = {
+			MNT = { exists = no }
+			105 = {
+				owner = {
+					OR = {
+						tag = AUS
+						tag = HUN
+						tag = CZE
+						tag = CRO
+						tag = GAL
+					}
+				}
+			}
+		}
+		105 = {
+			owner = {
+				log = "AUS_collapse_splinter_setup - [?105.GetName] owner: [?105.owner.GetName]"
+				country_event = {
+					id = constituents.19 #Montenegro Secession
+					days = 3
+					random_hours = 12
+				}
+			}
+		}
+	}
+	# Bohemia Splinters #
+	if = {
+		limit = {
+			PGU = { exists = no }
+			69 = {
+				owner = {
+					OR = {
+						tag = AUS
+						tag = HUN
+						tag = CZE
+						tag = CRO
+						tag = GAL
+					}
+					has_idea = BOH_sudeten_german_divide
+				}
+			}
+		}
+		69 = {
+			owner = {
+				log = "AUS_collapse_splinter_setup - [?69.GetName] owner: [?69.owner.GetName]"
+				country_event = {
+					id = constituents.10 #German-Bohemian Secession
+					days = 7
+					random_hours = 12
+				}
+			}
+		}
+	}
+	# Galicia Splinters #
+	if = {
+		limit = {
+			WSU = { exists = no }
+			91 = {
+				owner = {
+					OR = {
+						tag = AUS
+						tag = HUN
+						tag = CZE
+						tag = CRO
+						tag = GAL
+					}
+				}
+			}
+		}
+		91 = {
+			owner = {
+				log = "AUS_collapse_splinter_setup - [?91.GetName] owner: [?91.owner.GetName]"
+				country_event = {
+					id = wsu.1 #West Ukraine Secession
+					days = 6
+					random_hours = 12
+				}
+			}
+		}
+	}
+	
+	if = {
+		limit = {
+			BUK = { exists = no }
+			80 = {
+				owner = {
+					OR = {
+						tag = AUS
+						tag = HUN
+						tag = CZE
+						tag = CRO
+						tag = GAL
+					}
+				}
+			}
+		}
+		80 = {
+			owner = {
+				log = "AUS_collapse_splinter_setup - [?80.GetName] owner: [?80.owner.GetName]"
+				country_event = {
+					id = constituents.22 #Bukovina Secession
+					days = 7
+					random_hours = 12
+				}
+			}
+		}
+	}
+}
+
+AUS_post_collapse_effect = {
+	PGU = {
+		if = {
+			limit = { PGU = { exists = yes } }
+			country_event = {
+				id = constituents.1007
+				days = 7
+				random_days = 48
+			}
+		}
+	}
+	HNZ = {
+		if = {
+			limit = { HNZ = { exists = yes } }
+			country_event = {
+				id = constituents.1010
+				days = 7
+				random_days = 48
+			}
+		}
+	}
+	CZE = {
+		if = {
+			limit = { CZE = { exists = yes } }
+			country_event = {
+				id = bdecze.15
+				days = 7
+				random_days = 70
 			}
 		}
 	}
@@ -5944,854 +6260,6 @@ AUS_do_schizo_test = {
 	}
 }
 
-
-
-AUS_picker_select_event_type = { #Variables: 1=Basic. 2=Mission. 3=Paramilitary. 4=Strategy Shaker.
-	random_list = {
-		8 = { #Normal
-			set_variable = {
-				var =  global.BOTDE_randomevent_AUS_picker
-				value = 1
-			}
-		}
-		2 = { #Missions
-			set_variable = {
-				var =  global.BOTDE_randomevent_AUS_picker
-				value = 2
-			}
-		}
-		2 = { #Paramilitaries
-			modifier = {
-				factor = 0
-				has_global_flag = AUS_paramilitaries_pacified
-			}
-			set_variable = {
-				var =  global.BOTDE_randomevent_AUS_picker
-				value = 3
-			}
-		}
-		1 = { #Strategy Shaker
-			set_variable = {
-				var =  global.BOTDE_randomevent_AUS_picker
-				value = 4
-			}
-		}
-	}
-}
-
-AUS_event_fire_prep_AUS = { #Use event type variable and target (AUS, constituent, minority) to deduce event number
-	if = {
-		limit = {
-			check_variable = {
-				var = global.BOTDE_randomevent_AUS_picker
-				value = 1
-				compare = equals
-			}
-		}
-		AUS_picker_actual_event_AUS_basic = yes
-		else_if = {
-			limit = {
-				check_variable = {
-					var = global.BOTDE_randomevent_AUS_picker
-					value = 2
-					compare = equals
-				}
-			}
-			AUS_picker_actual_event_AUS_mission = yes
-			else_if = {
-				limit = {
-					check_variable = {
-						var = global.BOTDE_randomevent_AUS_picker
-						value = 3
-						compare = equals
-					}
-				}
-				AUS_picker_actual_event_AUS_paramilitary = yes
-				else_if = {
-					limit = {
-						check_variable = {
-							var = global.BOTDE_randomevent_AUS_picker
-							value = 4
-							compare = equals
-						}
-					}
-					AUS_picker_actual_event_AUS_shaker = yes
-				}
-			}
-		}
-	}
-}
-
-AUS_event_fire_prep_constituent = { #Use event type variable and target (AUS, constituent, minority) to deduce event number
-	if = {
-		limit = {
-			check_variable = {
-				var = global.BOTDE_randomevent_AUS_picker
-				value = 1
-				compare = equals
-			}
-		}
-		AUS_picker_actual_event_constituent_basic = yes
-		else = {
-			AUS_picker_actual_event_constituent_paramilitary = yes
-		}
-	}
-}
-
-
-AUS_picker_actual_event_AUS_basic = { #Use event type variable and target (AUS, constituent, minority) to deduce event number
-	
-	if = {
-		limit = {
-			check_variable = {
-				var = global.BOTDE_eventnumber_basic
-				value = 1
-				compare = equals
-			}
-		}
-		country_event = {
-			id = ethnic.2
-		}
-		else_if = {
-			limit = {
-				check_variable = {
-					var = global.BOTDE_eventnumber_basic
-					value = 2
-					compare = equals
-				}
-			}
-			country_event = {
-				id = ethnic.3
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						var = global.BOTDE_eventnumber_basic
-						value = 3
-						compare = equals
-					}
-				}
-				country_event = {
-					id = ethnic.4
-				}
-				else_if = {
-					limit = {
-						check_variable = {
-							var = global.BOTDE_eventnumber_basic
-							value = 4
-							compare = equals
-						}
-					}
-					country_event = {
-						id = ethnic.5
-					}
-					else_if = {
-						limit = {
-							check_variable = {
-								var = global.BOTDE_eventnumber_basic
-								value = 5
-								compare = equals
-							}
-						}
-						country_event = {
-							id = ethnic.6
-						}
-						else_if = {
-							limit = {
-								check_variable = {
-									var = global.BOTDE_eventnumber_basic
-									value = 6
-									compare = equals
-								}
-							}
-							country_event = {
-								id = ethnic.7
-							}
-							else_if = {
-								limit = {
-									check_variable = {
-										var = global.BOTDE_eventnumber_basic
-										value = 7
-										compare = equals
-									}
-								}
-								country_event = {
-									id = ethnic.8
-								}
-								else_if = {
-									limit = {
-										check_variable = {
-											var = global.BOTDE_eventnumber_basic
-											value = 8
-											compare = equals
-										}
-									}
-									country_event = {
-										id = ethnic.9
-									}
-									else_if = {
-										limit = {
-											check_variable = {
-												var = global.BOTDE_eventnumber_basic
-												value = 9
-												compare = equals
-											}
-										}
-										country_event = {
-											id = ethnic.10
-										}
-										else_if = {
-											limit = {
-												check_variable = {
-													var = global.BOTDE_eventnumber_basic
-													value = 10
-													compare = equals
-												}
-											}
-											country_event = {
-												id = ethnic.11
-											}
-											else_if = {
-												limit = {
-													check_variable = {
-														var = global.BOTDE_eventnumber_basic
-														value = 11
-														compare = equals
-													}
-												}
-												country_event = {
-													id = ethnic.12
-												}
-												else_if = {
-													limit = {
-														check_variable = {
-															var = global.BOTDE_eventnumber_basic
-															value = 12
-															compare = equals
-														}
-													}
-													country_event = {
-														id = ethnic.13
-													}
-													else_if = {
-														limit = {
-															check_variable = {
-																var = global.BOTDE_eventnumber_basic
-																value = 13
-																compare = equals
-															}
-														}
-														country_event = {
-															id = ethnic.14
-														}
-														else_if = {
-															limit = {
-																check_variable = {
-																	var = global.BOTDE_eventnumber_basic
-																	value = 14
-																	compare = equals
-																}
-															}
-															country_event = {
-																id = ethnic.15
-															}
-															else_if = {
-																limit = {
-																	check_variable = {
-																		var = global.BOTDE_eventnumber_basic
-																		value = 15
-																		compare = equals
-																	}
-																}
-																country_event = {
-																	id = ethnic.16
-																}
-																else_if = {
-																	limit = {
-																		check_variable = {
-																			var = global.BOTDE_eventnumber_basic
-																			value = 16
-																			compare = equals
-																		}
-																	}
-																	country_event = {
-																		id = ethnic.17
-																	}
-																	else_if = {
-																		limit = {
-																			check_variable = {
-																				var = global.BOTDE_eventnumber_basic
-																				value = 17
-																				compare = equals
-																			}
-																		}
-																		country_event = {
-																			id = ethnic.18
-																		}
-																		else_if = {
-																			limit = {
-																				check_variable = {
-																					var = global.BOTDE_eventnumber_basic
-																					value = 18
-																					compare = equals
-																				}
-																			}
-																			country_event = {
-																				id = ethnic.19
-																			}
-																			else_if = {
-																				limit = {
-																					check_variable = {
-																						var = global.BOTDE_eventnumber_basic
-																						value = 19
-																						compare = equals
-																					}
-																				}
-																				country_event = {
-																					id = ethnic.20
-																				}
-																				else_if = {
-																					limit = {
-																						check_variable = {
-																							var = global.BOTDE_eventnumber_basic
-																							value = 20
-																							compare = equals
-																						}
-																					}
-																					country_event = {
-																						id = ethnic.21
-																					}
-																				}
-																			}
-																		}
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}	
-}
-
-CONST_event_fire = {
-	
-	if = {
-		limit = {
-			check_variable = {
-				var = THIS.BOTDE_CONST_eventnumber_basic
-				value = 1
-				compare = equals
-			}
-		}
-		country_event = {
-			id = ethnic.42
-		}
-		else_if = {
-			limit = {
-				check_variable = {
-					var = THIS.BOTDE_CONST_eventnumber_basic
-					value = 2
-					compare = equals
-				}
-			}
-			country_event = {
-				id = ethnic.43
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						var = THIS.BOTDE_CONST_eventnumber_basic
-						value = 3
-						compare = equals
-					}
-				}
-				country_event = {
-					id = ethnic.44
-				}
-				else_if = {
-					limit = {
-						check_variable = {
-							var = THIS.BOTDE_CONST_eventnumber_basic
-							value = 4
-							compare = equals
-						}
-					}
-					country_event = {
-						id = ethnic.45
-					}
-					else_if = {
-						limit = {
-							check_variable = {
-								var = THIS.BOTDE_CONST_eventnumber_basic
-								value = 5
-								compare = equals
-							}
-						}
-						country_event = {
-							id = ethnic.46
-						}
-						else_if = {
-							limit = {
-								check_variable = {
-									var = THIS.BOTDE_CONST_eventnumber_basic
-									value = 6
-									compare = equals
-								}
-							}
-							country_event = {
-								id = ethnic.47
-							}
-							else_if = {
-								limit = {
-									check_variable = {
-										var = THIS.BOTDE_CONST_eventnumber_basic
-										value = 7
-										compare = equals
-									}
-								}
-								country_event = {
-									id = ethnic.48
-								}
-								else_if = {
-									limit = {
-										check_variable = {
-											var = THIS.BOTDE_CONST_eventnumber_basic
-											value = 8
-											compare = equals
-										}
-									}
-									country_event = {
-										id = ethnic.49
-									}
-									else_if = {
-										limit = {
-											check_variable = {
-												var = THIS.BOTDE_CONST_eventnumber_basic
-												value = 9
-												compare = equals
-											}
-										}
-										country_event = {
-											id = ethnic.50
-										}
-										else_if = {
-											limit = {
-												check_variable = {
-													var = THIS.BOTDE_CONST_eventnumber_basic
-													value = 10
-													compare = equals
-												}
-											}
-											country_event = {
-												id = ethnic.51
-											}
-											else_if = {
-												limit = {
-													check_variable = {
-														var = THIS.BOTDE_CONST_eventnumber_basic
-														value = 11
-														compare = equals
-													}
-												}
-												country_event = {
-													id = ethnic.52
-												}
-												else_if = {
-													limit = {
-														check_variable = {
-															var = THIS.BOTDE_CONST_eventnumber_basic
-															value = 12
-															compare = equals
-														}
-													}
-													country_event = {
-														id = ethnic.53
-													}
-													else_if = {
-														limit = {
-															check_variable = {
-																var = THIS.BOTDE_CONST_eventnumber_basic
-																value = 13
-																compare = equals
-															}
-														}
-														country_event = {
-															id = ethnic.54
-														}
-														else_if = {
-															limit = {
-																check_variable = {
-																	var = THIS.BOTDE_CONST_eventnumber_basic
-																	value = 14
-																	compare = equals
-																}
-															}
-															country_event = {
-																id = ethnic.55
-															}
-															else_if = {
-																limit = {
-																	check_variable = {
-																		var = THIS.BOTDE_CONST_eventnumber_basic
-																		value = 15
-																		compare = equals
-																	}
-																}
-																country_event = {
-																	id = ethnic.56
-																}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}	
-}
-
-CONST_event_fire_minority = {
-	
-	if = {
-		limit = {
-			check_variable = {
-				var = THIS.BOTDE_CONST_eventnumber_basic
-				value = 1
-				compare = equals
-			}
-		}
-		country_event = {
-			id = ethnic.57
-		}
-		else_if = {
-			limit = {
-				check_variable = {
-					var = THIS.BOTDE_CONST_eventnumber_basic
-					value = 2
-					compare = equals
-				}
-			}
-			country_event = {
-				id = ethnic.58
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						var = THIS.BOTDE_CONST_eventnumber_basic
-						value = 3
-						compare = equals
-					}
-				}
-				country_event = {
-					id = ethnic.59
-				}
-				else_if = {
-					limit = {
-						check_variable = {
-							var = THIS.BOTDE_CONST_eventnumber_basic
-							value = 4
-							compare = equals
-						}
-					}
-					country_event = {
-						id = ethnic.60
-					}
-					else_if = {
-						limit = {
-							check_variable = {
-								var = THIS.BOTDE_CONST_eventnumber_basic
-								value = 5
-								compare = equals
-							}
-						}
-						country_event = {
-							id = ethnic.61
-						}
-					}
-				}
-			}
-		}
-	}	
-}
-
-
-
-
-
-AUS_picker_actual_event_AUS_mission = { #Use event type variable and target (AUS, constituent, minority) to deduce event number
-	
-	if = {
-		limit = {
-			check_variable = {
-				var = global.BOTDE_eventnumber_basic
-				value = 1
-				compare = equals
-			}
-		}
-		country_event = {
-			id = ethnic.22
-		}
-		else_if = {
-			limit = {
-				check_variable = {
-					var = global.BOTDE_eventnumber_basic
-					value = 2
-					compare = equals
-				}
-			}
-			country_event = {
-				id = ethnic.23
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						var = global.BOTDE_eventnumber_basic
-						value = 3
-						compare = equals
-					}
-				}
-				country_event = {
-					id = ethnic.24
-				}
-				else_if = {
-					limit = {
-						check_variable = {
-							var = global.BOTDE_eventnumber_basic
-							value = 4
-							compare = equals
-						}
-					}
-					country_event = {
-						id = ethnic.25
-					}
-					else_if = {
-						limit = {
-							check_variable = {
-								var = global.BOTDE_eventnumber_basic
-								value = 5
-								compare = equals
-							}
-						}
-						country_event = {
-							id = ethnic.26
-						}
-						else_if = {
-							limit = {
-								check_variable = {
-									var = global.BOTDE_eventnumber_basic
-									value = 6
-									compare = equals
-								}
-							}
-							country_event = {
-								id = ethnic.27
-							}
-							else_if = {
-								limit = {
-									check_variable = {
-										var = global.BOTDE_eventnumber_basic
-										value = 7
-										compare = equals
-									}
-								}
-								country_event = {
-									id = ethnic.28
-								}
-								else_if = {
-									limit = {
-										check_variable = {
-											var = global.BOTDE_eventnumber_basic
-											value = 8
-											compare = equals
-										}
-									}
-									country_event = {
-										id = ethnic.29
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-AUS_picker_actual_event_AUS_shaker = { #Use event type variable and target (AUS, constituent, minority) to deduce event number
-	
-	if = {
-		limit = {
-			check_variable = {
-				var = global.BOTDE_eventnumber_basic
-				value = 1
-				compare = equals
-			}
-		}
-		country_event = {
-			id = ethnic.30
-		}
-		else_if = {
-			limit = {
-				check_variable = {
-					var = global.BOTDE_eventnumber_basic
-					value = 2
-					compare = equals
-				}
-			}
-			country_event = {
-				id = ethnic.31
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						var = global.BOTDE_eventnumber_basic
-						value = 3
-						compare = equals
-					}
-				}
-				country_event = {
-					id = ethnic.32
-				}
-				else_if = {
-					limit = {
-						check_variable = {
-							var = global.BOTDE_eventnumber_basic
-							value = 4
-							compare = equals
-						}
-					}
-					country_event = {
-						id = ethnic.33
-					}
-				}
-			}
-		}
-	}
-}
-
-
-
-AUS_picker_actual_event_constituent_basic = { #Use event type variable and target (AUS, constituent, minority) to deduce event number
-	
-	if = {
-		limit = {
-			check_variable = {
-				var = global.BOTDE_eventnumber_basic
-				value = 1
-				compare = equals
-			}
-		}
-		country_event = {
-			id = ethnic.34
-		}
-		else_if = {
-			limit = {
-				check_variable = {
-					var = global.BOTDE_eventnumber_basic
-					value = 2
-					compare = equals
-				}
-			}
-			country_event = {
-				id = ethnic.35
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						var = global.BOTDE_eventnumber_basic
-						value = 3
-						compare = equals
-					}
-				}
-				country_event = {
-					id = ethnic.36
-				}
-				else_if = {
-					limit = {
-						check_variable = {
-							var = global.BOTDE_eventnumber_basic
-							value = 4
-							compare = equals
-						}
-					}
-					country_event = {
-						id = ethnic.37
-					}
-					else_if = {
-						limit = {
-							check_variable = {
-								var = global.BOTDE_eventnumber_basic
-								value = 5
-								compare = equals
-							}
-						}
-						country_event = {
-							id = ethnic.38
-						}
-						else_if = {
-							limit = {
-								check_variable = {
-									var = global.BOTDE_eventnumber_basic
-									value = 6
-									compare = equals
-								}
-							}
-							country_event = {
-								id = ethnic.39
-							}
-							else_if = {
-								limit = {
-									check_variable = {
-										var = global.BOTDE_eventnumber_basic
-										value = 7
-										compare = equals
-									}
-								}
-								country_event = {
-									id = ethnic.40
-								}
-								else_if = {
-									limit = {
-										check_variable = {
-											var = global.BOTDE_eventnumber_basic
-											value = 8
-											compare = equals
-										}
-									}
-									country_event = {
-										id = ethnic.41
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-
-
-
 AUS_picker_actual_event_AUS_paramilitary = {
 	country_event = {
 		id = ethnic_picker.16
@@ -6804,597 +6272,147 @@ AUS_picker_actual_event_constituent_paramilitary = {
 	}
 }
 
-AUS_picker_AUS_roll_number_gen = {
-	if = {
-		limit = {
-			check_variable = {
-				var = global.BOTDE_randomevent_AUS_picker
-				value = 4
-				compare = equals
-			}
-		}
-		AUS_picker_select_event_number_strategy_shaker_AUS = yes
-		else_if = {
-			limit = {
-				check_variable = {
-					var = global.BOTDE_randomevent_AUS_picker
-					value = 3
-					compare = equals
-				}
-			}
-			AUS_picker_select_event_number_paramilitary_AUS = yes
-			else_if = {
-				limit = {
-					check_variable = {
-						var = global.BOTDE_randomevent_AUS_picker
-						value = 2
-						compare = equals
-					}
-				}
-				AUS_picker_select_event_number_mission_AUS = yes
-				else_if = {
-					limit = {
-						check_variable = {
-							var = global.BOTDE_randomevent_AUS_picker
-							value = 1
-							compare = equals
-						}
-					}
-					AUS_picker_select_event_number_basic_AUS = yes
-				}
-			}
-		}
-	}
-}
-
-
-AUS_picker_select_event_number_basic_AUS = { #20 basic event (with different effects each): 1-6 negligible, 7-16 moderate, 17-20 severe. 2 multi-choice for negligible. 5 multi-choice for moderate. 2 multi-choice for severe. of these, 1 of each are three-choices.
-	set_temp_variable = { picker = 1 }
-	randomize_temp_variable = {
-		var = picker
-		distribution = uniform
-		min = 1
-		max = 20
-	}
-	round_temp_variable = picker
-	set_variable = {
-		var =  global.BOTDE_eventnumber_basic
-		value = picker
-	}
-}
-
-AUS_picker_select_event_number_mission_AUS = { #8 diff missions: 2 easy, 2 hard, 4 medium 
-	set_temp_variable = { picker = 1 }
-	randomize_temp_variable = {
-		var = picker
-		distribution = uniform
-		min = 1
-		max = 8
-	}
-	round_temp_variable = picker
-	set_variable = {
-		var =  global.BOTDE_eventnumber_basic
-		value = picker
-	}
-}
-
-AUS_picker_select_event_number_paramilitary_AUS = { #Only one event for this. This is because the event will fire the great paramilitary thingamajig.
-	set_variable = {
-		var =  global.BOTDE_eventnumber_basic
-		value = 1
-	}
-}
-
-AUS_picker_select_event_number_strategy_shaker_AUS = { #4 different strategy shakers.
-	set_temp_variable = { picker = 1 }
-	randomize_temp_variable = {
-		var = picker
-		distribution = uniform
-		min = 1
-		max = 4
-	}
-	round_temp_variable = picker
-	set_variable = {
-		var =  global.BOTDE_eventnumber_basic
-		value = picker
-	}
-}
-
-
-
-AUS_picker_select_event_number_basic_constituent = { #8 events per constituent. 4 two-choice and one three-choice. If a constituent is gone and this script selects that constituent, it will run AUS_picker_AUS. This is the same script but only including Austria. 1-2 minor. 7-8 major.
-	set_temp_variable = { picker = 1 }
-	randomize_temp_variable = {
-		var = picker
-		distribution = uniform
-		min = 1
-		max = 8
-	}
-	round_temp_variable = picker
-	set_variable = {
-		var =  global.BOTDE_eventnumber_basic
-		value = picker
-	}
-	
-}
-
-AUS_picker_select_event_number_paramilitary_constituent = {
-	set_variable = {
-		var =  global.BOTDE_eventnumber_basic
-		value = 1
-	}
-}
-
-AUS_picker_select_event_number_basic_minority = { #5 events per minority. 2 two-choice. 1 minor. 1 major. 3 moderate.
-	set_temp_variable = { picker = 1 }
-	randomize_temp_variable = {
-		var = picker
-		distribution = uniform
-		min = 1
-		max = 5
-	}
-	round_temp_variable = picker
-	set_variable = {
-		var =  global.BOTDE_eventnumber_basic
-		value = picker
-	}
-}
-
-CONST_picker_select_event_number_basic = { #15 basic events
-	set_temp_variable = { picker = 1 }
-	randomize_temp_variable = {
-		var = picker
-		distribution = uniform
-		min = 1
-		max = 15
-	}
-	round_temp_variable = picker
-	set_variable = {
-		var =  THIS.BOTDE_CONST_eventnumber_basic
-		value = picker
-	}
-}
-
-CONST_picker_select_event_number_minority = { #5 basic events
-	set_temp_variable = { picker = 1 }
-	randomize_temp_variable = {
-		var = picker
-		distribution = uniform
-		min = 1
-		max = 5
-	}
-	round_temp_variable = picker
-	set_variable = {
-		var =  THIS.BOTDE_CONST_eventnumber_basic
-		value = picker
-	}
-}
-
-AUS_picker_AUS = {
-	set_variable = { BOTDE_event_target = AUS }
-	set_variable = {
-		var =  global.BOTDE_target
-		value = 1
-	}
-}
-
-AUS_picker_select_constituent = { #2 = Hungary. 3 = Bohemia. 4 = Illyria. 5 = Galicia.
+AUS_picker_select_event_type = { #Variables: 1=Basic. 2=Mission. 3=Paramilitary. 4=Strategy Shaker.
 	random_list = {
-		2 = {
-			modifier =  {
-				factor = 0 
-				NOT = {
-					HUN = {
-						OR = {
-							is_subject_of = AUS
-							is_in_faction_with = AUS
-						}
-					}
-				}
-			}
-			set_variable = { BOTDE_event_target = HUN }
+		8 = { #Normal
 			set_variable = {
-				var =  global.BOTDE_target
+				var =  global.BOTDE_randomevent_AUS_picker
+				value = 1
+			}
+			set_variable = {
+				var =  global.BOTDE_picker_maxval
+				value = 20
+			}
+		}
+		2 = { #Missions
+			set_variable = {
+				var =  global.BOTDE_randomevent_AUS_picker
 				value = 2
 			}
-		}
-		1 = {
-			modifier =  {
-				factor = 0 
-				NOT = {
-					CZE = {
-						OR = {
-							is_subject_of = AUS
-							is_in_faction_with = AUS
-						}
-					}
-				}
-			}
-			set_variable = { BOTDE_event_target = CZE }
 			set_variable = {
-				var =  global.BOTDE_target
-				value = 3
-			}
-		}
-		1 = {
-			modifier =  {
-				factor = 0 
-				NOT = {
-					CRO = {
-						OR = {
-							is_subject_of = AUS
-							is_in_faction_with = AUS
-						}
-					}
-				}
-			}
-			set_variable = { BOTDE_event_target = CRO }
-			set_variable = {
-				var =  global.BOTDE_target
-				value = 4
-			}
-		}
-		1 = {
-			modifier =  {
-				factor = 0 
-				NOT = {
-					GAL = {
-						OR = {
-							is_subject_of = AUS
-							is_in_faction_with = AUS
-						}
-					}
-				}
-			}
-			set_variable = { BOTDE_event_target = GAL }
-			set_variable = {
-				var =  global.BOTDE_target
-				value = 5
-			}
-		}
-	}
-}
-
-
-AUS_picker_select_minority = { #6. Slovenia. 7. Slovakia. 8. Transylvania. 9. Banat. 10. Bukovina. 11. Bosnia. 12. Montenegro. 13. West Ukraine. 14. Krakow. 15. Carpatho-Ukraine. 16. Burgenland. 17. German-Bohemia. 18. Venice. 19. Srpska.
-	random_list = {
-		1 = {
-			modifier =  {
-				factor = 0
-				OR = {
-					NOT = {
-						is_in_array = { global.minorities_array = SLO }
-						OR = {
-							exists = no
-							is_subject_of = AUS
-							
-						}
-					}
-					NOT = {
-						owns_state = 1103
-					}
-				}
-				
-			}
-			set_variable = { BOTDE_event_target = SLO }
-			set_variable = {
-				var =  global.BOTDE_target
-				value = 6
-			}
-		}
-		
-		1 = {
-			modifier =  {
-				factor = 0 
-				OR = {
-					NOT = {
-						is_in_array = { global.minorities_array = SVK }
-						OR = {
-							exists = no
-							is_subject_of = AUS
-							
-						}
-					}
-					NOT = {
-						owns_state = 1123
-					}
-				}
-			}
-			set_variable = { BOTDE_event_target = SVK }
-			set_variable = {
-				var =  global.BOTDE_target
-				value = 7
-			}
-		}
-		
-		1 = {
-			modifier =  {
-				factor = 0 
-				OR = {
-					NOT = {
-						is_in_array = { global.minorities_array = TRS }
-						OR = {
-							exists = no
-							is_subject_of = AUS
-							
-						}
-					}
-					NOT = {
-						owns_state = 1112
-					}
-				}
-			}
-			set_variable = { BOTDE_event_target = TRS }
-			set_variable = {
-				var =  global.BOTDE_target
+				var =  global.BOTDE_picker_maxval
 				value = 8
 			}
 		}
-		
-		1 = {
-			modifier =  {
-				factor = 0 
-				OR = {
-					NOT = {
-						is_in_array = { global.minorities_array = BAN }
-						OR = {
-							exists = no
-							is_subject_of = AUS
-							
-						}
-					}
-					NOT = {
-						owns_state = 1114
-					}
-				}
-			}
-			set_variable = { BOTDE_event_target = BAN }
+		5 = { #Minority
+			#modifier = {
+			#	factor = 0
+			#	has_global_flag = AUS_paramilitaries_pacified
+			#}
 			set_variable = {
-				var =  global.BOTDE_target
-				value = 9
+				var =  global.BOTDE_randomevent_AUS_picker
+				value = 3
+			}
+			set_variable = {
+				var =  global.BOTDE_picker_maxval
+				value = 5
 			}
 		}
-		
-		1 = {
-			modifier =  {
-				factor = 0 
-				OR = {
-					NOT = {
-						is_in_array = { global.minorities_array = BUK }
-						OR = {
-							exists = no
-							is_subject_of = AUS
-							
-						}
-					}
-					NOT = {
-						owns_state = 80
-					}
-				}
-			}
-			set_variable = { BOTDE_event_target = BUK }
+		2 = { #Strategy Shaker
 			set_variable = {
-				var =  global.BOTDE_target
-				value = 10
+				var =  global.BOTDE_randomevent_AUS_picker
+				value = 4
 			}
-		}
-		
-		1 = {
-			modifier =  {
-				factor = 0 
-				OR = {
-					NOT = {
-						is_in_array = { global.minorities_array = BOS }
-						OR = {
-							exists = no
-							is_subject_of = AUS
-							
-						}
-					}
-					NOT = {
-						owns_state = 104
-					}
-				}
-			}
-			set_variable = { BOTDE_event_target = BOS }
 			set_variable = {
-				var =  global.BOTDE_target
-				value = 11
-			}
-		}
-		
-		1 = {
-			modifier =  {
-				factor = 0 
-				OR = {
-					NOT = {
-						is_in_array = { global.minorities_array = BOS }
-						OR = {
-							exists = no
-							is_subject_of = AUS
-							
-						}
-					}
-					NOT = {
-						owns_state = 105
-					}
-				}
-			}
-			set_variable = { BOTDE_event_target = MNT }
-			set_variable = {
-				var =  global.BOTDE_target
-				value = 12
-			}
-		}
-		
-		1 = {
-			modifier =  {
-				factor = 0 
-				OR = {
-					NOT = {
-						is_in_array = { global.minorities_array = WSU }
-						OR = {
-							exists = no
-							is_subject_of = AUS
-							
-						}
-					}
-					NOT = {
-						owns_state = 91
-					}
-				}
-			}
-			set_variable = { BOTDE_event_target = WSU }
-			set_variable = {
-				var =  global.BOTDE_target
-				value = 13
-			}
-		}
-		
-		1 = {
-			modifier =  {
-				factor = 0 
-				OR = {
-					NOT = {
-						is_in_array = { global.minorities_array = KRK }
-						OR = {
-							exists = no
-							is_subject_of = AUS
-							
-						}
-					}
-					NOT = {
-						owns_state = 1124
-					}
-				}
-			}
-			set_variable = { BOTDE_event_target = KRK }
-			set_variable = {
-				var =  global.BOTDE_target
-				value = 14
-			}
-		}
-		
-		1 = {
-			modifier =  {
-				factor = 0 
-				OR = {
-					NOT = {
-						is_in_array = { global.minorities_array = CPU }
-						OR = {
-							exists = no
-							is_subject_of = AUS
-							
-						}
-					}
-					NOT = {
-						owns_state = 1119
-					}
-				}
-			}
-			set_variable = { BOTDE_event_target = CPU }
-			set_variable = {
-				var =  global.BOTDE_target
-				value = 15
-			}
-		}
-		
-		1 = {
-			modifier =  {
-				factor = 0 
-				OR = {
-					NOT = {
-						is_in_array = { global.minorities_array = HNZ }
-						OR = {
-							exists = no
-							is_subject_of = AUS
-							
-						}
-					}
-					NOT = {
-						owns_state = 784
-					}
-				}
-			}
-			set_variable = { BOTDE_event_target = HNZ }
-			set_variable = {
-				var =  global.BOTDE_target
-				value = 16
-			}
-		}
-		
-		1 = {
-			modifier =  {
-				factor = 0 
-				OR = {
-					NOT = {
-						is_in_array = { global.minorities_array = PGU }
-						OR = {
-							exists = no
-							is_subject_of = AUS
-							
-						}
-					}
-					NOT = {
-						owns_state = 69
-					}
-				}
-			}
-			set_variable = { BOTDE_event_target = PGU }
-			set_variable = {
-				var =  global.BOTDE_target
-				value = 17
-			}
-		}
-		
-		1 = {
-			modifier =  {
-				factor = 0 
-				OR = {
-					NOT = {
-						is_in_array = { global.minorities_array = VNC }
-						OR = {
-							exists = no
-							is_subject_of = AUS
-							
-						}
-					}
-					NOT = {
-						owns_state = 160
-					}
-				}
-			}
-			set_variable = { BOTDE_event_target = VNC }
-			set_variable = {
-				var =  global.BOTDE_target
-				value = 18
-			}
-		}
-		1 = {
-			modifier =  {
-				factor = 0 
-				OR = {
-					NOT = {
-						is_in_array = { global.minorities_array = SKS }
-						OR = {
-							exists = no
-							is_subject_of = AUS
-							
-						}
-					}
-					NOT = {
-						owns_state = 1142
-					}
-				}
-			}
-			set_variable = { BOTDE_event_target = SKS }
-			set_variable = {
-				var =  global.BOTDE_target
-				value = 19
+				var =  global.BOTDE_picker_maxval
+				value = 2
 			}
 		}
 	}
 }
+
+BOTDE_event_roulette_lets_go_gambling = { 
+	AUS_picker_select_event_type = yes
+	BOTDE_roulette_nationselect = yes
+	BOTDE_numpicker = yes
+	
+	log = "Austrian Collapse Event roulette rolled event ethnic.[?global.BOTDE_event_target]_[?global.BOTDE_randomevent_AUS_picker]_[?global.BOTDE_picker] with maximum roll value of [?global.BOTDE_picker_maxval]"
+	
+	meta_effect = {
+		text = {
+			country_event = {
+				id = ethnic.[foci]_[type]_[num] #For example, a basic event for Austria with a random value of 1 should be: ETHNIC.1_1_2. The 2nd mission for Bohemia should be ethnic.3_2_2.
+			}
+		}
+		foci = "[?global.BOTDE_event_target]" #What tag is getting an event.
+		type = "[?global.BOTDE_randomevent_AUS_picker]" #Type of event. Basic? Mission? Minority? Stratshaker?
+		num = "[?global.BOTDE_picker]" #Event number.
+	}
+	clear_variable = global.BOTDE_event_target
+	clear_variable = global.BOTDE_picker_maxval
+	clear_variable = global.BOTDE_randomevent_AUS_picker
+	clear_variable = global.BOTDE_picker
+}
+BOTDE_roulette_nationselect = {
+	random_list = {
+		60 = { #Select an event about Austria
+			set_variable = {
+				var = global.BOTDE_event_target
+				value = 1
+			}
+		}
+		40 = { #Select an event about the constituents (Constituents will get their own reel of events)
+			random_list = {
+				40 = { #Hungary
+					set_variable = {
+						var = global.BOTDE_event_target
+						value = 2
+					}
+				}
+				20 = { #Not Hungary
+					set_variable_to_random = {
+						var = global.BOTDE_event_target
+						min = 3
+						max = 5
+						integer = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					check_variable = {
+						var = BOTDE_randomevent_AUS_picker
+						value = 3
+						compare = not_equals
+					}
+				}
+				divide_variable = { global.BOTDE_picker_maxval = 2 }
+				round_variable = global.BOTDE_picker_maxval
+			}
+		}
+	}
+}
+BOTDE_numpicker = {
+	meta_effect = {
+		text = {
+			set_variable_to_random = {
+				var = global.BOTDE_picker
+				min = 1
+				max = [max]
+				integer = yes
+			}
+		}
+		max = "[?global.BOTDE_picker_maxval]"
+	}
+}
+
+
+
+
+#### PICKER LOGIC: AUSTRIA
+#BASIC EVENTS: 20. 20 basic event (with different effects each): 1-6 negligible, 7-16 moderate, 17-20 severe. 2 multi-choice for negligible. 5 multi-choice for moderate. 2 multi-choice for severe. of these, 1 of each are three-choices.
+#MISSIONS: 8. 8 diff missions: 2 easy, 2 hard, 4 medium 
+#PARAMILITARY: 1. DEPRECATED
+#STRATSHAKER: 4. 4 different strategy shakers. Strat shaker is a misc thing
+#CONSTITUENT: 8 PER CONSTITUENT. 8 events per constituent. 4 two-choice and one three-choice. If a constituent is gone and this script selects that constituent, it will run AUS_picker_AUS. This is the same script but only including Austria. 1-2 minor. 7-8 major.
+#2 = Hungary. 3 = Bohemia. 4 = Illyria. 5 = Galicia.
+#### PICKER LOGIC: CONSTITUENT.
+#BASIC EVENTS: 15.
+#MISSIONS: 4.
+
+#MINORITY: 5 PER MINORITY. 5 events per minority. 2 two-choice. 1 minor. 1 major. 3 moderate.
+#6. Slovenia. 7. Slovakia. 8. Transylvania. 9. Banat. 10. Bukovina. 11. Bosnia. 12. Montenegro. 13. West Ukraine. 14. Krakow. 15. Carpatho-Ukraine. 16. Burgenland. 17. German-Bohemia. 18. Venice. 19. Srpska.
+#Minorities are type 3 event.
 
 AUS_average_state_resistance = {
 	clear_temp_array = global.temp_states
@@ -7574,41 +6592,47 @@ AUS_screamer = {
 }
 
 AUS_fed_speed_1 = {
-	set_global_flag = AUS_fed_speed_1
-	custom_effect_tooltip = govt_raise_fed1
-	add_to_variable = {
-		var = global.government_percentage
-		value = 0.06
-	}
-	add_to_variable = {
-		var = global.government_percentage
-		value = AUS.fed_level_1_speedup
+	custom_override_tooltip = {
+		tooltip = govt_raise_fed1
+		set_global_flag = AUS_fed_speed_1
+		add_to_variable = {
+			var = global.government_percentage
+			value = 0.06
+		}
+		add_to_variable = {
+			var = global.government_percentage
+			value = AUS.fed_level_1_speedup
+		}
 	}
 }
 
 AUS_fed_speed_2 = {
-	set_global_flag = AUS_fed_speed_2
-	custom_effect_tooltip = govt_raise_fed2
-	add_to_variable = {
-		var = global.government_percentage
-		value = 0.06
-	}
-	add_to_variable = {
-		var = global.government_percentage
-		value = AUS.fed_level_2_speedup
+	custom_override_tooltip = {
+		tooltip = govt_raise_fed2
+		set_global_flag = AUS_fed_speed_2
+		add_to_variable = {
+			var = global.government_percentage
+			value = 0.06
+		}
+		add_to_variable = {
+			var = global.government_percentage
+			value = AUS.fed_level_2_speedup
+		}
 	}
 }
 
 AUS_fed_speed_3 = {
-	set_global_flag = AUS_fed_speed_3
-	custom_effect_tooltip = govt_raise_fed3
-	add_to_variable = {
-		var = global.government_percentage
-		value = 0.06
-	}
-	add_to_variable = {
-		var = global.government_percentage
-		value = AUS.fed_level_3_speedup
+	custom_override_tooltip = {
+		tooltip = govt_raise_fed3
+		set_global_flag = AUS_fed_speed_3
+		add_to_variable = {
+			var = global.government_percentage
+			value = 0.06
+		}
+		add_to_variable = {
+			var = global.government_percentage
+			value = AUS.fed_level_3_speedup
+		}
 	}
 }
 
@@ -7778,6 +6802,7 @@ AUS_restore_bosnia_condominium_effect = {
 }
 
 AUS_federalize_effect = {
+	set_global_flag = AUS_federalized
 	for_each_scope_loop = {
 		array = global.AUS_all_possible_array
 		if = {
@@ -7795,6 +6820,34 @@ AUS_federalize_effect = {
 					}
 				}
 			}
+			every_country = {
+				limit = {
+					is_subject_of = PREV
+					NOT = {
+						is_subject_of = AUS
+					}
+				}
+				set_autonomy = {
+					autonomy_state = autonomy_free
+				}
+				get_current_government_type = yes
+				AUS = {
+					set_autonomy = {
+						target = PREV
+						autonomy_state = botde_constituent
+					}
+				}
+				restore_previous_government_type = yes
+				if = {
+					limit = {
+						has_idea = AUS_transleithanian_sphere
+					}
+					swap_ideas = {
+						remove_idea = AUS_transleithanian_sphere
+						add_idea = AUS_cisleithanian_sphere
+					}
+				}
+			}
 			AUS = {
 				if = {
 					limit = {
@@ -7805,6 +6858,10 @@ AUS_federalize_effect = {
 				annex_country = {
 					target = PREV
 					transfer_troops = yes
+				}
+				if = {
+					limit = { check_variable = { HUN.subject_revolt_progress < 0.11 } }
+					set_country_flag = AUS_collapse_HUN_stays
 				}
 			}
 			THIS = {
@@ -7820,11 +6877,64 @@ AUS_federalize_effect = {
 					}
 					AUS_remove_from_DWV = yes
 				}
-				every_unit_leader = {
-					set_nationality = AUS
+				if = {
+					limit = { tag = HUN }
+					every_unit_leader = {
+						add_trait = { trait = BOTDE_HUN_unit_trait }
+						set_nationality = AUS
+					}
+					every_scientist = {
+						add_scientist_trait = BOTDE_HUN_scientist_trait
+						set_nationality = AUS
+					}
 				}
-				every_scientist = {
-					set_nationality = AUS
+				else_if = {
+					limit = { tag = CZE }
+					every_unit_leader = {
+						add_trait = { trait = BOTDE_CZE_unit_trait }
+						set_nationality = AUS
+					}
+					every_scientist = {
+						add_scientist_trait = BOTDE_CZE_scientist_trait
+						set_nationality = AUS
+					}
+				}
+				else_if = {
+					limit = { tag = CRO }
+					every_unit_leader = {
+						add_trait = { trait = BOTDE_CRO_unit_trait }
+						set_nationality = AUS
+					}
+					every_scientist = {
+						add_scientist_trait = BOTDE_CRO_scientist_trait
+						set_nationality = AUS
+					}
+				}
+				else_if = {
+					limit = { tag = GAL }
+					every_unit_leader = {
+						add_trait = { trait = BOTDE_GAL_unit_trait }
+						set_nationality = AUS
+					}
+					every_scientist = {
+						add_scientist_trait = BOTDE_GAL_scientist_trait
+						set_nationality = AUS
+					}
+				}
+				else = {
+					every_unit_leader = {
+						set_nationality = AUS
+					}
+					every_scientist = {
+						set_nationality = AUS
+					}
+				}
+				if = {
+					limit = {
+						NOT = { tag = AUS }
+						is_in_array = { global.constituents_array = THIS.id }
+					}
+					remove_from_array = { global.constituents_array = THIS.id }
 				}
 			}
 		}
@@ -7856,7 +6966,7 @@ AUS_federalize_effect = {
 }
 
 AUS_federalize_trialist_effect = {
-
+	set_global_flag = AUS_federalized
 	for_each_scope_loop = {
 		array = global.AUS_all_possible_array
 		if = {
@@ -7990,11 +7100,12 @@ AUS_do_fed_name = {
 			#	has_global_flag = AUS_VF_SPLIT
 			#}
 		}
+		set_country_flag = AUS_collapse_HUN_stays
 		if = {
 			limit = {
 				has_global_flag = AUS_ausgleich_hungary
 			}
-				set_cosmetic_tag = AUS_AHE
+			set_cosmetic_tag = AUS_AHE
 			else = {
 				set_cosmetic_tag = AUS_austria_hungary_reformed_tag
 			}
@@ -9645,7 +8756,14 @@ remove_all_ministers_but_for = {
 
 AUS_become_constituent = {
 	add_to_array = { global.constituents_array = THIS }
-	remove_from_array = { global.minorities_array = THIS }
+	if = {
+		limit = { is_in_array = { global.minorities_array = THIS } }
+		remove_from_array = { global.minorities_array = THIS }
+	}
+	if = {
+		limit = { is_in_array = { global.austria_minority_array = THIS } }
+		remove_from_array = { global.austria_minority_array = THIS }
+	}
 	set_country_flag = CONST_proper
 	clr_country_flag = CONST_minor
 }
@@ -9653,13 +8771,28 @@ AUS_become_constituent = {
 AUS_remove_constituent = {
 	remove_from_array = { global.constituents_array = THIS }
 	remove_from_array = { global.minorities_array = THIS }
+	if = {
+		limit = { is_in_array = { global.constituents_array = THIS } }
+		remove_from_array = { global.constituents_array = THIS }
+	}
+	if = {
+		limit = { is_in_array = { global.minorities_array = THIS } }
+		remove_from_array = { global.minorities_array = THIS }
+	}
+	if = {
+		limit = { is_in_array = { global.austria_minority_array = THIS } }
+		remove_from_array = { global.austria_minority_array = THIS }
+	}
 	clr_country_flag = CONST_proper
 	clr_country_flag = CONST_minor
 }
 
 AUS_become_minority = {
 	add_to_array = { global.minorities_array = THIS }
-	remove_from_array = { global.constituents_array = THIS }
+	if = {
+		limit = { is_in_array = { global.constituents_array = THIS } }
+		remove_from_array = { global.constituents_array = THIS }
+	}
 	set_country_flag = CONST_minor
 	clr_country_flag = CONST_proper
 }
@@ -11303,6 +10436,16 @@ CONST_generic_peace_post = { #Expansion and some things for post-collapse countr
 			transfer_state = 789
 		}
 	}
+	if = { #things
+		limit = {
+			ROOT = { tag = CRO }
+			FROM = { tag = BOS }
+		}
+		if = {
+			limit = { FROM = { exists = yes } }
+			CRO = { set_cosmetic_tag = CRO_republic }
+		}
+	}
 }
 
 SKS_drop_bosnia = { #Expansion and some things for post-collapse countries after they are freed
@@ -11849,6 +10992,7 @@ AUS_ausgleich_ending_effect = {
 		}
 		CRO = {
 			get_current_government_type = yes
+			end_puppet = CRO
 			HUN = {
 				set_autonomy = {
 					target = CRO
@@ -11919,6 +11063,7 @@ AUS_ausgleich_small_common_army_effect = {
 				tag = AUS
 				has_country_flag = going_to_le_ausgleich
 			}
+			NOT = { has_country_flag = AUS_ausgleich_hates_army_policy }
 		}
 		custom_override_tooltip = {
 			tooltip = AUS_common_army_law_small_tt
@@ -11957,6 +11102,7 @@ AUS_ausgleich_medium_common_army_effect = {
 				tag = AUS
 				has_country_flag = going_to_le_ausgleich
 			}
+			NOT = { has_country_flag = AUS_ausgleich_hates_army_policy }
 		}
 		custom_override_tooltip = {
 			tooltip = AUS_common_army_law_medium_tt
@@ -11998,6 +11144,7 @@ AUS_ausgleich_large_common_army_effect = {
 				tag = AUS
 				has_country_flag = going_to_le_ausgleich
 			}
+			NOT = { has_country_flag = AUS_ausgleich_hates_army_policy }
 		}
 		custom_override_tooltip = {
 			tooltip = AUS_common_army_law_large_tt
@@ -12085,7 +11232,10 @@ AUS_ausgleich_common_army_law_unity_small_effect = {
 		every_country = {
 			limit = {
 				has_country_flag = going_to_le_ausgleich
-				NOT = { tag = AUS }
+				NOT = {
+					tag = AUS
+					has_country_flag = AUS_ausgleich_hates_army_policy
+				}
 			}
 			transfer_units_fraction = {
 				target = AUS
@@ -12093,6 +11243,7 @@ AUS_ausgleich_common_army_law_unity_small_effect = {
 				army_ratio = 0.2
 				navy_ratio = 0.2
 				air_ratio = 0.2
+				keep_unit_leaders_trigger = { always = yes }
 			}
 			add_timed_idea = {
 				idea = AUS_common_army_reform_payment
@@ -12113,7 +11264,10 @@ AUS_ausgleich_common_army_law_unity_medium_effect = {
 		every_country = {
 			limit = {
 				has_country_flag = going_to_le_ausgleich
-				NOT = { tag = AUS }
+				NOT = {
+					tag = AUS
+					has_country_flag = AUS_ausgleich_hates_army_policy
+				}
 			}
 			transfer_units_fraction = {
 				target = AUS
@@ -12121,6 +11275,7 @@ AUS_ausgleich_common_army_law_unity_medium_effect = {
 				army_ratio = 0.35
 				navy_ratio = 0.35
 				air_ratio = 0.35
+				keep_unit_leaders_trigger = { always = yes }
 			}
 			add_timed_idea = {
 				idea = AUS_common_army_reform_payment
@@ -12141,7 +11296,10 @@ AUS_ausgleich_common_army_law_unity_large_effect = {
 		every_country = {
 			limit = {
 				has_country_flag = going_to_le_ausgleich
-				NOT = { tag = AUS }
+				NOT = {
+					tag = AUS
+					has_country_flag = AUS_ausgleich_hates_army_policy
+				}
 			}
 			transfer_units_fraction = {
 				target = AUS
@@ -12149,17 +11307,18 @@ AUS_ausgleich_common_army_law_unity_large_effect = {
 				army_ratio = 0.5
 				navy_ratio = 0.5
 				air_ratio = 0.5
+				keep_unit_leaders_trigger = { always = yes }
 			}
 			add_timed_idea = {
 				idea = AUS_common_army_reform_payment
-				days = 210
+				days = 180
 			}
 		}
 	}
 	AUS = {
 		add_timed_idea = {
 			idea = AUS_common_army_reform
-			days = 210
+			days = 180
 		}
 	}
 }
@@ -12329,12 +11488,7 @@ AUS_restore_HUN_after_ausgleich_revolt_effect = {
 				FIU = { has_country_flag = FIU_return_puppet_to_hungary_after_revolt }
 			}
 			FIU = { get_current_government_type = yes }
-			AUS = {
-				set_autonomy = {
-					target = FIU
-					autonomy_state = autonomy_free
-				}
-			}
+			end_puppet = FIU
 			HUN = {
 				set_autonomy = {
 					target = FIU
@@ -12370,5 +11524,70 @@ AUS_unlock_foreign_policy_small = {
 	custom_override_tooltip = {
 		tooltip = AUS_foreign_policy_available_small_tt
 		complete_national_focus = AUS_foreign_policy_small
+	}
+}
+AUS_meta_BM_reduce = {
+	set_temp_variable = { var = AUS_BM_value_temp value = AUS_BM_value }
+	add_to_variable = {
+		var = AUS.AUS_BM_value
+		value = 1
+	}
+	if = {
+		limit = {
+			check_variable = {
+				var = AUS.AUS_BM_value
+				value = 6
+				compare = greater_than_or_equals
+			}
+		}
+		remove_ideas = AUS_bm_5
+		else = {
+			custom_effect_tooltip = AUS_bm_reduce
+			hidden_effect = {
+				meta_effect = {
+					text = {
+						swap_ideas = {
+							add_idea = AUS_bm_[AUS_BM_value]
+							remove_idea = AUS_bm_[AUS_BM_value_temp]
+						}
+					}
+					AUS_BM_value = "[?AUS_BM_value]"
+					AUS_BM_value_temp = "[?AUS_BM_value_temp]"
+				}
+			}
+		}
+	}
+}
+
+AUS_meta_army_reduce = {
+	set_temp_variable = { var = AUS_army_value_temp value = AUS_army_value }
+	add_to_variable = {
+		var = AUS.AUS_army_value
+		value = 1
+	}
+	if = {
+		limit = {
+			check_variable = {
+				var = AUS.AUS_army_value
+				value = 6
+				compare = greater_than_or_equals
+			}
+		}
+		remove_ideas = AUS_obsolete_military_5
+		else = {
+			custom_effect_tooltip = AUS_army_reduce
+			hidden_effect = {
+				meta_effect = {
+					text = {
+						swap_ideas = {
+							add_idea = AUS_obsolete_military_[AUS_army_value]
+							remove_idea = AUS_obsolete_military_[AUS_army_value_temp]
+						}
+					}
+					AUS_army_value = "[?AUS_army_value]"
+					AUS_army_value_temp = "[?AUS_army_value_temp]"
+				}
+			}
+		}
 	}
 }

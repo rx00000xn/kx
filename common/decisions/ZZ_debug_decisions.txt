@@ -638,7 +638,14 @@ debug_decisions = {
 			}
 
 			### Faction
-			EGY = { create_faction = "Cairo Axis" }
+			EGY = { 
+			create_faction_from_template = { 
+				template = faction_template_generic_dominance    
+				name = "Cairo Axis"
+				icon = GFX_faction_cairo_pact
+			}			
+
+			}
 			every_country = {
 				limit = {
 					OR = {
@@ -842,6 +849,31 @@ debug_decisions = {
 
 		complete_effect = {
 			AUS = { AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = yes }
+		}
+	}
+	
+	austria_fed_debug = {
+		icon = generic_flags
+		
+		available = {
+			NOT = {
+				has_global_flag = AUS_collapsed
+				has_global_flag = AUS_federalized
+			}
+		}
+		
+		visible = {
+			OR = {
+				is_debug = yes
+				has_global_flag = debug_decisons_on
+			}
+		}
+		
+		fire_only_once = no
+		cost = 0
+
+		complete_effect = {
+			AUS = { country_event = bdeausint.24 }
 		}
 	}
 

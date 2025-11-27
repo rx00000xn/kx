@@ -1,7 +1,7 @@
 austria_collapse_category = {
 	
 	CONST_minority_generic_borderwar = {
-		icon = GFX_decision_generic_nationalism
+		icon = infiltrate_state
 		priority = 5
 		#cost = 40
 		#fire_only_once = yes
@@ -62,6 +62,9 @@ austria_collapse_category = {
 					is_neighbor_of = ROOT
 					NOT = {
 						has_war_with = ROOT
+						has_guaranteed = ROOT
+						is_guaranteed_by = ROOT
+						has_global_flag = AUS_collapsed_stable
 					}
 				}
 			}
@@ -142,6 +145,7 @@ austria_collapse_category = {
 			add_war_support = -0.03
 		}
 		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: [From.GetName]: Decision timeout CONST_generic_peace_mission_short"
 			hidden_effect = {
 				FROM = {
 					CONST_generic_peace_post = yes
@@ -195,6 +199,7 @@ austria_collapse_category = {
 			add_war_support = -0.05
 		}
 		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: [From.GetName]: Decision timeout CONST_generic_peace_mission_average"
 			FROM = {
 				every_controlled_state = {
 					limit = {
@@ -250,6 +255,7 @@ austria_collapse_category = {
 			add_war_support = -0.075
 		}
 		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: [From.GetName]: Decision timeout CONST_generic_peace_mission_long"
 			FROM = {
 				every_controlled_state = {
 					limit = {
@@ -391,15 +397,15 @@ austria_collapse_category = {
 			tag = CRO
 		}
 		visible = {
-			NOT = {
-				owns_state = 1099
+			1099 = {
+				any_neighbor_state = { is_owned_by = ROOT }
 			}
 		}
 		ai_will_do = {
 			base = 1
 		}
 		available = {
-			103 = {
+			1099 = {
 				is_in_home_area = yes
 				is_owned_by = CRO
 				owner = {
@@ -426,6 +432,104 @@ austria_collapse_category = {
 					state = 1099
 					num_provinces = 1
 					on_lose = constituents.61
+				}
+			}
+		}
+	}
+	
+	MNT_herceg_novi_borderwar = {
+		icon = GFX_decision_generic_ignite_civil_war
+		cost = 25
+		allowed = {
+			tag = MNT
+		}
+		visible = {
+			1270 = {
+				any_neighbor_state = { is_owned_by = ROOT }
+			}
+		}
+		ai_will_do = {
+			base = 1
+		}
+		available = {
+			1270 = {
+				is_in_home_area = yes
+				is_owned_by = CRO
+				owner = {
+					NOT = {
+						has_war_with = MNT
+					}
+				}
+			}
+			has_war = no
+		}
+		fire_only_once = yes
+		complete_effect = {
+			start_border_war = {
+				change_state_after_war = yes
+				attacker = {
+					state = 105
+					num_provinces = 2
+					on_win = constituents.65
+					modifier = 0.1
+					dig_in_factor = 0
+					terrain_factor = 0
+				}	
+				defender = {
+					state = 1270
+					num_provinces = 1
+					on_lose = constituents.65
+				}
+			}
+		}
+	}
+	
+	FIU_southeast_slovenia_borderwar = {
+		icon = GFX_decision_generic_ignite_civil_war
+		cost = 25
+		allowed = {
+			tag = FIU
+		}
+		visible = {
+			1105 = {
+				any_neighbor_state = { is_owned_by = ROOT }
+			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+		available = {
+			1105 = {
+				is_in_home_area = yes
+				OR = {
+					is_owned_by = CRO
+					is_owned_by = BOS
+					is_owned_by = SKS
+				}
+				owner = {
+					NOT = {
+						has_war_with = FIU
+					}
+				}
+			}
+			has_war = no
+		}
+		fire_only_once = yes
+		complete_effect = {
+			start_border_war = {
+				change_state_after_war = yes
+				attacker = {
+					state = 1206
+					num_provinces = 1
+					on_win = constituents.66
+					modifier = 0.1
+					dig_in_factor = 0
+					terrain_factor = 0
+				}	
+				defender = {
+					state = 1105
+					num_provinces = 1
+					on_lose = constituents.66
 				}
 			}
 		}
@@ -579,8 +683,12 @@ austria_collapse_category = {
 		}
 		fire_only_once = yes
 		complete_effect = {
-			SZK = {
-				transfer_state = FROM
+			SVK = {
+				country_event = {
+					id = constituents.63
+					days = 1
+					random_days = 2
+				}
 			}
 		}
 	}
@@ -1753,6 +1861,29 @@ CONST_seize_austrian_navy = { #Fiume should get its own decision to seize a very
 					num_provinces = 4
 				}
 			}
+		}
+	}
+	
+	PGU_claim_czech_silesia = {
+		icon = generic_prepare_civil_war
+		cost = 10
+		ai_will_do = {
+			base = 100
+		}
+		allowed = {
+			tag = PGU
+		}
+		fire_only_once = yes
+		visible = {
+			tag = PGU
+			has_global_flag = AUS_collapsed
+			NOT = { owns_state = 1131 }
+		}
+		available = {
+			NOT = { owns_state = 1131 }
+		}
+		complete_effect = {
+			add_state_claim = 1131
 		}
 	}
 	
