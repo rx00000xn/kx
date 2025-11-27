@@ -12992,7 +12992,7 @@ country_event = { # Choosing the NPP Unity Candidate
 				desc = "POLITICS_DAVID_BIBB_GRAVES_DESC"
 				picture = "gfx/leaders/COR/Portrait_COR_David_Bibb_Graves.png"
 				expire = "1.1.1"
-				ideology = autdem_christian_democracy_subtype
+				ideology = authdem_populist_dixiecrat_subtype
 				traits = { COR_klan_ties_traits }
 			}
 			set_party_name = { #NPP-D
@@ -13002,7 +13002,7 @@ country_event = { # Choosing the NPP Unity Candidate
 			}
 		}
 		custom_effect_tooltip = if_candidate_elected_tt
-		custom_effect_tooltip = authdem_autdem_christian_democracy_subtype_swap_tt
+		custom_effect_tooltip = authdem_authdem_populist_dixiecrat_subtype_swap_tt
 	}
 }
 
@@ -15386,7 +15386,7 @@ country_event = { # Choosing the NPP Candidate
 			}
 			set_country_flag = USA_1944_NPP_primary_graves
 			custom_effect_tooltip = if_candidate_elected_tt
-		custom_effect_tooltip = authdem_autdem_christian_democracy_subtype_swap_tt
+		custom_effect_tooltip = authdem_authdem_dixiecrat_subtype_swap_tt
 		}
 	}
 	
@@ -15438,7 +15438,7 @@ country_event = { # Choosing the NPP Candidate
 				desc = "POLITICS_STROM_THURMOND_DESC"
 				picture = "gfx/leaders/USA/Portrait_USA_Strom_Thurmond.png"
 				expire = "1.1.1"
-				ideology = autdem_christian_democracy_subtype
+				ideology = authdem_dixiecrat_subtype
 				traits = { USA_jim_crows_champion }
 			}
 			set_party_name = { #NPP-D
@@ -15448,7 +15448,7 @@ country_event = { # Choosing the NPP Candidate
 			}
 		}
 		custom_effect_tooltip = if_candidate_elected_tt
-		custom_effect_tooltip = authdem_autdem_christian_democracy_subtype_swap_tt
+		custom_effect_tooltip = authdem_authdem_dixiecrat_subtype_swap_tt
 	}
 	
 	option = { # Charles Lindbergh
@@ -18048,7 +18048,7 @@ country_event = { # Choosing the NPP Candidate
 			}
 			set_country_flag = USA_1948_NPP_primary_thurmond
 			custom_effect_tooltip = if_candidate_elected_tt
-		custom_effect_tooltip = authdem_autdem_christian_democracy_subtype_swap_tt
+		custom_effect_tooltip = authdem_authdem_dixiecrat_subtype_swap_tt
 		}
 		if = {
 			limit = {
@@ -18115,7 +18115,7 @@ country_event = { # Choosing the NPP Candidate
 				desc = "POLITICS_STROM_THURMOND_DESC"
 				picture = "gfx/leaders/USA/Portrait_USA_Strom_Thurmond.png"
 				expire = "1.1.1"
-				ideology = autdem_christian_democracy_subtype
+				ideology = authdem_dixiecrat_subtype
 				traits = { USA_jim_crows_champion }
 			}
 			set_party_name = { #NPP-D
@@ -18125,7 +18125,7 @@ country_event = { # Choosing the NPP Candidate
 			}
 		}
 		custom_effect_tooltip = if_candidate_elected_tt
-		custom_effect_tooltip = authdem_autdem_christian_democracy_subtype_swap_tt
+		custom_effect_tooltip = authdem_authdem_dixiecrat_subtype_swap_tt
 	}
 	
 	option = { # Charles Lindbergh
@@ -20546,7 +20546,7 @@ country_event = { # Choosing the NPP Candidate
 			}
 			set_country_flag = USA_1952_NPP_primary_thurmond
 			custom_effect_tooltip = if_candidate_elected_tt
-		custom_effect_tooltip = authdem_autdem_christian_democracy_subtype_swap_tt
+		custom_effect_tooltip = authdem_authdem_dixiecrat_subtype_swap_tt
 		}
 	}
 	option = { # Richard Russel Jr.
@@ -20597,7 +20597,7 @@ country_event = { # Choosing the NPP Candidate
 				desc = "POLITICS_STROM_THURMOND_DESC"
 				picture = "gfx/leaders/USA/Portrait_USA_Strom_Thurmond.png"
 				expire = "1.1.1"
-				ideology = autdem_christian_democracy_subtype
+				ideology = authdem_dixiecrat_subtype
 				traits = { USA_jim_crows_champion }
 			}
 			set_party_name = { #NPP-D
@@ -20607,7 +20607,7 @@ country_event = { # Choosing the NPP Candidate
 			}
 		}
 		custom_effect_tooltip = if_candidate_elected_tt
-		custom_effect_tooltip = authdem_autdem_christian_democracy_subtype_swap_tt
+		custom_effect_tooltip = authdem_authdem_dixiecrat_subtype_swap_tt
 	}
 	
 	option = { # Charles Lindbergh
@@ -22173,7 +22173,7 @@ country_event = { # Join the League?
 	id = ustates.250
 	immediate = {log = "[GetDateText]: [Root.GetName]: event ustates.250"}
 	title = ustates.250.t
-	desc = ustates.250.d
+	desc = ustates.250.dd
 	picture = GFX_report_event_generic_diplomacy2
 
 	is_triggered_only = yes
@@ -22349,9 +22349,10 @@ country_event = { # Remove the League idea
 
 	trigger = {
 		NOT = {
-			tag = USA
-			tag = WCC
-			tag = CAL
+			has_completed_focus = CAL_league_of_anti_imperialism
+			has_completed_focus = USA_league_of_anti_imperialism
+			has_completed_focus = NEE_league_of_anti_imperialism
+			has_completed_focus = AMERICA_league_of_anti_imperialism
 		}
 		OR = {
 			has_idea = USA_league_of_america_1
@@ -23770,7 +23771,11 @@ country_event = { # the USA wishes to ally with us(russia)
 			limit = {
 				is_in_faction = no
 			}
-			create_faction = "american_russian_alliance"
+			create_faction_from_template = { 
+				template = faction_template_generic_dominance 
+				name = "american_russian_alliance"
+				icon = GFX_faction_russian_alliance
+			}			
 		}
 		add_to_faction = USA
 	}
@@ -39235,8 +39240,11 @@ country_event = { # Willkie WC and alliance stuff
 		ai_chance = {
 			factor = 0
 		}
-		
-		create_faction = "United Nations"
+			create_faction_from_template = { 
+				template = faction_template_generic_dominance 
+				name = "United Nations"
+				icon = GFX_faction_united_nations
+			}		
 		add_ideas = USA_willkie_ws_idea
 	}
 	
@@ -39633,5 +39641,21 @@ country_event = { #Locusts
 		name = nimatron.35.a
 		add_political_power = -10
 		add_stability = -0.01
+	}
+}
+
+country_event = { #Swedish Monarch visit
+	id = nimatron.36
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nimatron.36"}
+	title = nimatron.36.t
+	desc = nimatron.36.d
+	picture = GFX_USA_folke_native
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { 
+		name = nimatron.36.a
+		add_political_power = 5
 	}
 }
