@@ -84,7 +84,7 @@ country_event = { ####fate of german industry ##LS##
 	}	
 
 	option = { #remove it
-		name = sweden.4.a
+		name = sweden.4.b
 		add_political_power = 10
 		set_country_flag = SWE_flag_remove_german_industry
 		custom_effect_tooltip = SWE_remove_german_industry_tt
@@ -364,23 +364,59 @@ country_event = { #Debate over the budget
 	option = { #The socialdemocrats win
 		name = sweden.18.a
 		ai_chance = { base = 33 }
-		add_popularity = { ideology = social_democrat popularity = 0.06 }
-		add_popularity = { ideology = social_conservative popularity = -0.04 }
+		if = {
+			limit = {
+				has_country_flag = SWE_flag_folkpartiet_support
+				}
+		add_political_power = -10		
+		add_popularity = { ideology = social_democrat popularity = 0.05 }
+		add_popularity = { ideology = social_conservative popularity = -0.03 }
+		} else = {
+		add_political_power = 10
+		add_popularity = { ideology = social_democrat popularity = 0.10 }
+		add_popularity = { ideology = social_conservative popularity = -0.06 }		
+		
+		}
+		
 	}
 
 	option = { #The conservatives win
 		name = sweden.18.b
 		ai_chance = { base = 33 }
-		add_popularity = { ideology = social_conservative popularity = 0.04 }
-		add_popularity = { ideology = social_democrat popularity = -0.02 }
+		if = {
+			limit = {
+				has_country_flag = SWE_flag_folkpartiet_support
+				}
+		add_political_power = 10
+		add_popularity = { ideology = social_conservative popularity = 0.06 }
+		add_popularity = { ideology = social_democrat popularity = -0.03 }
+		} else = {
+		add_political_power = -10
+		add_popularity = { ideology = social_conservative popularity = 0.03 }
+		add_popularity = { ideology = social_democrat popularity = -0.02 }		
+		
+		}		
 	}
 
 	option = { #The liberals save the conservatives in the debate
 		name = sweden.18.c
 		ai_chance = { base = 33 }
-		add_popularity = { ideology = market_liberal popularity = 0.06 }
-		add_popularity = { ideology = social_conservative popularity = 0.01 }
+		if = {
+			limit = {
+				has_country_flag = SWE_flag_folkpartiet_support
+				}
+		add_political_power = 10
+		add_popularity = { ideology = market_liberal popularity = 0.07 }
+		add_popularity = { ideology = social_conservative popularity = 0.03 }
 		add_popularity = { ideology = social_democrat popularity = -0.05 }
+		} else = {
+		add_political_power = -10
+		add_popularity = { ideology = market_liberal popularity = 0.03 }
+		add_popularity = { ideology = social_conservative popularity = 0.01 }
+		add_popularity = { ideology = social_democrat popularity = -0.02 }		
+		
+		}		
+
 	}
 }
 
@@ -649,7 +685,7 @@ country_event = { #1936 Riksdag Elections ##LS##
 		complete_national_focus = SWE_people_party_front	
 		add_soccon_to_coalition = yes
 		remove_all_ministers = yes	
-		add_ideas = SWE_Bertil_Ohlin_hog_mli
+		add_ideas = SWE_Gustaf_Andersson_hog_mli
 		add_ideas = SWE_Gustaf_Andersson_i_Rasjoen_for_mli
 		add_ideas = SWE_Gustav_Cassel_eco_mli
 		add_ideas = SWE_Thorwald_Bergquist_sec_mli
@@ -658,7 +694,7 @@ country_event = { #1936 Riksdag Elections ##LS##
 			country_event = { id = swedem.24 days = 300 }
 			country_event = { id = swedem.27 days = 650 }
 			country_event = { id = swedem.28 days = 445 }			
-			country_event = { id = newsswe.1 days = 1 }
+			country_event = { id = newsswe.1 days = 2 }
 		}		
 		}
 		
@@ -856,7 +892,7 @@ country_event = { #nils flyg death non-counterrev
 		add_popularity = { ideology = national_populist popularity = 0.02 }
 		create_country_leader = {
 			name = "Agaton Blom"
-			picture = "gfx/leaders/SWE/Portrait_Sweden_Agaton_Blom.png"
+			picture = "gfx/leaders/SWE/Portrait_SWE_Agaton_Blom.png"
 			expire = "1.1.1"
 			ideology = natsynd_subtype
 		}
@@ -886,7 +922,7 @@ country_event = { #nils flyg death counterrev
 		add_popularity = { ideology = national_populist popularity = 0.02 }
 		create_country_leader = {
 			name = "Agaton Blom"
-			picture = "gfx/leaders/SWE/Portrait_Sweden_Agaton_Blom.png"
+			picture = "gfx/leaders/SWE/Portrait_SWE_Agaton_Blom.png"
 			expire = "1.1.1"
 			ideology = natsynd_subtype
 		}	
@@ -1009,7 +1045,26 @@ country_event = { #sterilization
 	}	
 }
 
+country_event = { #little Putte Tank
+	id = sweden.28
+	immediate = { log = "[GetDateText]: [Root.GetName]: event sweden.28" }
+	title = sweden.28.t
+	desc = sweden.28.d
+	picture = GFX_report_event_SWE_little_tank_putte
 
+	is_triggered_only = yes
+
+	option = {
+		name = sweden.28.a
+		add_equipment_to_stockpile = {
+			type = light_tank_chassis
+			amount = 1
+			producer = SWE
+		}			
+	
+			
+	}
+}
 
 
 
@@ -1079,7 +1134,7 @@ country_event = { ####Northern light of conservatism ##LS##
 	immediate = { log = "[GetDateText]: [Root.GetName]: event swedem.3" }
 	title = swedem.3.t
 	desc = swedem.3.d
-	picture = GFX_report_event_SWE_military_meeting 
+	picture = GFX_report_event_SWE_bagge_and_dof 
 
 	is_triggered_only = yes
 
@@ -1536,7 +1591,7 @@ country_event = { #flag switcher
 
 	option = { #I want it darker
 		name = swedem.28.a
-		set_cosmetic_tag = SWE_dark
+		set_cosmetic_tag = SWE_darker
 	}	
 	option = { #We light the flame
 		name = swedem.28.b
@@ -1739,7 +1794,7 @@ country_event = { #authdem restore elections - elections
 		
 		add_ideas = SWE_Elmo_Lindholm_hog_npo
 		add_ideas = SWE_Sven_Hedin_for_ade
-		add_ideas = SWE_Per_Engdahl_eco_pau
+		add_ideas = SWE_Per_Engdahl_eco_npo
 		add_ideas = SWE_Alf_Meyerhoffer_sec_pau
 				set_country_leader_ideology = gustavianism_subtype
 				custom_effect_tooltip = authdem_gustavianism_subtype_swap_tt		
@@ -2182,7 +2237,7 @@ country_event = { #### Election and leader events
 		
 		add_ideas = SWE_Elmo_Lindholm_hog_npo
 		add_ideas = SWE_Sven_Hedin_for_ade
-		add_ideas = SWE_Per_Engdahl_eco_pau
+		add_ideas = SWE_Per_Engdahl_eco_npo
 		add_ideas = SWE_Alf_Meyerhoffer_sec_pau
 		set_country_flag = SWE_flag_1940_national_league_victory
 			}
@@ -2808,7 +2863,7 @@ country_event = { #### Election and leader events
 		
 		add_ideas = SWE_Elmo_Lindholm_hog_npo
 		add_ideas = SWE_Sven_Hedin_for_ade
-		add_ideas = SWE_Per_Engdahl_eco_pau
+		add_ideas = SWE_Per_Engdahl_eco_npo
 		add_ideas = SWE_Alf_Meyerhoffer_sec_pau
 	
 		}
@@ -3142,7 +3197,6 @@ country_event = { ####Cracking the Crown ##LS##
 		SWE_create_republic = yes	
 		add_stability = -0.1
 		hidden_effect = {
-			country_event = { id = swerev.0 days = 4 }
 			country_event = { id = swerev.1 days = 8 }
 			country_event = { id = swe.130 days = 2 }
 			news_event = swe.130
@@ -3167,17 +3221,10 @@ country_event = { ####Hansson is killed after SSV victory
 		add_stability = -0.08
 		add_war_support = -0.1
 		add_political_power = -25
-
-		create_country_leader = {
-			name = "Ernst Wigforss"
-			picture = "gfx/leaders/SWE/Portrait_Sweden_Ernst_Wigforss.png"
-			expire = "1.1.1"
-			ideology = guild_socialism_subtype
-		}
 		
 		set_country_flag = SWE_flag_hansson_dead
 		hidden_effect = {
-			country_event = { id = swerev.48 days = 13 }
+			country_event = { id = swerev.48 days = 15 }
 
 		}		
 
@@ -3281,12 +3328,13 @@ country_event = { ####Who shall win this struggle ##LS##
 		set_cosmetic_tag = SWE_radsoc
 		create_country_leader = {
 			name = "Karl Kilbom"
-			picture = "gfx/leaders/SWE/Portrait_Sweden_Karl_Kilbom.png"
+			picture = "gfx/leaders/SWE/Portrait_SWE_Karl_Kilbom_kx.png"
 			expire = "1.1.1"
 			ideology = radsoc_syndicalist_subtype
 		}		
 		hidden_effect = {
-			country_event = { id = swerev.4 days = 4 }
+			country_event = { id = swerev.4 days = 5 }
+			country_event = { id = swerev.0 days = 1 }
 			country_event = { id = newsswe.2 days = 1 }
 			SWE = { SWE_remove_reactionary_generals = yes }
 			SWE = { SWE_remove_special_reaction_dudes = yes }
@@ -3350,7 +3398,7 @@ country_event = { ####Who shall win this struggle ##LS##
 		set_cosmetic_tag = SWE_mil
 		create_country_leader = {
 			name = "Helge Jung"
-			picture = "gfx/leaders/SWE/Portrait_Sweden_Helge_Jung.png"
+			picture = "gfx/leaders/SWE/Portrait_SWE_Helge_Jung_kx.png"
 			expire = "1.1.1"
 			ideology = junta_subtype
 		}
@@ -3385,7 +3433,10 @@ country_event = { ####eyes in the dark ##LS##
 			}
 		}
 		add_political_power = 30
-		
+		hidden_effect = {
+			country_event = { id = swemil.52 days = 250 }
+			
+		}		
 
 	}
 }
@@ -3443,7 +3494,7 @@ country_event = { ####Military starts stabilizing the nation ##LS##
 		hidden_effect = { 
 			create_country_leader = {
 				name = "Carl August Ehrensvärd"
-				picture = "gfx/leaders/SWE/Portrait_Sweden_Carl_August_Ehrensvard.png"
+				picture = "gfx/leaders/SWE/Portrait_SWE_Carl_August_Ehrensvard_kx.png"
 				expire = "1.1.1"
 				ideology = authdem_junta_subtype
 			}				
@@ -3822,7 +3873,7 @@ country_event = { #Inter-military election ##LS##
 					
 					create_country_leader = {
 					name = "Carl August Ehrensvärd"
-					picture = "gfx/leaders/SWE/Portrait_Sweden_Carl_August_Ehrensvard.png"
+					picture = "gfx/leaders/SWE/Portrait_SWE_Carl_August_Ehrensvard_kx.png"
 					expire = "1.1.1"
 					ideology = authdem_junta_subtype
 					}
@@ -3876,7 +3927,7 @@ country_event = { #Inter-military election ##LS##
 					
 					create_country_leader = {
 					name = "Archibald Douglas"
-					picture = "gfx/leaders/SWE/Portrait_Sweden_Archibald_Douglas.png"
+					picture = "gfx/leaders/SWE/Portrait_SWE_Archibald_Douglas_kx.png"
 					expire = "1.1.1"
 					ideology = militarism_subtype
 					}
@@ -4010,7 +4061,7 @@ country_event = { #martin or keep archie ##LS##
 					
 				create_country_leader = {
 				name = "Martin Ekstrom"
-				picture = "gfx/leaders/SWE/Portrait_Sweden_Martin_Ekstrom.png"
+				picture = "gfx/leaders/SWE/Portrait_SWE_Martin_Ekstrom.png"
 				expire = "1.1.1"
 				ideology = national_security_state_subtype
 				}
@@ -4045,7 +4096,7 @@ country_event = { #if no other mils we should try burgers ##LS##
 		
 			create_country_leader = {
 			name = "Birger Furugard"
-			picture = "gfx/leaders/SWE/Portrait_Sweden_Birger_Furugard.png"
+			picture = "gfx/leaders/SWE/Portrait_SWE_Birger_Furugard_kx.png"
 			expire = "1.1.1"
 			ideology = legionarism_subtype			}		
 		add_country_leader_trait = SWE_burger_trait
@@ -4288,7 +4339,7 @@ country_event = { #arresting politicians if no monarch ##LS##
 			
 			create_country_leader = {
 			name = "Axel Gyllenkrok"
-			picture = "gfx/leaders/SWE/Portrait_Sweden_Axel_Gyllenkrok.png"
+			picture = "gfx/leaders/SWE/Portrait_SWE_Axel_Gyllenkrok.png"
 			expire = "1.1.1"
 			ideology = pataut_legionarism_subtype	
 			}
@@ -4998,6 +5049,24 @@ country_event = { #poem
 	}
 }
 
+country_event = { #IB
+	id = swemil.52
+	immediate = { log = "[GetDateText]: [Root.GetName]: event swemil.52" }
+	title = swemil.52.t
+	desc = swemil.52.d
+	picture = GFX_report_event_SWE_military_police
+
+	is_triggered_only = yes
+
+	option = { #IB
+		name = swemil.52.a
+		add_command_power = 15
+		add_ideas = SWE_general_security_agency_idea
+		
+
+	}
+}
+
 ##########Socialist Tree Events############
 
 country_event = { ####Red terror ##LS##
@@ -5118,7 +5187,11 @@ country_event = { ####red guard raised ##LS##
 		
 		SWE = { SWE_new_socialist_generals = yes }
 		hidden_effect = {
+			if = {
+				limit = { SWE = { has_unit_leader = 311  } }
+		
 			country_event = { id = swerev.22 days = 7 }
+			}
 		}		
 	}
 }
@@ -5155,7 +5228,7 @@ country_event = { ####socialists organise ##LS##
 
 		create_country_leader = {
 			name = "Karin Boye"
-			picture = "gfx/leaders/SWE/Portrait_Sweden_Karin_Boye.png"
+			picture = "gfx/leaders/SWE/Portrait_SWE_Karin_Boye.png"
 			expire = "1.1.1"
 			ideology = radsoc_revisionist_marxism_subtype
 			female = yes
@@ -5192,7 +5265,7 @@ country_event = { ####syndicalists  organise ##LS##
 
 		create_country_leader = {
 			name = "Elise Ottesen-Jensen"
-			picture = "gfx/leaders/SWE/Portrait_Sweden_Elise_Ottesen_Jensen.png"
+			picture = "gfx/leaders/SWE/Portrait_SWE_Elise_Ottesen_Jensen.png"
 			expire = "1.1.1"
 			ideology = anarcho_syndicalist_subtype
 			female = yes
@@ -5219,7 +5292,7 @@ country_event = { ####syndicalists  organise ##LS##
 
 		create_country_leader = {
 			name = "Frans Severin"
-			picture = "gfx/leaders/SWE/Portrait_Sweden_Frans_Severin.png"
+			picture = "gfx/leaders/SWE/Portrait_SWE_Frans_Severin.png"
 			expire = "1.1.1"
 			ideology = centralized_syndicalism_subtype
 		}		
@@ -5262,7 +5335,7 @@ country_event = { ####totalists organise ##LS##
 		create_country_leader = {
 			name = "Nils Flyg"
 			desc = "politics_nils_flyg_desc"
-			picture = "gfx/leaders/SWE/Portrait_Sweden_Nils_Flyg.png"
+			picture = "gfx/leaders/SWE/Portrait_SWE_Nils_Flyg_kx.png"
 			expire = "1.1.1"
 			ideology = natsynd_subtype
 		}	
@@ -5507,7 +5580,7 @@ country_event = { ####leader choice ##LS##
 		
 		create_country_leader = {
 			name = "Karl Kilbom"
-			picture = "gfx/leaders/SWE/Portrait_Sweden_Karl_Kilbom.png"
+			picture = "gfx/leaders/SWE/Portrait_SWE_Karl_Kilbom_kx.png"
 			expire = "1.1.1"
 			ideology = moderate_socialist_subtype
 		}
@@ -5698,7 +5771,7 @@ country_event = { ####guildism
 		add_ideas = SWE_Ernst_Wigforss_hog_rso
 		create_country_leader = {
 			name = "Ernst Wigforss"
-			picture = "gfx/leaders/SWE/Portrait_Sweden_Ernst_Wigforss.png"
+			picture = "gfx/leaders/SWE/Portrait_SWE_Ernst_Wigforss_kx.png"
 			expire = "1.1.1"
 			ideology = radsoc_guild_socialism_subtype
 		}		
@@ -5973,6 +6046,8 @@ country_event = { ####nordic syndicalism
 
 	option = { 
 		name = swerev.31.a
+		increase_ruling_party_popularity_by_3 = yes 
+		add_political_power = 100
 
 	}
 }
@@ -6171,7 +6246,7 @@ country_event = { ####Jan Fridegård
 		add_political_power = 10
 		create_country_leader = {
 			name = "Jan Fridegård"
-			picture = "gfx/leaders/SWE/Portrait_Sweden_Jan_Fridegard.png"
+			picture = "gfx/leaders/SWE/Portrait_SWE_Jan_Fridegard.png"
 			expire = "1.1.1"
 			ideology = syn_utopian_technocracy_subtype
 		}
@@ -6235,7 +6310,7 @@ country_event = { ####nils latt
 		
 		create_country_leader = {
 			name = "Nisse Lätt"
-			picture = "gfx/leaders/SWE/Portrait_Sweden_Nisse_Latt.png"
+			picture = "gfx/leaders/SWE/Portrait_SWE_Nisse_Latt.png"
 			expire = "1.1.1"
 			ideology = anarcho_syndicalist_subtype
 		}
@@ -6563,7 +6638,7 @@ country_event = { ####flyg purges even harder - after commie purge
 	}
 
 	option = { ## Leave them be - coup
-		name = swerev.54.a
+		name = swerev.54.b
 		ai_chance = {
 			factor = 30
 			modifier = {
@@ -6638,11 +6713,12 @@ country_event = { ####lindholm wins
 	option = { ## 
 		name = swerev.56.a
 		
+		remove_ideas = SWE_flygs_totalism_1
 		set_country_flag = SWE_flag_lindholm_tot
 		
 		create_country_leader = {
 			name = "Sven Olov Lindholm"
-			picture = "gfx/leaders/SWE/Portrait_Sweden_Sven_Sven_Olov_Lindholm.png"
+			picture = "gfx/leaders/SWE/Portrait_SWE_Sven_Sven_Olov_Lindholm.png"
 			expire = "1.1.1"
 			ideology = lindholmism_subtype
 		}
@@ -6681,7 +6757,7 @@ country_event = { ####linderot wins
 
 		create_country_leader = {
 			name = "Sven Linderot"
-			picture = "gfx/leaders/SWE/Portrait_Sweden_Sven_Linderot.png"
+			picture = "gfx/leaders/SWE/Portrait_SWE_Sven_Linderot.png"
 			expire = "1.1.1"
 			ideology = authcom_subtype
 		}
@@ -7018,7 +7094,7 @@ country_event = { ####hugo refuses linderots broadness
 		add_stability = 0.03
 		create_country_leader = {
 			name = "Hugo Sillén"
-			picture = "gfx/leaders/SWE/Portrait_Sweden_Hugo_Sillen.png"
+			picture = "gfx/leaders/SWE/Portrait_SWE_Hugo_Sillen.png"
 			expire = "1.1.1"
 			ideology = national_communism_subtype
 		}		
@@ -7168,7 +7244,7 @@ country_event = { ####linderot international question
 		add_ideas = SWE_hugo_international
 	}
 	option = { #not really international
-		name = swerev.75.a	
+		name = swerev.75.b
 		trigger = {
 			has_country_flag = SWE_flag_linderot_narrow
 		}
@@ -7176,7 +7252,7 @@ country_event = { ####linderot international question
 		add_ideas = SWE_linderot_international
 	}
 	option = { #sure, screw it
-		name = swerev.75.a	
+		name = swerev.75.c
 		trigger = {
 			has_country_flag = SWE_flag_linderot_broad
 		}
@@ -7243,7 +7319,7 @@ country_event = { #### dead flyg
 		
 		create_country_leader = {
 			name = "Agaton Blom"
-			picture = "gfx/leaders/SWE/Portrait_Sweden_Agaton_Blom.png"
+			picture = "gfx/leaders/SWE/Portrait_SWE_Agaton_Blom.png"
 			expire = "1.1.1"
 			ideology = natsynd_subtype
 		}		
@@ -7259,7 +7335,7 @@ country_event = { #### dead flyg
 		
 		create_country_leader = {
 			name = "Agaton Blom"
-			picture = "gfx/leaders/SWE/Portrait_Sweden_Agaton_Blom.png"
+			picture = "gfx/leaders/SWE/Portrait_SWE_Agaton_Blom.png"
 			expire = "1.1.1"
 			ideology = socialist_security_state_subtype
 		}		
@@ -7295,25 +7371,12 @@ country_event = { ####lindholm takes command ##LS##
 
 	option = {
 		name = swerev.80.a	
-		set_country_flag = SWE_flag_lindholm_tot 
-		remove_ideas = SWE_linderots_flyg_resistance
-		create_country_leader = {
-			name = "Sven Olov Lindholm"
-			picture = "gfx/leaders/SWE/Portrait_Sweden_Sven_Sven_Olov_Lindholm.png"
-			expire = "1.1.1"
-			ideology = lindholmism_subtype
-		}
+		add_stability = 0.02
+		add_political_power = 25
+		add_manpower = -500
+		add_offsite_building = { type = arms_factory level = 1 }		
 		
-		remove_ideas_with_trait = head_of_government
-		add_ideas = SWE_Sven_Olov_Lindholm_hog_tot
-		add_ideas = SWE_red_resistance_lind
-		set_cosmetic_tag = SWE_sven_lind
-		set_party_name = {
-			ideology = totalist
-			long_name = SWE_totalist_lind_party_long
-			name = SWE_totalist_lind_party
-		}	
-		add_country_leader_trait = SWE_lindholm_trait
+
 		hidden_effect = {
 			country_event = { id = swerev.81 days = 800 }
 		}			
@@ -7889,7 +7952,7 @@ country_event = { #The General Electoral League renames itself ##kr-K##
 
 
 
-country_event = { #[GetYear] Swedish General Elections ##Needs rework
+country_event = { #[GetYear] Swedish General Elections 
 	id = swe.55
 	immediate = {
 		log = "[GetDateText]: [Root.GetName]: event swe.55"
@@ -8109,7 +8172,7 @@ country_event = { ####swedish gold coast ##LS##
 
 	trigger = {
 				tag = SWE
-				
+				 
 				274 = { is_owned_and_controlled_by = SWE }
 				1321 = { is_owned_and_controlled_by = SWE }	
 				1323 = { is_owned_and_controlled_by = SWE }
@@ -8131,10 +8194,10 @@ country_event = { ####swedish gold coast ##LS##
 					NOT = {
 						has_country_flag = SWE_flag_crown_restored
 					}
-					
-					has_country_flag = SWE_flag_military_steps_in
+
 					}
 				CIV = {
+				
 					load_focus_tree = generic_focus				
 					remove_all_ministers = yes
 					set_cosmetic_tag = SWE_GOLDCOAST
@@ -8149,16 +8212,17 @@ country_event = { ####swedish gold coast ##LS##
 					name = "Swedish Colonial Administration"
 					}
 					
-					create_country_leader = {
-					name = "Bob The Swede"
-					picture = "gfx/Leaders/GHA/Portait_Ashanti_bob.png"
-					expire = "1.1.1"
-					ideology = autocratic_colonial_govt_subtype
-				}
+
 					add_popularity = {
 					ideology = paternal_autocrat
-					popularity = 0.38
+					popularity = 0.45
 						}
+					create_country_leader = {
+					name = "Swedish Colonial Council"
+					picture = "gfx/Leaders/SWE/Portrait_SWE_Swedish_occupation_authority.png"
+					expire = "1.1.1"
+					ideology = autocratic_colonial_govt_subtype
+				}						
 				}
 			} else = {
 				CIV = {
@@ -8176,14 +8240,14 @@ country_event = { ####swedish gold coast ##LS##
 					name = "Swedish Crown Colonial Administration"
 				}
 					create_country_leader = {
-					name = "Bob The Swede"
-					picture = "gfx/Leaders/GHA/Portait_Ashanti_bob.png"
+					name = "Swedish Colonial Council"
+					picture = "gfx/Leaders/SWE/Portrait_SWE_Swedish_occupation_authority.png"
 					expire = "1.1.1"
 					ideology = autocratic_colonial_govt_subtype
 				}
 					add_popularity = {
 					ideology = paternal_autocrat
-					popularity = 0.38
+					popularity = 0.45
 						}
 				}
 			}
@@ -8224,7 +8288,7 @@ country_event = { ####Vinland ##LS##
 				create_country_leader = {
 					name = "Swedish Vinland Colonial Administration"
 					desc = ""
-					picture = "gfx/leaders/SWE/Portait_Sweden_bob.png"
+					picture = "gfx/leaders/SWE/Portrait_SWE_Bob.png"
 					expire = "1.1.1"
 					ideology = radsoc_colonial_govt_subtype
 				}
@@ -8257,7 +8321,7 @@ country_event = { ####Vinland ##LS##
 				create_country_leader = {
 					name = "Swedish Vinland Colonial Administration"
 					desc = ""
-					picture = "gfx/leaders/SWE/Portait_Sweden_bob.png"
+					picture = "gfx/leaders/SWE/Portrait_SWE_Bob.png"
 					expire = "1.1.1"
 					ideology = autocratic_colonial_govt_subtype
 				}
@@ -8286,13 +8350,6 @@ country_event = { ####Vinland ##LS##
 					ruling_party = authoritarian_democrat
 				}
 
-				create_country_leader = {
-					name = "Swedish Crown Vinland Colonial Administration"
-					desc = ""
-					picture = "gfx/leaders/SWE/Portait_Sweden_bob.png"
-					expire = "1.1.1"
-					ideology = colonial_govt_subtype
-				}
 				set_party_name = { 
 					ideology = authoritarian_democrat 
 					name = "Swedish Vinland Administration"
@@ -8301,7 +8358,14 @@ country_event = { ####Vinland ##LS##
 					add_popularity = {
 					ideology = authoritarian_democrat
 					popularity = 0.30
-						}								
+						}
+				create_country_leader = {
+					name = "Swedish Crown Vinland Colonial Administration"
+					desc = ""
+					picture = "gfx/leaders/SWE/Portrait_SWE_Bob.png"
+					expire = "1.1.1"
+					ideology = colonial_govt_subtype
+				}						
 				}
 
 			}
@@ -8390,7 +8454,7 @@ country_event = { #Finland now ours
 				}
 				create_country_leader = {
 					name = "Martin Ekstrom"
-					picture = "gfx/leaders/SWE/Portrait_Sweden_Martin_Ekstrom.png"
+					picture = "gfx/leaders/SWE/Portrait_SWE_Martin_Ekstrom.png"
 					expire = "1.1.1"
 					ideology = militarism_subtype
 				}
@@ -8459,7 +8523,7 @@ country_event = { #Finland now ours
 				}
 				create_country_leader = {
 					name = "Martin Ekstrom"
-					picture = "gfx/leaders/SWE/Portrait_Sweden_Martin_Ekstrom.png"
+					picture = "gfx/leaders/SWE/Portrait_SWE_Martin_Ekstrom.png"
 					expire = "1.1.1"
 					ideology = junta_subtype
 				}
@@ -8535,7 +8599,7 @@ country_event = { #Finland now ours
 				}
 				create_country_leader = {
 					name = "Nils Bjork"
-					picture = "gfx/leaders/SWE/Portrait_Sweden_Nils_Bjork.png"
+					picture = "gfx/leaders/SWE/Portrait_SWE_Nils_Bjork.png"
 					expire = "1.1.1"
 					ideology = authdem_junta_subtype
 				}
@@ -8611,7 +8675,7 @@ country_event = { #Finland now ours
 				}
 				create_country_leader = {
 					name = "Swedish-Finnish Revolutionary Committee"
-					picture = "gfx/leaders/SWE/Portrait_Sweden_Revolutionary_Committee.png"
+					picture = "gfx/leaders/SWE/Portrait_SWE_Revolutionary_Committee.png"
 					expire = "1.1.1"
 					ideology = radsoc_red_junta_subtype
 				}
@@ -8687,7 +8751,7 @@ country_event = { #Finland now ours
 				}
 				create_country_leader = {
 					name = "Swedish-Finnish Syndicalist Committee"
-					picture = "gfx/leaders/SWE/Portrait_Sweden_Revolutionary_Committee.png"
+					picture = "gfx/leaders/SWE/Portrait_SWE_Revolutionary_Committee.png"
 					expire = "1.1.1"
 					ideology = syn_red_junta_subtype
 				}
@@ -8760,7 +8824,7 @@ country_event = { #Finland now ours
 				}
 				create_country_leader = {
 					name = "Swedish Totalist Committee"
-					picture = "gfx/leaders/SWE/Portrait_Sweden_Revolutionary_Committee.png"
+					picture = "gfx/leaders/SWE/Portrait_SWE_Revolutionary_Committee.png"
 					expire = "1.1.1"
 					ideology = red_junta_subtype
 				}
@@ -8903,7 +8967,7 @@ country_event = { #Finland now ours
 				}
 				create_country_leader = {
 					name = "Martin Ekstrom"
-					picture = "gfx/leaders/SWE/Portrait_Sweden_Martin_Ekstrom.png"
+					picture = "gfx/leaders/SWE/Portrait_SWE_Martin_Ekstrom.png"
 					expire = "1.1.1"
 					ideology = militarism_subtype
 				}
@@ -8968,7 +9032,7 @@ country_event = { #Finland now ours
 				}
 				create_country_leader = {
 					name = "Martin Ekstrom"
-					picture = "gfx/leaders/SWE/Portrait_Sweden_Martin_Ekstrom.png"
+					picture = "gfx/leaders/SWE/Portrait_SWE_Martin_Ekstrom.png"
 					expire = "1.1.1"
 					ideology = junta_subtype
 				}
@@ -9034,7 +9098,7 @@ country_event = { #Finland now ours
 				}
 				create_country_leader = {
 					name = "Nils Bjork"
-					picture = "gfx/leaders/SWE/Portrait_Sweden_Nils_Bjork.png"
+					picture = "gfx/leaders/SWE/Portrait_SWE_Nils_Bjork.png"
 					expire = "1.1.1"
 					ideology = authdem_junta_subtype
 				}
@@ -9101,7 +9165,7 @@ country_event = { #Finland now ours
 				}
 				create_country_leader = {
 					name = "Swedish-Finnish Revolutionary Committee"
-					picture = "gfx/leaders/SWE/Portrait_Sweden_Revolutionary_Committee.png"
+					picture = "gfx/leaders/SWE/Portrait_SWE_Revolutionary_Committee.png"
 					expire = "1.1.1"
 					ideology = radsoc_red_junta_subtype
 				}
@@ -9168,7 +9232,7 @@ country_event = { #Finland now ours
 				}
 				create_country_leader = {
 					name = "Swedish-Finnish Syndicalist Committee"
-					picture = "gfx/leaders/SWE/Portrait_Sweden_Revolutionary_Committee.png"
+					picture = "gfx/leaders/SWE/Portrait_SWE_Revolutionary_Committee.png"
 					expire = "1.1.1"
 					ideology = syn_red_junta_subtype
 				}
@@ -9231,7 +9295,7 @@ country_event = { #Finland now ours
 				}
 				create_country_leader = {
 					name = "Swedish Totalist Committee"
-					picture = "gfx/leaders/SWE/Portrait_Sweden_Revolutionary_Committee.png"
+					picture = "gfx/leaders/SWE/Portrait_SWE_Revolutionary_Committee.png"
 					expire = "1.1.1"
 					ideology = red_junta_subtype
 				}
@@ -9332,7 +9396,7 @@ country_event = { #Finland now ours
 		}		
 		
 	}	
-	}
+}
 
 
 
@@ -10206,22 +10270,42 @@ country_event = { # create own faction
 	option = { # name 1
 		name = swefop.28.a
 		add_political_power = 20
-		create_faction = "Northern Alliance"
+			create_faction_from_template = { 
+				template = faction_template_generic_dominance              
+				name = "Northern Alliance"
+				icon = "GFX_faction_sven_lindholm"
+			}		
+
 	}
 	option = { # name 2
 		name = swefop.28.b
 		add_political_power = 20
-		create_faction = "Aurora Pact"
+			create_faction_from_template = { 
+				template = faction_template_generic_dominance              
+				name = "Aurora Pact"
+				icon = "GFX_faction_sven_lindholm"
+			}			
+ 
 	}
 	option = { # name 3
 		name = swefop.28.c
 		add_political_power = 20
-		create_faction = "Swedish Defence Pact"
+			create_faction_from_template = { 
+				template = faction_template_generic_dominance              
+				name = "Swedish Defence Pact"
+				icon = "GFX_faction_sven_lindholm"
+			}		
+
 	}	
 	option = { # name 4
 		name = swefop.28.e
 		add_political_power = 20
-		create_faction = "Stockholm Accord"
+			create_faction_from_template = { 
+				template = faction_template_generic_dominance              
+				name = "Stockholm Accord"
+				icon = "GFX_faction_sven_lindholm"
+			}		
+
 	}	
 
 	option = { # name 5
@@ -10243,7 +10327,12 @@ country_event = { # create own faction
 		}
 		
 		add_political_power = 20
-		create_faction = "1st International Anti-Finnish Accord"
+			create_faction_from_template = { 
+				template = faction_template_generic_dominance              
+				name = "1st International Anti-Finnish Accord"
+				icon = "GFX_faction_sven_lindholm"
+			}			
+
 	}	
 	
 }
@@ -10907,7 +10996,7 @@ country_event = {
 	immediate = { log = "[GetDateText]: [Root.GetName]: event swe_flavor.10" }
 	title = swe_flavor.10.t
 	desc = swe_flavor.10.d
-	picture = GFX_report_event_SWE_military_meeting
+	picture = GFX_report_event_SWE_astrid_kindstrand
 
 	trigger = {
 		has_socialist_government = no
@@ -11114,8 +11203,6 @@ country_event = {
 		ai_chance = { factor = 75 }
 	}
 }
-
-###More flavour!
 
 country_event = {
 	id = swe_flavor.20
@@ -11467,7 +11554,7 @@ news_event = {
 	immediate = { log = "[GetDateText]: [Root.GetName]: event newsswe.1" }
 	title = newsswe.1.t
 	desc = newsswe.1.d
-	picture = GFX_news_event_SWE_stockholm_news
+	picture = GFX_news_event_SWE_stockholm
 
 	major = yes
 	is_triggered_only = yes
@@ -11583,7 +11670,7 @@ news_event = {
 }
 
 news_event = {
-	id = newsswe.4 #military restore monarchy
+	id = newsswe.4 #
 	immediate = { log = "[GetDateText]: [Root.GetName]: event newsswe.4" }
 	title = newsswe.4.t
 	desc = newsswe.4.d

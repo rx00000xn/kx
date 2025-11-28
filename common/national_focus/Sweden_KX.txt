@@ -76,7 +76,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus SWE_farmer_reachout"
+			log = "[GetDateText]: [Root.GetName]: Focus SWE_further_military_spending"
 			
 			army_experience = 10
 			random_owned_controlled_state = {
@@ -108,7 +108,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus SWE_farmer_reachout"
+			log = "[GetDateText]: [Root.GetName]: Focus SWE_eyes_on_the_left"
 			add_political_power = -20
 			add_war_support = -0.02
 			
@@ -137,9 +137,10 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SWE_farmer_reachout"
+			SWE_indulge_folkpartiet_effect = yes
+			custom_effect_tooltip = tooltip_white_line
 			
-			
-			add_stability = 0.05			
+			add_stability = 0.02		
 			add_popularity = {
 				ideology = market_liberal
 				popularity = 0.02
@@ -519,9 +520,16 @@ focus_tree = {
 			navy_experience = 30
 			add_tech_bonus = {
 				name = SWE_fishing_vessel_reg
-				bonus = 1
+				bonus = 0.75
 				uses = 2
-				category = dd_tech
+				category = marine_tech
+				category = tp_tech
+			}
+
+			add_equipment_to_stockpile = {
+				type = convoy_1
+				amount = 50
+				producer = SWE
 			}			
 
 		}
@@ -713,7 +721,11 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SWE_further_lumber_export"
-			
+			modify_building_resources = {
+				building = synthetic_refinery
+				resource = rubber
+				amount = 1
+			}			
 			random_owned_controlled_state = {
 				limit = {
 					is_core_of = ROOT
@@ -755,7 +767,8 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SWE_unemployment_aid"
-			
+				add_stability = 0.05
+				add_political_power = 50
 				remove_ideas = SWE_black_monday_3
 		}
 	}
@@ -801,6 +814,16 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SWE_dannemora_mine_expansion"
+			custom_effect_tooltip = SWE_upgrade_LKAB_tt
+			custom_effect_tooltip = tooltip_white_line
+
+
+			add_tech_bonus = {
+				name = SWE_zinkgruvan_subsidies
+				bonus = 0.5
+				uses = 1
+				category = excavation_tech
+			}
 			
 			141 = {
 				add_resource = {
@@ -838,8 +861,8 @@ focus_tree = {
 			}
 			add_tech_bonus = {
 				name = SWE_zinkgruvan_subsidies
-				bonus = 1
-				uses = 2
+				bonus = 0.5
+				uses = 1
 				category = excavation_tech
 			}
 		}
@@ -917,7 +940,13 @@ focus_tree = {
 			124 = {
 				add_resource = {
 					type = oil
-					amount = 10
+					amount = 8
+				}
+			}
+			138 = {
+				add_resource = {
+					type = coal
+					amount = 12
 				}
 			}			
 		}
@@ -945,7 +974,7 @@ focus_tree = {
 			add_tech_bonus = {
 				name = SWE_funding_research
 				bonus = 1
-				uses = 2
+				uses = 1
 				category = radar_tech
 			}
 			add_political_power = 20
@@ -975,7 +1004,12 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SWE_chalmers_uni"
-			
+			add_tech_bonus = {
+				name = SWE_chalmers_uni
+				bonus = 0.75
+				uses = 2
+				category = electronics
+			}			
 			add_research_slot = 1		
 
 		}
@@ -999,11 +1033,17 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SWE_lunds_universitet_donation"
+			add_tech_bonus = {
+				name = SWE_lunds_universitet_donation
+				bonus = 0.75
+				uses = 2
+				category = industry
+			}			
 			
 			add_tech_bonus = {
 				name = SWE_lunds_universitet_donation
-				bonus = 1
-				uses = 2
+				bonus = 0.50
+				uses = 1
 				category = electronics
 			}
 		}
@@ -1431,16 +1471,7 @@ focus_tree = {
 		prerequisite = { focus = SWE_FOP_tiger_place_in_world }
 		x = -11
 		y = 1
-		offset = {
-			x = 2
-			y = 0
-			trigger = {
-				OR = {
-				has_country_flag = SWE_flag_military_steps_in
-				has_country_flag = SWE_election_safe_success
-				}
-			}
-		}		
+		
 		relative_position_id = SWE_FOP_tiger_place_in_world
 		cost = 2
 		ai_will_do = {
@@ -2251,9 +2282,7 @@ focus_tree = {
 
 		completion_reward = {
 		log = "[GetDateText]: [Root.GetName]: Focus SWE_FOP_triumphant_once_more"
-			add_ideas = SWE_swedish_arm_in_arm
-			unlock_decision_tooltip = SWE_FOP_destroy_Baltics
-			
+			add_ideas = SWE_swedish_arm_in_arm	
 			add_political_power = 100
 			
 			
@@ -3362,7 +3391,7 @@ focus_tree = {
 
 	focus = { 
 		id = SWE_people_party_front
-		icon = GFX_goal_SWE_avf
+		icon = GFX_goal_SPR_Olive_Branch_To_The_Right
 		prerequisite = { focus = SWE_elections_over }
 
 		x = 0
@@ -3537,7 +3566,11 @@ focus_tree = {
 		
 		completion_reward = {
 			add_ideas = SWE_moral_sweden_1
+			remove_ideas = SWE_political_chaos_idea
+			
+			hidden_effect = {
 			remove_ideas = SWE_political_chaos_idea2
+			}
 	
 
 		}
@@ -3741,7 +3774,7 @@ focus_tree = {
 			has_government = social_conservative
 		}		
 		completion_reward = {
-			custom_effect_tooltip = SWE_conservative_scouts_effect_tt
+			SWE_conservative_scouts_effect = yes
 			custom_effect_tooltip = tooltip_white_line
 			add_popularity = { ideology = social_conservative popularity = 0.03 }
 		}
@@ -4261,10 +4294,14 @@ focus_tree = {
 			has_government = market_liberal
 		}		
 		completion_reward = {
-			remove_ideas = SWE_political_chaos_idea2
+			remove_ideas = SWE_political_chaos_idea
+			
+
 			add_war_support = -0.05
 			add_political_power = 50
-			
+			hidden_effect = {
+			remove_ideas = SWE_political_chaos_idea2
+			}			
 		}
 	}
 
@@ -5366,7 +5403,7 @@ focus_tree = {
 	focus = { 
 		id = SWE_against_free_market_thought
 
-		icon = GFX_goal_NFA_Put_Chains_Labour
+		icon = GFX_goal_SWE_closed_economy
 		prerequisite = { focus = SWE_conservative_majority
 						focus = SWE_conservative_radicals
 						}
@@ -5967,6 +6004,14 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus SWE_connections_to_russian_socialists"
 			
 			country_event = { id = swerev.13 }
+			
+			remove_ideas = SWE_statare_idea
+			
+			add_timed_idea = {
+				idea = SWE_removing_the_statare_idea
+				days = 140
+			}			
+			
 		}
 	}
 
@@ -6431,6 +6476,8 @@ focus_tree = {
 			add_popularity = { ideology = authoritarian_democrat popularity = -0.05 }
 			add_popularity = { ideology = social_conservative popularity = -0.05 }	
 			add_popularity = { ideology = market_liberal popularity = -0.05 }
+			
+			add_ideas = SWE_social_dem_urban_effort
 
 		}
 	}
@@ -6574,6 +6621,13 @@ focus_tree = {
 			
 			custom_effect_tooltip = tooltip_white_line
 			country_event = { id = swerev.43 }
+			
+			remove_ideas = SWE_statare_idea
+			
+			add_timed_idea = {
+				idea = SWE_removing_the_statare_idea
+				days = 140
+			}				
 		
 		}
 	}
@@ -7115,6 +7169,12 @@ focus_tree = {
 			add_popularity = { ideology = social_conservative popularity = -0.10 }	
 			add_popularity = { ideology = market_liberal popularity = -0.10 }		
 
+			remove_ideas = SWE_statare_idea
+			
+			add_timed_idea = {
+				idea = SWE_removing_the_statare_idea
+				days = 140
+			}	
 				
 			add_command_power = 50	
 		}
@@ -8713,8 +8773,8 @@ focus_tree = {
 		y = 9
 		cost = 6
 		offset = {
-			x = -22
-			y = -11
+			x = -14
+			y = -12
 			trigger = {
 				has_country_flag = SWE_flag_lindholm_tot 
 			}
@@ -9517,7 +9577,7 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			add_ideas = SWE_unending_martial_law
+			add_ideas = SWE_unending_martial_law_idea
 		
 		
 		}
@@ -11319,15 +11379,7 @@ focus_tree = {
 		}
 	}	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	
@@ -11378,6 +11430,7 @@ focus_tree = {
 			
 			hidden_effect = {
 				country_event = { id = sweden.8 days = 50 }
+				country_event = { id = sweden.28 days = 10 random_days = 10 }
 			}
 		}
 	}
@@ -11529,11 +11582,12 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SWE_ski_based_infantry"
-			custom_effect_tooltip = tech_ski_infantry_effect
+			custom_effect_tooltip = NOR_ski_infantry_tooltip
 		
 			
 			hidden_effect = {
-				set_technology = { tech_ski_infantry = 1 popup = no }
+				set_technology = { tech_ski_infantry = 1 popup = yes }
+			
 			}
 			if = {
 				limit = { NOT = { has_tech = tech_mountaineers } }
@@ -11683,7 +11737,19 @@ focus_tree = {
 				type = infantry_equipment
 				amount = 1000
 				producer = SWE
-			}			
+			}	
+			custom_effect_tooltip = NOR_winter_logistics_tooltip
+			hidden_effect = {
+				set_technology = {
+						tech_long_range_patrol_support = 1
+						popup = no
+				}
+				set_technology = {
+						tech_winter_logistics_support = 1
+						popup = no
+				}			
+			
+			}
 			
 			
 		}
@@ -12420,6 +12486,16 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SWE_research_army"
 			add_ideas = SWE_army_research
+			
+			140 = {
+				add_building_construction = {
+					type = land_facility
+					level = 1
+					instant_build = yes
+					province = 3063
+				}
+			}			
+			
 		}
 	}
 
@@ -12710,6 +12786,15 @@ focus_tree = {
 				idea = SWE_red_remove_react
 				days = 120
 			}
+			
+			140 = {
+				add_building_construction = {
+					type = land_facility
+					level = 1
+					instant_build = yes
+					province = 3063
+				}
+			}			
 		}
 	}
 
@@ -13273,7 +13358,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SWE_swedish_independent_air"
-			add_ideas = SWE_fighter_superior2
+			add_ideas = SWE_fighter_superior1
 		}
 	}
 
@@ -14038,7 +14123,6 @@ focus_tree = {
 					name = SWE_Cruisers
 					bonus = 1
 					uses = 2
-					category = cl_tech
 					category = ca_tech
 				}
 		}
@@ -14380,9 +14464,1060 @@ focus_tree = {
 		}
 		}
 	}	
+
+
+	### Rosen-Hedin ###
+
+	focus = { 
+		id = SWE_hedin_and_rosen_victory
+		icon = GFX_goal_SWE_martial_law
+		x = 0 
+		y = 2
 	
+		
+		cost = 5
+		relative_position_id = SWE_europe_within_our_bossum
+		ai_will_do = {
+			factor = 80
+		}
+		
+		allow_branch = {
+			has_country_flag = SWE_flag_hedin_rosen_victory
+			NOT = {
+				OR = {
+					has_country_flag = SWE_flag_red_in_sweden
+					has_country_flag = SWE_election_safe_success
+					has_country_flag = SWE_flag_lindholm_tot
+					has_country_flag = SWE_flag_no_elmo_nats
+				}
+			}
+		}		
+		available = {
+			has_country_flag = SWE_flag_hedin_rosen_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_hedin_and_rosen_victory"
+
+		}
+	}	
+
+	focus = { 
+		id = SWE_bringing_forth_the_baron
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_hedin_and_rosen_victory }
+		x = 3 
+		y = 1
+
+		
+		cost = 5
+		relative_position_id = SWE_hedin_and_rosen_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_hedin_rosen_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_bringing_forth_the_baron"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_singing_with_conservatives
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_hedin_and_rosen_victory }
+		x = 1
+		y = 1
+
+		
+		cost = 5
+		relative_position_id = SWE_hedin_and_rosen_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_hedin_rosen_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_singing_with_conservatives"
+
+		}
+	}	
+
+	focus = { 
+		id = SWE_upholding_civic_ultranationalism
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_hedin_and_rosen_victory }
+		x = -1
+		y = 1
+
+		
+		cost = 5
+		relative_position_id = SWE_hedin_and_rosen_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
 	
+		available = {
+			has_country_flag = SWE_flag_hedin_rosen_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_upholding_civic_ultranationalism"
+
+		}
+	}	
+
+	focus = { 
+		id = SWE_nobility_in_toe
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_hedin_and_rosen_victory }
+		x = -3
+		y = 1
+
+		
+		cost = 5
+		relative_position_id = SWE_hedin_and_rosen_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_hedin_rosen_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_nobility_in_toe"
+
+		}
+	}	
+
+	focus = { 
+		id = SWE_expand_war_sciences
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_nobility_in_toe }
+		x = -2
+		y = 2
+
+		
+		cost = 5
+		relative_position_id = SWE_hedin_and_rosen_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_hedin_rosen_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_expand_war_sciences"
+
+		}
+	}	
+
+	focus = { 
+		id = SWE_legitimize_ethnography
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_upholding_civic_ultranationalism }
+		prerequisite = { focus = SWE_singing_with_conservatives }
+		x = 0
+		y = 2
+
+		
+		cost = 5
+		relative_position_id = SWE_hedin_and_rosen_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_hedin_rosen_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_legitimize_ethnography"
+
+		}
+	}	
+
+	focus = { 
+		id = SWE_connections_to_the_reich
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_bringing_forth_the_baron }
+		x = 2
+		y = 2
+
+		
+		cost = 5
+		relative_position_id = SWE_hedin_and_rosen_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_hedin_rosen_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_connections_to_the_reich"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_rosens_fiefdom
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_expand_war_sciences }
+		prerequisite = { focus = SWE_legitimize_ethnography }
+		prerequisite = { focus = SWE_connections_to_the_reich }
+
+		x = 2
+		y = 3
+
+		
+		cost = 5
+		relative_position_id = SWE_hedin_and_rosen_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_hedin_rosen_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_rosens_fiefdom"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_fervant_monarchist_support
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_expand_war_sciences }
+		prerequisite = { focus = SWE_legitimize_ethnography }
+		prerequisite = { focus = SWE_connections_to_the_reich }
+
+		x = 0
+		y = 3
+
+		
+		cost = 5
+		relative_position_id = SWE_hedin_and_rosen_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_hedin_rosen_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_fervant_monarchist_support"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_sven_hedins_tradtion
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_expand_war_sciences }
+		prerequisite = { focus = SWE_legitimize_ethnography }
+		prerequisite = { focus = SWE_connections_to_the_reich }
+
+		x = -2
+		y = 3
+
+		
+		cost = 5
+		relative_position_id = SWE_hedin_and_rosen_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_hedin_rosen_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_sven_hedins_tradtion"
+
+		}
+	}
+
+
+
+	focus = { 
+		id = SWE_journey_to_agartha
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_rosens_fiefdom }
+
+		x = 3
+		y = 4
+
+		
+		cost = 5
+		relative_position_id = SWE_hedin_and_rosen_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
 	
+		available = {
+			has_country_flag = SWE_flag_hedin_rosen_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_journey_to_agartha"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_heralding_those_bravest
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_sven_hedins_tradtion }
+
+		x = -3
+		y = 4
+
+		
+		cost = 5
+		relative_position_id = SWE_hedin_and_rosen_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
 	
+		available = {
+			has_country_flag = SWE_flag_hedin_rosen_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_heralding_those_bravest"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_swedish_cultural_revival
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_rosens_fiefdom }
+		prerequisite = { focus = SWE_fervant_monarchist_support }
+		prerequisite = { focus = SWE_sven_hedins_tradtion }
+
+		x = 0
+		y = 4
+
+		
+		cost = 5
+		relative_position_id = SWE_hedin_and_rosen_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_hedin_rosen_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_swedish_cultural_revival"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_meritocratic_aristocratic_economy
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_swedish_cultural_revival }
+
+		x = 2
+		y = 5
+
+		
+		cost = 5
+		relative_position_id = SWE_hedin_and_rosen_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_hedin_rosen_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_meritocratic_aristocratic_economy"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_enshrining_the_sciences
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_swedish_cultural_revival }
+
+		x = 0
+		y = 5
+
+		
+		cost = 5
+		relative_position_id = SWE_hedin_and_rosen_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_hedin_rosen_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_enshrining_the_sciences"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_castles_across_the_land
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_swedish_cultural_revival }
+
+		x = -2
+		y = 5
+
+		
+		cost = 5
+		relative_position_id = SWE_hedin_and_rosen_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
 	
+		available = {
+			has_country_flag = SWE_flag_hedin_rosen_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_castles_across_the_land"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_under_erics_swastika
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_meritocratic_aristocratic_economy }
+		prerequisite = { focus = SWE_enshrining_the_sciences }
+		prerequisite = { focus = SWE_castles_across_the_land }
+		mutually_exclusive = { focus = SWE_inter_swedish_german_nationalism }
+
+		x = -1
+		y = 6
+
+		
+		cost = 5
+		relative_position_id = SWE_hedin_and_rosen_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_hedin_rosen_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_under_erics_swastika"
+
+		}
+	}	
+
+	focus = { 
+		id = SWE_inter_swedish_german_nationalism
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_meritocratic_aristocratic_economy }
+		prerequisite = { focus = SWE_enshrining_the_sciences }
+		prerequisite = { focus = SWE_castles_across_the_land }
+		mutually_exclusive = { focus = SWE_under_erics_swastika }
+
+		x = 1
+		y = 6
+
+		
+		cost = 5
+		relative_position_id = SWE_hedin_and_rosen_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_hedin_rosen_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_inter_swedish_german_nationalism"
+
+		}
+	}	
+
+	### Engdahl-Furugard ###
+
+	focus = { 
+		id = SWE_manhem_society_victory
+		icon = GFX_goal_SWE_martial_law
+		x = 0 
+		y = 3
+
+		
+		cost = 5
+		relative_position_id = SWE_enshrining_the_sciences
+		ai_will_do = {
+			factor = 80
+		}
+		
+		allow_branch = {
+			has_country_flag = SWE_flag_per_engdahl_victory
+			NOT = {
+				OR = {
+					has_country_flag = SWE_flag_red_in_sweden
+					has_country_flag = SWE_election_safe_success
+					has_country_flag = SWE_flag_lindholm_tot
+					has_country_flag = SWE_flag_no_elmo_nats
+				}
+			}
+		}		
+		available = {
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_manhem_society_victory"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_return_to_old_world
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_manhem_society_victory }
+		x = 0
+		y = 1
+
+		
+		cost = 5
+		relative_position_id = SWE_manhem_society_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_return_to_old_world"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_disband_state_church
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_return_to_old_world }
+		x = 3
+		y = 2
+
+		
+		cost = 5
+		relative_position_id = SWE_manhem_society_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_disband_state_church"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_begin_nordic_welfare
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_return_to_old_world }
+		x = 0
+		y = 2
+
+		
+		cost = 5
+		relative_position_id = SWE_manhem_society_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_begin_nordic_welfare"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_a_nordicist_view_of_history
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_return_to_old_world }
+		x = -3
+		y = 2
+
+		
+		cost = 5
+		relative_position_id = SWE_manhem_society_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_a_nordicist_view_of_history"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_reveal_truth_on_trinity
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_disband_state_church }
+		x = 4
+		y = 3
+
+		
+		cost = 5
+		relative_position_id = SWE_manhem_society_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_reveal_truth_on_trinity"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_corporate_autarky
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_begin_nordic_welfare }
+		x = 1
+		y = 3
+
+		
+		cost = 5
+		relative_position_id = SWE_manhem_society_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_corporate_autarky"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_folk_over_unions
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_begin_nordic_welfare }
+		x = -1
+		y = 3
+
+		
+		cost = 5
+		relative_position_id = SWE_manhem_society_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_folk_over_unions"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_nordic_spiritual_revival
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_a_nordicist_view_of_history }
+		x = -4
+		y = 3
+
+		
+		cost = 5
+		relative_position_id = SWE_manhem_society_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_nordic_spiritual_revival"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_new_nordic_education
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_reveal_truth_on_trinity }
+		x = 3
+		y = 4
+
+		
+		cost = 5
+		relative_position_id = SWE_manhem_society_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_new_nordic_education"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_new_swedish_economy
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_corporate_autarky }
+		prerequisite = { focus = SWE_folk_over_unions }
+		x = 1
+		y = 4
+
+		
+		cost = 5
+		relative_position_id = SWE_manhem_society_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_new_swedish_economy"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_folkslag_labour
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_corporate_autarky }
+		prerequisite = { focus = SWE_folk_over_unions }
+		x = -1
+		y = 4
+
+		
+		cost = 5
+		relative_position_id = SWE_manhem_society_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_folkslag_labour"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_blood_and_soil
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_nordic_spiritual_revival }
+
+		x = -3
+		y = 4
+
+		
+		cost = 5
+		relative_position_id = SWE_manhem_society_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_blood_and_soil"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_geatish_society_remake
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_new_nordic_education }
+		prerequisite = { focus = SWE_new_swedish_economy }
+
+		x = 2
+		y = 5
+
+		
+		cost = 5
+		relative_position_id = SWE_manhem_society_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+	
+		available = {
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_geatish_society_remake"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_all_under_the_state
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_folkslag_labour }
+		prerequisite = { focus = SWE_new_swedish_economy }
+
+		x = 0
+		y = 5
+
+		
+		cost = 5
+		relative_position_id = SWE_manhem_society_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_all_under_the_state"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_olof_rudbeck_thought
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_folkslag_labour }
+		prerequisite = { focus = SWE_blood_and_soil }
+
+		x = -2
+		y = 5
+
+		
+		cost = 5
+		relative_position_id = SWE_manhem_society_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_olof_rudbeck_thought"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_our_claim_to_hyperborea
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_geatish_society_remake }
+		prerequisite = { focus = SWE_all_under_the_state }
+		prerequisite = { focus = SWE_olof_rudbeck_thought }
+
+		x = 1
+		y = 6
+
+		
+		cost = 5
+		relative_position_id = SWE_manhem_society_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_our_claim_to_hyperborea"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_new_voice_of_the_blood
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_geatish_society_remake }
+		prerequisite = { focus = SWE_all_under_the_state }
+		prerequisite = { focus = SWE_olof_rudbeck_thought }
+		x = -1
+		y = 6
+
+		
+		cost = 5
+		relative_position_id = SWE_manhem_society_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_new_voice_of_the_blood"
+
+		}
+	}
+
+	focus = { 
+		id = SWE_all_under_the_all_father
+		icon = GFX_goal_SWE_martial_law
+		prerequisite = { focus = SWE_our_claim_to_hyperborea }
+		prerequisite = { focus = SWE_new_voice_of_the_blood }
+		x = 0
+		y = 7
+
+		
+		cost = 5
+		relative_position_id = SWE_manhem_society_victory
+		ai_will_do = {
+			factor = 80
+		}
+		
+		
+		available = {
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_completed_focus = SWE_place_of_the_crown
+		}
+		
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_all_under_the_all_father"
+
+		}
+	}
+
+
 	

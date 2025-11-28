@@ -678,13 +678,23 @@ SWE_revolution_decisions = {
 				limit = {
 					NOT = { has_country_flag = SWE_flag_lindholm_tot }
 				}
-				create_faction = "Nordiskt Internationell"
+			create_faction_from_template = { 
+				template = faction_template_generic_dominance              
+				name = "Nordiskt Internationell"
+				icon = "GFX_faction_sven_lindholm"
+			}				
+
 			}
 			if = {
 				limit = {
 						has_country_flag = SWE_flag_lindholm_tot 
 				}
-				create_faction = "Revolutionära Nationella Internationalen"
+			create_faction_from_template = { 
+				template = faction_template_generic_dominance              
+				name = "Revolutionära Nationella Internationalen"
+				icon = "GFX_faction_nordic_international"
+			}				
+
 			}
 		}
 	}
@@ -3128,36 +3138,6 @@ SWE_revolution_building_decisions = {
 
 
 
-SWE_vinland_decision = {
-	SWE_establish_vinland = { 
-		icon = GFX_decision_generic_flags
-		allowed = { original_tag = SWE }
-		visible = {
-			OR = {
-				NOT = {
-				country_exists = NFL
-				}		
-			is_puppet_of = SWE
-			}
-
-		}
-	
-		fire_only_once = no
-		cost = 10
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_establish_vinland"
-			country_event = { id = swefop.998 } 
-		}
-	}
-}
-
-
-
-
-
-
-
-
 SWE_elmo_decisions = {
 	SWE_join_latin_bois = {# join the big bois
 		icon = generic_nationalism
@@ -3209,7 +3189,12 @@ SWE_elmo_decisions = {
 			add_ideas = SWE_elmo_europe_idea
 			set_cosmetic_tag = SWE_elmo_empire
 			leave_faction = yes
-		    create_faction = "Union of European Kingdoms"
+			create_faction_from_template = { 
+				template = faction_template_generic_dominance              
+				name = "Union of European Kingdoms"
+				icon = "GFX_faction_logo_generic_5"
+			}			
+
 			every_country = {
 				limit = {
 					is_subject_of = SWE
@@ -4166,7 +4151,7 @@ SWE_conservative_agriculture_d = {
 
 SWE_german_industry_decisions = {
 	SWE_fate_of_german_industry = {
-		icon = GFX_decision_global_trade
+		icon = GFX_decision_ger_flag
 		allowed = {
 			tag = SWE
 		}
@@ -4204,7 +4189,7 @@ SWE_german_industry_decisions = {
 	
 	
 	SWE_buy_german_industry = {
-		icon = GFX_decision_global_trade
+		icon = GFX_decision_generic_agreement
 		allowed = {
 			tag = SWE
 		}
@@ -4293,7 +4278,7 @@ SWE_german_industry_decisions = {
 	}
 	
 	SWE_pay_off_germans = { 
-		icon = GFX_decision_global_trade
+		icon = GFX_decision_give_cash
 		allowed = {
 			tag = SWE
 		}
@@ -4362,7 +4347,7 @@ SWE_german_industry_decisions = {
 	
 	
 	SWE_new_management = {
-		icon = GFX_decision_global_trade
+		icon = GFX_decision_scales
 		allowed = {
 			tag = SWE
 		}
@@ -4422,7 +4407,7 @@ SWE_german_industry_decisions = {
 	
 	
 	SWE_hire_german_advisors = {
-		icon = GFX_decision_global_trade
+		icon = GFX_decision_cash_flow
 		allowed = {
 			tag = SWE
 		}
@@ -4495,7 +4480,7 @@ SWE_german_industry_decisions = {
 	}
 	
 	SWE_request_more_investments = {
-		icon = GFX_decision_global_trade
+		icon = GFX_decision_factories
 		allowed = {
 			tag = SWE
 		}
@@ -4562,7 +4547,7 @@ SWE_german_industry_decisions = {
 	
 	
 	SWE_using_german_guys = {
-		icon = GFX_decision_global_trade
+		icon = GFX_decision_cement_mixer
 		allowed = {
 			tag = SWE
 		}
@@ -5077,7 +5062,79 @@ SWE_alliance_reachout = {
 		}
 	}
 
+	SWE_FOP_invite_NOR = {
+		cost = 25
+		icon = GFX_decision_generic_nationalism
+		allowed = { original_tag = SWE }
+		
+		available = {
+			is_faction_leader = yes
+		}
+		
+		visible = {
+			SWE = {
+				has_completed_focus = SWE_FOP_alliance_of_misfits
+			}
+			
+			NOR = {	
+				is_in_faction = no
+				has_socialist_government = no
+				exists = yes
+				is_subject = no
+			}
+		}
 
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 30
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_FOP_invite_NOR"
+			NOR = {
+				country_event = {
+					id = swefop.29
+					days = 1
+				}
+			}
+		}
+	}
+
+	SWE_FOP_invite_DEN = {
+		cost = 25
+		icon = GFX_decision_generic_nationalism
+		allowed = { original_tag = SWE }
+		
+		available = {
+			is_faction_leader = yes
+		}
+		
+		visible = {
+			SWE = {
+				has_completed_focus = SWE_FOP_alliance_of_misfits
+			}
+			
+			DEN = {	
+				is_in_faction = no
+				has_socialist_government = no
+				exists = yes
+				is_subject = no
+			}
+		}
+
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 30
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_FOP_invite_DEN"
+			DEN = {
+				country_event = {
+					id = swefop.29
+					days = 1
+				}
+			}
+		}
+	}
 	
 }
 
@@ -5128,7 +5185,7 @@ SWE_scandinavia_foreign_policy_decisions = {
 		icon = generic_ignite_civil_war
 		allowed = { tag = SWE }			
 		available = {
-			NOT = { is_in_faction_with = ROOT }
+			NOT = { is_in_faction_with = NOR }
 			OR = {
 			has_completed_focus = SWE_FOP_secure_nordics
 			has_completed_focus = SWE_FOP_karlstad_failure
@@ -5174,7 +5231,7 @@ SWE_scandinavia_foreign_policy_decisions = {
 		icon = generic_ignite_civil_war
 		allowed = { tag = SWE }			
 		available = {
-			NOT = { is_in_faction_with = ROOT }
+			NOT = { is_in_faction_with = DEN }
 			OR = {
 			has_completed_focus = SWE_FOP_secure_nordics
 			has_completed_focus = SWE_FOP_danes_returned
@@ -5584,7 +5641,7 @@ SWE_scandinavia_foreign_policy_decisions = {
 		icon = generic_ignite_civil_war
 		allowed = { tag = SWE }			
 		available = {
-			NOT = { is_in_faction_with = ROOT }
+			NOT = { is_in_faction_with = FIN }
 			OR = {
 			has_completed_focus = SWE_FOP_finland_decision
 			has_completed_focus = SWE_FOP_wayward_son
@@ -5926,6 +5983,92 @@ SWE_scandinavia_foreign_policy_decisions = {
 		}
 	}
 
+	SWE_FOP_claim_goldcoast = { 
+		icon = GFX_decision_generic_flags
+		allowed = { original_tag = SWE }
+		
+		available = {
+			has_completed_focus = SWE_FOP_lands_of_old_empire
+			is_subject = no		
+		
+		}
+		
+		visible = {
+			has_completed_focus = SWE_FOP_lands_of_old_empire
+			is_subject = no			
+
+		}
+	
+		fire_only_once = no
+		cost = 25
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_FOP_claim_goldcoast"
+					create_wargoal = {
+						target = [274].owner
+						type = annex_everything
+					}
+			
+			add_state_claim = 274
+			add_state_claim = 1321
+			add_state_claim = 1322	
+			add_state_claim = 1323	
+			
+			 
+		}
+	}
+
+	SWE_FOP_claim_vinland = { 
+		icon = GFX_decision_generic_flags
+		allowed = { original_tag = SWE }
+		
+		available = {
+			has_completed_focus = SWE_FOP_lands_of_old_empire
+			is_subject = no		
+		
+		}
+		
+		visible = {
+			has_completed_focus = SWE_FOP_lands_of_old_empire
+			is_subject = no			
+
+		}
+	
+		fire_only_once = no
+		cost = 25
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_FOP_claim_vinland"
+					create_wargoal = {
+						target = [331].owner
+						type = annex_everything
+					}
+			
+			add_state_claim = 331
+			add_state_claim = 332				
+			 
+		}
+	}
+
+	SWE_FOP_establish_vinland = { 
+		icon = GFX_decision_generic_flags
+		allowed = { original_tag = SWE }
+		visible = {
+			OR = {
+				NOT = {
+				country_exists = NFL
+				}		
+			is_puppet_of = SWE
+			}
+
+		}
+	
+		fire_only_once = no
+		cost = 10
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_FOP_establish_vinland"
+			country_event = { id = swefop.998 } 
+		}
+	}
+
 
 	SWE_FOP_integrate_scandinavia = {
 		icon = generic_form_nation
@@ -6052,7 +6195,12 @@ SWE_scandinavia_foreign_policy_decisions = {
 			add_ideas = SWE_elmo_europe_idea
 			set_cosmetic_tag = SWE_elmo_empire
 			leave_faction = yes
-		    create_faction = "Union of European Kingdoms"
+			create_faction_from_template = { 
+				template = faction_template_generic_dominance              
+				name = "Union of European Kingdoms"
+				icon = "GFX_faction_logo_generic_5"
+			}			
+
 			every_country = {
 				limit = {
 					is_subject_of = SWE
