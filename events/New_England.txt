@@ -585,6 +585,7 @@ country_event = { # America is reunited
 				has_cosmetic_tag = NEE_HIVE
 				has_country_flag = NEE_kingdom
 				has_cosmetic_tag = NEE_new_ireland
+				has_cosmetic_tag = NEE_trve_ire
 				has_completed_focus = NEE_New_Sons_of_Liberty
 				has_completed_focus = NEE_prohibition_victory
 				has_completed_focus = NEE_quakervictory
@@ -644,7 +645,10 @@ country_event = { # America is reunited
 		}
 		if = {
 			limit = {
-			   has_cosmetic_tag = NEE_new_ireland
+			   OR = {
+				has_cosmetic_tag = NEE_new_ireland
+				has_cosmetic_tag = NEE_trve_ire
+			   }
 			}
 			set_cosmetic_tag = NEE_america_new_ireland
 		}
@@ -988,6 +992,14 @@ country_event = { # New England refused home rule
 					has_game_rule = {
 						rule = NEE_start_path
 						option = NEE_WASHINGTON_MONARCHY
+					}
+					has_game_rule = {
+						rule = NEE_start_path
+						option = NEE_KENNEDY_MONARCHY
+					}
+					has_game_rule = {
+						rule = NEE_start_path
+						option = NEE_ASTOR_MONARCHY
 					}
 					has_game_rule = {
 						rule = NEE_start_path
@@ -13568,6 +13580,14 @@ country_event = {# Boston Massacre
 					}	
 					has_game_rule = {
 						rule = NEE_start_path
+						option = NEE_KENNEDY_MONARCHY
+					}	
+					has_game_rule = {
+						rule = NEE_start_path
+						option = NEE_ASTOR_MONARCHY
+					}
+					has_game_rule = {
+						rule = NEE_start_path
 						option = NEE_MILITARY_COUP
 					}
 				}
@@ -15332,7 +15352,7 @@ country_event = {#Intro event for Curley's IRA
 	id = lovecraftflavor.50
 	title = lovecraftflavor.50.t
 	desc = lovecraftflavor.50.d
-	picture = GFX_NEE_curley_vote
+	picture = GFX_report_event_IRE_clans
 	
 	fire_only_once = yes
 	
@@ -15368,7 +15388,7 @@ country_event = {#Intro event for Curley's IRA
 	id = lovecraftflavor.51
 	title = lovecraftflavor.51.t
 	desc = lovecraftflavor.51.d
-	picture = GFX_NEE_curley_vote
+	picture = GFX_NEE_irish_69th
 	
 	fire_only_once = yes
 	
@@ -15401,7 +15421,7 @@ country_event = {#Intro event for Curley's IRA
 	id = lovecraftflavor.52
 	title = lovecraftflavor.52.t
 	desc = lovecraftflavor.52.d
-	picture = GFX_NEE_curley_vote
+	picture = GFX_report_event_IRE_clans
 	
 	fire_only_once = yes
 	
@@ -15419,7 +15439,7 @@ country_event = {#Intro event for Curley's IRA
 	id = lovecraftflavor.53
 	title = lovecraftflavor.53.t
 	desc = lovecraftflavor.53.d
-	picture = GFX_NEE_curley_vote
+	picture = GFX_report_event_IRE_clans
 	
 	fire_only_once = yes
 	
@@ -15451,7 +15471,7 @@ country_event = {#Intro event for Curley's IRA
 	id = lovecraftflavor.54
 	title = lovecraftflavor.54.t
 	desc = lovecraftflavor.54.d
-	picture = GFX_NEE_curley_vote
+	picture = GFX_report_event_IRE_clans
 	
 	fire_only_once = yes
 	
@@ -15488,7 +15508,7 @@ country_event = {#Intro event for Curley's IRA
 	id = lovecraftflavor.55
 	title = lovecraftflavor.55.t
 	desc = lovecraftflavor.55.d
-	picture = GFX_NEE_curley_vote
+	picture = GFX_report_event_NYC_de_valera
 	
 	fire_only_once = yes
 	
@@ -16361,19 +16381,20 @@ country_event = { #White House burned
 		add_political_power = 150
 		set_province_name = {
 			id = 3957
-			name = "Georgetown"
+			name = VICTORY_POINTS_3957_DOMINION
 		}
 		set_province_name = {
 			id = 4565
-			name = "Arnold"
+			name = VICTORY_POINTS_4565_DOMINION
 		}
 		set_province_name = {
 			id = 12361
-			name = "Pierson"
+			name = VICTORY_POINTS_12361_DOMINION
 		}
 		386 = {
-		set_state_name = "Southern British Columbia"
+		set_state_name = STATE_386_DOMINION
 		}
+		set_country_flag = NEE_dominion_place_renames
 	}
 }
 country_event = { #Albert goes to Canada
@@ -20306,7 +20327,12 @@ country_event = {# work with BBR?
 	
 	option = {#So be it
 		name = newenglandmilflavor.60.a
-		create_faction = "United Liberty League"
+			create_faction_from_template = { 
+				template = faction_template_regional   
+				name = "United Liberty League"
+				icon = GFX_faction_organization_of_american_states
+			}		
+
 		add_to_faction = BBR
 		set_country_flag = NEE_deseg_faction
 	}	
@@ -21241,7 +21267,12 @@ country_event = {# liberia
 				}
 			
 			}
-			create_faction = "United Whig Alliance"
+			create_faction_from_template = { 
+				template = faction_template_regional   
+				name = "United Whig Alliance"
+				icon = GFX_faction_whig_alliance
+			}			
+
 			add_to_faction = LIB
 		}
 
@@ -22403,10 +22434,10 @@ country_event = { # 1940 Election
 					has_country_flag = NEE_1940_republican_primary_bingham
 				}
 				remove_all_ministers = yes
-				add_ideas = NEE_Prescott_Bush_hog_mli
-				add_ideas = NEE_Peter_Hoyt_Dominick_for_sli
-				add_ideas = NEE_Frederick_George_Payne_eco_sli
-				add_ideas = NEE_Ruth_Baker_Pratt_sec_sli
+				add_ideas = NEE_Hiram_Bingham_III_hog_mli
+				add_ideas = NEE_John_Hay_Whitney_for_mli
+				add_ideas = NEE_Harry_Gabriel_Hamlet_eco_mli
+				add_ideas = NEE_Pierrepont_Burt_Noyes_sec_mli
 			}
 			
 			if = { # Fred Trump
