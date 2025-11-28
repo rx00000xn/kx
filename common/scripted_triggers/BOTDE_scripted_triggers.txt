@@ -565,8 +565,9 @@ is_transleithania = {
 }
 
 AUS_DWV_member = {
-	custom_trigger_tooltip = {
+	custom_override_tooltip = {
 		tooltip = is_DWV_member
+		not_tooltip = is_DWV_member_NOT
 		is_in_array = { AUS.DWV_members = THIS }
 	}
 }
@@ -674,13 +675,16 @@ AUS_has_any_bm_idea = {
 }
 AUS_has_any_DWV_idea = {
 	OR = {
-		has_idea = AUS_DWV
+		has_idea = AUS_DWV_0
 		has_idea = AUS_DWV_1
 		has_idea = AUS_DWV_2
 		has_idea = AUS_DWV_3
 		has_idea = AUS_DWV_4
 		has_idea = AUS_DWV_5
 	}
+}
+AUS_country_is_in_ausgleich = {
+	is_in_array = { global.ausgleich_attendants = THIS.id }
 }
 ### Big Austria ###
 
@@ -775,6 +779,7 @@ AUS_small_junta_trigger = {
 		has_country_flag = AUS_small_junta
 	}
 }
+
 AUS_small_junta_heros_trigger = {
 	custom_override_tooltip = {
 		tooltip = AUS_small_junta_heroes_tt
@@ -809,6 +814,27 @@ AUS_small_heimatblock_victory_trigger = {
 			has_government = paternal_autocrat
 			has_government = national_populist
 		}
+	}
+}
+AUS_federalized_trigger = {
+	custom_override_tooltip = {
+		tooltip = AUS_federalize_tt
+		not_tooltip = AUS_federalize_tt_NOT
+		has_global_flag = AUS_federalized
+	}
+}
+AUS_ausgleich_over_trigger = {
+	custom_override_tooltip = {
+		tooltip = AUS_ausgleich_tt
+		not_tooltip = AUS_ausgleich_tt_NOT
+		has_global_flag = AUS_ausgleich_over
+	}
+}
+AUS_ausgleich_ongoing_trigger = {
+	custom_override_tooltip = {
+		tooltip = AUS_ausgleich_ongoing_tt
+		not_tooltip = AUS_ausgleich_ongoing_tt_NOT
+		has_global_flag = AUS_ausgleich_ongoing
 	}
 }
 HUN_ausgleich_pissed_off_over_fed_speed_trigger = {

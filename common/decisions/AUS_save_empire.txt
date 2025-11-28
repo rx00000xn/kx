@@ -395,6 +395,7 @@ save_austria = {
 		}
 		
 		is_good = no
+		priority = 100
 		days_mission_timeout = 100
 		
 		cancel_effect = {
@@ -423,7 +424,7 @@ save_austria = {
 					country_event = {
 						id = bdeausint.63
 						days = 4
-						random = 72
+						random_hours = 72
 					}
 				}
 				#ECONOMIC COLLAPSE
@@ -434,14 +435,14 @@ save_austria = {
 					country_event = {
 						id = bdeausint.101
 						days = 7
-						random = 72
+						random_hours = 72
 					}
 				}
 				else = {
 					country_event = {
 						id = bdeausint.124
 						days = 7
-						random = 72
+						random_hours = 72
 					}
 				}
 			}			
@@ -486,6 +487,114 @@ save_austria = {
 			hidden_effect = {
 				AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = yes
 				scoped_sound_effect = "AUS_boom_boom_youredead"
+			}
+		}
+	}
+	
+	AUS_crisis_send_in_police = {
+		icon = generic_arrest
+		allowed = {
+			tag = AUS
+		}
+		visible = {
+			has_active_mission = BOTDE_collapse_headsup
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		cancel_trigger = {
+			custom_override_tooltip = {
+			tooltip = cancel_imminent_collapse_tt		
+				OR = {
+					check_variable = { AUS.subject_revolt_progress < 0.85 }
+					check_variable = { AUS.subject_revolt_progress = 0.85 }
+					has_global_flag = no_more_collapse
+					has_global_flag = AUS_collapsed
+				}
+			}
+		}
+		cost = 20
+		priority = 50
+		days_remove = 30
+		modifier = {
+			stability_weekly = 0.005
+			consumer_goods_factor = 0.1
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_crisis_send_in_police"
+			random_list = {
+				33 = {
+					add_stability = 0.02
+					add_days_mission_timeout = {
+						mission = BOTDE_collapse_headsup
+						days = 15
+					}
+				}
+				33 = {
+					add_stability = 0.03
+					add_political_power = 5
+					add_days_mission_timeout = {
+						mission = BOTDE_collapse_headsup
+						days = 20
+					}
+				}
+				33 = {
+					add_stability = 0.04
+					add_political_power = 10
+					add_days_mission_timeout = {
+						mission = BOTDE_collapse_headsup
+						days = 25
+					}
+				}
+			}
+		}
+	}
+	AUS_crisis_assert_royal_authority = {
+		icon = generic_political_discourse
+		allowed = {
+			tag = AUS
+		}
+		visible = {
+			has_active_mission = BOTDE_collapse_headsup
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		cancel_trigger = {
+			custom_override_tooltip = {
+			tooltip = cancel_imminent_collapse_tt		
+				OR = {
+					check_variable = { AUS.subject_revolt_progress < 0.85 }
+					check_variable = { AUS.subject_revolt_progress = 0.85 }
+					has_global_flag = no_more_collapse
+					has_global_flag = AUS_collapsed
+				}
+			}
+		}
+		cost = 10
+		priority = 50
+		days_remove = 14
+		modifier = {
+			stability_weekly = -0.005
+			drift_defence_factor = -0.1
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_crisis_send_in_police"
+			random_list = {
+				50 = {
+					AUS_subtract_five_collapse = yes
+				}
+				50 = {
+					AUS_subtract_three_collapse = yes
+				}
+			}
+			random_list = {
+				50 = {
+					ALL_add_five_collapse = yes
+				}
+				50 = {
+					AUS_raise_all_minorities = yes
+				}
 			}
 		}
 	}
@@ -1083,8 +1192,6 @@ AUS_constituent_influence = {
 			OR = {
 				has_idea = AUS_bm_4
 				has_idea = AUS_bm_5
-				has_idea = AUS_bm_6
-				
 			}
 			has_tech = synth_oil_experiments
 		}
@@ -1121,9 +1228,7 @@ AUS_constituent_influence = {
 		
 		available = {
 			num_of_civilian_factories_available_for_projects > 2
-			NOT = {
-				has_global_flag = BOTDE_ausgleich_begins 
-			}
+			AUS_ausgleich_ongoing_trigger = no
 		}
 		cancel_trigger = {
 			hidden_trigger = {
@@ -1270,6 +1375,50 @@ AUS_constituent_influence = {
 		}
 	}
 	
+	AUS_invest_into_the_DWV = {
+		icon = GFX_decision_generic_research
+		
+		visible = {
+			AUS_DWV_member = yes
+			check_variable = { AUS.DWV_upgrade < 5 }
+		}
+		
+		cancel_if_not_visible = yes
+		
+		cost = 100	
+		days_remove = 120
+		ai_will_do = {
+			factor = 100
+		}
+		
+		modifier = {
+			consumer_goods_factor = 0.25
+		}
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_invest_into_the_DWV - AUS.DWV_upgrade: [?AUS.DWV_upgrade]"
+			custom_override_tooltip = {
+				tooltip = AUS_dwv_upgrade_tt
+				set_temp_variable = { AUS.DWV_upgrade_temp = AUS.DWV_upgrade }
+				add_to_variable = { AUS.DWV_upgrade = 1 }
+				every_country = {
+					limit = {
+						AUS_DWV_member = yes
+					}
+					meta_effect = {
+						text = {
+							swap_ideas = {
+								add_idea = AUS_DWV_[AUS_DMV_value]
+								remove_idea = AUS_DWV_[AUS_DMV_value_temp]
+							}
+						}
+						AUS_DMV_value = "[?AUS.DWV_upgrade]"
+						AUS_DMV_value_temp = "[?AUS.DWV_upgrade_temp]"
+					}
+				}
+			}
+		}
+	}
 }
 
 AUS_economy_cat = {
@@ -2897,7 +3046,7 @@ EUU_paneuropean_council = {
 austria_collapse_category = {
 	AUS_borderwar_bohemia = {
 		cost = 25
-		icon = GFX_decision_generic_flags
+		icon = infiltrate_state
 		priority = 2
 		allowed = {
 			OR = {
@@ -2957,7 +3106,7 @@ austria_collapse_category = {
 	
 	AUS_borderwar_heizenland = {
 		cost = 25
-		icon = GFX_decision_generic_flags
+		icon = infiltrate_state
 		priority = 2
 		allowed = {
 			OR = {
@@ -3000,6 +3149,45 @@ austria_collapse_category = {
 					on_win = bdeausfor.135
 					on_lose = bdeausfor.134
 					on_cancel = bdeausfor.136
+				}
+			}
+		}
+	}
+	
+	AUS_offer_slovenia_alliance = {
+		icon = generic_agreement
+		priority = 1
+		allowed = {
+			OR = {
+				tag = AUS
+				tag = AWR
+			}
+		}
+		visible = {
+			NOT =  { owns_state = 736 }
+			OR = {
+				owns_state = 1100
+				owns_state = 1144
+			}
+		}
+		available = {
+			NOT = {
+				has_war_with = SLO
+				has_border_war_with = SLO
+			}
+		}
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 15
+		}
+		cost = 25
+		complete_effect	 = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_offer_slovenia_alliance"
+			SLO = {
+				country_event = {
+					id = constituents.67
+					days = 1
+					random_hours = 24
 				}
 			}
 		}

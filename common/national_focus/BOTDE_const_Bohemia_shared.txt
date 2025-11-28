@@ -4734,15 +4734,17 @@
 		completion_reward = {
 			set_global_flag = no_bohemia_revolt
 			CZE_subtract_ten_collapse = yes
+			AUS = { AUS_fed_speed_1_add = yes }
 		}
+		search_filters = { FOCUS_FILTER_AUS_FEDERALIZATION }
 	}
 	
 	shared_focus = {
 		id = BOH_federalist_position
 		icon = GFX_goal_AUS_federation
-		x = -2
-		y = 9
-		relative_position_id = BOH_death_of_masaryk
+		x = 0
+		y = 1
+		relative_position_id = BOH_stick_with_kaiser_karel
 		cost = 5
 		ai_will_do = {
 			factor = 100
@@ -4755,17 +4757,42 @@
 		}
 		completion_reward = {
 			AUS_subtract_ten_collapse = yes
+			ALL_subtract_five_collapse = yes
 			add_political_power = 100
 			remove_ideas = BOH_bm_3
 			AUS = {
-				change_tag_from = ROOT
+				AUS_fed_speed_1_add = yes
 			}
 		}
+		search_filters = { FOCUS_FILTER_AUS_FEDERALIZATION }
+	}
+	
+	shared_focus = {
+		id = BOH_the_trial_of_trialism
+		icon = GFX_goal_AUS_illyrian_question
+		x = 0
+		y = 2
+		relative_position_id = BOH_stick_with_kaiser_karel
+		cost = 5
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = BOH_federalist_position
+		}
+		bypass = {
+			is_subject = no
+		}
+		completion_reward = {
+			AUS = { AUS_fed_speed_1_add = yes }
+			country_event = bdeboh.15
+		}
+		search_filters = { FOCUS_FILTER_AUS_FEDERALIZATION }
 	}
 	
 	shared_focus = {
 		id = BOH_assert_bohemian_self_determination
-		icon = GFX_goal_CRO_reclaim_lands
+		icon = GFX_goal_CZE_assert_bohemian_self_determination
 		x = 2
 		y = 8
 		relative_position_id = BOH_death_of_masaryk
@@ -4829,20 +4856,30 @@
 			focus = BOH_stick_with_kaiser_karel
 		}
 		bypass = {
-			is_subject = no
+			NOT = { is_in_faction_with = AUS }
+		}
+		available = {
+			NOT = { has_global_flag = AUS_no_more_CZE_revolt }
 		}
 		completion_reward = {
 			add_war_support = 0.1
-			CZE_add_five_collapse = yes
 			swap_ideas = {
 				add_idea = BOH_legacy_of_coronation_2
 				remove_idea = BOH_legacy_of_coronation
 			}
-			#Put event for AUS here...
+			AUS = {
+				country_event = {
+					id = bdeczeflavor.212
+					days = 1
+				}
+			}
 			country_event = {
 				id = bdeczeflavor.114
 				days = 25
 				random = 72
+			}
+			effect_tooltip = {
+				CZE_add_ten_collapse = yes
 			}
 		}
 	}
@@ -4893,7 +4930,10 @@
 			focus = BOH_czech_interests
 		}
 		bypass = {
-			is_subject = no
+			NOT = { is_in_faction_with = AUS }
+		}
+		available = {
+			NOT = { has_global_flag = AUS_no_more_CZE_revolt }
 		}
 		completion_reward = {
 			add_war_support = 0.03
@@ -4936,7 +4976,10 @@
 			focus = BOH_embrace_czechoslovakism
 		}
 		bypass = {
-			is_subject = no
+			NOT = { is_in_faction_with = AUS }
+		}
+		available = {
+			NOT = { has_global_flag = AUS_no_more_CZE_revolt }
 		}
 		completion_reward = {
 			add_war_support = 0.03
@@ -4949,10 +4992,6 @@
 				add_extra_state_shared_building_slots = 1
 			}
 			army_experience = 30
-			OVERLORD = {
-				end_puppet = ROOT
-			}
-			leave_faction = yes
 			hidden_effect = {
 				country_event = {
 					id = bdeczeflavor.108
@@ -5009,7 +5048,7 @@
 			focus = BOH_embrace_czechoslovakism
 		}
 		bypass = {
-			is_subject = no
+			NOT = { is_in_faction_with = AUS }
 		}
 		available = {
 			NOT = {
@@ -5018,6 +5057,7 @@
 				owns_state = 70
 				owns_state = 1120
 				has_cosmetic_tag = CZE_czechoslovakia_imperial
+				has_global_flag = AUS_no_more_CZE_revolt
 			}
 		}
 		completion_reward = {
@@ -5061,16 +5101,15 @@
 			focus = BOH_czech_interests
 		}
 		bypass = {
-			is_subject = no
+			NOT = { is_in_faction_with = AUS }
+		}
+		available = {
+			NOT = { has_global_flag = AUS_no_more_CZE_revolt }
 		}
 		completion_reward = {
 			add_war_support = 0.03
 			army_experience = 30
 			add_ideas = CZE_all_czech_army
-			OVERLORD = {
-				end_puppet = ROOT
-			}
-			leave_faction = yes
 			if = {
 				limit = {
 					has_war = yes
@@ -5089,9 +5128,7 @@
 				}
 			}
 			#Event for Austria here
-			hidden_effect = {
-				set_cosmetic_tag = CZE_free_czechia
-			}
+			
 		}
 	}
 	
@@ -5113,221 +5150,16 @@
 			is_subject = no
 			has_country_flag = CZE_wonrevolution_flag
 		}
-		will_lead_to_war_with = AUS
+		available = {
+			custom_override_tooltip = {
+				tooltip = CONST_80_plus_collapse
+				check_variable = { CZE.subject_revolt_progress > 0.79 }
+				NOT = { AUS = { has_active_mission = BOTDE_czech_revolt_headsup } }
+			}
+			NOT = { has_global_flag = AUS_no_more_CZE_revolt }
+		}
 		completion_reward = {
-			add_war_support = 0.1
-			add_stability = -0.2
-			add_manpower = 35000
-			add_timed_idea = {
-				idea = CZE_czech_revolution
-				days = 365
-			}
-			separate_peace_all_wars = yes
-			leave_faction = yes
-			AUS = {
-				declare_war_on = {
-					target = ROOT
-					type = annex_everything
-				}
-				if = {
-					limit = {
-						HUN = {
-							is_subject_of = PREV
-						}
-					}
-					HUN = {
-						declare_war_on = {
-							target = ROOT
-							type = annex_everything
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					HUN = {
-						NOT = { is_subject_of = AUS }
-					}
-				}
-				HUN = {
-					declare_war_on = {
-						target = CZE
-						type = annex_everything
-					}
-				}
-			}
-			#Player must hold their line for 240 days
-			#Put event here...
-			if = {
-				limit = {
-					has_global_flag = BOH_czechoslovakism_yes
-				}
-				set_cosmetic_tag = CZE_czechoslovakia
-				transfer_state = 70
-				transfer_state = 1135
-				transfer_state = 1120
-				transfer_state = 1123
-				else = {
-					country_event = {
-						id = bdeboh.7
-						days = 5
-					}
-				}
-				create_corps_commander = {
-					name = "Ján Golian"
-					portrait_path = "gfx/leaders/SVK/general/Portrait_SVK_Jan_Golian.png"
-					traits = {
-						commando
-					}
-					id = 82820
-					skill = 2
-					attack_skill = 3
-					defense_skill = 2
-					planning_skill = 3
-					logistics_skill = 2
-				}
-				create_corps_commander = {
-					name = "Rudolf Viest "
-					portrait_path = "gfx/leaders/SVK/general/Portrait_SVK_Rudolf_Viest.png"
-					traits = {
-						infantry_officer
-					}
-					id = 82821
-					skill = 3
-					attack_skill = 3
-					defense_skill = 3
-					planning_skill = 3
-					logistics_skill = 2
-				}
-				create_field_marshal = {
-					name = "Milan Rastislav Štefánik"
-					portrait_path = "gfx/leaders/SVK/general/Portrait_SVK_Milan_Stefanik_Serving_Babylon.png"
-					traits = {
-						war_hero
-						politically_connected
-						offensive_doctrine
-					}
-					id = 82822
-					skill = 3
-					attack_skill = 3
-					defense_skill = 2
-					planning_skill = 2
-					logistics_skill = 4
-				}
-			}
-			custom_effect_tooltip = CZE_take_some_states
-			hidden_effect = {
-				
-				
-				if = {
-					limit = {
-						has_global_flag = BOH_czechoslovakism_yes
-					}
-					country_event = {
-						id = bdeczeflavor.38
-						days = 8
-						random = 24
-					}
-				}
-				
-				country_event = {
-					id = bdeczeflavor.113
-					days = 25
-					random = 72
-				}
-				
-				
-				country_event = {
-					id = bdeczefor.4
-					days = 160
-					random = 480
-				}
-				
-				country_event = {
-					id = bdeczefor.5
-				}
-				
-				country_event = {
-					id = bdecze.3
-					days = 50
-					random = 100
-				}
-				
-				country_event = {
-					id = bdeczeflavor.126
-					days = 80
-					random = 100
-				}
-				
-				if = {
-					limit = {
-						OR = {
-							has_completed_focus = BOH_more_czech_focus
-							has_government = authoritarian_democrat
-						}
-					}
-					country_event = {
-						id = bdeczeflavor.117
-						days = 41
-					}
-				}
-				
-				
-				news_event = {
-					id = bdeczenews.1
-					days = 1
-				}
-				
-				if = {
-					limit = {
-						has_completed_focus = BOH_embrace_czechoslovakism
-					}
-					load_oob = "BOM_SVK"
-				}
-				
-				if = {
-					limit = {
-						has_country_flag = CZE_1newdivision
-					}
-					load_oob = "BOM_1_infantry"
-				}
-				
-				if = {
-					limit = {
-						has_country_flag = CZE_2newdivision
-					}
-					load_oob = "BOM_1_infantry"
-				}
-				
-				if = {
-					limit = {
-						has_country_flag = CZE_3newdivision
-					}
-					load_oob = "BOM_1_infantry"
-				}
-				
-				if = {
-					limit = {
-						has_country_flag = CZE_4newdivision
-					}
-					load_oob = "BOM_fastdivision"
-				}
-				
-				if = {
-					limit = {
-						has_country_flag = CZE_5newdivision
-					}
-					load_oob = "BOM_fastdivision"
-				}
-				
-				if = {
-					limit = {
-						country_exists = SVK
-					}
-					SVK = {
-						country_event = bdeczefor.7
-					}
-				}
-			}
+			AUS = { activate_mission = BOTDE_czech_revolt_headsup }
 		}
 	}
+}
