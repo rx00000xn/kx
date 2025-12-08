@@ -61,8 +61,7 @@ save_austria = {
 				limit = {
 					NOT = {
 						CZE = { has_country_flag = CZE_will_revolt }
-						NOT = { has_global_flag = AUS_no_more_CZE_revolt }
-					} 
+					}
 				}
 				custom_override_tooltip = {
 					tooltip = cancel_imminent_revolt_tt		
@@ -80,7 +79,7 @@ save_austria = {
 				}
 			}
 			else = {
-				always = no
+				hidden_trigger = { has_global_flag = AUS_no_more_CZE_revolt }
 			}
 		}
 		
@@ -141,7 +140,6 @@ save_austria = {
 				limit = {
 					NOT = {
 						HUN = { has_country_flag = HUN_will_revolt }
-						NOT = { has_global_flag = AUS_no_more_HUN_revolt }
 					}
 				}
 				custom_trigger_tooltip = {
@@ -163,6 +161,7 @@ save_austria = {
 				OR = {
 					HUN = { exists = no }
 					has_war_with = HUN
+					hidden_trigger = { has_global_flag = AUS_no_more_HUN_revolt }
 				}
 			}
 		}
@@ -420,29 +419,55 @@ save_austria = {
 				if = {
 					limit = {
 						has_country_flag = AUS_revolution_collapse
+						check_variable = { AUS.near_collapse_times < 2 }
 					}
 					country_event = {
 						id = bdeausint.63
-						days = 4
-						random_hours = 72
+						days = 1
+						random_hours = 24
 					}
 				}
 				#ECONOMIC COLLAPSE
 				else_if = {
 					limit = {
 						has_country_flag = AUS_economic_collapse
+						check_variable = { AUS.near_collapse_times < 2 }
 					}
 					country_event = {
 						id = bdeausint.101
-						days = 7
-						random_hours = 72
+						days = 1
+						random_hours = 24
 					}
 				}
 				else = {
-					country_event = {
-						id = bdeausint.124
-						days = 7
-						random_hours = 72
+					if = {
+						limit = {
+							check_variable = { AUS.near_collapse_times < 2 }
+						}
+						country_event = {
+							id = bdeausint.124
+							days = 1
+							random_hours = 24
+						}
+					}
+					else = {
+						if = {
+							limit = {
+								AUS_oaao_trigger = no
+							}
+							country_event = {
+								id = bdeausint.1240
+								days = 1
+								random_hours = 24
+							}
+						}
+						else = {
+							country_event = {
+								id = bdeausint.1241
+								days = 1
+								random_hours = 24
+							}
+						}
 					}
 				}
 			}			
@@ -451,40 +476,48 @@ save_austria = {
 			clr_country_flag = AUS_revolution_collapse
 			clr_country_flag = AUS_economic_collapse
 			clr_country_flag = AUS_generic_collapse
+			clr_country_flag = AUS_imminent_collapse
+			if = {
+				limit = {
+					has_idea = AUS_big_crisis_idea
+					NOT = { has_global_flag = AUS_absolute_crisis }
+				}
+				remove_ideas = AUS_big_crisis_idea
+			}
 		}
 		
 		timeout_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision timeout BOTDE_collapse_headsup"
 			custom_effect_tooltip = AUS_balkanmoment
-			if = {
-				limit = { #Revolution collapse
-					has_country_flag = AUS_revolution_collapse
-				}
-				country_event = {
-					id = bdeausint.53
-					days = 5
-					random = 72
-				}
-				add_to_variable = { TYR.collapse_appearance_value = 1 }
-			}
-			else_if = {
-				limit = {
-					has_country_flag = AUS_economic_collapse
-				}
-				country_event = {
-					id = bdeausint.125
-					days = 25
-					random = 120
-				}
-			}
-			else = {
-				country_event = {
-					id = bdeausint.126
-					days = 15
-					random = 120
-				}
-			}
 			hidden_effect = {
+				if = {
+					limit = { #Revolution collapse
+						has_country_flag = AUS_revolution_collapse
+					}
+					country_event = {
+						id = bdeausint.53
+						days = 5
+						random_hours = 72
+					}
+					add_to_variable = { TYR.collapse_appearance_value = 1 }
+				}
+				else_if = {
+					limit = {
+						has_country_flag = AUS_economic_collapse
+					}
+					country_event = {
+						id = bdeausint.125
+						days = 25
+						random_hours = 120
+					}
+				}
+				else = {
+					country_event = {
+						id = bdeausint.126
+						days = 15
+						random_hours = 120
+					}
+				}
 				AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = yes
 				scoped_sound_effect = "AUS_boom_boom_youredead"
 			}
@@ -3365,21 +3398,26 @@ foreign_politics = {
 		target_trigger = {
 			FROM = {
 				OR = {
-					tag = HUN
-					tag = BUL
-					tag = SWI
-					tag = MNT
-					tag = POL
-					tag = SIC
-					tag = SRI
-					tag = LIC
-				}
-				is_in_faction = no
-				is_subject = no
-				has_country_flag = AUS_blutpakt_tag
-				OR = {
-					has_government = totalist
-					has_government = national_populist
+					AND = {
+						OR = {
+							tag = HUN
+							tag = BUL
+							tag = SWI
+							tag = MNT
+							tag = POL
+							tag = SIC
+							tag = SRI
+							tag = LIC
+						}
+						is_in_faction = no
+						is_subject = no
+						has_country_flag = AUS_blutpakt_tag
+						OR = {
+							has_government = totalist
+							has_government = national_populist
+						}
+					}
+					tag = SZK
 				}
 			}
 		}
@@ -4146,13 +4184,33 @@ foreign_politics = {
 		icon = GFX_decision_generic_flags
 		allowed = { always = no }
 		visible = {
-			is_in_faction_with = AUS
 			AUS = {
 				is_faction_leader = yes
 				has_country_flag = AUS_DAP
 			}
+			has_country_flag = AUS_blutpakt_expander
 		}
 		available = {
+			FROM = {
+				is_ally_of_ROOT = no
+				NOT = {
+					has_war_with = ROOT
+				}
+				exists = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = BLUTPAKT_ATK_FLAG_TT
+				NOT = {
+					has_country_flag = BLUTPAKT_ATK_FLAG
+				}
+			}
+		}
+		target_root_trigger = {
+			has_country_flag = AUS_blutpakt_expander
+			is_in_faction_with = AUS
+			
+		}
+		target_trigger = {
 			FROM = {
 				is_ally_of_ROOT = no
 				NOT = {
@@ -4163,15 +4221,17 @@ foreign_politics = {
 		cost = 20
 		days_remove = 30
 		war_with_target_on_remove = yes
-		
+		on_map_mode = decision_view_only 
 		fire_only_once = yes
 		cancel_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision cancel AUS_blutpakt_attack target: [From.GetName]"
 			clear_decision_attack_AI = yes
+			clr_country_flag = BLUTPAKT_ATK_FLAG
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision AUS_blutpakt_attack target: [From.GetName]"
 			setup_decision_attack_AI = yes
+			set_country_flag = BLUTPAKT_ATK_FLAG
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_blutpakt_attack target: [From.GetName]"
@@ -4180,6 +4240,8 @@ foreign_politics = {
 				type = annex_everything
 			}
 			clear_decision_attack_AI = yes
+			clr_country_flag = BLUTPAKT_ATK_FLAG
+			AUS_blutpakt_coalition_effect = yes
 		}
 		ai_will_do = {
 			factor = 30
@@ -4195,6 +4257,14 @@ foreign_politics = {
 					FROM = { dont_start_major_faction_wars = yes }
 					ROOT_is_threatened_cautious = yes
 					FROM = { default_attack_AI_trigger_FROM = yes }
+					any_allied_country = {
+						has_war = yes
+					}
+					has_country_flag = BLUTPAKT_ATK_FLAG
+					check_variable = {
+						var = global.blutpakt_coalition_value
+						value = 3
+					}
 				}
 			}
 		}
