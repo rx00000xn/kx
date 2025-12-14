@@ -1,0 +1,581 @@
+AUS_debug_category = {
+	KX_turn_off_botde_debug_decision = {
+		icon = GFX_decision_scales
+
+		visible = {
+			OR = {
+				is_debug = yes
+				has_global_flag = KR_state_transfer_tool_active
+				has_global_flag = debug_decisons_on
+				has_global_flag = KR_player_leads_conferences
+				has_global_flag = KR_plpc_turned_off
+			}
+		}
+
+		cost = 0
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		complete_effect = {
+			set_global_flag = botde_debug_decisions_disabled
+		}
+	}
+	
+	AUS_debug_force_const_revolt_check = {
+		icon = generic_flags
+		visible = {
+			OR = {
+				is_debug = yes
+				has_global_flag = debug_decisons_on
+			}
+		}
+		
+		available = {
+			NOT = { has_global_flag = AUS_collapsed }
+		}
+		
+		cost = 0
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		complete_effect = {
+			for_each_scope_loop = {
+				array = global.AUS_all_possible_array
+				BOTDE_check_for_constituent_revolt = yes
+			}
+		}
+	}
+	
+	AUS_debug_50_50_100_revolt = {
+		icon = generic_flags
+		visible = {
+			OR = {
+				is_debug = yes
+				has_global_flag = debug_decisons_on
+			}
+		}
+		
+		available = {
+			NOT = { has_global_flag = AUS_collapsed }
+		}
+		
+		cost = 0
+		
+		fixed_random_seed = no
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		complete_effect = {
+			every_possible_country = {
+				limit = { has_variable = THIS.subject_revolt_progress }
+				random_list = {
+					50 = {
+						set_variable = { THIS.subject_revolt_progress = 1 }
+					}
+					50 = {
+						set_variable = { THIS.subject_revolt_progress = 0 }
+					}
+				}
+			}
+		}
+	}
+	
+	AUS_debug_all_0_revolt = {
+		icon = generic_flags
+		visible = {
+			OR = {
+				is_debug = yes
+				has_global_flag = debug_decisons_on
+			}
+		}
+		
+		available = {
+			NOT = { has_global_flag = AUS_collapsed }
+		}
+		
+		cost = 0
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		complete_effect = {
+			every_possible_country = {
+				limit = { has_variable = THIS.subject_revolt_progress }
+				set_variable = { THIS.subject_revolt_progress = 0 }
+			}
+		}
+	}
+	
+	AUS_debug_all_95_revolt = {
+		icon = generic_flags
+		visible = {
+			OR = {
+				is_debug = yes
+				has_global_flag = debug_decisons_on
+			}
+		}
+		
+		available = {
+			NOT = { has_global_flag = AUS_collapsed }
+		}
+		
+		cost = 0
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		complete_effect = {
+			every_possible_country = {
+				limit = { has_variable = THIS.subject_revolt_progress }
+				set_variable = { THIS.subject_revolt_progress = 0.95 }
+			}
+		}
+	}
+	
+	AUS_debug_all_100_revolt = {
+		icon = generic_flags
+		visible = {
+			OR = {
+				is_debug = yes
+				has_global_flag = debug_decisons_on
+			}
+		}
+		
+		available = {
+			NOT = { has_global_flag = AUS_collapsed }
+		}
+		
+		cost = 0
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		complete_effect = {
+			every_possible_country = {
+				limit = { has_variable = THIS.subject_revolt_progress }
+				set_variable = { THIS.subject_revolt_progress = 1 }
+			}
+		}
+	}
+	
+	AUS_debug_50_50_add_10_subtract_10_all = {
+		icon = generic_flags
+		visible = {
+			OR = {
+				is_debug = yes
+				has_global_flag = debug_decisons_on
+			}
+		}
+		
+		available = {
+			NOT = { has_global_flag = AUS_collapsed }
+		}
+		
+		cost = 0
+		
+		fixed_random_seed = no
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		complete_effect = {
+			for_each_scope_loop = {
+				array = global.AUS_all_possible_array
+				if = {
+					limit = { has_variable = THIS.subject_revolt_progress }
+					random_list = {
+						50 = {
+							set_temp_variable = { revolt_progress_change = 0.10 }
+						}
+						50 = {
+							set_temp_variable = { revolt_progress_change = -0.10 }
+						}
+					}
+					BOTDE_add_collapse = yes
+				}
+			}
+		}
+	}
+	
+	AUS_debug_50_50_add_20_subtract_20_all = {
+		icon = generic_flags
+		visible = {
+			OR = {
+				is_debug = yes
+				has_global_flag = debug_decisons_on
+			}
+		}
+		
+		available = {
+			NOT = { has_global_flag = AUS_collapsed }
+		}
+		
+		cost = 0
+		
+		fixed_random_seed = no
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		complete_effect = {
+			for_each_scope_loop = {
+				array = global.AUS_all_possible_array
+				if = {
+					limit = { has_variable = THIS.subject_revolt_progress }
+					random_list = {
+						50 = {
+							set_temp_variable = { revolt_progress_change = 0.20 }
+						}
+						50 = {
+							set_temp_variable = { revolt_progress_change = -0.20 }
+						}
+					}
+					BOTDE_add_collapse = yes
+				}
+			}
+		}
+	}
+	
+	AUS_debug_add_10_all = {
+		icon = generic_flags
+		visible = {
+			OR = {
+				is_debug = yes
+				has_global_flag = debug_decisons_on
+			}
+		}
+		
+		available = {
+			NOT = { has_global_flag = AUS_collapsed }
+		}
+		
+		cost = 0
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		complete_effect = {
+			for_each_scope_loop = {
+				array = global.AUS_all_possible_array
+				if = {
+					limit = { has_variable = THIS.subject_revolt_progress }
+					set_temp_variable = { revolt_progress_change = 0.10 }
+					BOTDE_add_collapse = yes
+				}
+			}
+		}
+	}
+	
+	AUS_debug_add_20_all = {
+		icon = generic_flags
+		visible = {
+			OR = {
+				is_debug = yes
+				has_global_flag = debug_decisons_on
+			}
+		}
+		
+		available = {
+			NOT = { has_global_flag = AUS_collapsed }
+		}
+		
+		cost = 0
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		complete_effect = {
+			for_each_scope_loop = {
+				array = global.AUS_all_possible_array
+				if = {
+					limit = { has_variable = THIS.subject_revolt_progress }
+					set_temp_variable = { revolt_progress_change = 0.20 }
+					BOTDE_add_collapse = yes
+				}
+			}
+		}
+	}
+	
+	AUS_debug_subtract_10_all = {
+		icon = generic_flags
+		visible = {
+			OR = {
+				is_debug = yes
+				has_global_flag = debug_decisons_on
+			}
+		}
+		
+		available = {
+			NOT = { has_global_flag = AUS_collapsed }
+		}
+		
+		cost = 0
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		complete_effect = {
+			for_each_scope_loop = {
+				array = global.AUS_all_possible_array
+				if = {
+					limit = { has_variable = THIS.subject_revolt_progress }
+					set_temp_variable = { revolt_progress_change = -0.10 }
+					BOTDE_add_collapse = yes
+				}
+			}
+		}
+	}
+	
+	AUS_debug_subtract_20_all = {
+		icon = generic_flags
+		visible = {
+			OR = {
+				is_debug = yes
+				has_global_flag = debug_decisons_on
+			}
+		}
+		
+		available = {
+			NOT = { has_global_flag = AUS_collapsed }
+		}
+		
+		cost = 0
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		complete_effect = {
+			for_each_scope_loop = {
+				array = global.AUS_all_possible_array
+				if = {
+					limit = { has_variable = THIS.subject_revolt_progress }
+					set_temp_variable = { revolt_progress_change = -0.20 }
+					BOTDE_add_collapse = yes
+				}
+			}
+		}
+	}
+	
+	AUS_debug_100_empire_collapse = {
+		icon = generic_flags
+		visible = {
+			OR = {
+				is_debug = yes
+				has_global_flag = debug_decisons_on
+			}
+		}
+		
+		available = {
+			NOT = { has_global_flag = AUS_collapsed }
+		}
+		
+		cost = 0
+
+		ai_will_do = {
+			factor = 0
+		}
+		
+		complete_effect = {
+			set_variable = { AUS.subject_revolt_progress = 1 }
+		}
+	}
+	
+	AUS_debug_0_empire_collapse = {
+		icon = generic_flags
+		visible = {
+			OR = {
+				is_debug = yes
+				has_global_flag = debug_decisons_on
+			}
+		}
+		
+		available = {
+			NOT = { has_global_flag = AUS_collapsed }
+		}
+		
+		cost = 0
+
+		ai_will_do = {
+			factor = 0
+		}
+		
+		complete_effect = {
+			set_variable = { AUS.subject_revolt_progress = 0 }
+		}
+	}
+	
+	AUS_debug_activate_collapse_mission = {
+		icon = generic_flags
+		visible = {
+			OR = {
+				is_debug = yes
+				has_global_flag = debug_decisons_on
+			}
+		}
+		
+		available = {
+			NOT = {
+				has_active_mission = BOTDE_collapse_headsup
+				has_global_flag = AUS_collapsed
+			}
+		}
+		
+		cost = 0
+
+		ai_will_do = {
+			factor = 0
+		}
+		complete_effect = {
+			activate_mission = BOTDE_collapse_headsup
+		}
+	}
+	
+	AUS_debug_add_20_days_collapse_mission = {
+		icon = generic_flags
+		visible = {
+			OR = {
+				is_debug = yes
+				has_global_flag = debug_decisons_on
+			}
+		}
+		
+		available = {
+			has_active_mission = BOTDE_collapse_headsup
+			NOT = { has_global_flag = AUS_collapsed }
+		}
+		
+		cost = 0
+
+		ai_will_do = {
+			factor = 0
+		}
+		complete_effect = {
+			add_days_mission_timeout = {
+				mission = BOTDE_collapse_headsup
+				days = 20
+			}
+		}
+	}
+	
+	AUS_debug_instant_collapse = {
+		icon = generic_flags
+		visible = {
+			OR = {
+				is_debug = yes
+				has_global_flag = debug_decisons_on
+			}
+		}
+		
+		available = {
+			NOT = { has_global_flag = AUS_collapsed }
+		}
+		
+		cost = 0
+
+		ai_will_do = {
+			factor = 0
+		}
+		
+		complete_effect = {
+			AUS_instant_collapse_effect = yes
+		}
+	}
+	
+	AUS_debug_start_ausgleich = {
+		icon = generic_flags
+		visible = {
+			OR = {
+				is_debug = yes
+				has_global_flag = debug_decisons_on
+			}
+		}
+		
+		available = {
+			NOT = {
+				has_global_flag = AUS_collapsed
+				has_global_flag = AUS_ausgleich_begun
+				has_global_flag = AUS_ausgleich_ongoing
+				has_global_flag = AUS_ausgleich_over
+			}
+		}
+		
+		cost = 0
+
+		ai_will_do = {
+			factor = 0
+		}
+		
+		complete_effect = {
+			country_event = bdeausgleich.0
+		}
+	}
+	
+	AUS_debug_piss_off_serbs = {
+		icon = generic_flags
+		visible = {
+			OR = {
+				is_debug = yes
+				has_global_flag = debug_decisons_on
+			}
+		}
+		
+		available = {
+			NOT = {
+				has_global_flag = AUS_collapsed
+			}
+		}
+		
+		cost = 0
+
+		ai_will_do = {
+			factor = 0
+		}
+		
+		complete_effect = {
+			SER_shoot_down_a_airplane_effect = yes
+			country_event = bdeausfor.90
+		}
+	}
+	
+	AUS_debug_piss_off_romanians = {
+		icon = generic_flags
+		visible = {
+			OR = {
+				is_debug = yes
+				has_global_flag = debug_decisons_on
+			}
+		}
+		
+		available = {
+			NOT = {
+				has_global_flag = AUS_collapsed
+			}
+		}
+		
+		cost = 0
+
+		ai_will_do = {
+			factor = 0
+		}
+		
+		complete_effect = {
+			ROM_invent_banat_effect = yes
+			country_event = bdeausfor.89
+		}
+	}
+}

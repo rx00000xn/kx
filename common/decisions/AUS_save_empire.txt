@@ -49,6 +49,151 @@ save_austria = {
 			custom_effect_tooltip = AUS_revolt_will_begin_war_with_serbia_maybe
 		}
 	}
+	
+	AUS_liebenfels_civil_war_headsup = {
+		icon = GFX_decision_generic_ignite_civil_war
+		allowed = { always = no }		
+		
+		war_with_on_timeout = AWR
+		
+		available = { always = no }
+		
+		days_mission_timeout = 30
+		is_good = no
+		priority = 100
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout AUS_liebenfels_civil_war_headsup"
+			ALL_add_ten_collapse = yes
+			custom_override_tooltip = {
+				tooltip = AUS_liebenfels_civil_war_tt
+				AUS_liebenfels_civil_war_real_start_setup = yes
+			}
+		}
+	}
+	
+	AUS_liebenfels_civil_war_HUN_leave_deadline = {
+		icon = GFX_decision_generic_nationalism
+		allowed = { always = no }
+		
+		available = { always = no }
+		
+		days_mission_timeout = 100
+		is_good = no
+		priority = 100
+		cancel_trigger = {
+			hidden_trigger = {
+				OR = {
+					NOT = { has_global_flag = AUS_liebenfels_civil_war }
+					check_variable = { HUN.subject_revolt_progress < 0.8 }
+					AWR = { exists = no }
+					HUN = { AUS_is_constituent_or_minority = no }
+				}
+			}
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout AUS_liebenfels_civil_war_HUN_leave_deadline"
+			custom_override_tooltip = {
+				tooltip = AUS_liebenfels_civil_war_HUN_leaves_tt
+				HUN = { country_event = revolt.1 }
+			}
+		}
+		cancel_effect = {
+			clr_country_flag = wants_to_revolt
+		}
+	}
+	
+	AUS_liebenfels_civil_war_CZE_leave_deadline = {
+		icon = GFX_decision_generic_nationalism
+		allowed = { always = no }
+		
+		available = { always = no }
+		
+		days_mission_timeout = 100
+		is_good = no
+		priority = 100
+		cancel_trigger = {
+			hidden_trigger = {
+				OR = {
+					NOT = { has_global_flag = AUS_liebenfels_civil_war }
+					check_variable = { CZE.subject_revolt_progress < 0.8 }
+					AWR = { exists = no }
+					CZE = { AUS_is_constituent_or_minority = no }
+				}
+			}
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout AUS_liebenfels_civil_war_CZE_leave_deadline"
+			custom_override_tooltip = {
+				tooltip = AUS_liebenfels_civil_war_CZE_leaves_tt
+				CZE = { country_event = revolt.3 }
+			}
+		}
+		cancel_effect = {
+			clr_country_flag = wants_to_revolt
+		}
+	}
+	
+	AUS_liebenfels_civil_war_CRO_leave_deadline = {
+		icon = GFX_decision_generic_nationalism
+		allowed = { always = no }
+		
+		available = { always = no }
+		
+		days_mission_timeout = 100
+		is_good = no
+		priority = 100
+		cancel_trigger = {
+			hidden_trigger = {
+				OR = {
+					NOT = { has_global_flag = AUS_liebenfels_civil_war }
+					check_variable = { CRO.subject_revolt_progress < 0.8 }
+					AWR = { exists = no }
+					CRO = { AUS_is_constituent_or_minority = no }
+				}
+			}
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout AUS_liebenfels_civil_war_CRO_leave_deadline"
+			custom_override_tooltip = {
+				tooltip = AUS_liebenfels_civil_war_CRO_leaves_tt
+				CRO = { country_event = revolt.2 }
+			}
+		}
+		cancel_effect = {
+			clr_country_flag = wants_to_revolt
+		}
+	}
+	
+	AUS_liebenfels_civil_war_GAL_leave_deadline = {
+		icon = GFX_decision_generic_nationalism
+		allowed = { always = no }
+		
+		available = { always = no }
+		
+		days_mission_timeout = 100
+		is_good = no
+		priority = 100
+		cancel_trigger = {
+			hidden_trigger = {
+				OR = {
+					NOT = { has_global_flag = AUS_liebenfels_civil_war }
+					check_variable = { GAL.subject_revolt_progress < 0.8 }
+					AWR = { exists = no }
+					GAL = { AUS_is_constituent_or_minority = no }
+				}
+			}
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout AUS_liebenfels_civil_war_GAL_leave_deadline"
+			custom_override_tooltip = {
+				tooltip = AUS_liebenfels_civil_war_GAL_leaves_tt
+				GAL = { country_event = revolt.4 }
+			}
+		}
+		cancel_effect = {
+			clr_country_flag = wants_to_revolt
+		}
+	}
 
 	BOTDE_czech_revolt_headsup = {
 		icon = GFX_decision_revolt
@@ -61,26 +206,44 @@ save_austria = {
 				limit = {
 					NOT = {
 						CZE = { has_country_flag = CZE_will_revolt }
-						NOT = { has_global_flag = AUS_no_more_CZE_revolt }
-					} 
+					}
 				}
-				custom_override_tooltip = {
-					tooltip = cancel_imminent_revolt_tt		
-					OR = {
-						check_variable = { CZE.subject_revolt_progress = 0.85 }
-						check_variable = { CZE.subject_revolt_progress < 0.85 }
-						CZE = {
-							NOT = { has_country_flag = imminent_revolt }
+				if = {
+					limit = { NOT = { has_global_flag = AUS_liebenfels_civil_war } }
+					custom_override_tooltip = {
+						tooltip = cancel_imminent_revolt_tt		
+						OR = {
+							check_variable = { CZE.subject_revolt_progress = 0.85 }
+							check_variable = { CZE.subject_revolt_progress < 0.85 }
+							CZE = {
+								NOT = { has_country_flag = imminent_revolt }
+							}
+							CZE = {
+								AUS_is_constituent = no
+							}
+							has_global_flag = AUS_no_more_CZE_revolt
 						}
-						CZE = {
-							AUS_is_constituent = no
+					}
+				}
+				else = {
+					custom_override_tooltip = {
+						tooltip = cancel_imminent_revolt_60_tt		
+						OR = {
+							check_variable = { CZE.subject_revolt_progress = 0.6 }
+							check_variable = { CZE.subject_revolt_progress < 0.6 }
+							CZE = {
+								NOT = { has_country_flag = imminent_revolt }
+							}
+							CZE = {
+								AUS_is_constituent = no
+							}
+							has_global_flag = AUS_no_more_CZE_revolt
 						}
-						has_global_flag = AUS_no_more_CZE_revolt
 					}
 				}
 			}
 			else = {
-				always = no
+				hidden_trigger = { has_global_flag = AUS_no_more_CZE_revolt }
 			}
 		}
 		
@@ -141,21 +304,39 @@ save_austria = {
 				limit = {
 					NOT = {
 						HUN = { has_country_flag = HUN_will_revolt }
-						NOT = { has_global_flag = AUS_no_more_HUN_revolt }
 					}
 				}
-				custom_trigger_tooltip = {
-					tooltip = cancel_imminent_revolt_tt		
-					OR = {
-						check_variable = { HUN.subject_revolt_progress = 0.85 }
-						check_variable = { HUN.subject_revolt_progress < 0.85 }
-						HUN = {
-							NOT = { has_country_flag = imminent_revolt }
+				if = {
+					limit = { NOT = { has_global_flag = AUS_liebenfels_civil_war } }
+					custom_override_tooltip = {
+						tooltip = cancel_imminent_revolt_tt		
+						OR = {
+							check_variable = { HUN.subject_revolt_progress = 0.85 }
+							check_variable = { HUN.subject_revolt_progress < 0.85 }
+							HUN = {
+								NOT = { has_country_flag = imminent_revolt }
+							}
+							HUN = {
+								AUS_is_constituent = no
+							}
+							has_global_flag = AUS_no_more_HUN_revolt
 						}
-						HUN = {
-							AUS_is_constituent = no
+					}
+				}
+				else = {
+					custom_override_tooltip = {
+						tooltip = cancel_imminent_revolt_60_tt		
+						OR = {
+							check_variable = { HUN.subject_revolt_progress = 0.6 }
+							check_variable = { HUN.subject_revolt_progress < 0.6 }
+							HUN = {
+								NOT = { has_country_flag = imminent_revolt }
+							}
+							HUN = {
+								AUS_is_constituent = no
+							}
+							has_global_flag = AUS_no_more_HUN_revolt
 						}
-						has_global_flag = AUS_no_more_HUN_revolt
 					}
 				}
 			}
@@ -163,6 +344,7 @@ save_austria = {
 				OR = {
 					HUN = { exists = no }
 					has_war_with = HUN
+					hidden_trigger = { has_global_flag = AUS_no_more_HUN_revolt }
 				}
 			}
 		}
@@ -237,26 +419,44 @@ save_austria = {
 				limit = {
 					NOT = {
 						CRO = { has_country_flag = CRO_will_revolt }
-						NOT = { has_global_flag = AUS_no_more_CRO_revolt }
 					} 
 				}
-				custom_trigger_tooltip = {
-					tooltip = cancel_imminent_revolt_tt		
-					OR = {
-						check_variable = { CRO.subject_revolt_progress = 0.85 }
-						check_variable = { CRO.subject_revolt_progress < 0.85 }
-						CRO = {
-							NOT = { has_country_flag = imminent_revolt }
+				if = {
+					limit = { NOT = { has_global_flag = AUS_liebenfels_civil_war } }
+					custom_override_tooltip = {
+						tooltip = cancel_imminent_revolt_tt		
+						OR = {
+							check_variable = { CRO.subject_revolt_progress = 0.85 }
+							check_variable = { CRO.subject_revolt_progress < 0.85 }
+							CRO = {
+								NOT = { has_country_flag = imminent_revolt }
+							}
+							CRO = {
+								AUS_is_constituent = no
+							}
+							has_global_flag = AUS_no_more_CRO_revolt
 						}
-						CRO = {
-							AUS_is_constituent = no
+					}
+				}
+				else = {
+					custom_override_tooltip = {
+						tooltip = cancel_imminent_revolt_60_tt		
+						OR = {
+							check_variable = { CRO.subject_revolt_progress = 0.6 }
+							check_variable = { CRO.subject_revolt_progress < 0.6 }
+							CRO = {
+								NOT = { has_country_flag = imminent_revolt }
+							}
+							CRO = {
+								AUS_is_constituent = no
+							}
+							has_global_flag = AUS_no_more_CRO_revolt
 						}
-						has_global_flag = AUS_no_more_CRO_revolt
 					}
 				}
 			}
 			else = {
-				always = no
+				has_global_flag = AUS_no_more_CRO_revolt
 			}
 		}
 		
@@ -313,18 +513,37 @@ save_austria = {
 			hidden_trigger = { always = no }
 		}
 		cancel_trigger = {
-			custom_trigger_tooltip = {
-				tooltip = cancel_imminent_revolt_tt		
-				OR = {
-					check_variable = { GAL.subject_revolt_progress = 0.85 }
-					check_variable = { GAL.subject_revolt_progress < 0.85 }
-					GAL = {
-						NOT = { has_country_flag = imminent_revolt }
+			if = {
+				limit = { NOT = { has_global_flag = AUS_liebenfels_civil_war } }
+				custom_override_tooltip = {
+					tooltip = cancel_imminent_revolt_tt		
+					OR = {
+						check_variable = { GAL.subject_revolt_progress = 0.85 }
+						check_variable = { GAL.subject_revolt_progress < 0.85 }
+						GAL = {
+							NOT = { has_country_flag = imminent_revolt }
+						}
+						GAL = {
+							AUS_is_constituent = no
+						}
+						has_global_flag = AUS_no_more_GAL_revolt
 					}
-					GAL = {
-						AUS_is_constituent = no
+				}
+			}
+			else = {
+				custom_override_tooltip = {
+					tooltip = cancel_imminent_revolt_60_tt		
+					OR = {
+						check_variable = { GAL.subject_revolt_progress = 0.6 }
+						check_variable = { GAL.subject_revolt_progress < 0.6 }
+						GAL = {
+							NOT = { has_country_flag = imminent_revolt }
+						}
+						GAL = {
+							AUS_is_constituent = no
+						}
+						has_global_flag = AUS_no_more_GAL_revolt
 					}
-					has_global_flag = AUS_no_more_GAL_revolt
 				}
 			}
 		}
@@ -390,6 +609,7 @@ save_austria = {
 					check_variable = { AUS.subject_revolt_progress = 0.85 }
 					has_global_flag = no_more_collapse
 					has_global_flag = AUS_collapsed
+					has_global_flag = AUS_liebenfels_civil_war
 				}
 			}
 		}
@@ -420,29 +640,55 @@ save_austria = {
 				if = {
 					limit = {
 						has_country_flag = AUS_revolution_collapse
+						check_variable = { AUS.near_collapse_times < 2 }
 					}
 					country_event = {
 						id = bdeausint.63
-						days = 4
-						random_hours = 72
+						days = 1
+						random_hours = 24
 					}
 				}
 				#ECONOMIC COLLAPSE
 				else_if = {
 					limit = {
 						has_country_flag = AUS_economic_collapse
+						check_variable = { AUS.near_collapse_times < 2 }
 					}
 					country_event = {
 						id = bdeausint.101
-						days = 7
-						random_hours = 72
+						days = 1
+						random_hours = 24
 					}
 				}
 				else = {
-					country_event = {
-						id = bdeausint.124
-						days = 7
-						random_hours = 72
+					if = {
+						limit = {
+							check_variable = { AUS.near_collapse_times < 2 }
+						}
+						country_event = {
+							id = bdeausint.124
+							days = 1
+							random_hours = 24
+						}
+					}
+					else = {
+						if = {
+							limit = {
+								AUS_oaao_trigger = no
+							}
+							country_event = {
+								id = bdeausint.1240
+								days = 1
+								random_hours = 24
+							}
+						}
+						else = {
+							country_event = {
+								id = bdeausint.1241
+								days = 1
+								random_hours = 24
+							}
+						}
 					}
 				}
 			}			
@@ -451,40 +697,48 @@ save_austria = {
 			clr_country_flag = AUS_revolution_collapse
 			clr_country_flag = AUS_economic_collapse
 			clr_country_flag = AUS_generic_collapse
+			clr_country_flag = AUS_imminent_collapse
+			if = {
+				limit = {
+					has_idea = AUS_big_crisis_idea
+					NOT = { has_global_flag = AUS_absolute_crisis }
+				}
+				remove_ideas = AUS_big_crisis_idea
+			}
 		}
 		
 		timeout_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision timeout BOTDE_collapse_headsup"
 			custom_effect_tooltip = AUS_balkanmoment
-			if = {
-				limit = { #Revolution collapse
-					has_country_flag = AUS_revolution_collapse
-				}
-				country_event = {
-					id = bdeausint.53
-					days = 5
-					random = 72
-				}
-				add_to_variable = { TYR.collapse_appearance_value = 1 }
-			}
-			else_if = {
-				limit = {
-					has_country_flag = AUS_economic_collapse
-				}
-				country_event = {
-					id = bdeausint.125
-					days = 25
-					random = 120
-				}
-			}
-			else = {
-				country_event = {
-					id = bdeausint.126
-					days = 15
-					random = 120
-				}
-			}
 			hidden_effect = {
+				if = {
+					limit = { #Revolution collapse
+						has_country_flag = AUS_revolution_collapse
+					}
+					country_event = {
+						id = bdeausint.53
+						days = 5
+						random_hours = 72
+					}
+					add_to_variable = { TYR.collapse_appearance_value = 1 }
+				}
+				else_if = {
+					limit = {
+						has_country_flag = AUS_economic_collapse
+					}
+					country_event = {
+						id = bdeausint.125
+						days = 25
+						random_hours = 120
+					}
+				}
+				else = {
+					country_event = {
+						id = bdeausint.126
+						days = 15
+						random_hours = 120
+					}
+				}
 				AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = yes
 				scoped_sound_effect = "AUS_boom_boom_youredead"
 			}
@@ -3365,21 +3619,26 @@ foreign_politics = {
 		target_trigger = {
 			FROM = {
 				OR = {
-					tag = HUN
-					tag = BUL
-					tag = SWI
-					tag = MNT
-					tag = POL
-					tag = SIC
-					tag = SRI
-					tag = LIC
-				}
-				is_in_faction = no
-				is_subject = no
-				has_country_flag = AUS_blutpakt_tag
-				OR = {
-					has_government = totalist
-					has_government = national_populist
+					AND = {
+						OR = {
+							tag = HUN
+							tag = BUL
+							tag = SWI
+							tag = MNT
+							tag = POL
+							tag = SIC
+							tag = SRI
+							tag = LIC
+						}
+						is_in_faction = no
+						is_subject = no
+						has_country_flag = AUS_blutpakt_tag
+						OR = {
+							has_government = totalist
+							has_government = national_populist
+						}
+					}
+					tag = SZK
 				}
 			}
 		}
@@ -4146,13 +4405,33 @@ foreign_politics = {
 		icon = GFX_decision_generic_flags
 		allowed = { always = no }
 		visible = {
-			is_in_faction_with = AUS
 			AUS = {
 				is_faction_leader = yes
 				has_country_flag = AUS_DAP
 			}
+			has_country_flag = AUS_blutpakt_expander
 		}
 		available = {
+			FROM = {
+				is_ally_of_ROOT = no
+				NOT = {
+					has_war_with = ROOT
+				}
+				exists = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = BLUTPAKT_ATK_FLAG_TT
+				NOT = {
+					has_country_flag = BLUTPAKT_ATK_FLAG
+				}
+			}
+		}
+		target_root_trigger = {
+			has_country_flag = AUS_blutpakt_expander
+			is_in_faction_with = AUS
+			
+		}
+		target_trigger = {
 			FROM = {
 				is_ally_of_ROOT = no
 				NOT = {
@@ -4163,15 +4442,17 @@ foreign_politics = {
 		cost = 20
 		days_remove = 30
 		war_with_target_on_remove = yes
-		
+		on_map_mode = decision_view_only 
 		fire_only_once = yes
 		cancel_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision cancel AUS_blutpakt_attack target: [From.GetName]"
 			clear_decision_attack_AI = yes
+			clr_country_flag = BLUTPAKT_ATK_FLAG
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision AUS_blutpakt_attack target: [From.GetName]"
 			setup_decision_attack_AI = yes
+			set_country_flag = BLUTPAKT_ATK_FLAG
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_blutpakt_attack target: [From.GetName]"
@@ -4180,6 +4461,8 @@ foreign_politics = {
 				type = annex_everything
 			}
 			clear_decision_attack_AI = yes
+			clr_country_flag = BLUTPAKT_ATK_FLAG
+			AUS_blutpakt_coalition_effect = yes
 		}
 		ai_will_do = {
 			factor = 30
@@ -4195,6 +4478,14 @@ foreign_politics = {
 					FROM = { dont_start_major_faction_wars = yes }
 					ROOT_is_threatened_cautious = yes
 					FROM = { default_attack_AI_trigger_FROM = yes }
+					any_allied_country = {
+						has_war = yes
+					}
+					has_country_flag = BLUTPAKT_ATK_FLAG
+					check_variable = {
+						var = global.blutpakt_coalition_value
+						value = 3
+					}
 				}
 			}
 		}

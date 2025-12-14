@@ -43,7 +43,7 @@ set_technology = {
 	tech_mountaineers = 1
 	marines = 1
 	gw_artillery = 1
-	transport = 1
+	mtg_transport = 1
 }
 
 if = {
@@ -61,8 +61,10 @@ if = {
 			iw_medium_airframe = 1
 			basic_medium_airframe = 1
 			iw_large_airframe = 1
+			air_torpedoe_1 = 1
+			bba_early_transport_plane = 1
 		}
-	AUS_BBA_air_variants = yes
+		AUS_BBA_air_variants = yes
 	else = {
 		set_air_oob = "AUS_1936_air_legacy"
 		set_technology = {
@@ -75,81 +77,34 @@ if = {
 			fighter1 = 1
 			tactical_bomber1 = 1
 			CAS1 = 1
+			early_transport_plane = 1
 		}
 	}
 }
 
-
-### Navy - MtG ###
-
 if = {
-	limit = {
-		has_dlc = "Man the Guns"
-	}
-
+	limit = { has_dlc = "No Compromise, No Surrender" }
 	set_technology = {
-		early_ship_hull_light = 1
-		basic_ship_hull_light = 1
-		early_ship_hull_cruiser = 1
-		basic_ship_hull_cruiser = 1
-		panzerschiffe = 1
-		early_ship_hull_submarine = 1
-		basic_ship_hull_submarine = 1
-		cruiser_submarines = 1
-		early_ship_hull_carrier = 1
-		basic_ship_hull_carrier = 1
-		early_ship_hull_heavy = 1
-		basic_ship_hull_heavy = 1
-		pre_dreadnoughts = 1
-		ship_hull_super_heavy = 1
-		
-		basic_naval_mines = 1
-
-		## Modules##
-		submarine_mine_laying = 1
-		basic_torpedo = 1
-		improved_ship_torpedo_launcher = 1
-		basic_battery = 1
-		basic_light_battery = 1
-		basic_medium_battery = 1
-		basic_heavy_battery = 1
-		basic_depth_charges = 1
-		smoke_generator = 1
-		basic_cruiser_armor_scheme = 1
-		basic_heavy_armor_scheme = 1
-
-
-		### Transport ###
-		mtg_transport = 1
+		rangers_tech = 1
 	}
 }
 
-### Navy - Non MtG ###
-if = {
-	limit = {
-		NOT = {
-			has_dlc = "Man the Guns"
-		}
-	}
-	set_technology = {
-		early_destroyer = 1
-		basic_destroyer = 1
-		early_light_cruiser = 1
-		basic_light_cruiser = 1
-		early_submarine = 1
-		basic_submarine = 1
-		early_heavy_cruiser = 1
-		basic_heavy_cruiser = 1
-		early_battlecruiser = 1
-		early_battleship = 1
-		basic_battleship = 1
-		heavy_battleship = 1
-		early_carrier = 1
-		basic_carrier = 1
-
-		### Transport ###
-		transport = 1
-	}
+set_technology = {
+	early_ship_hull_light = 1
+	basic_ship_hull_light = 1
+	early_ship_hull_cruiser = 1
+	basic_ship_hull_cruiser = 1
+	panzerschiffe = 1
+	early_ship_hull_submarine = 1
+	basic_ship_hull_submarine = 1
+	early_ship_hull_carrier = 1
+	basic_ship_hull_carrier = 1
+	early_ship_hull_heavy = 1
+	basic_ship_hull_heavy = 1
+	coastal_defense_ships = 1
+	pre_dreadnoughts = 1
+	
+	basic_naval_mines = 1
 }
 
 
@@ -204,7 +159,10 @@ country_event = { id = bdeausflavor.3 days = 2674 } #Death of Fanny Starhemberg
 country_event = { id = bdeausflavor.10 days = 1086 } #Discovery of Nucelar Fission
 country_event = { id = bdeausflavor.19 days = 344 } #Victor Francis Hess wins the Nobel Prize in Physics
 country_event = { id = bdeausflavor.21 days = 163 } #Silver Jubilee of Emperor and Empress
+country_event = { id = bdeausflavor.88 days = 322 } #Death of Karl Kraus
 country_event = { id = bdeausflavor.56 days = 832 } #Death of Wilhelm Zehner
+country_event = { id = bdeausflavor.89 days = 2249 } #Bambi put to the Big Screens
+country_event = { id = bdeausflavor.17 days = 309 } #Weltkrieg Day
 
 
 
@@ -270,7 +228,11 @@ set_autonomy = {
 	autonomy_state = botde_satellite
 }
 
-create_faction = ah_empire_faction
+create_faction_from_template = {
+	template = faction_template_austria
+	name = ah_empire_faction
+	icon = GFX_faction_austria_hungary
+}
 add_to_faction = HUN
 add_to_faction = ITA
 add_to_faction = FIU
@@ -347,12 +309,14 @@ FIU = {
 }
 
 add_to_tech_sharing_group = austrian_research
+add_faction_goal = faction_goal_federalize_empire
+add_faction_goal = faction_goal_good_ausgleich
 
 add_ideas = {
 	AUS_vienna_circle
 	
 	AUS_unsupported_rebels
-	AUS_obsolete_military
+	AUS_obsolete_military_1
 	AUS_national_instability
 	AUS_federal_plan
 	
@@ -365,6 +329,7 @@ add_ideas = {
 	AUS_Rudolf_Ramek_sec_sco
 	volunteer_only
 }
+set_variable = { var = AUS_army_value value = 1 }
 
 add_timed_idea = {
 	idea = AUS_german_debts
