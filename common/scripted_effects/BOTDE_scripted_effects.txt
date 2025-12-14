@@ -406,6 +406,7 @@ AUS_warning_check = {
 			if = {
 				limit = {
 					has_variable = subject_revolt_progress
+					AUS_is_constituent_or_minority = yes
 					check_variable = {
 						var = THIS.subject_revolt_progress
 						value = 0.75
@@ -431,23 +432,19 @@ AUS_do_revolt_rate_rise = {
 	}
 	set_temp_variable = { revolt_rate_rising = stability }
 	subtract_from_temp_variable = { revolt_rate_rising = 1 }
-	multiply_temp_variable  = { revolt_rate_rising = -1 }
-	multiply_temp_variable  = { revolt_rate_rising = 0.01 }
-	multiply_temp_variable  = { revolt_rate_rising = 3 }
+	multiply_temp_variable  = { revolt_rate_rising = -0.03 }
 	set_temp_variable = { revolt_rate_party_pop_thing = party_popularity@ruling_party }
 	divide_temp_variable = { revolt_rate_party_pop_thing = 100 }
 	subtract_from_temp_variable = { revolt_rate_rising = revolt_rate_party_pop_thing }
 	add_to_temp_variable = { CONST_revolt_rate_rising = AUS.extra_value }
 	add_to_temp_variable = { CONST_revolt_rate_rising = global.extra_value_war_exhaust }
 	add_to_temp_variable = { CONST_revolt_rate_rising = global.extra_collapse_federalizing }
+	add_to_temp_variable = { revolt_rate_rising = modifier@BOTDE_revolt_rate_modifier }
 	add_to_temp_variable = { AUS.revolt_progress_change = revolt_rate_rising }
+	
 	if = {
 		limit = { has_global_flag = AUS_ausgleich_over }
 		subtract_from_temp_variable = { AUS.revolt_progress_change = 0.002 }
-	}
-	if = {
-		limit = { AUS = { has_idea = AUS_big_crisis_idea } }
-		add_to_temp_variable = { AUS.revolt_progress_change = 0.02 }
 	}
 	if = {
 		limit = {
@@ -461,7 +458,6 @@ AUS_do_revolt_rate_rise = {
 		subtract_from_temp_variable = { AUS.revolt_progress_change = 0.002 }
 	}
 	BOTDE_add_collapse = yes
-	AUS_warning_check = yes
 }
 
 CONST_do_additional_revolt_progress = {
@@ -485,6 +481,7 @@ CONST_do_additional_revolt_progress = {
 	add_to_temp_variable = { CONST_revolt_rate_rising = ROOT.extra_value }
 	add_to_temp_variable = { CONST_revolt_rate_rising = global.extra_value_war_exhaust }
 	add_to_temp_variable = { CONST_revolt_rate_rising = global.extra_collapse_federalizing }
+	add_to_temp_variable = { CONST_revolt_rate_rising = modifier@BOTDE_revolt_rate_modifier }
 	add_to_temp_variable = { ROOT.revolt_progress_change = CONST_revolt_rate_rising }
 	if = {
 		limit = {
@@ -493,7 +490,6 @@ CONST_do_additional_revolt_progress = {
 		subtract_from_temp_variable = { ROOT.revolt_progress_change = 0.01 }
 	}
 	BOTDE_add_collapse = yes
-	AUS_warning_check = yes
 }
 
 AUS_do_revolt_rate_rise_counterintel = {
@@ -1048,6 +1044,7 @@ BOTDE_add_collapse = {
 				max = 1
 			}
 			BOTDE_check_for_constituent_revolt = yes
+			AUS_warning_check = yes
 		}
 	}
 }
@@ -1059,6 +1056,7 @@ BOTDE_check_for_constituent_revolt = {
 				check_variable = { THIS.subject_revolt_progress = 1 }
 				check_variable = { THIS.subject_revolt_progress > 1 }
 			}
+			NOT = { has_global_flag = AUS_liebenfels_civil_war }
 		}
 		if = {
 			limit = { tag = HUN }
@@ -1075,6 +1073,65 @@ BOTDE_check_for_constituent_revolt = {
 		else_if = {
 			limit = { tag = GAL }
 			country_event = revolt.4
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				check_variable = { THIS.subject_revolt_progress = 0.8 }
+				check_variable = { THIS.subject_revolt_progress > 0.8 }
+			}
+			has_global_flag = AUS_liebenfels_civil_war
+			AUS_is_constituent_or_minority = yes
+		}
+		if = {
+			limit = {
+				tag = HUN
+				NOT = {
+					AUS = {
+						has_active_mission = AUS_liebenfels_civil_war_HUN_leave_deadline
+						has_active_mission = BOTDE_hungarian_revolt_headsup
+					}
+				}
+			}
+			AUS = { activate_mission = AUS_liebenfels_civil_war_HUN_leave_deadline }
+		}
+		if = {
+			limit = {
+				tag = CRO
+				NOT = {
+					AUS = {
+						has_active_mission = AUS_liebenfels_civil_war_CRO_leave_deadline
+						has_active_mission = BOTDE_illyrian_revolt_headsup
+					}
+				}
+			}
+			AUS = { activate_mission = AUS_liebenfels_civil_war_CRO_leave_deadline }
+		}
+		if = {
+			limit = {
+				tag = CZE
+				NOT = {
+					AUS = {
+						has_active_mission = AUS_liebenfels_civil_war_CZE_leave_deadline
+						has_active_mission = BOTDE_czech_revolt_headsup
+					}
+				}
+			}
+			AUS = { activate_mission = AUS_liebenfels_civil_war_CZE_leave_deadline }
+		}
+		if = {
+			limit = {
+				tag = GAL
+				NOT = {
+					AUS = {
+						has_active_mission = AUS_liebenfels_civil_war_GAL_leave_deadline
+						has_active_mission = BOTDE_galician_revolt_headsup
+					}
+				}
+			}
+			set_country_flag = wants_to_revolt
+			AUS = { activate_mission = AUS_liebenfels_civil_war_GAL_leave_deadline }
 		}
 	}
 	set_variable = { global.AUS_tags_over_94_revolt = 0 }
@@ -4620,6 +4677,19 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 			}
 		}
 		
+		if = {
+			limit = {
+				has_global_flag = AUS_liebenfels_civil_war
+			}
+			AWR = {
+				annex_country = {
+					target = AUS
+					transfer_troops = yes
+				}
+			}
+			clr_global_flag = AUS_liebenfels_civil_war
+		}
+		
 		every_country = {
 			limit = {
 				has_war_with = AUS
@@ -4842,6 +4912,7 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 			AUS_common_army_reform
 			AUS_gleich_payments
 			AUS_gleich_payments_small
+			AUS_big_crisis_idea
 		}
 		if = {
 			limit = { has_country_flag = subject_unrest_window_open }
@@ -5166,7 +5237,10 @@ AUS_collapse_splinter_setup = {
 						tag = CRO
 						tag = GAL
 					}
-					has_idea = BOH_sudeten_german_divide
+					OR = {
+						has_idea = BOH_sudeten_german_divide
+						has_idea = BOH_sudeten_german_divide_2
+					}
 				}
 			}
 		}
@@ -5240,7 +5314,7 @@ AUS_collapse_splinter_setup = {
 AUS_post_collapse_effect = {
 	PGU = {
 		if = {
-			limit = { PGU = { exists = yes } }
+			limit = { exists = yes }
 			country_event = {
 				id = constituents.1007
 				days = 7
@@ -5250,7 +5324,7 @@ AUS_post_collapse_effect = {
 	}
 	HNZ = {
 		if = {
-			limit = { HNZ = { exists = yes } }
+			limit = { exists = yes }
 			country_event = {
 				id = constituents.1010
 				days = 7
@@ -5260,7 +5334,7 @@ AUS_post_collapse_effect = {
 	}
 	CZE = {
 		if = {
-			limit = { CZE = { exists = yes } }
+			limit = { exists = yes }
 			country_event = {
 				id = bdecze.15
 				days = 7
@@ -12606,52 +12680,177 @@ ROM_invent_banat_effect = {
 }
 AUS_create_franz_joseph_ii_effect = {
 	create_country_leader = {
-		name = "Franz Josef II"
-		desc = "POLITICS_FRANZ_JOSEF_II"
+		name = "Franz Joseph II"
+		desc = "POLITICS_FRANZ_JOSEPH_II"
 		picture = "gfx/leaders/AUS/Portrait_AUS_Otto_I.png"
 		expire = "1965.1.1"
 		ideology = radsoc_austromarxism_subtype
 	}
 	create_country_leader = {
-		name = "Franz Josef II"
-		desc = "POLITICS_FRANZ_JOSEF_II"
+		name = "Franz Joseph II"
+		desc = "POLITICS_FRANZ_JOSEPH_II"
 		picture = "gfx/leaders/AUS/Portrait_AUS_Otto_I.png"
 		expire = "1965.1.1"
 		ideology = austromarxism_subtype
 	}
 	create_country_leader = {
-		name = "Franz Josef II"
-		desc = "POLITICS_FRANZ_JOSEF_II"
+		name = "Franz Joseph II"
+		desc = "POLITICS_FRANZ_JOSEPH_II"
 		picture = "gfx/leaders/AUS/Portrait_AUS_Otto_I.png"
 		expire = "1965.1.1"
 		ideology = paneuropeanism_subtype
 	}
 	create_country_leader = {
-		name = "Franz Josef II"
-		desc = "POLITICS_FRANZ_JOSEF_II"
+		name = "Franz Joseph II"
+		desc = "POLITICS_FRANZ_JOSEPH_II"
 		picture = "gfx/leaders/AUS/Portrait_AUS_Otto_I.png"
 		expire = "1965.1.1"
 		ideology = marlib_agrarianism_subtype
 	}
 	create_country_leader = {
-		name = "Franz Josef II"
-		desc = "POLITICS_FRANZ_JOSEF_II"
+		name = "Franz Joseph II"
+		desc = "POLITICS_FRANZ_JOSEPH_II"
 		picture = "gfx/leaders/AUS/Portrait_AUS_Otto_I.png"
 		expire = "1965.1.1"
 		ideology = christian_democracy_subtype
 	}
 	create_country_leader = {
-		name = "Franz Josef II"
-		desc = "POLITICS_FRANZ_JOSEF_II"
+		name = "Franz Joseph II"
+		desc = "POLITICS_FRANZ_JOSEPH_II"
 		picture = "gfx/leaders/AUS/Portrait_AUS_Otto_I.png"
 		expire = "1965.1.1"
 		ideology = autdem_christian_democracy_subtype
 	}
 	create_country_leader = {
-		name = "Franz Josef II"
-		desc = "POLITICS_FRANZ_JOSEF_II"
+		name = "Franz Joseph II"
+		desc = "POLITICS_FRANZ_JOSEPH_II"
 		picture = "gfx/leaders/AUS/Portrait_AUS_Otto_I.png"
 		expire = "1965.1.1"
 		ideology = austropopulism_subtype
 	}
+}
+
+AUS_PNEO_coup_effect = {
+	add_popularity = {
+		ideology = national_populist
+		popularity = -0.5
+	}
+	add_popularity = {
+		ideology = authoritarian_democrat
+		popularity = 0.05
+	}
+	set_politics = {
+		ruling_party = authoritarian_democrat
+	}
+	hidden_effect = {
+		create_country_leader = {
+			name = "Karl I"
+			desc = "POLITICS_KARL_BOTDE_DESC"
+			picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I.png"
+			expire = "1965.1.1"
+			ideology = authdem_junta_subtype
+		}
+		remove_all_ministers = yes
+		add_ideas = {
+			AUS_Karl_Renner_hog_sde
+			AUS_Leopold_Figl_for_mli
+			AUS_Julius_Raab_eco_sco
+			AUS_Karl_Tuppy_sec_sli
+		}
+		drop_cosmetic_tag = yes
+		set_stability = 0
+	}
+	add_radsoc_to_coalition = yes
+	add_socdem_to_coalition = yes
+	add_soclib_to_coalition = yes
+	add_marlib_to_coalition = yes
+	add_soccon_to_coalition = yes
+	add_pataut_to_coalition = yes
+}
+AUS_liebenfels_civil_war_prelude_setup = {
+	every_owned_state = {
+		limit = {
+			OR = {
+				state = 39
+				state = 152
+				state = 153
+				state = 783
+				state = 836
+				state = 942
+			}
+		}
+		transfer_state_to = AWR
+	}
+	every_state = {
+		limit = {
+			is_core_of = AUS
+		}
+		add_core_of = AWR
+	}
+	AWR = {
+		set_cosmetic_tag = AWR_vril
+		set_politics = {
+			ruling_party = national_populist
+		}
+		create_country_leader = {
+			name = "Jörg Lanz von Liebenfels"
+			desc = "POLITICS_LIEBENFELS_DESC"
+			picture = "gfx/leaders/AUS/Portrait_AUS_Liebenfels.png"
+			expire = "1965.1.1"
+			ideology = ariosophy_subtype
+		}
+		set_popularities = {
+			totalist = 8
+			syndicalist = 12
+			radical_socialist = 3
+			authoritarian_democrat = 5
+			paternal_autocrat = 12
+			national_populist = 60
+		}
+		remove_ideas = {
+			AWR_kaisertreuen
+			AWR_leftist_disunity
+			AUS_postcollapse_army_idea
+			AUS_militias
+		}
+	}
+	AUS = {
+		activate_mission = AUS_liebenfels_civil_war_headsup
+		transfer_units_fraction = {
+			target = AWR
+			stockpile_ratio = 0.33
+			army_ratio = 0.33
+			navy_ratio = 0
+			air_ratio = 0.33
+			keep_unit_leaders_trigger = { always = yes }
+		}
+	}
+}
+AUS_liebenfels_civil_war_real_start_setup = {
+	AWR = {
+		every_country = {
+			limit = {
+				OR = {
+					tag = AUS
+					is_subject_of = AUS
+				}
+			}
+			declare_war_on = {
+				target = PREV
+				type = annex_everything
+			}
+		}
+		set_major = yes
+		add_ideas = {
+			AUS_liebenfels_civil_war_idea
+			AUS_liebenfels_civil_war_idea_AWR
+		}
+	}
+	AUS = {
+		add_ideas = {
+			AUS_liebenfels_civil_war_idea
+			AUS_liebenfels_civil_war_idea_AUS
+		}
+	}
+	set_global_flag = AUS_liebenfels_civil_war
 }

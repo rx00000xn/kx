@@ -49,6 +49,151 @@ save_austria = {
 			custom_effect_tooltip = AUS_revolt_will_begin_war_with_serbia_maybe
 		}
 	}
+	
+	AUS_liebenfels_civil_war_headsup = {
+		icon = GFX_decision_generic_ignite_civil_war
+		allowed = { always = no }		
+		
+		war_with_on_timeout = AWR
+		
+		available = { always = no }
+		
+		days_mission_timeout = 30
+		is_good = no
+		priority = 100
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout AUS_liebenfels_civil_war_headsup"
+			ALL_add_ten_collapse = yes
+			custom_override_tooltip = {
+				tooltip = AUS_liebenfels_civil_war_tt
+				AUS_liebenfels_civil_war_real_start_setup = yes
+			}
+		}
+	}
+	
+	AUS_liebenfels_civil_war_HUN_leave_deadline = {
+		icon = GFX_decision_generic_nationalism
+		allowed = { always = no }
+		
+		available = { always = no }
+		
+		days_mission_timeout = 100
+		is_good = no
+		priority = 100
+		cancel_trigger = {
+			hidden_trigger = {
+				OR = {
+					NOT = { has_global_flag = AUS_liebenfels_civil_war }
+					check_variable = { HUN.subject_revolt_progress < 0.8 }
+					AWR = { exists = no }
+					HUN = { AUS_is_constituent_or_minority = no }
+				}
+			}
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout AUS_liebenfels_civil_war_HUN_leave_deadline"
+			custom_override_tooltip = {
+				tooltip = AUS_liebenfels_civil_war_HUN_leaves_tt
+				HUN = { country_event = revolt.1 }
+			}
+		}
+		cancel_effect = {
+			clr_country_flag = wants_to_revolt
+		}
+	}
+	
+	AUS_liebenfels_civil_war_CZE_leave_deadline = {
+		icon = GFX_decision_generic_nationalism
+		allowed = { always = no }
+		
+		available = { always = no }
+		
+		days_mission_timeout = 100
+		is_good = no
+		priority = 100
+		cancel_trigger = {
+			hidden_trigger = {
+				OR = {
+					NOT = { has_global_flag = AUS_liebenfels_civil_war }
+					check_variable = { CZE.subject_revolt_progress < 0.8 }
+					AWR = { exists = no }
+					CZE = { AUS_is_constituent_or_minority = no }
+				}
+			}
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout AUS_liebenfels_civil_war_CZE_leave_deadline"
+			custom_override_tooltip = {
+				tooltip = AUS_liebenfels_civil_war_CZE_leaves_tt
+				CZE = { country_event = revolt.3 }
+			}
+		}
+		cancel_effect = {
+			clr_country_flag = wants_to_revolt
+		}
+	}
+	
+	AUS_liebenfels_civil_war_CRO_leave_deadline = {
+		icon = GFX_decision_generic_nationalism
+		allowed = { always = no }
+		
+		available = { always = no }
+		
+		days_mission_timeout = 100
+		is_good = no
+		priority = 100
+		cancel_trigger = {
+			hidden_trigger = {
+				OR = {
+					NOT = { has_global_flag = AUS_liebenfels_civil_war }
+					check_variable = { CRO.subject_revolt_progress < 0.8 }
+					AWR = { exists = no }
+					CRO = { AUS_is_constituent_or_minority = no }
+				}
+			}
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout AUS_liebenfels_civil_war_CRO_leave_deadline"
+			custom_override_tooltip = {
+				tooltip = AUS_liebenfels_civil_war_CRO_leaves_tt
+				CRO = { country_event = revolt.2 }
+			}
+		}
+		cancel_effect = {
+			clr_country_flag = wants_to_revolt
+		}
+	}
+	
+	AUS_liebenfels_civil_war_GAL_leave_deadline = {
+		icon = GFX_decision_generic_nationalism
+		allowed = { always = no }
+		
+		available = { always = no }
+		
+		days_mission_timeout = 100
+		is_good = no
+		priority = 100
+		cancel_trigger = {
+			hidden_trigger = {
+				OR = {
+					NOT = { has_global_flag = AUS_liebenfels_civil_war }
+					check_variable = { GAL.subject_revolt_progress < 0.8 }
+					AWR = { exists = no }
+					GAL = { AUS_is_constituent_or_minority = no }
+				}
+			}
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout AUS_liebenfels_civil_war_GAL_leave_deadline"
+			custom_override_tooltip = {
+				tooltip = AUS_liebenfels_civil_war_GAL_leaves_tt
+				GAL = { country_event = revolt.4 }
+			}
+		}
+		cancel_effect = {
+			clr_country_flag = wants_to_revolt
+		}
+	}
 
 	BOTDE_czech_revolt_headsup = {
 		icon = GFX_decision_revolt
@@ -63,18 +208,37 @@ save_austria = {
 						CZE = { has_country_flag = CZE_will_revolt }
 					}
 				}
-				custom_override_tooltip = {
-					tooltip = cancel_imminent_revolt_tt		
-					OR = {
-						check_variable = { CZE.subject_revolt_progress = 0.85 }
-						check_variable = { CZE.subject_revolt_progress < 0.85 }
-						CZE = {
-							NOT = { has_country_flag = imminent_revolt }
+				if = {
+					limit = { NOT = { has_global_flag = AUS_liebenfels_civil_war } }
+					custom_override_tooltip = {
+						tooltip = cancel_imminent_revolt_tt		
+						OR = {
+							check_variable = { CZE.subject_revolt_progress = 0.85 }
+							check_variable = { CZE.subject_revolt_progress < 0.85 }
+							CZE = {
+								NOT = { has_country_flag = imminent_revolt }
+							}
+							CZE = {
+								AUS_is_constituent = no
+							}
+							has_global_flag = AUS_no_more_CZE_revolt
 						}
-						CZE = {
-							AUS_is_constituent = no
+					}
+				}
+				else = {
+					custom_override_tooltip = {
+						tooltip = cancel_imminent_revolt_60_tt		
+						OR = {
+							check_variable = { CZE.subject_revolt_progress = 0.6 }
+							check_variable = { CZE.subject_revolt_progress < 0.6 }
+							CZE = {
+								NOT = { has_country_flag = imminent_revolt }
+							}
+							CZE = {
+								AUS_is_constituent = no
+							}
+							has_global_flag = AUS_no_more_CZE_revolt
 						}
-						has_global_flag = AUS_no_more_CZE_revolt
 					}
 				}
 			}
@@ -142,18 +306,37 @@ save_austria = {
 						HUN = { has_country_flag = HUN_will_revolt }
 					}
 				}
-				custom_trigger_tooltip = {
-					tooltip = cancel_imminent_revolt_tt		
-					OR = {
-						check_variable = { HUN.subject_revolt_progress = 0.85 }
-						check_variable = { HUN.subject_revolt_progress < 0.85 }
-						HUN = {
-							NOT = { has_country_flag = imminent_revolt }
+				if = {
+					limit = { NOT = { has_global_flag = AUS_liebenfels_civil_war } }
+					custom_override_tooltip = {
+						tooltip = cancel_imminent_revolt_tt		
+						OR = {
+							check_variable = { HUN.subject_revolt_progress = 0.85 }
+							check_variable = { HUN.subject_revolt_progress < 0.85 }
+							HUN = {
+								NOT = { has_country_flag = imminent_revolt }
+							}
+							HUN = {
+								AUS_is_constituent = no
+							}
+							has_global_flag = AUS_no_more_HUN_revolt
 						}
-						HUN = {
-							AUS_is_constituent = no
+					}
+				}
+				else = {
+					custom_override_tooltip = {
+						tooltip = cancel_imminent_revolt_60_tt		
+						OR = {
+							check_variable = { HUN.subject_revolt_progress = 0.6 }
+							check_variable = { HUN.subject_revolt_progress < 0.6 }
+							HUN = {
+								NOT = { has_country_flag = imminent_revolt }
+							}
+							HUN = {
+								AUS_is_constituent = no
+							}
+							has_global_flag = AUS_no_more_HUN_revolt
 						}
-						has_global_flag = AUS_no_more_HUN_revolt
 					}
 				}
 			}
@@ -236,26 +419,44 @@ save_austria = {
 				limit = {
 					NOT = {
 						CRO = { has_country_flag = CRO_will_revolt }
-						NOT = { has_global_flag = AUS_no_more_CRO_revolt }
 					} 
 				}
-				custom_trigger_tooltip = {
-					tooltip = cancel_imminent_revolt_tt		
-					OR = {
-						check_variable = { CRO.subject_revolt_progress = 0.85 }
-						check_variable = { CRO.subject_revolt_progress < 0.85 }
-						CRO = {
-							NOT = { has_country_flag = imminent_revolt }
+				if = {
+					limit = { NOT = { has_global_flag = AUS_liebenfels_civil_war } }
+					custom_override_tooltip = {
+						tooltip = cancel_imminent_revolt_tt		
+						OR = {
+							check_variable = { CRO.subject_revolt_progress = 0.85 }
+							check_variable = { CRO.subject_revolt_progress < 0.85 }
+							CRO = {
+								NOT = { has_country_flag = imminent_revolt }
+							}
+							CRO = {
+								AUS_is_constituent = no
+							}
+							has_global_flag = AUS_no_more_CRO_revolt
 						}
-						CRO = {
-							AUS_is_constituent = no
+					}
+				}
+				else = {
+					custom_override_tooltip = {
+						tooltip = cancel_imminent_revolt_60_tt		
+						OR = {
+							check_variable = { CRO.subject_revolt_progress = 0.6 }
+							check_variable = { CRO.subject_revolt_progress < 0.6 }
+							CRO = {
+								NOT = { has_country_flag = imminent_revolt }
+							}
+							CRO = {
+								AUS_is_constituent = no
+							}
+							has_global_flag = AUS_no_more_CRO_revolt
 						}
-						has_global_flag = AUS_no_more_CRO_revolt
 					}
 				}
 			}
 			else = {
-				always = no
+				has_global_flag = AUS_no_more_CRO_revolt
 			}
 		}
 		
@@ -312,18 +513,37 @@ save_austria = {
 			hidden_trigger = { always = no }
 		}
 		cancel_trigger = {
-			custom_trigger_tooltip = {
-				tooltip = cancel_imminent_revolt_tt		
-				OR = {
-					check_variable = { GAL.subject_revolt_progress = 0.85 }
-					check_variable = { GAL.subject_revolt_progress < 0.85 }
-					GAL = {
-						NOT = { has_country_flag = imminent_revolt }
+			if = {
+				limit = { NOT = { has_global_flag = AUS_liebenfels_civil_war } }
+				custom_override_tooltip = {
+					tooltip = cancel_imminent_revolt_tt		
+					OR = {
+						check_variable = { GAL.subject_revolt_progress = 0.85 }
+						check_variable = { GAL.subject_revolt_progress < 0.85 }
+						GAL = {
+							NOT = { has_country_flag = imminent_revolt }
+						}
+						GAL = {
+							AUS_is_constituent = no
+						}
+						has_global_flag = AUS_no_more_GAL_revolt
 					}
-					GAL = {
-						AUS_is_constituent = no
+				}
+			}
+			else = {
+				custom_override_tooltip = {
+					tooltip = cancel_imminent_revolt_60_tt		
+					OR = {
+						check_variable = { GAL.subject_revolt_progress = 0.6 }
+						check_variable = { GAL.subject_revolt_progress < 0.6 }
+						GAL = {
+							NOT = { has_country_flag = imminent_revolt }
+						}
+						GAL = {
+							AUS_is_constituent = no
+						}
+						has_global_flag = AUS_no_more_GAL_revolt
 					}
-					has_global_flag = AUS_no_more_GAL_revolt
 				}
 			}
 		}
@@ -389,6 +609,7 @@ save_austria = {
 					check_variable = { AUS.subject_revolt_progress = 0.85 }
 					has_global_flag = no_more_collapse
 					has_global_flag = AUS_collapsed
+					has_global_flag = AUS_liebenfels_civil_war
 				}
 			}
 		}
