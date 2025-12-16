@@ -28,7 +28,7 @@ focus_tree = {
 		icon = GFX_HUN_blackest_monday
 		x = 2
 		y = 0
-		cost = 0
+		cost = 2.5
 		
 		available = {
 			always = no
@@ -234,18 +234,6 @@ focus_tree = {
 			add_political_power = 30
 			AUS = {
 				country_event = ill.2
-			}
-			effect_tooltip = {
-				add_timed_idea = {
-					idea = CRO_pushing_out_austrian_industries
-					days = 90
-				}
-				AUS = {
-					add_timed_idea = {
-						idea = AUS_CRO_pushing_out_austrian_industries
-						days = 90
-					}
-				}
 			}
 		}
 	}
@@ -2656,7 +2644,7 @@ focus_tree = {
 		icon = GFX_goal_CRO_autonomous_government
 		x = 3
 		y = 10
-		cost = 0
+		cost = 5
 		
 		available = {
 			has_country_flag = cro_slovenia_failure
@@ -2671,16 +2659,6 @@ focus_tree = {
 			custom_effect_tooltip = unlock_focuses
 			custom_effect_tooltip = CRO_revolution
 		}
-		bypass_effect = {
-			hidden_effect = {
-				AUS = {
-					country_event = {
-						id = cro.0
-						days = 1
-					}
-				}
-			}
-		}
 	}
 	
 	focus = {
@@ -2689,7 +2667,7 @@ focus_tree = {
 		relative_position_id = CRO_stir_the_spirits
 		x = -2
 		y = 1
-		cost = 5
+		cost = 5.3
 		
 		available = {
 			has_country_flag = cro_slovenia_failure
@@ -2703,13 +2681,7 @@ focus_tree = {
 		
 		completion_reward = {
 			add_stability = 0.03
-			army_experience = 50
-			add_doctrine_cost_reduction = {
-				name = land_doc_bonus
-				cost_reduction = 0.75
-				uses = 2
-				category = land_doctrine
-			}
+			army_experience = 15
 		}
 	}
 	
@@ -2719,7 +2691,7 @@ focus_tree = {
 		relative_position_id = CRO_stir_the_spirits
 		x = 0
 		y = 1
-		cost = 4
+		cost = 5.3
 		
 		available = {
 			has_country_flag = cro_slovenia_failure
@@ -2732,20 +2704,7 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			random_state = {
-				limit = {
-					is_core_of = SLO
-					is_owned_by = AUS
-				}
-				THIS_add_minority_paramilitary = yes
-			}
-			AUS_raise_slovenes = yes
-			SLO = {
-				custom_override_tooltip = {
-					tooltip = increase_revolt_rate_tt
-					add_to_variable = { SLO.extra_value = 0.075 }
-				}
-			}
+			# Add Slovenian unrest to Austria
 			add_manpower = 10000
 		}
 	}
@@ -2756,7 +2715,7 @@ focus_tree = {
 		relative_position_id = CRO_stir_the_spirits
 		x = 2
 		y = 1
-		cost = 6
+		cost = 5.3
 		
 		available = {
 			has_country_flag = cro_slovenia_failure
@@ -2770,9 +2729,7 @@ focus_tree = {
 		
 		completion_reward = {
 			add_stability = 0.05
-			add_war_support = 0.05
-			CRO_add_ten_collapse = yes
-			AUS_raise_slovenes = yes
+			add_war_support = 0.2
 		}
 	}
 
@@ -2782,7 +2739,7 @@ focus_tree = {
 		relative_position_id = CRO_stir_the_spirits
 		x = 0
 		y = 2
-		cost = 2
+		cost = 5.3
 		
 		available = {
 			has_country_flag = cro_slovenia_failure
@@ -2797,7 +2754,7 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			add_war_support = 0.25
+			add_war_support = 0.05
 			increase_conscription = yes
 		}
 	}
@@ -2905,7 +2862,7 @@ focus_tree = {
 	
 	focus = {
 		id = CRO_execute_operation
-		icon = GFX_goal_CRO_execute_operation
+		icon = GFX_BAY_TAKE_AUSTRIA
 		relative_position_id = CRO_stir_the_spirits
 		x = 0
 		y = 4
@@ -2913,13 +2870,8 @@ focus_tree = {
 		
 		available = {
 			has_country_flag = cro_slovenia_failure
-			custom_override_tooltip = {
-				tooltip = CONST_80_plus_collapse
-				check_variable = { CRO.subject_revolt_progress > 0.79 }
-				NOT = { AUS = { has_active_mission = BOTDE_illyrian_revolt_headsup } }
-			}
-			NOT = { has_global_flag = AUS_no_more_CRO_revolt }
 		}
+		
 		
 		prerequisite = { focus = CRO_draft_declaration }
 		prerequisite = { focus = CRO_suspend_republicanism focus = CRO_keep_republic }
@@ -2929,7 +2881,28 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			AUS = { activate_mission = BOTDE_illyrian_revolt_headsup }
+			AUS = { 
+				end_puppet  = CRO
+			}
+			leave_faction = yes
+			declare_war_on = {
+				target = AUS
+				type = annex_everything
+			}
+			country_event = cro.1
+			add_war_support = 0.2
+			set_cosmetic_tag = ILL_interim_republic
+			set_country_flag = cro_revolt_in_progress
+			separate_peace_all_wars = yes
+			hidden_effect = {
+				every_owned_state = {
+					teleport_armies = {
+						limit = { is_ally_with = AUS }
+						to_state_array = owned_controlled_states
+					}
+				}
+				load_oob = CRO_revolution
+			}
 		}
 	}
 	focus = {
@@ -2943,19 +2916,8 @@ focus_tree = {
 		available = {
 			has_country_flag = cro_slovenia_failure
 			has_country_flag = cro_revolt_in_progress
-			has_war_with = AUS
-			SLO = {
-				custom_override_tooltip = {
-					tooltip = CONST_80_plus_collapse
-					check_variable = { SLO.subject_revolt_progress > 0.79 }
-					NOT = {
-						AUS = { has_active_mission = BOTDE_imminent_minority_revolt_headsup }
-						REV = { tag = SLO }
-					}
-				}
-			}
-			NOT = { has_global_flag = no_slovene_revolt }
 		}
+		
 		
 		prerequisite = { focus = CRO_execute_operation }
 		
@@ -2964,14 +2926,38 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			custom_override_tooltip = {
-				tooltip = CRO_blow_up_SLO_tt
-				SLO = {
-					set_country_flag = BOTDE_imminent_minority_revolt
-					set_country_flag = SLO_CRO_sponsored_revolt
-					country_event = revolt.10
+			SLO = {
+				add_state_core = 102
+				add_state_core = 1101
+				add_state_core = 1103
+				add_state_core = 1104
+				
+				transfer_state = 102
+				transfer_state = 1101
+				transfer_state = 1103
+				transfer_state = 1104
+				
+				set_province_controller = 11595
+				set_province_controller = 599
+				set_province_controller = 11735
+				declare_war_on = {
+					target = AUS
+					type = annex_everything
 				}
 			}
+			hidden_effect = {
+				SLO = {
+					every_owned_state = {
+						teleport_armies = {
+							limit = { is_ally_with = AUS }
+							to_state_array = owned_controlled_states
+						}
+					}
+					load_oob = "SLO_revolution"
+				}
+				news_event =  { id = collapse_news.1 days = 1 }
+			}
+			puppet = SLO
 		}
 	}
 	
@@ -3005,7 +2991,7 @@ focus_tree = {
 		relative_position_id = CRO_stir_the_spirits
 		x = 6
 		y = 0
-		cost = 0
+		cost = 5
 		
 		available = {
 			has_country_flag = aus_slovenia_crisis_resolved
