@@ -775,7 +775,11 @@ country_event = { #Election
 	desc = bdeausel.8.d
 	
 	trigger = {
-		NOT = { has_global_flag = AUS_absolute_crisis } #mainly for testing direct rule so the election doesn't fuck stuff up
+		NOT = {
+			has_global_flag = AUS_absolute_crisis #mainly for testing direct rule so the election doesn't fuck stuff up
+			has_global_flag = AUS_collapsed #testing collapse at game start thing
+			has_government = national_populist
+		} 
 	}
 	
 	picture = GFX_event_AUS_suffrage
@@ -5777,6 +5781,7 @@ country_event = { #The Second American Civil War Begins
 	option = { #It's definitely worth keeping three eyes on.
 		name = bdeausfor.34.a
 		add_war_support = 0.01
+		unlock_decision_tooltip = AUS_support_ACW_faction
 	}
 }
 
@@ -6924,7 +6929,7 @@ country_event = { #AUS - bdeausfor.91 - Serbia Denies Allegations
 	title = bdeausfor.66.t
 	desc = bdeausfor.66.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_report_event_AUS_turn_on_the_telegram_any_channel_they_just_shot_the_austrian_ambassador
 
 	fire_only_once = yes
 	
@@ -6933,6 +6938,16 @@ country_event = { #AUS - bdeausfor.91 - Serbia Denies Allegations
 	option = { #Just how much have they done...?
 		name = bdeausfor.66.a
 		add_political_power = -10
+		add_stability = -0.05
+		add_war_support = 0.05
+		SKS = {
+			set_temp_variable = { revolt_progress_change = 0.05 }
+			BOTDE_add_collapse = yes
+		}
+		BOS = {
+			set_temp_variable = { revolt_progress_change = 0.05 }
+			BOTDE_add_collapse = yes
+		}
 	}
 }
 
@@ -11789,6 +11804,7 @@ country_event = { #The Navy Marooned
 				}
 			}
 			tag = AUS
+			has_global_flag = AUS_liebenfels_civil_war
 		}
 	}
 	
@@ -19447,6 +19463,7 @@ country_event = { #The End of the Dual Cities?
 		FIU = {
 			country_event = {
 				id = bdeausint.26
+				tooltip = bdeausint.26.autonomy
 			}
 		}
 	}
@@ -19468,6 +19485,7 @@ country_event = { #The End of the Dual Cities?
 		FIU = {
 			country_event = {
 				id = bdeausint.26
+				tooltip = bdeausint.26.annex
 			}
 		}
 	}
@@ -26828,6 +26846,9 @@ country_event = { #Libenfels does a funny
 				AUS_Hans_Fischboeck_eco_npo
 				AUS_Edmund_Glaise_von_Horstenau_sec_pau
 			}
+			random_other_country = {
+				news_event = bdeausnews.19
+			}
 		}
 	}
 	
@@ -30972,7 +30993,7 @@ country_event = { #The State of the Kriegsmarine in 1936
 	title = bdeausflavor.59.t
 	desc = bdeausflavor.59.d
 	
-	picture = GFX_event_AUS_panyuro_congress
+	picture = GFX_event_AUS_red_and_white_i_dress_eagle_on_my_chest
 
 	fire_only_once = yes
 
@@ -30980,17 +31001,18 @@ country_event = { #The State of the Kriegsmarine in 1936
 
 	option = { #A true Hungarian!
 		name = bdeausflavor.59.a
+		navy_experience = 5
 	}
 	
 }
 
-country_event = { #The State of the Luftfahrtruppen in 1936
+country_event = { #The State of the Luftfahrtruppen in 1936/History of the Air Arm (Austrian Air Force destratifies and allows for more educational mobility)
 	id = bdeausflavor.60
 	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.60" }
 	title = bdeausflavor.60.t
 	desc = bdeausflavor.60.d
 	
-	picture = GFX_event_AUS_panyuro_congress
+	picture = GFX_event_AUS_watch_yo_albatros_d_iii
 
 	fire_only_once = yes
 
@@ -30998,6 +31020,7 @@ country_event = { #The State of the Luftfahrtruppen in 1936
 
 	option = { #A true Hungarian!
 		name = bdeausflavor.60.a
+		air_experience = 5
 	}
 	
 }
@@ -31340,7 +31363,7 @@ country_event = { #The Rotunde Repaired
 
 	is_triggered_only = yes
 	option = { #Hooray
-		name = bdeausflavor.76.b
+		name = bdeausflavor.76.a
 		add_political_power = 50
 		add_stability = 0.05
 		1137 = {
@@ -31877,8 +31900,12 @@ country_event = { #A German Workers' Ace
 	option = { #Ebin
 		name = bdeausflavor.98.a
 		air_experience = 25
-		increase_ruling_party_popularity_by_2 = yes
-		random_owned_state = {
+		add_equipment_to_stockpile = {
+			type = small_plane_airframe_0
+			amount = 40
+			producer = AUS
+		}
+		4 = {
 			add_building_construction = {
 				type = air_base
 				level = 2
@@ -32301,6 +32328,233 @@ country_event = { #Engagement of Otto and Princess
 		add_stability = 0.05
 	}
 }
+
+country_event = { #(Post-Collapse, fighting Bohemia and taking Hostoun) Saving the Lipizzaners source https://www.uslipizzan.org/history
+	id = bdeausflavor.117
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.117" }
+	title = bdeausflavor.117.t
+	desc = bdeausflavor.117.d
+	
+	picture = GFX_event_AUS_uma_musume_tokai_teio_probably
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Amazing!
+		name = bdeausflavor.117.a
+		add_political_power = 5
+	}
+}
+
+country_event = { #(Dollfuss) A Peasant's Best Friend (Noriker Horses)
+	id = bdeausflavor.118
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.118" }
+	title = bdeausflavor.118.t
+	desc = bdeausflavor.118.d
+	
+	picture = GFX_event_AUS_noriker
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Amazing!
+		name = bdeausflavor.118.a
+		increase_ruling_party_popularity_by_2 = yes
+	}
+}
+
+country_event = { #The Singin' Trapp Family
+	id = bdeausflavor.119
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.119" }
+	title = bdeausflavor.119.t
+	desc = bdeausflavor.119.d
+	
+	picture = GFX_event_AUS_trapp_family
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Is this the sound of music? #ebin reference
+		name = bdeausflavor.119.a
+		increase_ruling_party_popularity_by_2 = yes
+	}
+}
+
+
+country_event = { #A Rising Danubian Film Composer (Erich Wolfgang Korngold)
+	id = bdeausflavor.120
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.120" }
+	title = bdeausflavor.120.t
+	desc = bdeausflavor.120.d
+	
+	picture = GFX_event_AUS_Erich_Wolfgang_Korngold
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Mein Gott!
+		name = bdeausflavor.120.a
+		add_war_support = 0.01
+	}
+}
+
+country_event = { #Glaise-Horstenau's Eleven Volumes of Austro-Hungarian Weltkrieg History Complete!
+	id = bdeausflavor.121
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.121" }
+	title = bdeausflavor.121.t
+	desc = bdeausflavor.121.d
+	
+	picture = GFX_event_AUS_glaise_horstenau_schuschminority
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #At the eleventh hour before another armageddon, too...
+		name = bdeausflavor.121.a
+		army_experience = 15
+		navy_experience = 15
+		air_experience = 15
+		add_political_power = 30
+		add_war_support = -0.06
+	}
+}
+
+country_event = { #Discovery of the Wreck of the SMS Szent Istvan
+	id = bdeausflavor.122
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.122" }
+	title = bdeausflavor.122.t
+	desc = bdeausflavor.122.d
+	
+	picture = GFX_event_AUS_szent_istvan_sinking
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Mein Gott!
+		name = bdeausflavor.122.a
+		navy_experience = 5
+	}
+}
+
+country_event = { #Hans Hass
+	id = bdeausflavor.123
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.123" }
+	title = bdeausflavor.123.t
+	desc = bdeausflavor.123.d
+	
+	picture = GFX_event_AUS_Hans_Hass
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Interesting
+		name = bdeausflavor.123.a
+		navy_experience = 1
+	}
+}
+
+country_event = { #Reintroducing the Guillotine (Socialists, DAP)
+	id = bdeausflavor.124
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.124" }
+	title = bdeausflavor.124.t
+	desc = bdeausflavor.124.d
+	
+	picture = GFX_event_AUS_Guillotine
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Interesting
+		name = bdeausflavor.124.a
+	}
+}
+
+country_event = { #Extending Mental Care to the Peasants (Dollfuss; sanatoriums for the lower-class)
+	id = bdeausflavor.125
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.125" }
+	title = bdeausflavor.125.t
+	desc = bdeausflavor.125.d
+	
+	picture = GFX_event_AUS_purkersdorf_sanatorium
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Interesting
+		name = bdeausflavor.125.a
+		add_stability = 0.01
+	}
+}
+country_event = { #Increased Funding for the Luftfahrtruppen
+	id = bdeausflavor.126
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.126" }
+	title = bdeausflavor.126.t
+	desc = bdeausflavor.126.d
+	
+	picture = GFX_event_AUS_airplane
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Interesting
+		name = bdeausflavor.126.a
+		4 = {
+			construct_building_in_random_province = {
+				air_facility = 1
+			}
+		}
+	}
+}
+
+country_event = { #The Death of Josef Redlich
+	id = bdeausflavor.127
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.127" }
+	title = bdeausflavor.127.t
+	desc = bdeausflavor.127.d
+	
+	picture = GFX_event_AUS_redlich_pic
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Interesting
+		name = bdeausflavor.127.a
+		add_political_power = -20
+		add_popularity = {
+			ideology = social_liberal
+			popularity = 0.03
+		}
+	}
+}
+
+country_event = { #Freudian Psychotherapy (more sanatorium shit)
+	id = bdeausflavor.128
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.128" }
+	title = bdeausflavor.128.t
+	desc = bdeausflavor.128.d
+	
+	picture = GFX_event_AUS_redlich_pic
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Interesting
+		name = bdeausflavor.128.a
+	}
+}
+
 
 news_event = { #Second Hungarian Revolution
 	id = bdeausnews.1
@@ -33173,6 +33427,38 @@ news_event = { #Karl I dies
 	}
 	option = { #Austria's champion is dead
 		name = bdeausnews.18.b
+		trigger = {
+			AUS_is_constituent = yes
+		}
+	}
+}
+
+news_event = { #Liebenfels does the funny
+	id = bdeausnews.19
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausnews.19" }
+	title = bdeausnews.19.t
+	desc = bdeausnews.19.d
+	
+	picture = GFX_news_event_AUS_Liebenfels
+
+	fire_only_once = yes
+	
+	major = yes
+	
+	trigger = {
+		wants_world_news = yes
+	}
+
+	is_triggered_only = yes
+
+	option = { #W
+		name = bdeausnews.19.a
+		trigger = {
+			AUS_is_constituent = no
+		}
+	}
+	option = { #Wait, they're serious?
+		name = bdeausnews.19.b
 		trigger = {
 			AUS_is_constituent = yes
 		}
