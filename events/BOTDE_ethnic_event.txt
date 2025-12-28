@@ -5935,14 +5935,12 @@ country_event = { #Empire at 100% Revolt Progress - AUS
 		}
 		tag = AUS
 		NOT = {
-			OR = {
-				has_global_flag = no_more_collapse
-				has_global_flag = AUS_collapsed
-				has_global_flag = AUS_liebenfels_civil_war
-				has_country_flag = imminent_collapse
-				has_country_flag = AUS_imminent_collapse
-				has_active_mission = BOTDE_collapse_headsup 
-			}
+			has_global_flag = no_more_collapse
+			has_global_flag = AUS_collapsed
+			has_global_flag = AUS_liebenfels_civil_war
+			has_country_flag = imminent_collapse
+			has_country_flag = AUS_imminent_collapse
+			has_active_mission = BOTDE_collapse_headsup 
 		}
 	}
 	
@@ -5993,6 +5991,7 @@ country_event = { #Empire at 100% Revolt Progress - AUS
 	option = { #Gott erhalte, gott beschutze...
 		name = constituents.1.a
 		activate_mission = BOTDE_collapse_headsup
+		clr_country_flag = AUS_collapse_HUN_stays
 		if = {
 			limit = {
 				HUN = { is_in_faction_with = AUS }
@@ -6004,7 +6003,7 @@ country_event = { #Empire at 100% Revolt Progress - AUS
 		# Revolution		
 		if = {
 			limit = {
-				check_variable = { revolution_value > 3 }
+				check_variable = { AUS.revolution_value > 3 }
 			}
 			set_country_flag = AUS_revolution_collapse
 			hidden_effect = {
@@ -6038,7 +6037,7 @@ country_event = { #Empire at 100% Revolt Progress - AUS
 			hidden_effect = {
 				country_event = {
 					id = bdeausint.98
-					days = 8
+					days = 5
 					random_hours = 24
 				}
 			}
@@ -6048,7 +6047,7 @@ country_event = { #Empire at 100% Revolt Progress - AUS
 			hidden_effect = {
 				country_event = {
 					id = bdeausint.120
-					days = 10
+					days = 5
 					random_hours = 24
 				}
 			}
@@ -6532,10 +6531,26 @@ country_event = { #Transylvania revolt
 			every_owned_state = {
 				limit = {
 					is_core_of = TRS
+					NOT = {
+						has_state_flag = HUN_strong_state
+					}
 				}
 				TRS = {
 					transfer_state = PREV
 				}
+			}
+			if = {
+				limit = {
+					789 = {
+						has_state_flag = HUN_strong_state
+					}
+				}
+				SZK = { get_current_government_type = yes }
+				HUN = {
+					puppet = SZK
+				}
+				SZK = { restore_previous_government_type = yes }
+				SZK_collapse_setup = yes
 			}
 			TRS = {
 				transfer_technology_without_doctrines = yes
@@ -7661,10 +7676,15 @@ country_event = { #Tick up collapse meter
 			}
 		}
 		hidden_effect = {
-			country_event = {
-				id = constituents.23
-				days = 12
-				random_hours = 200
+			if = {
+				limit = {
+					NOT = { has_global_flag = AUS_collapsed }
+				}
+				country_event = {
+					id = constituents.23
+					days = 12
+					random_hours = 200
+				}
 			}
 			for_each_scope_loop = {
 				array = global.constituents_array
@@ -8383,8 +8403,8 @@ country_event = { #Constituent revolt rise
 			}
 			country_event = {
 				id = constituents.51
-				days = 1
-				random_days = 13
+				days = 2
+				random_days = 14
 			}
 		}
 		clamp_variable = {

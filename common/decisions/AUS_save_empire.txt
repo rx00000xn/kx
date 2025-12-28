@@ -50,6 +50,83 @@ save_austria = {
 		}
 	}
 	
+	AUS_liebenfels_civil_war_leadup_headsup = {
+		icon = GFX_decision_generic_ignite_civil_war
+		allowed = { always = no }		
+		
+		war_with_on_timeout = AWR
+		
+		available = { always = no }
+		
+		days_mission_timeout = 100
+		is_good = no
+		priority = 100
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout AUS_liebenfels_civil_war_leadup_headsup"
+			custom_override_tooltip = {
+				tooltip = AUS_liebenfels_civil_war_tt
+				if = {
+					limit = { tag = AUS }
+					AUS_liebenfels_civil_war_prelude_setup = yes
+				}
+			}
+		}
+	}
+	
+	AUS_liebenfels_civil_war_leadup_headsup_mobilize_the_ovt = {
+		icon = GFX_decision_generic_prepare_civil_war
+		allowed = {
+			tag = AUS
+		}		
+		
+		visible = {
+			has_active_mission = AUS_liebenfels_civil_war_leadup_headsup
+			any_owned_state = {
+				AUS_has_paramilitary_presence = yes
+			}
+		}
+		
+		cancel = {
+			NOT = { has_active_mission = AUS_liebenfels_civil_war_leadup_headsup }
+		}
+		
+		cost = 20
+		priority = 50
+		days_remove = 14
+		modifier = {
+			consumer_goods_factor = 0.1
+			command_power_gain = -0.15
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_liebenfels_civil_war_leadup_headsup_mobilize_the_ovt"
+			random_list = {
+				40 = {
+					random_owned_state = {
+						limit = {
+							AUS_has_paramilitary_presence = yes
+							NOT = { has_dynamic_modifier = { modifier = AUS_ordo_novi_templi_presence } }
+						}
+						AUS_remove_paramilitaries = yes
+						add_dynamic_modifier = { modifier = AUS_ordo_novi_templi_presence }
+					}
+					increase_ruling_party_popularity_by_5 = yes
+					add_days_mission_timeout = {
+						mission = AUS_liebenfels_civil_war_leadup_headsup
+						days = 45
+					}
+				}
+				60 = {
+					add_stability = -0.05
+					decrease_ruling_party_popularity_by_5 = yes
+					add_days_mission_timeout = {
+						mission = AUS_liebenfels_civil_war_leadup_headsup
+						days = 15
+					}
+				}
+			}
+		}
+	}
+	
 	AUS_liebenfels_civil_war_headsup = {
 		icon = GFX_decision_generic_ignite_civil_war
 		allowed = { always = no }		
@@ -63,10 +140,13 @@ save_austria = {
 		priority = 100
 		timeout_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision timeout AUS_liebenfels_civil_war_headsup"
-			ALL_add_ten_collapse = yes
 			custom_override_tooltip = {
 				tooltip = AUS_liebenfels_civil_war_tt
-				AUS_liebenfels_civil_war_real_start_setup = yes
+				if = {
+					limit = { tag = AUS }
+					ALL_add_ten_collapse = yes
+					AUS_liebenfels_civil_war_real_start_setup = yes
+				}
 			}
 		}
 	}
@@ -752,6 +832,7 @@ save_austria = {
 		}
 		visible = {
 			has_active_mission = BOTDE_collapse_headsup
+			has_country_flag = AUS_generic_collapse
 		}
 		ai_will_do = {
 			factor = 5
@@ -767,89 +848,26 @@ save_austria = {
 				}
 			}
 		}
-		cost = 20
+		custom_cost_trigger = {
+			stability > -0.95
+		}
+		custom_cost_text = AUS_5_stab
 		priority = 50
-		days_remove = 30
+		days_remove = 25
 		modifier = {
 			stability_weekly = 0.005
 			consumer_goods_factor = 0.1
 		}
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_crisis_send_in_police"
-			random_list = {
-				33 = {
-					add_stability = 0.02
-					add_days_mission_timeout = {
-						mission = BOTDE_collapse_headsup
-						days = 15
-					}
-				}
-				33 = {
-					add_stability = 0.03
-					add_political_power = 5
-					add_days_mission_timeout = {
-						mission = BOTDE_collapse_headsup
-						days = 20
-					}
-				}
-				33 = {
-					add_stability = 0.04
-					add_political_power = 10
-					add_days_mission_timeout = {
-						mission = BOTDE_collapse_headsup
-						days = 25
-					}
-				}
-			}
-		}
-	}
-	
-	AUS_crisis_assert_royal_authority = {
-		icon = generic_political_discourse
-		allowed = {
-			tag = AUS
-		}
-		visible = {
-			has_active_mission = BOTDE_collapse_headsup
-		}
-		ai_will_do = {
-			factor = 5
-		}
-		cancel_trigger = {
-			custom_override_tooltip = {
-			tooltip = cancel_imminent_collapse_tt		
-				OR = {
-					check_variable = { AUS.subject_revolt_progress < 0.85 }
-					check_variable = { AUS.subject_revolt_progress = 0.85 }
-					has_global_flag = no_more_collapse
-					has_global_flag = AUS_collapsed
-				}
-			}
-		}
-		cost = 10
-		priority = 50
-		days_remove = 14
-		modifier = {
-			stability_weekly = -0.005
-			drift_defence_factor = -0.1
+		complete_effect = {
+			add_stability = -0.05
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_crisis_send_in_police"
-			random_list = {
-				50 = {
-					AUS_subtract_five_collapse = yes
-				}
-				50 = {
-					AUS_subtract_three_collapse = yes
-				}
-			}
-			random_list = {
-				50 = {
-					ALL_add_five_collapse = yes
-				}
-				50 = {
-					AUS_raise_all_minorities = yes
-				}
+			AUS_subtract_five_collapse = yes
+			ALL_subtract_five_collapse = yes
+			add_days_mission_timeout = {
+				mission = BOTDE_collapse_headsup
+				days = 25
 			}
 		}
 	}
@@ -861,6 +879,7 @@ save_austria = {
 		}
 		visible = {
 			has_active_mission = BOTDE_collapse_headsup
+			has_country_flag = AUS_economic_collapse
 		}
 		ai_will_do = {
 			factor = 5
@@ -876,12 +895,17 @@ save_austria = {
 				}
 			}
 		}
-		cost = 30
+		custom_cost_trigger = {
+			stability > -0.95
+		}
+		custom_cost_text = AUS_5_stab
 		priority = 50
-		days_remove = 50
+		days_remove = 25
 		modifier = {
-			stability_weekly = 0.001
-			political_power_factor = 0.5
+			political_power_factor = -0.5
+		}
+		complete_effect = {
+			add_stability = -0.05
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_crisis_royal_court_meeting"
@@ -894,23 +918,122 @@ save_austria = {
 		}
 	}
 	
-	AUS_liebenfels_civil_war_part_2_countdown = {
-		icon = GFX_decision_generic_ignite_civil_war
-		allowed = { always = no }		
-		
-		available = {
-			hidden_trigger = { always = no }
+	AUS_crisis_crack_down_on_radicals = {
+		icon = generic_arrest
+		allowed = {
+			tag = AUS
 		}
-		
-		is_good = no
-		priority = 100
-		days_mission_timeout = 3
-		
-		timeout_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision timeout AUS_liebenfels_civil_war_part_2_countdown"
+		visible = {
+			has_active_mission = BOTDE_collapse_headsup
+			has_country_flag = AUS_revolution_collapse
+			NOT = {
+				has_government = radical_socialist
+				has_government = social_democrat
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		cancel_trigger = {
 			custom_override_tooltip = {
-				tooltip = AUS_liebenfels_civil_war_part_2_start_tt
-				AUS_liebenfels_civil_war_part_2_start_effect = yes
+			tooltip = cancel_imminent_collapse_tt		
+				OR = {
+					check_variable = { AUS.subject_revolt_progress < 0.85 }
+					check_variable = { AUS.subject_revolt_progress = 0.85 }
+					has_global_flag = no_more_collapse
+					has_global_flag = AUS_collapsed
+				}
+			}
+		}
+		custom_cost_trigger = {
+			stability > -0.95
+		}
+		custom_cost_text = AUS_5_stab
+		priority = 50
+		days_remove = 25
+		modifier = {
+			stability_weekly = -0.001
+		}
+		complete_effect = {
+			add_stability = -0.05
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_crisis_crack_down_on_radicals"
+			AUS_subtract_five_collapse = yes
+			ALL_subtract_five_collapse = yes
+			add_popularity = {
+				ideology = totalist
+				popularity = -0.02
+			}
+			add_popularity = {
+				ideology = syndicalist
+				popularity = -0.02
+			}
+			add_popularity = {
+				ideology = radical_socialist
+				popularity = -0.02
+			}
+			add_days_mission_timeout = {
+				mission = BOTDE_collapse_headsup
+				days = 25
+			}
+		}
+	}
+	
+	AUS_crisis_crack_down_on_radicals_sdapo = {
+		icon = generic_agreement
+		allowed = {
+			tag = AUS
+		}
+		visible = {
+			has_active_mission = BOTDE_collapse_headsup
+			has_country_flag = AUS_revolution_collapse
+			OR = {
+				has_government = radical_socialist
+				has_government = social_democrat
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		cancel_trigger = {
+			custom_override_tooltip = {
+			tooltip = cancel_imminent_collapse_tt		
+				OR = {
+					check_variable = { AUS.subject_revolt_progress < 0.85 }
+					check_variable = { AUS.subject_revolt_progress = 0.85 }
+					has_global_flag = no_more_collapse
+					has_global_flag = AUS_collapsed
+				}
+			}
+		}
+		custom_cost_trigger = {
+			stability > -0.95
+		}
+		custom_cost_text = AUS_5_stab
+		priority = 50
+		days_remove = 25
+		modifier = {
+			stability_weekly = -0.001
+		}
+		complete_effect = {
+			add_stability = -0.05
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_crisis_crack_down_on_radicals_sdapo"
+			AUS_subtract_five_collapse = yes
+			ALL_subtract_five_collapse = yes
+			add_popularity = {
+				ideology = totalist
+				popularity = -0.03
+			}
+			add_popularity = {
+				ideology = syndicalist
+				popularity = -0.03
+			}
+			add_days_mission_timeout = {
+				mission = BOTDE_collapse_headsup
+				days = 25
 			}
 		}
 	}
@@ -1014,7 +1137,7 @@ save_austria = {
 				REV = {
 					do_minority_revolt_setup = yes
 					set_variable = {
-						var = THIS.gamer_rage_value
+						var = THIS.extra_value
 						value = 0
 					}
 				}
@@ -1259,6 +1382,11 @@ save_austria = {
 		available = {
 			NOT = {
 				has_global_flag = AUS_evidenzbureau_decision
+				custom_override_tooltip = {
+					tooltip = AUS_no_evidenzbureau_tt
+					not_tooltip = AUS_no_evidenzbureau_tt_NOT
+					has_country_flag = AUS_no_evidenzbureau
+				}
 			}
 		}
 		
@@ -1664,6 +1792,38 @@ AUS_constituent_influence = {
 		}
 	}
 	
+	AUS_frogmen = {
+		icon = GFX_decision_frogman
+		
+		available = {
+			has_country_flag = frogmen_trigger
+			has_tech = marines_commandoes
+		}
+		
+		visible = {
+			has_country_flag = frogmen_trigger
+		}
+		
+		custom_cost_trigger = {
+			command_power > 20
+			has_navy_experience	> 50
+		}
+		custom_cost_text = AUS_20_cp_50_xp
+		fire_only_once = yes		
+		days_remove = 120
+		ai_will_do = {
+			factor = 100
+		}
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_frogmen"
+			set_technology = { tech_frogmen = 1 }
+			country_event = {
+				id = bdeausflavor.137
+			}
+		}
+	}
+	
 	AUS_build_up_triest = {
 		icon = GFX_decision_generic_merge_plant_ship
 		
@@ -1952,6 +2112,13 @@ AUS_paramilitaries = {
 		available = {
 			NOT = {
 				has_country_flag = AUS_undergoing_operation
+				custom_override_tooltip = {
+					not_tooltip = AUS_oaao_no_friendly_fire_tt
+					AND = {
+						AUS_oaao_trigger = yes
+						FROM = { has_dynamic_modifier = { modifier = AUS_ordo_novi_templi_presence } }
+					}
+				}
 			}
 		}
 		on_map_mode = map_and_decisions_view
