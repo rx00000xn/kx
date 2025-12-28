@@ -116,8 +116,8 @@ SER_serb_uprising = {
 						value = 1
 					}
 					custom_effect_tooltip = SKS_more_likely_to_succeed
-					army_experience = -5
-					add_political_power = -15
+					army_experience = -2
+					add_political_power = -5
 					hidden_effect = {
 						scoped_sound_effect = "AUS_paramilitary_fail"
 					}
@@ -237,9 +237,7 @@ SER_serb_uprising = {
 			factor = 3
 		}
 	}
-}
 
-SER_serb_uprising = {
 	SER_seek_chetnik_ties = {
 		ai_hint_pp_cost = 50
 		custom_cost_text = PP_50_infantry_equipment_500
@@ -285,6 +283,7 @@ SER_serb_uprising = {
 				SKS = {
 					set_country_flag = BOTDE_revolt_hold
 				}
+				add_ideas = BP_pp_cheat
 			}
 		}
 		remove_effect = {
@@ -296,6 +295,20 @@ SER_serb_uprising = {
 			}
 			SKS = {
 				THIS_add_five_collapse = yes
+			}
+			
+			if = { #Romania will complete their decision
+				limit = {
+					ROM = {
+						is_ai = yes
+						NOT = {
+							has_country_flag = ROM_funded_seppies
+						}
+					}
+				}
+				ROM = {
+					activate_decision = ROM_seek_transylvanian_ties
+				}
 			}
 			
 			hidden_effect = {
@@ -320,24 +333,11 @@ SER_serb_uprising = {
 						}
 					}
 				}
-			}
-			if = {
-				limit = {
-					is_ai = yes
-				}
-				#SKS = {
-				#	set_country_flag = BOTDE_ready_held_revolt
-				#}
-				#BOS = {
-				#	set_country_flag = BOTDE_ready_held_revolt
-				#}
-				#MNT = {
-				#	set_country_flag = BOTDE_ready_held_revolt
-				#}
+				
 			}
 		}
 		ai_will_do = {
-			factor = 500
+			factor = 5000
 		}
 	}
 	
@@ -376,6 +376,42 @@ SER_serb_uprising = {
 		}
 		remove_effect = {
 			#Event for FIU
+		}
+		ai_will_do = {
+			factor = 3
+		}
+	}
+	
+	SER_intrigue_italy = { #Change this to Venice state target)
+		ai_hint_pp_cost = 25
+		cost = 25
+		
+		icon = GFX_decision_italy_flag
+		fire_only_once = yes
+		days_remove = 25
+		visible = {
+			tag = SER
+			NOT = {
+				has_war_with = ITA
+			}
+		}
+		available = {
+			NOT = {
+				has_global_flag = AUS_fifth_balkan_war_begun
+				ITA = {
+					is_in_faction = yes
+					OR = {
+						is_in_faction_with = AUS
+						is_subject_of = AUS
+					}
+				}
+			}
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SER_intrigue_italy"
+		}
+		remove_effect = {
+			#Event for ITA....
 		}
 		ai_will_do = {
 			factor = 3
@@ -743,7 +779,7 @@ SER_serb_uprising = {
 			}
 		}
 		ai_will_do = {
-			factor = 3
+			base = 300
 		}
 	}
 	
@@ -776,7 +812,7 @@ SER_serb_uprising = {
 			}
 		}
 		ai_will_do = {
-			factor = 3
+			base = 300
 		}
 	}
 	
@@ -805,7 +841,7 @@ SER_serb_uprising = {
 			}
 		}
 		ai_will_do = {
-			factor = 3
+			base = 300
 		}
 	}
 	
@@ -920,55 +956,14 @@ SER_serb_uprising = {
 	
 	
 	
-	SER_start_revolt_mission_MNT = { #AI-only decision to start minority revolts
+	SER_start_revolt_mission = { #AI-only decision to start minority revolts
 		icon = GFX_decision_generic_ignite_civil_war
 		war_with_on_timeout = AUS
 		war_with_on_timeout = CRO
-		available = {
-			MNT = {
-					has_country_flag = BOTDE_ready_held_revolt
-					NOT = {
-						has_country_flag = BOTDE_imminent_minority_revolt_owner
-						has_global_flag = BPTROLL_revolt_incoming
-					}
-					exists = no
-				}
-		}
-		visible = {
-			is_ai = yes
-			always = yes
-		}
-		complete_effect = {
-			set_global_flag = no_4_months
-			SER = {
-				scoped_sound_effect = "BOTDE_incoming_backer_revolt"
-				activate_mission = SER_revolt_mission
-			}
-			AUS = {
-				scoped_sound_effect = "BOTDE_incoming_backer_revolt"
-				activate_mission = AUS_SER_revolt_mission
-			}
-			CRO = {
-				scoped_sound_effect = "BOTDE_incoming_backer_revolt"
-				activate_mission = AUS_SER_revolt_mission
-			}
-			MNT = {
-				set_country_flag = BPTROLL_revolt_start
-				save_global_event_target_as = BOTDE_backer_revolt_tag
-				set_global_flag = BPTROLL_revolt_incoming
-			}
-		}
-		ai_will_do = {
-			factor = 3000
-		}
-	}
-	
-	SER_start_revolt_mission_BOS = { #AI-only decision to start minority revolts
-		icon = GFX_decision_generic_ignite_civil_war
-		war_with_on_timeout = AUS
-		war_with_on_timeout = CRO
-		available = {
-			BOS = {
+		targets = { SKS BOS MNT }
+		target_non_existing = yes
+		target_trigger = {
+			FROM = {
 				has_country_flag = BOTDE_ready_held_revolt
 				NOT = {
 					has_country_flag = BOTDE_imminent_minority_revolt_owner
@@ -977,12 +972,18 @@ SER_serb_uprising = {
 				exists = no
 			}
 		}
+		on_map_mode = decision_view_only
 		visible = {
 			#is_ai = yes
 			always = yes
 		}
 		complete_effect = {
 			set_global_flag = no_4_months
+			FROM = {
+				set_country_flag = BPTROLL_revolt_start
+				save_global_event_target_as = BOTDE_backer_revolt_tag
+				set_global_flag = BPTROLL_revolt_incoming
+			}
 			SER = {
 				scoped_sound_effect = "BOTDE_incoming_backer_revolt"
 				activate_mission = SER_revolt_mission
@@ -994,54 +995,6 @@ SER_serb_uprising = {
 			CRO = {
 				scoped_sound_effect = "BOTDE_incoming_backer_revolt"
 				activate_mission = AUS_SER_revolt_mission
-			}
-			BOS = {
-				set_country_flag = BPTROLL_revolt_start
-				save_global_event_target_as = BOTDE_backer_revolt_tag
-				set_global_flag = BPTROLL_revolt_incoming
-			}
-		}
-		ai_will_do = {
-			factor = 3000
-		}
-	}
-	
-	SER_start_revolt_mission_SKS = { #AI-only decision to start minority revolts
-		icon = GFX_decision_generic_ignite_civil_war
-		war_with_on_timeout = AUS
-		war_with_on_timeout = CRO
-		available = {
-			SKS = {
-				has_country_flag = BOTDE_ready_held_revolt
-				NOT = {
-					has_country_flag = BOTDE_imminent_minority_revolt_owner
-					has_global_flag = BPTROLL_revolt_incoming
-				}
-				exists = no
-			}
-		}
-		visible = {
-			#is_ai = yes
-			always = yes
-		}
-		complete_effect = {
-			set_global_flag = no_4_months
-			SER = {
-				scoped_sound_effect = "BOTDE_incoming_backer_revolt"
-				activate_mission = SER_revolt_mission
-			}
-			AUS = {
-				scoped_sound_effect = "BOTDE_incoming_backer_revolt"
-				activate_mission = AUS_SER_revolt_mission
-			}
-			CRO = {
-				scoped_sound_effect = "BOTDE_incoming_backer_revolt"
-				activate_mission = AUS_SER_revolt_mission
-			}
-			SKS = {
-				set_country_flag = BPTROLL_revolt_start
-				save_global_event_target_as = BOTDE_backer_revolt_tag
-				set_global_flag = BPTROLL_revolt_incoming
 			}
 		}
 		ai_will_do = {
@@ -1420,6 +1373,21 @@ ROM_romanian_uprising = {
 					amount = -500
 				}
 			}
+			if = {
+				limit = {
+					is_ai = yes
+				}
+				TRS = {
+					set_country_flag = BOTDE_revolt_hold
+				}
+				BUK = {
+					set_country_flag = BOTDE_revolt_hold
+				}
+				BAN = {
+					set_country_flag = BOTDE_revolt_hold
+				}
+				add_ideas = BP_pp_cheat
+			}
 		}
 		remove_effect = {
 			set_country_flag = ROM_funded_seppies
@@ -1477,19 +1445,18 @@ ROM_romanian_uprising = {
 					}
 				}
 			}
-			if = {
+			if = { #Serbia will complete their decision
 				limit = {
-					is_ai = yes
+					SER = {
+						is_ai = yes
+						NOT = {
+							has_country_flag = SER_funded_seppies
+						}
+					}
 				}
-				#TRS = {
-				#	set_country_flag = BOTDE_ready_held_revolt
-				#}
-				#BAN = {
-				#	set_country_flag = BOTDE_ready_held_revolt
-				#}
-				#BUK = {
-				#	set_country_flag = BOTDE_ready_held_revolt
-				#}
+				SER = {
+					activate_decision = SER_seek_chetnik_ties
+				}
 			}
 		}
 		ai_will_do = {
@@ -1549,7 +1516,8 @@ ROM_romanian_uprising = {
 			}
 		}
 		ai_will_do = {
-			factor = 300
+			base = 300
+			#factor = 300
 		}
 	}
 	
@@ -1605,7 +1573,7 @@ ROM_romanian_uprising = {
 			}
 		}
 		ai_will_do = {
-			factor = 300
+			base = 300
 		}
 	}
 	
@@ -1661,7 +1629,7 @@ ROM_romanian_uprising = {
 			}
 		}
 		ai_will_do = {
-			factor = 300
+			base = 300
 		}
 	}
 	
@@ -1767,69 +1735,15 @@ ROM_romanian_uprising = {
 	
 	
 	
-	ROM_start_revolt_mission_BUK = { #AI-only decision to start minority revolts
-		icon = GFX_decision_generic_ignite_civil_war
-		war_with_on_timeout = AUS
-		war_with_on_timeout = GAL
-		available = {
-			BUK = {
-				has_country_flag = BOTDE_ready_held_revolt
-				NOT = {
-					has_country_flag = BOTDE_imminent_minority_revolt_owner
-					has_global_flag = BPTROLL_revolt_incoming
-				}
-				exists = no
-			}
-		}
-		visible = {
-			#is_ai = yes
-		}
-		complete_effect = {
-			set_global_flag = no_4_months
-			ROM = {
-				scoped_sound_effect = "BOTDE_incoming_backer_revolt"
-				activate_mission = ROM_revolt_mission
-			}
-			AUS = {
-				scoped_sound_effect = "BOTDE_incoming_backer_revolt"
-				activate_mission = AUS_ROM_revolt_mission
-			}
-			GAL = {
-				scoped_sound_effect = "BOTDE_incoming_backer_revolt"
-				activate_mission = AUS_ROM_revolt_mission
-			}
-			BUK = {
-				set_country_flag = BPTROLL_revolt_start
-				save_global_event_target_as = BOTDE_backer_revolt_tag
-				set_global_flag = BPTROLL_revolt_incoming
-			}
-			if = {
-				limit = {
-					ROM = {
-						is_ai = yes
-					}
-				}
-				BUK = {
-					THIS_add_ten_collapse = yes
-					set_variable_to_random = {
-						var = THIS.extra_divs
-						max = 3
-						integer = yes
-					}
-				}
-			}
-		}
-		ai_will_do = {
-			factor = 3000
-		}
-	}
-	
-	ROM_start_revolt_mission_TRS = { #AI-only decision to start minority revolts
+	ROM_start_revolt_mission = { #AI-only decision to start minority revolts
 		icon = GFX_decision_generic_ignite_civil_war
 		war_with_on_timeout = AUS
 		war_with_on_timeout = HUN
-		available = {
-			TRS = {
+		war_with_on_timeout = GAL
+		targets = { TRS BUK BAN }
+		target_non_existing = yes
+		target_trigger = {
+			FROM = {
 				has_country_flag = BOTDE_ready_held_revolt
 				NOT = {
 					has_country_flag = BOTDE_imminent_minority_revolt_owner
@@ -1838,11 +1752,24 @@ ROM_romanian_uprising = {
 				exists = no
 			}
 		}
+		on_map_mode = decision_view_only
 		visible = {
 			#is_ai = yes
+			always = yes
 		}
 		complete_effect = {
 			set_global_flag = no_4_months
+			FROM = {
+				set_country_flag = BPTROLL_revolt_start
+				save_global_event_target_as = BOTDE_backer_revolt_tag
+				set_global_flag = BPTROLL_revolt_incoming
+				THIS_add_ten_collapse = yes
+				set_variable_to_random = {
+					var = THIS.extra_divs
+					max = 3
+					integer = yes
+				}
+			}
 			ROM = {
 				scoped_sound_effect = "BOTDE_incoming_backer_revolt"
 				activate_mission = ROM_revolt_mission
@@ -1851,94 +1778,29 @@ ROM_romanian_uprising = {
 				scoped_sound_effect = "BOTDE_incoming_backer_revolt"
 				activate_mission = AUS_ROM_revolt_mission
 			}
-			HUN = {
-				scoped_sound_effect = "BOTDE_incoming_backer_revolt"
-				activate_mission = AUS_ROM_revolt_mission
-			}
-			TRS = {
-				set_country_flag = BPTROLL_revolt_start
-				save_global_event_target_as = BOTDE_backer_revolt_tag
-				set_global_flag = BPTROLL_revolt_incoming
+			if = {
+				limit = {
+					FROM = {
+						tag = BUK
+					}
+				}
+				GAL = {
+					scoped_sound_effect = "BOTDE_incoming_backer_revolt"
+					activate_mission = AUS_ROM_revolt_mission
+				}
+				else = {
+					HUN = {
+						scoped_sound_effect = "BOTDE_incoming_backer_revolt"
+						activate_mission = AUS_ROM_revolt_mission
+					}
+				}
 			}
 			
-			if = {
-				limit = {
-					ROM = {
-						is_ai = yes
-					}
-				}
-				TRS = {
-					THIS_add_ten_collapse = yes
-					set_variable_to_random = {
-						var = THIS.extra_divs
-						max = 3
-						integer = yes
-					}
-				}
-			}
 		}
 		ai_will_do = {
 			factor = 3000
 		}
 	}
-	
-	ROM_start_revolt_mission_BAN = { #AI-only decision to start minority revolts
-		icon = GFX_decision_generic_ignite_civil_war
-		war_with_on_timeout = AUS
-		war_with_on_timeout = CRO
-		available = {
-			BAN = {
-				has_country_flag = BOTDE_ready_held_revolt
-				NOT = {
-					has_country_flag = BOTDE_imminent_minority_revolt_owner
-					has_global_flag = BPTROLL_revolt_incoming
-				}
-				exists = no
-			}
-		}
-		visible = {
-			#is_ai = yes
-		}
-		complete_effect = {
-			set_global_flag = no_4_months
-			ROM = {
-				scoped_sound_effect = "BOTDE_incoming_backer_revolt"
-				activate_mission = ROM_revolt_mission
-			}
-			AUS = {
-				scoped_sound_effect = "BOTDE_incoming_backer_revolt"
-				activate_mission = AUS_ROM_revolt_mission
-			}
-			CRO = {
-				scoped_sound_effect = "BOTDE_incoming_backer_revolt"
-				activate_mission = AUS_ROM_revolt_mission
-			}
-			BAN = {
-				set_country_flag = BPTROLL_revolt_start
-				save_global_event_target_as = BOTDE_backer_revolt_tag
-				set_global_flag = BPTROLL_revolt_incoming
-			}
-			if = {
-				limit = {
-					ROM = {
-						is_ai = yes
-					}
-				}
-				BAN = {
-					THIS_add_ten_collapse = yes
-					set_variable_to_random = {
-						var = THIS.extra_divs
-						max = 3
-						integer = yes
-					}
-				}
-			}
-		}
-		ai_will_do = {
-			factor = 3000
-		}
-	}
-
 	
 	ROM_revolt_mission = {
 		days_mission_timeout = 30
@@ -2456,8 +2318,8 @@ ROM_romanian_uprising = {
 						value = 1
 					}
 					custom_effect_tooltip = SKS_more_likely_to_succeed
-					army_experience = -5
-					add_political_power = -15
+					army_experience = -2
+					add_political_power = -5
 					hidden_effect = {
 						scoped_sound_effect = "AUS_paramilitary_fail"
 					}
@@ -2597,8 +2459,8 @@ ROM_romanian_uprising = {
 						value = 1
 					}
 					custom_effect_tooltip = SKS_more_likely_to_succeed
-					army_experience = -5
-					add_political_power = -15
+					army_experience = -2
+					add_political_power = -5
 					hidden_effect = {
 						scoped_sound_effect = "AUS_paramilitary_fail"
 					}
