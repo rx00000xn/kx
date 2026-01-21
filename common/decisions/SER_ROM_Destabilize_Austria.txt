@@ -1014,134 +1014,8 @@ SER_serb_uprising = {
 			always = no
 		}
 		timeout_effect = {
-			event_target:BOTDE_backer_revolt_tag = {
-				set_country_flag = BOTDE_imminent_minority_revolt
-				capital_scope = {
-					owner = {
-						set_country_flag = BOTDE_imminent_minority_revolt_owner
-						save_event_target_as = BOTDE_RVO_temp
-					}
-				}
-				do_minority_revolt_setup = yes
-				clr_country_flag = BPTROLL_revolt_start
-				get_current_government_type = yes
-				ROOT = {
-					puppet = PREV
-					declare_war_on = {
-						target = event_target:BOTDE_RVO_temp
-						type = annex_everything
-					}
-					PREV = {
-						declare_war_on = {
-							target = event_target:BOTDE_RVO_temp
-							type = annex_everything
-						}
-					}
-					if = {
-						limit = {
-							NOT = {
-								has_idea = BOTDE_delenda_est
-							}
-						}
-						hidden_effect = { add_timed_idea = { idea = BOTDE_delenda_est days = 240 } }
-					}
-				}
-				restore_previous_government_type = yes
-				SKS_revolt_units_SER = yes
-				while_loop_effect = {
-					limit = {
-						check_variable = {
-							var = THIS.extra_divs
-							value = 0
-							compare = greater_than
-						}
-					}
-					THIS = {
-						if = {
-							limit = {
-								has_template = "Chetnik Detachment"
-							}
-							else = {
-								division_template = {
-									name = "Chetnik Detachment"
-									regiments = {
-										infantry = { x = 0 y = 0 }
-										infantry = { x = 0 y = 1 }
-										infantry = { x = 0 y = 2 }
-										infantry = { x = 1 y = 0 }
-										infantry = { x = 1 y = 1 }
-										infantry = { x = 1 y = 2 }
-										infantry = { x = 2 y = 0 }
-										infantry = { x = 2 y = 1 }
-										infantry = { x = 2 y = 2 }
-									}
-									is_locked = yes
-									support = {
-										engineer = { x = 0 y = 0 }
-										logistics_company = { x = 0 y = 1 }
-									}
-								}
-							}
-							capital_scope = {
-								create_unit = { 
-									division = "name = \"Četnički Odred\" division_template = \"Chetnik Detachment\" start_experience_factor = 0.65" 
-									owner = PREV
-									allow_spawning_on_enemy_provs = yes
-								}
-							}
-						}
-					}
-					subtract_from_variable = {
-						var = THIS.extra_divs
-						value = 1
-					}
-				}
-				if = {
-					limit = {
-						NOT = {
-							has_idea = BOTDE_delenda_est
-						}
-					}
-					hidden_effect = { add_timed_idea = { idea = BOTDE_delenda_est days = 240 } }
-				}
-			}
-			clear_global_event_target = BOTDE_backer_revolt_tag
-			clr_global_flag = BPTROLL_revolt_incoming
-			hidden_effect = {
-				every_country = {
-					limit = {
-						OR = {
-							tag = SER
-							tag = AUS
-							is_in_faction_with = SER
-							is_in_faction_with = AUS
-						}
-					}
-					country_event = {
-						id = bdeausfor.101
-						days = 2
-						random = 48
-					}
-					news_event = {
-						id = bdeausnews.7
-						days = 2
-					}
-				}
-			}
-			if = { #If Romania is an AI, figure out its balance of power and start some revolts to help out Serbian player
-				limit = {					
-					SER = { 
-						is_ai = no 
-						is_in_faction_with = ROM
-					}
-					ROM = {
-						is_ai = yes
-					}
-				}
-				hidden_effect = {
-					ROM_help_serb_player_revolt = yes
-				}
-			}
+			log = "[GetDateText]: [Root.GetName]: Mission timeout SER_revolt_mission"
+			SER_revolt_mission_timeout_effect = yes
 		}
 		ai_will_do = {
 			factor = 3
@@ -1165,14 +1039,9 @@ SER_serb_uprising = {
 			}
 		}
 		complete_effect = {
-			
 			while_loop_effect = {
 				limit = {
-					check_variable = {
-						var = SER.extra_divs
-						value = 0
-						compare = greater_than
-					}
+					check_variable = { SER.extra_divs > 0 }
 				}
 				SER = {
 					if = {
@@ -1209,17 +1078,13 @@ SER_serb_uprising = {
 						}
 					}
 				}
-				subtract_from_variable = {
-					var = SER.extra_divs
-					value = 1
-				}
+				subtract_from_variable = { SER.extra_divs = 1 }
 			}
 			hidden_effect = {
 				scoped_sound_effect = "BOTDE_troops_spawn"
 				set_country_flag = SER_chetniks_deployed
 			}
 		}
-
 	}
 	
 	SER_standardize_chetniks = {
@@ -1815,105 +1680,8 @@ ROM_romanian_uprising = {
 			always = no
 		}
 		timeout_effect = {
-			event_target:BOTDE_backer_revolt_tag = {
-				set_country_flag = BOTDE_imminent_minority_revolt
-				capital_scope = {
-					owner = {
-						set_country_flag = BOTDE_imminent_minority_revolt_owner
-					}
-				}
-				do_minority_revolt_setup = yes
-				clr_country_flag = BPTROLL_revolt_start
-				get_current_government_type = yes
-				ROOT = {
-					puppet = PREV
-					declare_war_on = {
-						target = 43.owner
-						type = annex_everything
-					}
-					if = {
-						limit = {
-							NOT = {
-								has_idea = BOTDE_delenda_est
-							}
-						}
-						add_timed_idea = { idea = BOTDE_delenda_est days = 240 }
-					}
-				}
-				
-				declare_war_on = {
-					target = HUN
-					type = annex_everything
-				}
-				restore_previous_government_type = yes
-				hidden_effect = {
-					if = {
-						limit = {
-							tag = BAN
-						}
-						add_popularity = {
-							ideology = national_populist
-							popularity = 0.15
-						}
-						set_politics = {
-							ruling_party = national_populist
-						}
-						set_cosmetic_tag = BAN_indrazneti
-						BAN_revolt_units_ROM = yes
-						add_timed_idea = { idea = BOTDE_delenda_est days = 240 }
-					}
-					if = {
-						limit = {
-							tag = BUK
-						}
-						add_popularity = {
-							ideology = national_populist
-							popularity = 0.15
-						}
-						set_politics = {
-							ruling_party = national_populist
-						}
-						BUK_revolt_units_ROM = yes
-						add_timed_idea = { idea = BOTDE_delenda_est days = 240 }
-					}
-					if = {
-						limit = {
-							tag = TRS
-						}
-						add_popularity = {
-							ideology = national_populist
-							popularity = 0.15
-						}
-						set_politics = {
-							ruling_party = national_populist
-						}
-						TRS_revolt_units_ROM = yes
-						add_timed_idea = { idea = BOTDE_delenda_est days = 240 }
-					}
-					every_country = {
-						limit = {
-							OR = {
-								tag = ROM
-								tag = AUS
-								is_in_faction_with = ROM
-								is_in_faction_with = AUS
-							}
-						}
-						country_event = {
-							id = bdeausfor.101
-							days = 2
-							random = 48
-						}
-						news_event = {
-							id = bdeausnews.7
-							days = 2
-						}
-					}
-				}
-			}
-			clear_global_event_target = BOTDE_backer_revolt_tag
-			clr_global_flag = BPTROLL_revolt_incoming
-			
+			log = "[GetDateText]: [Root.GetName]: Mission timeout ROM_revolt_mission"
+			ROM_revolt_mission_timeout_effect = yes
 		}
 		ai_will_do = {
 			factor = 3
@@ -2919,6 +2687,100 @@ political_actions = {
 			}
 			
 			
+		}
+	}
+}
+
+#this decision existing is tantamount to me surrendering to the AI
+foreign_politics = {
+	SER_ROM_evil_ass_rape_decision = {
+		icon = GFX_decision_generic_form_nation
+		fire_only_once = yes
+		days_remove = 45
+		visible = {
+			OR = {
+				tag = SER
+				tag = ROM
+			}
+			#is_ai = yes
+			OR = {
+				has_completed_focus = SER_congress_of_belgrade
+				has_completed_focus = ROM_across_the_carpathians
+			}
+			NOT = {
+				has_global_flag = fifth_balkan_war_ended
+				has_global_flag = SER_ROM_evil_ass_rape_decision_flag
+				has_country_flag = SER_funded_seppies
+				has_country_flag = ROM_funded_seppies
+			}
+			has_global_flag = balkan_war_ended
+		}
+		cancel_trigger = {
+			OR = {
+				has_global_flag = SER_ROM_evil_ass_rape_decision_flag
+				has_country_flag = SER_funded_seppies
+				has_country_flag = ROM_funded_seppies
+			}
+		}
+		available = {
+			always = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SER_ROM_evil_ass_rape_decision"
+			if = {
+				limit = {
+					tag = SER
+				}
+				activate_decision = SER_seek_chetnik_ties
+			}
+			if = {
+				limit = {
+					tag = ROM
+				}
+				activate_decision = ROM_seek_transylvanian_ties
+			}
+			set_global_flag = SER_ROM_evil_ass_rape_decision_flag
+		}
+		ai_will_do = {
+			factor = 999
+		}
+	}
+	
+	SER_claim_serbian_banat = {
+		icon = infiltrate_state
+		cost = 50
+		days_remove = 24
+		visible = {
+			tag = SER
+			has_global_flag = AUS_collapsed
+		}
+		available = {
+			OR = {
+				45 = { NOT = { is_core_of = SER } }
+				794 = { NOT = { is_core_of = SER } }
+				875 = { NOT = { is_core_of = SER } }
+				1128 = { NOT = { is_core_of = SER } }
+			}
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove SER_claim_serbian_banat"
+			every_state = {
+				limit = {
+					OR = {
+						is_core_of = BAN
+						state = 1128
+						state = 794
+					}
+					NOT = {
+						is_core_of = TRS
+						is_core_of = SER
+					}
+				}
+				add_core_of = SER
+			}
+		}
+		ai_will_do = {
+			factor = 100
 		}
 	}
 }

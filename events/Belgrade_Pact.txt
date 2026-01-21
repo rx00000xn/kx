@@ -115,6 +115,7 @@ country_event = {
 			add_to_faction = ROOT
 			add_opinion_modifier = { target = ROOT modifier = Belgrade_Pact_joined_yay }
 			hidden_effect = { country_event = pact.3 } # Notify Serbia of joining
+			set_country_flag = BELGRADE_PACT_SUPPORTER
 		}
 		reverse_add_opinion_modifier = { target = BUL modifier = Belgrade_Pact_joined_against_us }
 
@@ -1056,7 +1057,10 @@ country_event = {
 		set_global_flag = balkan_war_ended
 		set_global_flag = balkan_war_ended_SER_victory
 
-		BUL = { white_peace_with_ROOT = yes }
+		BUL = {
+			white_peace_with_ROOT = yes
+			add_ideas = BUL_4bw_reps_SER
+		}
 
 		# separate peace for Ottomans if they joined the war
 		hidden_effect = {
@@ -1248,10 +1252,23 @@ country_event = {
 	option = {
 		name = pact.38.a # The Belgrade Pact stands triumphant!
 		add_political_power = 200
+		
+		if = {
+			limit = { tag = ROM }
+			BUL = {
+				add_ideas = BUL_4bw_reps_ROM
+			}
+		}
 
 		if = {
 			limit = { tag = GRE }
 			set_country_flag = balkan_war_victory
+			BUL = {
+				add_timed_idea = {
+					idea = BUL_4bw_reps_GRE
+					days = 365
+				}
+			}
 		}
 
 		effect_tooltip = {
@@ -1298,7 +1315,13 @@ country_event = {
 	option = {
 		name = pact.39.a #End the war
 		clr_country_flag = OTT_war_for_thrace
-		BUL = { white_peace_with_ROOT = yes }
+		BUL = {
+			white_peace_with_ROOT = yes
+			add_timed_idea = {
+				idea = BUL_4bw_reps_TUR
+				days = 365
+			}
+		}
 		if = {
 			limit = {
 				ALB = {
@@ -1422,6 +1445,10 @@ country_event = {
 		TUR = {
 			clr_country_flag = OTT_war_for_thrace
 			white_peace_with_ROOT = yes
+		}
+		add_timed_idea = {
+			idea = BUL_4bw_reps_TUR
+			days = 365
 		}
 
 		# separate peace for Albania if it joined the war
@@ -5655,4 +5682,63 @@ country_event = { #Independent Romanian revolt tag: Invitation to Belgrade Pact
 		ai_chance = { factor = 0 }
 	}
 	
+}
+
+country_event = { #FROM sends materiel support
+	id = botdepact.11
+	immediate = { log = "[GetDateText]: [Root.GetName]: event botdepact.11" }
+	title = botdepact.11.t
+	desc = botdepact.11.d
+	picture = GFX_report_event_black_march
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #Yup
+		name = botdepact.11.a
+		add_war_support = 0.03
+	}
+}
+
+country_event = {
+	id = botdepact.100
+	immediate = { log = "[GetDateText]: [Root.GetName]: event botdepact.100" }
+	title = botdepact.100.t
+	desc = botdepact.100.d
+	picture = GFX_event_MNT_AUS_troops
+	
+	is_triggered_only = yes
+	
+	option = { #declare war!
+		name = botdepact.100.a
+		ai_chance = {
+			base = 100
+			modifier = {
+				factor = 0.1
+				surrender_progress > 0.5
+			}
+			modifier = {
+				factor = 0
+				surrender_progress > 0.75
+			}
+		}
+		add_war_support = 0.1
+		add_stability = -0.1
+		add_opinion_modifier = { target = FROM modifier = KR_hostile }
+		reverse_add_opinion_modifier = { target = FROM modifier = KR_hostile }
+		create_wargoal = {
+			type = annex_everything
+			target = FROM
+		}
+	}
+	
+	option = { #we have too much on our plate as it is
+		name = botdepact.100.b
+		ai_chance = {
+			base = 50
+		}
+		add_political_power = -20
+		add_stability = 0.1
+	}
 }

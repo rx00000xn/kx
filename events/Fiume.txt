@@ -1337,6 +1337,26 @@ country_event = { #MAS-15 (boat that sunk SMS Szent Istvan) Captured
 	}
 }
 
+country_event = { #The First Fiumanka Regatta (Dalmatianists do it as a race up the Dalmatian coast & back)
+	id = nufiuflavor.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiuflavor.4"}
+	title = nufiuflavor.4.t
+	desc = nufiuflavor.5.d
+	picture = GFX_FIU_MAS15
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #Hurrah!
+		name = nufiuflavor.4.a
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.02
+		}
+		navy_experience = 3
+	}
+}
+
 country_event = { #Collapse - Dalmatia Emptied
 	id = nufiufor.1
 	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiufor.1"}
@@ -1609,7 +1629,14 @@ country_event = { #AUS HISTORY FILE - Miklos Horthy To Move Illyria
 
 	option = { #Stay put, this seems fishy...
 		ai_chance = {
-			factor = 50
+			factor = 90
+			modifier = {
+				factor = 0
+				has_game_rule = {
+					rule = FIU_pirates
+					option = FIU_PIRATES_TAKE_CONTROL
+				}
+			}
 			modifier = {
 				factor = 100
 				has_game_rule = {
@@ -1627,12 +1654,12 @@ country_event = { #AUS HISTORY FILE - Miklos Horthy To Move Illyria
 	option = { #Good luck!
 		name = fiu.4.b
 		ai_chance = {
-			factor = 50
+			factor = 10
 			modifier = {
-				factor = 100
+				factor = 0
 				has_game_rule = {
 					rule = FIU_pirates
-					option = FIU_PIRATES_TAKE_CONTROL
+					option = FIU_NO_PIRATES
 				}
 			}
 		}
@@ -2439,12 +2466,12 @@ country_event = { #Suspicions of the Pirate Intentions
 	option = { #Order a coordinated naval strike on their navy while they are at sea
 		name = fiu.37.a
 		ai_chance = {
-			factor = 50
+			factor = 10
 			modifier = {
-				factor = 100
+				factor = 0
 				has_game_rule = {
 					rule = FIU_pirates
-					option = FIU_PIRATES_TAKE_CONTROL
+					option = FIU_NO_PIRATES
 				}
 			}
 		}
@@ -2461,12 +2488,12 @@ country_event = { #Suspicions of the Pirate Intentions
 	option = { #We can trust them.
 		name = fiu.37.b
 		ai_chance = {
-			factor = 50
+			factor = 90
 			modifier = {
-				factor = 100
+				factor = 0
 				has_game_rule = {
 					rule = FIU_pirates
-					option = FIU_NO_PIRATES
+					option = FIU_PIRATES_TAKE_CONTROL
 				}
 			}
 		}
@@ -2571,8 +2598,8 @@ country_event = { #The Free City of Fiume is declared
 			FIU = {
 				load_oob = FIU_oob
 				load_oob = FIU_naval_oob
-				inherit_technology = AUS
 			}
+			AUS = { FIU = { transfer_technology_without_doctrines = yes } }
 		}
 		CRO = {
 			remove_unit_leader = 59435
@@ -2601,8 +2628,8 @@ country_event = { #The Free City of Fiume is declared
 			FIU = {
 				load_oob = FIU_oob
 				load_oob = FIU_naval_oob
-				inherit_technology = AUS
 			}
+			AUS = { FIU = { transfer_technology_without_doctrines = yes } }
 		}
 		CRO = {
 			remove_unit_leader = 59435

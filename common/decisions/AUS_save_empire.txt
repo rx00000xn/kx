@@ -9,11 +9,53 @@ save_austria = {
 		available = {
 			always = no
 		}
-		
+		priority = 100
 		days_mission_timeout = 60
 		timeout_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision timeout AUS_SER_revolt_mission"
 			custom_effect_tooltip = AUS_revolt_will_begin_war_with_serbia_maybe
+		}
+	}
+	AUS_SER_revolt_mission_delay = {
+		icon = GFX_decision_generic_operation
+		allowed = { tag = AUS }		
+		visible = {
+			has_active_mission = AUS_SER_revolt_mission
+		}
+		available = {
+			has_active_mission = AUS_SER_revolt_mission
+		}
+		cost = 50
+		priority = 50
+		days_remove = 30
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout AUS_SER_revolt_mission_delay"
+			effect_tooltip = {
+				add_days_mission_timeout = {
+					mission = AUS_SER_revolt_mission
+					days = 14
+				}
+			}
+			hidden_effect = {
+				every_country = {
+					limit = {
+						has_active_mission = AUS_SER_revolt_mission
+					}
+					add_days_mission_timeout = {
+						mission = AUS_SER_revolt_mission
+						days = 14
+					}
+				}
+				every_country = {
+					limit = {
+						has_active_mission = SER_revolt_mission
+					}
+					add_days_mission_timeout = {
+						mission = SER_revolt_mission
+						days = 14
+					}
+				}
+			}
 		}
 	}
 	AUS_ROM_revolt_mission = {
@@ -25,14 +67,55 @@ save_austria = {
 		available = {
 			always = no
 		}
-		
+		priority = 100
 		days_mission_timeout = 60
 		timeout_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision timeout AUS_ROM_revolt_mission"
 			custom_effect_tooltip = AUS_revolt_will_begin_war_with_serbia_maybe
 		}
 	}
-
+	AUS_ROM_revolt_mission_delay = {
+		icon = GFX_decision_generic_operation
+		allowed = { tag = AUS }		
+		visible = {
+			has_active_mission = AUS_ROM_revolt_mission
+		}
+		available = {
+			has_active_mission = AUS_ROM_revolt_mission
+		}
+		cost = 50
+		priority = 50
+		days_remove = 30
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout AUS_ROM_revolt_mission_delay"
+			effect_tooltip = {
+				add_days_mission_timeout = {
+					mission = AUS_ROM_revolt_mission
+					days = 14
+				}
+			}
+			hidden_effect = {
+				every_country = {
+					limit = {
+						has_active_mission = AUS_ROM_revolt_mission
+					}
+					add_days_mission_timeout = {
+						mission = AUS_ROM_revolt_mission
+						days = 14
+					}
+				}
+				every_country = {
+					limit = {
+						has_active_mission = ROM_revolt_mission
+					}
+					add_days_mission_timeout = {
+						mission = ROM_revolt_mission
+						days = 14
+					}
+				}
+			}
+		}
+	}
 	AUS_tyrolean_crisis = {
 		icon = GFX_decision_generic_ignite_civil_war
 		allowed = { always = no }		
@@ -329,7 +412,8 @@ save_austria = {
 		
 		is_good = no
 		war_with_on_timeout = CZE
-		days_mission_timeout = 45
+		days_mission_timeout = 50
+		priority = 100
 
 		cancel_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision timeout BOTDE_czech_revolt_headsup"
@@ -351,12 +435,6 @@ save_austria = {
 		}
 		timeout_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision timeout BOTDE_czech_revolt_headsup"
-			effect_tooltip = {
-				CZE = {
-					AUS_remove_constituent = yes
-					CZE_do_revolt = yes
-				}
-			}
 			hidden_effect = {
 				if = {
 					limit = { tag = AUS }
@@ -370,6 +448,75 @@ save_austria = {
 					}
 				}
 			}
+		}
+	}
+	
+	BOTDE_czech_revolt_headsup_delay_mission = {
+		icon = GFX_decision_generic_operation
+		cancel_if_not_visible = yes
+		allowed = { tag = AUS }		
+		visible = {
+			has_active_mission = BOTDE_czech_revolt_headsup
+		}
+		available = {
+			has_active_mission = BOTDE_czech_revolt_headsup
+		}
+		cost = 10
+		priority = 50
+		days_remove = 21
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout BOTDE_czech_revolt_headsup_delay_mission"
+			add_days_mission_timeout = {
+				mission = BOTDE_czech_revolt_headsup
+				days = 14
+			}
+		}
+	}
+	
+	BOTDE_czech_revolt_headsup_collapse_progress_decision = {
+		icon = GFX_decision_generic_prepare_civil_war
+		cancel_if_not_visible = yes
+		allowed = { tag = AUS }		
+		visible = {
+			has_active_mission = BOTDE_czech_revolt_headsup
+		}
+		available = {
+			has_active_mission = BOTDE_czech_revolt_headsup
+		}
+		cost = 10
+		priority = 50
+		days_remove = 28
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout BOTDE_czech_revolt_headsup_collapse_progress_decision"
+			CZE_subtract_five_collapse = yes
+			AUS_add_seven_and_a_half_collapse = yes
+		}
+	}
+	
+	BOTDE_czech_revolt_headsup_shits_fucked = {
+		icon = GFX_decision_generic_civil_support
+		cancel_if_not_visible = yes
+		allowed = { tag = AUS }		
+		visible = {
+			has_active_mission = BOTDE_czech_revolt_headsup
+			has_active_mission = BOTDE_collapse_headsup
+			check_variable = { var:days_mission_timeout@BOTDE_czech_revolt_headsup < 8 }
+		}
+		available = { always = yes }
+		cost = 0
+		priority = 50
+		days_re_enable = 50
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision complete BOTDE_czech_revolt_headsup_shits_fucked"
+			add_days_mission_timeout = {
+				mission = BOTDE_czech_revolt_headsup
+				days = 20
+			}
+			add_days_mission_timeout = {
+				mission = BOTDE_collapse_headsup
+				days = -10
+			}
+			AUS_add_ten_collapse = yes
 		}
 	}
 	
@@ -431,7 +578,8 @@ save_austria = {
 		
 		is_good = no
 		war_with_on_timeout = HUN
-		days_mission_timeout = 45
+		days_mission_timeout = 70
+		priority = 100
 
 		cancel_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision timeout BOTDE_hungarian_revolt_headsup"
@@ -459,12 +607,6 @@ save_austria = {
 		}
 		timeout_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision timeout BOTDE_hungarian_revolt_headsup"
-			effect_tooltip = {
-				HUN = {
-					AUS_remove_constituent = yes
-					HUN_do_revolt = yes
-				}
-			}
 			hidden_effect = {
 				if = {
 					limit = { tag = AUS }
@@ -485,6 +627,75 @@ save_austria = {
 					}
 				}
 			}
+		}
+	}
+	
+	BOTDE_hungarian_revolt_headsup_delay_mission = {
+		icon = GFX_decision_generic_operation
+		cancel_if_not_visible = yes
+		allowed = { tag = AUS }		
+		visible = {
+			has_active_mission = BOTDE_hungarian_revolt_headsup
+		}
+		available = {
+			has_active_mission = BOTDE_hungarian_revolt_headsup
+		}
+		cost = 10
+		priority = 50
+		days_remove = 21
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout BOTDE_hungarian_revolt_headsup_delay_mission"
+			add_days_mission_timeout = {
+				mission = BOTDE_hungarian_revolt_headsup
+				days = 14
+			}
+		}
+	}
+	
+	BOTDE_hungarian_revolt_headsup_collapse_progress_decision = {
+		icon = GFX_decision_generic_prepare_civil_war
+		cancel_if_not_visible = yes
+		allowed = { tag = AUS }		
+		visible = {
+			has_active_mission = BOTDE_hungarian_revolt_headsup
+		}
+		available = {
+			has_active_mission = BOTDE_hungarian_revolt_headsup
+		}
+		cost = 10
+		priority = 50
+		days_remove = 28
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout BOTDE_hungarian_revolt_headsup_collapse_progress_decision"
+			HUN_subtract_five_collapse = yes
+			AUS_add_seven_and_a_half_collapse = yes
+		}
+	}
+	
+	BOTDE_hungarian_revolt_headsup_shits_fucked = {
+		icon = GFX_decision_generic_civil_support
+		cancel_if_not_visible = yes
+		allowed = { tag = AUS }		
+		visible = {
+			has_active_mission = BOTDE_hungarian_revolt_headsup
+			has_active_mission = BOTDE_collapse_headsup
+			check_variable = { var:days_mission_timeout@BOTDE_hungarian_revolt_headsup < 8 }
+		}
+		available = { always = yes }
+		cost = 0
+		priority = 50
+		days_re_enable = 50
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision complete BOTDE_hungarian_revolt_headsup_shits_fucked"
+			add_days_mission_timeout = {
+				mission = BOTDE_hungarian_revolt_headsup
+				days = 20
+			}
+			add_days_mission_timeout = {
+				mission = BOTDE_collapse_headsup
+				days = -10
+			}
+			AUS_add_ten_collapse = yes
 		}
 	}
 	
@@ -542,7 +753,8 @@ save_austria = {
 		
 		is_good = no
 		war_with_on_timeout = CRO
-		days_mission_timeout = 45
+		days_mission_timeout = 50
+		priority = 100
 
 		cancel_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision timeout BOTDE_illyrian_revolt_headsup"
@@ -564,12 +776,6 @@ save_austria = {
 		}
 		timeout_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision timeout BOTDE_illyrian_revolt_headsup"
-			effect_tooltip = {
-				CRO = {
-					AUS_remove_constituent = yes
-					CRO_do_revolt = yes
-				}
-			}
 			hidden_effect = {
 				if = {
 					limit = { tag = AUS }
@@ -583,6 +789,77 @@ save_austria = {
 					}
 				}
 			}
+		}
+	}
+	
+	BOTDE_illyrian_revolt_headsup_delay_mission = {
+		icon = GFX_decision_generic_operation
+		cancel_if_not_visible = yes
+		allowed = { tag = AUS }		
+		visible = {
+			has_active_mission = BOTDE_illyrian_revolt_headsup
+		}
+		available = {
+			has_active_mission = BOTDE_illyrian_revolt_headsup
+		}
+		cost = 10
+		priority = 50
+		days_remove = 21
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout BOTDE_illyrian_revolt_headsup_delay_mission"
+			add_days_mission_timeout = {
+				mission = BOTDE_illyrian_revolt_headsup
+				days = 14
+			}
+			CRO_subtract_five_collapse = yes
+			AUS_add_five_collapse = yes
+		}
+	}
+	
+	BOTDE_illyrian_revolt_headsup_collapse_progress_decision = {
+		icon = GFX_decision_generic_prepare_civil_war
+		cancel_if_not_visible = yes
+		allowed = { tag = AUS }		
+		visible = {
+			has_active_mission = BOTDE_illyrian_revolt_headsup
+		}
+		available = {
+			has_active_mission = BOTDE_illyrian_revolt_headsup
+		}
+		cost = 10
+		priority = 50
+		days_remove = 28
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout BOTDE_illyrian_revolt_headsup_collapse_progress_decision"
+			CRO_subtract_five_collapse = yes
+			AUS_add_seven_and_a_half_collapse = yes
+		}
+	}
+	
+	BOTDE_illyrian_revolt_headsup_shits_fucked = {
+		icon = GFX_decision_generic_civil_support
+		cancel_if_not_visible = yes
+		allowed = { tag = AUS }
+		visible = {
+			has_active_mission = BOTDE_illyrian_revolt_headsup
+			has_active_mission = BOTDE_collapse_headsup
+			check_variable = { var:days_mission_timeout@BOTDE_illyrian_revolt_headsup < 8 }
+		}
+		available = { always = yes }
+		cost = 0
+		priority = 50
+		days_re_enable = 50
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision complete BOTDE_illyrian_revolt_headsup_shits_fucked"
+			add_days_mission_timeout = {
+				mission = BOTDE_illyrian_revolt_headsup
+				days = 20
+			}
+			add_days_mission_timeout = {
+				mission = BOTDE_collapse_headsup
+				days = -10
+			}
+			AUS_add_ten_collapse = yes
 		}
 	}
 	
@@ -630,7 +907,8 @@ save_austria = {
 		
 		is_good = no
 		war_with_on_timeout = GAL
-		days_mission_timeout = 45
+		days_mission_timeout = 50
+		priority = 100
 
 		cancel_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision timeout BOTDE_galician_revolt_headsup"
@@ -652,12 +930,6 @@ save_austria = {
 		}
 		timeout_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision timeout BOTDE_galician_revolt_headsup"
-			effect_tooltip = {
-				GAL = {
-					AUS_remove_constituent = yes
-					GAL_do_revolt = yes
-				}
-			}
 			hidden_effect = {
 				if = {
 					limit = { tag = AUS }
@@ -673,9 +945,78 @@ save_austria = {
 			}
 		}
 	}
+	
+	BOTDE_galician_revolt_headsup_delay_mission = {
+		icon = GFX_decision_generic_operation
+		cancel_if_not_visible = yes
+		allowed = { tag = AUS }		
+		visible = {
+			has_active_mission = BOTDE_galician_revolt_headsup
+		}
+		available = {
+			has_active_mission = BOTDE_galician_revolt_headsup
+		}
+		cost = 10
+		priority = 50
+		days_remove = 21
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout BOTDE_galician_revolt_headsup_delay_mission"
+			add_days_mission_timeout = {
+				mission = BOTDE_galician_revolt_headsup
+				days = 14
+			}
+		}
+	}
+	
+	BOTDE_galician_revolt_headsup_collapse_progress_decision = {
+		icon = GFX_decision_generic_prepare_civil_war
+		cancel_if_not_visible = yes
+		allowed = { tag = AUS }		
+		visible = {
+			has_active_mission = BOTDE_galician_revolt_headsup
+		}
+		available = {
+			has_active_mission = BOTDE_galician_revolt_headsup
+		}
+		cost = 10
+		priority = 50
+		days_remove = 28
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout BOTDE_galician_revolt_headsup_collapse_progress_decision"
+			GAL_subtract_five_collapse = yes
+			AUS_add_seven_and_a_half_collapse = yes
+		}
+	}
+	
+	BOTDE_galician_revolt_headsup_shits_fucked = {
+		icon = GFX_decision_generic_civil_support
+		cancel_if_not_visible = yes
+		allowed = { tag = AUS }		
+		visible = {
+			has_active_mission = BOTDE_galician_revolt_headsup
+			has_active_mission = BOTDE_collapse_headsup
+			check_variable = { var:days_mission_timeout@BOTDE_galician_revolt_headsup < 8 }
+		}
+		available = { always = yes }
+		cost = 0
+		priority = 50
+		days_re_enable = 50
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision complete BOTDE_galician_revolt_headsup_shits_fucked"
+			add_days_mission_timeout = {
+				mission = BOTDE_galician_revolt_headsup
+				days = 20
+			}
+			add_days_mission_timeout = {
+				mission = BOTDE_collapse_headsup
+				days = -10
+			}
+			AUS_add_ten_collapse = yes
+		}
+	}
 
 	BOTDE_collapse_headsup = {
-		icon = GFX_decision_revolt
+		icon = GFX_decision_boned_austrian_eagle
 		allowed = { always = no }		
 		
 		available = {
@@ -695,7 +1036,7 @@ save_austria = {
 		}
 		
 		is_good = no
-		priority = 100
+		priority = 150
 		days_mission_timeout = 100
 		
 		cancel_effect = {
@@ -3633,6 +3974,7 @@ austria_collapse_category = {
 			has_country_flag = AUS_borderwars_flag
 			NOT =  {
 				owns_state = 784
+				has_global_flag = AUS_collapsed_stable
 			}
 		}
 		available = {
@@ -3729,48 +4071,17 @@ austria_collapse_category = {
 			factor = 15
 		}
 		complete_effect	 = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_borderwar_heizenland"
+			log = "[GetDateText]: [Root.GetName]: Decision complete AUS_surrender_slovenia"
 			white_peace = SLO
-			if = {
-				limit = {
-					owns_state = 1272
-				}
-				1272 = {
-					transfer_state_to = SLO
-				}
-			}
-			if = {
-				limit = {
-					owns_state = 736
-				}
-				736 = {
-					transfer_state_to = SLO
-				}
-			}
-			if = {
-				limit = {
-					owns_state = 1144
-				}
-				1144 = {
-					transfer_state_to = SLO
-				}
-			}
-			if = {
-				limit = {
-					owns_state = 1100
-				}
-				1100 = {
-					transfer_state_to = SLO
-				}
-			}
-			if = {
-				limit = {
-					owns_state = 835
-					835 = {
-						is_controlled_by = SLO
+			hidden_effect = {
+				every_owned_state = {
+					limit = {
+						OR = {
+							is_core_of = SLO
+							is_claimed_by = SLO
+						}
+						is_fully_controlled_by = SLO
 					}
-				}
-				835 = {
 					transfer_state_to = SLO
 				}
 			}
@@ -3863,7 +4174,7 @@ austria_collapse_category = {
 	}
 }
 
-foreign_politics = {
+AUS_foreign_policy_category = {
 	
 	AUS_blutpakt = {
 		icon = GFX_decision_DAP_flag
@@ -4602,6 +4913,7 @@ foreign_politics = {
 		icon = GFX_decision_generic_flags
 		allowed = { always = no }
 		visible = {
+			tag = AUS
 			is_faction_leader = yes
 		}
 		available = {
@@ -5434,6 +5746,14 @@ foreign_politics = {
 			NOT = {
 				has_global_flag = AUS_ACW_choice_made
 			}
+			OR = {
+				has_country_flag = ACW_supported_CSA
+				has_country_flag = ACW_supported_USA
+				has_country_flag = ACW_supported_TEX
+				has_country_flag = ACW_supported_CAL
+				has_country_flag = ACW_supported_COR
+				has_country_flag = ACW_supported_BBR
+			}
 			has_completed_focus = AUS_foreign_policy
 		}
 		
@@ -5465,6 +5785,16 @@ foreign_politics = {
 			send_equipment = {
 				equipment = infantry_equipment
 				amount = 5000
+				target = FROM
+			}
+			send_equipment = {
+				equipment = artillery_equipment
+				amount = 500
+				target = FROM
+			}
+			send_equipment = {
+				equipment = support_equipment
+				amount = 500
 				target = FROM
 			}
 			save_global_event_target_as = AUS_USA_ALLY
@@ -5599,6 +5929,169 @@ foreign_politics = {
 		}
 	}
 	
+	AUS_federalize_serbia_romania = { 
+		icon = GFX_decision_austrian_eagle
+		
+		available = {
+			has_completed_focus = AUS_the_austrian_throne_forever
+		}
+		targets = { SER ROM MNT VNC LOM ITA WSU }
+		target_root_trigger = {
+			has_global_flag = AUS_federalized
+			has_completed_focus = AUS_the_austrian_throne_forever
+		}
+		target_non_existing = yes
+		target_trigger = {
+			FROM = {
+				OR = {
+					is_subject_of = AUS
+					AND = {
+						exists = no
+						capital_scope = {
+							is_owned_by = ROOT
+						}
+					}
+				}
+				has_country_flag = AUS_federalize_flag
+			}
+		}
+		cost = 75
+		days_remove = 90
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 100
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_federalize_serbia_romania target: [From.GetName]"
+			FROM = {
+				every_core_state = {
+					limit = {
+						is_core_of = FROM
+					}
+					add_core_of = ROOT
+				}
+			}
+			annex_country = {
+				target = FROM
+				transfer_troops = yes
+			}
+		}
+	}
+	
+	AUS_sarajevo_accord = { 
+		icon = GFX_decision_central_powers
+		
+		available = {
+			#is_in_faction_with = TUR
+			#NOT = {
+			#	has_war_with = EGY
+			#}
+			
+		}
+		visible = {
+			#has_global_flag = AUS_federalized
+			#OR = {
+			#	has_completed_focus = AUS_kaiser_tsar_igrad
+			#	has_completed_focus = AUS_entente_naval_facilities
+			#	has_completed_focus = AUS_adrianople_agreement
+			#	has_completed_focus = AUS_four_old_friends
+			#	has_completed_focus = AUS_canal_for_me_and_thee
+			#}
+		}
+		cost = 20
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision complete AUS_sarajevo_accord"
+			if = {
+				limit = {
+					has_completed_focus = AUS_russia_faction
+				}
+				country_event = bdeausfor.192
+			}
+			if = {
+				limit = {
+					has_completed_focus = AUS_entente_faction
+				}
+				country_event = bdeausfor.193
+			}
+			if = {
+				limit = {
+					has_completed_focus = AUS_donau_adriabund
+				}
+				country_event = bdeausfor.194
+			}
+			if = {
+				limit = {
+					has_completed_focus = AUS_reichspakt_faction
+				}
+				country_event = bdeausfor.195
+			}
+			if = {
+				limit = {
+					has_completed_focus = AUS_austro_american_alliance
+				}
+				country_event = bdeausfor.196
+			}
+		}
+	}
+	AUS_avarnas_dream = { 
+	
+		icon = GFX_decision_sardinia_flag
+		
+		available = {
+			is_in_faction_with = SRD
+			OR = {
+				owns_state = 160
+				owns_state = 159
+				SRD = {
+					NOT = {
+						owns_state = 160
+						owns_state = 159
+					}
+				}
+			}
+			
+		}
+		visible = {
+			has_completed_focus = AUS_secure_sardinia
+		}
+		cost = 20
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision complete AUS_avarnas_dream"
+			SRD = {
+				country_event = bdeausfor.198
+			}
+		}
+	}
+	AUS_autonomize_liechtenstein = {
+		icon = GFX_decision_AUS_liechtenstein
+		
+		available = {
+			country_exists = LIC
+			NOT = { has_war_with = LIC }
+		}
+		visible = {
+			has_completed_focus = AUS_swiss_guarantee
+		}
+		cost = 20
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision complete AUS_autonomize_liechtenstein"
+			LIC = {
+				country_event = bdeausfor.207
+			}
+		}
+	}
 }
 
 	
@@ -6280,6 +6773,59 @@ political_actions = {
 		}
 	}
 	
+	AUS_SRD_force_tensions = {
+		icon = GFX_decision_italy_flag
+		allowed = {
+			OR = {
+				tag = AUS
+				tag = SRD
+				tag = ENT
+			}
+		}
+		activation = {
+			has_global_flag = AUS_SRD_Tension_Mission
+			NOT = {
+				has_global_flag = AUS_SRD_tensions_solved
+			}
+		}
+		visible = {
+			NOT = {
+				has_global_flag = AUS_SRD_tensions_solved
+			}
+		}
+		available = {
+			has_global_flag = AUS_SRD_tensions_solved
+		}
+		days_mission_timeout = 120
+		fire_only_once = yes
+		complete_effect = {
+			add_stability = 0.05
+			add_political_power = 20
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_candidate_decision_heimatblock target: [From.GetName]"
+			custom_effect_tooltip = ENT_pick
+			if = {
+				limit = {
+					SRD = {
+						has_country_flag = ENT_AUS_side
+					}
+				}
+				AUS = {
+					country_event = bdeausfor.204
+				}
+				else = {
+					SRD = {
+						country_event = bdeausfor.204
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
 	
 }
 
@@ -6802,6 +7348,269 @@ AUS_socialist_republic = {
 		}
 		ai_will_do = {
 			factor = 0
+		}
+	}
+}
+
+AUS_ausgleich_category = {
+	HUN_our_demands = {
+		icon = generic_agreement
+		available = {
+			tag = HUN
+			NOT = {
+				has_global_flag = HUN_boycotted_ausgleich
+				has_global_flag = ausgleich_debating_question
+				custom_override_tooltip = {
+					tooltip = AUS_ausgleich_HUN_revolt
+					not_tooltip = AUS_ausgleich_HUN_revolt_NOT
+					has_global_flag = AUS_ausgleich_hungary_about_to_blow_up
+					has_global_flag = AUS_ausgleich_hungarian_revolt
+				}
+			}
+		}
+		visible = {
+			has_global_flag = AUS_ausgleich_ongoing
+			NOT = {
+				has_global_flag = HUN_boycotted_ausgleich
+				has_global_flag = AUS_question_0
+			}
+		}
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision complete HUN_our_demands"
+			set_global_flag = ausgleich_debating_question
+			country_event = {
+				id = bdeausgleich.9
+				days = 1
+			}
+		}
+	}
+	AUS_fate_of_illyria = {
+		icon = GFX_decision_illyria_arms
+		available = {
+			tag = AUS
+			is_in_array = { global.ausgleich_attendants = CRO }
+			NOT = {
+				has_global_flag = ausgleich_debating_question
+				custom_override_tooltip = {
+					tooltip = AUS_ausgleich_HUN_revolt
+					not_tooltip = AUS_ausgleich_HUN_revolt_NOT
+					has_global_flag = AUS_ausgleich_hungary_about_to_blow_up
+					has_global_flag = AUS_ausgleich_hungarian_revolt
+				}
+			}
+		}
+		visible = {
+			is_in_array = { global.ausgleich_attendants = CRO }
+			has_global_flag = AUS_ausgleich_ongoing
+			NOT = { has_global_flag = AUS_question_1 }
+		}
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision complete AUS_attack_unionists target: [From.GetName]"
+			set_global_flag = ausgleich_debating_question
+			country_event = {
+				id = bdeausgleich.22
+				days = 1
+			}
+		}
+	}
+	AUS_renegotiary_debts = {
+		icon = GFX_decision_cash_flow
+		available = {
+			tag = AUS
+			NOT = {
+				has_global_flag = ausgleich_debating_question
+				custom_override_tooltip = {
+					tooltip = AUS_ausgleich_HUN_revolt
+					not_tooltip = AUS_ausgleich_HUN_revolt_NOT
+					has_global_flag = AUS_ausgleich_hungary_about_to_blow_up
+					has_global_flag = AUS_ausgleich_hungarian_revolt
+				}
+			}
+		}
+		visible = {
+			has_global_flag = AUS_ausgleich_ongoing
+			NOT = { has_global_flag = AUS_question_2 }
+		}
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision complete AUS_renegotiary_debts"
+			set_global_flag = ausgleich_debating_question
+			country_event = {
+				id = bdeausgleich.36
+				days = 1
+			}
+		}
+	}
+	CRO_CZE_trialism = {
+		icon = GFX_decision_trialism
+		available = {
+			OR = {
+				tag = CRO
+				tag = CZE
+			}
+			NOT = {
+				has_global_flag = ausgleich_debating_question
+				custom_override_tooltip = {
+					tooltip = AUS_ausgleich_HUN_revolt
+					not_tooltip = AUS_ausgleich_HUN_revolt_NOT
+					has_global_flag = AUS_ausgleich_hungary_about_to_blow_up
+					has_global_flag = AUS_ausgleich_hungarian_revolt
+				}
+			}
+		}
+		visible = {
+			has_global_flag = AUS_ausgleich_ongoing
+			OR = {
+				has_global_flag = AUS_ausgleich_kingdoms
+				has_global_flag = AUS_ausgleich_peoples
+			}
+			NOT = {
+				has_global_flag = AUS_trialist_decision
+				has_global_flag = AUS_question_3
+			}
+		}
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision complete CRO_CZE_trialism"
+			set_global_flag = AUS_trialist_decision
+			set_global_flag = ausgleich_debating_question
+			AUS = {
+				country_event = {
+					id = bdeausgleich.52
+					days = 1
+				}
+			}
+		}
+	}
+	
+	AUS_common_army_law = {
+		icon = ger_military_buildup
+		available = {
+			tag = AUS
+			NOT = {
+				has_global_flag = ausgleich_debating_question
+				custom_override_tooltip = {
+					tooltip = AUS_ausgleich_HUN_revolt
+					not_tooltip = AUS_ausgleich_HUN_revolt_NOT
+					has_global_flag = AUS_ausgleich_hungary_about_to_blow_up
+					has_global_flag = AUS_ausgleich_hungarian_revolt
+				}
+			}
+		}
+		visible = {
+			has_global_flag = AUS_ausgleich_ongoing
+			NOT = { has_global_flag = AUS_question_4 }
+		}
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision complete AUS_common_army_law"
+			set_global_flag = ausgleich_debating_question
+			country_event = {
+				id = bdeausgleich.72
+				days = 1
+			}
+		}
+	}
+	
+	AUS_hungarian_federalisation = {
+		icon = GFX_decision_hungary_flag
+		available = {
+			tag = AUS
+			HUN = { AUS_is_constituent = yes }
+			NOT = {
+				has_global_flag = ausgleich_debating_question
+				custom_override_tooltip = {
+					tooltip = AUS_ausgleich_HUN_revolt
+					not_tooltip = AUS_ausgleich_HUN_revolt_NOT
+					has_global_flag = AUS_ausgleich_hungary_about_to_blow_up
+					has_global_flag = AUS_ausgleich_hungarian_revolt
+				}
+			}
+		}
+		visible = {
+			has_global_flag = AUS_ausgleich_ongoing
+			NOT = { has_global_flag = AUS_question_5 }
+		}
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision complete AUS_hungarian_federalisation"
+			set_global_flag = ausgleich_debating_question
+			country_event = {
+				id = bdeausgleich.74
+				days = 1
+			}
+		}
+	}
+	
+	AUS_ausgleich_ends_mission = {
+		icon = GFX_decision_austrian_eagle
+		allowed = { NOT = { has_global_flag = AUS_ausgleich_over } }
+		available = { always = no }
+		activation = {
+			has_global_flag = AUS_question_0
+			has_global_flag = AUS_question_1
+			has_global_flag = AUS_question_2
+			has_global_flag = AUS_question_3
+			has_global_flag = AUS_question_4
+			has_global_flag = AUS_question_5
+			NOT = {
+				has_global_flag = AUS_ausgleich_over
+				has_global_flag = AUS_ausgleich_hungary_about_to_blow_up
+				has_global_flag = AUS_ausgleich_hungarian_revolt
+			}
+		}
+		ai_will_do = {
+			factor = 1000
+		}
+		is_good = yes
+		priority = 100
+		days_mission_timeout = 14
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Mission timeout AUS_ausgleich_ends_mission"
+			custom_override_tooltip = {
+				tooltip = AUS_ausgleich_over_tt
+				if = {
+					limit = { tag = AUS }
+					AUS_tally_ausgleich = yes
+				}
+			}
+		}
+	}
+	
+	AUS_ausgleich_stalling = {
+		icon = GFX_decision_government_down
+		activation = {
+			always = no
+		}
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 1000
+		}
+		days_mission_timeout = 30
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Mission timeout AUS_ausgleich_stalling"
+			ALL_add_five_collapse = yes
+			AUS_add_five_collapse = yes
 		}
 	}
 }

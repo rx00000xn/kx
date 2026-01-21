@@ -3671,10 +3671,7 @@ country_event = { # America is reunited
 					is_ally_of_ROOT = no
 				}
 			}
-			has_country_leader = {
-				name = "Thomas Dixon"
-				ruling_only = yes
-			}
+			has_country_leader = { ruling_only = yes name = "Thomas Dixon" }
 			has_cosmetic_tag = TXS_texaco
 			has_cosmetic_tag = TXS_WEST_texaco
 			has_cosmetic_tag = TXS_CONFED_texaco
@@ -3859,8 +3856,34 @@ country_event = { # America is reunited
 	}
 	option = { # at long last we are reunited
 		name = TXS.30.b
-		trigger = { has_cosmetic_tag = ALA_LIC }
-		set_cosmetic_tag = ALA_LIC_USA
+		trigger = {
+			OR = {
+				has_cosmetic_tag = ALA_LIC
+				has_cosmetic_tag = ALA_AUS
+			}
+		}
+		if = {
+			limit = { has_cosmetic_tag = ALA_LIC }
+			set_cosmetic_tag = ALA_LIC_USA
+		}
+		if = {
+			limit = { has_cosmetic_tag = ALA_AUS }
+			set_cosmetic_tag = ALA_AUS_USA
+			set_party_name = {
+				ideology = paternal_autocrat
+				name = ALA_AUS_USA_party
+				long_name = ALA_AUS_USA_party_long
+			}
+			overlord = {
+				if = {
+					limit = { tag = AUS }
+					set_autonomy = {
+						target = ALA
+						autonomous_state = botde_constituent
+					}
+				}
+			}
+		}
 		set_global_flag = USA_HAS_RETURNED
 		if = {
 			limit = {
@@ -3915,16 +3938,6 @@ country_event = { # America is reunited
 	option = { # at long last we are reunited
 		name = TXS.30.e
 		trigger = {
-			NOT = {
-				AND = {
-					tag = TXS
-					NOT = { has_country_flag = TXS_Remove_Texaco }
-					OR = {
-						has_government = national_populist
-						has_government = paternal_autocrat
-					}
-				}
-			}
 			has_country_leader = {
 				ruling_only = yes
 				name = "Elwood Towner"
@@ -10878,7 +10891,7 @@ country_event = { #AWOOGA
 		hidden_effect = {
 			create_country_leader = {
 				name = "Ariadne I"
-				picture = "gfx/leaders/TXS/Portrait_Texas_Ariadne_T_Houston_except_its_actually_Antoinette_Power_Houston_Bringhurst.png"
+				picture = "gfx/leaders/TXS/Portrait_Texas_Ariadne_T_Houston.png"
 				expire = "1.1.1"
 				ideology = longism_subtype
 				traits = {  }
