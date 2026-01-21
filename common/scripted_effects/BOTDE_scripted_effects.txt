@@ -1,15 +1,27 @@
 
 
 d_ausd1 = {
-	HUN = {
-		CONST_do_additional_revolt_progress = yes
+	RVO = {
+		add_political_power = 1
 	}
 }
 
 d_ausd2 = {
-	set_variable = {
-		var = AUS.subject_revolt_progress
-		value = 0
+	add_to_variable = {
+		var = HUN.extra_value
+		value = -0.005
+	}
+	add_to_variable = {
+		var = CRO.extra_value
+		value = -0.005
+	}
+	add_to_variable = {
+		var = CZE.extra_value
+		value = -0.005
+	}
+	add_to_variable = {
+		var = GAL.extra_value
+		value = -0.005
 	}
 }
 
@@ -119,12 +131,7 @@ AUS_open_gui_click_effect = {
 			if = {
 				limit = {
 					exists = yes
-					#has_variable = subject_revolt_progress
 					AUS_is_constituent = yes
-					OR = {
-						tag = AUS
-						is_in_faction_with = AUS
-					}
 				}
 				add_to_array = { ROOT.austria_subject_array = v }
 			}
@@ -420,11 +427,6 @@ AUS_do_revolt_rate_rise = {
 	add_to_temp_variable = { revolt_rate_rising = global.extra_collapse_federalizing }
 	add_to_temp_variable = { revolt_rate_rising = modifier@BOTDE_revolt_rate_modifier }
 	add_to_temp_variable = { AUS.revolt_progress_change = revolt_rate_rising }
-	
-	if = {
-		limit = { has_global_flag = AUS_ausgleich_over }
-		subtract_from_temp_variable = { AUS.revolt_progress_change = 0.002 }
-	}
 	if = {
 		limit = {
 			OR = {
@@ -445,7 +447,7 @@ CONST_do_additional_revolt_progress = {
 	set_temp_variable = { CONST_revolt_rate_rising_battalion_ROOT = num_battalions }
 	set_temp_variable = { CONST_revolt_rate_rising_battalion_AUS = AUS.num_battalions }
 	set_temp_variable = { CONST_revolt_rate_rising_stability = AUS.stability }
-	add_to_temp_variable = { CONST_revolt_rate_rising_stability = -1 }
+	add_to_temp_variable = { CONST_revolt_rate_rising_stability = -1.2 }
 	set_temp_variable = { CONST_revolt_rate_rising_AUS = AUS.num_of_factories }
 	
 	divide_temp_variable = { CONST_revolt_rate_rising = 120 }
@@ -464,12 +466,6 @@ CONST_do_additional_revolt_progress = {
 	add_to_temp_variable = { CONST_revolt_rate_rising = global.extra_collapse_federalizing }
 	add_to_temp_variable = { CONST_revolt_rate_rising = modifier@BOTDE_revolt_rate_modifier }
 	add_to_temp_variable = { THIS.revolt_progress_change = CONST_revolt_rate_rising }
-	if = {
-		limit = {
-			has_global_flag = AUS_ausgleich_over
-		}
-		subtract_from_temp_variable = { THIS.revolt_progress_change = 0.01 }
-	}
 	add_to_variable = { THIS.subject_revolt_progress = 0.01 }
 	if = {
 		limit = {
@@ -833,171 +829,102 @@ AUS_elect_VF_1940 = {
 
 AUS_elect_SDAPO_1940 = {
 	if = {
-		limit = {
-			has_country_flag = AUS_bauer_1940
-		}
-		#create_country_leader = {
-		#	name = "Otto Bauer"
-		#	desc = "POLITICS_BAUER_DESC"
-		#	picture = "gfx/leaders/AUS/AUS_Otto_Bauer.png"
-		#	expire = "1965.1.1"
-		#	ideology = radsoc_austromarxism_subtype
-		#}
-		set_country_leader_ideology = radsoc_austromarxism_subtype
-		remove_ideas_with_trait = head_of_government
-		add_ideas = AUS_Otto_Bauer_hog_rso
+		limit = { NOT = { has_country_flag = AUS_did_election_decision_sdapo } }
+		AUS_subtract_ten_collapse = yes
 	}
+	remove_all_ministers_but_for = yes
 	if = {
 		limit = {
-			has_country_flag = AUS_scharf_1940
+			OR = {
+				has_country_flag = AUS_bauer_1940
+				has_country_flag = AUS_broz_1940
+			}
 		}
-		#create_country_leader = {
-		#	name = "Adolf Scharf"
-		#	desc = "POLITICS_SCHARF_DESC"
-		#	picture = "gfx/leaders/AUS/AUS_Adolf_Scharf.png"
-		#	expire = "1965.1.1"
-		#	ideology = austromarxism_subtype
-		#}
-		set_country_leader_ideology = austromarxism_subtype
-		remove_ideas_with_trait = head_of_government
-		add_ideas = AUS_Adolf_Schaerf_hog_sde
-	}
-	else_if = {
-		limit = {
-			has_country_flag = AUS_seitz_1940
+		set_politics = {
+			ruling_party = radical_socialist
 		}
-		#create_country_leader = {
-		#	name = "Karl Seitz"
-		#	desc = "POLITICS_SEITZ_DESC"
-		#	picture = "gfx/leaders/AUS/AUS_Karl_Seitz.png"
-		#	expire = "1965.1.1"
-		#	ideology = austromarxism_subtype
-		#}
-		set_country_leader_ideology = austromarxism_subtype
-		remove_ideas_with_trait = head_of_government
-		add_ideas = AUS_Karl_Seitz_hog_sde
-	}
-	else_if = {
-		limit = {
-			has_country_flag = AUS_broz_1940
+		add_socdem_to_coalition = yes
+		if = {
+			limit = { has_country_flag = AUS_bauer_1940 }
+			add_ideas = {
+				AUS_Otto_Bauer_hog_rso
+				AUS_Paul_Johannes_Schlesinger_eco_rso
+				AUS_Max_Adler_sec_rso
+			}
 		}
-		#create_country_leader = {
-		#	name = "Josip Broz"
-		#	desc = "POLITICS_BROZ_AUS_DESC"
-		#	picture = "gfx/leaders/CRO/CRO_tito.png"
-		#	expire = "1965.1.1"
-		#	ideology = austromarxism_subtype
-		#}
-		set_country_leader_ideology = austromarxism_subtype
-		custom_effect_tooltip = AUS_no_more_illyrian_revolt
-		set_global_flag = AUS_no_more_CRO_revolt
-		remove_ideas_with_trait = head_of_government
-		add_ideas = CRO_Josip_Broz_hog_sde
-	}
-	else_if = {
-		limit = {
-			has_country_flag = AUS_hampl_1940
+		if = {
+			limit = { has_country_flag = AUS_broz_1940 }
+			add_ideas = {
+				CRO_Josip_Broz_hog_rso
+				AUS_Paul_Johannes_Schlesinger_eco_rso
+				AUS_Max_Adler_sec_rso
+			}
 		}
-		#create_country_leader = {
-		#	name = "Antonín Hampl"
-		#	desc = "POLITICS_HAMPL_DESC"
-		#	picture = "gfx/leaders/CZE/CZE_Antonin_Hampl.png"
-		#	expire = "1965.1.1"
-		#	ideology = social_democrat_subtype
-		#}
-		set_country_leader_ideology = social_democrat_subtype
-		custom_effect_tooltip = AUS_no_more_bohemian_revolt
-		set_global_flag = AUS_no_more_CZE_revolt
-		remove_ideas_with_trait = head_of_government
-		add_ideas = CZE_Antonin_Hampl_hog_sde
 	}
 	else = {
-		set_country_flag = AUS_renner_1940
-		#create_country_leader = {
-		#	name = "Karl Renner"
-		#	desc = "POLITICS_RENNER_DESC"
-		#	picture = "gfx/leaders/AUS/AUS_Karl_Renner.png"
-		#	expire = "1965.1.1"
-		#	ideology = austromarxism_subtype
-		#}
-		remove_ideas_with_trait = head_of_government
-		add_ideas = AUS_Karl_Renner_hog_sde
-	}
-}
-
-AUS_elect_DBP_1940 = {
-	if = {
-		limit = {
-			has_country_flag = AUS_masaryk_1940
+		set_politics = {
+			ruling_party = social_democrat
 		}
-		#create_country_leader = {
-		#	name = "Jan Masaryk"
-		#	desc = "POLITICS_JAN_MASARYK_DESC"
-		#	picture = "gfx/leaders/CZE/CZE_Jan_Masaryk.png"
-		#	expire = "1965.1.1"
-		#	ideology = national_socialism_subtype
-		#}
-		custom_effect_tooltip = AUS_no_more_bohemian_revolt
-		set_global_flag = AUS_no_more_CZE_revolt
-		remove_ideas_with_trait = head_of_government
-		add_ideas = AUS_Jan_Garrigue_Masaryk_hog_mli
-	}
-	else_if = {
-		limit = {
-			has_country_flag = AUS_krzyzanowski_1940
+		add_radsoc_to_coalition = yes
+		if = {
+			limit = { has_country_flag = AUS_renner_1940 }
+			add_ideas = {
+				AUS_Karl_Renner_hog_sde
+				AUS_Wilhelm_Ellenbogen_eco_sde
+				AUS_Adolf_Scharf_sec_sde
+			}
 		}
-		#create_country_leader = {
-		#	name = "Adam Krzyzanowski"
-		#	desc = "POLITICS_KRZYZANOWSKI_DESC"
-		#	picture = "gfx/leaders/AUS/AUS_Adam_Krzyzanowski.png"
-		#	expire = "1965.1.1"
-		#	ideology = social_liberal_subtype
-		#}
-		custom_effect_tooltip = AUS_disable_galician_revolt
-		set_global_flag = AUS_no_more_GAL_revolt
-		remove_ideas_with_trait = head_of_government
-		add_ideas = GAL_Adam_Krzyzanowski_hog_mli
-	}
-	else = {
-		set_country_flag = AUS_kalergi_1940
-		#create_country_leader = {
-		#	name = "Richard von Coudenhove-Kalergi"
-		#	desc = "POLITICS_KALERGI_DESC"
-		#	picture = "gfx/leaders/AUS/AUS_Richard_Kalergi.png"
-		#	expire = "1965.1.1"
-		#	ideology = paneuropeanism_subtype
-		#}
-		remove_ideas_with_trait = head_of_government
-		add_ideas = AUS_Richard_von_Coudenhove-Kalergi_hog_sli
+		if = {
+			limit = { has_country_flag = AUS_scharf_1940 }
+			add_ideas = {
+				AUS_Adolf_Schaerf_hog_sde
+				AUS_Wilhelm_Ellenbogen_eco_sde
+				AUS_Johann_Schorsch_sec_sde
+			}
+		}
+		if = {
+			limit = { has_country_flag = AUS_seitz_1940 }
+			add_ideas = {
+				AUS_Karl_Seitz_hog_sde
+				AUS_Wilhelm_Ellenbogen_eco_sde
+				AUS_Adolf_Scharf_sec_sde
+			}
+		}
+		if = {
+			limit = { has_country_flag = AUS_hampl_1940 }
+			add_ideas = {
+				CZE_Antonin_Hampl_hog_sde
+				AUS_Wilhelm_Ellenbogen_eco_sde
+				AUS_Adolf_Scharf_sec_sde
+			}
+		}
 	}
 }
 
 AUS_raise_austro_german_tensions = {
 	custom_effect_tooltip = AUS_tro_german_tensions_rise
-	add_to_variable = { global.austro_german_tensions = 1 }
+	add_to_variable = { global.AUS_GER_tensions = 1 }
 	if = {
 		limit = {
-			check_variable = { global.austro_german_tensions > 2 }
+			check_variable = { global.AUS_GER_tensions > 2 }
 		}
 		AUS = {
 			country_event = {
 				id = bdeausfor.52
-				days = 14
-				random = 144
+				days = 3
 			}
 		}
 		GER = {
 			country_event = {
 				id = bdeausfor.52
-				days = 14
-				random = 144
+				days = 3
 			}
 		}
 	}
 }
 
 AUS_lower_austro_german_tensions = {
-	add_to_variable = { global.austro_german_tensions = -1 }
+	add_to_variable = { global.AUS_GER_tensions = -1 }
 }
 
 #### Add constituent revolt ####
@@ -1013,7 +940,7 @@ BOTDE_add_collapse = {
 	if = {
 		limit = {
 			AUS_is_constituent_or_minority = yes
-			NOT = { has_global_flag = AUS_collapsed }
+			AUS_can_collapse = yes
 		}
 		custom_override_tooltip = {
 			tooltip = BOTDE_collapse_tt
@@ -1124,7 +1051,12 @@ BOTDE_check_for_constituent_revolt = {
 				NOT = { has_war_with = AUS }
 			}
 			if = {
-				limit = { check_variable = { THIS.subject_revolt_progress > 0.94 } }
+				limit = {
+					OR = {
+						check_variable = { THIS.subject_revolt_progress = 0.95 }
+						check_variable = { THIS.subject_revolt_progress > 0.95 }
+					}
+				}
 				add_to_variable = { global.AUS_tags_over_94_revolt = 1 }
 			}
 		}
@@ -1132,7 +1064,10 @@ BOTDE_check_for_constituent_revolt = {
 	if = {
 		limit = {
 			check_variable { global.AUS_tags_over_94_revolt > 0 }
-			NOT = { has_global_flag = no_more_collapse }
+			NOT = { 
+				has_global_flag = no_more_collapse
+				has_global_flag = AUS_collapsed
+			}
 		}
 		AUS = {
 			set_temp_variable = { alert_id = token:kx_alert_aus_const_revolt_incoming }
@@ -1145,6 +1080,7 @@ BOTDE_check_for_constituent_revolt = {
 			OR = {
 				check_variable { global.AUS_tags_over_94_revolt < 1 }
 				has_global_flag = no_more_collapse
+				has_global_flag = AUS_collapsed
 			}
 		}
 		AUS = {
@@ -1179,6 +1115,12 @@ AUS_add_five_collapse = {
 		BOTDE_add_collapse = yes
 	}
 }
+AUS_add_seven_and_a_half_collapse = {
+	AUS = { 
+		set_temp_variable = { revolt_progress_change = 0.075 }
+		BOTDE_add_collapse = yes
+	}
+}
 AUS_add_ten_collapse = {
 	AUS = { 
 		set_temp_variable = { revolt_progress_change = 0.1 }
@@ -1207,6 +1149,12 @@ AUS_subtract_three_collapse = {
 AUS_subtract_five_collapse = {
 	AUS = { 
 		set_temp_variable = { revolt_progress_change = -0.05 }
+		BOTDE_add_collapse = yes
+	}
+}
+AUS_subtract_seven_and_a_half_collapse = {
+	AUS = { 
+		set_temp_variable = { revolt_progress_change = -0.075 }
 		BOTDE_add_collapse = yes
 	}
 }
@@ -1645,6 +1593,13 @@ HUN_add_ten_collapse = {
 	}
 }
 
+HUN_add_twenty_collapse = {
+	HUN = { 
+		set_temp_variable = { revolt_progress_change = 0.20 }
+		BOTDE_add_collapse = yes
+	}
+}
+
 CRO_add_one_collapse = {
 	CRO = { 
 		set_temp_variable = { revolt_progress_change = 0.01 }
@@ -1799,7 +1754,7 @@ AUS_raise_govt_percentage_15 = {
 }
 
 AUS_minority_subtract_ten = {
-	THIS = { 
+	THIS = {
 		set_temp_variable = { revolt_progress_change = -0.10 }
 		BOTDE_add_collapse = yes
 	}
@@ -3526,53 +3481,14 @@ AUS_subtract_germboh_20 = {
 AUS_lower_all_minorities = {
 	custom_override_tooltip = {
 		tooltip = lower_all_minorities_tt
-		SLO = { 
-			set_temp_variable = { revolt_progress_change = -0.1 }
-			BOTDE_add_collapse = yes
-		}
-		VNC = { 
-			set_temp_variable = { revolt_progress_change = -0.1 }
-			BOTDE_add_collapse = yes
-		}
-		SVK = { 
-			set_temp_variable = { revolt_progress_change = -0.1 }
-			BOTDE_add_collapse = yes
-		}
-		TRS = { 
-			set_temp_variable = { revolt_progress_change = -0.1 }
-			BOTDE_add_collapse = yes
-		}
-		BAN = { 
-			set_temp_variable = { revolt_progress_change = -0.1 }
-			BOTDE_add_collapse = yes
-		}
-		BOS = { 
-			set_temp_variable = { revolt_progress_change = -0.1 }
-			BOTDE_add_collapse = yes
-		}
-		SKS = { 
-			set_temp_variable = { revolt_progress_change = -0.1 }
-			BOTDE_add_collapse = yes
-		}
-		MNT = { 
-			set_temp_variable = { revolt_progress_change = -0.1 }
-			BOTDE_add_collapse = yes
-		}
-		BUK = { 
-			set_temp_variable = { revolt_progress_change = -0.1 }
-			BOTDE_add_collapse = yes
-		}
-		WSU = { 
-			set_temp_variable = { revolt_progress_change = -0.1 }
-			BOTDE_add_collapse = yes
-		}
-		if = {
-			limit = {
-				has_global_flag = CZE_on_array
-			}
-			CZE = { 
-				set_temp_variable = { revolt_progress_change = -0.1 }
-				BOTDE_add_collapse = yes
+		for_each_scope_loop = {
+			array = global.minorities_array
+			if = {
+				limit = {
+					NOT = { has_country_flag = no_minority_revolt }
+					AUS_is_minority = yes
+				}
+				THIS_subtract_ten_collapse = yes
 			}
 		}
 	}
@@ -3583,53 +3499,39 @@ AUS_lower_all_minorities = {
 AUS_raise_all_minorities = {
 	custom_override_tooltip = {
 		tooltip = raise_all_minorities_tt
-		SLO = { 
-			set_temp_variable = { revolt_progress_change = 0.15 }
-			BOTDE_add_collapse = yes
-		}
-		VNC = { 
-			set_temp_variable = { revolt_progress_change = 0.15 }
-			BOTDE_add_collapse = yes
-		}
-		SVK = { 
-			set_temp_variable = { revolt_progress_change = 0.15 }
-			BOTDE_add_collapse = yes
-		}
-		TRS = { 
-			set_temp_variable = { revolt_progress_change = 0.15 }
-			BOTDE_add_collapse = yes
-		}
-		BAN = { 
-			set_temp_variable = { revolt_progress_change = 0.15 }
-			BOTDE_add_collapse = yes
-		}
-		BOS = { 
-			set_temp_variable = { revolt_progress_change = 0.15 }
-			BOTDE_add_collapse = yes
-		}
-		SKS = { 
-			set_temp_variable = { revolt_progress_change = 0.15 }
-			BOTDE_add_collapse = yes
-		}
-		MNT = { 
-			set_temp_variable = { revolt_progress_change = 0.15 }
-			BOTDE_add_collapse = yes
-		}
-		BUK = { 
-			set_temp_variable = { revolt_progress_change = 0.15 }
-			BOTDE_add_collapse = yes
-		}
-		WSU = { 
-			set_temp_variable = { revolt_progress_change = 0.15 }
-			BOTDE_add_collapse = yes
-		}
-		if = {
-			limit = {
-				has_global_flag = CZE_on_array
+		for_each_scope_loop = {
+			array = global.minorities_array
+			if = {
+				limit = {
+					NOT = { has_country_flag = no_minority_revolt }
+					AUS_is_minority = yes
+				}
+				THIS_add_ten_collapse = yes
 			}
-			CZE = { 
-				set_temp_variable = { revolt_progress_change = 0.15 }
-				BOTDE_add_collapse = yes
+		}
+	}
+}
+
+AUS_change_revolt_progress_to_all_minorities = {
+	if = {
+		limit = { 
+			has_variable = revolt_progress_change
+			AUS_can_collapse = yes
+		}
+		custom_override_tooltip = {
+			tooltip = revolt_progress_all_minorities_tt
+			for_each_scope_loop = {
+				array = global.minorities_array
+				if = {
+					limit = {
+						NOT = { has_country_flag = no_minority_revolt }
+						AUS_is_minority = yes
+					}
+					THIS = {
+						set_temp_variable = { THIS.revolt_progress_change = PREV.revolt_progress_change}
+						BOTDE_add_collapse = yes
+					}
+				}
 			}
 		}
 	}
@@ -3676,7 +3578,13 @@ AUS_reduce_collapse_idea = {
 
 
 AUS_the_state_modifiers = {
-	#hidden_effect = {
+	hidden_effect = {
+		set_variable = { AUS.recently_federalized_state_local_building_slots_factor = -0.15 }
+		set_variable = { AUS.recently_federalized_state_local_manpower = -0.40 }
+		set_variable = { AUS.recently_federalized_state_local_resources_factor = -0.25 }
+		set_variable = { AUS.recently_federalized_state_state_production_speed_industrial_complex_factor = -0.15 }
+		set_variable = { AUS.recently_federalized_state_state_production_speed_arms_factory_factor = -0.15 }
+		set_variable = { AUS.recently_federalized_state_state_production_speed_dockyard_factor = -0.15 }
 		every_owned_state = {
 			limit = {
 				OR = {
@@ -3690,7 +3598,11 @@ AUS_the_state_modifiers = {
 				modifier = AUS_recently_federalized_state
 			}
 		}
-	#}
+		country_event = {
+			id = bdeausint.240
+			days = 7
+		}
+	}
 }
 
 AUS_gleich_add_hungarian_grievance = {
@@ -4219,7 +4131,19 @@ HUN_do_revolt = {
 		add_ideas = HUN_Zoltan_Tildy_hog_sco
 		clear_all_relations = yes
 	}
+	HUN = {
+		separate_peace_all_wars = yes
+		leave_faction = yes
+		load_oob = HUN_AUS_Civil_war
+		set_country_flag = AUS_HUN_civil_war
+		swap_ideas = {
+			remove_idea = HUN_financial_ties
+			add_idea = HUN_financial_ties_broken
+		}
+		country_event = kr.hungary.2
+	}
 	AUS = {
+		set_country_flag = AUS_HUN_civil_war
 		country_event = revolt.5 #Notification
 		every_owned_state = {
 			limit = {
@@ -4304,7 +4228,6 @@ GAL_do_revolt = {
 
 AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 	hidden_effect = {
-		#Finding out who will appear
 		set_stability = 0
 		set_political_power = 0
 		load_focus_tree = austria_small_focus
@@ -4569,10 +4492,34 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 		}
 		
 		if = {
-			limit = {
-				owns_state = 1206
-			}
+			limit = { owns_state = 1206 }
 			CRO = { transfer_state = 1206 }
+		}
+		
+		if = {
+			limit = { owns_state = 1235 }
+			var:151.owner = { transfer_state = 1235 }
+		}
+		
+		every_state = {
+			limit = {
+				OR = {
+					state = 76
+					state = 789
+				}
+			}
+			add_core_of = SZK
+		}
+		
+		1131 = {
+			add_claim_by = PGU
+		}
+		
+		FIU = {
+			if = {
+				limit = { exists = yes }
+				add_state_core = 1105
+			}
 		}
 		
 		AUS = {
@@ -4657,6 +4604,7 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 			leave_faction = yes
 			drop_cosmetic_tag = yes
 			clear_all_relations = yes
+			set_country_flag = released_via_austrian_collapse
 			add_ideas = AUS_fighting_for_the_people
 			country_event = constituents.2
 			if = {
@@ -4669,8 +4617,34 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 		
 		every_country = {
 			limit = {
-				is_in_faction_with = AUS
+				is_subject_of = AUS
+				NOT = {
+					tag = HUN
+					tag = CRO
+					tag = GAL
+					tag = CZE
+				}
 			}
+			set_country_flag = released_via_austrian_collapse
+			AUS = {
+				end_puppet = PREV
+			}
+			if = {
+				limit = { tag = ALA }
+				set_cosmetic_tag = ALA_AUS_collapse
+				set_stability = 0
+				set_political_power = 0
+				clr_country_flag = ALA_austrian_rule
+				country_event = {
+					id = constituents.1012
+					days = 3
+					random_hours = 24
+				}
+			}
+		}
+		
+		every_country = {
+			limit = { is_in_faction_with = AUS }
 			leave_faction = yes
 			if = { #failsafe for testing collapse at game start
 				limit = {
@@ -4692,46 +4666,53 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 		}
 		
 		every_country = {
-			limit = {
-				is_subject_of = AUS
-			}
-			AUS = {
-				end_puppet = PREV
-			}
+			limit = { has_country_flag = CONST_minor }
+			clr_country_flag = CONST_minor
+		}
+		every_country = {
+			limit = { has_country_flag = CONST_proper }
+			clr_country_flag = CONST_proper
+		}
+		every_country = {
+			limit = { has_country_flag = CONST_no_placate_decision }
+			clr_country_flag = CONST_no_placate_decision
+		}
+		every_country = {
+			limit = { has_country_flag = CONST_no_suppress_decision }
+			clr_country_flag = CONST_no_suppress_decision
+		}
+		every_country = {
+			limit = { has_country_flag = CONST_no_factory_decision }
+			clr_country_flag = CONST_no_factory_decision
+		}
+		every_country = {
+			limit = { has_country_flag = CONST_no_visit_decision }
+			clr_country_flag = CONST_no_visit_decision
+		}
+		every_country = {
+			limit = { has_country_flag = CONST_no_evidenzbureau }
+			clr_country_flag = CONST_no_evidenzbureau
 		}
 		
 		every_country = {
-			limit = {
-				has_idea = AUS_part_of_the_Empire
-			}
+			limit = { has_idea = AUS_part_of_the_Empire }
 			remove_ideas = AUS_part_of_the_Empire
 		}
-		
 		every_country = {
-			limit = {
-				has_idea = AUS_cisleithanian_sphere
-			}
+			limit = { has_idea = AUS_cisleithanian_sphere }
 			remove_ideas = AUS_cisleithanian_sphere
 		}
-		
 		every_country = {
-			limit = {
-				has_idea = AUS_transleithanian_sphere
-			}
+			limit = { has_idea = AUS_transleithanian_sphere }
 			remove_ideas = AUS_transleithanian_sphere
 		}
 		
 		every_country = {
-			limit = {
-				AUS_DWV_member = yes
-			}
+			limit = { AUS_DWV_member = yes }
 			AUS_remove_from_DWV = yes
 		}
-		
 		every_country = {
-			limit = {
-				is_in_tech_sharing_group = austrian_research
-			}
+			limit = { is_in_tech_sharing_group = austrian_research }
 			remove_from_tech_sharing_group = austrian_research
 		}
 		
@@ -4758,17 +4739,15 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 			country_event = {
 				id = constituents.100 #An Unlikely Request
 				hours = 2
-				random_hours = 10
+				random_hours = 72
 			}
 		}
 		
-		160 = { # Veneto
-			owner = {
-				country_event = {
-					id = constituents.101 #The Old Ideas of Italia Irredenta
-					hours = 2
-					random_hours = 10
-				}
+		var:160.owner = { # Veneto
+			country_event = {
+				id = constituents.101 #The Old Ideas of Italia Irredenta
+				hours = 2
+				random_hours = 10
 			}
 		}
 		
@@ -4789,6 +4768,14 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 			}
 			country_event = {
 				id = constituents.103 #Death of the Double Eagle
+				hours = 12
+				random_hours = 24
+			}
+		}
+		
+		MNT = {
+			country_event = {
+				id = mnt.37
 				hours = 12
 				random_hours = 24
 			}
@@ -4852,7 +4839,7 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 			limit = { has_country_flag = subject_unrest_window_open }
 			clr_country_flag = subject_unrest_window_open
 		}
-		
+		set_country_flag = released_via_austrian_collapse
 		random_other_country = {
 			news_event = {
 				id = colnews.1
@@ -4870,6 +4857,15 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 		#	days = 5
 		#	random_days = 3
 		#}
+		if = {
+			limit = { NOT = { has_government = social_liberal } }
+			country_event = {
+				id = bdeausflavor.143
+				days = 3
+				random_days = 14
+				random_hours = 24
+			}
+		}
 		UKR = {
 			if = {
 				limit = { has_idea = UKR_brotfrieden_idea_AUS }
@@ -4912,7 +4908,22 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 		}
 		every_possible_country = {
 			limit = { has_variable = THIS.subject_revolt_progress }
+			set_variable = { THIS.final_revolt_progress = THIS.subject_revolt_progress }
 			clear_variable = THIS.subject_revolt_progress
+		}
+		
+		if = {
+			limit = {
+				OR = {
+					check_variable { global.AUS_tags_over_94_revolt < 1 }
+					has_global_flag = no_more_collapse
+					has_global_flag = AUS_collapsed
+				}
+			}
+			AUS = {
+				set_temp_variable = { alert_id = token:kx_alert_aus_const_revolt_incoming }
+				remove_kx_alert = yes
+			}
 		}
 	}
 }
@@ -4921,188 +4932,188 @@ AUS_collapse_splinter_setup = {
 	# Austria Splinters #
 	if = {
 		limit = {
-			SLO = { exists = no }
-			102 = {
-				owner = {
-					OR = {
-						tag = AUS
-						tag = HUN
-						tag = CZE
-						tag = CRO
-						tag = GAL
-					}
+			SLO = {
+				exists = no
+				NOT = { has_country_flag = no_minority_revolt }
+			}
+			var:102.owner = {
+				has_country_flag = released_via_austrian_collapse
+				OR = {
+					tag = AUS
+					tag = HUN
+					tag = CZE
+					tag = CRO
+					tag = GAL
 				}
 			}
 		}
-		102 = {
-			owner = {
-				log = "AUS_collapse_splinter_setup - [?102.GetName] owner: [?102.owner.GetName]"
-				country_event = {
-					id = constituents.7 #Slovenia Secession
-					days = 3
-					random_hours = 12
-				}
+		var:102.owner = {
+			log = "AUS_collapse_splinter_setup - [?102.GetName] owner: [?102.owner.GetName]"
+			country_event = {
+				id = constituents.7 #Slovenia Secession
+				days = 3
+				random_hours = 12
 			}
 		}
 	}
 	# Hungary Splinters #
 	if = {
 		limit = {
-			HNZ = { exists = no }
-			784 = {
-				owner = {
-					OR = {
-						AND = {
-							tag = AUS
-							NOT = { has_country_flag = AUS_collapse_HUN_stays }
-						}
-						tag = HUN
-						tag = CZE
-						tag = CRO
-						tag = GAL
+			HNZ = {
+				exists = no
+				NOT = { has_country_flag = no_minority_revolt }
+			}
+			var:784.owner = {
+				has_country_flag = released_via_austrian_collapse
+				OR = {
+					AND = {
+						tag = AUS
+						NOT = { has_country_flag = AUS_collapse_HUN_stays }
 					}
+					tag = HUN
+					tag = CZE
+					tag = CRO
+					tag = GAL
 				}
 			}
 		}
-		784 = {
-			owner = {
-				log = "AUS_collapse_splinter_setup - [?784.GetName] owner: [?784.owner.GetName]"
-				country_event = {
-					id = constituents.36 #Heizenland Secession
-					days = 5
-					random = 24
-				}
+		var:784.owner = {
+			log = "AUS_collapse_splinter_setup - [?784.GetName] owner: [?784.owner.GetName]"
+			country_event = {
+				id = constituents.36 #Heizenland Secession
+				days = 5
+				random_hours = 24
 			}
 		}
 	}
 	if = {
 		limit = {
-			TRS = { exists = no }
-			1112 = {
-				owner = {
-					OR = {
-						tag = AUS
-						tag = HUN
-						tag = CZE
-						tag = CRO
-						tag = GAL
-					}
+			TRS = {
+				exists = no
+				NOT = { has_country_flag = no_minority_revolt }
+			}
+			var:1112.owner = {
+				has_country_flag = released_via_austrian_collapse
+				OR = {
+					tag = AUS
+					tag = HUN
+					tag = CZE
+					tag = CRO
+					tag = GAL
 				}
 			}
 		}
-		1112 = {
-			owner = {
-				log = "AUS_collapse_splinter_setup - [?1112.GetName] owner: [?1112.owner.GetName]"
-				country_event = {
-					id = constituents.9 #Transylvania Secession
-					days = 2
-					random_hours = 24
-				}
-			}
-		}
-	}
-	if = {
-		limit = {
-			BAN = { exists = no }
-			82 = {
-				owner = {
-					OR = {
-						tag = AUS
-						tag = HUN
-						tag = CZE
-						tag = CRO
-						tag = GAL
-					}
-				}
-			}
-		}
-		82 = {
-			owner = {
-				log = "AUS_collapse_splinter_setup - [?82.GetName] owner: [?82.owner.GetName]"
-				country_event = {
-					id = constituents.8 #Banat Secession
-					days = 1
-					random_hours = 12
-				}
+		var:1112.owner = {
+			log = "AUS_collapse_splinter_setup - [?1112.GetName] owner: [?1112.owner.GetName]"
+			country_event = {
+				id = constituents.9 #Transylvania Secession
+				days = 2
+				random_hours = 24
 			}
 		}
 	}
 	if = {
 		limit = {
-			SVK = { exists = no }
-			1123 = {
-				owner = {
-					OR = {
-						tag = AUS
-						tag = HUN
-						tag = CZE
-						tag = CRO
-						tag = GAL
-					}
+			BAN = {
+				exists = no
+				NOT = { has_country_flag = no_minority_revolt }
+			}
+			var:82.owner = {
+				has_country_flag = released_via_austrian_collapse
+				OR = {
+					tag = AUS
+					tag = HUN
+					tag = CZE
+					tag = CRO
+					tag = GAL
 				}
 			}
 		}
-		1123 = {
-			owner = {
-				log = "AUS_collapse_splinter_setup - [?1123.GetName] owner: [?1123.owner.GetName]"
-				country_event = {
-					id = constituents.12 #Slovakia Secession
-					days = 2
-					random_hours = 12
-				}
+		var:82.owner = {
+			log = "AUS_collapse_splinter_setup - [?82.GetName] owner: [?82.owner.GetName]"
+			country_event = {
+				id = constituents.8 #Banat Secession
+				days = 1
+				random_hours = 12
 			}
 		}
 	}
 	if = {
 		limit = {
-			CPU = { exists = no }
-			73 = {
-				owner = {
-					OR = {
-						tag = AUS
-						tag = HUN
-						tag = CZE
-						tag = CRO
-						tag = GAL
-					}
+			SVK = {
+				exists = no
+				NOT = { has_country_flag = no_minority_revolt }
+			}
+			var:1123.owner = {
+				has_country_flag = released_via_austrian_collapse
+				OR = {
+					tag = AUS
+					tag = HUN
+					tag = CZE
+					tag = CRO
+					tag = GAL
 				}
 			}
 		}
-		73 = {
-			owner = {
-				log = "AUS_collapse_splinter_setup - [?73.GetName] owner: [?73.owner.GetName]"
-				country_event = {
-					id = constituents.13 #Carpatho-Ukraine Secession
-					days = 5
-					random_hours = 12
+		var:1123.owner = {
+			log = "AUS_collapse_splinter_setup - [?1123.GetName] owner: [?1123.owner.GetName]"
+			country_event = {
+				id = constituents.12 #Slovakia Secession
+				days = 2
+				random_hours = 12
+			}
+		}
+	}
+	if = {
+		limit = {
+			CPU = {
+				exists = no
+				NOT = { has_country_flag = no_minority_revolt }
+			}
+			var:73.owner = {
+				has_country_flag = released_via_austrian_collapse
+				OR = {
+					tag = AUS
+					tag = HUN
+					tag = CZE
+					tag = CRO
+					tag = GAL
 				}
+			}
+		}
+		var:1123.owner = {
+			log = "AUS_collapse_splinter_setup - [?73.GetName] owner: [?73.owner.GetName]"
+			country_event = {
+				id = constituents.13 #Carpatho-Ukraine Secession
+				days = 5
+				random_hours = 12
 			}
 		}
 	}
 	# Illyria Splinters #
 	if = {
 		limit = {
-			BOS = { exists = no }
-			1142 = {
-				owner = {
-					OR = {
-						tag = AUS
-						tag = HUN
-						tag = CZE
-						tag = CRO
-						tag = GAL
-					}
+			BOS = {
+				exists = no
+				NOT = { has_country_flag = no_minority_revolt }
+			}
+			var:1142.owner = {
+				has_country_flag = released_via_austrian_collapse
+				OR = {
+					tag = AUS
+					tag = HUN
+					tag = CZE
+					tag = CRO
+					tag = GAL
 				}
 			}
 		}
-		1142 = {
-			owner = {
-				log = "AUS_collapse_splinter_setup - [?1142.GetName] owner: [?1142.owner.GetName]"
-				country_event = {
-					id = constituents.17 #Bosnia and Herzegovina Secession
-					days = 3
-					random_hours = 12
-				}
+		var:1142.owner = {
+			log = "AUS_collapse_splinter_setup - [?1142.GetName] owner: [?1142.owner.GetName]"
+			country_event = {
+				id = constituents.17 #Bosnia and Herzegovina Secession
+				days = 3
+				random_hours = 12
 			}
 		}
 	}
@@ -5111,142 +5122,117 @@ AUS_collapse_splinter_setup = {
 	
 	if = {
 		limit = {
-			SKS = { exists = no }
-			794 = {
-				owner = {
-					OR = {
-						tag = AUS
-						tag = HUN
-						tag = CZE
-						tag = CRO
-						tag = GAL
-					}
+			SKS = {
+				exists = no
+				NOT = { has_country_flag = no_minority_revolt }
+			}
+			var:794.owner = {
+				has_country_flag = released_via_austrian_collapse
+				OR = {
+					tag = AUS
+					tag = HUN
+					tag = CZE
+					tag = CRO
+					tag = GAL
 				}
 			}
 		}
-		794 = {
-			owner = {
-				log = "AUS_collapse_splinter_setup - [?794.GetName] owner: [?794.owner.GetName]"
-				country_event = {
-					id = constituents.18 #Republika Srpska Secedes
-					days = 6
-					random_hours = 24
-				}
+		var:794.owner = {
+			log = "AUS_collapse_splinter_setup - [?794.GetName] owner: [?794.owner.GetName]"
+			country_event = {
+				id = constituents.18 #Republika Srpska Secedes
+				days = 6
+				random_hours = 24
 			}
 		}
 	}
 	
 	if = {
 		limit = {
-			MNT = { exists = no }
-			105 = {
-				owner = {
-					OR = {
-						tag = AUS
-						tag = HUN
-						tag = CZE
-						tag = CRO
-						tag = GAL
-					}
+			MNT = {
+				exists = no
+				NOT = { has_country_flag = no_minority_revolt }
+			}
+			var:105.owner = {
+				has_country_flag = released_via_austrian_collapse
+				OR = {
+					tag = AUS
+					tag = HUN
+					tag = CZE
+					tag = CRO
+					tag = GAL
 				}
 			}
 		}
-		105 = {
-			owner = {
-				log = "AUS_collapse_splinter_setup - [?105.GetName] owner: [?105.owner.GetName]"
-				country_event = {
-					id = constituents.19 #Montenegro Secession
-					days = 3
-					random_hours = 12
-				}
+		var:105.owner = {
+			log = "AUS_collapse_splinter_setup - [?105.GetName] owner: [?105.owner.GetName]"
+			country_event = {
+				id = constituents.19 #Montenegro Secession
+				days = 3
+				random_hours = 12
 			}
 		}
 	}
 	# Bohemia Splinters #
 	if = {
 		limit = {
-			PGU = { exists = no }
-			69 = {
-				owner = {
-					OR = {
-						tag = AUS
-						tag = HUN
-						tag = CZE
-						tag = CRO
-						tag = GAL
-					}
-					OR = {
-						has_idea = BOH_sudeten_german_divide
-						has_idea = BOH_sudeten_german_divide_2
-					}
+			PGU = {
+				exists = no
+				NOT = { has_country_flag = no_minority_revolt }
+			}
+			var:69.owner = {
+				has_country_flag = released_via_austrian_collapse
+				OR = {
+					tag = AUS
+					tag = HUN
+					tag = CZE
+					tag = CRO
+					tag = GAL
+				}
+				OR = {
+					has_idea = BOH_sudeten_german_divide
+					has_idea = BOH_sudeten_german_divide_2
 				}
 			}
 		}
-		69 = {
-			owner = {
-				log = "AUS_collapse_splinter_setup - [?69.GetName] owner: [?69.owner.GetName]"
-				country_event = {
-					id = constituents.10 #German-Bohemian Secession
-					days = 7
-					random_hours = 12
-				}
+		var:69.owner = {
+			log = "AUS_collapse_splinter_setup - [?69.GetName] owner: [?69.owner.GetName]"
+			country_event = {
+				id = constituents.10 #German-Bohemian Secession
+				days = 7
+				random_hours = 12
 			}
 		}
 	}
 	# Galicia Splinters #
 	if = {
 		limit = {
-			WSU = { exists = no }
-			91 = {
-				owner = {
-					OR = {
-						tag = AUS
-						tag = HUN
-						tag = CZE
-						tag = CRO
-						tag = GAL
-					}
+			WSU = {
+				exists = no
+				NOT = { has_country_flag = no_minority_revolt }
+			}
+			var:91.owner = {
+				has_country_flag = released_via_austrian_collapse
+				OR = {
+					tag = AUS
+					tag = HUN
+					tag = CZE
+					tag = CRO
+					tag = GAL
 				}
 			}
 		}
-		91 = {
-			owner = {
-				log = "AUS_collapse_splinter_setup - [?91.GetName] owner: [?91.owner.GetName]"
-				country_event = {
-					id = wsu.1 #West Ukraine Secession
-					days = 6
-					random_hours = 12
-				}
+		var:91.owner = {
+			log = "AUS_collapse_splinter_setup - [?91.GetName] owner: [?91.owner.GetName]"
+			country_event = {
+				id = wsu.1 #West Ukraine Secession
+				days = 4
+				random_hours = 12
 			}
 		}
 	}
 	
-	if = {
-		limit = {
-			BUK = { exists = no }
-			80 = {
-				owner = {
-					OR = {
-						tag = AUS
-						tag = HUN
-						tag = CZE
-						tag = CRO
-						tag = GAL
-					}
-				}
-			}
-		}
-		80 = {
-			owner = {
-				log = "AUS_collapse_splinter_setup - [?80.GetName] owner: [?80.owner.GetName]"
-				country_event = {
-					id = constituents.22 #Bukovina Secession
-					days = 7
-					random_hours = 12
-				}
-			}
-		}
-	}
+	# BUK fired by WSU because battle for lviv
 }
 
 AUS_post_collapse_effect = {
@@ -5280,50 +5266,59 @@ AUS_post_collapse_effect = {
 			}
 		}
 	}
-	MNT = {
+	every_country = {
+		limit = {
+			OR = {
+				AND = {
+					tag = MNT
+					has_country_flag = MNT_released_in_austrian_collapse
+				}
+				tag = SKS
+			}
+		}
 		if = {
-			limit = {
+			limit = { NOT = { has_war_with = SER } }
+			SER = {
+				country_event = {
+					id = constituents.1000
+					days = 1
+					random_days = 14
+					random_hours = 24
+				}
+			}
+		}
+	}
+	every_country = {
+		limit = {
+			OR = {
+				tag = BUK
+				tag = TRS
+			}
+		}
+		if = {
+			limit = { NOT = { has_war_with = ROM } }
+			ROM = {
+				country_event = {
+					id = constituents.1000
+					days = 1
+					random_days = 14
+					random_hours = 24
+				}
+			}
+		}
+	}
+	SLO = {
+		if = {
+			limit = { 
 				exists = yes
-				has_country_flag = MNT_released_in_austrian_collapse
+				NOT = { is_guaranteed_by = AUS }
 			}
-			if = {
-				limit = { NOT = { has_war_with = SER } }
-				SER = {
-					country_event = {
-						id = constituents.1000
-						days = 1
-						random_hours = 24
-					}
-				}
-			}
-		}
-	}
-	BUK = {
-		if = {
-			limit = { exists = yes }
-			if = {
-				limit = { NOT = { has_war_with = ROM } }
-				ROM = {
-					country_event = {
-						id = constituents.1001
-						days = 1
-						random_hours = 24
-					}
-				}
-			}
-		}
-	}
-	TRS = {
-		if = {
-			limit = { exists = yes }
-			if = {
-				limit = { NOT = { has_war_with = ROM } }
-				ROM = {
-					country_event = {
-						id = constituents.1002
-						days = 1
-						random_hours = 24
-					}
+			CRO = {
+				country_event = {
+					id = constituents.1000
+					days = 1
+					random_days = 14
+					random_hours = 24
 				}
 			}
 		}
@@ -5439,6 +5434,7 @@ do_minority_revolt_basic = {
 	}
 	REV = {
 		clr_country_flag = BOTDE_imminent_minority_revolt
+		set_variable = { REV.subject_revolt_progress = 0 }
 		REV_spawn_units = yes
 	}
 	RVO = {
@@ -6593,7 +6589,7 @@ do_minority_rise_advanced_calc = {
 	}
 	add_to_temp_variable = { subtractive_value = AUS.stability }
 	subtract_from_temp_variable = { subtractive_value = 0.5 } #If below 50% stability, get a malus
-	divide_temp_variable = { subtractive_value = 30 }
+	divide_temp_variable = { subtractive_value = 20 }
 	
 	if = {
 		limit = {
@@ -6608,7 +6604,7 @@ do_minority_rise_advanced_calc = {
 	add_to_temp_variable = { additional_value = collapse_value_AUS }
 	add_to_temp_variable = { additional_value = nationalist_value }
 	add_to_temp_variable = { additional_value = collapse_value_owner }
-	divide_temp_variable = { additional_value = 90 }
+	divide_temp_variable = { additional_value = 100 }
 	divide_temp_variable = { resistance_value = 1600 }
 	add_to_temp_variable = { additional_value = minority_cores }
 	add_to_temp_variable = { additional_value = global.extra_value_war_exhaust }
@@ -6618,6 +6614,7 @@ do_minority_rise_advanced_calc = {
 	subtract_from_temp_variable = { additional_value = subtractive_value }
 	add_to_temp_variable = { revolt_progress_change = additional_value }
 	add_to_temp_variable = { revolt_progress_change = resistance_value }
+	multiply_temp_variable = { revolt_progress_change = 0.8 }
 	log = "[GetDateText]: [Root.GetName]: do_minority_rise_advanced_calc: [?revolt_progress_change]"
 	BOTDE_add_collapse = yes
 }
@@ -7354,6 +7351,13 @@ AUS_federalize_effect = {
 			}
 		}
 		add_manpower = 300000
+		random_other_country = {
+			news_event = {
+				id = bdeausnews.2
+				hours = 12
+				random_hours = 24
+			}
+		}
 	}
 }
 
@@ -7456,6 +7460,15 @@ AUS_federalize_trialist_effect = {
 			}
 		}
 		
+	}
+	
+	hidden_effect = {
+		random_other_country = {
+			news_event = {
+				id = bdeausnews.2
+				days = 1
+			}
+		}
 	}
 }
 
@@ -7654,14 +7667,15 @@ SKS_revolt_units_SER = {
 	multiply_temp_variable  = { extra_divs_temp = 1.5 }
 	round_temp_variable = extra_divs_temp
 	add_to_variable = { SKS.extra_divs_temp = SKS.extra_divs_meme }
+	clamp_variable = {
+		var = THIS.extra_divs_temp
+		min = 0
+		max = num_armies@SER
+	}
 	
 	while_loop_effect = {
 		limit = {
-			check_variable = {
-				var = THIS.extra_divs_temp
-				value = 0
-				compare = greater_than
-			}
+			check_variable = { THIS.extra_divs_temp > 0 }
 		}
 		random_owned_state = {
 			create_unit = { 
@@ -8503,6 +8517,18 @@ AUS_add_banat_array = {
 	}
 }
 
+HUN_remove_SVK_array = {
+	custom_effect_tooltip = HUN_SVK_removed
+	hidden_effect = {
+		set_variable = {
+			var = SVK.subject_revolt_progress
+			value = 0.0
+		}
+		remove_from_array = { ROOT.austria_minority_array = SVK }
+		set_global_flag = SVK_off_array
+	}
+}
+
 AUS_add_krakow_array = {
 	custom_effect_tooltip = AUS_krakow_added
 	hidden_effect = {
@@ -8538,7 +8564,6 @@ AUS_tally_ausgleich = { #-1 successes - Hungarian revolt. 0-2 successes - bad. 3
 		}
 		set_global_flag = AUS_terrible_ausgleich
 	}
-	
 	if = {
 		limit = {
 			check_variable = {
@@ -8554,7 +8579,6 @@ AUS_tally_ausgleich = { #-1 successes - Hungarian revolt. 0-2 successes - bad. 3
 		}
 		set_global_flag = AUS_bad_ausgleich
 	}
-	
 	if = {
 		limit = {
 			check_variable = {
@@ -8570,7 +8594,6 @@ AUS_tally_ausgleich = { #-1 successes - Hungarian revolt. 0-2 successes - bad. 3
 		}
 		set_global_flag = AUS_meh_ausgleich
 	}
-	
 	if = {
 		limit = {
 			check_variable = {
@@ -8581,32 +8604,28 @@ AUS_tally_ausgleich = { #-1 successes - Hungarian revolt. 0-2 successes - bad. 3
 		}
 		set_global_flag = AUS_good_ausgleich
 	}
-	
 	if = {
 		limit = {
 			has_global_flag = AUS_autonomous_transleithania_minorities
 		}
 		country_event = {
 			id = bdeausgleich.59
-			days = 5
+			days = 1
 		}
 	}
-	
 	if = {
 		limit = {
 			has_global_flag = AUS_status_quo_1927
 		}
 		country_event = {
 			id = bdeausgleich.71
-			days = 11
+			days = 3
 		}
 	}
-	
 	country_event = {
 		id = bdeausgleich.58
-		days = 11
+		days = 3
 	}
-	
 }
 
 
@@ -8626,6 +8645,13 @@ BOTDE_minority_pulse_test = {
 						has_global_flag = AUS_ausgleich_peoples
 					}
 					has_country_flag = no_minority_revolt
+				}
+				capital_scope = {
+					owner = {
+						NOT = {
+							has_country_flag = AUS_evidenzbureau_focus
+						}
+					}
 				}
 			}
 			do_minority_rise = yes
@@ -8681,8 +8707,10 @@ BOTDE_minority_pulse_test = {
 		}
 		if = {
 			limit = {
-				owner = {
-					has_country_flag = AUS_evidenzbureau_focus
+				capital_scope = {
+					owner = {
+						has_country_flag = AUS_evidenzbureau_focus
+					}
 				}
 			}
 			add_to_variable = {
@@ -8979,44 +9007,83 @@ BOTDE_5BW_peace = {
 		}
 	}
 	
-	for_each_scope_loop = { #Annex all capped subjects into capital owner, AUS if the nation is a subject of it
+	for_each_scope_loop = { #Annex all capped subjects into capital controller, AUS if the nation is a subject of it
 		array = global.fucked_capped_5bw
 		log = "[THIS.GetName] on array global.fucked_capped_5bw"
-		capital_scope = {
-			controller = {
-				if = {
-					limit = {
+		if = {
+			limit = {
+				OR = {
+					is_subject_of = SER
+				}
+				CRO = {
+					is_in_faction_with = AUS
+				}
+			}
+			CRO = {
+				annex_country = {
+					target = PREV
+				}
+			}
+		}
+		else_if = {
+			limit = { tag = SER }
+			AUS = { AUS_occupy_SER_effect = yes }
+		}
+		else_if = {
+			limit = {
+				is_subject_of = ROM
+				NOT = {
+					tag = BUK
+				}
+				HUN = { is_in_faction_with = AUS }
+			}
+			HUN = {
+				annex_country = {
+					target = PREV
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				tag = BUK
+				GAL = { is_in_faction_with = AUS }
+			}
+			GAL = {
+				annex_country = {
+					target = PREV
+				}
+			}
+		}
+		else_if = {
+			limit = { tag = ROM }
+			if = {
+				limit = { UKR = { is_in_faction_with = AUS } }
+				every_owned_state = {
+					limit = { is_core_of = UKR }
+					transfer_state_to = UKR
+				}
+			}
+			if = {
+				limit = {
+					BUL = {
 						OR = {
-							is_subject_of = AUS
 							is_in_faction_with = AUS
+							has_war_with = ROM
 						}
+						NOT = { has_war_with = AUS }
 					}
-					PREV = {
-						every_subject_country = {
-							AUS = {
-								annex_country = {
-									target = PREV
-								}
-							}
-						}
-					}
-					AUS = {
-						annex_country = {
-							target = PREV
-						}
-					}
-					else = {
-						annex_country = {
-							target = PREV
-						}
-						every_subject_country = {
-							PREV = {
-								annex_country = {
-									target = PREV
-								}
-							}
-						}
-					}
+				}
+				every_owned_state = {
+					limit = { is_core_of = BUL }
+					transfer_state_to = BUL
+				}
+			}
+			AUS = { AUS_occupy_ROM_effect = yes }
+		}
+		else = {
+			AUS = {
+				annex_country = {
+					target = PREV
 				}
 			}
 		}
@@ -9064,8 +9131,11 @@ BOTDE_5BW_init = {
 }
 
 THIS_minority_stop_revolt = {
-	custom_effect_tooltip = THIS_unable_to_revolt
-	set_country_flag = no_minority_revolt
+	custom_override_tooltip = {
+		tooltip = THIS_unable_to_revolt
+		set_country_flag = no_minority_revolt
+		set_variable = { THIS.subject_revolt_progress = 0 }
+	}
 }
 
 AUS_RUS_do_oil_upgrade = {
@@ -10893,7 +10963,7 @@ SZK_collapse_setup = { #Expansion and some things for post-collapse countries af
 	if = {
 		limit = {
 			789 = {
-				has_state_flag = HUN_strong_state
+				has_state_flag = solid_state
 			}
 		}
 		789 = {
@@ -11344,49 +11414,55 @@ AUS_ausgleich_ending_effect = {
 			}
 		}
 		if = {
-			limit = {
-				has_global_flag = ausgleich_austria_pays
-			}
+			limit = { has_global_flag = ausgleich_austria_pays }
 			AUS = {
 				add_timed_idea = {
 					idea = AUS_gleich_payments
 					days = 120
 				}
 			}
+			clr_global_flag = ausgleich_austria_pays
 		}
 		if = {
-			limit = {
-				has_global_flag = ausgleich_illyria_pays
-			}
+			limit = { has_global_flag = ausgleich_illyria_pays }
 			CRO = {
 				add_timed_idea = {
 					idea = AUS_gleich_payments
 					days = 120
 				}
 			}
+			clr_global_flag = ausgleich_illyria_pays
 		}
 		HUN = {
 			add_timed_idea = {
 				idea = AUS_gleich_payments_recipient
-				days = 150
+				days = 120
 			}
 		}
 	}
 	if = {
-		limit = {
-			has_global_flag = AUS_reform_customs_union
-		}
+		limit = { has_global_flag = AUS_reform_customs_union }
 		AUS = {
 			add_timed_idea = {
 				idea = AUS_gleich_reforms_customs_union
 				days = 120
 			}
 		}
+		clr_global_flag = AUS_reform_customs_union
 	}
 	if = {
-		limit = {
-			has_global_flag = AUS_ausgleich_illyria_promoted_AUS
+		limit = { has_global_flag = ausgleich_AUS_transfer_german_hungary }
+		every_state = {
+			limit = {
+				is_owned_by = HUN
+				state = 784
+			}
+			transfer_state_to = AUS
 		}
+		clr_global_flag = ausgleich_AUS_transfer_german_hungary
+	}
+	if = {
+		limit = { has_global_flag = AUS_ausgleich_illyria_promoted_AUS }
 		CRO = {
 			set_variable = { AUS_subject_status = 1 }
 			swap_ideas = {
@@ -11394,11 +11470,10 @@ AUS_ausgleich_ending_effect = {
 				add_idea = AUS_cisleithanian_sphere
 			}
 		}
+		clr_global_flag = AUS_ausgleich_illyria_promoted_AUS
 	}
 	if = {
-		limit = {
-			has_global_flag = AUS_transleithanian_illyria
-		}
+		limit = { has_global_flag = AUS_transleithanian_illyria }
 		CRO = {
 			get_current_government_type = yes
 			end_puppet = CRO
@@ -11415,11 +11490,10 @@ AUS_ausgleich_ending_effect = {
 				add_idea = AUS_transleithanian_sphere
 			}
 		}
+		clr_global_flag = AUS_transleithanian_illyria
 	}
 	if = {
-		limit = {
-			has_global_flag = ausgleich_eu_illyria
-		}
+		limit = { has_global_flag = ausgleich_eu_illyria }
 		CRO = {
 			set_variable = { AUS_subject_status = 6 }
 			swap_ideas = {
@@ -11427,42 +11501,37 @@ AUS_ausgleich_ending_effect = {
 				add_idea = CRO_proto_european_state
 			}
 		}
+		clr_global_flag = ausgleich_eu_illyria
 	}
 	if = {
-		limit = {
-			has_global_flag = AUS_ausgleich_common_army_law_small
-		}
+		limit = { has_global_flag = AUS_ausgleich_common_army_law_small }
 		AUS_ausgleich_small_common_army_effect = yes
+		clr_global_flag = AUS_ausgleich_common_army_law_small
 	}
 	if = {
-		limit = {
-			has_global_flag = AUS_ausgleich_common_army_law_medium
-		}
+		limit = { has_global_flag = AUS_ausgleich_common_army_law_medium }
 		AUS_ausgleich_medium_common_army_effect = yes
+		clr_global_flag = AUS_ausgleich_common_army_law_medium
 	}
 	if = {
-		limit = {
-			has_global_flag = AUS_ausgleich_common_army_law_large
-		}
+		limit = { has_global_flag = AUS_ausgleich_common_army_law_large }
 		AUS_ausgleich_large_common_army_effect = yes
+		clr_global_flag = AUS_ausgleich_common_army_law_large
 	}
 	if = {
-		limit = {
-			has_global_flag = AUS_ausgleich_common_army_law_unity_small
-		}
+		limit = { has_global_flag = AUS_ausgleich_common_army_law_unity_small }
 		AUS_ausgleich_common_army_law_unity_small_effect = yes
+		clr_global_flag = AUS_ausgleich_common_army_law_unity_small
 	}
 	if = {
-		limit = {
-			has_global_flag = AUS_ausgleich_common_army_law_unity_medium
-		}
+		limit = { has_global_flag = AUS_ausgleich_common_army_law_unity_medium }
 		AUS_ausgleich_common_army_law_unity_medium_effect = yes
+		clr_global_flag = AUS_ausgleich_common_army_law_unity_medium
 	}
 	if = {
-		limit = {
-			has_global_flag = AUS_ausgleich_common_army_law_unity_large
-		}
+		limit = { has_global_flag = AUS_ausgleich_common_army_law_unity_large }
 		AUS_ausgleich_common_army_law_unity_large_effect = yes
+		clr_global_flag = AUS_ausgleich_common_army_law_unity_large
 	}
 }
 AUS_ausgleich_small_common_army_effect = {
@@ -11824,6 +11893,15 @@ AUS_restore_HUN_after_ausgleich_revolt_effect = {
 		}
 		HUN = {
 			if = {
+				limit = { has_global_flag = AUS_ausgleich_hungarian_revolt }
+				set_global_flag = HUN_revolted_during_ausgleich
+				clr_global_flag = AUS_ausgleich_hungarian_revolt
+			}
+			if = {
+				limit = { has_country_flag = AUS_ausgleich_hates_army_policy }
+				clr_country_flag = AUS_ausgleich_hates_army_policy
+			}
+			if = {
 				limit = {
 					has_global_flag = AUS_ausgleich_hungarian_revolt
 					has_global_flag = AUS_ausgleich_ongoing
@@ -11831,6 +11909,10 @@ AUS_restore_HUN_after_ausgleich_revolt_effect = {
 				set_country_flag = going_to_le_ausgleich
 				set_country_flag = HUN_always_accept_ausgleich_demands
 				clr_country_flag = CONST_no_evidenzbureau
+				if = {
+					limit = { has_global_flag = HUN_boycotted_ausgleich }
+					clr_global_flag = HUN_boycotted_ausgleich
+				}
 				if = {
 					limit = {
 						NOT = {
@@ -11871,12 +11953,13 @@ AUS_restore_HUN_after_ausgleich_revolt_effect = {
 				name = HUN_paternal_autocrat_party_military_gov
 				long_name = HUN_paternal_autocrat_party_military_gov_long
 			}
-			create_country_leader = {
-				name = "József Ágost Habsburg–Lotaringiai"
-				desc = "POLITICS_JOSEPH_AUGUST_DESC"
-				picture = "gfx/leaders/AUS/Portrait_AUS_Joseph_August_von_Habsburg.png"
-				expire = "1965.1.1"
-				ideology = junta_subtype
+			set_country_leader_ideology = junta_subtype
+			remove_all_ministers = yes
+			add_ideas = {
+				HUN_Joseph_August_von_Habsburg_hog_pau
+				HUN_Endre_Bajcsy_Zsilinszky_for_pau
+				HUN_Imre_Oltvanyi_eco_ade
+				HUN_Kalman_Daranyi_de_Pusztaszentgyoergyi_sec_pau
 			}
 			set_cosmetic_tag = HUN_military_gov
 			increase_ruling_party_popularity_by_30 = yes
@@ -11901,8 +11984,9 @@ AUS_restore_HUN_after_ausgleich_revolt_effect = {
 			HUN = {
 				set_autonomy = {
 					target = FIU
-					autonomy_state = botde_transleithania
+					autonomy_state = botde_fiume
 				}
+				add_ideas = HUN_fiume_economy
 			}
 			FIU = {
 				restore_previous_government_type = yes
@@ -11912,6 +11996,12 @@ AUS_restore_HUN_after_ausgleich_revolt_effect = {
 	}
 }
 AUS_occupy_SER_effect = {
+	AUS = {
+		set_autonomy = {
+			target = SER
+			autonomous_state = botde_occupied
+		}
+	}
 	SER = {
 		set_cosmetic_tag = SER_occupied
 		set_politics = {
@@ -11920,11 +12010,40 @@ AUS_occupy_SER_effect = {
 			long_name = SER_occupied_paternal_autocrat_party_long
 		}
 		increase_ruling_party_popularity_by_50 = yes
+		set_country_leader_ideology = junta_subtype
 		if = {
 			limit = {
 				AUS = { AUS_DWV_member = yes }
 			}
 			AUS_add_to_DWV = yes
+		}
+	}
+}
+AUS_occupy_ROM_effect = {
+	AUS = {
+		set_autonomy = {
+			target = ROM
+			autonomous_state = botde_occupied
+		}
+	}
+	ROM = {
+		set_cosmetic_tag = ROM_occupied
+		set_politics = {
+			ruling_party = paternal_autocrat
+			name = ROM_occupied_paternal_autocrat_party
+			long_name = ROM_occupied_paternal_autocrat_party_long
+		}
+		increase_ruling_party_popularity_by_50 = yes
+		set_country_leader_ideology = junta_subtype
+		if = {
+			limit = {
+				AUS = { AUS_DWV_member = yes }
+			}
+			AUS_add_to_DWV = yes
+		}
+		every_core_state = {
+			limit = { is_core_of = TRS }
+			remove_core_and_add_claim = yes
 		}
 	}
 }
@@ -11936,66 +12055,48 @@ AUS_unlock_foreign_policy_small = {
 	}
 }
 AUS_meta_BM_reduce = {
-	set_temp_variable = { var = AUS_BM_value_temp value = AUS_BM_value }
-	add_to_variable = {
-		var = AUS.AUS_BM_value
-		value = 1
-	}
+	set_temp_variable = { AUS_BM_value_temp = AUS_BM_value }
+	add_to_variable = { AUS.AUS_BM_value = 1 }
 	if = {
-		limit = {
-			check_variable = {
-				var = AUS.AUS_BM_value
-				value = 6
-				compare = greater_than_or_equals
-			}
-		}
+		limit = { check_variable = { AUS.AUS_BM_value > 5 } }
 		remove_ideas = AUS_bm_5
-		else = {
-			custom_effect_tooltip = AUS_bm_reduce
-			hidden_effect = {
-				meta_effect = {
-					text = {
-						swap_ideas = {
-							add_idea = AUS_bm_[AUS_BM_value]
-							remove_idea = AUS_bm_[AUS_BM_value_temp]
-						}
+	}
+	else = {
+		custom_override_tooltip = {
+			tooltip = AUS_bm_reduce
+			meta_effect = {
+				text = {
+					swap_ideas = {
+						add_idea = AUS_bm_[AUS_BM_value]
+						remove_idea = AUS_bm_[AUS_BM_value_temp]
 					}
-					AUS_BM_value = "[?AUS_BM_value]"
-					AUS_BM_value_temp = "[?AUS_BM_value_temp]"
 				}
+				AUS_BM_value = "[?AUS_BM_value]"
+				AUS_BM_value_temp = "[?AUS_BM_value_temp]"
 			}
 		}
 	}
 }
 
 AUS_meta_army_reduce = {
-	set_temp_variable = { var = AUS_army_value_temp value = AUS_army_value }
-	add_to_variable = {
-		var = AUS.AUS_army_value
-		value = 1
-	}
+	set_temp_variable = { AUS_army_value_temp = AUS_army_value }
+	add_to_variable = { AUS.AUS_army_value = 1 }
 	if = {
-		limit = {
-			check_variable = {
-				var = AUS.AUS_army_value
-				value = 6
-				compare = greater_than_or_equals
-			}
-		}
+		limit = { check_variable = { AUS.AUS_army_value > 5 } }
 		remove_ideas = AUS_obsolete_military_5
-		else = {
-			custom_effect_tooltip = AUS_army_reduce
-			hidden_effect = {
-				meta_effect = {
-					text = {
-						swap_ideas = {
-							add_idea = AUS_obsolete_military_[AUS_army_value]
-							remove_idea = AUS_obsolete_military_[AUS_army_value_temp]
-						}
+	}
+	else = {
+		custom_override_tooltip = {
+			tooltip = AUS_army_reduce
+			meta_effect = {
+				text = {
+					swap_ideas = {
+						add_idea = AUS_obsolete_military_[AUS_army_value]
+						remove_idea = AUS_obsolete_military_[AUS_army_value_temp]
 					}
-					AUS_army_value = "[?AUS_army_value]"
-					AUS_army_value_temp = "[?AUS_army_value_temp]"
 				}
+				AUS_army_value = "[?AUS_army_value]"
+				AUS_army_value_temp = "[?AUS_army_value_temp]"
 			}
 		}
 	}
@@ -12003,16 +12104,11 @@ AUS_meta_army_reduce = {
 
 AUS_blutpakt_coalition_effect = {
 	custom_effect_tooltip = blutpakt_coalition_value_raise
-	add_to_variable = { var = global.blutpakt_coalition_value value = 1 }
+	add_to_variable = { global.blutpakt_coalition_value = 1 }
 	if = {
 		limit = {
-			check_variable = {
-				var = global.blutpakt_coalition_value
-				value = 2
-			}
-			NOT = {
-				has_global_flag = BOTDE_blutpakt_condemnations
-			}
+			check_variable = { global.blutpakt_coalition_value = 2 }
+			NOT = { has_global_flag = BOTDE_blutpakt_condemnations }
 		}
 		hidden_effect = {
 			set_global_flag = BOTDE_blutpakt_condemnations
@@ -12055,10 +12151,7 @@ AUS_blutpakt_coalition_effect = {
 	}
 	if = {
 		limit = {
-			check_variable = {
-				var = global.blutpakt_coalition_value
-				value = 3
-			}
+			check_variable = { global.blutpakt_coalition_value = 3 }
 			has_global_flag = BOTDE_blutpakt_condemnations
 		}
 		if = {
@@ -12284,6 +12377,13 @@ AUS_instant_collapse_effect = {
 				has_idea = AUS_transleithanian_sphere
 			}
 			remove_ideas = AUS_transleithanian_sphere
+		}
+		
+		every_country = {
+			limit = {
+				has_idea = AUS_transleithanian_sphere_fiume
+			}
+			remove_ideas = AUS_transleithanian_sphere_fiume
 		}
 		
 		every_country = {
@@ -12624,6 +12724,123 @@ SER_shoot_down_a_airplane_effect = {
 		}
 	}
 }
+SER_revolt_mission_timeout_effect = {
+	event_target:BOTDE_backer_revolt_tag = {
+		set_country_flag = BOTDE_imminent_minority_revolt
+		capital_scope = {
+			owner = {
+				set_country_flag = BOTDE_imminent_minority_revolt_owner
+				save_event_target_as = BOTDE_RVO_temp
+			}
+		}
+		do_minority_revolt_setup = yes
+		clr_country_flag = BPTROLL_revolt_start
+		get_current_government_type = yes
+		ROOT = {
+			puppet = PREV
+			declare_war_on = {
+				target = event_target:BOTDE_RVO_temp
+				type = annex_everything
+			}
+			PREV = {
+				declare_war_on = {
+					target = event_target:BOTDE_RVO_temp
+					type = annex_everything
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_idea = BOTDE_delenda_est }
+				}
+				hidden_effect = { add_timed_idea = { idea = BOTDE_delenda_est days = 240 } }
+			}
+		}
+		restore_previous_government_type = yes
+		SKS_revolt_units_SER = yes
+		while_loop_effect = {
+			limit = { check_variable = { THIS.extra_divs > 0 } }
+			THIS = {
+				if = {
+					limit = {
+						has_template = "Chetnik Detachment"
+					}
+					else = {
+						division_template = {
+							name = "Chetnik Detachment"
+							regiments = {
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 0 y = 2 }
+								infantry = { x = 1 y = 0 }
+								infantry = { x = 1 y = 1 }
+								infantry = { x = 1 y = 2 }
+								infantry = { x = 2 y = 0 }
+								infantry = { x = 2 y = 1 }
+								infantry = { x = 2 y = 2 }
+							}
+							is_locked = yes
+							support = {
+								engineer = { x = 0 y = 0 }
+								logistics_company = { x = 0 y = 1 }
+							}
+						}
+					}
+					capital_scope = {
+						create_unit = { 
+							division = "name = \"Četnički Odred\" division_template = \"Chetnik Detachment\" start_experience_factor = 0.65" 
+							owner = PREV
+							allow_spawning_on_enemy_provs = yes
+						}
+					}
+				}
+			}
+			subtract_from_variable = { THIS.extra_divs = 1 }
+		}
+		if = {
+			limit = {
+				NOT = { has_idea = BOTDE_delenda_est }
+			}
+			hidden_effect = { add_timed_idea = { idea = BOTDE_delenda_est days = 240 } }
+		}
+		if = {
+			limit = { tag = BOS }
+			set_cosmetic_tag = BOS_SER_revolt
+		}
+	}
+	clear_global_event_target = BOTDE_backer_revolt_tag
+	clr_global_flag = BPTROLL_revolt_incoming
+	hidden_effect = {
+		every_country = {
+			limit = {
+				OR = {
+					tag = SER
+					tag = AUS
+					is_in_faction_with = SER
+					is_in_faction_with = AUS
+				}
+			}
+			country_event = {
+				id = bdeausfor.101
+				hours = 2
+				random_hours = 3
+			}
+		}
+	}
+	if = { #If Romania is an AI, figure out its balance of power and start some revolts to help out Serbian player
+		limit = {					
+			SER = { 
+				is_ai = no 
+				is_in_faction_with = ROM
+			}
+			ROM = {
+				is_ai = yes
+			}
+		}
+		hidden_effect = {
+			ROM_help_serb_player_revolt = yes
+		}
+	}
+}
 ROM_invent_banat_effect = {
 	custom_override_tooltip = {
 		tooltip = ROM_seek_transylvanian_ties_tt
@@ -12695,6 +12912,100 @@ ROM_invent_banat_effect = {
 		}
 	}
 }
+ROM_revolt_mission_timeout_effect = {
+	event_target:BOTDE_backer_revolt_tag = {
+		set_country_flag = BOTDE_imminent_minority_revolt
+		capital_scope = {
+			owner = {
+				set_country_flag = BOTDE_imminent_minority_revolt_owner
+			}
+		}
+		do_minority_revolt_setup = yes
+		clr_country_flag = BPTROLL_revolt_start
+		get_current_government_type = yes
+		ROOT = {
+			puppet = PREV
+			declare_war_on = {
+				target = 43.owner
+				type = annex_everything
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_idea = BOTDE_delenda_est
+					}
+				}
+				add_timed_idea = { idea = BOTDE_delenda_est days = 240 }
+			}
+		}
+		
+		declare_war_on = {
+			target = HUN
+			type = annex_everything
+		}
+		restore_previous_government_type = yes
+		hidden_effect = {
+			if = {
+				limit = { tag = BAN }
+				add_popularity = {
+					ideology = national_populist
+					popularity = 0.15
+				}
+				set_politics = {
+					ruling_party = national_populist
+				}
+				set_cosmetic_tag = BAN_indrazneti
+				BAN_revolt_units_ROM = yes
+				add_timed_idea = { idea = BOTDE_delenda_est days = 240 }
+			}
+			if = {
+				limit = { tag = BUK }
+				add_popularity = {
+					ideology = national_populist
+					popularity = 0.15
+				}
+				set_politics = {
+					ruling_party = national_populist
+				}
+				BUK_revolt_units_ROM = yes
+				add_timed_idea = { idea = BOTDE_delenda_est days = 240 }
+			}
+			if = {
+				limit = { tag = TRS }
+				add_popularity = {
+					ideology = national_populist
+					popularity = 0.15
+				}
+				set_politics = {
+					ruling_party = national_populist
+				}
+				TRS_revolt_units_ROM = yes
+				add_timed_idea = { idea = BOTDE_delenda_est days = 240 }
+			}
+			every_country = {
+				limit = {
+					OR = {
+						tag = ROM
+						tag = AUS
+						is_in_faction_with = ROM
+						is_in_faction_with = AUS
+					}
+				}
+				country_event = {
+					id = bdeausfor.101
+					days = 2
+					random_hours = 48
+				}
+				news_event = {
+					id = bdeausnews.7
+					days = 2
+				}
+			}
+		}
+	}
+	clear_global_event_target = BOTDE_backer_revolt_tag
+	clr_global_flag = BPTROLL_revolt_incoming
+}
 AUS_create_franz_joseph_ii_effect = {
 	create_country_leader = {
 		name = "Franz Joseph II"
@@ -12746,7 +13057,57 @@ AUS_create_franz_joseph_ii_effect = {
 		ideology = austropopulism_subtype
 	}
 }
-
+HUN_create_ferenc_jozsef_ii_effect = {
+	create_country_leader = {
+		name = "II. Ferenc József"
+		desc = "POLITICS_FRANZ_JOSEPH_II"
+		picture = "gfx/leaders/AUS/Portrait_AUS_Otto_I.png"
+		expire = "1965.1.1"
+		ideology = autdem_christian_democracy_subtype
+	}
+	create_country_leader = {
+		name = "II. Ferenc József"
+		desc = "POLITICS_FRANZ_JOSEPH_II"
+		picture = "gfx/leaders/AUS/Portrait_AUS_Otto_I.png"
+		expire = "1965.1.1"
+		ideology = pataut_christian_democracy_subtype
+	}
+}
+AUS_liebenfels_coup_effect = {
+	set_politics = {
+		ruling_party = national_populist
+	}
+	set_cosmetic_tag = AUS_ariosophic
+	hidden_effect = {
+		set_country_flag = AUS_liebenfels_coup
+		clr_country_flag = AUS_imminent_collapse
+		remove_ideas = AUS_big_crisis_idea
+		complete_national_focus = AUS_ariosophic_awakening
+		create_country_leader = {
+			name = "Karl I"
+			desc = "POLITICS_KARL_BOTDE_DESC"
+			picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I2.png"
+			expire = "1965.1.1"
+			ideology = ariosophy_subtype
+		}
+		remove_all_ministers = yes
+		add_ideas = {
+			AUS_Jorg_Lanz_von_Liebenfels_hog_npo
+			AUS_Arthur_Seyss_Inquart_for_pau
+			AUS_Hans_Fischboeck_eco_npo
+			AUS_Edmund_Glaise_von_Horstenau_sec_pau
+		}
+		random_other_country = {
+			news_event = bdeausnews.19
+		}
+		country_event = {
+			id = bdeausflavor.143
+			days = 3
+			random_days = 14
+			random_hours = 24
+		}
+	}
+}
 AUS_PNEO_coup_effect = {
 	add_popularity = {
 		ideology = national_populist
@@ -12848,6 +13209,10 @@ AUS_liebenfels_civil_war_prelude_setup = {
 			AUS_postcollapse_army_idea
 			AUS_militias
 		}
+		add_ideas = {
+			AUS_purity_2
+			AUS_theozoology
+		}
 		if = {
 			limit = {
 				set_temp_variable = { num_divisions = AWR.extra_units_at_civil_war_start }
@@ -12895,8 +13260,6 @@ AUS_liebenfels_civil_war_real_start_setup = {
 		add_ideas = {
 			AUS_liebenfels_civil_war_idea
 			AUS_liebenfels_civil_war_idea_AWR
-			AUS_purity_2
-			AUS_theozoology
 		}
 	}
 	AUS = {
@@ -13398,7 +13761,7 @@ AUS_start_civil_war_effect = {
 		}
 		create_country_leader = {
 			name = "Karl I"
-			desc = "POLITICS_KARL_DESC"
+			desc = "POLITICS_KARL_BOTDE_DESC"
 			picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I.png"
 			expire = "1965.1.1"
 			ideology = absolute_monarchy_subtype
@@ -13447,6 +13810,36 @@ AUS_start_civil_war_effect = {
 			#	random = 80
 			#}
 		}
+	}
+}
+AUS_steal_ENG_from_LIC_effect = {
+	set_country_flag = CONST_proper
+	set_political_power = 0
+	set_stability = 0.5
+	set_variable = { AUS_subject_status = 7 }
+	set_variable = { ENG.subject_revolt_progress = 0.4 }
+	set_variable = { ENG.extra_value = 0.05 }
+	if = {
+		limit = { is_in_array = { global.minorities_array = ENG } }
+		remove_from_array = { global.minorities_array = ENG }
+	}
+	if = {
+		limit = { is_in_array = { AUS.austria_minority_array = ENG } }
+		remove_from_array = { AUS.austria_minority_array = ENG }
+	}
+	if = {
+		limit = { NOT = { is_in_array = { global.constituents_array = ENG } } }
+		add_to_array = {
+			array = global.constituents_array
+			value = ENG
+			index = 2
+		}
+	}
+	country_event = constituents.51
+	country_event = basedbrit.91
+	add_ideas = {
+		AUS_part_of_the_Empire
+		AUS_liechtensteiner_sphere
 	}
 }
 AUS_display_weekly_collpase_modifiers_effect = {
@@ -13543,7 +13936,7 @@ AUS_display_weekly_const_revolt_modifiers_effect = {
 			set_temp_variable = { temp_var_2 = stability }
 			divide_temp_variable = { modifier = 120 }
 			divide_temp_variable = { temp_var = 10000 }
-			multiply_temp_variable = { temp_var_2 = -3 }
+			multiply_temp_variable = { temp_var_2 = -4 }
 			add_to_temp_variable = { modifier = temp_var }
 			multiply_temp_variable = { modifier = temp_var_2 }
 			divide_temp_variable = { modifier = 20 }
@@ -13683,5 +14076,193 @@ AUS_display_weekly_minority_revolt_modifiers_effect = {
 		}
 		add_to_temp_variable = { current_modifier = 1 }
 		AUS_display_weekly_minority_revolt_modifiers_effect = yes
+	}
+}
+
+AUS_THE_KALERGI_PLAN_CAST_THY_BREAD = {
+	create_dynamic_country = {
+		original_tag = PAL
+		transfer_state = 992
+		add_state_core = 992
+		transfer_state = 454
+		add_state_core = 454
+		set_capital = {
+			state = 454
+			remember_old_capital = no
+		}
+		set_cosmetic_tag = AUS_Israel
+		load_focus_tree = generic_focus
+		create_country_leader = {
+			name = "Radwan al-Hilu"
+			picture = "gfx/leaders/PAL/Portrait_PAL_Radwan_al_Hilu.png"
+			expire = "1.1.1"
+			ideology = authcom_subtype
+		}
+		create_country_leader = {
+			name = "Bulus Farah"
+			picture = "gfx/leaders/PAL/Portrait_PAL_Bulus_Farah.png"
+			expire = "1.1.1"
+			ideology = syndicalist_subtype
+		}
+		create_country_leader = {
+			name = "Sami Taha Hamran"
+			picture = "gfx/leaders/PAL/Portrait_PAL_Sami_Taha_Hamran.png"
+			expire = "1.1.1"
+			ideology = radsoc_paternal_socialism_subtype
+		}
+		create_country_leader = {
+			name = "Jamal al-Husayni"
+			picture = "gfx/leaders/PAL/Portrait_PAL_Jamal_al_Husayni.png"
+			expire = "1.1.1"
+			ideology = popular_patriotism_subtype
+		}
+		create_country_leader = {
+			name = "Haqqi al-Azm"
+			picture = "gfx/leaders/PAL/Portrait_PAL_Haqqi_al_Azm.png"
+			expire = "1.1.1"
+			ideology = centrist_subtype
+		}
+		create_country_leader = {
+			name = "Musa al-Alami"
+			picture = "gfx/leaders/PAL/Portrait_PAL_Musa_al_Alami.png"
+			expire = "1.1.1"
+			ideology = marlib_national_liberalism_subtype
+		}
+		create_country_leader = {
+			name = "Awni Abd al-Hadi"
+			picture = "gfx/leaders/PAL/Portrait_PAL_Awni_Abd_al_Hadi.png"
+			expire = "1.1.1"
+			ideology = soccon_islamism_subtype
+		}
+		create_country_leader = {
+			name = "Esat Sagay"
+			picture = "gfx/leaders/PAL/Portrait_PAL_Esat_Sagay.png"
+			expire = "1.1.1"
+			ideology = kemalism_subtype
+		}
+		create_country_leader = {
+			name = "Albert-Abraham Antébi"
+			picture = "gfx/leaders/PAL/Portrait_PAL_Albert_Abraham_Antebi.png"
+			expire = "1.1.1"
+			ideology = pataut_authoritarian_liberalism_subtype
+		}
+		create_country_leader = {
+			name = "Abd al-Qadir al-Husayni"
+			picture = "gfx/leaders/PAL/Portrait_PAL_Abdul_Qadir_al_Husayni.png"
+			expire = "1.1.1"
+			ideology = militarism_subtype
+		}
+	}
+}
+
+AUS_JERUSALEM_LEOPOLD_V_DREAM = {
+	create_dynamic_country = {
+		original_tag = PAL
+		transfer_state = 992
+		add_state_core = 992
+		transfer_state = 454
+		add_state_core = 454
+		set_cosmetic_tag = AUS_Jerusalem
+		set_capital = {
+			state = 454
+			remember_old_capital = no
+		}
+		load_focus_tree = generic_focus
+		create_country_leader = {
+			name = "Radwan al-Hilu"
+			picture = "gfx/leaders/PAL/Portrait_PAL_Radwan_al_Hilu.png"
+			expire = "1.1.1"
+			ideology = authcom_subtype
+		}
+		create_country_leader = {
+			name = "Bulus Farah"
+			picture = "gfx/leaders/PAL/Portrait_PAL_Bulus_Farah.png"
+			expire = "1.1.1"
+			ideology = syndicalist_subtype
+		}
+		create_country_leader = {
+			name = "Sami Taha Hamran"
+			picture = "gfx/leaders/PAL/Portrait_PAL_Sami_Taha_Hamran.png"
+			expire = "1.1.1"
+			ideology = radsoc_paternal_socialism_subtype
+		}
+		create_country_leader = {
+			name = "Jamal al-Husayni"
+			picture = "gfx/leaders/PAL/Portrait_PAL_Jamal_al_Husayni.png"
+			expire = "1.1.1"
+			ideology = popular_patriotism_subtype
+		}
+		create_country_leader = {
+			name = "Haqqi al-Azm"
+			picture = "gfx/leaders/PAL/Portrait_PAL_Haqqi_al_Azm.png"
+			expire = "1.1.1"
+			ideology = centrist_subtype
+		}
+		create_country_leader = {
+			name = "Musa al-Alami"
+			picture = "gfx/leaders/PAL/Portrait_PAL_Musa_al_Alami.png"
+			expire = "1.1.1"
+			ideology = marlib_national_liberalism_subtype
+		}
+		create_country_leader = {
+			name = "Awni Abd al-Hadi"
+			picture = "gfx/leaders/PAL/Portrait_PAL_Awni_Abd_al_Hadi.png"
+			expire = "1.1.1"
+			ideology = soccon_islamism_subtype
+		}
+		create_country_leader = {
+			name = "Esat Sagay"
+			picture = "gfx/leaders/PAL/Portrait_PAL_Esat_Sagay.png"
+			expire = "1.1.1"
+			ideology = kemalism_subtype
+		}
+		create_country_leader = {
+			name = "Albert-Abraham Antébi"
+			picture = "gfx/leaders/PAL/Portrait_PAL_Albert_Abraham_Antebi.png"
+			expire = "1.1.1"
+			ideology = pataut_authoritarian_liberalism_subtype
+		}
+		create_country_leader = {
+			name = "Abd al-Qadir al-Husayni"
+			picture = "gfx/leaders/PAL/Portrait_PAL_Abdul_Qadir_al_Husayni.png"
+			expire = "1.1.1"
+			ideology = militarism_subtype
+		}
+	}
+}
+
+AUS_federalize_italy_effects = {
+	if = {
+		limit = {
+			ITA = {
+				is_subject_of = AUS
+			}
+		}
+		custom_effect_tooltip = AUS_unlock_decision_federalize_ITA
+		ITA = {
+			set_country_flag = AUS_federalize_flag
+		}
+	}
+	if = {
+		limit = {
+			VNC = {
+				is_subject_of = AUS
+			}
+		}
+		custom_effect_tooltip = AUS_unlock_decision_federalize_VNC
+		VNC = {
+			set_country_flag = AUS_federalize_flag
+		}
+	}
+	if = {
+		limit = {
+			LOM = {
+				is_subject_of = AUS
+			}
+		}
+		custom_effect_tooltip = AUS_unlock_decision_federalize_LOM
+		LOM = {
+			set_country_flag = AUS_federalize_flag
+		}
 	}
 }

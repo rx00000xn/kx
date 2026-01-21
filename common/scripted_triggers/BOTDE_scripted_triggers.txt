@@ -124,9 +124,15 @@ AUS_state_is_owned_by_aus_or_subjects = {
 
 AUS_is_constituent = { 
 	OR = {
-		is_in_array = { array = global.constituents_array }
+		is_in_array = { global.constituents_array = THIS }
 		has_idea = AUS_part_of_the_Empire
+	}
+	OR = {
 		has_country_flag = CONST_proper
+		AND = {
+			tag = AUS
+			NOT = { has_global_flag = AUS_collapsed }
+		}
 	}
 	is_in_faction_with = AUS
 }
@@ -135,6 +141,13 @@ AUS_is_minority = {
 	OR = {
 		is_in_array = { array = global.minorities_array }
 		has_country_flag = CONST_minor
+	}
+}
+
+AUS_can_collapse = {
+	NOT = {
+		has_global_flag = AUS_collapsed
+		has_global_flag = no_more_collapse
 	}
 }
 
@@ -594,6 +607,32 @@ AUS_is_danubian_tag = {
 		tag = PGU
 		tag = CUM
 		tag = PGU
+		tag = FIU
+	}
+}
+
+AUS_is_danubian_original_tag = {
+	OR = {
+		original_tag = AUS
+		original_tag = HUN
+		original_tag = CRO
+		original_tag = CZE
+		original_tag = GAL
+		original_tag = SVK
+		original_tag = VNC
+		original_tag = SLO
+		original_tag = WSU
+		original_tag = BUK
+		original_tag = KRK
+		original_tag = CPU
+		original_tag = SKS
+		original_tag = BOS
+		original_tag = BAN
+		original_tag = TRS
+		original_tag = PGU
+		original_tag = CUM
+		original_tag = PGU
+		original_tag = FIU
 	}
 }
 
@@ -687,6 +726,15 @@ AUS_has_any_DWV_idea = {
 AUS_country_is_in_ausgleich = {
 	is_in_array = { global.ausgleich_attendants = THIS.id }
 }
+fifth_balkan_war = {
+	custom_override_tooltip = {
+		tooltip = fifth_balkan_war_ongoing_tt
+		not_tooltip = fifth_balkan_war_ongoing_tt_NOT
+		has_global_flag = AUS_fifth_balkan_war_begun
+		NOT = { has_global_flag = fifth_balkan_war_ended }
+	}
+}
+
 ### Big Austria ###
 
 AUS_sdapo_trigger = {
@@ -758,6 +806,14 @@ AUS_oaao_after_civil_war_trigger = {
 }
 
 ### Small Austria ###
+AUS_small_cs_trigger = {
+	custom_override_tooltip = {
+		tooltip = AUS_small_CS_tt
+		not_tooltip = AUS_small_CS_tt_NOT
+		has_country_flag = AUS_small_CS_victory
+		has_government = social_conservative
+	}
+}
 AUS_small_sdapo_trigger = {
 	custom_override_tooltip = {
 		tooltip = AUS_small_sdapo_tt
@@ -766,6 +822,25 @@ AUS_small_sdapo_trigger = {
 		OR = {
 			has_government = social_democrat
 			has_government = radical_socialist
+		}
+	}
+}
+AUS_small_schutzbund_trigger = {
+	custom_override_tooltip = {
+		tooltip = AUS_schutzbund_tt
+		not_tooltip = AUS_schutzbund_tt_NOT
+		has_country_flag = AUS_schutzbund
+		has_government = social_democrat
+	}
+}
+AUS_small_trade_unions_trigger = {
+	custom_override_tooltip = {
+		tooltip = AUS_trade_unions_tt
+		not_tooltip = AUS_trade_unions_tt_NOT
+		has_country_flag = AUS_trade_unions
+		OR = {
+			has_government = social_democrat
+			has_government = syndicalist
 		}
 	}
 }
