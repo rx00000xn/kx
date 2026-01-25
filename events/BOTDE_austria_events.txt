@@ -51,7 +51,10 @@ country_event = { #intro 0
 
 	option = { #k
 		name = bdeausdebug.1.a
-		clr_country_flag = ISRAEL_FLAG
+		add_dynamic_modifier = {
+			modifier = LIC_shadow_empire_dynmod
+		}
+		
 	}
 }
 
@@ -68,7 +71,14 @@ country_event = { #intro 0
 
 	option = { #k
 		name = bdeausdebug.2.a
-		activate_decision = ROM_seek_transylvanian_ties
+		add_to_variable = {
+			var = LIC.shadow_empire_civs
+			value = 1
+		}
+		add_to_variable = {
+			var = LIC.shadow_empire_mils
+			value = 1
+		}
 	}
 }
 
@@ -85,17 +95,23 @@ country_event = { #intro 0
 
 	option = { #k
 		name = bdeausdebug.3.a
-		if = {
-			limit = {
-				OR = {
-					has_country_flag = THIS_no_revolt
-					has_global_flag = no_more_collapse
-					has_global_flag = AUS_collapsed
+		1313 = {
+			save_event_target_as = LIC_microstate_state
+			owner = {
+				country_event = {
+					id = licfor.39
 				}
 			}
-			add_political_power = 1
 		}
 	}
+	
+	option = { #k
+		name = bdeausdebug.3.b
+		1236 = {
+			LIC_create_citystate = yes
+		}
+	}
+	
 }
 
 country_event = { #intro 0
@@ -2542,12 +2558,12 @@ country_event = { #Addressing the Crisis
 	
 }
 
-country_event = { #Elections under Duress
+country_event = { #Brawl in the Reichsrat
 	id = bdeausel.38
 	title = bdeausel.38.t
 	desc = bdeausel.38.d
 	
-	picture = GFX_event_AUS_parliament
+	picture = GFX_event_AUS_parliament_fighting
 
 	fire_only_once = yes
 
@@ -2569,30 +2585,23 @@ country_event = { #Elections under Duress
 	
 }
 
-#country_event = { #The First Fed
-#	id = bdeausel.39
-#	title = bdeausel.39.t
-#	desc = bdeausel.39.d
-#	
-#	picture = GFX_report_event_BAN_big_speech2
-#
-#	fire_only_once = yes
-#
-#	is_triggered_only = yes
-#
-#	option = { #Hold elections now
-#		name = bdeausel.39.a
-#		add_political_power = 20
-#		
-#	}
-#	
-#	option = { #W
-#		name = bdeausel.39.b
-#		add_political_power = 20
-#		
-#	}
-#	
-#}
+country_event = { #The Choir (Translators)
+	id = bdeausel.39
+	title = bdeausel.39.t
+	desc = bdeausel.39.d
+	
+	picture = GFX_event_AUS_bohemian_parliamentarian
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #I can't hear a thing!
+		name = bdeausel.39.a
+		add_political_power = -10
+	}
+
+}
 
 
 
@@ -13660,6 +13669,10 @@ country_event = { #Fate of Alaska
 					limit = { NOT = { is_in_array = { global.constituents_array = ALA } } }
 					add_to_array = { global.constituents_array = ALA }
 				}
+				if = {
+					limit = { NOT = { is_in_array = { global.AUS_all_possible_array = ALA } } }
+					add_to_array = { global.AUS_all_possible_array = ALA }
+				}
 				country_event = constituents.51
 				get_current_government_type = yes
 				AUS = {
@@ -13679,6 +13692,40 @@ country_event = { #Fate of Alaska
 	}
 }
 
+country_event = { #British Trialism?
+	id = bdeausfor.210
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.210" }
+	title = bdeausfor.210.t
+	desc = bdeausfor.210.d
+	
+	picture = GFX_event_AUS_british_trialism
+
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+
+	option = { #sure
+		name = bdeausfor.210.a
+		add_political_power = -30
+		set_global_flag = AUS_trialism_ENG
+		ENG = {
+			set_country_flag = botde_considered_sovereign
+			set_country_flag = trialist_extra
+			set_variable = { AUS_subject_status = 2 }
+		}
+		HUN_add_five_collapse = yes
+		CZE_add_three_collapse = yes
+		CRO_add_three_collapse = yes
+	}
+	
+	option = { #no
+		name = bdeausfor.210.b
+		FROM_add_five_collapse = yes
+		HUN_subtract_five_collapse = yes
+		CZE_subtract_three_collapse = yes
+		CRO_subtract_three_collapse = yes
+	}
+}
 
 country_event = { #Austria enacts new imperial trade policy
 	id = bdeausconst.1
@@ -34577,10 +34624,33 @@ country_event = { #(Fifth Balkan War) Streifkorps & Strafuni (check out oláhöl
 
 	option = { #But where did it go?
 		name = bdeausflavor.155.a
+		LIC = {
+			country_event = licflavor.45
+		}
+	}
+	
+}
+
+country_event = { #Motorcycle event (see Steyr-Daimler-Puch p800)
+	id = bdeausflavor.156
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.152" }
+	title = bdeausflavor.156.t
+	desc = bdeausflavor.156.d
+	
+	picture = GFX_event_AUS_Streifkorps
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #But where did it go?
+		name = bdeausflavor.156.a
 		
 	}
 	
 }
+
+
 
 news_event = { #Second Hungarian Revolution
 	id = bdeausnews.1
