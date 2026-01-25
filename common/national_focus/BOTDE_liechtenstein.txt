@@ -1367,7 +1367,7 @@ focus_tree = {
 	
 	focus = {
 		id = LIC_restore_the_army
-		icon = GFX_goal_generic_army_command_power
+		icon = GFX_goal_LIC_new_army
 		x = 25
 		y = 4
 		cost = 7.2
@@ -1390,6 +1390,62 @@ focus_tree = {
 					random = 18000
 				}
 			}
+		}
+	}
+	
+	focus = {
+		id = LIC_one_thousand_radingers
+		icon = GFX_goal_LIC_thousand_radingers
+		x = 24
+		y = 5
+		cost = 7.2
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = LIC_restore_the_army
+		}
+		completion_reward = {
+			set_technology = { elite_infantry_tech = 1 }
+		}
+	}
+	
+	focus = {
+		id = LIC_raising_offense
+		icon = GFX_goal_AUS_mountain_gun
+		x = 26
+		y = 6
+		cost = 7.2
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = LIC_armor_purchase
+		}
+		completion_reward = {
+			set_technology = { tech_mountain_artillery = 1 }
+			capital_scope = {
+				construct_building_in_random_province = {
+					land_facility = 1
+				}
+			}
+		}
+	}
+	
+	focus = {
+		id = LIC_specialist_units
+		icon = GFX_GRU_CORPORATE_RIOT_CONTROL
+		x = 28
+		y = 5
+		cost = 7.2
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = LIC_maintain_the_police
+		}
+		completion_reward = {
+			set_technology = { tech_extensive_reconaissance = 1 }
 		}
 	}
 	
@@ -2396,7 +2452,39 @@ focus_tree = {
 					has_completed_focus = LIC_foreign_suspicion
 				}
 				set_country_flag = LIC_alone
+				country_event = licflavor.44
 			}
+			
+		}
+	}
+	
+	focus = {
+		id = LIC_tie_knot #Mutual Guarantees, etc.
+		icon = GFX_goal_LIC_impenetrable_mountain
+		x = 10
+		y = 11
+		cost = 5
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				SWI = {
+					has_socialist_government = yes
+				}
+				factor = 0
+			}
+		}
+		available = {
+			OR = {
+				has_completed_focus = LIC_oben_am_jungen_rhine
+				has_completed_focus = LIC_fur_gott_furst_vaterland
+				has_completed_focus = LIC_die_jahrhundertregel
+			}
+		}
+		prerequisite = {
+			focus = LIC_neutrality
+		}
+		completion_reward = {
+			
 		}
 	}
 	
@@ -2447,6 +2535,30 @@ focus_tree = {
 	}
 	
 	focus = {
+		id = LIC_unternehmen_marterl #Unternehmen Marterl; attack Switzerland
+		icon = GFX_goal_LIC_unternehmen_marterl
+		x = 15
+		y = 10
+		cost = 5
+		ai_will_do = {
+			factor = 100
+		}
+		available = {
+			AUS = {
+				is_faction_leader = yes
+				exists = yes
+			}
+			is_in_faction_with = AUS
+		}
+		prerequisite = {
+			focus = LIC_keep_austrian
+		}
+		completion_reward = {
+			#Alternate decision to pressure Switzerland into Donau-Adriabund! This variant will allow Switzerland the option of joining against France and gaining Aosta/Savoy, but the AI will then have a rule set to help NOT stack the line.
+		}
+	}
+	
+	focus = {
 		id = LIC_reichspakt
 		icon = GFX_goal_LIC_high_on_german_rhine
 		x = 9
@@ -2479,6 +2591,30 @@ focus_tree = {
 	}
 	
 	focus = {
+		id = LIC_internationale_reconstruction #Get off-map factories/resource rights to defeated THINT countries!
+		icon = GFX_goal_LIC_aid_western_europe
+		x = 9
+		y = 10
+		cost = 5
+		ai_will_do = {
+			factor = 100
+		}
+		available = {
+			GER = {
+				is_faction_leader = yes
+				exists = yes
+				same_government_type_as_ROOT = yes
+			}
+		}
+		prerequisite = {
+			focus = LIC_reichspakt
+		}
+		completion_reward = {
+			custom_effect_tooltip = LIC_aid_reconstruction_shadow_empire_tt
+		}
+	}
+	
+	focus = {
 		id = LIC_russia
 		icon = GFX_goal_LIC_join_russia
 		x = 13
@@ -2507,12 +2643,39 @@ focus_tree = {
 				country_event = licfor.1
 			}
 			remove_ideas = LIC_austro_swiss_divide
+			country_event = licflavor.44
+			
+		}
+	}
+	
+	focus = {
+		id = LIC_false_refugee_plot #Get some free Russian troops; a plot to masquerade troops as refugees, parade them to Liechtenstein. Can choose what you get
+		icon = GFX_goal_LIC_trojan_horse
+		x = 14
+		y = 11
+		cost = 5
+		ai_will_do = {
+			factor = 100
+		}
+		available = {
+			RUS = {
+				is_faction_leader = yes
+				exists = yes
+				same_government_type_as_ROOT = yes
+			}
+		}
+		prerequisite = {
+			focus = LIC_russia
+		}
+		completion_reward = {
+			#Decision to petition Russia for expanded influence if war against Austria/Germany.
+			#Get Grand Duke Vladimir Kirillovich of Russia and Boris Smyslovsky as leaders.
 		}
 	}
 	
 	focus = {
 		id = LIC_research_treaty
-		icon = GFX_goal_military_research
+		icon = GFX_goal_LIC_tech_sharing
 		x = 11
 		y = 10
 		cost = 5
@@ -2520,10 +2683,7 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			GER = {
-				is_faction_leader = yes
-				exists = yes
-			}
+			
 		}
 		prerequisite = {
 			focus = LIC_reichspakt
@@ -2548,16 +2708,70 @@ focus_tree = {
 						}
 					}
 					add_to_tech_sharing_group = austrian_research
-					else = {
-						add_ideas = LIC_research_treaty_idea
-						SWI = {
+					else_if = {
+						limit = {
+							is_in_faction_with = RUS
+							RUS = {
+								is_faction_leader = yes
+							}
+						}
+						add_to_tech_sharing_group = russian_research	
+						else = {
 							add_ideas = LIC_research_treaty_idea
+							SWI = {
+								add_ideas = LIC_research_treaty_idea
+							}
 						}
 					}
 				}
 			}
 			
 			#Join the research treaty, if not in faction, add research buff to you and Switzerland
+		}
+	}
+		
+	focus = {
+		id = LIC_shadow_empire #Building infrastructure in your allies will give you off-map factories!
+		icon = GFX_goal_LIC_shadow_empire
+		x = 11
+		y = 13
+		cost = 5
+		ai_will_do = {
+			factor = 100
+		}
+		available = {
+			
+		}
+		prerequisite = {
+			focus = LIC_research_treaty
+
+		}
+		completion_reward = {
+			custom_effect_tooltip = LIC_shadow_empire_tt
+			add_dynamic_modifier = {
+				modifier = LIC_shadow_empire_dynmod
+			}
+		}
+	}
+	
+	focus = {
+		id = LIC_protector_of_micronations #Get cores on all micronations (Andorra, San Marino, Riga, and a Monaco gambling bonus)
+		icon = GFX_goal_LIC_prince_of_little_fiefs
+		x = 11
+		y = 14
+		cost = 5
+		ai_will_do = {
+			factor = 100
+		}
+		available = {
+		}
+		prerequisite = {
+			focus = LIC_shadow_empire
+		}
+		completion_reward = {
+			custom_effect_tooltip = LIC_protector_of_micronations_tt
+			custom_effect_tooltip = LIC_unlock_decision_micronation_tt
+			country_event = licflavor.43
 		}
 	}
 	
@@ -3047,7 +3261,7 @@ focus_tree = {
 		
 	focus = {
 		id = LIC_harken_to_a_golden_age
-		icon = GFX_goal_LIC_defend_self
+		icon = GFX_goal_LIC_golden_age_britannia
 		relative_position_id = LIC_in_exile
 		x = 3
 		y = 3
