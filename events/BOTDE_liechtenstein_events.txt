@@ -76,7 +76,7 @@ country_event = { #Black Monday Strikes Liechtenstein!
 	option = { #Egads!
 		name = lic.2.a
 		set_country_flag = LIC_bm
-		add_ideas = LIC_bm_1
+		add_dynamic_modifier = { modifier = LIC_bm_1 scope = THIS }
 		add_stability = -0.25
 		add_political_power = -100
 		hidden_effect = {
@@ -85,11 +85,31 @@ country_event = { #Black Monday Strikes Liechtenstein!
 				days = 25
 				random = 420
 			}
+			
 			country_event = {
-				id = licflavor.42
-				days = 50
-				random = 420
+				id = lic.17
+				days = 30
+				random = 240
 			}
+			
+			country_event = {
+				id = lic.18
+				days = 80
+				random = 240
+			}
+			
+			country_event = {
+				id = lic.19
+				days = 150
+				random = 240
+			}
+			
+			country_event = {
+				id = lic.20
+				days = 10
+				random = 240
+			}
+			
 		}
 	}
 }
@@ -316,7 +336,7 @@ country_event = { #The VU calls for emergency elections! #FBP cucks to Austria
 	
 }
 
-country_event = { #Fatee of the Emergency Election
+country_event = { #Fate of the Emergency Election
 	id = lic.7
 	title = lic.7.t
 	desc = lic.7.d
@@ -536,6 +556,8 @@ country_event = { #The VDBL Mounts a Coup!
 			ruling_party = national_populist
 		}
 		set_country_flag = LIC_couped
+		remove_dynamic_modifier = { modifier = LIC_shadow_empire }
+		remove_dynamic_modifier = { modifier = LIC_princely_holdings_idea }
 		country_event = {
 			id = lic.10
 			days = 10
@@ -685,6 +707,103 @@ country_event = { #Election of 1939
 	
 }
 
+country_event = { #Black Monday- Austrian Krone Depreciation & The Rise of the Swiss Franc
+	id = lic.17
+	title = lic.17.t
+	desc = lic.17.d
+	
+	picture = GFX_event_LIC_landtag
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+	
+	option = { #Interesting
+		name = lic.17.a
+		add_political_power = -25
+		add_stability = -0.05
+		unlock_decision_tooltip = LIC_currency_act
+		set_country_flag = LIC_currency_act_flag
+		add_power_balance_value = {
+			id = LIC_austro_swiss
+			value = -0.25
+			tooltip_side = LIC_austro_swiss_austria
+		}
+	}
+}
+
+country_event = { #LIC- Troubles in the Landesbank
+	id = lic.18
+	title = lic.18.t
+	desc = lic.18.d
+	
+	picture = GFX_event_LIC_landtag
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+	
+	option = { #Not good!
+		name = lic.18.a
+		add_stability = -0.05
+		decrease_ruling_party_popularity_by_5 = yes
+		add_to_variable = {
+			var = LIC.BM_build
+			value = -0.075
+		}
+		add_to_variable = {
+			var = LIC.BM_production
+			value = -0.075
+		}
+	}
+	
+}
+
+country_event = { #LIC- Majority over Anglo-Austrian in the Bank of Liechtenstein Aktiengesellschaft (LGT-GRUPPE)
+	id = lic.19
+	title = lic.19.t
+	desc = lic.19.d
+	
+	picture = GFX_event_LIC_landtag
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+	
+	option = { #Not good!
+		name = lic.19.a
+		add_stability = -0.05
+		decrease_ruling_party_popularity_by_5 = yes
+		add_to_variable = {
+			var = LIC.ph_consumer_goods
+			value = -0.02
+		}
+		add_to_variable = {
+			var = LIC.ph_research_factor
+			value = 0.03
+		}
+	}
+}
+
+country_event = { #Famine in the Weltkrief
+	id = lic.20
+	title = lic.20.t
+	desc = lic.20.d
+	
+	picture = GFX_event_LIC_landtag
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+	
+	option = { #Not good!
+		name = lic.20.a
+		custom_effect_tooltip = LIC_stockpiling_tt
+		set_country_flag = LIC_stockpiling_flag
+	}
+}
+
+
 country_event = { #Death of the Last Soldier of the Army, 1939
 	id = licflavor.1
 	title = licflavor.1.t
@@ -790,13 +909,6 @@ country_event = { #The Department of Department Stores
 	
 	option = { #The vote departs!
 		name = licflavor.5.b
-		random_owned_state = {
-			add_building_construction = {
-				type = industrial_complex
-				level = 1
-			}
-			add_extra_state_shared_building_slots = 2
-		}
 		random_owned_state = {
 			add_building_construction = {
 				type = industrial_complex
@@ -1755,6 +1867,7 @@ country_event = { #Rothschild Banks Close
 	option = { #Darn
 		name = licflavor.42.a
 		add_political_power = -20
+		add_stability = -0.1
 	}
 	
 }
@@ -1764,7 +1877,7 @@ country_event = { #Twin Towns; Sister Settlements!
 	title = licflavor.43.t
 	desc = licflavor.43.d
 	
-	picture = GFX_event_AUS_creditanstalt_building
+	picture = GFX_event_LIC_tyrol_map
 
 	fire_only_once = yes
 
@@ -1818,7 +1931,7 @@ country_event = { #Commission to Study the Weltkrieg! (Army path)
 	title = licflavor.46.t
 	desc = licflavor.46.d
 	
-	picture = GFX_event_AUS_Streifkorps
+	picture = GFX_event_LIC_army
 
 	fire_only_once = yes
 
@@ -1832,7 +1945,15 @@ country_event = { #Commission to Study the Weltkrieg! (Army path)
 			has_completed_focus = LIC_restore_the_army
 		}
 		add_political_power = -20
-		#Equipment bonus for artillery
+		add_equipment_bonus = {
+			bonus = {
+				artillery_equipment = { # Type of equipment
+					build_cost_ic = -0.1
+					soft_attack = 0.1
+					instant = yes
+				}
+			}
+		}
 	}
 	
 	option = { #The key was in the small arms!
@@ -1841,7 +1962,16 @@ country_event = { #Commission to Study the Weltkrieg! (Army path)
 			has_completed_focus = LIC_restore_the_army
 		}
 		add_political_power = -20
-		#Equipment bonus for infantry equipment
+		add_equipment_bonus = {
+			bonus = {
+				infantry_equipment = { # Type of equipment
+					build_cost_ic = -0.12
+					soft_attack = 0.05
+					defense = 0.075
+					instant = yes
+				}
+			}
+		}
 	}
 	
 	option = { #Clearly we must be more specialized!
@@ -1849,7 +1979,9 @@ country_event = { #Commission to Study the Weltkrieg! (Army path)
 		trigger = {
 			has_completed_focus = LIC_restore_the_army
 		}
-		#Better Mountaineer tech
+		set_technology = {
+			mountain_training_tech = 1
+		}
 	}
 	
 	### Police path
@@ -1860,7 +1992,14 @@ country_event = { #Commission to Study the Weltkrieg! (Army path)
 			has_completed_focus = LIC_maintain_the_police
 		}
 		add_political_power = -20
-		#Equipment bonus for support equipment
+		add_equipment_bonus = {
+			bonus = {
+				support_equipment = { # Type of equipment
+					build_cost_ic = -0.25
+					instant = yes
+				}
+			}
+		}
 	}
 	
 	option = { #They needed better command.
@@ -1869,7 +2008,19 @@ country_event = { #Commission to Study the Weltkrieg! (Army path)
 			has_completed_focus = LIC_maintain_the_police
 		}
 		add_political_power = -20
-		#Generals get stats
+		random_unit_leader = {
+			add_unit_leader_trait = militias_officer
+			add_unit_leader_trait = militias_specialist
+			add_unit_leader_trait = militias_expert
+			add_planning = 1
+			add_defense = 1
+		}
+		
+		random_unit_leader = {
+			add_unit_leader_trait = trait_mountaineer
+			add_attack = 1
+		}
+		
 	}
 	
 	option = { #They needed innovation!
@@ -1877,7 +2028,10 @@ country_event = { #Commission to Study the Weltkrieg! (Army path)
 		trigger = {
 			has_completed_focus = LIC_maintain_the_police
 		}
-		#Swap police idea to give a research buff
+		swap_ideas = {
+			add_idea = LIC_military_police_2
+			remove_idea = LIC_military_police
+		}
 	}
 	
 }
@@ -1938,12 +2092,132 @@ country_event = { #Habsburg Jewels
 	
 	### Army path
 
-	option = { #The key was in shells!
+	option = { #Nothin' on earth like the feeling of greed
 		name = licflavor.49.a
 		add_political_power = 25
 	}
 	
 }
+
+country_event = { #Gozi Offers Services
+	id = licflavor.50
+	title = licflavor.50.t
+	desc = licflavor.50.d
+	
+	picture = GFX_event_LIC_gozi
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #We will accept a veteran.
+		name = licflavor.50.a
+		create_corps_commander = {
+			name = "Giuliano Gozi"
+			portrait_path = "gfx/leaders/SMN/SMN_Giuliano_Gozi.png"
+			id = 66866 #idk lol
+			traits = { trait_mountaineer infantry_officer }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 1
+			planning_skill = 2
+			logistics_skill = 1
+		}
+	}
+	
+	option = { #How do we know his sympathies are not with the Italians?
+		name = licflavor.50.b
+		add_stability = 0.05
+	}
+	
+}
+
+country_event = { #University of Liechtenstein
+	id = licflavor.51
+	title = licflavor.51.t
+	desc = licflavor.51.d
+	
+	picture = GFX_event_LIC_gozi
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #We will accept a veteran.
+		name = licflavor.51.a
+		#RESEARCH BUFF HERE!
+		add_research_slot = 1
+	}
+}
+
+country_event = { #Recasting the Herzogshut (Ducal Crown) Fires after forming your swag ass map, basically player congratulations
+	id = licflavor.52
+	title = licflavor.52.t
+	desc = licflavor.52.d
+	
+	picture = GFX_event_LIC_gozi
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #We cannot be grateful enough to the people of Liechtenstein!
+		name = licflavor.52.a
+		add_stability = 0.12
+		add_war_support = 0.12
+		increase_ruling_party_popularity_by_5 = yes
+		add_political_power = 100
+	}
+}
+
+country_event = { #Troppau & Jagerndorf!	(don't forget Rietberg)
+	id = licfor.53
+	title = licfor.53.t
+	desc = licfor.53.d
+	
+	picture = GFX_event_LIC_state_meeting_swiss
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Damn
+		name = licfor.53.a
+	}
+}
+
+country_event = { #Liechtenstein family tomb, a mausoleum, in Vranov u Brna
+	id = licfor.54
+	title = licfor.54.t
+	desc = licfor.54.d
+	
+	picture = GFX_event_LIC_state_meeting_swiss
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Damn
+		name = licfor.54.a
+	}
+}
+
+country_event = { #Alpabfahrtstag
+	id = licfor.55
+	title = licfor.55.t
+	desc = licfor.55.d
+	
+	picture = GFX_event_LIC_state_meeting_swiss
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Damn
+		name = licfor.55.a
+	}
+}
+
 
 
 
@@ -3461,7 +3735,7 @@ country_event = { #FROM rejects
 	option = { #We will free you by force!
 		name = licfor.41.a
 		ai_chance = {
-			base = 0
+			factor = 0
 		}
 		add_stability = -0.15
 		add_war_support = -0.15
@@ -3484,7 +3758,7 @@ country_event = { #SWI - Till Death do us Part?
 	title = licfor.42.t
 	desc = licfor.42.d
 	
-	picture = GFX_event_LIC_customs_union
+	picture = GFX_event_LIC_state_meeting_swiss
 
 	fire_only_once = no
 	
@@ -3493,20 +3767,35 @@ country_event = { #SWI - Till Death do us Part?
 	option = { #We accept!
 		name = licfor.42.a
 		ai_chance = {
-			base = 0
+			base = 13
 		}
-		add_stability = -0.15
-		add_war_support = -0.15
-		add_political_power = -150
-		declare_war_on = {
-			target = FROM
-			type = annex_everything
+		set_country_flag = LIC_death_do_us_part
+		custom_effect_tooltip = LIC_death_do_us_part_tt
+		give_guarantee = LIC
+		LIC = {
+			country_event = {
+				id = licfor.44
+			}
 		}
 	}
 	
 	option = { #This is too intimate, Liechtenstein-senpai! Hyaaah!
 		name = licfor.41.b
 		add_political_power = -15
+		LIC = {
+			country_event = {
+				id = licfor.44
+			}
+		}
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				LIC = {
+					is_ai = no
+				}
+			}
+		}
 	}
 	
 }
@@ -3525,10 +3814,574 @@ country_event = { #The Savoyard Crisis
 	option = { #We should be ready.
 		name = licfor.43.a
 		#IF Switzerland does not just join Austria's faction, there will be a famine on WK2 start as food imports dry up.
+		add_war_support = -0.05
+		add_stability = -0.1
+	}
+}
+
+country_event = { #Swiss Response
+	id = licfor.44
+	title = licfor.44.t
+	desc = {
+		text = licfor.44.d.yes
+		trigger = {
+			SWI = {
+				has_country_flag = LIC_death_do_us_part
+			}
+		}
+	}
+	desc = {
+		text = licfor.44.d.no
+		trigger = {
+			SWI = {
+				NOT = {
+					has_country_flag = LIC_death_do_us_part
+				}
+			}
+		}
+	}
+	
+	picture = GFX_event_LIC_state_meeting_swiss
+
+	fire_only_once = no
+	
+	is_triggered_only = yes
+	
+	option = { #Yay
+		name = licfor.44.a
+		set_country_flag = LIC_death_do_us_part
+		give_guarantee = SWI
+	}
+	
+	option = { #Nay
+		name = licfor.44.b
+		add_political_power = -10
+	}
+	
+}
+
+country_event = { #Treaty of Chur in effect
+	id = licfor.45
+	title = licfor.45.t
+	desc = licfor.45.d
+	
+	picture = GFX_event_LIC_state_meeting_swiss
+
+	fire_only_once = no
+	
+	is_triggered_only = yes
+	
+	option = { #Yay
+		name = licfor.44.a
+		if = {
+			limit = {
+				tag = SWI
+			}
+			LIC = {
+				every_unit_leader = {
+					set_nationality = SWI
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = LIC
+			}
+			SWI = {
+				every_unit_leader = {
+					set_nationality = LIC
+				}
+			}
+		}
+		add_war_support = 0.15
+		add_stability = 0.1
+	}
+}
+
+country_event = { #Russian tag - Liechtenstein Wants to Hire Smyslovsky
+	id = licfor.46
+	title = licfor.46.t
+	desc = licfor.46.d
+	
+	picture = GFX_event_LIC_arthur_holmston
+
+	fire_only_once = no
+	
+	is_triggered_only = yes
+	
+	option = { #He'll be on his way.
+		name = licfor.46.a
+		add_opinion_modifier = {
+			target = LIC
+			modifier = KR_approves_of_govt
+		}
+		reverse_add_opinion_modifier = {
+			target = LIC
+			modifier = KR_approves_of_govt
+		}
+		LIC = {
+			country_event = {
+				id = licfor.47
+				days = 7
+			}
+		}
+		random_unit_leader = {
+			limit = {
+				has_id = 78818
+			}
+			retire = yes
+		}
+	}
+	
+	option = { #Wtf bro
+		name = licfor.46.b
+		ai_chance = {
+			base = 0
+		}
+		LIC = {
+			country_event = {
+				id = licfor.48
+				days = 7
+			}
+		}
+	}
+	
+}
+
+country_event = { #Arthur Holmston Arrives in Vaduz!
+	id = licfor.47
+	title = licfor.47.t
+	desc = licfor.47.d
+	
+	picture = GFX_event_LIC_arthur_holmston
+
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = { #He'll be on his way.
+		name = licfor.47.a
+		add_manpower = 6000
+		create_corps_commander = {
+			name = "Arthur Holmston"
+			portrait_path = "gfx/leaders/RUS/Portrait_RUS_Boris_Smyslovsky.png"
+			#id = 78818
+			traits = { hidden_sympathies war_hero trickster }
+			skill = 2
+			attack_skill = 3
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
+	}
+}
+
+country_event = { #Russia Rejects
+	id = licfor.48
+	title = licfor.48.t
+	desc = licfor.48.d
+	
+	picture = GFX_event_LIC_russian_army_byebye
+
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = { #Damn.
+		name = licfor.48.a
+		add_political_power = -15
 	}
 }
 
 
+country_event = { #Operation Marterl
+	id = licfor.49
+	title = licfor.49.t
+	desc = licfor.49.d
+	
+	picture = GFX_report_event_SWI_flag
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #A fine idea. Send them equipment.
+		name = licfor.49.a
+		add_manpower = -4000
+		send_equipment = {
+			equipment = infantry_equipment
+			amount = 1500
+			target = LIC
+		}
+		send_equipment = {
+			equipment = support_equipment
+			amount = 80
+			target = LIC
+		}
+		send_equipment = {
+			equipment = artillery_equipment
+			amount = 100
+			target = LIC
+		}
+		LIC = {
+			set_country_flag = LIC_marterl_support
+			add_manpower = 4000
+		}
+		ai_chance = {
+			factor = 25
+		}
+		AUS_raise_austro_german_tensions = yes
+	}
+	
+	option = { #We will not help.
+		name = licfor.49.b
+		LIC = {
+			set_country_flag = LIC_marterl_tt_badboy
+		}
+		ai_chance = {
+			factor = 9
+		}
+		if = {
+			limit = {
+				is_ai = no
+			}
+			AUS_raise_austro_german_tensions = yes
+		}
+	}
+	
+	option = { #Absolutely not! Forbid this!
+		name = licfor.49.c
+		trigger = {
+			is_ai = no
+		}
+		custom_effect_tooltip = AUS_ban_lic
+		LIC = {
+			set_country_flag = LIC_marterl_tt_badboy
+			set_country_flag = LIC_marterl_tt_badboy_dontwar
+		}
+	}
+	
+}
+
+country_event = { #Pressuring Switzerland - Our Offer.
+	id = licfor.50
+	title = licfor.50.t
+	desc = licfor.50.d
+	
+	picture = GFX_event_LIC_landtag
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Merely Aosta and Savoie.
+		name = licfor.50.a
+		SWI = {
+			country_event = {
+				id = licfor.51
+				days = 3
+			}
+		}
+	}
+	
+	option = { #Throw in some economic leverage.
+		name = licfor.50.b
+		set_country_flag = LIC_offer_eco
+		custom_effect_tooltip LIC_eco_tt
+		SWI = {
+			country_event = {
+				id = licfor.51
+				days = 3
+			}
+		}
+	}
+	
+	option = { #Give them Vorarlberg too!
+		name = licfor.50.c
+		set_country_flag = LIC_offer_VRL
+		trigger = {
+			owns_state = 942
+		}
+		SWI = {
+			country_event = {
+				id = licfor.51
+				days = 3
+			}
+		}
+	}
+	
+}
+
+country_event = { #SWI - Liechtensteiner bribes!
+	id = licfor.51
+	title = licfor.51.t
+	desc = licfor.51.d
+	
+	picture = GFX_event_LIC_state_meeting_swiss
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #We accept!
+		name = licfor.51.a
+		ai_chance = {
+			base = 10
+			modifier = {
+				base = 25
+				LIC = {
+					has_country_flag = LIC_offer_eco
+				}
+			}
+			modifier = {
+				base = 1000
+				LIC = {
+					has_country_flag = LIC_offer_VRL
+				}
+			}
+		}
+		add_state_core = 1003
+		add_state_core = 735
+		if = {
+			limit = {
+				LIC = {
+					has_country_flag = LIC_offer_eco
+				}
+			}
+			LIC = {
+				add_timed_idea = {
+					idea = LIC_SWI_payments
+					days = 200
+				}
+			}
+		}
+		if = {
+			limit = {
+				LIC = {
+					has_country_flag = LIC_offer_VRL
+				}
+			}
+			LIC = {
+				add_timed_idea = {
+					idea = LIC_SWI_payments
+					days = 200
+				}
+				remove_core = 942
+			}
+			transfer_state = 942
+			add_state_core = 942
+		}
+		LIC = {
+			faction_leader = {
+				add_to_faction = SWI
+			}
+		}
+	}
+	
+	option = { #Decline.
+		name = licfor.51.b
+		ai_chance = {
+			base = 50
+		}
+		LIC = {
+			country_event = {
+				id = licfor.52
+			}
+		}
+	}
+}
+
+country_event = { #Switzerland declines
+	id = licfor.52
+	title = licfor.52.t
+	desc = licfor.52.d
+	
+	picture = GFX_event_LIC_state_meeting_swiss
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Worth a shot! Maybe a plan B?
+		name = licfor.52.a
+		add_war_support = -0.03
+		clr_country_flag = LIC_taken_marterl_or_pressure_schweiz
+	}
+}
+
+country_event = { #Vorarlberg Owner - Liechtenstein wishes to purchase
+	id = licfor.53
+	title = licfor.53.t
+	desc = licfor.53.d
+	
+	picture = GFX_event_LIC_state_meeting_swiss
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Sure
+		name = licfor.53.a
+		add_timed_idea = {
+			idea = LIC_VRL_payments_benefactor
+			days = 200
+		}
+		LIC = {
+			transfer_state = 942
+			add_state_core = 942
+			country_event = {
+				id = licfor.54
+			}
+		}
+	}
+	
+	option = { #No wtf
+		name = licfor.53.b
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				LIC = {
+					is_ai = no
+				}
+			}
+		}
+		LIC = {
+			country_event = {
+				id = licfor.55
+			}
+		}
+	}
+	
+}
+
+country_event = { #LIC- Paying Up
+	id = licfor.54
+	title = licfor.54.t
+	desc = licfor.54.d
+	
+	picture = GFX_event_LIC_state_meeting_swiss
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Sure
+		name = licfor.54.a
+		add_timed_idea = {
+			idea = LIC_VRL_payments_LIC
+			days = 200
+		}
+		set_cosmetic_tag = LIC_VRL
+	}
+	
+}
+
+country_event = { #Vorarlberg Rejection
+	id = licfor.55
+	title = licfor.55.t
+	desc = licfor.55.d
+	
+	picture = GFX_event_LIC_state_meeting_swiss
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Damn
+		name = licfor.55.a
+	}
+}
+
+country_event = { #Our Expansion
+	id = licfor.56
+	title = {
+		text = licfor.56.t_reichspakt
+		trigger = {
+			has_completed_focus = LIC_reichspakt
+		}
+	}
+	desc = {
+		text = licfor.56.d_reichspakt
+		trigger = {
+			has_completed_focus = LIC_reichspakt
+		}
+	}
+	
+	title = {
+		text = licfor.56.t_neutral
+		trigger = {
+			has_completed_focus = LIC_neutrality
+		}
+	}
+	desc = {
+		text = licfor.56.d_neutral
+		trigger = {
+			has_completed_focus = LIC_neutrality
+		}
+	}
+	
+	title = {
+		text = licfor.56.t_russia
+		trigger = {
+			has_completed_focus = LIC_russia
+		}
+	}
+	desc = {
+		text = licfor.56.d_russia
+		trigger = {
+			has_completed_focus = LIC_russia
+		}
+	}
+	
+	title = {
+		text = licfor.56.t_austria
+		trigger = {
+			has_completed_focus = LIC_keep_austrian
+		}
+	}
+	desc = {
+		text = licfor.56.d_austria
+		trigger = {
+			has_completed_focus = LIC_keep_austrian
+		}
+	}
+	
+	picture = GFX_event_LIC_state_meeting_swiss
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Damn
+		name = licfor.56.a
+		trigger = {
+			has_completed_focus = LIC_reichspakt
+		}
+	}
+	
+	option = { #Damn
+		name = licfor.56.b
+		trigger = {
+			has_completed_focus = LIC_neutrality
+		}
+	}
+	
+	option = { #Damn
+		name = licfor.56.c
+		trigger = {
+			has_completed_focus = LIC_russia
+		}
+	}
+	
+	option = { #Damn
+		name = licfor.56.e
+		trigger = {
+			has_completed_focus = LIC_keep_austrian
+		}
+	}
+	
+}
 
 
 

@@ -209,15 +209,15 @@ focus_tree = {
 				}
 				add_extra_state_shared_building_slots = 1
 			}
+			capital_scope = {
+				increase_state_category_by_one_level = yes
+			}
 			add_tech_bonus = {
 				category = infantry_weapons
 				bonus = 1
 				uses = 1
 			}
-			swap_ideas = {
-				add_idea = LIC_bm_2
-				remove_idea = LIC_bm_1
-			}
+			LIC_focus_BM_reduce = yes
 		}
 	}
 	
@@ -445,6 +445,11 @@ focus_tree = {
 				popularity = 0.03
 			}
 			add_political_power = 20
+			add_power_balance_value = {
+				id = LIC_austro_swiss
+				value = 0.15
+				tooltip_side = LIC_austro_swiss_austria
+			}
 		}
 	}
 
@@ -472,6 +477,9 @@ focus_tree = {
 					level = 1
 				}
 				add_extra_state_shared_building_slots = 1
+			}
+			capital_scope = {
+				increase_state_category_by_one_level = yes
 			}
 			add_tech_bonus = {
 				category = electronics
@@ -535,10 +543,7 @@ focus_tree = {
 				uses = 1
 				bonus = 1
 			}
-			swap_ideas = {
-				add_idea = LIC_bm_2
-				remove_idea = LIC_bm_1
-			}
+			LIC_focus_BM_reduce = yes
 		}
 	}
 
@@ -807,10 +812,7 @@ focus_tree = {
 				}
 				add_extra_state_shared_building_slots = 2
 			}
-			swap_ideas = {
-				add_idea = LIC_bm_2
-				remove_idea = LIC_bm_1
-			}
+			LIC_focus_BM_reduce = yes
 			hidden_effect = {
 				country_event = {
 					id = licflavor.21
@@ -877,6 +879,9 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_ideas = LIC_bank_idea
+			capital_scope = {
+				increase_state_category_by_one_level = yes
+			}
 			if = {
 				limit = {
 					has_idea = LIC_legacy_of_trans_alpine_strikes_2
@@ -976,6 +981,11 @@ focus_tree = {
 				add_idea = LIC_customs_union_swiss
 				remove_idea = LIC_customs_union
 			}
+			add_power_balance_value = {
+				id = LIC_austro_swiss
+				value = -0.3
+				tooltip_side = LIC_austro_swiss_swiss
+			}
 			hidden_effect = {
 				country_event = {
 					id = licflavor.30
@@ -1026,6 +1036,32 @@ focus_tree = {
 				}
 				set_country_flag = LIC_alone
 			}
+			if = {
+				limit = {
+					power_balance_value = {
+						id = LIC_austro_swiss
+						value > 0.3
+					}
+				}
+				add_power_balance_value = {
+					id = LIC_austro_swiss
+					value = -0.3
+					tooltip_side = LIC_austro_swiss_swiss
+				}
+				else_if = {
+					limit = {
+						power_balance_value = {
+							id = LIC_austro_swiss
+							value < -0.3
+						}
+					}
+					add_power_balance_value = {
+						id = LIC_austro_swiss
+						value = 0.3
+						tooltip_side = LIC_austro_swiss_austria
+					}
+				}
+			}
 			hidden_effect = {
 				country_event = {
 					id = licflavor.30
@@ -1070,11 +1106,20 @@ focus_tree = {
 				add_idea = LIC_customs_union_2
 				remove_idea = LIC_customs_union
 			}
+			add_power_balance_value = {
+				id = LIC_austro_swiss
+				value = 0.3
+				tooltip_side = LIC_austro_swiss_austria
+			}
 			hidden_effect = {
 				if = {
 					limit = {
 						has_government = social_conservative
 						has_completed_focus = LIC_keep_austrian
+						power_balance_value = {
+							id = LIC_austro_swiss
+							value > 0.8
+						}
 					}
 					country_event = {
 						id = lic.6
@@ -1108,6 +1153,8 @@ focus_tree = {
 			focus = LIC_continue_customs_union
 		}
 		completion_reward = {
+			unlock_decision_tooltip = LIC_railgun_development
+			unlock_decision_tooltip = LIC_university_of_liechtenstein_decision
 			capital_scope = {
 				add_resource = {
 					type = oil
@@ -1133,9 +1180,9 @@ focus_tree = {
 					type = chromium
 					amount = 12
 				}
+				increase_state_category_by_one_level = yes
 			}
-			add_research_slot = 1
-			remove_ideas = LIC_bm_2
+			remove_dynamic_modifier = { modifier = LIC_bm_1 }
 			remove_ideas = LIC_legacy_of_trans_alpine_strikes_3
 		}
 	}
@@ -1223,7 +1270,7 @@ focus_tree = {
 	
 	focus = {
 		id = LIC_a_war_on_horizon
-		icon = GFX_goal_CZE_war_of_words
+		icon = GFX_goal_LIC_hilti_rifle
 		x = 24
 		y = 3
 		cost = 7.2
@@ -1383,6 +1430,11 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_ideas = LIC_new_army
+			add_power_balance_value = {
+				id = LIC_austro_swiss
+				value = 0.2
+				tooltip_side = LIC_austro_swiss_austria
+			}
 			hidden_effect = {
 				country_event = {
 					id = licflavor.14
@@ -1429,6 +1481,7 @@ focus_tree = {
 					land_facility = 1
 				}
 			}
+			country_event = licflavor.46
 		}
 	}
 	
@@ -1467,6 +1520,11 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_ideas = LIC_military_police
+			add_power_balance_value = {
+				id = LIC_austro_swiss
+				value = -0.2
+				tooltip_side = LIC_austro_swiss_swiss
+			}
 		}
 	}
 	
@@ -1549,7 +1607,7 @@ focus_tree = {
 			focus = LIC_absolutist_decree
 		}
 		completion_reward = {
-			random_owned_state = {
+			random_owned_state = { #If have infrastructure give smth better!	
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = infrastructure
@@ -2042,6 +2100,11 @@ focus_tree = {
 			}
 			add_manpower = 10000
 			add_political_power = 35
+			add_power_balance_value = {
+				id = LIC_austro_swiss
+				value = -0.25
+				tooltip_side = LIC_austro_swiss_swiss
+			}
 		}
 	}
 	
@@ -2197,7 +2260,7 @@ focus_tree = {
 	
 	focus = {
 		id = LIC_hilti_arms
-		icon = GFX_goal_LIC_hilti_rifle
+		icon = GFX_goal_LIC_VALENROSE_IS_REAL_SANTUR_HOURS
 		relative_position_id = LIC_Anschlussputsch
 		x = -1
 		y = 1
@@ -2218,6 +2281,7 @@ focus_tree = {
 				uses = 1
 				bonus = 1
 			}
+			
 			random_owned_state = {
 				add_building_construction = {
 					type = arms_factory
@@ -2231,16 +2295,8 @@ focus_tree = {
 						has_completed_focus = LIC_franz_josef_ii_expansion
 					}
 				}
-				remove_ideas = LIC_bm_2
+				remove_dynamic_modifier = { modifier = LIC_bm_1 }
 				remove_ideas = LIC_legacy_of_trans_alpine_strikes_2
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_idea = hilti
-					}
-				}
-				add_ideas = hilti
 			}
 		}
 	}
@@ -2438,13 +2494,20 @@ focus_tree = {
 		}
 		completion_reward = {
 			leave_faction = yes
-			add_opinion_modifier = {
-				target = SWI
-				modifier = KR_friendly
-			}
-			reverse_add_opinion_modifier = {
-				target = SWI
-				modifier = KR_friendly
+			if = {
+				limit = {
+					SWI = {
+						has_socialist_government = no
+					}
+				}
+				add_opinion_modifier = {
+					target = SWI
+					modifier = KR_friendly
+				}
+				reverse_add_opinion_modifier = {
+					target = SWI
+					modifier = KR_friendly
+				}
 			}
 			remove_ideas = LIC_austro_swiss_divide
 			if = {
@@ -2484,7 +2547,10 @@ focus_tree = {
 			focus = LIC_neutrality
 		}
 		completion_reward = {
-			
+			SWI = {
+				country_event = licfor.42
+			}
+			custom_effect_tooltip = LIC_death_do_us_part_tt_LIC
 		}
 	}
 	
@@ -2522,6 +2588,10 @@ focus_tree = {
 					limit = {
 						has_government = social_conservative
 						has_completed_focus = LIC_continue_customs_union
+						power_balance_value = {
+							id = LIC_austro_swiss
+							value > 0.8
+						}
 					}
 					country_event = {
 						id = lic.6
@@ -2555,6 +2625,9 @@ focus_tree = {
 		}
 		completion_reward = {
 			#Alternate decision to pressure Switzerland into Donau-Adriabund! This variant will allow Switzerland the option of joining against France and gaining Aosta/Savoy, but the AI will then have a rule set to help NOT stack the line.
+			unlock_decision_tooltip = LIC_unternehmen_marterl_decision
+			unlock_decision_tooltip = LIC_pressure_switzerland
+			
 		}
 	}
 	
@@ -2586,6 +2659,7 @@ focus_tree = {
 			GER = {
 				country_event = licfor.1
 			}
+			unlock_decision_tooltip = LIC_investments_in_rietberg
 			remove_ideas = LIC_austro_swiss_divide
 		}
 	}
@@ -2627,7 +2701,7 @@ focus_tree = {
 			RUS = {
 				is_faction_leader = yes
 				exists = yes
-				same_government_type_as_ROOT = yes
+				has_socialist_government = no
 			}
 		}
 		prerequisite = {
@@ -2644,7 +2718,6 @@ focus_tree = {
 			}
 			remove_ideas = LIC_austro_swiss_divide
 			country_event = licflavor.44
-			
 		}
 	}
 	
@@ -2660,16 +2733,38 @@ focus_tree = {
 		available = {
 			RUS = {
 				is_faction_leader = yes
-				exists = yes
-				same_government_type_as_ROOT = yes
+				is_in_faction_with = LIC
 			}
 		}
 		prerequisite = {
 			focus = LIC_russia
 		}
 		completion_reward = {
-			#Decision to petition Russia for expanded influence if war against Austria/Germany.
-			#Get Grand Duke Vladimir Kirillovich of Russia and Boris Smyslovsky as leaders.
+			#Get Grand Duke Vladimir of Russia and Boris Smyslovsky as leaders.
+			army_experience = 25
+			unlock_decision_tooltip = LIC_teleport_russo_capital
+			unlock_decision_tooltip = LIC_teleport_home
+			if = {
+				limit = {
+					any_country = {
+						exists = yes
+						has_unit_leader = 78818
+					}
+				}
+				random_country = {
+					limit = {
+						exists = yes
+						has_unit_leader = 78818
+					}
+					country_event = {
+						id = licfor.46
+						days = 7
+					}
+				}
+				else = {
+					country_event = licfor.47
+				}
+			}
 		}
 	}
 	
@@ -2687,6 +2782,7 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = LIC_reichspakt
+			focus = LIC_russia
 			focus = LIC_neutrality
 			focus = LIC_keep_austrian
 		}
@@ -2740,7 +2836,10 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			
+			NOT = {
+				has_dynamic_modifier = { modifier = LIC_bm_1 }
+			}
+			has_country_flag = LIC_franz_josef_ii
 		}
 		prerequisite = {
 			focus = LIC_research_treaty
@@ -2757,13 +2856,14 @@ focus_tree = {
 	focus = {
 		id = LIC_protector_of_micronations #Get cores on all micronations (Andorra, San Marino, Riga, and a Monaco gambling bonus)
 		icon = GFX_goal_LIC_prince_of_little_fiefs
-		x = 11
+		x = 10
 		y = 14
 		cost = 5
 		ai_will_do = {
 			factor = 100
 		}
 		available = {
+			date > 1939.08.01
 		}
 		prerequisite = {
 			focus = LIC_shadow_empire
@@ -2771,7 +2871,61 @@ focus_tree = {
 		completion_reward = {
 			custom_effect_tooltip = LIC_protector_of_micronations_tt
 			custom_effect_tooltip = LIC_unlock_decision_micronation_tt
+			unlock_decision_tooltip = LIC_holding_expansion
 			country_event = licflavor.43
+		}
+	}
+	
+	focus = {
+		id = LIC_greater_rank #Get cores on all micronations (Andorra, San Marino, Riga, and a Monaco gambling bonus)
+		icon = GFX_goal_LIC_might_write
+		x = 12
+		y = 14
+		cost = 5
+		ai_will_do = {
+			factor = 100
+		}
+		available = {
+			date > 1940.01.01
+		}
+		prerequisite = {
+			focus = LIC_shadow_empire
+		}
+		prerequisite = {
+			focus = LIC_protect_vorarlberg
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_completed_focus = LIC_reichspakt
+				}
+				custom_effect_tooltip = LIC_reichspakt_expansion_tt
+				country_event = licfor.56
+				else_if = {
+					limit = {
+						has_completed_focus = LIC_neutrality
+					}
+					custom_effect_tooltip = LIC_neutral_expansion_tt
+					country_event = licfor.56
+					else_if = {
+						limit = {
+							has_completed_focus = LIC_russia
+						}
+						custom_effect_tooltip = LIC_russia_expansion_tt
+						country_event = licfor.56
+						else_if = {
+							limit = {
+								has_completed_focus = LIC_keep_austrian
+							}
+							custom_effect_tooltip = LIC_austria_expansion_tt
+							country_event = licfor.56
+							else = {
+								custom_effect_tooltip = LIC_expansion_tt
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 	
@@ -2785,28 +2939,56 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
+			
+		}
+		bypass = {
 			OR = {
-				has_global_flag = AUS_collapsed
-				AUS = {
-					OR = {
-						has_war_with = HUN
-						has_war_with = GAL
-						has_war_with = CZE
-						has_war_with = CRO
+				has_global_flag = no_more_collapse
+				NOT = {
+					has_global_flag = AUS_collapsed
+					AUS = {
+						OR = {
+							has_war_with = HUN
+							has_war_with = GAL
+							has_war_with = CZE
+							has_war_with = CRO
+							LIC = {
+								any_allied_country = {
+									has_war_with = PREV
+								}
+								has_war_with = PREV
+							}
+							surrender_progress > 0.65
+						}
 					}
 				}
 			}
 		}
+		enable_automatic_bypass = no
 		prerequisite = {
 			focus = LIC_reichspakt
+			focus = LIC_russia
 			focus = LIC_neutrality
 			focus = LIC_keep_austrian
 		}
+		bypass_effect = {
+			set_country_flag = bypassed_that_focus
+			custom_effect_tooltip = LIC_no_tyr
+		}
 		completion_reward = {
 			add_political_power = 50
+			custom_effect_tooltip = BOTDE_LIC_integration_fast
 			add_state_claim = 942
 			add_state_claim = 153
 			add_state_claim = 39
+			if = {
+				limit = {
+					AUS = {
+						has_war_with = CZE
+					}
+				}
+				country_event =  licfor.57
+			}
 		}
 	}
 	
@@ -2820,40 +3002,44 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			OR = {
-				has_global_flag = AUS_collapsed
-				AUS = {
-					OR = {
-						has_war_with = HUN
-						has_war_with = GAL
-						has_war_with = CZE
-						has_war_with = CRO
-					}
-				}
-			}
 			NOT = {
 				owns_state = 942
-				is_in_faction_with = AUS
-			}
-			AUS = {
-				owns_state = 942
-				has_idea = AUS_national_instability
+				has_war_with = 942.owner
 			}
 		}
 		prerequisite = {
 			focus = LIC_botde
 		}
+		bypass = {
+			has_global_flag = AUS_federalized
+		}
 		completion_reward = {
-			transfer_state = 942
-			add_state_core = 942
-			set_cosmetic_tag = LIC_VRL
+			if = {
+				limit = {
+					has_global_flag = AUS_collapsed
+					NOT = {
+						has_global_flag = AUS_collapse_stable
+					}
+				}
+				transfer_state = 942
+				set_cosmetic_tag = LIC_VRL
+				else = {
+					942 = {
+						owner = {
+							country_event = {
+								id = licfor.53
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 	
 	focus = {
 		id = LIC_seize_tyrol
 		icon = GFX_goal_LIC_tyrol
-		x = 12
+		x = 13
 		y = 12
 		cost = 5
 		ai_will_do = {
@@ -2868,6 +3054,7 @@ focus_tree = {
 						has_war_with = GAL
 						has_war_with = CZE
 						has_war_with = CRO
+						surrender_progress > 0.65
 					}
 				}
 			}
@@ -2875,6 +3062,7 @@ focus_tree = {
 				owns_state = 153
 				is_in_faction_with = AUS
 				country_exists = TYR
+				has_country_flag = bypassed_that_focus
 			}
 			AUS = {
 				owns_state = 153
@@ -2883,9 +3071,12 @@ focus_tree = {
 		prerequisite = {
 			focus = LIC_protect_vorarlberg
 		}
+		bypass = {
+			has_global_flag = AUS_federalized
+			owns_state = 153
+		}
 		completion_reward = {
 			transfer_state = 153
-			add_state_core = 153
 			if = {
 				limit = {
 					AUS = {
@@ -2893,7 +3084,14 @@ focus_tree = {
 					}
 				}
 				transfer_state = 39
-				add_state_core = 39
+			}
+			if = {
+				limit = {
+					AUS = {
+						owns_state = 789
+					}
+				}
+				transfer_state = 789
 			}
 			set_cosmetic_tag = LIC_TYR
 		}
@@ -3329,7 +3527,7 @@ focus_tree = {
 	
 	focus = {
 		id = LIC_in_america
-		icon = GFX_goal_LIC_defend_self
+		icon = GFX_goal_LIC_oval_office
 		relative_position_id = LIC_in_exile
 		x = 3
 		y = 1

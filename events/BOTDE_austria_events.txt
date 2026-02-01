@@ -51,10 +51,10 @@ country_event = { #intro 0
 
 	option = { #k
 		name = bdeausdebug.1.a
-		add_dynamic_modifier = {
-			modifier = LIC_shadow_empire_dynmod
+		every_country = {
+			limit = { AUS_is_constituent = yes }
+			set_country_flag = no_minority_revolt
 		}
-		
 	}
 }
 
@@ -673,6 +673,13 @@ country_event = { #Kalergi Casts a Bid
 			ideology = social_liberal
 			popularity = 0.025
 		}
+		hidden_effect = {
+			country_event = { #DBP coalition
+				id = bdeausel.7
+				days = 4
+				random_hours = 48
+			}
+		}
 	}
 }
 
@@ -693,9 +700,7 @@ country_event = { #Snap Election Announced!
 		add_stability = 0.01
 		hidden_effect = {
 			if = {
-				limit = {
-					has_global_flag = AUS_VF_SPLIT
-				}
+				limit = { has_global_flag = AUS_VF_SPLIT }
 				country_event = { #VF coalition
 					id = bdeausel.5
 					days = 6
@@ -707,16 +712,20 @@ country_event = { #Snap Election Announced!
 				days = 4
 				random_hours = 48
 			}
-			country_event = { #DBP coalition
-				id = bdeausel.7
-				days = 9
-				random_hours = 48
-			}
-			
 			country_event = {
 				id = bdeausel.2
 				days = 6
 				random_hours = 48
+			}
+			country_event = {
+				id = bdeausel.27
+				days = 10
+				random_hours = 48
+			}
+			country_event = {
+				id = bdeausel.29
+				days = 28
+				random_hours = 36
 			}
 			country_event = {
 				id = bdeausel.8
@@ -724,7 +733,6 @@ country_event = { #Snap Election Announced!
 				random_hours = 240
 			}
 		}
-		
 	}
 }
 
@@ -744,8 +752,16 @@ country_event = { #Dollfuss forms a coalition with the Heimwehr, GDVP, and Deuts
 	option = { #Really? Gathering with them?
 		name = bdeausel.5.a
 		add_popularity = {
+			ideology = totalist
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = paternal_autocrat
+			popularity = 0.03
+		}
+		add_popularity = {
 			ideology = national_populist
-			popularity = 0.025
+			popularity = 0.03
 		}
 	}
 }
@@ -766,7 +782,15 @@ country_event = { #The CS forms a coalition with the Landbund
 		name = bdeausel.6.a
 		add_popularity = {
 			ideology = market_liberal
-			popularity = 0.015
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.02
 		}
 	}
 }
@@ -787,7 +811,7 @@ country_event = { #The DBP forms a coalition with the OCLK
 		name = bdeausel.7.a
 		add_popularity = {
 			ideology = social_liberal
-			popularity = 0.015
+			popularity = 0.04
 		}
 	}
 }
@@ -837,10 +861,7 @@ country_event = { #Election
 		add_stability = 0.03
 		remove_all_ministers_but_for = yes
 		if = {
-			limit = {
-				has_global_flag = AUS_VF_SPLIT
-			}
-			complete_national_focus = AUS_cs_reign_continues
+			limit = { has_global_flag = AUS_VF_SPLIT }
 			set_country_flag = AUS_CS_WON
 			if = {
 				limit = {
@@ -862,9 +883,7 @@ country_event = { #Election
 				}
 			}
 			if = {
-				limit = {
-					has_country_flag = AUS_1936_ender
-				}
+				limit = { has_country_flag = AUS_1936_ender }
 				set_country_flag = AUS_MINISTERPREZ_ENDER
 				set_politics = {
 					ruling_party = social_conservative
@@ -881,9 +900,7 @@ country_event = { #Election
 				}
 			}
 			if = {
-				limit = {
-					has_global_flag = AUS_BURESCH
-				}
+				limit = { has_global_flag = AUS_BURESCH }
 				set_country_flag = AUS_MINISTERPREZ_BURESCH
 				set_politics = {
 					ruling_party = authoritarian_democrat
@@ -899,6 +916,7 @@ country_event = { #Election
 					AUS_Carl_Vaugoin_sec_ade
 				}
 			}
+			hidden_effect = { complete_national_focus = AUS_cs_reign_continues }
 		}
 		else = {
 			set_politics = {
@@ -908,24 +926,20 @@ country_event = { #Election
 				ideology = authoritarian_democrat
 				popularity = 0.03
 			}
-			
 			add_soccon_to_coalition = yes
 			add_pataut_to_coalition = yes
 			if = {
-				limit = {
-					has_country_flag = AUS_1936_miklas
-				}
+				limit = { has_country_flag = AUS_1936_miklas }
 				set_country_flag = AUS_MINISTERPREZ_MIKLAS
 				add_ideas = {
 					AUS_Wilhelm_Miklas_hog_sco
 					AUS_Julius_Raab_eco_sco
 					AUS_Richard_Schmitz_sec_sco
 				}
+				hidden_effect = { complete_national_focus = AUS_cs_reign_continues }
 			}
 			else_if = {
-				limit = {
-					has_global_flag = AUS_BURESCH
-				}
+				limit = { has_global_flag = AUS_BURESCH }
 				set_country_flag = AUS_CS_WON
 				set_country_flag = AUS_VF_WON
 				add_ideas = {
@@ -933,6 +947,7 @@ country_event = { #Election
 					AUS_Engelbert_Dollfuss_eco_ade
 					AUS_Carl_Vaugoin_sec_ade
 				}
+				hidden_effect = { complete_national_focus = AUS_cs_reign_continues }
 			}	
 			else = {
 				hidden_effect = { complete_national_focus = AUS_vf_usurpation }
@@ -947,7 +962,7 @@ country_event = { #Election
 				}
 			}
 		}
-		
+
 		add_popularity = {
 			ideology = paternal_autocrat
 			popularity = -0.02
@@ -962,7 +977,14 @@ country_event = { #Election
 			country_event = {
 				id = bdeausel.12
 				days = 7
-				random = 200
+				random_hours = 200
+			}
+			random_other_country = {
+				news_event = {
+					id = bdeausnews.23
+					hours = 12
+					random_hours = 24
+				}
 			}
 		}
 	}
@@ -1007,12 +1029,9 @@ country_event = { #Election
 			ideology = national_populist
 			popularity = 0.05
 		}
-		
+		custom_effect_tooltip = AUS_revolutionize_SDAPO_tt
 		hidden_effect = {
-			add_to_variable = {
-				var = AUS.revolution_value
-				value = 2
-			}
+			add_to_variable = { AUS.revolution_value = 2 }
 			set_country_flag = AUS_VF_WON
 			set_country_flag = AUS_snap_election_complete
 			complete_national_focus = AUS_vf_usurpation
@@ -1021,7 +1040,13 @@ country_event = { #Election
 				days = 7
 				random_hours = 200
 			}
-			
+			random_other_country = {
+				news_event = {
+					id = bdeausnews.21
+					hours = 12
+					random_hours = 24
+				}
+			}
 			remove_all_ministers_but_for = yes
 			add_ideas = {
 				AUS_Engelbert_Dollfuss_hog_pau
@@ -1052,9 +1077,7 @@ country_event = { #Election
 		add_stability = 0.03		
 		remove_all_ministers_but_for = yes
 		if = {
-			limit = {
-				has_country_flag = AUS_otto_bauer_36
-			}
+			limit = { has_country_flag = AUS_otto_bauer_36 }
 			set_politics = {
 				ruling_party = radical_socialist
 			}
@@ -1063,6 +1086,18 @@ country_event = { #Election
 				AUS_Otto_Bauer_hog_rso
 				AUS_Paul_Johannes_Schlesinger_eco_rso
 				AUS_Max_Adler_sec_rso
+			}
+			add_popularity = {
+				ideology = totalist
+				popularity = 0.03
+			}
+			add_popularity = {
+				ideology = syndicalist
+				popularity = 0.04
+			}
+			add_popularity = {
+				ideology = radical_socialist
+				popularity = 0.05
 			}
 		}
 		else = {
@@ -1075,14 +1110,18 @@ country_event = { #Election
 				AUS_Wilhelm_Ellenbogen_eco_sde
 				AUS_Adolf_Scharf_sec_sde
 			}
-		}
-		add_popularity = {
-			ideology = social_democrat
-			popularity = 0.03
-		}
-		add_popularity = {
-			ideology = radical_socialist
-			popularity = 0.03
+			add_popularity = {
+				ideology = syndicalist
+				popularity = -0.03
+			}
+			add_popularity = {
+				ideology = radical_socialist
+				popularity = 0.04
+			}
+			add_popularity = {
+				ideology = social_democrat
+				popularity = 0.05
+			}
 		}
 		add_popularity = {
 			ideology = paternal_autocrat
@@ -1101,14 +1140,18 @@ country_event = { #Election
 			complete_national_focus = AUS_sdapo_moment
 			set_country_flag = AUS_SDAPO_WON
 			set_country_flag = AUS_snap_election_complete
-			add_to_variable = {
-				var = TYR.collapse_appearance_value
-				value = 1
-			}
+			AUS_radicalize_Heimwehr = yes
 			country_event = {
 				id = bdeausel.11
 				days = 7
 				random_hours = 200
+			}
+			random_other_country = {
+				news_event = {
+					id = bdeausnews.24
+					hours = 12
+					random_hours = 24
+				}
 			}
 			MNT = {
 				country_event = {
@@ -1149,7 +1192,6 @@ country_event = { #Election
 			ideology = market_liberal
 			popularity = 0.02
 		}
-		
 		hidden_effect = {
 			set_country_flag = AUS_DBP_WON
 			set_country_flag = AUS_snap_election_complete
@@ -1162,6 +1204,13 @@ country_event = { #Election
 				id = bdeausflavor.141
 				days = 8
 				random_hours = 48
+			}
+			random_other_country = {
+				news_event = {
+					id = bdeausnews.22
+					hours = 12
+					random_hours = 24
+				}
 			}
 			remove_all_ministers_but_for = yes
 			add_ideas = {
@@ -1291,7 +1340,7 @@ country_event = { #Status Quo Restored (Ender's elected)
 	title = bdeausel.12.t
 	desc = bdeausel.12.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_Franz_Joseph_Postcard
 
 	fire_only_once = yes
 
@@ -1481,11 +1530,7 @@ country_event = { #The Election of 1940
 	
 	immediate = {
 		if = {
-			limit = {
-				NOT = {
-					has_completed_focus = DNB_to_save_the_empire
-				}
-			}
+			limit = { NOT = { has_completed_focus = DNB_to_save_the_empire } }
 			complete_national_focus = DNB_to_save_the_empire
 		}
 	}
@@ -1505,22 +1550,14 @@ country_event = { #The Election of 1940
 			}
 			add_authdem_to_coalition = yes
 			AUS_elect_CS_1940 = yes
-			else = {
-				set_politics = {
-					ruling_party = authoritarian_democrat
-				}
-				add_soccon_to_coalition = yes
-				add_pataut_to_coalition = yes
-				AUS_elect_CS_1940_authdem = yes
-			}
 		}
-		if = {
-			limit = {
-				NOT = {
-					has_country_flag = AUS_did_election_decision_cs
-				}
+		else = {
+			set_politics = {
+				ruling_party = authoritarian_democrat
 			}
-			AUS_subtract_ten_collapse = yes
+			add_soccon_to_coalition = yes
+			add_pataut_to_coalition = yes
+			AUS_elect_CS_1940_authdem = yes
 		}
 	}
 	
@@ -1532,14 +1569,6 @@ country_event = { #The Election of 1940
 	option = { #DBP Victory
 		name = bdeausel.16.c
 		AUS_elect_DBP_1940 = yes
-		if = {
-			limit = {
-				NOT = {
-					has_country_flag = AUS_did_election_decision_dbp
-				}
-			}
-			AUS_subtract_ten_collapse = yes
-		}
 		set_politics = {
 			ruling_party = social_liberal
 		}
@@ -1553,14 +1582,6 @@ country_event = { #The Election of 1940
 		set_politics = {
 			ruling_party = paternal_autocrat
 		}
-		if = {
-			limit = {
-				NOT = {
-					has_country_flag = AUS_did_election_decision_vf
-				}
-			}
-			AUS_subtract_ten_collapse = yes
-		}
 		AUS_elect_VF_1940 = yes
 	}
 	
@@ -1569,20 +1590,8 @@ country_event = { #The Election of 1940
 		trigger = {
 			has_global_flag = AUS_OCLK_unlocked
 		}
-		#AUS_elect_OCLK_1940 = yes
-		if = {
-			limit = {
-				NOT = {
-					has_country_flag = AUS_did_election_decision_oclk
-				}
-			}
-			AUS_subtract_ten_collapse = yes
-		}
-		set_politics = {
-			ruling_party = market_liberal
-		}
+		AUS_elect_OCLK_1940 = yes
 	}
-	
 }
 
 country_event = { #Danubization of Parties
@@ -1626,10 +1635,7 @@ country_event = { #New CS candidate
 		hidden_effect = {
 			if = {
 				limit = {
-					NOT = {
-						has_global_flag = AUS_VF_SPLIT
-					}
-					
+					NOT = { has_global_flag = AUS_VF_SPLIT }
 				}
 				country_event = {
 					id = bdeausel.15
@@ -1652,9 +1658,7 @@ country_event = { #New CS candidate
 	option = { #Istvan Bethlen, Hungarian
 		name = bdeausel.18.e
 		trigger = {
-			NOT = {
-				has_global_flag = AUS_VF_SPLIT
-			}
+			NOT = { has_global_flag = AUS_VF_SPLIT }
 		}
 		set_country_flag = AUS_bethlen_1940
 	}
@@ -1667,9 +1671,7 @@ country_event = { #New CS candidate
 	option = { #Engelbert Dollfuss, Austrian
 		name = bdeausel.18.g
 		trigger = {
-			NOT = {
-				has_global_flag = AUS_VF_SPLIT
-			}
+			NOT = { has_global_flag = AUS_VF_SPLIT }
 		}
 		add_stability = -0.03
 		set_country_flag = AUS_dollfuss_1940
@@ -1678,9 +1680,7 @@ country_event = { #New CS candidate
 	option = { #Leopold Figl, Austrian
 		name = bdeausel.18.h
 		trigger = {
-			NOT = {
-				has_global_flag = AUS_VF_SPLIT
-			}
+			NOT = { has_global_flag = AUS_VF_SPLIT }
 		}
 		add_stability = -0.03
 		set_country_flag = AUS_figl_1940
@@ -1689,15 +1689,11 @@ country_event = { #New CS candidate
 	option = { #Julius Raab, Austrian
 		name = bdeausel.18.i
 		trigger = {
-			NOT = {
-				has_global_flag = AUS_VF_SPLIT
-			}
+			NOT = { has_global_flag = AUS_VF_SPLIT }
 		}
 		add_stability = -0.03
 		set_country_flag = AUS_raab_1940
-		
 	}
-	
 }
 
 country_event = { #New VF candidate
@@ -1734,9 +1730,7 @@ country_event = { #New VF candidate
 	option = { #Zoltan Tildy, Hungarian
 		name = bdeausel.19.e
 		trigger = {
-			NOT = {
-				has_global_flag = AUS_VF_SPLIT
-			}
+			NOT = { has_global_flag = AUS_VF_SPLIT }
 		}
 		set_country_flag = AUS_tildy_1940
 	}
@@ -1744,9 +1738,7 @@ country_event = { #New VF candidate
 	option = { #Hieronim Tarnowski, Galician
 		name = bdeausel.19.f
 		set_country_flag = AUS_tarnowski_1940
-		
 	}
-	
 }
 
 country_event = { #New SDAPO candidate
@@ -1813,7 +1805,6 @@ country_event = { #New SDAPO candidate
 			popularity = 0.07
 		}
 	}
-	
 }
 
 country_event = { #New DBP candidate
@@ -1842,7 +1833,7 @@ country_event = { #New DBP candidate
 		trigger = {
 			has_country_flag = AUS_einstein_available_1940
 		}
-		set_country_flag = AUS_kalergi_1940
+		set_country_flag = AUS_einstein_1940
 	}
 	
 	option = { #Jan Masaryk, Bohemian
@@ -2047,7 +2038,6 @@ country_event = { #CS Leadership Splits
 		}
 		AUS_add_one_collapse = yes
 	}
-	
 }
 
 country_event = { #The Cross Renewed
@@ -2070,54 +2060,50 @@ country_event = { #The Cross Renewed
 			popularity = 0.025
 		}
 	}
-	
 }
 
-country_event = { #Schober Alerts the Danubian Interpol
+country_event = { #Election Violence
 	id = bdeausel.27
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausel.27" }
 	title = bdeausel.27.t
 	desc = bdeausel.27.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_legislature_protest
 
 	fire_only_once = yes
 
 	is_triggered_only = yes
 
-	option = { #A dangerous time it is indeed
+	option = { #The Gendarmerie has it under control
 		name = bdeausel.27.a
-		add_political_power = -15
-		AUS_subtract_two_collapse = yes	
+		add_political_power = 20
+		add_stability = -0.05
 		hidden_effect = {
-			country_event = {
-				id = bdeausel.28
-				days = 8
-				random_hours = 48
+			if = {
+				limit = { check_variable = { AUS.subject_revolt_progress > 0.69 } }
+				country_event = {
+					id = bdeausel.28
+					days = 2
+					random_hours = 72
+				}
 			}
 		}
 	}
 	
-	option = { #This is simply fearmongering
+	option = { #Send reinforcements just in case
 		name = bdeausel.27.b
-		add_political_power = 20
-		add_stability = 0.01
-		AUS_raise_vienna_tenseness = yes
-		hidden_effect = {
-			country_event = {
-				id = bdeausel.28
-				days = 6
-				random_hours = 48
-			}
-		}
+		add_political_power = -20
+		add_stability = 0.05
 	}
 }
 
-country_event = { #Paramilitary Units Activate (Front Fighters, Sturmscharen, Heimwehr, Schutzbund)
+country_event = { #Paramilitary Violence at Polling Stations
 	id = bdeausel.28
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausel.28" }
 	title = bdeausel.28.t
 	desc = bdeausel.28.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_riot_poster
 
 	fire_only_once = yes
 
@@ -2125,18 +2111,21 @@ country_event = { #Paramilitary Units Activate (Front Fighters, Sturmscharen, He
 
 	option = { #This is very bad.
 		name = bdeausel.28.a
-		set_global_flag = AUS_paramilitary_units_active
-		add_popularity = {
-			ideology = national_populist
-			popularity = 0.03
-		}
 		add_popularity = {
 			ideology = radical_socialist
-			popularity = 0.015
+			popularity = 0.02
 		}
 		add_popularity = {
 			ideology = social_democrat
-			popularity = 0.015
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = paternal_autocrat
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = national_populist
+			popularity = 0.03
 		}
 		hidden_effect = {
 			country_event = {
@@ -2144,21 +2133,17 @@ country_event = { #Paramilitary Units Activate (Front Fighters, Sturmscharen, He
 				days = 4
 				random_hours = 36
 			}
-			country_event = {
-				id = bdeausel.30
-				days = 12
-				random_hours = 72
-			}
 		}
 	}
 }
 
-country_event = { #A Silent Night in Vienna
+country_event = { #Paramilitary Violence Hits Fever Pitch
 	id = bdeausel.29
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausel.29" }
 	title = bdeausel.29.t
 	desc = bdeausel.29.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_street_revolution
 
 	fire_only_once = yes
 
@@ -2167,36 +2152,18 @@ country_event = { #A Silent Night in Vienna
 	option = { #This is very bad.
 		name = bdeausel.29.a
 		add_stability = -0.1
-		1137 = {
-			set_demilitarized_zone = yes
-		}
 		AUS_add_five_collapse = yes
-		hidden_effect = {
-			news_event = {
-				id = bdeausnews.3
-				days = 5
-			}
-		}
+		ALL_add_three_collapse = yes
 	}
 	
-	option = { #Evacuate the Kaiser!
+	option = { #Send in the K.K. Landwehr, we can't let this escalate further
 		name = bdeausel.29.b
-		add_stability = -0.1
-		add_political_power = 10
-		1137 = {
-			set_demilitarized_zone = yes
-		}
-		AUS_add_three_collapse = yes
-		hidden_effect = {
-			news_event = {
-				id = bdeausnews.3
-				days = 5
-			}
-		}
-		custom_effect_tooltip = AUS_sign_of_weakness
-		set_country_flag = AUS_silent_night_flight
+		add_manpower = -10000
+		add_political_power = -30
+		add_stability = 0.05
+		AUS_subtract_five_collapse = yes
+		ALL_subtract_three_collapse = yes
 	}
-	
 }
 
 country_event = { #Slovene Leaders Assert Increased Autonomy
@@ -2500,10 +2467,6 @@ country_event = { #The Ordo Novi Templi raises its Swords
 			ideology = national_populist
 			popularity = 0.05
 		}
-		set_country_flag = AUS_ordo_novi_templi_active
-		152 = {
-			AUS_change_paramilitary_ont = yes
-		}
 	}
 }
 
@@ -2582,7 +2545,6 @@ country_event = { #Brawl in the Reichsrat
 			}
 		}
 	}
-	
 }
 
 country_event = { #The Choir (Translators)
@@ -2600,10 +2562,34 @@ country_event = { #The Choir (Translators)
 		name = bdeausel.39.a
 		add_political_power = -10
 	}
-
 }
 
+country_event = { #DnB dies, get replaced by the OCLK
+	id = bdeausel.40
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausel.40" }
+	title = bdeausel.40.t
+	desc = bdeausel.40.d
+	
+	picture = GFX_event_AUS_Kuehnelt_Leddihn_CoA
 
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #interesting
+		name = bdeausel.40.a
+		set_global_flag = AUS_OCLK_unlocked
+		add_popularity = {
+			ideology = market_liberal
+			popularity = 0.05
+		}
+		set_party_name = {
+			ideology = market_liberal
+			name = AUS_OCLK_party
+			long_name = AUS_OCLK_party_long
+		}
+	}
+}
 
 
 
@@ -2947,7 +2933,7 @@ country_event = { #OAAO Waxes in Power
 			desc = "POLITICS_STEIDLE_DESC"
 			picture = "gfx/leaders/AUS/AUS_Richard_Steidle.png"
 			expire = "1965.1.1"
-			ideology = national_populist_subtype
+			ideology = natpop_austropopulism_subtype
 		}
 	}
 }
@@ -3300,18 +3286,17 @@ country_event = { #The Kaiser's Tour
 			ahead_reduction = 2
 		}
 	}
-	
 }
 
 #New minigame events
 
 country_event = { #Placate
 	id = bdeaus.6
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.6" }
 	title = bdeaus.6.t
 	desc = bdeaus.6.d
 	
 	picture = GFX_event_AUS_karl_leaving_hungary
-
 		
 	hidden = yes
 
@@ -3321,16 +3306,15 @@ country_event = { #Placate
 		name = bdeaus.6.a
 		clr_country_flag = AUS_placate_flag
 	}
-	
 }
 
 country_event = { #Suppress
 	id = bdeaus.7
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.7" }
 	title = bdeaus.7.t
 	desc = bdeaus.7.d
 	
 	picture = GFX_event_AUS_karl_leaving_hungary
-
 		
 	hidden = yes
 
@@ -3340,16 +3324,15 @@ country_event = { #Suppress
 		name = bdeaus.7.a
 		clr_country_flag = AUS_suppress_flag
 	}
-	
 }
 
 country_event = { #Industrial building
 	id = bdeaus.8
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.8" }
 	title = bdeaus.8.t
 	desc = bdeaus.8.d
 	
 	picture = GFX_event_AUS_karl_leaving_hungary
-
 		
 	hidden = yes
 
@@ -3359,9 +3342,7 @@ country_event = { #Industrial building
 		name = bdeaus.8.a
 		if = {
 			limit = {
-				NOT = {
-					has_country_flag = AUS_factory_flag_done
-				}
+				NOT = { has_country_flag = AUS_factory_flag_done }
 			}
 			THIS = {
 				random_owned_state = {
@@ -3374,42 +3355,32 @@ country_event = { #Industrial building
 				}			
 			}
 			THIS_subtract_eight_collapse = yes
-			subtract_from_variable = {
-				var = global.industrial_stuff
-				value = 1
-			}
-			subtract_from_variable = {
-				var = THIS.industrial_stuff_local
-				value = 1
-			}
-			AUS = {
-				scoped_sound_effect = "AUS_industrial_projects"
-			}
+			subtract_from_variable = { global.industrial_stuff = 1 }
+			subtract_from_variable = { THIS.industrial_stuff_local = 1 }
+			AUS = { scoped_sound_effect = "AUS_industrial_projects" }
 			scoped_sound_effect = "AUS_industrial_projects"
 			country_event = {
 				id = bdeaus.8
 				days = 40
 			}
 			set_country_flag = AUS_factory_flag_done
-			else = {
-				clr_country_flag = AUS_factory_flag
-				clr_country_flag = AUS_factory_flag_done
-			}
+		}
+		else = {
+			clr_country_flag = AUS_factory_flag
+			clr_country_flag = AUS_factory_flag_done
 		}
 	}
-	
 }
 
 country_event = { #Royal visit
 	id = bdeaus.9
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.9" }
 	title = bdeaus.9.t
 	desc = bdeaus.9.d
 	
 	picture = GFX_event_AUS_karl_leaving_hungary
-
 		
 	hidden = yes
-	
 
 	is_triggered_only = yes
 
@@ -3417,9 +3388,7 @@ country_event = { #Royal visit
 		name = bdeaus.9.a
 		if = {
 			limit = {
-				NOT = {
-					has_country_flag = AUS_visit_flag_done
-				}
+				NOT = { has_country_flag = AUS_visit_flag_done }
 			}
 			THIS_subtract_fifteen_collapse = yes
 			country_event = {
@@ -3427,22 +3396,21 @@ country_event = { #Royal visit
 				days = 30
 			}
 			set_country_flag = AUS_visit_flag_done
-			else = {
-				clr_country_flag = AUS_visit_flag
-				clr_country_flag = AUS_visit_flag_done
-			}
+		}
+		else = {
+			clr_country_flag = AUS_visit_flag
+			clr_country_flag = AUS_visit_flag_done
 		}
 	}
-	
 }
 
 country_event = { #Public outing
 	id = bdeaus.10
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.10" }
 	title = bdeaus.10.t
 	desc = bdeaus.10.d
 	
 	picture = GFX_event_AUS_karl_leaving_hungary
-
 		
 	hidden = yes
 
@@ -3452,16 +3420,15 @@ country_event = { #Public outing
 		name = bdeaus.10.a
 		clr_country_flag = AUS_public_outing_flag
 	}
-	
 }
 
 country_event = { #Royal appearance
 	id = bdeaus.11
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.11" }
 	title = bdeaus.11.t
 	desc = bdeaus.11.d
 	
 	picture = GFX_event_AUS_karl_leaving_hungary
-
 		
 	hidden = yes
 
@@ -3471,16 +3438,15 @@ country_event = { #Royal appearance
 		name = bdeaus.11.a
 		clr_country_flag = AUS_appearance_flag
 	}
-	
 }
 
 country_event = { #Speech
 	id = bdeaus.12
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.12" }
 	title = bdeaus.12.t
 	desc = bdeaus.12.d
 	
 	picture = GFX_event_AUS_karl_leaving_hungary
-
 		
 	hidden = yes
 
@@ -3490,16 +3456,15 @@ country_event = { #Speech
 		name = bdeaus.12.a
 		clr_country_flag = AUS_speech_flag
 	}
-	
 }
 
 country_event = { #Culture
 	id = bdeaus.13
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.13" }
 	title = bdeaus.13.t
 	desc = bdeaus.13.d
 	
 	picture = GFX_event_AUS_karl_leaving_hungary
-
 		
 	hidden = yes
 
@@ -3509,26 +3474,20 @@ country_event = { #Culture
 		name = bdeaus.13.a
 		if = {
 			limit = {
-				NOT = {
-					has_global_flag = AUS_culture_flag_done
-				}
+				NOT = { has_global_flag = AUS_culture_flag_done }
 			}
 			CUL = { THIS_subtract_fifteen_collapse = yes }
-			AUS = {
-				scoped_sound_effect = "AUS_minority_festival"
-			}
+			AUS = { scoped_sound_effect = "AUS_minority_festival" }
 			country_event = {
 				id = bdeaus.13
 				days = 10
 			}
 			set_global_flag = AUS_culture_flag_done
-			else = {
-				CUL = {
-					clr_country_flag = AUS_culture_flag
-				}
-				clr_global_flag = AUS_culture_flag_done
-				clr_global_flag = AUS_culture_flag_global
-			}
+		}
+		else = {
+			CUL = { clr_country_flag = AUS_culture_flag }
+			clr_global_flag = AUS_culture_flag_done
+			clr_global_flag = AUS_culture_flag_global
 		}
 	}
 	
@@ -3536,12 +3495,12 @@ country_event = { #Culture
 
 country_event = { #Crush
 	id = bdeaus.14
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.14" }
 	title = bdeaus.14.t
 	desc = bdeaus.14.d
 	
 	picture = GFX_event_AUS_karl_leaving_hungary
 
-		
 	hidden = yes
 
 	is_triggered_only = yes
@@ -3549,33 +3508,28 @@ country_event = { #Crush
 	option = { #
 		name = bdeaus.14.a
 		if = {
-			limit = {
-				tag = AUS
-			}
+			limit = { tag = AUS }
 			FROM = {
 				set_country_flag = AUS_crush_done
 				country_event = {
 					id = bdeaus.14
 				}
 			}
-			else_if = {
-				limit = {
-					has_country_flag = AUS_crush_done
-				}
-				clr_country_flag = AUS_crush_done
-				clr_country_flag = AUS_crush_flag
-				else = {
-					AUS = {
-						country_event = {
-							id = bdeaus.14
-							days = 20
-						}
-					}
+		}
+		else_if = {
+			limit = { has_country_flag = AUS_crush_done }
+			clr_country_flag = AUS_crush_done
+			clr_country_flag = AUS_crush_flag
+		}
+		else = {
+			AUS = {
+				country_event = {
+					id = bdeaus.14
+					days = 20
 				}
 			}
 		}
 	}
-	
 }
 
 country_event = { #Navy doctrine select
@@ -3584,7 +3538,6 @@ country_event = { #Navy doctrine select
 	desc = bdeaus.15.d
 	
 	picture = GFX_event_AUS_karl_leaving_hungary
-
 		
 	hidden = yes
 
@@ -3646,7 +3599,6 @@ country_event = { #Air doctrine select
 	desc = bdeaus.16.d
 	
 	picture = GFX_event_AUS_karl_leaving_hungary
-
 		
 	hidden = yes
 
@@ -3983,6 +3935,7 @@ country_event = { #A Economic Gambit
 
 country_event = { #Austria Pays Every Last Penny
 	id = bdeausfor.1
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.1" }
 	title = bdeausfor.1.t
 	desc = bdeausfor.1.d
 	
@@ -4000,11 +3953,11 @@ country_event = { #Austria Pays Every Last Penny
 
 country_event = { #Austria Proposes Alliance - Add to faction
 	id = bdeausfor.2
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.2" }
 	title = bdeausfor.2.t
 	desc = bdeausfor.2.d
 	
-	picture = GFX_report_event_BAN_big_speech2
-
+	picture = GFX_event_AUS_parade
 	
 	is_triggered_only = yes
 
@@ -4094,6 +4047,7 @@ country_event = { #Austria Proposes Alliance - Add to faction
 
 country_event = { #FROM rejects alliance offer!
 	id = bdeausfor.3
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.3" }
 	title = bdeausfor.3.t
 	desc = bdeausfor.3.d
 	
@@ -4110,6 +4064,7 @@ country_event = { #FROM rejects alliance offer!
 
 country_event = { #Austria Proposes Crete Deal
 	id = bdeausfor.4
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.4" }
 	title = bdeausfor.4.t
 	desc = bdeausfor.4.d
 	
@@ -4208,6 +4163,7 @@ country_event = { #Austria Proposes Alliance (Imperial faction merge)
 
 country_event = { #FROM denies our request
 	id = bdeausfor.6
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.6" }
 	title = bdeausfor.6.t
 	desc = bdeausfor.6.d
 	
@@ -4224,6 +4180,7 @@ country_event = { #FROM denies our request
 
 country_event = { #no crete
 	id = bdeausfor.7
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.7" }
 	title = bdeausfor.7.t
 	desc = bdeausfor.7.d
 	
@@ -4242,6 +4199,7 @@ country_event = { #no crete
 
 country_event = { #Exercises with Austria
 	id = bdeausfor.8
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.8" }
 	title = bdeausfor.8.t
 	desc = bdeausfor.8.d
 	
@@ -4264,6 +4222,7 @@ country_event = { #Exercises with Austria
 
 country_event = { #HUN - Karl Dissolves Austrian Landtags
 	id = bdeausfor.9
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.9" }
 	title = bdeausfor.9.t
 	desc = bdeausfor.9.d
 	
@@ -4293,6 +4252,7 @@ country_event = { #HUN - Karl Dissolves Austrian Landtags
 
 country_event = { #HUN - Congress of Transleithania
 	id = bdeausfor.10
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.10" }
 	title = bdeausfor.10.t
 	desc = bdeausfor.10.d
 	
@@ -4356,6 +4316,7 @@ country_event = { #HUN - Congress of Transleithania
 
 country_event = { #Transleithania Cuts Communications
 	id = bdeausfor.11
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.11" }
 	title = bdeausfor.11.t
 	desc = bdeausfor.11.d
 	
@@ -4496,6 +4457,7 @@ country_event = { #Transleithania Cuts Communications
 
 country_event = { #Neutral constituent - Absolutist Crisis
 	id = bdeausfor.12
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.12" }
 	title = bdeausfor.12.t
 	desc = bdeausfor.12.d
 	
@@ -4550,6 +4512,7 @@ country_event = { #Neutral constituent - Absolutist Crisis
 
 country_event = { #Realist/CND Bohemia - Austria teetering on absolutism!
 	id = bdeausfor.13
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.13" }
 	title = bdeausfor.13.t
 	desc = bdeausfor.13.d
 	
@@ -4664,6 +4627,7 @@ country_event = { #Realist/CND Bohemia - Austria teetering on absolutism!
 
 country_event = { #AUS - Bohemia Denies Absoluist Decree
 	id = bdeausfor.14
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.14" }
 	title = bdeausfor.14.t
 	desc = bdeausfor.14.d
 	
@@ -4737,6 +4701,7 @@ country_event = { #AUS - Bohemia Denies Absoluist Decree
 
 country_event = { #AUS - FROM declares independence
 	id = bdeausfor.15
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.15" }
 	title = bdeausfor.15.t
 	desc = bdeausfor.15.d
 	
@@ -4776,6 +4741,7 @@ country_event = { #AUS - FROM declares independence
 
 country_event = { #FIU - Hungary Teeters on Revolt
 	id = bdeausfor.16
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.16" }
 	title = bdeausfor.16.t
 	desc = bdeausfor.16.d
 	
@@ -4822,6 +4788,7 @@ country_event = { #FIU - Hungary Teeters on Revolt
 
 country_event = { #Crisis Avoided
 	id = bdeausfor.17
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.17" }
 	title = bdeausfor.17.t
 	desc = bdeausfor.17.d
 	
@@ -4839,6 +4806,7 @@ country_event = { #Crisis Avoided
 
 country_event = { #Fiume Stands Defiant
 	id = bdeausfor.18
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.18" }
 	title = bdeausfor.18.t
 	desc = bdeausfor.18.d
 	
@@ -4859,6 +4827,7 @@ country_event = { #Fiume Stands Defiant
 
 country_event = { #The Polish Question
 	id = bdeausfor.19
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.19" }
 	title = bdeausfor.19.t
 	desc = bdeausfor.19.d
 	
@@ -4908,6 +4877,7 @@ country_event = { #The Polish Question
 
 country_event = { #Italy Responds - Only if Venice/Lombardy is Returned
 	id = bdeausfor.20
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.20" }
 	title = bdeausfor.20.t
 	desc = bdeausfor.20.d
 	
@@ -4954,6 +4924,7 @@ country_event = { #Italy Responds - Only if Venice/Lombardy is Returned
 
 country_event = { #Italy - Austria Returns Venice
 	id = bdeausfor.21
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.21" }
 	title = bdeausfor.21.t
 	desc = bdeausfor.21.d
 	
@@ -4983,6 +4954,7 @@ country_event = { #Italy - Austria Returns Venice
 
 country_event = { #UKR- Austria Demands Ukraine Join its Faction
 	id = bdeausfor.22
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.22" }
 	title = bdeausfor.22.t
 	desc = bdeausfor.22.d
 	
@@ -5078,6 +5050,7 @@ country_event = { #UKR- Austria Demands Ukraine Join its Faction
 
 country_event = { #GER - Ukraine Turncoats to Austria
 	id = bdeausfor.23
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.23" }
 	title = bdeausfor.23.t
 	desc = bdeausfor.23.d
 	
@@ -5095,6 +5068,7 @@ country_event = { #GER - Ukraine Turncoats to Austria
 
 country_event = { #Ukraine Accepts the Proposal
 	id = bdeausfor.24
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.24" }
 	title = bdeausfor.24.t
 	desc = bdeausfor.24.d
 	
@@ -5111,6 +5085,7 @@ country_event = { #Ukraine Accepts the Proposal
 
 country_event = { #Ukraine Denies the Proposal
 	id = bdeausfor.25
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.25" }
 	title = bdeausfor.25.t
 	desc = bdeausfor.25.d
 	
@@ -5126,6 +5101,7 @@ country_event = { #Ukraine Denies the Proposal
 
 country_event = { #A Moment of Weakness in Breslau
 	id = bdeausfor.26
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.26" }
 	title = bdeausfor.26.t
 	desc = bdeausfor.26.d
 	
@@ -5210,6 +5186,7 @@ country_event = { #A Moment of Weakness in Breslau
 
 country_event = { #GER - Austria Seizes Silesia
 	id = bdeausfor.27
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.27" }
 	title = bdeausfor.27.t
 	desc = bdeausfor.27.d
 	
@@ -5228,6 +5205,7 @@ country_event = { #GER - Austria Seizes Silesia
 
 country_event = { #Italy Dishonors the Agreement
 	id = bdeausfor.28
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.28" }
 	title = bdeausfor.28.t
 	desc = bdeausfor.28.d
 	
@@ -5256,10 +5234,11 @@ country_event = { #Italy Dishonors the Agreement
 
 country_event = { #The Austro-American Alliance is Signed
 	id = bdeausfor.29
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.29" }
 	title = bdeausfor.29.t
 	desc = bdeausfor.29.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_ao3_account_pfp
 
 	fire_only_once = yes
 
@@ -5267,355 +5246,9 @@ country_event = { #The Austro-American Alliance is Signed
 
 	option = { #E pluribus unum; indivisibiliter ac inseparabiliter!
 		name = bdeausfor.29.a
-		if = {
-			limit = {
-				FROM = {
-					tag = TEX
-					NOT = {
-						has_country_flag = TEX_allowed_catholic
-						has_completed_focus = TEX_king_of_kansas_city
-						AND = {
-							OR = {
-								has_country_leader = { name = "Huey Long" ruling_only = yes }
-								has_country_leader = { name = "Earl Long" ruling_only = yes }
-							}
-							ROOT = {
-								OR = {
-									has_country_leader = { name = "Engelbert Dollfuss" ruling_only = yes }
-									has_idea = AUS_Engelbert_Dollfuss_hog_ade
-									has_idea = AUS_Engelbert_Dollfuss_hog_pau
-								}
-							}
-						}
-					}
-				}
-			}
-			set_faction_name = "Marylandic Freedom Compound"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = COR
-					NOT = {
-						has_country_flag = COR_yockey_victory
-					}
-				}
-				has_government = national_populist
-			}
-			set_faction_name = "All-Righteous Aryan-White Reclamation Front"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = COR
-					NOT = {
-						has_country_flag = COR_yockey_victory
-					}
-				}
-				NOT = {
-					has_government = national_populist
-					
-				}
-			}
-			set_faction_name = "Austro-American Hemispheric Pact"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = CSA
-				}
-				has_socialist_government = yes
-			}
-			set_faction_name = "Austro-American Liberation Front"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = CSA
-				}
-				has_socialist_government = no
-			}
-			set_faction_name = "Austro-American Liberty Association"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = USA
-					OR = {
-						has_country_flag = USA_mac_shared_power
-						has_country_flag = USA_mac_caesar
-					}
-				}
-				has_country_flag = AUS_military_coup_flag
-			}
-			set_faction_name = "Austro-American Order Axis"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = USA
-					OR = {
-						has_country_flag = USA_mac_shared_power
-						has_country_flag = USA_mac_caesar
-					}
-				}
-				NOT = {
-					has_country_flag = AUS_military_coup_flag
-				}
-			}
-			set_faction_name = "AMTO"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = USA
-					NOT = {
-						OR = {
-							has_country_flag = USA_mac_shared_power
-							has_country_flag = USA_mac_caesar
-						}
-					}
-				}
-			}
-			set_faction_name = "Libertas Pacti"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = NEE
-					has_country_flag = NEE_lovecraftians_win
-					NOT = {
-						has_country_flag = NEE_kingdom
-					}
-				}
-				has_government = national_populist
-			}
-			set_faction_name = "Atlantean-R'lyehian Union"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = TEX
-					has_country_flag = TEX_allowed_catholic
-				}
-				has_government = national_populist
-			}
-			set_faction_name = "All-Seeing All-Prophetic Axis"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = TEX
-					has_country_flag = TEX_allowed_catholic
-				}
-				has_country_flag = AUS_karl_absolute
-			}
-			set_faction_name = "Sacred Convent of Lady Guadalupe and Jesus Christ"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = NEE
-					has_country_flag = NEE_lovecraftians_win
-					NOT = {
-						has_country_flag = NEE_kingdom
-					}
-				}
-				NOT = {
-					has_government = national_populist
-				}
-			}
-			set_faction_name = "Austro-American Circle"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = NEE
-					has_country_flag = NEE_kingdom
-				}
-				NOT = {
-					has_country_flag = AUS_karl_absolute
-				}
-			}
-			set_faction_name = "Austro-American Grand League"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = CAL
-					has_completed_focus = CAL_Norton_Restoration
-				}
-				NOT = {
-					has_country_flag = AUS_karl_absolute
-				}
-			}
-			set_faction_name = "Austro-American Coalition"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = CAL
-					has_completed_focus = CAL_Norton_Restoration
-				}
-				has_country_flag = AUS_karl_absolute
-			}
-			set_faction_name = "Two Emperors' League"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = CSA
-					has_completed_focus = CSA_technocratic_victories
-				}
-				OR = {
-					has_country_leader = { name = "Albert Einstein" ruling_only = yes }
-					has_idea = AUS_Albert_Einstein_hog_sli
-				}
-			}
-			set_faction_name = "Vienna-Washington Circle of Clarity"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = LIB
-				}
-			}
-			set_faction_name = "Association of the Lands of Liberty"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = PAR
-				}
-			}
-			set_faction_name = "Free Association of the Americas and Austria"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = TXS
-				}
-				OR = {
-					has_country_leader = { name = "Engelbert Dollfuss" ruling_only = yes }
-					has_idea = AUS_Engelbert_Dollfuss_hog_ade
-					has_idea = AUS_Engelbert_Dollfuss_hog_pau
-				}
-			}
-			
-			set_faction_name = "Austro-American Combine"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = NYC
-				}
-			}
-			set_faction_name = "Lady Liberty's League"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = COR
-					has_country_flag = COR_yockey_victory
-				}
-				has_government = national_populist
-			}
-			set_faction_name = "Invincible Imperium of the Master Theozoans"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = TEX
-					OR = {
-						has_country_leader = { name = "Huey Long" ruling_only = yes }
-						has_country_leader = { name = "Earl Long" ruling_only = yes }
-					}
-				}
-				OR = {
-					has_idea = AUS_Engelbert_Dollfuss_hog_ade
-					has_idea = AUS_Engelbert_Dollfuss_hog_pau
-				}
-			}
-			
-			set_faction_name = "Austro-American Protection Pact"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = TEX
-					has_completed_focus = TEX_christian_party_victory
-				}
-			}
-			set_faction_name = "All-Christian Commonwealth"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					OR = {
-						AND = {
-							tag = TEX
-							has_completed_focus = TEX_king_of_kansas_city
-						}
-						AND = {
-							tag = COR
-							has_completed_focus = COR_the_lone_eagle
-						}
-					}
-					NOT = {
-						has_country_flag = COR_yockey_victory
-						has_completed_focus = TEX_christian_party_victory
-						has_country_flag = TEX_allowed_catholic
-					}
-				}
-			}
-			set_faction_name = "Brotherhood of the Twin Eagles"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = ALA
-				}
-			}
-			set_faction_name = "Frontier Defensive League"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = BBR
-					has_completed_focus = BBR_afro_futurism
-				}
-			}
-			set_faction_name = "Cosmic Communion of Saturn and Santur"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = BBR
-					OR = {
-						has_completed_focus = BBR_black_israelites
-						has_completed_focus = BBR_nation_of_islam
-					}
-				}
-				has_country_flag = AUS_karl_absolute
-			}
-			
-			set_faction_name = "Abrahamic Alliance of Austria-America"
-		}
-		else_if = {
-			limit = {
-				FROM = {
-					tag = BBR
-				}
-			}
-			set_faction_name = "Austro-American Cooperation Compact"
-			
-		}
-		else = {
-			set_faction_name = "Austro-American Alliance"
-		}	
-		add_to_faction = FROM
+		effect_tooltip = { add_to_faction = FROM }
+		hidden_effect = { AUS_austro_american_alliance_form_effect = yes }
 		add_war_support = 0.03
-		set_global_flag = AUS_austro_american_alliance_flag
 		add_to_variable = {
 			var = global.AUS_GER_tensions
 			value = 2
@@ -5648,12 +5281,19 @@ country_event = { #The Austro-American Alliance is Signed
 					}
 				}
 			}
+			random_other_country = {
+				news_event = {
+					id = bdeausnews.6
+					days = 1
+				}
+			}
 		}
 	}
 }
 
 country_event = { #Austria Lays Its Eyes on the Suez
 	id = bdeausfor.30
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.30" }
 	title = bdeausfor.30.t
 	desc = bdeausfor.30.d
 	
@@ -5671,6 +5311,7 @@ country_event = { #Austria Lays Its Eyes on the Suez
 
 country_event = { #Our Side Victorious in the 2ACW
 	id = bdeausfor.31
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.31" }
 	title = bdeausfor.31.t
 	desc = bdeausfor.31.d
 	
@@ -5708,6 +5349,7 @@ country_event = { #Our Side Victorious in the 2ACW
 
 country_event = { #A Whisper in the Foreign Ministry
 	id = bdeausfor.32
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.32" }
 	title = bdeausfor.32.t
 	desc = bdeausfor.32.d
 	
@@ -5751,6 +5393,7 @@ country_event = { #A Whisper in the Foreign Ministry
 
 country_event = { #Austria Comes Forth with an Offer
 	id = bdeausfor.33
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.33" }
 	title = bdeausfor.33.t
 	desc = bdeausfor.33.d
 	
@@ -5763,18 +5406,18 @@ country_event = { #Austria Comes Forth with an Offer
 	option = { #This sort of arrangement has no benefits.
 		name = bdeausfor.33.a
 		ai_chance = {
-			factor = 0
+			base = 0
 		}
 		add_political_power = 15
 	}
 	
 	option = { #Who cares? Liberty and justice must be spread throughout the globe.
 		name = bdeausfor.33.b
-		
 		AUS = {
 			country_event = {
 				id = bdeausfor.29
-				days = 6
+				days = 1
+				random_hours = 24
 			}
 		}
 	}
@@ -5782,6 +5425,7 @@ country_event = { #Austria Comes Forth with an Offer
 
 country_event = { #The Second American Civil War Begins
 	id = bdeausfor.34
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.34" }
 	title = bdeausfor.34.t
 	desc = bdeausfor.34.d
 	
@@ -5800,6 +5444,7 @@ country_event = { #The Second American Civil War Begins
 
 country_event = { #Invite the Kaiser of Austria for a State Visit?
 	id = bdeausfor.35
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.35" }
 	title = bdeausfor.35.t
 	desc = bdeausfor.35.d
 	
@@ -6070,10 +5715,11 @@ country_event = { #Russia Denies
 
 country_event = { #Aid to America Begins
 	id = bdeausfor.43
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.43" }
 	title = bdeausfor.43.t
 	desc = bdeausfor.43.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_austria_5_cents_sponsored_by_fdr
 
 	fire_only_once = yes
 
@@ -6086,8 +5732,8 @@ country_event = { #Aid to America Begins
 			event_target:AUS_USA_ALLY = {
 				country_event = {
 					id = bdeausflavor.25
-					days = 30
-					random_hours = 3000
+					days = 14
+					random_hours = 120
 				}
 			}
 		}
@@ -6096,10 +5742,11 @@ country_event = { #Aid to America Begins
 
 country_event = { #Aid to America Canceled
 	id = bdeausfor.44
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausfor.44" }
 	title = bdeausfor.44.t
 	desc = bdeausfor.44.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_america_ist_dood_wat_nou
 
 	fire_only_once = yes
 
@@ -13984,13 +13631,11 @@ country_event = { #Ausgleich check
 	option = { #Ok
 		name = bdeausgleich.0.a
 		if = {
-			limit = {
-				is_in_faction_with = HUN
-			}
+			limit = { is_in_faction_with = HUN }
 			country_event = bdeausgleich.1
-			else = {
-				country_event = bdeausgleich.60
-			}
+		}
+		else = {
+			country_event = bdeausgleich.60
 		}
 	}
 }
@@ -19143,10 +18788,7 @@ country_event = { #Hungarian Federalization Speed, Hungarian Response
 			base = 100
 		}
 		set_global_flag = AUS_ausgleich_hungary_about_to_blow_up
-		add_to_variable = {
-			var = global.ausgleich_successes
-			value = -2
-		}
+		add_to_variable = { global.ausgleich_successes = -2 }
 	}
 }
 
@@ -19246,10 +18888,7 @@ country_event = { #Hungarian Response: Austrian Edition
 		}
 		if = {
 			limit = { HUN = { has_country_flag = HUN_ausgleich_ludicrous_fed_speed } }
-			add_to_variable = {
-				var = global.ausgleich_successes
-				value = 1
-			}
+			add_to_variable = { global.ausgleich_successes = 1 }
 			add_political_power = -20
 			add_stability = -0.05
 			HUN = { 
@@ -19307,6 +18946,7 @@ country_event = { #Hungary Loses Revolt While Ausgleich is Ongoing Release Event
 		name = bdeausgleich.77.a
 		AUS_restore_HUN_after_ausgleich_revolt_effect = yes
 		set_global_flag = AUS_question_5
+		set_global_flag = AUS_question_0
 		clr_global_flag = ausgleich_debating_question
 		set_variable = { AUS.ausgleich_hungarian_revolt_status_var = 2 }
 	}
@@ -19315,6 +18955,7 @@ country_event = { #Hungary Loses Revolt While Ausgleich is Ongoing Release Event
 		AUS_restore_HUN_after_ausgleich_revolt_effect = yes
 		AUS_divide_hungary_effect = yes
 		set_global_flag = AUS_question_5
+		set_global_flag = AUS_question_0
 		clr_global_flag = ausgleich_debating_question
 		set_variable = { AUS.ausgleich_hungarian_revolt_status_var = 3 }
 		set_variable = { AUS.ausgleich_hungarian_revolt_slovakia_status_var = 3 }
@@ -19605,6 +19246,7 @@ country_event = { #Fate of Carpatho-Ruthenia
 	
 	after = {
 		set_global_flag = AUS_question_5
+		set_global_flag = AUS_question_0
 		clr_global_flag = ausgleich_debating_question
 	}
 
@@ -20175,6 +19817,10 @@ country_event = { #Constituents - Drafting the Federal Constitution
 	fire_only_once = yes
 
 	is_triggered_only = yes
+	
+	after = {
+		add_ideas = AUS_federalizing_constituent_idea
+	}
 
 	option = { #
 		name = bdeausint.3.a
@@ -20184,7 +19830,6 @@ country_event = { #Constituents - Drafting the Federal Constitution
 				check_variable = { THIS.subject_revolt_progress = 0.8 }
 			}
 		}
-		add_ideas = AUS_federalizing_constituent_idea
 	}
 	
 	option = { #
@@ -20196,7 +19841,6 @@ country_event = { #Constituents - Drafting the Federal Constitution
 			}
 			check_variable = { THIS.subject_revolt_progress < 0.8 }
 		}
-		add_ideas = AUS_federalizing_constituent_idea
 	}
 	
 	option = { #
@@ -20208,7 +19852,6 @@ country_event = { #Constituents - Drafting the Federal Constitution
 			}
 			check_variable = { THIS.subject_revolt_progress < 0.8 }
 		}
-		add_ideas = AUS_federalizing_constituent_idea
 	}
 	
 	option = { #
@@ -20220,7 +19863,6 @@ country_event = { #Constituents - Drafting the Federal Constitution
 			}
 			check_variable = { THIS.subject_revolt_progress < 0.6 }
 		}
-		add_ideas = AUS_federalizing_constituent_idea
 	}
 	
 	option = { #
@@ -20228,10 +19870,7 @@ country_event = { #Constituents - Drafting the Federal Constitution
 		trigger = {
 			check_variable = { THIS.subject_revolt_progress < 0.4 }
 		}
-		add_ideas = AUS_federalizing_constituent_idea
 	}
-	
-	
 }
 
 country_event = { #HIDDEN - Govt percentage
@@ -20276,9 +19915,7 @@ country_event = { #HIDDEN - Govt percentage
 					check_variable = { global.government_percentage > 0.1 }
 					check_variable = { global.government_percentage = 0.1 }
 				}
-				NOT = {
-					has_global_flag = AUS_fed_speed_1
-				}
+				NOT = { has_global_flag = AUS_fed_speed_1 }
 			}
 			country_event = {
 				id = bdeausint.27
@@ -20286,16 +19923,13 @@ country_event = { #HIDDEN - Govt percentage
 				random_hours = 20
 			}
 		}
-		
 		if = {
 			limit = {
 				OR = {
 					check_variable = { global.government_percentage > 0.4 }
 					check_variable = { global.government_percentage = 0.4 }
 				}
-				NOT = {
-					has_global_flag = AUS_fed_speed_2
-				}
+				NOT = { has_global_flag = AUS_fed_speed_2 }
 			}
 			country_event = {
 				id = bdeausint.28
@@ -20303,16 +19937,13 @@ country_event = { #HIDDEN - Govt percentage
 				random_hours = 20
 			}
 		}
-		
 		if = {
 			limit = {
 				OR = {
 					check_variable = { global.government_percentage > 0.8 }
 					check_variable = { global.government_percentage = 0.8 }
 				}
-				NOT = {
-					has_global_flag = AUS_fed_speed_3
-				}
+				NOT = { has_global_flag = AUS_fed_speed_3 }
 			}
 			country_event = {
 				id = bdeausint.29
@@ -20320,11 +19951,6 @@ country_event = { #HIDDEN - Govt percentage
 				random_hours = 20
 			}
 		}
-		
-		
-		
-		
-		
 	}
 }
 
@@ -20579,9 +20205,7 @@ country_event = { #Duel of the Revolutionaries
 				random_hours = 56
 			}
 		}
-		
 	}
-	
 }
 
 country_event = { #Dollfuss Takes Over the CS
@@ -20751,7 +20375,7 @@ country_event = { #Membership in the DWV
 		}
 		FROM = {
 			country_event = {
-				id = beausint.21
+				id = bdeausint.21
 				days = 3
 				random_hours = 5
 			}
@@ -20778,7 +20402,7 @@ country_event = { #Membership in the DWV
 		ROOT_add_five_collapse = yes
 		FROM = {
 			country_event = {
-				id = beausint.22
+				id = bdeausint.22
 				days = 3
 				random_hours = 72
 			}
@@ -20921,6 +20545,11 @@ country_event = { #Formation of the Danubian Federation
 				id = bdeausflavor.81
 				days = 90
 				random_hours = 90
+			}
+			country_event = {
+				id = bdeausel.40
+				days = 50
+				random_hours = 240
 			}
 		}
 	}
@@ -21444,41 +21073,19 @@ country_event = { #First Meeting of the Bundeskommission
 	option = { #An essential first step.
 		name = bdeausint.30.a
 		add_political_power = 10
-		for_each_scope_loop = {
-			array = global.constituents_array
-			if = {
-				limit = {
-					is_subject_of = AUS
-				}
+		every_country = {
+			limit = { AUS_is_constituent = yes }
 				country_event = {
 					id = bdeausint.3
-					days = 4
-					random_hours = 72
+					hours = 2
+					random_hours = 22
 				}
 			}
 		}
-		for_each_scope_loop = {
-			array = global.minorities_array
-			if = {
-				limit = {
-					is_subject_of = AUS
-				}
-				country_event = {
-					id = bdeausint.3
-					days = 4
-					random_hours = 72
-				}
-			}
-		}
-		
 		increase_ruling_party_popularity_by_3 = yes
 		AUS_raise_govt_percentage_3 = yes
 		custom_effect_tooltip = AUS_enable_new_govt_making
-		hidden_effect = {
-			country_event = {
-				id = bdeausint.4
-			}
-		}
+		hidden_effect = { country_event = bdeausint.4 }
 	}
 }
 
@@ -21710,6 +21317,7 @@ country_event = { #SDAPO Paramilitaries Disarm
 				traits = {
 					politically_connected
 					paramilitary_commander
+					militias_officer
 				}
 				id = 18482
 				skill = 3
@@ -21724,6 +21332,8 @@ country_event = { #SDAPO Paramilitaries Disarm
 				traits = {
 					politically_connected
 					paramilitary_commander
+					militias_officer
+					militias_expert
 				}
 				id = 18483
 				skill = 3
@@ -21739,6 +21349,7 @@ country_event = { #SDAPO Paramilitaries Disarm
 
 country_event = { #Raid on Schutzbund Quarters in Linz #Fires if Bauer is elected and you go down his side in the interior tree of 1936. Also can fire if VNC revolt gets high enough? Raid is performed by the Ordo Novi Templi with mentions to similar acts by the Heimwehr and Front-Fighters, viewing the new administration as straight-up Marxist.
 	id = bdeausint.34
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausint.34" }
 	title = bdeausint.34.t
 	desc = bdeausint.34.d
 	
@@ -21752,30 +21363,10 @@ country_event = { #Raid on Schutzbund Quarters in Linz #Fires if Bauer is electe
 		name = bdeausint.34.a
 		add_stability = 0.05
 		AUS_add_two_collapse = yes
-		if = {
-			limit = {
-				152 = {
-					has_dynamic_modifier = { modifier = AUS_ordo_novi_templi_presence }
-				}
-			}
-			836 = {
-				AUS_change_paramilitary_ont = yes
-			}
-			add_popularity = {
-				ideology = national_populist
-				popularity = 0.05
-			}
-			else = {
-				152 = {
-					AUS_change_paramilitary_ont = yes
-				}
-				add_popularity = {
-					ideology = national_populist
-					popularity = 0.025
-				}
-			}
+		add_popularity = {
+			ideology = national_populist
+			popularity = 0.05
 		}
-
 		hidden_effect = {
 			remove_ideas_with_trait = economy_minister
 			remove_ideas_with_trait = security_minister
@@ -21799,11 +21390,11 @@ country_event = { #Raid on Schutzbund Quarters in Linz #Fires if Bauer is electe
 			popularity = -0.01
 		}
 	}
-	
 }
 
 country_event = { #Vaugoin Resigns in Protest (of a pro-Heimwehr policy)
 	id = bdeausint.35
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausint.35" }
 	title = bdeausint.35.t
 	desc = bdeausint.35.d
 	
@@ -21818,10 +21409,7 @@ country_event = { #Vaugoin Resigns in Protest (of a pro-Heimwehr policy)
 		trigger = {
 			has_idea = AUS_Engelbert_Dollfuss_hog_ade
 		}
-		add_to_variable = {
-			var = AUS.heimwehr_count
-			value = 1
-		}
+		add_to_variable = { AUS.heimwehr_count = 1 }
 		add_stability = -0.03
 		army_experience = -5
 		add_popularity = {
@@ -21842,10 +21430,7 @@ country_event = { #Vaugoin Resigns in Protest (of a pro-Heimwehr policy)
 				check_variable = { AUS.subject_revolt_progress = 0.75 }
 			}
 		}
-		add_to_variable = {
-			var = AUS.military_coup_count
-			value = 1
-		}
+		add_to_variable = { AUS.military_coup_count = 1 }
 		AUS_subtract_three_collapse = yes
 		add_stability = -0.03
 		army_experience = -5
@@ -21872,11 +21457,11 @@ country_event = { #Vaugoin Resigns in Protest (of a pro-Heimwehr policy)
 			remove_idea = AUS_Carl_Vaugoin_sec_ade
 		}
 	}
-	
 }
 
 country_event = { #KPO and SDAPO Delegates Leave for the Internationale Congress
 	id = bdeausint.36
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausint.36" }
 	title = bdeausint.36.t
 	desc = bdeausint.36.d
 	
@@ -21929,10 +21514,7 @@ country_event = { #KPO and SDAPO Delegates Leave for the Internationale Congress
 			ideology = totalist
 			popularity = -0.01
 		}
-		add_to_variable = {
-			var = AUS.revolution_value
-			value = 1
-		}
+		AUS_add_revolution_to_SDAPO = yes
 	}
 }
 
@@ -22251,18 +21833,7 @@ country_event = { #Bodencreditanstalt Supports the Heimwehr
 		}
 		TYR = {
 			custom_effect_tooltip = appear_in_collapse
-			add_to_variable = {
-				var = THIS.collapse_appearance_value
-				value = 1
-			}
-		}
-		random_owned_state = {
-			limit = {
-				NOT = {
-					AUS_has_paramilitary_presence = yes
-				}
-			}
-			AUS_change_paramilitary_heimwehr = yes
+			AUS_radicalize_Heimwehr = yes
 		}
 	}
 	
@@ -22290,10 +21861,7 @@ country_event = { #Bosel Admits Losses; SDAPO Clamors for Nationalization
 			popularity = 0.01
 		}
 		AUS_add_ten_collapse = yes
-		add_to_variable = {
-			var = AUS.revolution_value
-			value = 1
-		}
+		AUS_add_revolution_to_SDAPO = yes
 		modify_timed_idea = {
 			idea = AUS_german_debts
 			days = -15
@@ -22928,16 +22496,13 @@ country_event = { #Revolutionary Elements Seize the Danube (Civil War Starts)
 				days = 9
 				random_hours = 24
 			}
-			add_to_variable = {
-				var = TYR.collapse_appearance_value
-				value = 1
-			}
+			AUS_radicalize_Heimwehr = yes
 			IF = {
 				limit = {
 					NOT = {
 						country_exists = TYR
 					}
-					check_variable = { TYR.collapse_appearance_value = 3 } 
+					check_variable = { TYR.collapse_appearance_value > 3 } 
 					tag = AUS
 				}
 				country_event = {
@@ -23020,19 +22585,8 @@ country_event = { #Discord among the Schutzbund
 		}
 		add_political_power = -40
 		add_stability = -0.05
-		add_to_variable = {
-			var = AUS.revolution_value
-			value = 1
-		}
+		AUS_add_revolution_to_SDAPO = yes
 		set_country_flag = AUS_SDAPO_embraced_revolution
-		random_owned_state = {
-			limit = {
-				NOT = {
-					AUS_has_paramilitary_presence = yes
-				}
-			}
-			AUS_change_paramilitary_schutzbund = yes
-		}
 	}
 }
 
@@ -25491,10 +25045,7 @@ country_event = { #Trieste Unions go on Strike (when at 90% collapse or more, no
 	option = { #Scheisse
 		name = bdeausint.91.a
 		add_political_power = -10
-		add_to_variable = {
-			var = AUS.revolution_value
-			value = 1
-		}
+		AUS_add_revolution_to_SDAPO = yes
 		add_timed_idea = {
 			idea = AUS_trieste_strike
 			days = 30
@@ -25525,10 +25076,7 @@ country_event = { #Danubian Internationale Mounting Pressure (when at 90% collap
 			ideology = syndicalist
 			popularity = 0.03
 		}
-		add_to_variable = {
-			var = AUS.revolution_value
-			value = 1
-		}
+		AUS_add_revolution_to_SDAPO = yes
 		set_country_flag = AUS_revolution_value_event
 	}
 }
@@ -26206,16 +25754,11 @@ country_event = { # The Danubian Internationale Wishes to Participate
 			id = bdeausint.107
 			days = 7
 		}
-		add_to_variable = {
-			var = TYR.collapse_appearance_value
-			value = 1
-		}
-		IF = {
+		AUS_radicalize_Heimwehr = yes
+		if = {
 			limit = {
-				NOT = {
-					country_exists = TYR
-				}
-				check_variable = { TYR.collapse_appearance_value > 2.99 }
+				NOT = { country_exists = TYR }
+				check_variable = { TYR.collapse_appearance_value > 2 }
 				tag = AUS
 			}
 			country_event = {
@@ -28809,14 +28352,8 @@ country_event = { #A Scapegoat?
 	option = { #The unfit Ministerpresident should be dismissed! The army must hold power.
 		name = bdeausint.131.b
 		trigger =  {
-			check_variable = {
-				var = AUS.revolution_value
-				value = 1
-				compare = greater_than_or_equals
-			}
-			NOT = {
-				has_global_flag = AUS_absolute_crisis
-			}
+			check_variable = { AUS.revolution_value > 0 }
+			NOT = { has_global_flag = AUS_absolute_crisis }
 		}
 		add_political_power = -50
 		add_stability = 0.05
@@ -29065,18 +28602,6 @@ country_event = { #The Regularization of Paramilitaries
 			AUS_Julius_Raab_eco_ade
 			AUS_Leopold_Figl_for_sco
 			AUS_emil_fey_sec_npo
-		}
-		
-		random_owned_state = {
-			AUS_change_paramilitary_heimwehr = yes
-		}
-		
-		random_owned_state = {
-			AUS_change_paramilitary_heimwehr = yes
-		}
-		
-		random_owned_state = {
-			AUS_change_paramilitary_frontfighters = yes
 		}
 		
 		create_field_marshal = {
@@ -30802,7 +30327,7 @@ country_event = { #The E.M.F. Project Begins
 							}
 						}
 						AUS_remove_paramilitaries = yes
-						increase_state_category = yes
+						increase_state_category_by_one_level = yes
 						add_building_construction = {
 							type = supply_node
 							level = 1
@@ -34574,7 +34099,7 @@ country_event = { #OAAO Discredits Kalergi with the 'Kalergi Plan' Conspiracy
 
 country_event = { #The Death of Mitsuko Aoyama (Kalergi mommy)
 	id = bdeausflavor.153
-	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.152" }
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.153" }
 	title = bdeausflavor.153.t
 	desc = bdeausflavor.153.d
 	
@@ -34593,7 +34118,7 @@ country_event = { #The Death of Mitsuko Aoyama (Kalergi mommy)
 
 country_event = { #The Florentine Diamond Lost!
 	id = bdeausflavor.154
-	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.152" }
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.154" }
 	title = bdeausflavor.154.t
 	desc = bdeausflavor.154.d
 	
@@ -34612,7 +34137,7 @@ country_event = { #The Florentine Diamond Lost!
 
 country_event = { #(Fifth Balkan War) Streifkorps & Strafuni (check out oláhölőknek)
 	id = bdeausflavor.155
-	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.152" }
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.155" }
 	title = bdeausflavor.155.t
 	desc = bdeausflavor.155.d
 	
@@ -34633,7 +34158,7 @@ country_event = { #(Fifth Balkan War) Streifkorps & Strafuni (check out oláhöl
 
 country_event = { #Motorcycle event (see Steyr-Daimler-Puch p800)
 	id = bdeausflavor.156
-	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.152" }
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.156" }
 	title = bdeausflavor.156.t
 	desc = bdeausflavor.156.d
 	
@@ -34650,7 +34175,73 @@ country_event = { #Motorcycle event (see Steyr-Daimler-Puch p800)
 	
 }
 
+country_event = { #Porsche's Mammut
+	id = bdeausflavor.157
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.157" }
+	title = bdeausflavor.157.t
+	desc = bdeausflavor.157.d
+	
+	picture = GFX_event_AUS_mammut
 
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Mein Gott! It's a monster!
+		name = bdeausflavor.157.a
+		
+	}
+	
+}
+
+country_event = { #Porsche's Tank Trials
+	id = bdeausflavor.158
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.158" }
+	title = bdeausflavor.158.t
+	desc = bdeausflavor.158.d
+	
+	picture = GFX_event_AUS_elefant
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #This thing needs a frontal machine gun!
+		name = bdeausflavor.158.a
+	}
+	
+	option = { #Looks good to us!
+		name = bdeausflavor.158.b
+	}
+}
+
+country_event = { #Masayrk died
+	id = bdeausflavor.159
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.159" }
+	title = bdeausflavor.159.t
+	desc = bdeausflavor.159.d
+	
+	picture = GFX_CZE_ripbozo
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = bdeausflavor.159.a
+		AUS_add_one_collapse = yes
+		CZE_add_three_collapse = yes
+		hidden_effect = {
+			CZE = {
+				country_event = {
+					id = bdeczeflavor.118 #Austria sends its condolences
+					days = 2
+					random_hours = 72
+				}
+			}
+		}
+	}
+}
 
 news_event = { #Second Hungarian Revolution
 	id = bdeausnews.1
@@ -35682,6 +35273,363 @@ news_event = { #Proclamation of the Kingdom of Israel/Jerusalem
 				tag = AUS
 				is_in_faction_with = AUS
 			}
+		}
+	}
+}
+
+news_event = { #VF elected
+	id = bdeausnews.21
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausnews.21" }
+	title = bdeausnews.21.t
+	desc = {
+		trigger = { has_global_flag = VF_split }
+		text = bdeausnews.21.d.vf_split
+	}
+	desc = {
+		trigger = { NOT = { has_global_flag = VF_split } }
+		text = bdeausnews.21.d.no_vf_split
+	}
+	
+	picture = GFX_news_event_AUS_vf_elected_36
+	
+	major = yes
+	
+	show_major = {
+		regional_europe_news = yes
+	}
+	
+	trigger = {
+		wants_world_news = yes
+	}
+
+	is_triggered_only = yes
+
+	option = { #let's see how well mr dollfuss does 
+		name = bdeausnews.21.a
+		trigger = {
+			AUS_is_constituent = no
+			NOT = { tag = AUS }
+		}
+	}
+	option = { #Österreich, erwache?
+		name = bdeausnews.21.b
+		trigger = {
+			AUS_is_constituent = yes
+			NOT = { tag = AUS }
+		}
+	}
+	option = { #Österreich, erwache!
+		name = bdeausnews.21.c
+		trigger = {
+			tag = AUS
+		}
+	}
+}
+
+news_event = { #Kalergi Elected
+	id = bdeausnews.22
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausnews.22" }
+	title = bdeausnews.22.t
+	desc = bdeausnews.22.d
+	
+	picture = GFX_news_event_AUS_kalergi_elected_36
+	
+	major = yes
+	
+	show_major = {
+		regional_europe_news = yes
+	}
+	
+	trigger = {
+		wants_world_news = yes
+	}
+
+	is_triggered_only = yes
+
+	option = { #Paneuropeanism? Interesting.
+		name = bdeausnews.22.a
+		trigger = {
+			AUS_is_constituent = no
+		}
+	}
+	option = { #In Varietate Concordia.
+		name = bdeausnews.22.b
+		trigger = {
+			AUS_is_constituent = yes
+		}
+	}
+}
+
+news_event = { #CS Elected
+	id = bdeausnews.23
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausnews.23" }
+	title = {
+		trigger = { AUS = { has_country_flag = AUS_MINISTERPREZ_MIKLAS } }
+		text = bdeausnews.23.t.miklas
+	}
+	title = {
+		trigger = { AUS = { has_country_flag = AUS_MINISTERPREZ_ENDER } }
+		text = bdeausnews.23.t.ender
+	}
+	title = {
+		trigger = { AUS = { has_country_flag = AUS_MINISTERPREZ_BURESCH } }
+		text = bdeausnews.23.t.buresch
+	}
+	desc = {
+		trigger = { AUS = { has_country_flag = AUS_MINISTERPREZ_MIKLAS } }
+		text = bdeausnews.23.d.miklas
+	}
+	desc = {
+		trigger = { AUS = { has_country_flag = AUS_MINISTERPREZ_ENDER } }
+		text = bdeausnews.23.d.ender
+	}
+	desc = {
+		trigger = { AUS = { has_country_flag = AUS_MINISTERPREZ_BURESCH } }
+		text = bdeausnews.23.d.buresch
+	}
+	
+	picture = GFX_news_event_AUS_cs_elected_36
+	
+	major = yes
+	
+	show_major = {
+		regional_europe_news = yes
+	}
+	
+	trigger = {
+		wants_world_news = yes
+	}
+
+	is_triggered_only = yes
+
+	option = { #A suprisingly unsurprising result.
+		name = bdeausnews.23.a
+		trigger = {
+			AUS_is_constituent = no
+		}
+	}
+	option = { #Stable goes the ship?
+		name = bdeausnews.23.b
+		trigger = {
+			AUS_is_constituent = yes
+		}
+	}
+}
+
+news_event = { #SDAPO elected
+	id = bdeausnews.24
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausnews.24" }
+	title = {
+		trigger = { AUS = { has_country_flag = AUS_otto_bauer_36 } }
+		text = bdeausnews.24.t.bauer
+	}
+	title = {
+		trigger = { AUS = { NOT = { has_country_flag = AUS_otto_bauer_36 } } }
+		text = bdeausnews.24.t.renner
+	}
+	desc = {
+		trigger = { AUS = { has_country_flag = AUS_otto_bauer_36 } }
+		text = bdeausnews.24.d.bauer
+	}
+	desc = {
+		trigger = { AUS = { NOT = { has_country_flag = AUS_otto_bauer_36 } } }
+		text = bdeausnews.24.d.renner
+	}
+	
+	picture = GFX_news_event_AUS_sdapo_elected_36
+	
+	major = yes
+	
+	show_major = {
+		regional_europe_news = yes
+	}
+	
+	trigger = {
+		wants_world_news = yes
+	}
+
+	is_triggered_only = yes
+
+	option = { #A hardly suprising result.
+		name = bdeausnews.24.a
+		trigger = {
+			AUS_is_constituent = no
+		}
+	}
+	option = { #The empire with the three arrows.
+		name = bdeausnews.24.b
+		trigger = {
+			AUS_is_constituent = yes
+		}
+	}
+}
+
+news_event = { #OCLK elected 1940
+	id = bdeausnews.25
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausnews.25" }
+	title = bdeausnews.25.t
+	desc = bdeausnews.25.d
+	
+	picture = GFX_news_event_AUS_Kuehnelt_Leddihn
+	
+	major = yes
+	
+	show_major = {
+		regional_europe_news = yes
+	}
+	
+	trigger = {
+		wants_world_news = yes
+	}
+
+	is_triggered_only = yes
+
+	option = { #Reactionary liberalism? How strange.
+		name = bdeausnews.25.a
+		trigger = {
+			AUS_is_constituent = no
+		}
+	}
+	option = { #Liberty or equality?
+		name = bdeausnews.25.b
+		trigger = {
+			AUS_is_constituent = yes
+		}
+	}
+}
+
+news_event = { #SDAPO elected 1940
+	id = bdeausnews.26
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausnews.26" }
+	title = bdeausnews.26.t
+	desc = bdeausnews.26.d
+	
+	picture = GFX_news_event_AUS_sdapo_elected_36
+	
+	major = yes
+	
+	show_major = {
+		regional_europe_news = yes
+	}
+	
+	trigger = {
+		wants_world_news = yes
+	}
+
+	is_triggered_only = yes
+
+	option = { #It seems the Austromarxist experiment is far from over.
+		name = bdeausnews.26.a
+		trigger = {
+			AUS_is_constituent = no
+		}
+	}
+	option = { #Arbeiter von Wien!
+		name = bdeausnews.26.b
+		trigger = {
+			AUS_is_constituent = yes
+		}
+	}
+}
+
+news_event = { #DBP elected 1940
+	id = bdeausnews.27
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausnews.27" }
+	title = bdeausnews.27.t
+	desc = bdeausnews.27.d
+	
+	picture = GFX_news_event_AUS_kalergi_elected_36
+	
+	major = yes
+	
+	show_major = {
+		regional_europe_news = yes
+	}
+	
+	trigger = {
+		wants_world_news = yes
+	}
+
+	is_triggered_only = yes
+
+	option = { #Paneuropeanism has entered the world stage.
+		name = bdeausnews.27.a
+		trigger = {
+			AUS_is_constituent = no
+		}
+	}
+	option = { #Heil Danubia!
+		name = bdeausnews.27.b
+		trigger = {
+			AUS_is_constituent = yes
+		}
+	}
+}
+
+news_event = { #CS elected 1940
+	id = bdeausnews.28
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausnews.28" }
+	title = bdeausnews.28.t
+	desc = bdeausnews.28.d
+	
+	picture = GFX_news_event_AUS_cs_elected_36
+	
+	major = yes
+	
+	show_major = {
+		regional_europe_news = yes
+	}
+	
+	trigger = {
+		wants_world_news = yes
+	}
+
+	is_triggered_only = yes
+
+	option = { #It seems Danubia is steering a stable ship.
+		name = bdeausnews.28.a
+		trigger = {
+			AUS_is_constituent = no
+		}
+	}
+	option = { #Indivisibiliter ac Inseparabiliter!
+		name = bdeausnews.28.b
+		trigger = {
+			AUS_is_constituent = yes
+		}
+	}
+}
+
+news_event = { #VF elected 1940
+	id = bdeausnews.29
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausnews.29" }
+	title = bdeausnews.29.t
+	desc = bdeausnews.29.d
+	
+	picture = GFX_news_event_AUS_vf_elected_36
+	
+	major = yes
+	
+	show_major = {
+		regional_europe_news = yes
+	}
+	
+	trigger = {
+		wants_world_news = yes
+	}
+
+	is_triggered_only = yes
+
+	option = { #Dollfuss' dream realized.
+		name = bdeausnews.29.a
+		trigger = {
+			AUS_is_constituent = no
+		}
+	}
+	option = { #Danubia, erwache!
+		name = bdeausnews.29.b
+		trigger = {
+			AUS_is_constituent = yes
 		}
 	}
 }

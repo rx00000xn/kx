@@ -137,154 +137,9 @@ AUS_open_gui_click_effect = {
 			}
 		}
 	}
-	if = {
-		limit = {
-			CZE = {
-				exists = no
-				NOT = { has_country_flag = no_minority_revolt }
-			}
-			NOT = { is_in_array = { ROOT.austria_minority_array = CZE } }
-			has_global_flag = CZE_on_array
-		}
-		add_to_array = { ROOT.austria_minority_array = CZE }
-	}
-	if = {
-		limit = {
-			SVK = {
-				exists = no
-				NOT = { has_country_flag = no_minority_revolt }
-			}
-			NOT = { is_in_array = { ROOT.austria_minority_array = SVK } }
-		}
-		add_to_array = { ROOT.austria_minority_array = SVK }
-	}
-	if = {
-		limit = {
-			CPU = {
-				exists = no
-				NOT = { has_country_flag = no_minority_revolt }
-			}
-			NOT = { is_in_array = { ROOT.austria_minority_array = CPU } }
-		}
-		add_to_array = { ROOT.austria_minority_array = CPU }
-	}
-	if = {
-		limit = {
-			TRS = {
-				exists = no
-				NOT = { has_country_flag = no_minority_revolt }
-			}
-			NOT = { is_in_array = { ROOT.austria_minority_array = TRS } }
-		}
-		add_to_array = { ROOT.austria_minority_array = TRS }
-	}
-	if = {
-		limit = {
-			BAN = {
-				exists = no
-				NOT = { has_country_flag = no_minority_revolt }
-			}
-			NOT = { is_in_array = { ROOT.austria_minority_array = BAN } }
-			has_global_flag = BAN_on_array
-		}
-		add_to_array = { ROOT.austria_minority_array = BAN }
-	}
-	if = {
-		limit = {
-			SLO = {
-				exists = no
-				NOT = { has_country_flag = no_minority_revolt }
-			}
-			NOT = { is_in_array = { ROOT.austria_minority_array = SLO } }
-		}
-		add_to_array = { ROOT.austria_minority_array = SLO }
-	}
-	if = {
-		limit = {
-			BOS = {
-				exists = no
-				NOT = { has_country_flag = no_minority_revolt }
-			}
-			NOT = { is_in_array = { ROOT.austria_minority_array = BOS } }
-		}
-		add_to_array = { ROOT.austria_minority_array = BOS }
-	}
-	if = {
-		limit = {
-			SKS = {
-				exists = no
-				NOT = { has_country_flag = no_minority_revolt }
-			}
-			NOT = { is_in_array = { ROOT.austria_minority_array = SKS } }
-		}
-		add_to_array = { ROOT.austria_minority_array = SKS }
-	}
-	if = {
-		limit = {
-			MNT = {
-				exists = no
-				NOT = { has_country_flag = no_minority_revolt }
-			}
-			NOT = { is_in_array = { ROOT.austria_minority_array = MNT } }
-			has_global_flag = MNT_on_array
-		}
-		add_to_array = { ROOT.austria_minority_array = MNT }
-	}
-	if = {
-		limit = {
-			WSU = {
-				exists = no
-				NOT = {
-					has_country_flag = no_minority_revolt
-					has_country_flag = CONST_proper
-				}
-			}
-			NOT = { is_in_array = { ROOT.austria_minority_array = WSU } }
-		}
-		add_to_array = { ROOT.austria_minority_array = WSU }
-	}
-	if = {
-		limit = {
-			KRK = {
-				exists = no
-				NOT = { has_country_flag = no_minority_revolt }
-			}
-			NOT = { is_in_array = { ROOT.austria_minority_array = KRK } }
-			has_global_flag = KRK_on_array
-		}
-		add_to_array = { ROOT.austria_minority_array = KRK }
-	}
-	if = {
-		limit = {
-			BUK = {
-				exists = no
-				NOT = { has_country_flag = no_minority_revolt }
-			}
-			NOT = { is_in_array = { ROOT.austria_minority_array = BUK } }
-		}
-		add_to_array = { ROOT.austria_minority_array = BUK }
-	}
-	if = {
-		limit = {
-			PGU = {
-				exists = no
-				NOT = { has_country_flag = no_minority_revolt }
-			}
-			NOT = { is_in_array = { ROOT.austria_minority_array = PGU } }
-			has_global_flag = PGU_on_array
-		}
-		add_to_array = { ROOT.austria_minority_array = PGU }
-	}
-	if = {
-		limit = {
-			VNC = {
-				exists = no
-				NOT = { has_country_flag = no_minority_revolt }
-			}
-			NOT = { is_in_array = { ROOT.austria_minority_array = VNC } }
-			has_global_flag = VNC_on_array
-		}
-		add_to_array = { ROOT.austria_minority_array = VNC }
+	get_sorted_scored_countries = {
+		scorer = BOTDE_minorities_in_GUI_score
+		array = ROOT.austria_minority_array
 	}
 	set_global_flag = AUS_clickme_flag
 	set_country_flag = subject_unrest_window_open
@@ -383,7 +238,18 @@ AUS_open_gui_click_effect = {
 		}
 	}
 }
-
+subjects_minority_view_sort_button_click_effect = {
+	if = {
+		limit = { has_global_flag = AUS_minority_array_not_sorted }
+		clr_global_flag = AUS_minority_array_not_sorted
+	}
+	else = { set_global_flag = AUS_minority_array_not_sorted }
+	clear_array = ROOT.austria_minority_array
+	get_sorted_scored_countries = {
+		scorer = BOTDE_minorities_in_GUI_score
+		array = ROOT.austria_minority_array
+	}
+}
 AUS_warning_check = {
 	clear_array = ROOT.austria_warning_subject_array
 	for_each_loop = {
@@ -531,13 +397,6 @@ AUS_elect_CS_1940 = {
 		limit = {
 			has_country_flag = AUS_ender_1940
 		}
-		#create_country_leader = {
-		#	name = "Otto Ender"
-		#	desc = "POLITICS_ENDER_DESC"
-		#	picture = "gfx/leaders/AUS/AUS_Otto_Ender.png"
-		#	expire = "1965.1.1"
-		#	ideology = christian_democracy_subtype
-		#}
 		remove_ideas_with_trait = head_of_government
 		add_ideas = AUS_Otto_Ender_hog_sco
 	}
@@ -545,13 +404,6 @@ AUS_elect_CS_1940 = {
 		limit = {
 			has_country_flag = AUS_miklas_1940
 		}
-		#create_country_leader = {
-		#	name = "Wilhelm Miklas"
-		#	desc = "POLITICS_MIKLAS_DESC"
-		#	picture = "gfx/leaders/AUS/Portrait_AUS_Wilhelm_Miklas.png"
-		#	expire = "1965.1.1"
-		#	ideology = christian_democracy_subtype
-		#}
 		remove_ideas_with_trait = head_of_government
 		add_ideas = AUS_Wilhelm_Miklas_hog_sco
 	}
@@ -559,13 +411,6 @@ AUS_elect_CS_1940 = {
 		limit = {
 			has_country_flag = AUS_buresch_1940
 		}
-		#create_country_leader = {
-		#	name = "Karl Buresch"
-		#	desc = "POLITICS_BURESCH_DESC"
-		#	picture = "gfx/leaders/AUS/AUS_Karl_Buresch.png"
-		#	expire = "1965.1.1"
-		#	ideology = christian_democracy_subtype
-		#}
 		remove_ideas_with_trait = head_of_government
 		add_ideas = AUS_Karl_Buresch_hog_ade
 	}
@@ -573,13 +418,6 @@ AUS_elect_CS_1940 = {
 		limit = {
 			has_country_flag = AUS_macek_1940
 		}
-		#create_country_leader = {
-		#	name = "Vladko Maček"
-		#	desc = "POLITICS_MACEK_DESC"
-		#	picture = "gfx/leaders/CRO/CRO_vladko_macek_KX.png"
-		#	expire = "1965.1.1"
-		#	ideology = christian_democracy_subtype
-		#}
 		custom_effect_tooltip = AUS_no_more_illyrian_revolt
 		set_global_flag = AUS_no_more_CRO_revolt
 		remove_ideas_with_trait = head_of_government
@@ -589,29 +427,23 @@ AUS_elect_CS_1940 = {
 		limit = {
 			has_country_flag = AUS_bethlen_1940
 		}
-		#create_country_leader = {
-		#	name = "István Bethlen"
-		#	desc = "POLITICS_BETHLEN_DESC"
-		#	picture = "gfx/leaders/AUS/AUS_Istvan_Bethlen.png"
-		#	expire = "1965.1.1"
-		#	ideology = christian_democracy_subtype
-		#}
 		custom_effect_tooltip = AUS_disable_hungarian_revolt
 		set_global_flag = AUS_no_more_HUN_revolt
 		remove_ideas_with_trait = head_of_government
 		add_ideas = HUN_Istvan_Bethlen_hog_ade
 	}
 	else = {
-		#create_country_leader = {
-		#	name = "Otto Ender"
-		#	desc = "POLITICS_ENDER_DESC"
-		#	picture = "gfx/leaders/AUS/AUS_Otto_Ender.png"
-		#	expire = "1965.1.1"
-		#	ideology = christian_democracy_subtype
-		#}
 		set_country_flag = AUS_ender_1940
 		remove_ideas_with_trait = head_of_government
 		add_ideas = AUS_Otto_Ender_hog_sco
+	}
+	hidden_effect = {
+		random_other_country = {
+			news_event = {
+				id = bdeausnews.28
+				days = 1
+			}
+		}
 	}
 }
 
@@ -620,13 +452,6 @@ AUS_elect_CS_1940_authdem = {
 		limit = {
 			has_country_flag = AUS_miklas_1940
 		}
-		#create_country_leader = {
-		#	name = "Wilhelm Miklas"
-		#	desc = "POLITICS_MIKLAS_DESC"
-		#	picture = "gfx/leaders/AUS/Portrait_AUS_Wilhelm_Miklas.png"
-		#	expire = "1965.1.1"
-		#	ideology = autdem_christian_democracy_subtype
-		#}
 		remove_ideas_with_trait = head_of_government
 		add_ideas = AUS_Wilhelm_Miklas_hog_sco
 	}
@@ -634,13 +459,6 @@ AUS_elect_CS_1940_authdem = {
 		limit = {
 			has_country_flag = AUS_buresch_1940
 		}
-		#create_country_leader = {
-		#	name = "Karl Buresch"
-		#	desc = "POLITICS_BURESCH_DESC"
-		#	picture = "gfx/leaders/AUS/AUS_Karl_Buresch.png"
-		#	expire = "1965.1.1"
-		#	ideology = autdem_christian_democracy_subtype
-		#}
 		remove_ideas_with_trait = head_of_government
 		add_ideas = AUS_Karl_Buresch_hog_ade
 	}
@@ -648,13 +466,6 @@ AUS_elect_CS_1940_authdem = {
 		limit = {
 			has_country_flag = AUS_dollfuss_1940
 		}
-		#create_country_leader = {
-		#	name = "Engelbert Dollfuss"
-		#	desc = "POLITICS_DOLLFUSS_DESC"
-		#	picture = "gfx/leaders/AUS/AUS_Engelbert_Dollfuss.png"
-		#	expire = "1965.1.1"
-		#	ideology = autdem_christian_democracy_subtype
-		#}
 		remove_ideas_with_trait = head_of_government
 		add_ideas = AUS_Engelbert_Dollfuss_hog_ade
 	}
@@ -662,13 +473,6 @@ AUS_elect_CS_1940_authdem = {
 		limit = {
 			has_country_flag = AUS_macek_1940
 		}
-		#create_country_leader = {
-		#	name = "Vladko Maček"
-		#	desc = "POLITICS_MACEK_DESC"
-		#	picture = "gfx/leaders/CRO/CRO_vladko_macek_KX.png"
-		#	expire = "1965.1.1"
-		#	ideology = authoritarian_democrat_subtype
-		#}
 		custom_effect_tooltip = AUS_no_more_illyrian_revolt
 		set_global_flag = AUS_no_more_CRO_revolt
 		remove_ideas_with_trait = head_of_government
@@ -678,13 +482,6 @@ AUS_elect_CS_1940_authdem = {
 		limit = {
 			has_country_flag = AUS_bethlen_1940
 		}
-		#create_country_leader = {
-		#	name = "István Bethlen"
-		#	desc = "POLITICS_BETHLEN_DESC"
-		#	picture = "gfx/leaders/AUS/AUS_Istvan_Bethlen.png"
-		#	expire = "1965.1.1"
-		#	ideology = authoritarian_democrat_subtype
-		#}
 		custom_effect_tooltip = AUS_disable_hungarian_revolt
 		set_global_flag = AUS_no_more_HUN_revolt
 		remove_ideas_with_trait = head_of_government
@@ -694,13 +491,6 @@ AUS_elect_CS_1940_authdem = {
 		limit = {
 			has_country_flag = AUS_raab_1940
 		}
-		#create_country_leader = {
-		#	name = "Julius Raab"
-		#	desc = "POLITICS_RAAB_DESC"
-		#	picture = "gfx/leaders/AUS/AUS_Julius_Raab.png"
-		#	expire = "1965.1.1"
-		#	ideology = autdem_christian_democracy_subtype
-		#}
 		remove_ideas_with_trait = head_of_government
 		add_ideas = AUS_Julius_Raab_hog_sco
 	}
@@ -708,27 +498,21 @@ AUS_elect_CS_1940_authdem = {
 		limit = {
 			has_country_flag = AUS_figl_1940
 		}
-		#create_country_leader = {
-		#	name = "Leopold Figl"
-		#	desc = "POLITICS_FIGL_DESC"
-		#	picture = "gfx/leaders/AUS/AUS_Leopold_Figl.png"
-		#	expire = "1965.1.1"
-		#	ideology = autdem_christian_democracy_subtype
-		#}
 		remove_ideas_with_trait = head_of_government
 		add_ideas = AUS_Leopold_Figl_hog_sco
 	}
 	else = {
-		#create_country_leader = {
-		#	name = "Karl Buresch"
-		#	desc = "POLITICS_BURESCH_DESC"
-		#	picture = "gfx/leaders/AUS/AUS_Karl_Buresch.png"
-		#	expire = "1965.1.1"
-		#	ideology = autdem_christian_democracy_subtype
-		#}
 		set_country_flag = AUS_buresch_1940
 		remove_ideas_with_trait = head_of_government
 		add_ideas = AUS_Karl_Buresch_hog_ade
+	}
+	hidden_effect = {
+		random_other_country = {
+			news_event = {
+				id = bdeausnews.28
+				days = 1
+			}
+		}
 	}
 }
 
@@ -737,13 +521,6 @@ AUS_elect_VF_1940 = {
 		limit = {
 			has_country_flag = AUS_dollfuss_1940
 		}
-		#create_country_leader = {
-		#	name = "Engelbert Dollfuss"
-		#	desc = "POLITICS_DOLLFUSS_DESC"
-		#	picture = "gfx/leaders/AUS/AUS_Engelbert_Dollfuss.png"
-		#	expire = "1965.1.1"
-		#	ideology = austropopulism_subtype
-		#}
 		remove_ideas_with_trait = head_of_government
 		add_ideas = AUS_Engelbert_Dollfuss_hog_pau
 		set_country_leader_ideology = austropopulism_subtype
@@ -752,13 +529,6 @@ AUS_elect_VF_1940 = {
 		limit = {
 			has_country_flag = AUS_figl_1940
 		}
-		#create_country_leader = {
-		#	name = "Leopold Figl"
-		#	desc = "POLITICS_FIGL_DESC"
-		#	picture = "gfx/leaders/AUS/AUS_Leopold_Figl.png"
-		#	expire = "1965.1.1"
-		#	ideology = pataut_christian_democracy_subtype
-		#}
 		set_country_leader_ideology = pataut_christian_democracy_subtype
 		remove_ideas_with_trait = head_of_government
 		add_ideas = AUS_Leopold_Figl_hog_sco
@@ -767,13 +537,6 @@ AUS_elect_VF_1940 = {
 		limit = {
 			has_country_flag = AUS_raab_1940
 		}
-		#create_country_leader = {
-		#	name = "Julius Raab"
-		#	desc = "POLITICS_RAAB_DESC"
-		#	picture = "gfx/leaders/AUS/AUS_Julius_Raab.png"
-		#	expire = "1965.1.1"
-		#	ideology = pataut_christian_democracy_subtype
-		#}
 		set_country_leader_ideology = pataut_christian_democracy_subtype
 		remove_ideas_with_trait = head_of_government
 		add_ideas = AUS_Julius_Raab_hog_sco
@@ -782,13 +545,6 @@ AUS_elect_VF_1940 = {
 		limit = {
 			has_country_flag = AUS_tildy_1940
 		}
-		#create_country_leader = {
-		#	name = "Zoltán Tildy"
-		#	desc = "POLITICS_TILDY_DESC"
-		#	picture = "gfx/leaders/AUS/AUS_Zoltan_Tildy.png"
-		#	expire = "1965.1.1"
-		#	ideology = pataut_christian_democracy_subtype
-		#}
 		set_country_leader_ideology = pataut_christian_democracy_subtype
 		custom_effect_tooltip = AUS_disable_hungarian_revolt
 		set_global_flag = AUS_no_more_HUN_revolt
@@ -799,13 +555,6 @@ AUS_elect_VF_1940 = {
 		limit = {
 			has_country_flag = AUS_tarnowski_1940
 		}
-		#create_country_leader = {
-		#	name = "Hieronim Tarnowski"
-		#	desc = "POLITICS_TARNOWSKI_DESC"
-		#	picture = "gfx/leaders/AUS/AUS_Hieronim_Tarnowski.png"
-		#	expire = "1965.1.1"
-		#	ideology = austropopulism_subtype
-		#}
 		set_country_leader_ideology = austropopulism_subtype
 		custom_effect_tooltip = AUS_no_more_galician_revolt
 		set_global_flag = AUS_no_more_GAL_revolt
@@ -813,17 +562,18 @@ AUS_elect_VF_1940 = {
 		add_ideas = GAL_Hieronim_Tarnowski_hog_sco
 	}
 	else = {
-		#create_country_leader = {
-		#	name = "Engelbert Dollfuss"
-		#	desc = "POLITICS_DOLLFUSS_DESC"
-		#	picture = "gfx/leaders/AUS/AUS_Engelbert_Dollfuss.png"
-		#	expire = "1965.1.1"
-		#	ideology = austropopulism_subtype
-		#}
 		set_country_leader_ideology = austropopulism_subtype
 		set_country_flag = AUS_dollfuss_1940
 		remove_ideas_with_trait = head_of_government
 		add_ideas = AUS_Engelbert_Dollfuss_hog_pau
+	}
+	hidden_effect = {
+		random_other_country = {
+			news_event = {
+				id = bdeausnews.29
+				days = 1
+			}
+		}
 	}
 }
 
@@ -899,6 +649,92 @@ AUS_elect_SDAPO_1940 = {
 			}
 		}
 	}
+	hidden_effect = {
+		random_other_country = {
+			news_event = {
+				id = bdeausnews.26
+				days = 1
+			}
+		}
+	}
+}
+
+AUS_elect_OCLK_1940 = {
+	set_politics = {
+		ruling_party = market_liberal
+	}
+	remove_all_ministers_but_for = yes
+	add_ideas = {
+		AUS_Erik_von_Kuehnelt_Leddihn_hog_mli
+		AUS_Ludwig_von_Mises_eco_mli
+		#idk who to put here
+	}
+	set_country_leader_ideology = aulic_liberalism_subtype
+	set_country_flag = AUS_kuehnelt_leddihn
+	hidden_effect = {
+		complete_national_focus = AUS_erik_von_kuehnelt_leddihn
+		random_other_country = {
+			news_event = {
+				id = bdeausnews.25
+				days = 1
+			}
+		}
+	}
+}
+
+AUS_elect_DBP_1940 = {
+	if = {
+		limit = { has_country_flag = AUS_kalergi_1940 }
+		remove_all_ministers_but_for = yes
+		add_ideas = {
+			AUS_Richard_von_Coudenhove-Kalergi_hog_sli
+			AUS_Josef_Redlich_eco_sli
+			AUS_Karl_Tuppy_sec_sli
+		}
+	}
+	else_if = {
+		limit = { has_country_flag = AUS_masaryk_1940 }
+		remove_all_ministers_but_for = yes
+		add_ideas = {
+			CZE_Jan_Garrigue_Masaryk_hog_sli
+			AUS_Josef_Redlich_eco_sli
+			AUS_Karl_Tuppy_sec_sli
+		}
+	}
+	else_if = {
+		limit = { has_country_flag = AUS_krzyzanowski_1940 }
+		remove_all_ministers_but_for = yes
+		add_ideas = {
+			GAL_Adam_Krzyzanowski_hog_mli
+			AUS_Josef_Redlich_eco_sli
+			AUS_Karl_Tuppy_sec_sli
+		}
+	}
+	else_if = {
+		limit = { has_country_flag = AUS_einstein_1940 }
+		remove_all_ministers_but_for = yes
+		add_ideas = {
+			AUS_Albert_Einstein_hog_sli
+			AUS_Josef_Redlich_eco_sli
+			AUS_Karl_Tuppy_sec_sli
+		}
+	}
+	else = {
+		remove_all_ministers_but_for = yes
+		add_ideas = {
+			AUS_Richard_von_Coudenhove-Kalergi_hog_sli
+			AUS_Josef_Redlich_eco_sli
+			AUS_Karl_Tuppy_sec_sli
+		}
+	}
+	hidden_effect = {
+		random_other_country = {
+			news_event = {
+				id = bdeausnews.27
+				days = 1
+			}
+		}
+	}
 }
 
 AUS_raise_austro_german_tensions = {
@@ -945,14 +781,35 @@ BOTDE_add_collapse = {
 		custom_override_tooltip = {
 			tooltip = BOTDE_collapse_tt
 			add_to_variable = { THIS.subject_revolt_progress = revolt_progress_change }
-			clamp_variable = {
-				var = THIS.subject_revolt_progress
-				min = 0
-				max = 1
+			if = {
+				limit = { has_country_flag = no_minority_revolt }
+				clamp_variable = {
+					var = THIS.subject_revolt_progress
+					min = 0
+					max = 0.75
+				}
+			}
+			else = {
+				clamp_variable = {
+					var = THIS.subject_revolt_progress
+					min = 0
+					max = 1
+				}
 			}
 			log = "[GetDateText]: [This.GetName]: BOTDE_add_collapse: revolt_progress_change: [?revolt_progress_change] THIS.subject_revolt_progress: [?THIS.subject_revolt_progress]"
 			BOTDE_check_for_constituent_revolt = yes
 			AUS_warning_check = yes
+			if = {
+				limit = {
+					AUS = { has_country_flag = subject_unrest_window_open }
+					NOT = { has_global_flag = AUS_minority_array_not_sorted }
+				}
+				clear_array = AUS.austria_minority_array
+				get_sorted_scored_countries = {
+					scorer = BOTDE_minorities_in_GUI_score
+					array = AUS.austria_minority_array
+				}
+			}
 		}
 	}
 }
@@ -2950,6 +2807,20 @@ AUS_remove_from_DWV = {
 	}
 }
 
+AUS_add_revolution_to_SDAPO = {
+	custom_override_tooltip = {
+		tooltip = AUS_revolutionize_SDAPO_tt
+		add_to_variable = { AUS.revolution_value = 1 }
+	}
+}
+
+AUS_radicalize_Heimwehr = {
+	custom_override_tooltip = {
+		tooltip = AUS_radicalize_Heimwehr_tt
+		add_to_variable = { TYR.collapse_appearance_value = 1 }
+	}
+}
+
 EUU_add_to_EU = {
 	custom_effect_tooltip = THIS_JOINS_EU
 	add_to_array = {
@@ -3778,6 +3649,7 @@ AUS_gleich_add_turn_taker = { # 1 = AUS. 2 = HUN. 3 = CRO. 4 = CZE. 5 = GAL. 6 =
 
 CZE_do_revolt = {
 	clear_all_relations = yes
+	set_country_flag = BOTDE_has_revolted_before
 	AUS = {
 		country_event = revolt.7 #Notification
 		every_owned_state = {
@@ -3805,6 +3677,7 @@ CZE_do_revolt = {
 }
 
 CZE_bohemian_revolution_effect = {
+	set_country_flag = BOTDE_has_revolted_before
 	add_timed_idea = {
 		idea = CZE_czech_revolution
 		days = 365
@@ -7580,552 +7453,316 @@ AUS_do_fed_name = {
 SKS_revolt_units_SER = {
 	if = {
 		limit = {
-			has_template = "Četnici"
+			NOT = { has_template = "Četnici" }
 		}
-		else = {
-			division_template = {
-				name = "Četnici"
-				regiments = {
-					infantry = { x = 0 y = 0 }
-					infantry = { x = 0 y = 1 }
-					infantry = { x = 0 y = 2 }
-					infantry = { x = 1 y = 0 }
-					infantry = { x = 1 y = 1 }
-					infantry = { x = 1 y = 2 }
-					infantry = { x = 2 y = 0 }
-					infantry = { x = 2 y = 1 }
-					infantry = { x = 2 y = 2 }
-				}
-			}
-			division_template = {
-				name = "Četnička milicija"
-				regiments = {
-					militia = { x = 0 y = 0 }
-					militia = { x = 0 y = 1 }
-					militia = { x = 0 y = 2 }
-					militia = { x = 1 y = 0 }
-					militia = { x = 1 y = 1 }
-					militia = { x = 1 y = 2 }
-					militia = { x = 2 y = 0 }
-					militia = { x = 2 y = 1 }
-					militia = { x = 2 y = 2 }
-				}
+		division_template = {
+			name = "Četnici"
+			regiments = {
+				infantry = { x = 0 y = 0 }
+				infantry = { x = 0 y = 1 }
+				infantry = { x = 0 y = 2 }
+				infantry = { x = 1 y = 0 }
+				infantry = { x = 1 y = 1 }
+				infantry = { x = 1 y = 2 }
+				infantry = { x = 2 y = 0 }
+				infantry = { x = 2 y = 1 }
+				infantry = { x = 2 y = 2 }
 			}
 		}
 	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Četnici\" division_template = \"Četnici\" start_experience_factor = 0.4" 
-			owner = SKS
-			allow_spawning_on_enemy_provs = yes
+	if = {
+		limit = { NOT = { has_template = "Četnička milicija" } }
+		division_template = {
+			name = "Četnička milicija"
+			regiments = {
+				militia = { x = 0 y = 0 }
+				militia = { x = 0 y = 1 }
+				militia = { x = 0 y = 2 }
+				militia = { x = 1 y = 0 }
+				militia = { x = 1 y = 1 }
+				militia = { x = 1 y = 2 }
+				militia = { x = 2 y = 0 }
+				militia = { x = 2 y = 1 }
+				militia = { x = 2 y = 2 }
+			}
 		}
 	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Četnici\" division_template = \"Četnici\" start_experience_factor = 0.4" 
-			owner = SKS
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Četnici\" division_template = \"Četnici\" start_experience_factor = 0.4" 
-			owner = SKS
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Četnici\" division_template = \"Četnici\" start_experience_factor = 0.4" 
-			owner = SKS
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Četnici\" division_template = \"Četnici\" start_experience_factor = 0.4" 
-			owner = SKS
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Četnička milicija\" division_template = \"Četnička milicija\" start_experience_factor = 0.4" 
-			owner = SKS
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Četnička milicija\" division_template = \"Četnička milicija\" start_experience_factor = 0.4" 
-			owner = SKS
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Četnička milicija\" division_template = \"Četnička milicija\" start_experience_factor = 0.4" 
-			owner = SKS
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Četnička milicija\" division_template = \"Četnička milicija\" start_experience_factor = 0.4" 
-			owner = SKS
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Četnička milicija\" division_template = \"Četnička milicija\" start_experience_factor = 0.4" 
-			owner = SKS
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Četnička milicija\" division_template = \"Četnička milicija\" start_experience_factor = 0.4" 
-			owner = SKS
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Četnička milicija\" division_template = \"Četnička milicija\" start_experience_factor = 0.4" 
-			owner = SKS
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	set_temp_variable = { extra_divs_temp = THIS.paramilitary_value }
-	multiply_temp_variable  = { extra_divs_temp = 1.5 }
-	round_temp_variable = extra_divs_temp
-	add_to_variable = { SKS.extra_divs_temp = SKS.extra_divs_meme }
-	clamp_variable = {
-		var = THIS.extra_divs_temp
-		min = 0
-		max = num_armies@SER
-	}
-	
-	while_loop_effect = {
-		limit = {
-			check_variable = { THIS.extra_divs_temp > 0 }
-		}
+	for_loop_effect = {
+		end = 4
 		random_owned_state = {
 			create_unit = { 
-				division = "name = \"Četnici\" division_template = \"Četnici\" start_experience_factor = 0.2" 
+				division = "name = \"Četnici\" division_template = \"Četnici\" start_experience_factor = 0.4" 
 				owner = SKS
 				allow_spawning_on_enemy_provs = yes
 			}
 		}
 	}
+	for_loop_effect = {
+		end = 8
+		random_owned_state = {
+			create_unit = { 
+				division = "name = \"Četnička milicija\" division_template = \"Četnička milicija\" start_experience_factor = 0.4" 
+				owner = SKS
+				allow_spawning_on_enemy_provs = yes
+			}
+		}
+	}
+	set_temp_variable = { extra_divs_temp = THIS.paramilitary_value }
+	multiply_temp_variable  = { extra_divs_temp = 1.5 }
+	round_temp_variable = extra_divs_temp
+	add_to_temp_variable = { extra_divs_temp = THIS.extra_divs_meme }
+	clamp_variable = {
+		var = THIS.extra_divs_temp
+		min = 0
+		max = num_armies@SER
+	}
+	log = "[GetDateText]: [Root.GetName]: SKS_revolt_units_SER: THIS.extra_divs_temp: [?THIS.extra_divs_temp]"
+	while_loop_effect = {
+		limit = { check_variable = { THIS.extra_divs_temp > 0 } }
+		random_owned_state = {
+			create_unit = { 
+				division = "name = \"Četnici\" division_template = \"Četnici\" start_experience_factor = 0.2" 
+				owner = PREV
+				allow_spawning_on_enemy_provs = yes
+			}
+		}
+		subtract_from_temp_variable = { THIS.extra_divs_temp = 1 }
+	}
 }
 
 BAN_revolt_units_ROM = {
 	if = {
-		limit = {
-			has_template = "Îndrăznețul"
-		}
-		else = {
-			division_template = {
-				name = "Îndrăznețul"
-				regiments = {
-					infantry = { x = 0 y = 0 }
-					infantry = { x = 0 y = 1 }
-					infantry = { x = 0 y = 2 }
-					infantry = { x = 1 y = 0 }
-					infantry = { x = 1 y = 1 }
-					infantry = { x = 1 y = 2 }
-					infantry = { x = 2 y = 0 }
-					infantry = { x = 2 y = 1 }
-					infantry = { x = 2 y = 2 }
-				}
+		limit = { NOT = { has_template = "Îndrăznețul" } }
+		division_template = {
+			name = "Îndrăznețul"
+			regiments = {
+				infantry = { x = 0 y = 0 }
+				infantry = { x = 0 y = 1 }
+				infantry = { x = 0 y = 2 }
+				infantry = { x = 1 y = 0 }
+				infantry = { x = 1 y = 1 }
+				infantry = { x = 1 y = 2 }
+				infantry = { x = 2 y = 0 }
+				infantry = { x = 2 y = 1 }
+				infantry = { x = 2 y = 2 }
 			}
 		}
 	}
 	if = {
-		limit = {
-			has_template = "Militia Îndrăznețul"
+		limit = { NOT = { has_template = "Militia Îndrăznețul" } }
+		division_template = {
+			name = "Militia Îndrăznețul"
+			regiments = {
+				militia = { x = 0 y = 0 }
+				militia = { x = 0 y = 1 }
+				militia = { x = 0 y = 2 }
+				militia = { x = 1 y = 0 }
+				militia = { x = 1 y = 1 }
+				militia = { x = 1 y = 2 }
+				militia = { x = 2 y = 0 }
+				militia = { x = 2 y = 1 }
+				militia = { x = 2 y = 2 }
+			}
 		}
-		else = {
-			division_template = {
-				name = "Militia Îndrăznețul"
-				regiments = {
-					militia = { x = 0 y = 0 }
-					militia = { x = 0 y = 1 }
-					militia = { x = 0 y = 2 }
-					militia = { x = 1 y = 0 }
-					militia = { x = 1 y = 1 }
-					militia = { x = 1 y = 2 }
-					militia = { x = 2 y = 0 }
-					militia = { x = 2 y = 1 }
-					militia = { x = 2 y = 2 }
+	}
+	for_loop_effect = {
+		end = 4
+		random_owned_state = {
+			create_unit = { 
+				division = "name = \"Îndrăznețul\" division_template = \"Îndrăznețul\" start_experience_factor = 0.2" 
+				owner = PREV
+				allow_spawning_on_enemy_provs = yes
+			}
+		}
+	}
+	for_loop_effect = {
+		end = 3
+		random_owned_state = {
+			random_owned_state = {
+				create_unit = { 
+					division = "name = \"Militia Îndrăznețul\" division_template = \"Militia Îndrăznețul\" start_experience_factor = 0.4" 
+					owner = PREV
+					allow_spawning_on_enemy_provs = yes
 				}
 			}
 		}
 	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Îndrăznețul\" division_template = \"Îndrăznețul\" start_experience_factor = 0.2" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
+	set_temp_variable = { extra_divs_temp = THIS.paramilitary_value }
+	multiply_temp_variable  = { extra_divs_temp = 1.5 }
+	round_temp_variable = extra_divs_temp
+	add_to_temp_variable = { extra_divs_temp = THIS.extra_divs_meme }
+	clamp_variable = {
+		var = THIS.extra_divs_temp
+		min = 0
+		max = num_armies@ROM
 	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Îndrăznețul\" division_template = \"Îndrăznețul\" start_experience_factor = 0.2" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Îndrăznețul\" division_template = \"Îndrăznețul\" start_experience_factor = 0.2" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Îndrăznețul\" division_template = \"Îndrăznețul\" start_experience_factor = 0.2" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Militia Îndrăznețul\" division_template = \"Militia Îndrăznețul\" start_experience_factor = 0.4" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Militia Îndrăznețul\" division_template = \"Militia Îndrăznețul\" start_experience_factor = 0.4" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Militia Îndrăznețul\" division_template = \"Militia Îndrăznețul\" start_experience_factor = 0.4" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	set_variable = { BAN.extra_divs_temp = BAN.paramilitary_value }
-	multiply_variable  = { BAN.extra_divs_temp = 1.5 }
-	round_variable = BAN.extra_divs_temp
-	add_to_variable = { BAN.extra_divs_temp = BAN.extra_divs_meme }
-	
+	log = "[GetDateText]: [Root.GetName]: BAN_revolt_units_ROM: THIS.extra_divs_temp: [?THIS.extra_divs_temp]"
 	while_loop_effect = {
-		limit = {
-			check_variable = {
-				var = THIS.extra_divs_temp
-				value = 0
-				compare = greater_than
-			}
-		}
+		limit = { check_variable = { THIS.extra_divs_temp > 0 } }
 		random_owned_state = {
 			create_unit = { 
 				division = "name = \"Îndrăznețul\" division_template = \"Îndrăznețul\" start_experience_factor = 0.8" 
-				owner = BAN
+				owner = PREV
 				allow_spawning_on_enemy_provs = yes
 			}
 		}
-		subtract_from_variable = {
-			var = BAN.extra_divs_temp
-			value = 1
-		}
+		subtract_from_temp_variable = { THIS.extra_divs_temp = 1 }
 	}
 }
 
 BUK_revolt_units_ROM = {
 	if = {
-		limit = {
-			has_template = "Lăncier"
-		}
-		else = {
-			division_template = {
-				name = "Lăncier"
-				regiments = {
-					infantry = { x = 0 y = 0 }
-					infantry = { x = 0 y = 1 }
-					infantry = { x = 0 y = 2 }
-					infantry = { x = 1 y = 0 }
-					infantry = { x = 1 y = 1 }
-					infantry = { x = 1 y = 2 }
-					infantry = { x = 2 y = 0 }
-					infantry = { x = 2 y = 1 }
-					infantry = { x = 2 y = 2 }
-				}
+		limit = { NOT = { has_template = "Lăncier" } }
+		division_template = {
+			name = "Lăncier"
+			regiments = {
+				infantry = { x = 0 y = 0 }
+				infantry = { x = 0 y = 1 }
+				infantry = { x = 0 y = 2 }
+				infantry = { x = 1 y = 0 }
+				infantry = { x = 1 y = 1 }
+				infantry = { x = 1 y = 2 }
+				infantry = { x = 2 y = 0 }
+				infantry = { x = 2 y = 1 }
+				infantry = { x = 2 y = 2 }
 			}
 		}
 	}
 	if = {
-		limit = {
-			has_template = "Militia Lăncier"
-		}
-		else = {
-			division_template = {
-				name = "Militia Lăncier"
-				regiments = {
-					militia = { x = 0 y = 0 }
-					militia = { x = 0 y = 1 }
-					militia = { x = 0 y = 2 }
-					militia = { x = 1 y = 0 }
-					militia = { x = 1 y = 1 }
-					militia = { x = 1 y = 2 }
-					militia = { x = 2 y = 0 }
-					militia = { x = 2 y = 1 }
-					militia = { x = 2 y = 2 }
-				}
+		limit = { NOT = { has_template = "Militia Lăncier" } }
+		division_template = {
+			name = "Militia Lăncier"
+			regiments = {
+				militia = { x = 0 y = 0 }
+				militia = { x = 0 y = 1 }
+				militia = { x = 0 y = 2 }
+				militia = { x = 1 y = 0 }
+				militia = { x = 1 y = 1 }
+				militia = { x = 1 y = 2 }
+				militia = { x = 2 y = 0 }
+				militia = { x = 2 y = 1 }
+				militia = { x = 2 y = 2 }
 			}
 		}
 	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Lăncier\" division_template = \"Lăncier\" start_experience_factor = 0.2" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Lăncier\" division_template = \"Lăncier\" start_experience_factor = 0.2" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Lăncier\" division_template = \"Lăncier\" start_experience_factor = 0.2" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Lăncier\" division_template = \"Lăncier\" start_experience_factor = 0.2" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Militia Lăncier\" division_template = \"Militia Lăncier\" start_experience_factor = 0.5" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Militia Lăncier\" division_template = \"Militia Lăncier\" start_experience_factor = 0.5" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Militia Lăncier\" division_template = \"Militia Lăncier\" start_experience_factor = 0.5" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Militia Lăncier\" division_template = \"Militia Lăncier\" start_experience_factor = 0.5" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	set_variable = { BUK.extra_divs_temp = BUK.paramilitary_value }
-	multiply_variable  = { BUK.extra_divs_temp = 1.5 }
-	round_variable = BUK.extra_divs_temp
-	add_to_variable = { BUK.extra_divs_temp = BUK.extra_divs_meme }
-	
-	while_loop_effect = {
-		limit = {
-			check_variable = {
-				var = THIS.extra_divs_temp
-				value = 0
-				compare = greater_than
-			}
-		}
+	for_loop_effect = {
+		end = 4
 		random_owned_state = {
 			create_unit = { 
-				division = "name = \"Lăncier\" division_template = \"Lăncier\" start_experience_factor = 0.8" 
-				owner = BUK
+				division = "name = \"Lăncier\" division_template = \"Lăncier\" start_experience_factor = 0.2" 
+				owner = PREV
 				allow_spawning_on_enemy_provs = yes
 			}
 		}
-		subtract_from_variable = {
-			var = BUK.extra_divs_temp
-			value = 1
+	}
+	for_loop_effect = {
+		end = 4
+		random_owned_state = {
+			create_unit = { 
+				division = "name = \"Militia Lăncier\" division_template = \"Militia Lăncier\" start_experience_factor = 0.5" 
+				owner = PREV
+				allow_spawning_on_enemy_provs = yes
+			}
 		}
+	}
+	set_temp_variable = { extra_divs_temp = THIS.paramilitary_value }
+	multiply_temp_variable  = { extra_divs_temp = 1.5 }
+	round_temp_variable = extra_divs_temp
+	add_to_temp_variable = { extra_divs_temp = THIS.extra_divs_meme }
+	clamp_variable = {
+		var = THIS.extra_divs_temp
+		min = 0
+		max = num_armies@ROM
+	}
+	log = "[GetDateText]: [Root.GetName]: BUK_revolt_units_ROM: THIS.extra_divs_temp: [?THIS.extra_divs_temp]"
+	while_loop_effect = {
+		limit = { check_variable = { THIS.extra_divs_temp > 0 } }
+		random_owned_state = {
+			create_unit = { 
+				division = "name = \"Lăncier\" division_template = \"Lăncier\" start_experience_factor = 0.8" 
+				owner = PREV
+				allow_spawning_on_enemy_provs = yes
+			}
+		}
+		subtract_from_temp_variable = { THIS.extra_divs_temp = 1 }
 	}
 }
 
 TRS_revolt_units_ROM = {
 	if = {
-		limit = {
-			has_template = "Legiunea Frătiei"
-		}
-		else = {
-			division_template = {
-				name = "Legiunea Frătiei"
-				regiments = {
-					infantry = { x = 0 y = 0 }
-					infantry = { x = 0 y = 1 }
-					infantry = { x = 0 y = 2 }
-					infantry = { x = 1 y = 0 }
-					infantry = { x = 1 y = 1 }
-					infantry = { x = 1 y = 2 }
-					infantry = { x = 2 y = 0 }
-					infantry = { x = 2 y = 1 }
-					infantry = { x = 2 y = 2 }
-				}
+		limit = { NOT = { has_template = "Legiunea Frătiei" } }
+		division_template = {
+			name = "Legiunea Frătiei"
+			regiments = {
+				infantry = { x = 0 y = 0 }
+				infantry = { x = 0 y = 1 }
+				infantry = { x = 0 y = 2 }
+				infantry = { x = 1 y = 0 }
+				infantry = { x = 1 y = 1 }
+				infantry = { x = 1 y = 2 }
+				infantry = { x = 2 y = 0 }
+				infantry = { x = 2 y = 1 }
+				infantry = { x = 2 y = 2 }
 			}
 		}
 	}
 	if = {
-		limit = {
-			has_template = "Militia Frătiei"
-		}
-		else = {
-			division_template = {
-				name = "Militia Frătiei"
-				regiments = {
-					militia= { x = 0 y = 0 }
-					militia= { x = 0 y = 1 }
-					militia= { x = 0 y = 2 }
-					militia= { x = 1 y = 0 }
-					militia= { x = 1 y = 1 }
-					militia= { x = 1 y = 2 }
-					militia= { x = 2 y = 0 }
-					militia= { x = 2 y = 1 }
-					militia= { x = 2 y = 2 }
-				}
+		limit = { NOT = { has_template = "Militia Frătiei" } }
+		division_template = {
+			name = "Militia Frătiei"
+			regiments = {
+				militia= { x = 0 y = 0 }
+				militia= { x = 0 y = 1 }
+				militia= { x = 0 y = 2 }
+				militia= { x = 1 y = 0 }
+				militia= { x = 1 y = 1 }
+				militia= { x = 1 y = 2 }
+				militia= { x = 2 y = 0 }
+				militia= { x = 2 y = 1 }
+				militia= { x = 2 y = 2 }
 			}
 		}
 	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Legiunea Frătiei\" division_template = \"Legiunea Frătiei\" start_experience_factor = 0.4" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
+	for_loop_effect = {
+		end = 6
+		random_owned_state = {
+			create_unit = { 
+				division = "name = \"Legiunea Frătiei\" division_template = \"Legiunea Frătiei\" start_experience_factor = 0.4"
+				owner = PREV
+				allow_spawning_on_enemy_provs = yes
+			}
 		}
 	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Legiunea Frătiei\" division_template = \"Legiunea Frătiei\" start_experience_factor = 0.4" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
+	for_loop_effect = {
+		end = 8
+		random_owned_state = {
+			create_unit = { 
+				division = "name = \"Militia Frătiei\" division_template = \"Militia Frătiei\" start_experience_factor = 0.4" 
+				owner = PREV
+				allow_spawning_on_enemy_provs = yes
+			}
 		}
 	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Legiunea Frătiei\" division_template = \"Legiunea Frătiei\" start_experience_factor = 0.4" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Legiunea Frătiei\" division_template = \"Legiunea Frătiei\" start_experience_factor = 0.4" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Legiunea Frătiei\" division_template = \"Legiunea Frătiei\" start_experience_factor = 0.4" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Legiunea Frătiei\" division_template = \"Legiunea Frătiei\" start_experience_factor = 0.4" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Militia Frătiei\" division_template = \"Militia Frătiei\" start_experience_factor = 0.4" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Militia Frătiei\" division_template = \"Militia Frătiei\" start_experience_factor = 0.4" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Militia Frătiei\" division_template = \"Militia Frătiei\" start_experience_factor = 0.4" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Militia Frătiei\" division_template = \"Militia Frătiei\" start_experience_factor = 0.4" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Militia Frătiei\" division_template = \"Militia Frătiei\" start_experience_factor = 0.4" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Militia Frătiei\" division_template = \"Militia Frătiei\" start_experience_factor = 0.4" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Militia Frătiei\" division_template = \"Militia Frătiei\" start_experience_factor = 0.4" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	random_owned_state = {
-		create_unit = { 
-			division = "name = \"Militia Frătiei\" division_template = \"Militia Frătiei\" start_experience_factor = 0.4" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
-	}
-	
 	set_temp_variable = { extra_divs_temp = THIS.paramilitary_value }
 	multiply_temp_variable  = { extra_divs_temp = 1.5 }
 	round_temp_variable = extra_divs_temp
-	add_to_variable = { TRS.extra_divs_temp = TRS.extra_divs_meme }
-	
+	add_to_temp_variable = { extra_divs_temp = THIS.extra_divs_meme }
+	clamp_variable = {
+		var = THIS.extra_divs_temp
+		min = 0
+		max = num_armies@ROM
+	}
+	log = "[GetDateText]: [Root.GetName]: TRS_revolt_units_ROM: THIS.extra_divs_temp: [?THIS.extra_divs_temp]"
 	while_loop_effect = {
-		limit = {
-			check_variable = {
-				var = THIS.extra_divs_temp
-				value = 0
-				compare = greater_than
+		limit = { check_variable = { THIS.extra_divs_temp > 0 } }
+		random_owned_state = {
+			create_unit = { 
+				division = "name = \"Legiunea Frătiei\" division_template = \"Legiunea Frătiei\" start_experience_factor = 0.2" 
+				owner = PREV
+				allow_spawning_on_enemy_provs = yes
 			}
 		}
-		create_unit = { 
-			division = "name = \"Legiunea Frătiei\" division_template = \"Legiunea Frătiei\" start_experience_factor = 0.2" 
-			owner = PREV
-			allow_spawning_on_enemy_provs = yes
-		}
+		subtract_from_temp_variable = { THIS.extra_divs_temp = 1 }
 	}
 }
 
@@ -11883,6 +11520,7 @@ AUS_restore_BOH_after_revolt_effect = {
 		clr_country_flag = CZE_will_revolt
 		clr_country_flag = CONST_no_evidenzbureau
 		set_country_flag = CONST_proper
+		set_country_flag = no_minority_revolt
 		set_global_flag = AUS_no_more_CZE_revolt
 		if = {
 			limit = {
@@ -12010,6 +11648,7 @@ AUS_restore_HUN_after_ausgleich_revolt_effect = {
 			}
 			set_global_flag = AUS_no_more_HUN_revolt
 			set_country_flag = CONST_proper
+			set_country_flag = no_minority_revolt
 		}
 		if = {
 			limit = {
@@ -12029,6 +11668,79 @@ AUS_restore_HUN_after_ausgleich_revolt_effect = {
 				clr_country_flag = FIU_return_puppet_to_hungary_after_revolt
 			}
 		}
+	}
+}
+AUS_restore_CRO_after_revolt_effect = {
+	every_state = {
+		limit = {
+			is_core_of = CRO
+			OR = {
+				is_owned_by = AUS
+				is_owned_by = HUN
+			}
+		}
+		transfer_state_to = CRO
+	}
+	AUS = {
+		set_autonomy = {
+			target = CRO
+			autonomy_state = botde_occupied
+		}
+	}
+	CRO = {
+		set_cosmetic_tag = CRO_occupied
+		create_country_leader = {
+			name = "Franz Böhme"
+			desc = "AUS_BOME_DESC"
+			picture = "gfx/leaders/AUS/Portrait_AUS_Franz_Bohme_KX.png"
+			expire = "1.1.1"
+			ideology = junta_subtype
+		}
+		set_politics = {
+			ruling_party = paternal_autocrat
+			name = CRO_occupied_paternal_autocrat_party
+			long_name = CRO_occupied_paternal_autocrat_party_long
+		}
+		remove_all_ministers = yes
+		add_ideas = {
+			CRO_Milan_Sufflay_hog_pau
+			CRO_Mladen_Lorkovic_for_pau
+			CRO_Jozo_Dumandzic_eco_pau
+			CRO_Edo_Bulat_sec_pau
+		}
+		increase_ruling_party_popularity_by_50 = yes
+		remove_ideas = {
+			CRO_for_illyria
+			CRO_guerilla_war
+		}
+		add_ideas = {
+			AUS_part_of_the_Empire
+			AUS_cisleithanian_sphere
+		}
+		clr_country_flag = CRO_will_revolt
+		clr_country_flag = CONST_no_evidenzbureau
+		set_country_flag = CONST_proper
+		set_country_flag = no_minority_revolt
+		set_global_flag = AUS_no_more_CRO_revolt
+		if = {
+			limit = {
+				NOT = { is_in_array = { global.constituents_array = CRO } }
+			}
+			add_to_array = {
+				array = global.constituents_array
+				value = CRO
+				index = 2
+			}
+		}
+		if = {
+			limit = {
+				AUS = { AUS_DWV_member = yes }
+			}
+			AUS_add_to_DWV = yes
+		}
+		set_variable = { AUS_subject_status = 4 }
+		set_variable = { CRO.subject_revolt_progress = 0.1 }
+		set_variable = { CRO.extra_value = -0.015 }
 	}
 }
 AUS_occupy_SER_effect = {
@@ -14274,36 +13986,66 @@ AUS_JERUSALEM_LEOPOLD_V_DREAM = {
 
 AUS_federalize_italy_effects = {
 	if = {
-		limit = {
-			ITA = {
-				is_subject_of = AUS
-			}
-		}
+		limit = { ITA = { is_subject_of = AUS } }
 		custom_effect_tooltip = AUS_unlock_decision_federalize_ITA
-		ITA = {
-			set_country_flag = AUS_federalize_flag
-		}
+		ITA = { set_country_flag = AUS_federalize_flag }
 	}
 	if = {
-		limit = {
-			VNC = {
-				is_subject_of = AUS
-			}
-		}
+		limit = { VNC = { is_subject_of = AUS } }
 		custom_effect_tooltip = AUS_unlock_decision_federalize_VNC
-		VNC = {
-			set_country_flag = AUS_federalize_flag
-		}
+		VNC = { set_country_flag = AUS_federalize_flag }
 	}
 	if = {
-		limit = {
-			LOM = {
-				is_subject_of = AUS
+		limit = { LOM = { is_subject_of = AUS } }
+		custom_effect_tooltip = AUS_unlock_decision_federalize_LOM
+		LOM = { set_country_flag = AUS_federalize_flag }
+	}
+}
+
+AUS_austro_american_alliance_form_effect = {
+	every_faction_member = { add_to_temp_array = { temp_faction_members = THIS.id } }
+	if = {
+		limit = { has_faction_research_unlocked = yes }
+		set_country_flag = temp_add_faction_research
+	}
+	if = {
+		limit = { has_faction_military_unlocked = yes }
+		set_country_flag = temp_add_faction_military
+	}
+	dismantle_faction = yes
+	set_global_flag = AUS_austro_american_alliance_flag
+	meta_effect = {
+		debug = yes
+		text = {
+			create_faction_from_template = {
+				template = faction_template_austro_american_alliance
+				name = [FACTION_NAME]
+				icon = [FACTION_ICON]
 			}
 		}
-		custom_effect_tooltip = AUS_unlock_decision_federalize_LOM
-		LOM = {
-			set_country_flag = AUS_federalize_flag
+		FACTION_NAME = "[AUS_get_US_ally_faction_name]"
+		FACTION_ICON = "[AUS_get_US_ally_faction_icon]"
+	}
+	every_country = {
+		limit = { is_in_array = { temp_faction_members = THIS.id } }
+		AUS = {
+			add_to_faction = PREV
+			remove_opinion_modifier = {
+				target = PREV
+				modifier = faction_traitor
+			}
 		}
+	}
+	add_to_faction = FROM
+	add_faction_influence_ratio = 0.33
+	if = {
+		limit = { has_country_flag = temp_add_faction_research }
+		set_faction_research_unlocked = yes
+		clr_country_flag = temp_add_faction_research
+	}
+	if = {
+		limit = { has_country_flag = temp_add_faction_military }
+		set_faction_military_unlocked = yes
+		clr_country_flag = temp_add_faction_military
 	}
 }
