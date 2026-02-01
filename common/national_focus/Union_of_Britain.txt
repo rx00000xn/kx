@@ -238,7 +238,7 @@ focus_tree = {
 	## Autonomist ## 
 	focus = {
 		id = ENG_1936_Autonomist_Victory
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_1936_Autonomist_Victory
 		cost = 0
 		relative_position_id = ENG_voice_of_tuc
 		x = -11
@@ -261,7 +261,7 @@ focus_tree = {
 	}
 	focus = {
 		id = ENG_AUT_TUC_reform
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_TUC_reform
 		cost = 8
 		relative_position_id = ENG_1936_Autonomist_Victory
 		x = 0
@@ -275,12 +275,20 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_AUT_TUC_reform"
+			add_ideas = ENG_AUT_idea_1
+			country_event = {
+				id = uobplaceholder.400
+				days = 5
+			}
+			set_variable = {
+				ENG.ENG_AUT_happiness  = 0
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
 		id = ENG_AUT_empower_county
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_empower_county
 		cost = 8
 		relative_position_id = ENG_AUT_TUC_reform
 		x = 1
@@ -294,12 +302,56 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_AUT_empower_county"
+			custom_effect_tooltip = ENG_AUT_welsh_council_tt
+			custom_effect_tooltip = tooltip_white_line
+			custom_effect_tooltip = ENG_AUT_scottish_council_tt
+			hidden_effect = {
+				if = {
+					limit = {
+						owns_state = 122 
+						owns_state = 1225
+					}
+					122 = {
+						add_dynamic_modifier = {
+							modifier = ENG_AUT_Welsh_Council
+						}
+					}
+					1225 = {
+						add_dynamic_modifier = {
+							modifier = ENG_AUT_Welsh_Council
+						}
+					}
+				}
+				if = {
+					limit = {
+						owns_state = 133
+						owns_state = 121
+						owns_state = 136
+						owns_state = 120
+						owns_state = 938
+					}
+					every_state = {
+						limit = {
+							OR = {
+								state = 133
+								state = 121
+								state = 136
+								state = 120
+								state = 938
+							}
+						}
+						add_dynamic_modifier = {
+							modifier = ENG_AUT_Scottish_Council
+						}
+					}
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
 		id = ENG_AUT_form_UAB
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_form_UAB
 		cost = 8
 		relative_position_id = ENG_AUT_TUC_reform
 		x = -1
@@ -313,12 +365,19 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_AUT_form_UAB"
+			add_ideas = ENG_AUT_UAB_idea
+			hidden_effect = {
+				country_event = {
+					id = uobplaceholder.401
+					days = 90
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
 		id = ENG_AUT_reinvigorate_wales
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_reinvigorate_wales
 		cost = 8
 		relative_position_id = ENG_AUT_form_UAB
 		x = -1
@@ -332,12 +391,28 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_AUT_reinvigorate_wales"
+			add_tech_bonus = {
+				name = ENG_AUT_reinvigorate_wales
+				bonus = 0.25
+				uses = 2
+				category = excavation_tech
+			}
+			add_resource = {
+				type = aluminium
+				amount = 12
+				state = 122
+			}
+			add_resource = {
+				type = steel
+				amount = 8
+				state = 122
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
 		id = ENG_AUT_break_homerule_army
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_break_homerule_army
 		cost = 5
 		relative_position_id = ENG_AUT_reinvigorate_wales
 		x = 0
@@ -347,18 +422,26 @@ focus_tree = {
 		}
 		available = {
 			ENG_Autonomists_lead = yes
-			#not that devolution is already complete
+			NOT = {
+				has_completed_focus = ENG_AUT_maintain_nation
+				has_completed_focus = ENG_AUT_london_guidance
+				has_completed_focus = ENG_AUT_union_of_equals
+			}
 		}
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_AUT_break_homerule_army"
+			add_stability = 0.05
+			add_ideas = ENG_AUT_fight_home_rule_army_idea
+			custom_effect_tooltip = ENG_AUT_wal_get_buff_tt
+			add_to_variable = { ENG.ENG_AUT_happiness = 1 }
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 
 	focus = {
 		id = ENG_AUT_cornish_question
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_cornish_question
 		cost = 8
 		relative_position_id = ENG_AUT_TUC_reform
 		x = 0
@@ -372,12 +455,16 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_AUT_cornish_question"
+			country_event = {
+				id = uobplaceholder.402
+				days = 3
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
 		id = ENG_AUT_second_clydeside
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_second_clydeside
 		cost = 8
 		relative_position_id = ENG_AUT_empower_county
 		x = 1
@@ -391,12 +478,20 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_AUT_second_clydeside"
+			country_event = {
+				id = uobplaceholder.403
+				days = 18
+			}
+			swap_ideas = {
+				remove_idea = ENG_Fractured_Union_Idea_1
+				add_idea = ENG_Fractured_Union_Idea_2
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
-	focus = {
+	focus = {#scottish one
 		id = ENG_AUT_infiltrate_homeland_watch
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_infiltrate_homeland_watch
 		cost = 5
 		relative_position_id = ENG_AUT_second_clydeside
 		x = 0
@@ -406,17 +501,25 @@ focus_tree = {
 		}
 		available = {
 			ENG_Autonomists_lead = yes
-			#not that devolution is already complete
+			NOT = {
+				has_completed_focus = ENG_AUT_maintain_nation
+				has_completed_focus = ENG_AUT_london_guidance
+				has_completed_focus = ENG_AUT_union_of_equals
+			}
 		}
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_AUT_infiltrate_homeland_watch"
+			add_stability = 0.05
+			add_ideas = ENG_AUT_fight_homeland_idea
+			custom_effect_tooltip = ENG_AUT_sct_get_buff_tt
+			add_to_variable = { ENG.ENG_AUT_happiness = 1 }
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
 		id = ENG_AUT_first_step
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_first_step
 		cost = 8
 		relative_position_id = ENG_AUT_cornish_question
 		x = 0
@@ -433,12 +536,20 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_AUT_first_step"
+			swap_ideas = {
+				remove_idea = ENG_AUT_idea_1
+				add_idea = ENG_AUT_idea_2
+			}
+			country_event = {
+				id = uobplaceholder.404
+				days = 3
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
 		id = ENG_AUT_language_of_war
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_language_of_war
 		cost = 8
 		relative_position_id = ENG_AUT_first_step
 		x = -3
@@ -452,12 +563,16 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_AUT_language_of_war"
+			country_event = {
+				id = uobplaceholder.405
+				days = 3
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
 		id = ENG_AUT_economic_balance
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_economic_balance
 		cost = 8
 		relative_position_id = ENG_AUT_first_step
 		x = 0
@@ -471,12 +586,16 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_AUT_economic_balance"
+			country_event = {
+				id = uobplaceholder.406
+				days = 3
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
 		id = ENG_AUT_pick_chairmen
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_pick_chairmen
 		cost = 8
 		relative_position_id = ENG_AUT_first_step
 		x = 3
@@ -490,12 +609,16 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_AUT_pick_chairmen"
+			country_event = {
+				id = uobplaceholder.407
+				days = 3
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
 		id = ENG_AUT_maintain_nation
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_maintain_nation
 		cost = 8
 		relative_position_id = ENG_AUT_first_step
 		x = -2
@@ -511,6 +634,8 @@ focus_tree = {
 		}
 		available = {
 			ENG_Autonomists_lead = yes
+			has_country_flag = ENG_AUT_devolution_prepped
+			has_country_flag = ENG_Anarchist_Autonomist_Coalition
 		}
 		mutually_exclusive = {
 			focus = ENG_AUT_london_guidance
@@ -519,12 +644,18 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_AUT_maintain_nation"
+			custom_effect_tooltip = ENG_AUT_devolution_maintain_tt
+			swap_ideas = {
+				remove_idea = ENG_Fractured_Union_Idea_2
+				add_idea = ENG_Fractured_Union_Idea_3
+			}
+			custom_effect_tooltip = ENG_focus_effectiveness_tt
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
 		id = ENG_AUT_london_guidance
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_london_guidance
 		cost = 8
 		relative_position_id = ENG_AUT_first_step
 		x = 0
@@ -540,6 +671,7 @@ focus_tree = {
 		}
 		available = {
 			ENG_Autonomists_lead = yes
+			has_country_flag = ENG_AUT_devolution_prepped
 		}
 		mutually_exclusive = {
 			focus = ENG_AUT_union_of_equals
@@ -548,12 +680,21 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_AUT_london_guidance"
+			custom_effect_tooltip = ENG_AUT_devolution_mild_tt
+			country_event = {
+				id = uobplaceholder.411
+				days = 4
+			}
+			swap_ideas = {
+				remove_idea = ENG_Fractured_Union_Idea_2
+				add_idea = ENG_Fractured_Union_Idea_3
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
 		id = ENG_AUT_union_of_equals
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_union_of_equals
 		cost = 8
 		relative_position_id = ENG_AUT_first_step
 		x = 2
@@ -569,7 +710,7 @@ focus_tree = {
 		}
 		available = {
 			ENG_Autonomists_lead = yes
-			has_country_flag = ENG_Anarchist_Autonomist_Coalition
+			has_country_flag = ENG_AUT_devolution_prepped
 		}
 		mutually_exclusive = {
 			focus = ENG_AUT_london_guidance
@@ -578,12 +719,21 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_AUT_union_of_equals"
+			custom_effect_tooltip = ENG_AUT_devolution_total_tt
+			country_event = {
+				id = uobplaceholder.412
+				days = 4
+			}
+			swap_ideas = {
+				remove_idea = ENG_Fractured_Union_Idea_2
+				add_idea = ENG_Fractured_Union_Idea_3
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
 		id = ENG_AUT_snell_time
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_snell_time
 		cost = 0
 		relative_position_id = ENG_AUT_london_guidance
 		x = -6
@@ -607,7 +757,7 @@ focus_tree = {
 	}
 	focus = {
 		id = ENG_AUT_humanism_good
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_humanism_good
 		cost = 8
 		relative_position_id = ENG_AUT_snell_time
 		x = -1
@@ -629,7 +779,7 @@ focus_tree = {
 	}
 	focus = {
 		id = ENG_AUT_fabian_progress
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_fabian_progress
 		cost = 8
 		relative_position_id = ENG_AUT_snell_time
 		x = 1
@@ -651,7 +801,7 @@ focus_tree = {
 	}
 	focus = {
 		id = ENG_AUT_hope_and_glory
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_hope_and_glory
 		cost = 8
 		relative_position_id = ENG_AUT_humanism_good
 		x = 1
@@ -671,12 +821,16 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_AUT_hope_and_glory"
+			swap_ideas = {
+				remove_idea = ENG_AUT_idea_2
+				add_idea = ENG_AUT_snell_idea
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
 		id = ENG_AUT_acland_time
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_acland_time
 		cost = 0
 		relative_position_id = ENG_AUT_london_guidance
 		x = -2
@@ -700,7 +854,7 @@ focus_tree = {
 	}
 	focus = {
 		id = ENG_AUT_democracy_beyond_unions
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_democracy_beyond_unions
 		cost = 8
 		relative_position_id = ENG_AUT_acland_time
 		x = -1
@@ -717,12 +871,25 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_AUT_democracy_beyond_unions"
+			add_popularity = {
+				ideology = radical_socialist
+				popularity = 0.075
+			}
+			add_popularity = {
+				ideology = social_democrat
+				popularity = 0.04
+			}
+			add_popularity = {
+				ideology = social_liberal
+				popularity = 0.04
+			}
+			add_ideas = ENG_AUT_wide_democracy_idea
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
 		id = ENG_AUT_three_things
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_three_things
 		cost = 8
 		relative_position_id = ENG_AUT_acland_time
 		x = 1
@@ -744,7 +911,7 @@ focus_tree = {
 	}
 	focus = {
 		id = ENG_AUT_managerialism_bad
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_managerialism_bad
 		cost = 8
 		relative_position_id = ENG_AUT_democracy_beyond_unions
 		x = 1
@@ -764,32 +931,32 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_AUT_managerialism_bad"
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	}
-	focus = {
-		id = ENG_AUT_birth_of_a_nation
-		icon = GFX_RUS_National_Agrarian_Fund
-		cost = 8
-		relative_position_id = ENG_AUT_london_guidance
-		x = 0
-		y = 1
-		prerequisite = {
-			focus = ENG_AUT_london_guidance
-			focus = ENG_AUT_union_of_equals
-		}
-		available = {
-			ENG_Autonomists_lead = yes
-		}
-		ai_will_do = { factor = 500 }
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ENG_AUT_birth_of_a_nation"
+			swap_ideas = {
+				remove_idea = ENG_AUT_idea_2
+				add_idea = ENG_AUT_acland_idea
+			}
+			if = { 
+				limit = {
+					AND = {
+						WAL = {
+							exists = yes
+						}
+						SCT = {
+							exists = yes
+						}
+					}
+				}
+				set_cosmetic_tag = ENG_AUT_acland_england
+			}
+			else = {
+				set_cosmetic_tag = ENG_AUT_acland_britain
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
 		id = ENG_AUT_cole_time
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_cole_time
 		cost = 0
 		relative_position_id = ENG_AUT_london_guidance
 		x = 2
@@ -801,7 +968,7 @@ focus_tree = {
 		}
 		available = {
 			has_country_leader = {
-				name = "G. D. H. Cole"
+				name = "G.D.H Cole"
 				ruling_only = yes
 			}
 		}
@@ -813,7 +980,7 @@ focus_tree = {
 	}
 	focus = {
 		id = ENG_AUT_NGL
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_NGL
 		cost = 8
 		relative_position_id = ENG_AUT_cole_time
 		x = -1
@@ -823,7 +990,7 @@ focus_tree = {
 		}
 		available = {
 			has_country_leader = {
-				name = "G. D. H. Cole"
+				name = "G.D.H Cole"
 				ruling_only = yes
 			}
 		}
@@ -835,7 +1002,7 @@ focus_tree = {
 	}
 	focus = {
 		id = ENG_AUT_guilds_before_government
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_guilds_before_government
 		cost = 8
 		relative_position_id = ENG_AUT_cole_time
 		x = 1
@@ -845,7 +1012,7 @@ focus_tree = {
 		}
 		available = {
 			has_country_leader = {
-				name = "G. D. H. Cole"
+				name = "G.D.H Cole"
 				ruling_only = yes
 			}
 		}
@@ -857,7 +1024,7 @@ focus_tree = {
 	}
 	focus = {
 		id = ENG_AUT_no_rich_or_poor
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_no_rich_or_poor
 		cost = 8
 		relative_position_id = ENG_AUT_cole_time
 		x = 0
@@ -870,19 +1037,23 @@ focus_tree = {
 		}
 		available = {
 			has_country_leader = {
-				name = "G. D. H. Cole"
+				name = "G.D.H Cole"
 				ruling_only = yes
 			}
 		}
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_AUT_no_rich_or_poor"
+			swap_ideas = {
+				remove_idea = ENG_AUT_idea_2
+				add_idea = ENG_AUT_cole_idea
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
 		id = ENG_AUT_brockway_time
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_brockway_time
 		cost = 0
 		relative_position_id = ENG_AUT_london_guidance
 		x = 6
@@ -906,7 +1077,7 @@ focus_tree = {
 	}
 	focus = {
 		id = ENG_AUT_socialism_but_moderate
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_socialism_but_moderate
 		cost = 8
 		relative_position_id = ENG_AUT_brockway_time
 		x = 1
@@ -928,7 +1099,7 @@ focus_tree = {
 	}
 	focus = {
 		id = ENG_AUT_encourage_fellowships
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_encourage_fellowships
 		cost = 8
 		relative_position_id = ENG_AUT_brockway_time
 		x = -1
@@ -950,7 +1121,7 @@ focus_tree = {
 	}
 	focus = {
 		id = ENG_AUT_democratic_pillar
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_AUT_democratic_pillar
 		cost = 8
 		relative_position_id = ENG_AUT_socialism_but_moderate
 		x = -1
@@ -970,6 +1141,10 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_AUT_democratic_pillar"
+			swap_ideas = {
+				remove_idea = ENG_AUT_idea_2
+				add_idea = ENG_AUT_brockway_idea
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -1836,6 +2011,28 @@ focus_tree = {
 			}
 		}
 	}
+	focus = {
+		id = ENG_FED_integrate_everyone
+		icon = GFX_goal_ENG_FED_born_anew
+		cost = 8
+		relative_position_id = ENG_FED_born_anew
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = ENG_FED_born_anew
+		}
+		available = {
+			ENG_Federationists_lead = yes
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_FED_integrate_everyone"
+			country_event = {
+				id = uobplaceholder.517
+				days = 3
+			}
+		}
+	}
 
 	## WSPU ##
 	focus = { #WSPU Victory
@@ -2645,7 +2842,7 @@ focus_tree = {
 				amount = 800
 			}
 			custom_effect_tooltip = tooltip_white_line
-			custom_effect_tooltip = ENG_BSP_integrate_llex_TT
+			custom_effect_tooltip = ENG_BSP_integrate_llex_tt
 		}
 	}
 
@@ -2753,7 +2950,7 @@ focus_tree = {
 				remove_idea = ENG_BSP_idea_1
 				add_idea = ENG_BSP_idea_2
 			}
-			custom_effect_tooltip = ENG_BSP_root_out_TT
+			custom_effect_tooltip = ENG_BSP_root_out_tt
 			if = {
 				limit = {
 					WAL = {
@@ -2955,6 +3152,7 @@ focus_tree = {
 				remove_idea = ENG_Fractured_Union_Idea_2
 				add_idea = ENG_Fractured_Union_Idea_3
 			}
+			set_cosmetic_tag = ENG_BSP
 		}
 	}
 
@@ -3093,7 +3291,7 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_BSP_avenge_lost_revolutions"
-			custom_effect_tooltip = ENG_avenge_lost_revolutions_TT
+			custom_effect_tooltip = ENG_avenge_lost_revolutions_tt
 			unlock_decision_category_tooltip = ENG_avenge_lost_revolutions
 		}	
 	}
@@ -3687,14 +3885,14 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_MAX_phoenix"
-			custom_effect_tooltip = ENG_MAX_will_gain
+			custom_effect_tooltip = ENG_MAX_will_gain_tt
 			effect_tooltip = {
 				swap_ideas = {
 					remove_idea = ENG_MAX_dem_idea_2
 					add_idea = ENG_MAX_dem_idea_3
 				}
 			}
-			custom_effect_tooltip = ENG_MAX_will_gain_2
+			custom_effect_tooltip = ENG_MAX_will_gain_tt_2
 			effect_tooltip = {
 				swap_ideas = {
 					remove_idea = ENG_MAX_auth_idea_2
@@ -9456,8 +9654,8 @@ focus_tree = {
 				}
 			}
 			swap_ideas = {
-				remove_idea= BRG_revolutionary_threat
-				add_idea= BRG_revolutionary_threat2
+				remove_idea = BRG_revolutionary_threat
+				add_idea = BRG_revolutionary_threat2
 			}
 		}
 	}
@@ -9502,7 +9700,7 @@ focus_tree = {
 				}
 			}
 			swap_ideas = {
-				remove_idea= BRG_red_army
+				remove_idea = BRG_red_army
 				add_idea = BRG_red_army2
 			}
 		}
@@ -9630,8 +9828,8 @@ focus_tree = {
 		completion_reward = {
 			increase_ruling_party_popularity_by_5 = yes
 			swap_ideas = {
-					remove_idea= BRG_Trad_Gov_3  
-				add_idea= BRG_Trad_Gov_4
+					remove_idea = BRG_Trad_Gov_3  
+				add_idea = BRG_Trad_Gov_4
 				}
 			hidden_effect = {
 			country_event = {
@@ -10063,8 +10261,8 @@ focus_tree = {
 		}
 		completion_reward = {
 				swap_ideas = {
-					remove_idea= BRG_true_nationalism  
-				add_idea= BRG_true_nationalism_2
+					remove_idea = BRG_true_nationalism  
+				add_idea = BRG_true_nationalism_2
 				} 
 			add_state_claim = 15
 			add_ideas = BRG_heroic_warshit
@@ -10128,8 +10326,8 @@ focus_tree = {
 		}
 		completion_reward = {
 			swap_ideas = {
-					remove_idea= BRG_Patriotic_Econ  
-				add_idea= BRG_Patriotic_Econ_2
+					remove_idea = BRG_Patriotic_Econ  
+				add_idea = BRG_Patriotic_Econ_2
 				}
 			
 		}
@@ -10155,8 +10353,8 @@ focus_tree = {
 		}
 		completion_reward = {
 				swap_ideas = {
-					remove_idea= BRG_leg_elite  
-				add_idea= BRG_leg_elite_2
+					remove_idea = BRG_leg_elite  
+				add_idea = BRG_leg_elite_2
 				}
 			country_event = basedbrit.25
 		}
@@ -10181,8 +10379,8 @@ focus_tree = {
 		}
 		completion_reward = {
 			swap_ideas = {
-					remove_idea= BRG_Patriotic_Econ_2  
-				add_idea= BRG_Patriotic_Econ_3
+					remove_idea = BRG_Patriotic_Econ_2  
+				add_idea = BRG_Patriotic_Econ_3
 				}
 		}
 	}
@@ -10212,8 +10410,8 @@ focus_tree = {
 		}
 		completion_reward = {
 				swap_ideas = {
-					remove_idea= BRG_leg_struggle  
-				add_idea= BRG_leg_struggle_2
+					remove_idea = BRG_leg_struggle  
+				add_idea = BRG_leg_struggle_2
 				}
 			add_research_slot = 1
 
@@ -10238,8 +10436,8 @@ focus_tree = {
 		completion_reward = {
 			increase_ruling_party_popularity_by_5 = yes
 			swap_ideas = {
-					remove_idea= BRG_Patriotic_Econ_3  
-				add_idea= BRG_Patriotic_Econ_4
+					remove_idea = BRG_Patriotic_Econ_3  
+				add_idea = BRG_Patriotic_Econ_4
 				}
 		
 		}
@@ -10267,8 +10465,8 @@ focus_tree = {
 		}
 		completion_reward = {
 			swap_ideas = {
-					remove_idea= BRG_leg_struggle_2  
-				add_idea= BRG_leg_struggle_3
+					remove_idea = BRG_leg_struggle_2  
+				add_idea = BRG_leg_struggle_3
 				}
 		}
 	}
@@ -10288,8 +10486,8 @@ focus_tree = {
 		}
 		completion_reward = {
 				swap_ideas = {
-					remove_idea= BRG_true_nationalism_2  
-				add_idea= BRG_true_nationalism_3
+					remove_idea = BRG_true_nationalism_2  
+				add_idea = BRG_true_nationalism_3
 				}
 		}
 	}
@@ -10416,8 +10614,8 @@ focus_tree = {
 		}
 		completion_reward = {
 			swap_ideas = {
-					remove_idea= BRG_free_market_econ  
-				add_idea= BRG_free_market_2
+					remove_idea = BRG_free_market_econ  
+				add_idea = BRG_free_market_2
 				}
 		}
 	}
@@ -10489,8 +10687,8 @@ focus_tree = {
 		}
 		completion_reward = {
 				swap_ideas = {
-					remove_idea= BRG_mil_dom  
-				add_idea= BRG_mil_dom_2
+					remove_idea = BRG_mil_dom  
+				add_idea = BRG_mil_dom_2
 				}
 				hidden_effect = {
 					country_event = {
@@ -10549,8 +10747,8 @@ focus_tree = {
 		}
 		completion_reward = {
 			swap_ideas = {
-					remove_idea= BRG_mil_state  
-				add_idea= BRG_mil_state_2
+					remove_idea = BRG_mil_state  
+				add_idea = BRG_mil_state_2
 				}
 		}
 	}
@@ -10573,8 +10771,8 @@ focus_tree = {
 		}
 		completion_reward = {
 				swap_ideas = {
-					remove_idea= BRG_mil_state_2  
-				add_idea= BRG_mil_state_3
+					remove_idea = BRG_mil_state_2  
+				add_idea = BRG_mil_state_3
 				}
 				hidden_effect = {
 				country_event = {
@@ -10622,8 +10820,8 @@ focus_tree = {
 		}
 		completion_reward = {
 			swap_ideas = {
-					remove_idea= BRG_reg_market  
-				add_idea= BRG_mil_com_econ
+					remove_idea = BRG_reg_market  
+				add_idea = BRG_mil_com_econ
 				}
 		}
 	}
@@ -10665,8 +10863,8 @@ focus_tree = {
 		completion_reward = {
 			increase_ruling_party_popularity_by_10 = yes
 			swap_ideas = {
-					remove_idea= BRG_mil_dom  
-				add_idea= BRG_mil_dom_alt2
+					remove_idea = BRG_mil_dom  
+				add_idea = BRG_mil_dom_alt2
 				}
 		}
 	}
@@ -10688,8 +10886,8 @@ focus_tree = {
 			add_stability= -0.05  
 			add_ideas = extensive_conscription
 			swap_ideas = {
-					remove_idea= BRG_mil_state_3  
-				add_idea= BRG_mil_state_4
+					remove_idea = BRG_mil_state_3  
+				add_idea = BRG_mil_state_4
 				}
 		}
 	}
@@ -10797,8 +10995,8 @@ focus_tree = {
 		}
 		completion_reward = {
 				swap_ideas = {
-					remove_idea= BRG_mil_state_4  
-				add_idea= BRG_mil_state_5
+					remove_idea = BRG_mil_state_4  
+				add_idea = BRG_mil_state_5
 				}
 		}
 	}
@@ -10964,8 +11162,8 @@ focus_tree = {
 		}
 		completion_reward = {
 			swap_ideas = {
-					remove_idea= BRG_libtard1  
-				add_idea= BRG_libtard2
+					remove_idea = BRG_libtard1  
+				add_idea = BRG_libtard2
 				}
 				hidden_effect = {
 				country_event = {
@@ -10993,8 +11191,8 @@ focus_tree = {
 		}
 		completion_reward = {
 			swap_ideas = {
-					remove_idea= BRG_libtard_eco1  
-				add_idea= BRG_libtard_eco2
+					remove_idea = BRG_libtard_eco1  
+				add_idea = BRG_libtard_eco2
 				}
 		}
 	}
@@ -11016,8 +11214,8 @@ focus_tree = {
 		}
 		completion_reward = {
 			swap_ideas = {
-					remove_idea= BRG_libtard2  
-				add_idea= BRG_libtard3
+					remove_idea = BRG_libtard2  
+				add_idea = BRG_libtard3
 				}
 		}
 	}
@@ -11085,8 +11283,8 @@ focus_tree = {
 		completion_reward = {
 			increase_ruling_party_popularity_by_5 = yes
 				swap_ideas = {
-					remove_idea= BRG_libtard_eco2  
-				add_idea= BRG_libtard_eco3
+					remove_idea = BRG_libtard_eco2  
+				add_idea = BRG_libtard_eco3
 				}
 
 		}
