@@ -4805,7 +4805,7 @@ AUS_foreign_policy_category = {
 	
 	AUS_invite_nation = {
 		cost = 20
-		icon = GFX_decision_generic_flags
+		icon = generic_agreement
 		allowed = {
 			tag = AUS
 		}
@@ -4841,7 +4841,7 @@ AUS_foreign_policy_category = {
 				country_event = {
 					id = bdeausfor.2
 					days = 3
-					random = 24
+					random_hours = 24
 				}
 			}
 		}
@@ -4850,9 +4850,71 @@ AUS_foreign_policy_category = {
 		}
 	}
 	
+	AUS_offer_swiss_secret_alliance = {
+		cost = 20
+		icon = generic_agreement
+		allowed = {
+			tag = AUS
+		}
+		visible = {
+			has_completed_focus = AUS_swiss_guarantee
+			is_faction_leader = yes
+			SWI = {
+				is_in_faction = no
+				AUS = { both_socialist_or_both_not_socialist = yes }
+			}
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision AUS_offer_swiss_secret_alliance target: [SWI.GetName]"
+			SWI = {
+				country_event = {
+					id = swiss.176
+					days = 1
+					random_hours = 24
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	AUS_invite_swiss = {
+		cost = 0
+		icon = generic_agreement
+		allowed = {
+			tag = AUS
+		}
+		visible = {
+			is_faction_leader = yes
+			has_country_flag = AUS_SWI_secert_alliance
+			SWI = {
+				is_in_faction = no
+				has_country_flag = AUS_SWI_secert_alliance
+				has_war = yes
+				NOT = { has_war_with = AUS }
+			}
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_invite_swiss target: [SWI.GetName]"
+			SWI = {
+				country_event = {
+					id = bdeausfor.2
+					hours = 1
+					random_hours = 11
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 500
+		}
+	}
+	
 	AUS_invite_nation_otherfaction = {
 		cost = 20
-		icon = GFX_decision_generic_flags
+		icon = generic_agreement
 		allowed = {
 			tag = AUS
 		}
@@ -4892,14 +4954,14 @@ AUS_foreign_policy_category = {
 					country_event = {
 						id = bdeausfor.67
 						days = 3
-						random = 24
+						random_hours = 24
 					}
 				}
 				else = {
 					country_event = {
 						id = bdeausfor.2
 						days = 3
-						random = 24
+						random_hours = 24
 					}
 				}
 			}
@@ -4910,7 +4972,7 @@ AUS_foreign_policy_category = {
 	}
 	
 	AUS_attack_nation = {
-		icon = GFX_decision_generic_flags
+		icon = generic_prepare_civil_war
 		allowed = { always = no }
 		visible = {
 			tag = AUS
@@ -5731,8 +5793,10 @@ AUS_foreign_policy_category = {
 					}
 					AND = {
 						ROOT = {
-							has_democratic_socialist_government = yes
-							has_country_flag = AUS_bauer_1940
+							OR = {
+								has_democratic_socialist_government = yes
+								has_country_flag = AUS_bauer_1940
+							}
 						}
 						has_democratic_socialist_government = yes
 					}
@@ -5776,11 +5840,6 @@ AUS_foreign_policy_category = {
 			FROM = {
 				save_event_target_as = AUS_USA_ALLY
 				set_country_flag = AUS_USA_choice
-				country_event = {
-					id = bdeausflavor.25
-					days = 30
-					random_hours = 500
-				}
 			}
 			send_equipment = {
 				equipment = infantry_equipment
@@ -5798,7 +5857,11 @@ AUS_foreign_policy_category = {
 				target = FROM
 			}
 			save_global_event_target_as = AUS_USA_ALLY
-			#Event here...
+			country_event = {
+				id = bdeausfor.43
+				days = 1
+				random_hours = 72
+			}
 		}
 		ai_will_do = {
 			factor = 100
@@ -5982,21 +6045,21 @@ AUS_foreign_policy_category = {
 		icon = GFX_decision_central_powers
 		
 		available = {
-			#is_in_faction_with = TUR
-			#NOT = {
-			#	has_war_with = EGY
-			#}
+			is_in_faction_with = TUR
+			NOT = {
+				has_war_with = EGY
+			}
 			
 		}
 		visible = {
-			#has_global_flag = AUS_federalized
-			#OR = {
-			#	has_completed_focus = AUS_kaiser_tsar_igrad
-			#	has_completed_focus = AUS_entente_naval_facilities
-			#	has_completed_focus = AUS_adrianople_agreement
-			#	has_completed_focus = AUS_four_old_friends
-			#	has_completed_focus = AUS_canal_for_me_and_thee
-			#}
+			has_global_flag = AUS_federalized
+			OR = {
+				has_completed_focus = AUS_kaiser_tsar_igrad
+				has_completed_focus = AUS_entente_naval_facilities
+				has_completed_focus = AUS_adrianople_agreement
+				has_completed_focus = AUS_four_old_friends
+				has_completed_focus = AUS_canal_for_me_and_thee
+			}
 		}
 		cost = 20
 		fire_only_once = yes
@@ -7599,9 +7662,7 @@ AUS_ausgleich_category = {
 	
 	AUS_ausgleich_stalling = {
 		icon = GFX_decision_government_down
-		activation = {
-			always = no
-		}
+		activation = { always = no }
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 1000
@@ -7611,6 +7672,30 @@ AUS_ausgleich_category = {
 			log = "[GetDateText]: [Root.GetName]: Mission timeout AUS_ausgleich_stalling"
 			ALL_add_five_collapse = yes
 			AUS_add_five_collapse = yes
+		}
+	}
+	
+	AUS_ausgleich_placate_attendants = {
+		icon = GFX_decision_generic_civil_support
+		visible = {
+			check_variable = { global.ausgleich_successes < 2 }
+		}
+		available = {
+			NOT = { has_global_flag = ausgleich_debating_question }
+		}
+		ai_will_do = {
+			factor = 1000
+		}
+		cost = 50
+		days_remove = 14
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Mission remove AUS_ausgleich_placate_attendants"
+			custom_override_tooltip = {
+				tooltip = AUS_improves_ausgleich_success
+				add_to_variable = { global.ausgleich_successes = 1 }
+			}
+			AUS_subtract_five_collapse = yes
+			ALL_subtract_five_collapse = yes
 		}
 	}
 }
