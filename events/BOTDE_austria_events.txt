@@ -476,14 +476,6 @@ country_event = { #Streeruwitz Government Resigns
 
 	option = { #Auf Wiedersehen, Streeruwitz!
 		name = bdeausel.1.a
-		trigger = {
-			NOT = {
-				has_government = national_populist
-				has_global_flag = AUS_collapsed
-				has_global_flag = AUS_liebenfels_civil_war
-			}
-		}
-		#Replace Streeruwitz with Ender
 		set_politics = {
 			ruling_party = social_conservative
 		}
@@ -504,6 +496,7 @@ country_event = { #Streeruwitz Government Resigns
 				has_government = national_populist
 				has_global_flag = AUS_collapsed
 				has_global_flag = AUS_liebenfels_civil_war
+				has_global_flag = AUS_absolute_crisis
 			}
 		}
 	}
@@ -1631,6 +1624,9 @@ country_event = { #New CS candidate
 
 	option = { #Ender shall stay.
 		name = bdeausel.18.a
+		trigger = {
+			has_country_flag = AUS_1936_ender
+		}
 		set_country_flag = AUS_ender_1940
 		hidden_effect = {
 			if = {
@@ -27122,26 +27118,27 @@ country_event = { #Loss of Order; Nationalist Paramilitaries Turn Out
 		name = bdeausint.123.a
 		custom_override_tooltip = {
 			tooltip = minority_paramilitary_each_state
-			every_allied_country = {
-				limit = {
-					AUS_is_constituent = yes
-				}
-				random_owned_state = {
-					limit = {
-						OR = {
-							is_core_of = SLO
-							is_core_of = TRS
-							is_core_of = CPU
-							is_core_of = SVK
-							is_core_of = WSU
-							is_core_of = BUK
-							is_core_of = BAN
-							is_core_of = PGU
+			for_loop_effect = {
+				end = 5
+				every_allied_country = {
+					limit = { AUS_is_constituent = yes }
+					random_owned_state = {
+						limit = {
+							OR = {
+								is_core_of = SLO
+								is_core_of = TRS
+								is_core_of = CPU
+								is_core_of = SVK
+								is_core_of = WSU
+								is_core_of = BUK
+								is_core_of = BAN
+								is_core_of = PGU
+							}
+							AUS_has_minority_paramilitary_presence = no
 						}
-						AUS_has_minority_paramilitary_presence = no
 					}
+					THIS_add_minority_paramilitary = yes
 				}
-				THIS_add_minority_paramilitary = yes
 			}
 			if = {
 				limit = {
@@ -27191,12 +27188,20 @@ country_event = { #King's Gambit (Direct Rule Event)
 			tooltip = AUS_going_absolute_tt
 			set_global_flag = AUS_absolute_crisis
 			set_country_flag = AUS_karl_absolute
-			#complete_national_focus = AUS_direct_rule_from_vienna
+			set_cosmetic_tag = AUS_absolutist
 			complete_national_focus = AUS_der_letzte_atemzug
 			set_politics = {
 				ruling_party = paternal_autocrat
 				name = AUS_pataut_habsburg
 				long_name = AUS_pataut_habsburg_long
+			}
+			remove_ideas_with_trait = head_of_government
+			add_ideas = {
+				AUS_karl_von_habsburg_hog_pau
+			}
+			if = {
+				limit = { NOT = { has_idea = AUS_big_crisis_idea } }
+				add_ideas = AUS_big_crisis_idea
 			}
 		}
 		set_country_leader_ideology = absolute_monarchy_subtype
@@ -27214,7 +27219,7 @@ country_event = { #King's Gambit (Direct Rule Event)
 			tooltip = AUS_going_absolute_tt
 			set_global_flag = AUS_absolute_crisis
 			set_country_flag = AUS_otto_successor
-			#complete_national_focus = AUS_direct_rule_from_vienna
+			set_cosmetic_tag = AUS_absolutist
 			complete_national_focus = AUS_der_letzte_atemzug
 			set_politics = {
 				ruling_party = paternal_autocrat
@@ -27225,6 +27230,10 @@ country_event = { #King's Gambit (Direct Rule Event)
 			remove_ideas_with_trait = head_of_government
 			add_ideas = {
 				AUS_otto_von_habsburg_hog_pau
+			}
+			if = {
+				limit = { NOT = { has_idea = AUS_big_crisis_idea } }
+				add_ideas = AUS_big_crisis_idea
 			}
 		}
 		set_country_leader_ideology = absolute_monarchy_subtype
@@ -27274,15 +27283,31 @@ country_event = { #The k.u.k.'s offer
 			tooltip = AUS_get_couped_tt
 			set_global_flag = AUS_absolute_crisis
 			set_country_flag = AUS_military_coup_flag
-			#complete_national_focus = AUS_direct_rule_from_vienna
+			set_cosmetic_tag = AUS_junta
 			complete_national_focus = AUS_der_letzte_atemzug
 			set_politics = {
 				ruling_party = paternal_autocrat
 				name = AUS_junta_party
 				long_name = AUS_junta_party_long
 			}
+			remove_ideas_with_trait = head_of_government
+			if = {
+				limit = { has_unit_leader = 40001 }
+				add_ideas = {
+					AUS_franz_conrad_hotzendorf_hog_pau
+				}
+			}
+			else = {
+				add_ideas = {
+					AUS_Erhard_Raus_hog_pau
+				}
+			}
+			if = {
+				limit = { NOT = { has_idea = AUS_big_crisis_idea } }
+				add_ideas = AUS_big_crisis_idea
+			}
 		}
-		set_country_leader_ideology = absolute_monarchy_subtype
+		set_country_leader_ideology = junta_subtype
 		custom_effect_tooltip = pataut_junta_subtype_swap_tt
 	}
 	option = { #it'll only makes things worse
@@ -29891,6 +29916,8 @@ country_event = { #Democracy or not - absolutist tree
 	title = bdeausint.160.t
 	desc = bdeausint.160.d
 	picture = GFX_event_AUS_equestrian_karl
+	
+	after = { set_country_flag = AUS_absolute_has_decided_on_democracy_or_monarchy }
 
 	fire_only_once = yes
 
@@ -30011,9 +30038,117 @@ country_event = { #Absolutist Snap Election
 	}
 }
 
+country_event = { #Renounce Claims on German Bohemia?
+	id = bdeausint.162
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausint.162" }
+	title = bdeausint.162.t
+	desc = bdeausint.162.d
+	picture = GFX_event_AUS_coat_of_arms_postcard
+	
+	after = {
+		random_state = {
+			limit = {
+				is_core_of = CZE
+				has_dynamic_modifier = { modifier = CZE_DBH_presence }
+			}
+			remove_dynamic_modifier = { modifier = CZE_DBH_presence }
+		}
+	}
 
+	fire_only_once = yes
 
+	is_triggered_only = yes
+	
+	option = { #yeah
+		name = bdeausint.162.a
+		add_political_power = -50
+		add_stability = -0.05
+		decrease_ruling_party_popularity_by_5 = yes
+		AUS_add_germboh_array = yes
+		every_state = {
+			limit = {
+				is_owned_by = CZE
+				is_core_of = AUS
+				is_core_of = PGU
+			}
+			remove_core_of = AUS
+		}
+		AUS_subtract_five_collapse = yes
+		CZE_subtract_ten_collapse = yes
+		CZE = {
+			custom_override_tooltip = {
+				tooltip = AUS_subtract_1_extra_value_tt
+				add_to_variable = { CZE.extra_value = -0.01 }
+			}
+		}
+	}
+	
+	option = { #nah
+		name = bdeausint.162.b
+		add_political_power = 35
+		add_stability = 0.02
+		increase_ruling_party_popularity_by_5 = yes
+		AUS_subtract_three_collapse = yes
+		PGU = {
+			set_temp_variable = { revolt_progress_change = -0.15 }
+			BOTDE_add_collapse = yes
+		}
+	}
+}
 
+country_event = { #Give Slovenia to Illyria
+	id = bdeausint.163
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausint.163" }
+	title = bdeausint.163.t
+	desc = bdeausint.163.d
+	picture = GFX_event_AUS_coat_of_arms_postcard
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+	
+	option = { #yeah
+		name = bdeausint.163.a
+		add_political_power = -30
+		add_stability = -0.05
+		decrease_ruling_party_popularity_by_5 = yes
+		every_state = {
+			limit = {
+				is_owned_by = AUS
+				is_core_of = SLO
+			}
+			transfer_state_to = CRO
+			add_core_of = CRO
+		}
+		random_state = {
+			limit = {
+				is_core_of = SLO
+				has_dynamic_modifier = { modifier = AUS_slovene_home_guard_presence }
+			}
+			remove_dynamic_modifier = { modifier = AUS_slovene_home_guard_presence }
+		}
+		AUS_subtract_five_collapse = yes
+		CRO_subtract_ten_collapse = yes
+		CRO = {
+			custom_override_tooltip = {
+				tooltip = AUS_subtract_1_extra_value_tt
+				add_to_variable = { CRO.extra_value = -0.01 }
+			}
+		}
+	}
+	
+	option = { #nah
+		name = bdeausint.163.b
+		add_political_power = 35
+		add_stability = 0.02
+		increase_ruling_party_popularity_by_5 = yes
+		AUS_subtract_three_collapse = yes
+		SLO = {
+			set_temp_variable = { revolt_progress_change = 0.15 }
+			BOTDE_add_collapse = yes
+		}
+	}
+}
 
 
 
