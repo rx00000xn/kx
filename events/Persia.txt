@@ -17,11 +17,17 @@ country_event = {
 	fire_only_once = yes
 
 	is_triggered_only = yes
-
+	# Tell me more
 	option = {
 		name = pers.1.a
-		country_event = { id = pers.2 days = 5 }
-}
+		country_event = { id = pers.17 days = 0 }
+	}
+	option = { #Skip
+		name = pers.1.b
+		hidden_effect = {
+			country_event = { id = pers.18 days = 30}
+		}
+	}
 }
 
 country_event = {
@@ -37,6 +43,10 @@ country_event = {
 	option = {
 		name = pers.2.a
 		set_country_flag = PER_emergency_elections_called
+		custom_effect_tooltip = PER_elections_focus_unlocked_tt
+		hidden_effect = {
+			country_event = { id = pers.21 days = 2 }
+		}
 	}
 }
 
@@ -62,7 +72,14 @@ country_event = {
 		country_event = { id = pers.4 days = 5} # REZA KHAN WANTS TO MAKE A DEAL.....
 		set_politics = {
 			ruling_party = social_conservative
-			elections_allowed = yes
+			elections_allowed = no
+		}
+		remove_all_ministers = yes
+		add_ideas = {
+			PER_Mohammad_Mosaddegh_hog_sco
+			PER_Ahmad_Qavam_for_sco
+			PER_Morteza_Qoli_Bayat_eco_sco
+			PER_Mohammad_Taqi_Pessian_sec_sco
 		}
 	} 
 
@@ -82,6 +99,12 @@ country_event = {
     option = {
         name = pers.4.a
         set_country_flag = PER_accepted_reza_deal
+		remove_ideas = {
+			PER_Mohammad_Mosaddegh_hog_sco
+		}
+		add_ideas = {
+			PER_Reza_Maxim_Khan_hog_sco
+		}
 	}
 # Fuck off
     option = {
@@ -110,6 +133,13 @@ country_event = {
 		set_politics = {
 			ruling_party = authoritarian_democrat
 			elections_allowed = no
+		}
+		remove_all_ministers = yes
+		add_ideas = {
+			PER_Abdolhossein_Teymourtash_hog_ade
+			PER_Bagher_Kazemi_for_ade
+			PER_Firouz_Nosrat_ed_Dowleh_eco_ade
+			PER_Morteza_Yazdanpanah_sec_ade
 		}
 	}
 }
@@ -144,7 +174,7 @@ country_event = { #foroughi and da majlis talk it out
 	}
 }
 
-country_event = { #foroughi and da army talk it out
+country_event = { #foroughi and da army talk it out (Give support to Gendarmie or Cossacks?)
 	id = pers.7
 	immediate = {
 		log = "[GetDateText]: [Root.GetName]: event pers.7"
@@ -170,15 +200,385 @@ country_event = { # Deciding on foreign allies for support/future investment (Sw
 	desc = pers.8.d
 	fire_only_once = yes
 	is_triggered_only = yes
-	option = {
-		name = pers.8.a
 
+	option = {
+		name = pers.8.a # Germany
+		random_list = {
+			75 = {
+				country_event = {id = pers.9 days = 3 } # Germany accepts
+			}
+			25 = {
+				country_event = {id = pers.10 days = 3 } # Germany declines
+			}
+		}
 	}
 	option = {
-		name = per.8.b
+		name = per.8.b #Sweden
+		random_list = {
+			75 = {
+				country_event = {id = pers.11 days = 3 } # Sweden accepts
+			}
+			25 = {
+				country_event = {id = pers.12 days = 3 } # Sweden declines
+			}
+		}
 	}
-		option = {
-		name = per.8.c
+	option = {
+		name = per.8.c # Austria
+		random_list = {
+			75 = {
+				country_event = {id = pers.13 days = 3 } # Austria accepts
+			}
+			25 = {
+				country_event = {id = pers.14 days = 3 } # Austria declines
+			}
+		}
+	}
+	option = {
+		name = per.8.d # Japan
+		random_list = {
+			75 = {
+				country_event = {id = pers.15 days = 3 } # Japan accepts
+			}
+			25 = {
+				country_event = {id = pers.16 days = 3 } # Japan declines
+			}
+		}
 	}
 
+}
+# Germany Accepts
+country_event = {
+	id = pers.9
+	title = pers.9.t
+	desc = pers.9.d
+	is_triggered_only = yes
+	option = {
+		name = pers.9.a
+		add_ideas = PER_german_support
+		set_country_flag = PER_german_alliance
+		GER = {
+			add_opinion_modifier = {
+				target = root
+				modifier = medium_increase
+			}
+		}	
+	}
+}
+# Germany declines
+country_event = {
+	id = pers.10
+	title = pers.10.t
+	desc = pers.10.d
+	is_triggered_only = yes
+	option = {
+		name = pers.10.a
+		add_political_power = -25
+	}
+}
+
+# Sweden accepts
+country_event = {
+	id = pers.11
+	title = pers.11.t
+	desc = pers.11.d
+	is_triggered_only = yes
+	
+	option = {
+		name = pers.11.a
+		add_ideas = PER_swedish_support
+		set_country_flag = PER_swedish_alliance
+		add_political_power = 25
+		SWE = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = medium_increase
+			}
+		}
+	}
+}
+
+# Sweden declines
+country_event = {
+	id = pers.12
+	title = pers.12.t
+	desc = pers.12.d
+	is_triggered_only = yes
+	
+	option = {
+		name = pers.12.a
+		add_political_power = -25
+	}
+}
+# Austria accepts
+country_event = {
+	id = pers.13
+	title = pers.13.t
+	desc = pers.13.d
+	is_triggered_only = yes
+	
+	option = {
+		name = pers.13.a
+		add_ideas = PER_austrian_support
+		set_country_flag = PER_austrian_alliance
+		add_political_power = 25
+		AUS = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = medium_increase
+			}
+		}
+	}
+}
+# Austria declines
+country_event = {
+	id = pers.14
+	title = pers.14.t
+	desc = pers.14.d
+	is_triggered_only = yes
+	
+	option = {
+		name = pers.14.a
+		add_political_power = -25
+	}
+}
+# Japan accepts
+country_event = {
+	id = pers.15
+	title = pers.15.t
+	desc = pers.15.d
+	is_triggered_only = yes
+	
+	option = {
+		name = pers.15.a
+		add_ideas = PER_japanese_support
+		set_country_flag = PER_japanese_alliance
+		add_political_power = 25
+		JAP = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = medium_increase
+			}
+		}
+	}
+}
+# Japan declines
+country_event = {
+	id = pers.16
+	title = pers.16.t
+	desc = pers.16.d
+	is_triggered_only = yes
+	
+	option = {
+		name = pers.16.a
+		add_political_power = -25
+	}
+}
+
+# Introduction Explaination
+country_event = {
+	id = pers.17
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event pers.17"
+	}
+	title = pers.17.t
+	desc = pers.17.d
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = pers.17.a
+		hidden_effect = {
+			country_event = { id = pers.18 days = 7 }
+		}
+	}
+}
+
+# Modarres Stirs Discontent
+country_event = {
+	id = pers.18
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event pers.18"
+	}
+	title = pers.18.t
+	desc = pers.18.d
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = pers.18.a
+		add_stability = -0.03
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.03
+		}
+		hidden_effect = {
+			country_event = { id = pers.19 days = 7 }
+		}
+	}
+}
+
+
+
+# Protests in Bazaars over Black Monday
+country_event = {
+	id = pers.19
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event pers.19"
+	}
+	title = pers.19.t
+	desc = pers.19.d
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = pers.19.a
+		add_stability = -0.05
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.03
+		}
+		hidden_effect = {
+			country_event = {id = pers.20 days = 7 }
+		}
+	}
+}
+
+# More disccontent
+country_event = {
+	id = pers.20
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event pers.20"
+	}
+	title = pers.20.t
+	desc = pers.20.d
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = pers.20.a
+		add_stability = -0.05
+		hidden_effect = {
+			country_event = { id = pers.2 days = 7 }
+		}
+	}
+}
+# Reza Khan's Warning
+country_event = {
+	id = pers.21
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event pers.21"
+	}
+	title = pers.21.t
+	desc = pers.21.d
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = pers.21.a
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.03
+		}
+	}
+}
+# Concerns regarding Gilan
+country_event = {
+	id = pers.22
+		immediate = {
+		log = "[GetDateText]: [Root.GetName]: event pers.22"
+	}
+	title = pers.22.t
+	desc = pers.22.d
+	fire_only_once = yes
+	trigger = {
+		tag = PER
+		date > 1936.4.1
+	}
+	mean_time_to_happen = {
+		days = 10
+	}
+
+	option = {
+		name = pers.22.a
+		trigger = {
+			has_country_flag = PER_liberals_win
+		}
+		add_stability = -0.05
+	}
+	option = {
+		name = pers.22.b
+		trigger = {
+			has_country_flag = PER_modarres_win
+		}
+		add_political_power = -25
+	}
+	option = {
+		name = pers.22.c
+		trigger = {
+			has_country_flag = PER_reza_takeover
+		}
+		add_stability = -0.03
+		add_political_power = 10
+	}
+	option = {
+		name = pers.22.d
+		trigger = {
+			NOT = {
+				has_country_flag = PER_liberals_win
+				has_country_flag = PER_modarres_win
+				has_country_flag = PER_accepted_reza_deal
+				has_country_flag = PER_reza_takeover
+			}
+		}
+		add_stability = -0.05
+	}
+}
+### Military Events
+country_event = {
+	id = pers.23
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event pers.23"
+	}
+	title = pers.23.t
+	desc = pers.23.d
+	is_triggered_only = yes
+	option = {
+		name = pers.23.a
+		add_war_support = 0.1
+		add_doctrine_cost_reduction = {
+			name = land_doc_bonus
+			cost_reduction = 0.5
+			uses = 2
+			category = land_doctrine
+		}
+	}
+	option = {
+		name = pers.23.b
+		add_political_power = 100
+		add_stability = 0.05
+	}
+}
+
+country_event = {
+	id = pers.24
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event pers.24"
+	}
+	title = pers.24.t
+	desc = pers.24.d
+	is_triggered_only = yes
+	option = {
+		name = pers.24.a
+		add_stability = 0.1
+		add_doctrine_cost_reduction = {
+			name = land_doc_bonus
+			cost_reduction = 0.5
+			uses = 2
+			category = land_doctrine
+		}
+	}
+	option = {
+		name = pers.24.b
+		add_political_power = 100
+		add_manpower = 15000
+	}
 }

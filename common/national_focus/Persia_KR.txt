@@ -20,7 +20,7 @@ focus_tree = {
 		icon = GFX_goal_generic_propaganda
 		x = 15
 		y = 0
-		cost = 1
+		cost = 2
 		ai_will_do = {
 			factor = 100
 		}
@@ -43,7 +43,7 @@ focus_tree = {
 		available = {
 			has_country_flag = PER_liberals_win
 		}
-		cost = 7
+		cost = 3
 		x = -6
 		y = 1
 		relative_position_id = PER_majlis_elections
@@ -62,19 +62,16 @@ focus_tree = {
 		prerequisite = {
 			focus = PER_lib_victory
 		}
-		cost = 7
+		cost = 4
 		x = -1
 		y = 1
 		relative_position_id = PER_lib_victory
 		completion_reward = { 
+			custom_effect_tooltip = foroughi_and_the_majlis_tt
+			custom_effect_tooltip = foroughi_kill_everybody_tt
 			hidden_effect = {
 				country_event = { id = pers.6 }
 			}
-			custom_effect_tooltip = foroughi_and_the_majlis_tt
-			effect_tooltip = {
-				add_political_power = 50
-			}
-			custom_effect_tooltip = foroughi_kill_everybody_tt
 
 		}
 	}
@@ -85,7 +82,7 @@ focus_tree = {
 		prerequisite = {
 			focus = PER_lib_victory
 		}
-		cost = 7
+		cost = 4
 		x = 1
 		y = 1
 		relative_position_id = PER_lib_victory
@@ -104,7 +101,7 @@ focus_tree = {
 		prerequisite = {
 			focus = PER_meet_with_army
 		}
-		cost = 7
+		cost = 4
 		x = 0
 		y = 2
 		relative_position_id = PER_lib_victory
@@ -120,7 +117,7 @@ focus_tree = {
 		prerequisite = {
 			focus = PER_one_people
 		}
-		cost = 7
+		cost = 5
 		x = -2
 		y = 3
 		relative_position_id = PER_lib_victory
@@ -139,7 +136,7 @@ focus_tree = {
 		prerequisite = {
 			focus = PER_one_people
 		}
-		cost = 7
+		cost = 5
 		x = 0
 		y = 3
 		relative_position_id = PER_lib_victory
@@ -154,7 +151,7 @@ focus_tree = {
 		prerequisite = {
 			focus = PER_one_people
 		}
-		cost = 7
+		cost = 5
 		x = 2
 		y = 3
 		relative_position_id = PER_lib_victory
@@ -176,7 +173,7 @@ focus_tree = {
 		prerequisite = {
 			focus = PER_friends_abroad
 		}
-		cost = 7
+		cost = 4
 		x = -1
 		y = 4
 		relative_position_id = PER_lib_victory
@@ -202,7 +199,7 @@ focus_tree = {
 		prerequisite = {
 			focus = PER_friends_abroad
 		}
-		cost = 7
+		cost = 4
 		x = 1
 		y = 4
 		relative_position_id = PER_lib_victory
@@ -220,7 +217,7 @@ focus_tree = {
 		prerequisite = {
 			focus = PER_prepare_for_war
 		}
-		cost = 7
+		cost = 3
 		x = 0
 		y = 5
 		relative_position_id = PER_lib_victory
@@ -278,7 +275,7 @@ focus = {
 	y = 2
 	relative_position_id = PER_mullah_win
 	completion_reward = { 
-
+			remove_ideas = PER_loss_of_confidence
 	}
 }
 
@@ -292,8 +289,7 @@ focus = {
 	x = 1
 	y = 2
 	relative_position_id = PER_mullah_win
-	completion_reward = { 
-		country_event = pers.9 # Questions regarding Majlis and the constitution
+	completion_reward = {
 	}
 }
 
@@ -310,7 +306,14 @@ focus = {
 	x = -2
 	y = 3
 	relative_position_id = PER_mullah_win
-	completion_reward = { }
+	completion_reward = { 
+		add_stability = 0.05
+		add_political_power = 50
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.05
+		}
+	}
 }
 
 focus = {
@@ -326,7 +329,10 @@ focus = {
 	x = 0
 	y = 3
 	relative_position_id = PER_mullah_win
-	completion_reward = { }
+	completion_reward = { 
+		add_war_support = 0.10
+		add_ideas = PER_self_reliance
+	}
 }
 
 focus = {
@@ -342,7 +348,9 @@ focus = {
 	x = 2
 	y = 3
 	relative_position_id = PER_mullah_win
-	completion_reward = { }
+	completion_reward = { 
+		remove_ideas = PER_factional_fracturing
+	}
 }
 
 focus = {
@@ -382,7 +390,10 @@ focus = {
 	x = -1
 	y = 4
 	relative_position_id = PER_mullah_win
-	completion_reward = { }
+	completion_reward = { 
+		add_stability = 0.2
+		add_political_power = 50
+	}
 }
 
 focus = {
@@ -411,12 +422,21 @@ focus = {
 		focus = PER_majlis_elections
 	}
 	available = {
+		custom_trigger_tooltip = {
+			tooltip = PER_reza_in_power_tt
+		}
 		has_country_flag = PER_reza_takeover
 	}
 	x = 0
 	y = 1
 	relative_position_id = PER_majlis_elections
-	completion_reward = { }
+	completion_reward = { 
+		add_stability = -0.1
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.3
+		}
+	}
 }
 
 focus = {
@@ -429,7 +449,11 @@ focus = {
 	x = -2
 	y = 1
 	relative_position_id = PER_cossack_takeover
-	completion_reward = { }
+	completion_reward = {
+				add_political_power = 75
+				add_stability = -0.05
+				remove_ideas = PER_republican_legitimacy
+	}
 }
 
 focus = {
@@ -442,7 +466,11 @@ focus = {
 	x = 0
 	y = 1
 	relative_position_id = PER_cossack_takeover
-	completion_reward = { }
+	completion_reward = { 
+		add_stability = 0.05
+		add_war_support = 0.05
+		remove_ideas = PER_factional_fracturing
+	}
 }
 
 focus = {
@@ -455,7 +483,10 @@ focus = {
 	x = 2
 	y = 1
 	relative_position_id = PER_cossack_takeover
-	completion_reward = { }
+	completion_reward = { 
+		army_experience = 20
+		remove_ideas = PER_loss_of_confidence
+	}
 }
 
 focus = {
@@ -474,7 +505,11 @@ focus = {
 	x = 0
 	y = 2
 	relative_position_id = PER_cossack_takeover
-	completion_reward = { }
+	completion_reward = { 
+		add_stability = 0.10
+		add_war_support = 0.10
+		add_ideas = PER_military_rule
+	}
 }
 focus = {
 	id = PER_military_cabinet
@@ -486,7 +521,10 @@ focus = {
 	x = -1
 	y = 3
 	relative_position_id = PER_cossack_takeover
-	completion_reward = { }
+	completion_reward = { 
+		add_war_support = 0.10
+		add_command_power = 50
+	}
 }
 
 focus = {
@@ -499,7 +537,10 @@ focus = {
 	x = 1
 	y = 3
 	relative_position_id = PER_cossack_takeover
-	completion_reward = { }
+	completion_reward = { 
+		add_war_support = 0.10
+		add_command_power = 50
+	}
 }
 
 focus = {
@@ -515,7 +556,10 @@ focus = {
 	x = -2
 	y = 4
 	relative_position_id = PER_cossack_takeover
-	completion_reward = { }
+	completion_reward = { 
+		army_experience = 25
+		add_manpower = 10000
+	}
 }
 
 focus = {
@@ -531,7 +575,10 @@ focus = {
 	x = 0
 	y = 4
 	relative_position_id = PER_cossack_takeover
-	completion_reward = { }
+	completion_reward = { 
+		add_stability = 0.05
+		add_political_power = 50
+	}
 }
 
 focus = {
@@ -547,7 +594,10 @@ focus = {
 	x = 2
 	y = 4
 	relative_position_id = PER_cossack_takeover
-	completion_reward = { }
+	completion_reward = { 
+		add_war_support = 0.05
+		add_ideas = PER_national_unity
+	}
 }
 
 focus = {
@@ -568,8 +618,415 @@ focus = {
 	relative_position_id = PER_cossack_takeover
 		completion_reward = { add_war_support = 0.2
 		add_political_power = 30
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.3
+		}
 		}
 }
+
+################ MILITARY TREE ################
+				###############
+focus = {
+	id = PER_state_of_the_military
+	icon = GFX_goal_PER_army
+	cost = 1
+	x = 35
+	y = 0
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = PER_elections_must_finish_tt
+		}
+		hidden_trigger = {
+			OR = {
+			has_country_flag = PER_liberals_win
+			has_country_flag = PER_modarres_win
+			has_country_flag = PER_accepted_reza_deal
+			has_country_flag = PER_reza_takeover
+			}
+		}
+
+	}
+	completion_reward = { 
+		add_political_power = 30
+		army_experience = 15
+	}
+}
+# Choosing the cossacks
+focus = {
+	id = PER_cossack_aggressive_doctrine
+	icon = GFX_goal_PER_army
+	cost = 1
+	prerequisite = {
+		focus = PER_state_of_the_military
+	}
+	mutually_exclusive = {
+		focus = PER_gendarme_defensive_doctrine
+	}
+	x = -3
+	y = 1
+	relative_position_id = PER_state_of_the_military
+	completion_reward = {
+		custom_effect_tooltip = PER_cossack_chosen_tt
+		hidden_effect = {
+			set_country_flag = PER_chose_cossacks
+		}
+		swap_ideas = {
+			remove_idea = PER_divided_military
+			add_idea = PER_cossack_reorganisation
+		}
+		army_experience = 25
+	}
+}
+# Choosing the Gendarmie
+focus = {
+	id = PER_gendarme_defensive_doctrine
+	icon = GFX_goal_PER_army
+	cost = 1
+	prerequisite = {
+		focus = PER_state_of_the_military
+	}
+	mutually_exclusive = {
+		focus = PER_cossack_aggressive_doctrine
+	}
+	x = 3
+	y = 1
+	relative_position_id = PER_state_of_the_military
+	completion_reward = {
+		custom_effect_tooltip = PER_gendarme_chosen_tt
+		hidden_effect = {
+			set_country_flag = PER_chose_gendarmes
+		}
+		swap_ideas = {
+			remove_idea = PER_divided_military
+			add_idea = PER_gendarme_reorganisation
+		}
+		army_experience = 25
+	}
+}
+
+### Mutual branch
+focus = {
+	id = PER_need_more_guns
+	icon = GFX_goal_PER_army
+	cost = 1
+	prerequisite = {
+		focus = PER_cossack_aggressive_doctrine
+		focus = PER_gendarme_defensive_doctrine
+	}
+	x = 0
+	y = 3
+	relative_position_id = PER_state_of_the_military
+	completion_reward = {
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 1000
+			producer = PER
+		}
+	}
+}
+
+focus = {
+	id = PER_weapons_of_today
+	icon = GFX_goal_PER_army
+	cost = 1
+	prerequisite = {
+		focus = PER_need_more_guns
+	}
+	x = 0
+	y = 5
+	relative_position_id = PER_state_of_the_military
+	completion_reward = {
+		add_tech_bonus = {
+			name = infantry_weapons_bonus
+			bonus = 1.0
+			uses = 1
+			category = infantry_weapons
+		}
+		add_tech_bonus = {
+			name = artillery_bonus
+			bonus = 1.0
+			uses = 1
+			category = artillery
+		}
+	}	
+}
+
+### Aggressive Doctrine
+focus = {
+	id = PER_brave_and_bold
+	icon = GFX_goal_PER_army
+	cost = 1
+	prerequisite = {
+		focus = PER_cossack_aggressive_doctrine
+	}
+	x = -2
+	y = 2
+	relative_position_id = PER_state_of_the_military
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = PER_cossack_reorganisation
+			add_idea = PER_cossack_discipline
+		}
+		add_doctrine_cost_reduction = {
+			name = land_doc_bonus
+			cost_reduction = 0.5
+			uses = 1
+			category = land_doctrine
+		}
+	}
+}
+
+focus = {
+	id = PER_strike_hard
+	icon = GFX_goal_PER_army
+	cost = 1
+	prerequisite = {
+		focus = PER_brave_and_bold
+	}
+	x = -4
+	y = 3
+	relative_position_id = PER_state_of_the_military
+	completion_reward = {
+		add_tech_bonus = {
+			name = armor_bonus
+			bonus = 1.0
+			uses = 1
+			category = armor
+		}
+		army_experience = 15
+	}
+}
+
+focus = {
+	id = PER_strike_fast
+	icon = GFX_goal_PER_army
+	cost = 1
+	prerequisite = {
+		focus = PER_brave_and_bold
+	}
+	x = -2
+	y = 3
+	relative_position_id = PER_state_of_the_military
+	completion_reward = {
+		add_tech_bonus = {
+			name = motorized_bonus
+			bonus = 1.0
+			uses = 1
+			category = motorized_equipment
+		}
+		army_experience = 15
+	}
+}
+
+focus = {
+	id = PER_instilling_loyalty
+	icon = GFX_goal_PER_army
+	cost = 1
+	prerequisite = {
+		focus = PER_strike_fast
+	}
+	prerequisite = {
+		focus = PER_strike_hard
+
+	}
+	x = -3
+	y = 4
+	relative_position_id = PER_state_of_the_military
+	completion_reward = {
+		add_political_power = 50
+		add_stability = 0.05
+	}
+}
+
+focus = {
+	id = PER_reputation_renewed
+	icon = GFX_goal_PER_army
+	cost = 1
+	prerequisite = {
+		focus = PER_strike_fast
+	}
+	prerequisite = {
+		focus = PER_strike_hard
+
+	}
+	x = -1
+	y = 4
+	relative_position_id = PER_state_of_the_military
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = PER_cossack_discipline
+			add_idea = PER_sword_of_persia
+		}
+		add_war_support = 0.1
+	}
+}
+
+focus = {
+	id = PER_sword_of_the_nation
+	icon = GFX_goal_PER_army
+	cost = 1
+	prerequisite = {
+		focus = PER_instilling_loyalty
+	}
+	prerequisite = {
+		focus = PER_reputation_renewed
+	}
+	x = -2
+	y = 5
+	relative_position_id = PER_state_of_the_military
+	completion_reward = {
+		country_event = { id = pers.23 }
+	}
+}
+### Defensive Doctrine
+focus = {
+	id = PER_national_protectors
+	icon = GFX_goal_PER_army
+	cost = 1
+	prerequisite = {
+		focus = PER_gendarme_defensive_doctrine
+	}
+	x = 2
+	y = 2
+	relative_position_id = PER_state_of_the_military
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = PER_gendarme_reorganisation
+			add_idea = PER_gendarme_discipline
+		}
+		add_doctrine_cost_reduction = {
+			name = land_doc_bonus
+			cost_reduction = 0.5
+			uses = 1
+			category = land_doctrine
+		}
+	}
+}
+
+focus = {
+	id = PER_esprit_de_corps
+	icon = GFX_goal_PER_army
+	cost = 1
+	prerequisite = {
+		focus = PER_national_protectors
+	}
+	x = 2
+	y = 3
+	relative_position_id = PER_state_of_the_military
+	completion_reward = {
+		add_manpower = 10000
+		army_experience = 15
+	}
+}
+
+focus = {
+	id = PER_stand_tall
+	icon = GFX_goal_PER_army
+	cost = 1
+	prerequisite = {
+		focus = PER_national_protectors
+	}
+	x = 4
+	y = 3
+	relative_position_id = PER_state_of_the_military
+	completion_reward = {
+		every_owned_state = {
+		limit = { is_core_of = PER }
+		add_building_construction = {
+			type = bunker
+			level = 1
+			instant_build = yes
+			province = { all_provinces = yes }
+			}
+		}
+		army_experience = 15
+	}
+}
+
+focus = {
+	id = PER_vanguard_of_constitution
+	icon = GFX_goal_PER_army
+	cost = 1
+	prerequisite = {
+		focus = PER_esprit_de_corps
+	}
+	prerequisite = {
+		focus = PER_stand_tall
+	}
+	x = 1
+	y = 4
+	relative_position_id = PER_state_of_the_military
+	completion_reward = {
+		add_political_power = 50
+		add_stability = 0.05
+	}
+}
+
+focus = {
+	id = PER_ascetic_ideals
+	icon = GFX_goal_PER_army
+	cost = 1
+	prerequisite = {
+		focus = PER_esprit_de_corps
+	}
+	prerequisite = {
+		focus = PER_stand_tall
+	}
+	x = 3
+	y = 4
+	relative_position_id = PER_state_of_the_military
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = PER_gendarme_discipline
+			add_idea = PER_shield_of_persia
+		}
+		add_war_support = 0.1
+	}
+}
+
+focus = {
+	id = PER_dare_to_die
+	icon = GFX_goal_PER_army
+	cost = 1
+	prerequisite = {
+		focus = PER_vanguard_of_constitution
+	}
+	prerequisite = {
+		focus = PER_ascetic_ideals
+	}
+	x = 2
+	y = 5
+	relative_position_id = PER_state_of_the_military
+	completion_reward = {
+			country_event = { id = pers.24 }
+	}
+}
+##### What Comes Next
+focus = {
+	id = PER_what_comes_next
+	icon = GFX_goal_PER_army
+	cost = 1
+	prerequisite = {
+		focus = PER_sword_of_the_nation
+		focus = PER_dare_to_die
+	}
+	prerequisite = {
+		focus = PER_weapons_of_today
+	}
+	x = 0
+	y = 6
+	relative_position_id = PER_state_of_the_military
+	completion_reward = {
+		add_war_support = 0.15
+		army_experience = 50
+		add_political_power = 100
+	}
+}
+
+
+
+
 
 }
 
