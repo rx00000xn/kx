@@ -4125,15 +4125,8 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 		}
 		if = {
 			limit = {
-				check_variable = {
-					var = heimwehr_presence
-					value = 2
-					compare = greater_than_or_equals
-				}
-			}
-			add_to_variable = {
-				var = TYR.collapse_appearance_value
-				value = 1
+				check_variable = { heimwehr_presence > 1 }
+				add_to_variable = { TYR.collapse_appearance_value = 1 }
 			}
 		}
 		
@@ -4158,14 +4151,8 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 		
 		if = {
 			limit = {
-				NOT = {
-					country_exists = TYR
-				}
-				check_variable = {
-					var = TYR.collapse_appearance_value
-					value = 3
-					compare = greater_than_or_equals
-				}
+				NOT = { country_exists = TYR }
+				check_variable = { TYR.collapse_appearance_value > 2 }
 				tag = AUS
 			}
 			country_event = {
@@ -6753,80 +6740,32 @@ BOTDE_minority_test = {
 }
 
 AUS_level_up_backer_combat = {
-	custom_effect_tooltip = level_up_backer_abilities
-	subtract_from_variable = {
-		THIS.AUS_backer_resistance_target_combat_small = 0.02
-	}
-	
-	subtract_from_variable = {
-		THIS.AUS_backer_resistance_target_combat_med = 0.025
-	}
-	
-	subtract_from_variable = {
-		THIS.AUS_backer_resistance_target_combat_large = 0.03
-	}
-	
-	subtract_from_variable = {
-		THIS.AUS_backer_resistance_activity_combat_small = 0.02
-	}
-	
-	subtract_from_variable = {
-		THIS.AUS_backer_resistance_activity_combat_med = 0.025
-	}
-	
-	subtract_from_variable = {
-		THIS.AUS_backer_resistance_activity_combat_large = 0.03
-	}
-	
-	subtract_from_variable = {
-		THIS.AUS_backer_resistance_garrison_combat_small = 0.02
-	}
-	
-	subtract_from_variable = {
-		THIS.AUS_backer_resistance_garrison_combat_med = 0.025
-	}
-	
-	subtract_from_variable = {
-		THIS.AUS_backer_resistance_garrison_combat_large = 0.03
+	custom_override_tooltip = {
+		tooltip = level_up_backer_abilities
+		subtract_from_variable = { THIS.AUS_backer_resistance_target_combat_small = 0.02 }
+		subtract_from_variable = { THIS.AUS_backer_resistance_target_combat_med = 0.025 }
+		subtract_from_variable = { THIS.AUS_backer_resistance_target_combat_large = 0.03 }
+		subtract_from_variable = { THIS.AUS_backer_resistance_activity_combat_small = 0.02 }
+		subtract_from_variable = { THIS.AUS_backer_resistance_activity_combat_med = 0.025 }
+		subtract_from_variable = { THIS.AUS_backer_resistance_activity_combat_large = 0.03 }
+		subtract_from_variable = { THIS.AUS_backer_resistance_garrison_combat_small = 0.02 }
+		subtract_from_variable = { THIS.AUS_backer_resistance_garrison_combat_med = 0.025 }
+		subtract_from_variable = { THIS.AUS_backer_resistance_garrison_combat_large = 0.03 }
 	}
 }
 
 AUS_level_up_backer_combat_small = {
-	custom_effect_tooltip = level_up_backer_abilities
-	subtract_from_variable = {
-		THIS.AUS_backer_resistance_target_combat_small = 0.015
-	}
-	
-	subtract_from_variable = {
-		THIS.AUS_backer_resistance_target_combat_med = 0.015
-	}
-	
-	subtract_from_variable = {
-		THIS.AUS_backer_resistance_target_combat_large = 0.015
-	}
-	
-	subtract_from_variable = {
-		THIS.AUS_backer_resistance_activity_combat_small = 0.015
-	}
-	
-	subtract_from_variable = {
-		THIS.AUS_backer_resistance_activity_combat_med = 0.015
-	}
-	
-	subtract_from_variable = {
-		THIS.AUS_backer_resistance_activity_combat_large = 0.015
-	}
-	
-	subtract_from_variable = {
-		THIS.AUS_backer_resistance_garrison_combat_small = 0.015
-	}
-	
-	subtract_from_variable = {
-		THIS.AUS_backer_resistance_garrison_combat_med = 0.015
-	}
-	
-	subtract_from_variable = {
-		THIS.AUS_backer_resistance_garrison_combat_large = 0.015
+	custom_override_tooltip = {
+		tooltip = level_up_backer_abilities
+		subtract_from_variable = { THIS.AUS_backer_resistance_target_combat_small = 0.015 }
+		subtract_from_variable = { THIS.AUS_backer_resistance_target_combat_med = 0.015 }
+		subtract_from_variable = { THIS.AUS_backer_resistance_target_combat_large = 0.015 }
+		subtract_from_variable = { THIS.AUS_backer_resistance_activity_combat_small = 0.015 }
+		subtract_from_variable = { THIS.AUS_backer_resistance_activity_combat_med = 0.015 }
+		subtract_from_variable = { THIS.AUS_backer_resistance_activity_combat_large = 0.015 }
+		subtract_from_variable = { THIS.AUS_backer_resistance_garrison_combat_small = 0.015 }
+		subtract_from_variable = { THIS.AUS_backer_resistance_garrison_combat_med = 0.015 }
+		subtract_from_variable = { THIS.AUS_backer_resistance_garrison_combat_large = 0.015 }
 	}
 }
 
@@ -14047,5 +13986,63 @@ AUS_austro_american_alliance_form_effect = {
 		limit = { has_country_flag = temp_add_faction_military }
 		set_faction_military_unlocked = yes
 		clr_country_flag = temp_add_faction_military
+	}
+}
+
+AUS_reduce_all_army_focuses_complete_cost = {
+	if = {
+		limit = { NOT = { has_variable = temp_cost } }
+		set_temp_variable = { temp_cost = 7 }
+	}
+	custom_override_tooltip = {
+		tooltip = AUS_reduce_all_army_focuses_complete_cost_tt
+		reduce_focus_completion_cost = {
+			focus = {
+				AUS_k_k_landwehr
+				AUS_finalize_befehls_worterbuch
+				AUS_commission_gunther_burstyn
+				AUS_remilitarize_austro_daimler
+				AUS_puch_bikes
+				AUS_master_of_dolomites
+				AUS_sideline_hotzendorf
+				AUS_keep_hotzendorf
+				AUS_new_blood
+				AUS_end_nepotism
+				AUS_kuk_nachrichtentruppen
+				AUS_reappraisal_of_weltkrieg
+				AUS_kuk_gebirgstruppe
+				AUS_retool_kuk_kriegsschule
+				AUS_gott_beschutze_osterreich
+				AUS_bohme_grand_battleplan
+				AUS_anti_partisan_plans
+				AUS_evidenzbureau_radio_deciphering
+				AUS_man_and_machine
+				AUS_legacy_of_svetozar_boroevic
+				AUS_recruit_for_the_kuk_sappeure
+				AUS_tenets_of_panzer_strategy
+				AUS_legacy_of_hotzendorf
+				AUS_schwerpunkt_tactics
+				AUS_backup_plans
+				AUS_prioritize_recon_troops
+				AUS_strengthen_communications
+				AUS_chastise_the_elders
+				AUS_tactical_flexibility
+				AUS_promote_liebitzky
+				AUS_remilitarize_bohler
+				AUS_front_line_entourage
+				AUS_Funkartillerie_strategy
+				AUS_quality_assembly_line
+				AUS_air_to_ground
+				AUS_otto_erberhardt_patronenfabrik
+				AUS_raus_panzer_strategy
+				AUS_expand_the_saurerwerke
+				AUS_rechart_army_organization
+				AUS_modernize_panzerkampfwagens
+				AUS_panzerturmumbau
+				AUS_austrian_armor_school
+				AUS_operation_isonzo
+			}
+			cost = temp_cost
+		}
 	}
 }
