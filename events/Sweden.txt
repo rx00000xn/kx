@@ -2745,7 +2745,11 @@ country_event = { #### Election and leader events
 		has_socialist_government = no
 		tag = SWE
 		date > 1944.9.1
-		has_country_flag = SWE_election_safe_success
+		OR = {
+			has_country_flag = SWE_election_safe_success
+			has_country_flag = SWE_flag_authdem_right_parties
+			has_country_flag = SWE_flag_authdem_all_parties
+		}
 	}
 
 	is_triggered_only = yes
@@ -2753,6 +2757,11 @@ country_event = { #### Election and leader events
 
 	option = { #Social Democrats win
 		name = sweelect.15.a
+		trigger = {
+			NOT = {
+				has_country_flag = SWE_flag_authdem_right_parties
+			}
+		}
 		add_popularity = { ideology = social_democrat popularity = 0.05 }
 		add_political_power = 10
 		set_politics = { ruling_party = social_democrat elections_allowed = yes }		
@@ -2876,7 +2885,10 @@ country_event = { #### Election and leader events
 			OR = {
 			has_government = social_democrat
 			has_government = market_liberal
-			}		
+			}	
+			NOT = {
+				has_country_flag = SWE_flag_authdem_right_parties
+			}				
 		}
 		add_popularity = { ideology = social_liberal popularity = 0.08 }
 		set_politics = { ruling_party = social_liberal elections_allowed = yes }		
@@ -10787,12 +10799,7 @@ country_event = { #Finland now ours
 				844 = { is_owned_and_controlled_by = SWE }
 				150 = { is_owned_and_controlled_by = SWE }
 				864 = { is_owned_and_controlled_by = SWE } 
-				146 = { is_owned_and_controlled_by = SWE }
-				865 = { is_owned_and_controlled_by = SWE }
-				
-				NOT = {
-					has_country_flag = SWE_flag_finland_annex_event_fired
-				}
+				111 = { is_owned_and_controlled_by = SWE }
 		}
 
 	option = { ##Full integration
@@ -10821,14 +10828,7 @@ country_event = { #Finland now ours
 			add_state_core = 149
 			add_state_core = 148
 			add_state_core = 844
-			add_state_core = 147
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
-			}			
+			add_state_core = 147		
 			FIN = {
 				add_state_core = 150
 				add_state_core = 864
@@ -10846,11 +10846,24 @@ country_event = { #Finland now ours
 				transfer_state = 111
 				transfer_state = 863
 				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = national_populist
 				}
@@ -10881,13 +10894,8 @@ country_event = { #Finland now ours
 				load_focus_tree = generic_focus
 				add_ideas = SWE_occupation_finland
 			}
-
-
 		}
-
-
-		
-		else_if = { limit = { has_government = paternal_autocrat	}
+		else_if = { limit = { has_government = paternal_autocrat }
 		every_state = {
 			limit = {
 				is_core_of = FIN
@@ -10915,11 +10923,24 @@ country_event = { #Finland now ours
 				transfer_state = 111
 				transfer_state = 863
 				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = paternal_autocrat
 				}
@@ -10948,21 +10969,9 @@ country_event = { #Finland now ours
 				}
 				set_cosmetic_tag = SWE_FIN_occupied
 				load_focus_tree = generic_focus
-				add_ideas = SWE_occupation_finland				
+				add_ideas = SWE_occupation_finland		
 			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
-			}
-
-
-
 		}
-
 		else_if = { limit = { has_government = authoritarian_democrat }
 		every_state = {
 			limit = {
@@ -10990,12 +10999,25 @@ country_event = { #Finland now ours
 				transfer_state = 864
 				transfer_state = 111
 				transfer_state = 863
-				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+				transfer_state = 840		
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = authoritarian_democrat
 				}
@@ -11024,21 +11046,9 @@ country_event = { #Finland now ours
 				}
 				set_cosmetic_tag = SWE_FIN_occupied
 				load_focus_tree = generic_focus
-				add_ideas = SWE_occupation_finland				
+				add_ideas = SWE_occupation_finland		
 			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
-			}
-
-
-
 		}
-
 		else_if = { limit = { has_government = radical_socialist }
 		every_state = {
 			limit = {
@@ -11066,12 +11076,25 @@ country_event = { #Finland now ours
 				transfer_state = 864
 				transfer_state = 111
 				transfer_state = 863
-				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+				transfer_state = 840		
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = radical_socialist
 				}
@@ -11100,21 +11123,9 @@ country_event = { #Finland now ours
 				}
 				set_cosmetic_tag = SWE_FIN_liberated
 				load_focus_tree = generic_focus
-				add_ideas = SWE_occupation_finland				
+				add_ideas = SWE_occupation_finland		
 			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
-			}
-
-
-
 		} 
-
 		else_if = { limit = { has_government = syndicalist }
 		every_state = {
 			limit = {
@@ -11143,11 +11154,24 @@ country_event = { #Finland now ours
 				transfer_state = 111
 				transfer_state = 863
 				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = syndicalist
 				}
@@ -11176,18 +11200,9 @@ country_event = { #Finland now ours
 				}
 				set_cosmetic_tag = SWE_FIN_liberated
 				load_focus_tree = generic_focus
-				add_ideas = SWE_occupation_finland				
-			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
+				add_ideas = SWE_occupation_finland		
 			}
 		} 		
-
 		else_if = { limit = { has_government = totalist }
 		every_state = {
 			limit = {
@@ -11215,12 +11230,25 @@ country_event = { #Finland now ours
 				transfer_state = 864
 				transfer_state = 111
 				transfer_state = 863
-				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+				transfer_state = 840		
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = totalist
 				}
@@ -11249,19 +11277,9 @@ country_event = { #Finland now ours
 				}
 				set_cosmetic_tag = SWE_FIN_rev
 				load_focus_tree = generic_focus
-				add_ideas = SWE_occupation_finland				
-			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
+				add_ideas = SWE_occupation_finland	
 			}
 		}		
-		
-		
 		else = {
 		every_state = {
 			limit = {
@@ -11294,7 +11312,24 @@ country_event = { #Finland now ours
 				transfer_state = 1325
 				transfer_state = 146
 				transfer_state = 1326
-
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = social_liberal
 				}
@@ -11323,20 +11358,9 @@ country_event = { #Finland now ours
 				}
 				set_cosmetic_tag = SWE_FINDEM
 				load_focus_tree = generic_focus
-				add_ideas = SWE_occupation_finland				
+				add_ideas = SWE_occupation_finland	
 			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
-			}
-
-		}		
-		
-		
+		}	
 	}
 	
 	option = { ##Limited self independence
@@ -11360,11 +11384,24 @@ country_event = { #Finland now ours
 				transfer_state = 111
 				transfer_state = 863
 				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = national_populist
 				}
@@ -11395,19 +11432,8 @@ country_event = { #Finland now ours
 				load_focus_tree = generic_focus
 				add_ideas = SWE_occupation_finland
 			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
-			}
 		}
-
-
-		
-		else_if = { limit = { has_government = paternal_autocrat	}
+		else_if = { limit = { has_government = paternal_autocrat }
 			FIN = {
 				add_state_core = 150
 				add_state_core = 864
@@ -11424,12 +11450,25 @@ country_event = { #Finland now ours
 				transfer_state = 864
 				transfer_state = 111
 				transfer_state = 863
-				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+				transfer_state = 840		
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = paternal_autocrat
 				}
@@ -11458,21 +11497,9 @@ country_event = { #Finland now ours
 				}
 				set_cosmetic_tag = SWE_FIN_occupied
 				load_focus_tree = generic_focus
-				add_ideas = SWE_occupation_finland				
+				add_ideas = SWE_occupation_finland	
 			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
-			}
-
-
-
 		}
-
 		else_if = { limit = { has_government = authoritarian_democrat }
 			FIN = {
 				add_state_core = 150
@@ -11490,12 +11517,25 @@ country_event = { #Finland now ours
 				transfer_state = 864
 				transfer_state = 111
 				transfer_state = 863
-				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+				transfer_state = 840			
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = authoritarian_democrat
 				}
@@ -11524,23 +11564,10 @@ country_event = { #Finland now ours
 				}
 				set_cosmetic_tag = SWE_FIN_occupied
 				load_focus_tree = generic_focus
-				add_ideas = SWE_occupation_finland				
+				add_ideas = SWE_occupation_finland		
 			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
-			}
-
-
-
 		}
-
 		else_if = { limit = { has_government = radical_socialist }
-		
 			FIN = {
 				add_state_core = 150
 				add_state_core = 864
@@ -11557,12 +11584,25 @@ country_event = { #Finland now ours
 				transfer_state = 864
 				transfer_state = 111
 				transfer_state = 863
-				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+				transfer_state = 840			
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = radical_socialist
 				}
@@ -11591,23 +11631,10 @@ country_event = { #Finland now ours
 				}
 				set_cosmetic_tag = SWE_FIN_liberated
 				load_focus_tree = generic_focus
-				add_ideas = SWE_occupation_finland				
+				add_ideas = SWE_occupation_finland		
 			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
-			}
-
-
-
 		} 
-
 		else_if = { limit = { has_government = syndicalist }
-		
 			FIN = {
 				add_state_core = 150
 				add_state_core = 864
@@ -11624,12 +11651,25 @@ country_event = { #Finland now ours
 				transfer_state = 864
 				transfer_state = 111
 				transfer_state = 863
-				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+				transfer_state = 840			
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = syndicalist
 				}
@@ -11658,18 +11698,9 @@ country_event = { #Finland now ours
 				}
 				set_cosmetic_tag = SWE_FIN_liberated
 				load_focus_tree = generic_focus
-				add_ideas = SWE_occupation_finland				
-			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
+				add_ideas = SWE_occupation_finland		
 			}
 		} 		
-
 		else_if = { limit = { has_government = totalist }
 			FIN = {
 				add_state_core = 150
@@ -11687,12 +11718,25 @@ country_event = { #Finland now ours
 				transfer_state = 864
 				transfer_state = 111
 				transfer_state = 863
-				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+				transfer_state = 840			
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = totalist
 				}
@@ -11721,19 +11765,9 @@ country_event = { #Finland now ours
 				}
 				set_cosmetic_tag = SWE_FIN_rev
 				load_focus_tree = generic_focus
-				add_ideas = SWE_occupation_finland				
-			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
+				add_ideas = SWE_occupation_finland
 			}
 		}		
-		
-		
 		else = {		
 			FIN = {
 				add_state_core = 150
@@ -11751,12 +11785,25 @@ country_event = { #Finland now ours
 				transfer_state = 864
 				transfer_state = 111
 				transfer_state = 863
-				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+				transfer_state = 840			
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = social_liberal
 				}
@@ -11785,23 +11832,11 @@ country_event = { #Finland now ours
 				}
 				set_cosmetic_tag = SWE_FINDEM
 				load_focus_tree = generic_focus
-				add_ideas = SWE_occupation_finland				
+				add_ideas = SWE_occupation_finland
 			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
-			}
-
 		}		
-		
 	}	
 }
-
-
 
 country_event = { #give you nordic if not
 	id = swefop.500
