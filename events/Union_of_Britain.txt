@@ -1049,10 +1049,10 @@ country_event = { #End of the TUC - Hardliners/BSP
 		custom_effect_tooltip = general_minister_change_tt
 		hidden_effect = {
 			set_party_name = {
-					ideology = totalist
-					long_name = ENG_BSP_totalist_party_long
-					name = ENG_BSP_totalist_party
-				}
+				ideology = totalist
+				long_name = ENG_BSP_totalist_party_long
+				name = ENG_BSP_totalist_party
+			}
 			remove_all_ministers = yes
 			add_ideas = {
 				ENG_central_council_hog_tot
@@ -4825,7 +4825,7 @@ country_event = {
 	immediate = { log = "[GetDateText]: [Root.GetName]: event uobplaceholder.96" }
 	title = uobplaceholder.96.t
 	desc = uobplaceholder.96.d
-	picture = reichstag2
+	picture = GFX_report_event_GER_reichstag2
 
 	is_triggered_only = yes
 
@@ -4864,7 +4864,7 @@ country_event = {
 	immediate = { log = "[GetDateText]: [Root.GetName]: event uobplaceholder.97" }
 	title = uobplaceholder.97.t
 	desc = uobplaceholder.97.d
-	picture = reichstag2
+	picture = GFX_report_event_GER_reichstag2
 
 	is_triggered_only = yes
 
@@ -4879,7 +4879,7 @@ country_event = {
 	immediate = { log = "[GetDateText]: [Root.GetName]: event uobplaceholder.98" }
 	title = uobplaceholder.98.t
 	desc = uobplaceholder.98.d
-	picture = reichstag2
+	picture = GFX_report_event_GER_reichstag2
 
 	is_triggered_only = yes
 
@@ -6171,7 +6171,7 @@ country_event = { # Damn we need oil
 	}
 }
 
-country_event = {
+country_event = { #eco demobilisation 
 	id = uobplaceholder.123
 	immediate = { log = "[GetDateText]: [Root.GetName]: event uobplaceholder.123" }
 	title = uobplaceholder.123.t
@@ -6197,15 +6197,14 @@ country_event = {
 
 	option = {
 		name = uobplaceholder.123.a
-		swap_ideas = {
-			remove_idea = ENG_class_war_idea
-			add_idea = ENG_silence_idea
+		remove_ideas = ENG_class_war_idea
+		add_timed_idea = {
+			idea = ENG_silence_idea
+			days = 145
 		}
+		
 	}
 }
-
-
-
 
 country_event = {
 	id = uobplaceholder.124
@@ -6448,6 +6447,49 @@ country_event = { # The Refugee Crisis
 		}
 	}
 }
+
+country_event = { #Weltkreig over
+	id = uobplaceholder.127
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobplaceholder.127" }
+	title = uobplaceholder.127.t
+	desc = uobplaceholder.127.d
+	picture = GFX_report_event_election_vote
+	fire_only_once = yes
+	trigger = {
+		tag = ENG
+		has_global_flag = second_weltkrieg_has_started #set in the world news event
+		OR = {
+			NOT = {
+				country_exists = GER
+			}
+			is_in_faction_with = GRU
+			GER = {
+				NOT = {
+					controls_state = 64
+				}
+				NOT = {
+					controls_state = 55
+				}
+			}
+		}
+		NOT = {
+			has_country_flag = WK2W
+			has_country_flag = PWH2
+			has_completed_focus = BRG_death_to_revoltuion
+		}
+	}
+	mean_time_to_happen = {
+		days = 20
+	}
+	fire_only_once = yes
+	option = {
+		name = uobplaceholder.127.a
+		add_political_power = 25
+		set_country_flag = WK2W
+		remove_ideas = THINT_exact_vengeance
+	}
+}
+
 # Autonomist events # 
 country_event = {#TUC reforms
 	id = uobplaceholder.400
@@ -6594,10 +6636,85 @@ country_event = {#economy balance
 	option = {#move a little industry
 		name = uobplaceholder.406.b
 		add_to_variable = { ENG.ENG_AUT_happiness = 1 }
+		126 = {
+			remove_building = {
+				type = industrial_complex
+				level = 1
+			}
+		}
+		131 = {
+			remove_building = {
+				type = industrial_complex
+				level = 1
+			}
+		}
+		122 = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		133 = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
 	}
+	
 	option = {#move a lot of industry
 		name = uobplaceholder.406.c
 		add_to_variable = { ENG.ENG_AUT_happiness = 2 }
+		126 = {
+			remove_building = {
+				type = industrial_complex
+				level = 1
+			}
+			remove_building = {
+				type = arms_factory
+				level = 1
+			}
+		}
+		131 = {
+			remove_building = {
+				type = industrial_complex
+				level = 1
+			}
+			remove_building = {
+				type = arms_factory
+				level = 1
+			}
+		}
+		122 = {
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+		133 = {
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
 	}
 }
 
@@ -6651,10 +6768,10 @@ country_event = {#leadership choice - Scotland
 		add_to_variable = { ENG.ENG_AUT_happiness = 1 }
 		set_country_flag = ENG_AUT_sct_kirkwood
 	}
-	option = {#Abe Moffat - bad choice
+	option = {#Peter Kerrigan - bad choice
 		name = uobplaceholder.408.c
 		add_to_variable = { ENG.ENG_AUT_happiness = -1 }
-		set_country_flag = ENG_AUT_sct_moffat
+		set_country_flag = ENG_AUT_sct_kerrigan
 	}
 	after = {
 		country_event = {
@@ -6772,6 +6889,442 @@ country_event = {#Full devolution
 			remove_state_core = 122
 		}
 
+	}
+}
+
+country_event = {#Propose autonomous unions of europe
+	id = uobplaceholder.413
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobplaceholder.413" }
+	title = uobplaceholder.413.t
+	desc = uobplaceholder.413.d
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = uobplaceholder.413.a
+		FRA = {
+			country_event = {
+				id = uobplaceholder.414
+				days = 3
+			}
+		}
+	}
+	option = {
+		name = uobplaceholder.413.b
+		add_political_power = 100
+	}
+}
+country_event = {#unite with england?
+	id = uobplaceholder.414
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobplaceholder.414" }
+	title = uobplaceholder.414.t
+	desc = uobplaceholder.414.d
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = uobplaceholder.414.a
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = 25
+				ENG = { has_same_government_as_ROOT = yes }
+			}
+		}
+		ENG  = {
+			country_event = {
+				id = uobplaceholder.415
+				days = 4
+			}
+		}
+	}
+	option = {
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = 30
+				FRA = { has_government = totalist }
+			}
+		}
+		name = uobplaceholder.414.b
+		ENG = {
+			country_event = {
+				id = uobplaceholder.416
+				days = 4
+			}
+		}
+		add_political_power = 100
+	}
+}
+country_event = {#france SAYS OUI 
+	id = uobplaceholder.415
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobplaceholder.415" }
+	title = uobplaceholder.415.t
+	desc = uobplaceholder.415.d
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = uobplaceholder.415.a
+		set_cosmetic_tag = ENG_AUT_west_europe
+		leave_faction = yes
+		every_state = {
+			limit = {
+				OR = {
+					is_core_of = FRA
+					region = 5
+					state = 943
+					state = 760
+					state = 28
+					state = 779
+					state = 8
+					state = 741
+					state = 42
+					state = 781
+					region = 4
+				}
+				NOT = {
+					state = 762
+					state = 735
+					state = 763
+					state = 21
+					state = 22
+					state = 984
+					state = 32
+					state = 19
+					state = 984
+					state = 31
+					state = 817
+					state = 1334
+				}
+			}
+			add_core_of = ENG
+		}
+		every_state = {
+			limit = {
+				OR = {
+					state = 762
+					state = 735
+					state = 763
+					state = 21
+					state = 22
+					state = 984
+					state = 32
+					state = 19
+					state = 984
+					state = 31
+					state = 817
+					state = 1334
+				}
+			}
+			add_claim_by = ENG
+		}
+		ENG = {
+			set_country_flag = ENG_AUT_europe_councils
+		}
+		hidden_effect = {
+			every_country  = {
+				limit = {
+					OR = {
+						tag = FRA
+						is_subject_of = FRA
+					}
+				}
+				every_owned_state = {
+					limit = {
+						state_same_continent_as_ROOT = yes
+					}
+					add_claim_by = ENG
+				}
+				ENG = { 
+					annex_country = { target = PREV	} 
+				}
+			}
+			every_state = {
+				limit = {
+					OR = {
+						is_core_of = FRA
+						is_claimed_by = FRA
+					}
+				}
+				remove_core_of = FRA
+				remove_claim_by = FRA
+			}
+		}
+	}
+}
+country_event = {#france SAYS NON
+	id = uobplaceholder.416
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobplaceholder.416" }
+	title = uobplaceholder.416.t
+	desc = uobplaceholder.416.d
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = uobplaceholder.416.a
+		set_country_flag = ENG_AUT_europe_councils
+		set_country_flag = ENG_AUT_france_deny_integration
+		ENG = {
+			
+		}
+		every_country = {
+			limit = {
+				OR = {
+					original_tag = ENG
+					is_subject_of = ENG
+				}
+			}
+			leave_faction = yes
+		}
+		every_state = {
+			limit = {
+				OR = {
+					is_core_of = FRA
+					region = 5
+					region = 4
+				}
+			}
+			add_claim_by = ENG
+		}
+		hidden_effect = {
+			every_country  = {
+				limit = {
+					is_subject_of = FRA
+				}
+				every_owned_state = {
+					limit = {
+						state_same_continent_as_ROOT = yes
+					}
+					add_claim_by = ENG
+				}
+			}
+		}
+		create_wargoal = {
+			target = FRA
+			type = annex_everything
+		}
+		add_war_support = 0.15
+	}
+		option = {
+		name = uobplaceholder.416.b
+		add_political_power = 20
+		add_war_support = -0.05
+	}
+}
+
+country_event = {#devoltuion compelte - result good
+	id = uobplaceholder.417
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobplaceholder.417" }
+	title = uobplaceholder.417.t
+	desc = uobplaceholder.417.d
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = uobplaceholder.417.a #good
+		add_political_power = 25
+		add_popularity = {
+			ideology = radical_socialist
+			popularity = 0.075
+		}
+	}
+	option = {
+		name = uobplaceholder.417.b
+		WAL = {
+			change_tag_from = ENG
+		}
+	}
+	option = {
+		name = uobplaceholder.417.c
+		SCT = {
+			change_tag_from = ENG
+		}
+	}
+}
+
+country_event = {#devoltuion compelte - result meh
+	id = uobplaceholder.418
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobplaceholder.418" }
+	title = uobplaceholder.418.t
+	desc = uobplaceholder.418.d
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = uobplaceholder.418.a #okay
+		add_political_power = 10
+		add_popularity = {
+			ideology = radical_socialist
+			popularity = 0.05
+		}
+	}
+	option = {
+		name = uobplaceholder.418.b
+		WAL = {
+			change_tag_from = ENG
+		}
+	}
+	option = {
+		name = uobplaceholder.418.c
+		SCT = {
+			change_tag_from = ENG
+		}
+	}
+}
+
+country_event = {#devoltuion compelte - result bad
+	id = uobplaceholder.419
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobplaceholder.419" }
+	title = uobplaceholder.419.t
+	desc = uobplaceholder.419.d
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = uobplaceholder.419.a #bad
+		add_political_power = -20
+		add_popularity = {
+			ideology = radical_socialist
+			popularity = -0.05
+		}
+	}
+	option = {
+		name = uobplaceholder.419.b
+		WAL = {
+			change_tag_from = ENG
+		}
+	}
+	option = {
+		name = uobplaceholder.419.c
+		SCT = {
+			change_tag_from = ENG
+		}
+	}
+}
+
+country_event = {#devoltuion backed out - shit is fucked
+	id = uobplaceholder.420 #vvizard vveed
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobplaceholder.420" }
+	title = uobplaceholder.420.t
+	desc = uobplaceholder.420.d
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = uobplaceholder.420.a
+		add_stability = -0.1
+		hidden_effect = {
+			country_event = {
+				id = uobplaceholder.421
+				days = 7
+			}
+		}
+	}
+}
+
+country_event = {#devoltuion backed out - autonomists destabalise
+	id = uobplaceholder.421
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobplaceholder.421" }
+	title = uobplaceholder.421.t
+	desc = uobplaceholder.421.d
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = uobplaceholder.421.a
+		add_political_power = -50
+		add_popularity = {
+			ideology = radical_socialist
+			popularity = -0.075
+		}
+		add_popularity = {
+			ideology = totalist
+			popularity = 0.05
+		}
+		add_popularity = {
+			ideology = syndicalist
+			popularity = 0.05
+		}
+		hidden_effect = {
+			country_event = {
+				id = uobplaceholder.422
+				days = 7
+			}
+		}
+	}
+}
+
+country_event = {#devoltuion backed out - anarchists take control
+	id = uobplaceholder.422
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobplaceholder.422" }
+	title = uobplaceholder.422.t
+	desc = uobplaceholder.422.d
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = uobplaceholder.422.a
+		add_political_power = 40
+		add_popularity = {
+			ideology = radical_socialist
+			popularity = 0.05
+		}
+		create_country_leader = {
+			name = "Guy Aldred"
+			desc = "POLITICS_TE_LAWRENCE_DESC"
+			picture = "gfx/leaders/ENG/Placeholder_Leader.png"
+			expire = "1.1.1"
+			ideology = anarcho_communism_subtype
+		}
+		hidden_effect = {
+		set_party_name = {
+				ideology = radical_socialist
+				long_name = ENG_Anarchist_party_long
+				name = ENG_Anarchist_party
+			}
+		}
+	}
+}
+
+country_event = {#fabian society
+	id = uobplaceholder.423
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobplaceholder.423" }
+	title = uobplaceholder.423.t
+	desc = uobplaceholder.423.d
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = uobplaceholder.423.a
+		add_stability = 0.04
+	}
+}
+country_event = {#no conscription fellowship
+	id = uobplaceholder.424
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobplaceholder.424" }
+	title = uobplaceholder.424.t
+	desc = uobplaceholder.424.d
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = uobplaceholder.424.a
+		add_stability = 0.04
+	}
+}
+
+country_event = {#commonwealth party
+	id = uobplaceholder.425
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobplaceholder.425" }
+	title = uobplaceholder.425.t
+	desc = uobplaceholder.425.d
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = uobplaceholder.425.a
+		add_stability = 0.04
 	}
 }
 # Federationist events # 
@@ -7293,7 +7846,7 @@ country_event = {#global council for syndies
 		every_other_country = {
 			limit = {
 				has_syndicalist_government = yes
-				is_puppet = no
+				is_subject = no
 			}
 			country_event = {
 				id = uobplaceholder.518
@@ -7324,29 +7877,28 @@ country_event = {#wanna integrate?
 			}
 		}
 		name = uobplaceholder.518.a
-			add_political_power = -50	
-			set_country_flag = ENG_FED_wants_to_integrate
-			ENG = {
-				country_event = {
-					id = uobplaceholder.519
-					days = 2
-				}
+		add_political_power = -50	
+		set_country_flag = ENG_FED_wants_to_integrate
+		ENG = {
+			country_event = {
+				id = uobplaceholder.519
+				days = 2
 			}
+		}
 	}
 	option = { #heck no
 		ai_chance = {
 			base = 50
 		}
 		name = uobplaceholder.518.b
-			add_political_power = 50
-			ENG = {
-				country_event = {
-					id = uobplaceholder.520
-					days = 2
-				}
+		add_political_power = 50
+		ENG = {
+			country_event = {
+				id = uobplaceholder.520
+				days = 2
 			}
+		}
 	}
-
 }
 
 country_event = {#[FROM] accepts
@@ -7398,7 +7950,7 @@ country_event = {#unified syndie nation annexes
 		}
 	}
 }
-country_event = {#unified syndie nation
+country_event = {#unified syndie nation DELETE AT SOME POINT
 	id = uobplaceholder.522
 	immediate = { log = "[GetDateText]: [Root.GetName]: event uobplaceholder.522" }
 	title = uobplaceholder.522.t
@@ -7434,6 +7986,7 @@ country_event = {#unified syndie nation
 		}
 	}
 }
+
 #BSP Specific events
 country_event = { #BSP Members taking over a lot of stuff (like more than expected)
 	id = uobplaceholder.600
@@ -7675,7 +8228,7 @@ country_event = { #BSP Crusade against democracy thing - country gets invited
 		set_country_flag = ENG_BSP_Faction_accepted
 		every_country = {
 			limit = {
-				is_puppet_of = ROOT
+				is_subject_of = ROOT
 			}
 			set_country_flag = ENG_BSP_Faction_accepted
 		}
@@ -7839,7 +8392,7 @@ country_event = { #Dutt wants to go to india for 4 months
 		has_completed_focus = ENG_BSP_revolutionise_trade_unions
 		BHC = {
 			exists = yes
-			is_puppet = no
+			is_subject = no
 		}
 	}
 	mean_time_to_happen = {
@@ -10849,7 +11402,7 @@ country_event = { #Stephen salt death
 	title = uobflavourplaceholder.3.t
 	desc = uobflavourplaceholder.3.d
 	picture = GFX_ENG_Stephen_Salt
-
+	is_triggered_only = yes
 	trigger = {
 		has_socialist_government = yes
 	}
@@ -10869,7 +11422,6 @@ country_event = { #Quaker amblams
 	title = uobflavourplaceholder.4.t
 	desc = uobflavourplaceholder.4.d
 	picture = GFX_ENG_Friends_Ambulance
-
 	trigger = {
 		has_socialist_government = yes
 		NOT = {

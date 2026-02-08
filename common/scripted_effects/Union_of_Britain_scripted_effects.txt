@@ -204,58 +204,136 @@ ENG_anarchist_do_activity_high = {
 	}
 }		
 
+ENG_AUT_Set_devolution_leader = {
+	if = {
+		limit = {
+			has_country_flag = ENG_AUT_snell_picked
+		}
+		create_country_leader = {
+			name = "Henry Snell"
+			desc = ""
+			picture = "gfx/leaders/ENG/Portrait_ENG_Henry_Snell.png"
+			expire = "1.1.1"
+			ideology = radsoc_georgism_subtype
+		}
+		hidden_effect = {
+			remove_all_ministers = yes
+			add_ideas = {
+				ENG_Henry_Snell_hog_rso
+				ENG_Richard_Tawney_sec_rso
+				ENG_Clement_Attlee_eco_rso
+				ENG_Arthur_Ponsonby_for_rso
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_flag = ENG_AUT_acland_picked
+		}
+		create_country_leader = {
+			name = "Richard Acland"
+			desc = ""
+			picture = "gfx/leaders/ENG/Portrait_ENG_Richard_Acland.png"
+			expire = "1.1.1"
+			ideology = radsoc_liberal_socialism_subtype
+		}
+		hidden_effect = {
+			remove_all_ministers = yes
+			add_ideas = {
+				ENG_Richard_Acland_hog_rso
+				ENG_JB_Priestley_sec_rso
+				ENG_Tom_Driberg_eco_rso
+				ENG_Vernon_Bartlett_for_rso
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_flag = ENG_AUT_cole_picked
+		}
+		create_country_leader = {
+			name = "G.D.H Cole"
+			desc = ""
+			picture = "gfx/leaders/ENG/Portrait_ENG_G.D.H_Cole.png"
+			expire = "1.1.1"
+			ideology = radsoc_guild_socialism_subtype
+		}
+		hidden_effect = {
+			remove_all_ministers = yes
+			add_ideas = {
+				ENG_GDH_Cole_hog_rso
+				ENG_Richard_Tawney_sec_rso
+				ENG_Margaret_Cole_for_rso
+				ENG_GDH_Cole_eco_rso
+			}
+		}
+	}
+	else = { #failsafe
+		create_country_leader = {
+			name = "Fenner Brockway"
+			desc = ""
+			picture = "gfx/leaders/ENG/Portrait_England_Fenner_Brockway.png"
+			expire = "1.1.1"
+			ideology = moderate_socialist_subtype
+		}
+		hidden_effect = {
+			remove_all_ministers = yes
+			add_ideas = {
+				ENG_Fenner_Brockway_hog_rso
+				ENG_Bertrand_Russell_sec_rso
+				ENG_Catherine_Marshall_for_rso
+				ENG_Clifford_Allen_eco_rso
+			}
+		}
+		
+	}
+}
 ENG_AUT_ITS_DEVOLUTION_BABY = {
 		set_cosmetic_tag = ENG_england 
+		ENG_AUT_Set_devolution_leader = yes 
 		ENG = {
+			if = {
+				limit = {
+					check_variable = {
+						ENG.ENG_AUT_happiness > 5
+					}
+				}
+				country_event = {
+					id = uobplaceholder.417
+					days = 7
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						ENG.ENG_AUT_happiness < 6
+					}
+					check_variable = {
+						ENG.ENG_AUT_happiness > 0
+					}
+				}
+				country_event = {
+					id = uobplaceholder.418
+					days = 7
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						ENG.ENG_AUT_happiness < 0
+					}
+				}
+				country_event = {
+					id = uobplaceholder.419
+					days = 7
+				}
+
+			}
 			remove_ideas = {
 				ENG_AUT_fight_home_rule_army_idea
 				ENG_AUT_fight_homeland_idea
 			}
-			if = {
-				limit = {
-					has_country_flag = ENG_AUT_snell_picked
-				}
-				create_country_leader = {
-					name = "Henry Snell"
-					desc = ""
-					picture = "gfx/leaders/ENG/Portrait_ENG_Henry_Snell.png"
-					expire = "1.1.1"
-					ideology = radsoc_georgism_subtype
-				}
-			}
-			else_if = {
-				limit = {
-					has_country_flag = ENG_AUT_acland_picked
-				}
-				create_country_leader = {
-					name = "Richard Acland"
-					desc = ""
-					picture = "gfx/leaders/ENG/Portrait_ENG_Richard_Acland.png"
-					expire = "1.1.1"
-					ideology = radsoc_liberal_socialism_subtype
-				}
-			}
-			else_if = {
-				limit = {
-					has_country_flag = ENG_AUT_cole_picked
-				}
-				create_country_leader = {
-					name = "G.D.H Cole"
-					desc = ""
-					picture = "gfx/leaders/ENG/Portrait_ENG_G.D.H_Cole.png"
-					expire = "1.1.1"
-					ideology = radsoc_guild_socialism_subtype
-				}
-			}
-			else = { #failsafe
-				create_country_leader = {
-					name = "Fenner Brockway"
-					desc = ""
-					picture = "gfx/leaders/ENG/Portrait_England_Fenner_Brockway.png"
-					expire = "1.1.1"
-					ideology = moderate_socialist_subtype
-				}
-			}
+			
 		}
 		set_nationality = {
 			target_country = SCT
@@ -301,13 +379,13 @@ ENG_AUT_ITS_DEVOLUTION_BABY = {
 			else_if = {
 				limit = {
 					ENG = {
-						has_country_flag = ENG_AUT_sct_moffat
+						has_country_flag = ENG_AUT_sct_kerrigan
 					}
 				}
 				create_country_leader = {
-					name = "Abraham Moffat"
+					name = "Peter Kerrigan"
 					desc = "POLITICS_TE_LAWRENCE_DESC"
-					picture = "gfx/leaders/ENG/Placeholder_Leader.png"
+					picture = "gfx/leaders/ENG/Portrait_ENG_Peter_Kerrigan.png"
 					expire = "1.1.1"
 					ideology = radsoc_national_communism_subtype
 				}
@@ -398,4 +476,399 @@ ENG_AUT_ITS_DEVOLUTION_BABY = {
 		SCT = { set_politics = { ruling_party = radical_socialist } }
 		WAL = {	set_politics = { ruling_party = radical_socialist } }
 		
+}
+
+ENG_AUT_set_up_council_basic = {
+		load_focus_tree = generic_focus
+		set_party_name = {
+			ideology = totalist
+			long_name = ENG_AUT_council_socialists_party_long
+			name = ENG_AUT_council_socialists_party
+		}
+		set_party_name = {
+			ideology = syndicalist
+			long_name = ENG_AUT_council_socialists_party_long
+			name = ENG_AUT_council_socialists_party
+		}
+		set_party_name = {
+			ideology = radical_socialist
+			long_name = ENG_AUT_council_socialists_party_long
+			name = ENG_AUT_council_socialists_party
+		}
+		set_party_name = {
+			ideology = social_democrat
+			long_name = ENG_AUT_council_socialists_party_long
+			name = ENG_AUT_council_socialists_party
+		}
+		set_party_name = {
+			ideology = social_liberal
+			long_name = ENG_AUT_council_opposition_party_long
+			name = ENG_AUT_council_opposition_party
+		}
+		set_party_name = {
+			ideology = market_liberal
+			long_name = ENG_AUT_council_opposition_party_long
+			name = ENG_AUT_council_opposition_party
+		}
+		set_party_name = {
+			ideology = social_conservative
+			long_name = ENG_AUT_council_opposition_party_long
+			name = ENG_AUT_council_opposition_party
+		}
+		set_party_name = {
+			ideology = authoritarian_democrat
+			long_name = ENG_AUT_council_nationalists_radicals_party_long
+			name = ENG_AUT_council_nationalists_radicals_party
+		}
+		set_party_name = {
+			ideology = paternal_autocrat
+			long_name = ENG_AUT_council_nationalists_radicals_party_long
+			name = ENG_AUT_council_nationalists_radicals_party
+		}
+		set_party_name = {
+			ideology = national_populist
+			long_name = ENG_AUT_council_nationalists_radicals_party_long
+			name = ENG_AUT_council_nationalists_radicals_party
+		}
+		add_tot_to_coalition = yes
+		add_synd_to_coalition = yes
+		add_radsoc_to_coalition = yes
+		add_socdem_to_coalition = yes
+}
+
+ENG_AUT_set_up_council_south = {
+	hidden_effect = {
+		create_dynamic_country = {
+			original_tag = ADL
+			every_core_state = {
+				remove_core_of = PREV
+			}
+			every_state = {
+				limit = {
+					OR = {
+						is_european_italy = yes
+						is_portugal = yes
+						is_spain = yes
+						state = 1
+						state = 783
+						state = 39
+						state = 182
+						state = 762
+						state = 735
+						state = 763
+						state = 21
+						state = 22
+						state = 984
+						state = 32
+						state = 19
+						state = 984
+						state = 31
+						state = 817
+						state = 1334
+						state = 116
+					}
+					NOT = {
+						state = 341
+					}
+				}
+				transfer_state_to = ADL
+				add_core_of = ADL
+			}
+			ENG = {
+				set_autonomy = {
+					target = ADL
+					autonomous_state = kx_colored_puppet
+				}
+			}
+			ADL = {
+				create_country_leader = {
+					name = "Altiero Spinelli"
+					picture = "gfx/leaders/LOM/Portrait_LOM_Altiero_Spinelli.png"
+					expire = "1.1.1"
+					ideology = radsoc_paneuropeanism_subtype
+				}
+				set_popularities = {
+					totalist = 11
+					syndicalist = 15
+					radical_socialist = 35
+					social_democrat = 19
+					social_liberal = 8
+					market_liberal = 4
+					social_conservative = 2
+					authoritarian_democrat = 1
+					paternal_autocrat = 2
+					national_populist = 3
+				}
+				set_cosmetic_tag = ENG_AUT_southern_europe
+				ENG_AUT_set_up_council_basic = yes
+				set_politics = {
+					ruling_party = radical_socialist
+					elections_allowed = no
+				}
+				set_war_support = 0.47
+				set_stability = 0.85
+				set_capital = {
+					state = 2
+				}
+			}
+		}
+	}	
+}
+
+ENG_AUT_set_up_council_balkans = {
+	hidden_effect = {
+		create_dynamic_country = {
+			original_tag = GRR
+			every_core_state = {
+				remove_core_of = PREV
+			}
+			every_state = {
+				limit = {
+					OR = {
+						is_balkans = yes
+						region = 25
+					}
+				}
+				transfer_state_to = GRR
+				add_core_of = GRR
+			}
+			ENG = {
+				set_autonomy = {
+					target = GRR
+					autonomous_state = kx_colored_puppet
+				}
+			}
+			GRR = {
+				create_country_leader = {
+					name = "Llazar Fundo"
+					picture = "gfx/leaders/ALB/Portrait_ALB_Llazar_Fundo.png"
+					expire = "1.1.1"
+					ideology = radsoc_revisionist_marxism_subtype
+				}
+				set_popularities = {
+					totalist = 11
+					syndicalist = 15
+					radical_socialist = 35
+					social_democrat = 19
+					social_liberal = 8
+					market_liberal = 4
+					social_conservative = 2
+					authoritarian_democrat = 1
+					paternal_autocrat = 2
+					national_populist = 3
+				}
+				set_cosmetic_tag = ENG_AUT_balkan_europe
+				ENG_AUT_set_up_council_basic = yes
+				set_politics = {
+					ruling_party = radical_socialist
+					elections_allowed = no
+				}
+				set_war_support = 0.47
+				set_stability = 0.85
+				set_capital = {
+					state = 107
+				}
+			}
+		}
+	}	
+}
+
+ENG_AUT_set_up_council_central = {
+	hidden_effect = {
+		create_dynamic_country = {
+			original_tag = NGF
+			every_core_state = {
+				remove_core_of = PREV
+			}
+			every_state = {
+				limit = {
+					OR = {
+						is_germany = yes
+						region = 38
+						region = 115
+						region = 145
+						region = 22
+						region = 21
+						region = 131
+						region = 155
+					}
+					NOT = {
+						state = 943
+						state = 760
+						state = 28
+						state = 779
+						state = 8
+						state = 741
+						state = 42
+						state = 781
+						state = 783
+					}
+				}
+				transfer_state_to = NGF
+				add_core_of = NGF
+			}
+			ENG = {
+				set_autonomy = {
+					target = NGF
+					autonomous_state = kx_colored_puppet
+				}
+			}
+			NGF = {
+				set_popularities = {
+					totalist = 11
+					syndicalist = 15
+					radical_socialist = 35
+					social_democrat = 19
+					social_liberal = 8
+					market_liberal = 4
+					social_conservative = 2
+					authoritarian_democrat = 1
+					paternal_autocrat = 2
+					national_populist = 3
+				}
+				set_cosmetic_tag = ENG_AUT_central_europe
+				create_country_leader = {
+					name = "Gustav Landauer"
+					picture = "gfx/leaders/BAY/Portrait_Bavaria_Gustav_Landauer.png"
+					expire = "1.1.1"
+					ideology = anarchism_subtype
+				}
+				ENG_AUT_set_up_council_basic = yes
+				set_politics = {
+					ruling_party = radical_socialist
+					elections_allowed = no
+				}
+				set_war_support = 0.47
+				set_stability = 0.85
+				set_capital = {
+					state = 1129
+				}
+			}
+		}
+	}	
+}
+
+ENG_AUT_set_up_council_north = {
+	hidden_effect = {
+		create_dynamic_country = {
+			original_tag = SAM
+			every_core_state = {
+				remove_core_of = PREV
+			}
+			every_state = {
+				limit = {
+					OR = {
+						is_scandinavia = yes
+						is_finland = yes
+						state = 337
+						state = 100
+					}
+				}
+				transfer_state_to = SAM
+				add_core_of = SAM
+			}
+			ENG = {
+				set_autonomy = {
+					target = SAM
+					autonomous_state = kx_colored_puppet
+				}
+			}
+			SAM = {
+				set_popularities = {
+					totalist = 11
+					syndicalist = 15
+					radical_socialist = 35
+					social_democrat = 19
+					social_liberal = 8
+					market_liberal = 4
+					social_conservative = 2
+					authoritarian_democrat = 1
+					paternal_autocrat = 2
+					national_populist = 3
+				}
+				set_cosmetic_tag = ENG_AUT_northern_europe
+				ENG_AUT_set_up_council_basic = yes
+				set_politics = {
+					ruling_party = radical_socialist
+					elections_allowed = no
+				}
+				create_country_leader = {
+					name = "Ernst Wigforss"
+					desc = ""
+					picture = "gfx/leaders/SWE/Portrait_SWE_Ernst_Wigforss_kx.png"
+					expire = "1.1.1"
+					ideology = radsoc_guild_socialism_subtype
+				}	
+				set_war_support = 0.47
+				set_stability = 0.85
+				set_capital = {
+					state = 141
+				}
+			}
+		}
+	}	
+}
+
+ENG_AUT_set_up_council_east = {
+	hidden_effect = {
+		create_dynamic_country = {
+			original_tag = CPU
+			every_core_state = {
+				remove_core_of = PREV
+			}
+			every_state = {
+				limit = {
+					OR = {
+						region = 130
+						region = 165
+						region = 39
+						region = 37
+						state = 755
+						state = 1287
+						state = 243
+					}
+				}
+				transfer_state_to = CPU
+				add_core_of = CPU
+			}
+			ENG = {
+				set_autonomy = {
+					target = CPU
+					autonomous_state = kx_colored_puppet
+				}
+			}
+			CPU = {
+				set_popularities = {
+					totalist = 11
+					syndicalist = 15
+					radical_socialist = 35
+					social_democrat = 19
+					social_liberal = 8
+					market_liberal = 4
+					social_conservative = 2
+					authoritarian_democrat = 1
+					paternal_autocrat = 2
+					national_populist = 3
+				}
+				set_cosmetic_tag = ENG_AUT_eastern_europe
+				ENG_AUT_set_up_council_basic = yes
+				set_politics = {
+					ruling_party = radical_socialist
+					elections_allowed = no
+				}
+				create_country_leader = {
+					name = "Volodymyr Vynnychenko"
+					desc = ""
+					picture = "gfx/leaders/UKR/Portrait_UKR_Volodymyr_Vynnychenko.png" 
+					expire = "1.1.1"
+					ideology = radsoc_council_communism_subtype
+				}
+				set_war_support = 0.47
+				set_stability = 0.85
+				set_capital = {
+					state = 206
+				}
+			}
+		}
+	}	
 }
