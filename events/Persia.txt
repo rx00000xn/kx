@@ -25,7 +25,7 @@ country_event = {
 	option = { #Skip
 		name = pers.1.b
 		hidden_effect = {
-			country_event = { id = pers.18 days = 30}
+			country_event = { id = pers.18 days = 10}
 		}
 	}
 }
@@ -37,7 +37,7 @@ country_event = {
 	}
 	title = pers.2.t
 	desc = pers.2.d
-	picture = GFX_report_event_generic_parliament
+	picture = GFX_report_event_PER_parliament
 	fire_only_once = yes
 	is_triggered_only = yes
 	option = {
@@ -57,7 +57,7 @@ country_event = {
 	}
 	title = pers.3.t
     desc = pers.3.d
-    picture = GFX_report_event_generic_parliament
+    picture = GFX_report_event_PER_parliament
 	fire_only_once = yes
 	is_triggered_only = yes
 	# Libtards win
@@ -92,7 +92,7 @@ country_event = {
 	}
 	title = pers.4.t
     desc = pers.4.d
-    picture = GFX_report_event_generic_parliament
+    picture = GFX_report_event_twoangryoldmen
 	fire_only_once = yes
 	is_triggered_only = yes
 # Yas bitch
@@ -123,7 +123,7 @@ country_event = {
 	}
 	title = pers.5.t
     desc = pers.5.d
-    picture = GFX_report_event_generic_parliament
+    picture = GFX_report_event_PER_parliament
 	fire_only_once = yes
 	is_triggered_only = yes
 	option = {
@@ -151,6 +151,7 @@ country_event = { #foroughi and da majlis talk it out
 	}
 	title = pers.6.t
 	desc = pers.6.d
+	picture = GFX_report_event_PER_parliament
 	fire_only_once = yes
 	is_triggered_only = yes
 	option = {
@@ -213,7 +214,7 @@ country_event = { # Deciding on foreign allies for support/future investment (Sw
 		}
 	}
 	option = {
-		name = per.8.b #Sweden
+		name = pers.8.b #Sweden
 		random_list = {
 			75 = {
 				country_event = {id = pers.11 days = 3 } # Sweden accepts
@@ -224,7 +225,7 @@ country_event = { # Deciding on foreign allies for support/future investment (Sw
 		}
 	}
 	option = {
-		name = per.8.c # Austria
+		name = pers.8.c # Austria
 		random_list = {
 			75 = {
 				country_event = {id = pers.13 days = 3 } # Austria accepts
@@ -235,7 +236,7 @@ country_event = { # Deciding on foreign allies for support/future investment (Sw
 		}
 	}
 	option = {
-		name = per.8.d # Japan
+		name = pers.8.e # Japan
 		random_list = {
 			75 = {
 				country_event = {id = pers.15 days = 3 } # Japan accepts
@@ -469,6 +470,7 @@ country_event = {
 	}
 	title = pers.21.t
 	desc = pers.21.d
+	picture = GFX_report_event_reza_chillin
 	fire_only_once = yes
 	is_triggered_only = yes
 
@@ -488,6 +490,7 @@ country_event = {
 	}
 	title = pers.22.t
 	desc = pers.22.d
+	picture = GFX_report_event_map_gilan
 	fire_only_once = yes
 	trigger = {
 		tag = PER
@@ -520,7 +523,7 @@ country_event = {
 		add_political_power = 10
 	}
 	option = {
-		name = pers.22.d
+		name = pers.22.e
 		trigger = {
 			NOT = {
 				has_country_flag = PER_liberals_win
@@ -580,5 +583,205 @@ country_event = {
 		name = pers.24.b
 		add_political_power = 100
 		add_manpower = 15000
+	}
+}
+
+country_event = { ## Send planes to drop leaflets over Zagros and Orumiyeh to demoralise them?
+	id = pers.26
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event pers.26"
+	}
+	title = pers.26.t
+	desc = pers.26.d
+	is_triggered_only = yes
+	option = {
+		name = pers.26.a
+		trigger = {
+			NOT = { has_war_with = ZGS }
+			NOT = { has_war_with = ORM }
+		}
+		ZGS = {
+			add_war_support = -0.02
+		}
+		ORM = {
+			add_war_support = -0.02
+		}
+		add_political_power = -20
+		add_war_support = 0.03
+	}
+	option = {
+		name =  pers.26.b
+		add_political_power = 10
+		air_experience = 25
+		add_ace = {
+			name = Reza
+			surname = Mizani
+			type = fighter_genius
+			is_female = no
+		}
+	}
+	option = {  #But if already at war
+		name = pers.26.c
+		trigger = {
+			OR = {
+				has_war_with = ZGS
+				has_war_with = ORM
+			}
+		}
+		add_war_support = 0.05
+		air_experience = 35
+	}
+
+}
+
+# Decision events
+country_event = {
+	id = pers.25
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event pers.25"
+	}
+	title = pers.25.t
+	desc = pers.25.d
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = pers.25.a
+		add_political_power = 100
+		add_stability = 0.1
+	}
+}
+
+country_event = {
+	id = pers.27
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event pers.27"
+	}
+	title = pers.27.t
+	desc = pers.27.d
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { 	# German Investment
+		name = pers.27.a
+		trigger = {
+			NOT = { has_country_flag = PER_german_alliance }
+		}
+		add_offsite_building = {
+			type = industrial_complex
+			level = 1
+		}
+		add_tech_bonus = {
+			name = industrial_bonus
+			bonus = 0.5
+			uses = 1
+			category = industry
+		}
+		GER = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = medium_increase
+			}
+		}
+	}
+
+	option = { 	# Swedish Investment
+		name = pers.27.b
+		trigger = {
+			NOT = { has_country_flag = PER_swedish_alliance }
+		}
+		add_offsite_building = {
+			type = industrial_complex
+			level = 1
+		}
+		add_tech_bonus = {
+			name = electronics_bonus
+			bonus = 0.5
+			uses = 1
+			category = electronics
+		}
+		SWE = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = medium_increase
+			}
+		}
+	}
+
+	option = { 	# Use Existing Alliance
+		name = pers.27.c
+		trigger = {
+			OR = {
+				has_country_flag = PER_german_alliance
+				has_country_flag = PER_swedish_alliance
+				has_country_flag = PER_austrian_alliance
+				has_country_flag = PER_japanese_alliance
+			}
+		}
+		add_offsite_building = {
+			type = industrial_complex
+			level = 2
+		}
+		add_political_power = 50
+	}
+
+	option = { 	# No Single Partner
+		name = pers.27.e
+		add_offsite_building = {
+			type = industrial_complex
+			level = 1
+		}
+		add_political_power = 25
+		add_stability = 0.03
+	}
+}
+
+country_event = {
+	id = pers.28
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event pers.28"
+	}
+	title = pers.28.t
+	desc = pers.28.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = pers.28.a
+		add_stability = -0.1
+		add_political_power = -25
+		add_popularity = {
+			ideology = social_conservative
+			popularity = -0.1
+		}
+		add_popularity = {
+			ideology = radical_socialist
+			popularity = 0.05
+		}
+		add_manpower = 15000
+		set_country_flag = PER_harsh_land_reform
+	}
+
+	option = {
+		name = pers.28.b
+		add_stability = 0.05
+		add_political_power = -50
+		add_popularity = {
+			ideology = social_liberal
+			popularity = 0.05
+		}
+		add_manpower = 10000
+		set_country_flag = PER_gradual_land_reform
+	}
+
+	option = {
+		name = pers.28.c
+		add_stability = 0.1
+		add_political_power = 25
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.03
+		}
+		add_manpower = 5000
+		set_country_flag = PER_compromise_land_reform
 	}
 }

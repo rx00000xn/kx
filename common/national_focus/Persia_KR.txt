@@ -1024,9 +1024,770 @@ focus = {
 	}
 }
 
+#### Navy/Air ####
+focus = {
+	id =  PER_the_sky_and_the_sea
+	icon = GFX_goal_PER_modernist_campaign
+	cost = 1
+	x = 40
+	y = 7
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = PER_elections_must_finish_tt
+		}
+		hidden_trigger = {
+			OR = {
+			has_country_flag = PER_liberals_win
+			has_country_flag = PER_modarres_win
+			has_country_flag = PER_accepted_reza_deal
+			has_country_flag = PER_reza_takeover
+			}
+		}
 
-
-
-
+	}
+	completion_reward = { 
+		add_political_power = 15
+		air_experience = 15
+		navy_experience = 15
+	}
 }
 
+focus = {
+	id = PER_take_flight
+	icon = GFX_goal_PER_airforce
+	cost = 1
+	prerequisite = {
+		focus = PER_the_sky_and_the_sea
+	}
+	x = -2
+	y = 1
+	relative_position_id = PER_the_sky_and_the_sea
+	completion_reward = { 
+		air_experience = 25
+		add_equipment_to_stockpile = {
+			type = fighter_equipment_0
+			amount = 20
+			producer = PER
+		}
+		add_tech_bonus = {
+			name = fighter_bonus
+			bonus = 1.0
+			uses = 1
+			category = light_fighter
+		}
+	}
+}
+
+focus = {
+	id = PER_air_supremacy
+	icon = GFX_goal_PER_airforce
+	cost = 1
+	prerequisite = {
+		focus = PER_take_flight
+	}
+	x = -1
+	y = 1
+	relative_position_id = PER_take_flight
+	completion_reward = { 
+		add_ace = {
+			name = "Ahmed"
+			surname = "Nakhjavan"
+			type = fighter_genius
+			is_female = no
+		}
+		add_doctrine_cost_reduction = {
+			name = air_doc_bonus
+			cost_reduction = 0.5
+			uses = 1
+			category = air_doctrine
+		}
+	}
+}
+
+focus = {
+	id = PER_bombers_abound
+	icon = GFX_goal_PER_airforce
+	cost = 1
+	prerequisite = {
+		focus = PER_take_flight
+	}
+	x = 1
+	y = 1
+	relative_position_id = PER_take_flight
+	completion_reward = { 
+		air_experience = 25
+		add_equipment_to_stockpile = {
+			type = tac_bomber_equipment_0
+			amount = 10
+			producer = PER
+		}
+		add_tech_bonus = {
+			name = bomber_bonus
+			bonus = 1.0
+			uses = 1
+			category = tactical_bomber
+		}
+	}
+}
+
+focus = {
+	id = PER_watch_the_skies
+	icon = GFX_goal_PER_airforce
+	cost = 1
+	prerequisite = {
+		focus = PER_air_supremacy
+	}
+	x = -1
+	y = 2
+	relative_position_id = PER_take_flight
+	completion_reward = { 
+		add_ideas = PER_air_detection
+		add_tech_bonus = {
+			name = radar_bonus
+			bonus = 1.0
+			uses = 1
+			category = radar_tech
+		}
+	}
+}
+
+focus = {
+	id = PER_naval_bomber_support
+	icon = GFX_goal_PER_airforce
+	cost = 1
+	prerequisite = {
+		focus = PER_bombers_abound
+	}
+	x = 1
+	y = 2
+	relative_position_id = PER_take_flight
+	completion_reward = { 
+		air_experience = 25
+		add_tech_bonus = {
+			name = nav_bomber_bonus
+			bonus = 1.0
+			uses = 1
+			category = naval_bomber
+		}
+	}
+}
+
+focus = {
+	id = PER_a_simoorgh_is_born
+	icon = GFX_goal_PER_airforce
+	cost = 1
+	prerequisite = {
+		focus = PER_watch_the_skies
+	}
+	prerequisite = {
+		focus = PER_naval_bomber_support
+	}
+	x = 0
+	y = 3
+	relative_position_id = PER_take_flight
+	completion_reward = { 
+		add_ideas = PER_simoorgh_airforce
+		air_experience = 50
+		hidden_effect = {
+			country_event = { id = pers.26 days = 10 }	
+		}	
+	}
+}
+## Navy
+focus = {
+	id = PER_navy_what_remains
+	icon = GFX_goal_PER_navy
+	cost = 1
+	prerequisite = {
+		focus = PER_the_sky_and_the_sea
+	}
+	x = 2
+	y = 1
+	relative_position_id = PER_the_sky_and_the_sea
+	completion_reward = { 
+		navy_experience = 25
+		add_tech_bonus = {
+			name = dd_bonus
+			bonus = 1.0
+			uses = 1
+			category = dd_tech
+		}
+	}
+}
+
+focus = {
+	id = PER_navy_navigating_dangerous_waters
+	icon = GFX_goal_PER_navy
+	cost = 1
+	prerequisite = {
+		focus = PER_navy_what_remains
+	}
+	x = -1
+	y = 1
+	relative_position_id = PER_navy_what_remains
+	completion_reward = { 
+		navy_experience = 25
+		add_tech_bonus = {
+			name = ss_bonus
+			bonus = 1.0
+			uses = 1
+			category = ss_tech
+		}
+		add_doctrine_cost_reduction = {
+			name = naval_doc_bonus
+			cost_reduction = 0.5
+			uses = 1
+			category = naval_doctrine
+		}
+	}
+}
+
+focus = {
+	id = PER_navy_fortress_supreme
+	icon = GFX_goal_PER_navy
+	cost = 1
+	prerequisite = {
+		focus = PER_navy_what_remains
+	}
+	x = 1
+	y = 1
+	relative_position_id = PER_navy_what_remains
+	completion_reward = { 
+				navy_experience = 15
+		random_owned_controlled_state = {
+			limit = { is_coastal = yes }
+			add_building_construction = {
+				type = coastal_bunker
+				level = 2
+				instant_build = yes
+				province = { all_provinces = yes limit_to_coastal = yes }
+			}
+			add_building_construction = {
+				type = naval_base
+				level = 2
+				instant_build = yes
+				province = { all_provinces = yes limit_to_naval_base = yes }
+			}
+		}
+	}
+}
+
+focus = {
+	id = PER_naval_hegemony
+	icon = GFX_goal_PER_navy
+	cost = 1
+	prerequisite = {
+		focus = PER_navy_navigating_dangerous_waters
+	}
+	x = -1
+	y = 2
+	relative_position_id = PER_navy_what_remains
+	completion_reward = { 
+		navy_experience = 25
+		add_tech_bonus = {
+			name = cl_bonus
+			bonus = 1.0
+			uses = 1
+			category = cl_tech
+		}
+		add_tech_bonus = {
+			name = ca_bonus
+			bonus = 1.0
+			uses = 1
+			category = ca_tech
+		}
+	}
+}
+
+focus = {
+	id = PER_make_them_fear_the_gulf
+	icon = GFX_goal_PER_navy
+	cost = 1
+	prerequisite = {
+		focus = PER_navy_fortress_supreme
+	}
+	x = 1
+	y = 2
+	relative_position_id = PER_navy_what_remains
+	completion_reward = { 
+		add_ideas = PER_gulf_raiders
+		add_equipment_to_stockpile = {
+			type = convoy
+			amount = 50
+			producer = PER
+		}
+	}
+}
+
+focus = {
+	id = PER_dominance_of_the_gulf
+	icon = GFX_goal_PER_navy
+	cost = 1
+	prerequisite = {
+		focus = PER_make_them_fear_the_gulf
+	}
+	prerequisite = {
+		focus = PER_naval_hegemony
+	}
+	x = 0
+	y = 3
+	relative_position_id = PER_navy_what_remains
+	completion_reward = { 
+		add_ideas = PER_masters_of_the_gulf
+		navy_experience = 50
+		add_war_support = 0.1
+	}
+}
+### Economy Tree ###
+
+focus = {
+	id = PER_black_monday_comes
+	icon = GFX_goal_aog_money
+	cost = 1
+	x = -5
+	y = 0
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = PER_elections_must_finish_tt
+		}
+		hidden_trigger = {
+			OR = {
+			has_country_flag = PER_liberals_win
+			has_country_flag = PER_modarres_win
+			has_country_flag = PER_accepted_reza_deal
+			has_country_flag = PER_reza_takeover
+			}
+		}
+	}
+	completion_reward = { 
+		add_ideas = PER_collapsing_economy
+	}
+}
+
+focus = {
+	id = PER_bank_melli
+	icon = GFX_goal_aog_money
+
+	cost = 7
+	prerequisite = {
+		focus = PER_black_monday_comes
+	}
+	x = -3
+	y = 1
+	relative_position_id = PER_black_monday_comes
+	completion_reward = {
+		add_political_power = 50
+		add_stability = 0.05
+	}
+}
+
+focus = {
+	id = PER_survey_resources
+	icon = GFX_goal_aog_money
+	cost = 7
+	prerequisite = {
+		focus = PER_black_monday_comes
+	}
+	x = 0
+	y = 1
+	relative_position_id = PER_black_monday_comes
+	completion_reward = {
+		add_resource = {
+			type = steel
+			amount = 8
+			state = 266
+		}
+		add_tech_bonus = {
+			name = excavation_bonus
+			bonus = 1.0
+			uses = 1
+			category = excavation_tech
+		}
+	}
+}
+
+focus = {
+	id = PER_land_question
+	icon = GFX_goal_aog_money
+	cost = 7
+	prerequisite = {
+		focus = PER_black_monday_comes
+	}
+	x = 3
+	y = 1
+	relative_position_id = PER_black_monday_comes
+	completion_reward = {
+		add_political_power = 25
+		add_stability = -0.05
+	}
+}
+
+focus = {
+	id = PER_currency_reform
+	icon = GFX_goal_aog_money
+	cost = 7
+	prerequisite = {
+		focus = PER_bank_melli
+	}
+	x = -4
+	y = 2
+	relative_position_id = PER_black_monday_comes
+	completion_reward = {
+		add_stability = 0.05
+		swap_ideas = {
+			remove_idea = PER_collapsing_economy
+			add_idea = PER_recovering_economy
+		}
+	}
+}
+
+focus = {
+	id = PER_mining_expansion
+	icon = GFX_goal_aog_money
+	cost = 7
+	prerequisite = {
+		focus = PER_survey_resources
+	}
+	prerequisite = {
+		focus = PER_bank_melli
+	}
+	x = -2
+	y = 2
+	relative_position_id = PER_black_monday_comes
+	completion_reward = {
+		add_resource = {
+			type = chromium
+			amount = 6
+			state = 266
+		}
+		add_resource = {
+			type = tungsten
+			amount = 4
+			state = 266
+		}
+	}
+}
+
+focus = {
+	id = PER_new_factories
+	icon = GFX_goal_aog_money
+	cost = 7
+	prerequisite = {
+		focus = PER_survey_resources
+	}
+	prerequisite = {
+		focus = PER_land_question
+	}
+	x = 2
+	y = 2
+	relative_position_id = PER_black_monday_comes
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = { is_core_of = PER }
+			add_building_construction = {
+				type = industrial_complex
+				level = 2
+				instant_build = yes
+			}
+		}
+	}
+}
+
+focus = {
+	id = PER_qanats
+	icon = GFX_goal_aog_money
+	cost = 7
+	prerequisite = {
+		focus = PER_land_question
+	}
+	x = 4
+	y = 2
+	relative_position_id = PER_black_monday_comes
+	completion_reward = {
+		every_owned_state = {
+			limit = { is_core_of = PER }
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+
+focus = {
+	id = PER_foreign_investment
+	icon = GFX_goal_aog_money
+	cost = 7
+	prerequisite = {
+		focus = PER_currency_reform
+	}
+	x = -5
+	y = 3
+	relative_position_id = PER_black_monday_comes
+	completion_reward = {
+		country_event = { id = pers.26 }
+	}
+}
+
+focus = {
+	id = PER_state_budget
+	icon = GFX_goal_aog_money
+	cost = 7
+	prerequisite = {
+		focus = PER_currency_reform
+	}
+	prerequisite = {
+		focus = PER_mining_expansion
+	}
+	x = -3
+	y = 3
+	relative_position_id = PER_black_monday_comes
+	completion_reward = {
+		add_ideas = PER_balanced_budget
+		add_political_power = 50
+	}
+}
+
+focus = {
+	id = PER_textile_industry
+	icon = GFX_goal_aog_money
+	cost = 7
+	prerequisite = {
+		focus = PER_mining_expansion
+	}
+	prerequisite = {
+		focus = PER_new_factories
+	}
+	x = -1
+	y = 3
+	relative_position_id = PER_black_monday_comes
+	completion_reward = {
+		add_ideas = PER_textile_exports
+		411 = {
+			add_building_construction = {
+				type = industrial_complex
+				level = 2
+				instant_build = yes
+			}
+		}
+	}
+}
+
+focus = {
+	id = PER_arms_production
+	icon = GFX_goal_aog_money
+	cost = 7
+	prerequisite = {
+		focus = PER_mining_expansion
+	}
+	prerequisite = {
+		focus = PER_new_factories
+	}
+	x = 1
+	y = 3
+	relative_position_id = PER_black_monday_comes
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = { is_core_of = PER }
+			add_building_construction = {
+				type = arms_factory
+				level = 2
+				instant_build = yes
+			}
+		}
+		add_tech_bonus = {
+			name = infantry_weapons_bonus
+			bonus = 1.0
+			uses = 1
+			category = infantry_weapons
+		}
+	}
+}
+
+focus = {
+	id = PER_famine_relief
+	icon = GFX_goal_aog_money
+	cost = 7
+	prerequisite = {
+		focus = PER_new_factories
+	}
+	prerequisite = {
+		focus = PER_qanats
+	}
+	x = 3
+	y = 3
+	relative_position_id = PER_black_monday_comes
+	completion_reward = {
+		add_stability = 0.1
+		add_manpower = 25000
+	}
+}
+
+focus = {
+	id = PER_break_landlords
+	icon = GFX_goal_aog_money
+	cost = 7
+	prerequisite = {
+		focus = PER_qanats
+	}
+	x = 5
+	y = 3
+	relative_position_id = PER_black_monday_comes
+	completion_reward = {
+		country_event = { id = pers.28}
+	}
+}
+
+focus = {
+	id = PER_industrial_iran
+	icon = GFX_goal_aog_money
+	cost = 7
+	prerequisite = {
+		focus = PER_state_budget
+	}
+	prerequisite = {
+		focus = PER_textile_industry
+	}
+	x = -2
+	y = 4
+	relative_position_id = PER_black_monday_comes
+	completion_reward = {
+		add_ideas = PER_industrial_expansion
+		random_owned_controlled_state = {
+			limit = { is_core_of = PER }
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+
+focus = {
+	id = PER_military_factories
+	icon = GFX_goal_aog_money
+	cost = 7
+	prerequisite = {
+		focus = PER_textile_industry
+	}
+	prerequisite = {
+		focus = PER_arms_production
+	}
+	x = 0
+	y = 4
+	relative_position_id = PER_black_monday_comes
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = { is_core_of = PER }
+			add_building_construction = {
+				type = arms_factory
+				level = 2
+				instant_build = yes
+			}
+		}
+		add_war_support = 0.05
+	}
+}
+
+focus = {
+	id = PER_rural_development
+	icon = GFX_goal_aog_money
+	cost = 7
+	prerequisite = {
+		focus = PER_arms_production
+	}
+	prerequisite = {
+		focus = PER_famine_relief
+	}
+	x = 2
+	y = 4
+	relative_position_id = PER_black_monday_comes
+	completion_reward = {
+		every_owned_state = {
+			limit = { is_core_of = PER }
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+		add_stability = 0.05
+	}
+}
+
+focus = {
+	id = PER_research_grants
+	icon = GFX_goal_aog_money
+	cost = 7
+	prerequisite = {
+		focus = PER_industrial_iran
+	}
+	prerequisite = {
+		focus = PER_military_factories
+	}
+	x = -1
+	y = 5
+	relative_position_id = PER_black_monday_comes
+	completion_reward = {
+		add_research_slot = 1
+		add_tech_bonus = {
+			name = industrial_bonus
+			bonus = 1.0
+			uses = 2
+			category = industry
+		}
+	}
+}
+
+focus = {
+	id = PER_worker_rights
+	icon = GFX_goal_aog_money
+	cost = 7
+	prerequisite = {
+		focus = PER_military_factories
+	}
+	prerequisite = {
+		focus = PER_rural_development
+	}
+	x = 1
+	y = 5
+	relative_position_id = PER_black_monday_comes
+	completion_reward = {
+		add_ideas = PER_empowered_workers
+		add_stability = 0.05
+		add_political_power = 50
+	}
+}
+
+focus = {
+	id = PER_iranian_recovery
+	icon = GFX_goal_aog_money
+	cost = 7
+	prerequisite = {
+		focus = PER_research_grants
+	}
+	prerequisite = {
+		focus = PER_worker_rights
+	}
+	x = 0
+	y = 6
+	relative_position_id = PER_black_monday_comes
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = PER_recovering_economy
+			add_idea = PER_iranian_resurgence
+		}
+		add_stability = 0.1
+		add_war_support = 0.1
+		add_political_power = 100
+	}
+}
+
+}
