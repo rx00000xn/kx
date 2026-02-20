@@ -1,5 +1,6 @@
 ENG_Chaos_In_Union_BoP = {##government winning
 	ENG_Government_imminent = {
+		icon = GFX_decision_mission_icon
 		activation = {
 			has_country_flag = ENG_Government_Winning
 			has_government = totalist
@@ -11,7 +12,6 @@ ENG_Chaos_In_Union_BoP = {##government winning
 					range = ENG_Totalist_side_High
 				}
 			}
-			
 		}
 		cancel_trigger = {
 			NOT = {
@@ -21,13 +21,9 @@ ENG_Chaos_In_Union_BoP = {##government winning
 				}
 			}
 		}
-		icon = mission_icon
 		is_good = yes
 		days_mission_timeout = 60
 		selectable_mission = no
-		complete_effect = {
-
-		}
 		timeout_effect = {
 			if = {
 				limit = { has_country_flag = ENG_Union_Has_Collapsed }
@@ -48,6 +44,7 @@ ENG_Chaos_In_Union_BoP = {##government winning
 
 	##first level of collapse - Scotland and Wales break away
 	ENG_Union_Collapse = {
+		icon = GFX_decision_mission_icon
 		activation = {
 			has_country_flag = ENG_Anarchists_Pissed
 			has_government = totalist
@@ -66,7 +63,6 @@ ENG_Chaos_In_Union_BoP = {##government winning
 				}
 			}
 		}
-		icon = mission_icon
 		is_good = no
 		days_mission_timeout = 60
 		selectable_mission = no
@@ -95,6 +91,7 @@ ENG_Chaos_In_Union_BoP = {##government winning
 
 	##second "level" of collapse - Causes lawrence to coup
 	ENG_Union_Collapse_2 = {
+		icon = GFX_decision_mission_icon
 		activation = {
 			has_country_flag = ENG_Union_Has_Collapsed
 			has_country_flag = ENG_Anarchists_Pissed
@@ -111,11 +108,10 @@ ENG_Chaos_In_Union_BoP = {##government winning
 				}
 			}
 		}
-		icon = mission_icon		# For GFX_decision_mission_icon
 		is_good = no
 		days_mission_timeout = 30
 		selectable_mission = no
-		complete_effect = {#Win
+		complete_effect = { #Win
 			clr_country_flag = ENG_Anarchists_Pissed
 			country_event = {
 				id = uob.22
@@ -140,72 +136,130 @@ ENG_Chaos_In_Union_BoP = {##government winning
 		}
 	}
 
-
-	ENG_le_socialist_infighting_decision = {
-		icon = GFX_decision_factories
-		visible = {
-			check_variable = {
-				ENG.ENG_anarchist_momentum > 0
-			}
-		}
-		cancel_trigger = {
-			NOT = {
-				has_government = totalist
-			}
-		}
-		icon = mission_icon
-		days_remove = 20
-		cost = 35
-		modifier = {
-			political_power_factor = -0.1
-		}
-		remove_effect = {
-			custom_effect_tooltip = ENG_anarchist_momentum_lowered
-			add_to_variable = {
-				ENG.ENG_anarchist_momentum = -1
-			}
-			add_political_power = 10
-		}
-	}
-
-	ENG_fearmongering_decision = {
-		icon = GFX_decision_factories
-		visible = {
+	## Opposition activities ##
+	ENG_opposition_activity_mission = {
+		icon = GFX_generic_ignite_civil_war
+		activation = {
 			has_power_balance = {
 				id = ENG_Anarchist_Totalist_balance
 			}
-			check_variable = {
-				ENG.ENG_anarchist_momentum > 4
+			NOT = {
+				has_completed_focus = ENG_side_with_anarchists
 			}
 		}
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = ENG_BOP_momentum_above_4_tt
-				check_variable = {
-					ENG.ENG_anarchist_momentum > 4
-				}
-			} 
+			always = no
 		}
-
 		cancel_if_not_visible = yes
-		icon = mission_icon
-		fire_only_once = yes
-		cost = 24
-		complete_effect = {
-			add_ideas = ENG_BOP_Fearmongering_idea
+		visible = {
+			has_government = totalist
+			has_power_balance = {
+				id = ENG_Anarchist_Totalist_balance
+			}
+			NOT = {
+				has_completed_focus = ENG_side_with_anarchists
+			}
+		}
+		is_good = no
+		days_mission_timeout = ENG.ENG_momentum_activity_timeout
+		days_re_enable = 7
+		selectable_mission = no
+		timeout_effect = {
+			if = {
+				limit = {
+					check_variable = {
+						var = ENG.ENG_momentum
+						value = 4
+						compare = less_than_or_equals
+					}
+				}
+				ENG_bop_do_activity_low = yes
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						var = ENG.ENG_momentum
+						value = 5
+						compare = greater_than_or_equals
+					}
+					check_variable = {
+						var = ENG.ENG_momentum
+						value = 7
+						compare = less_than_or_equals
+					}
+				}
+				ENG_bop_do_activity_med = yes
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						ENG.ENG_momentum > 7
+					}
+				}
+				ENG_bop_do_activity_high = yes
+			}
+		}
+	}
+
+	ENG_opposition_build_momentum_mission = {
+		icon = GFX_generic_ignite_civil_war
+		activation = {
+			has_completed_focus = ENG_side_with_government
+			has_power_balance = {
+				id = ENG_Anarchist_Totalist_balance
+			}
+		}
+		available = {
+			always = no
+		}
+		cancel_if_not_visible = yes
+		visible = {
+			has_government = totalist
+			has_completed_focus = ENG_side_with_government
+			has_power_balance = {
+				id = ENG_Anarchist_Totalist_balance
+			}
+		}
+		is_good = no
+		days_mission_timeout = ENG.ENG_momentum_build_timeout
+		selectable_mission = no
+		timeout_effect = {
+			add_political_power = 10
+			ENG_bop_momentum_update = yes
+			if = {
+				limit = {
+					check_variable = { ENG.ENG_momentum < 11 }
+				}
+				custom_effect_tooltip = ENG_BOP_opposition_more_destructive
+				custom_effect_tooltip = ENG_opposing_momentum_increased
+				add_to_variable = { ENG.ENG_momentum = 1 }
+			}
+			else = {
+				custom_effect_tooltip = ENG_momentum_maxed
+			}
+			custom_effect_tooltip = ENG_current_opposing_momentum
 		}
 	}
 
 	ENG_call_in_army_decision = {
 		icon = GFX_decision_soldierly_discipline
-		cancel_trigger = {
-			NOT = {
-				has_government = totalist
+		visible = {
+			has_completed_focus = ENG_side_with_government
+			has_government = totalist
+		}
+		available = {
+			has_completed_focus = ENG_desperate_times
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				has_country_flag = ENG_army_purged
+				add = 90
 			}
 		}
-		icon = mission_icon
+		cancel_if_not_visible = yes
 		days_remove = 14
-		cost = 90
+		cost = ENG.ENG_decision_cost_90
 		fire_only_once = yes
 		complete_effect = {
 			custom_effect_tooltip = ENG_Call_in_army_bad
@@ -235,12 +289,17 @@ ENG_Chaos_In_Union_BoP = {##government winning
 	
 	ENG_purge_army_decision = {
 		icon = GFX_decision_investigation
-		cancel_trigger = {
-			NOT = {
-				has_government = totalist
-			}
+		visible = {
+			has_completed_focus = ENG_side_with_government
+			has_government = totalist
 		}
-		icon = mission_icon
+		available = {
+			has_completed_focus = ENG_desperate_times
+		}
+		ai_will_do = {
+			factor = 60
+		}
+		cancel_if_not_visible = yes
 		days_remove = 70
 		custom_cost_text = decision_cost_ws_10_pp_30
 		custom_cost_trigger = {
@@ -270,19 +329,104 @@ ENG_Chaos_In_Union_BoP = {##government winning
 			}
 		}
 	}
-	ENG_implement_curfew_decision = {
+
+	ENG_le_socialist_infighting_decision = {
+		icon = GFX_decision_generic_inflation
+		visible = {
+			has_government = totalist
+			has_completed_focus = ENG_side_with_government
+		}
+		available = {
+			has_completed_focus = ENG_sow_paranoia
+			check_variable = {
+				ENG.ENG_momentum > 0
+			}
+		}
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				add = 10
+				check_variable = { ENG.ENG_momentum > 3 }
+			}
+			modifier = {
+				add = 20
+				check_variable = { ENG.ENG_momentum > 5 }
+			}
+			modifier = {
+				add = 30
+				check_variable = { ENG.ENG_momentum > 7 }
+			}
+			
+		}		
 		cancel_trigger = {
 			NOT = {
 				has_government = totalist
 			}
 		}
-		icon = mission_icon
+		days_remove = 20
+		cost = ENG.ENG_decision_cost_35
+		modifier = {
+			political_power_factor = -0.1
+		}
+		remove_effect = {
+			custom_effect_tooltip = ENG_opposing_momentum_lowered
+			add_to_variable = {
+				ENG.ENG_momentum = -1
+			}
+			add_political_power = 10
+		}
+	}
+
+	ENG_fearmongering_decision = {
+		icon = GFX_decision_eng_propaganda_campaigns
+		visible = {
+			has_government = totalist
+			has_completed_focus = ENG_side_with_government
+			has_power_balance = {
+				id = ENG_Anarchist_Totalist_balance
+			}
+			check_variable = {
+				ENG.ENG_momentum > 4
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		cancel_if_not_visible = yes
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = ENG_BOP_momentum_above_4_tt
+				check_variable = {
+					ENG.ENG_momentum > 4
+				}
+			} 
+		}
+		fire_only_once = yes
+		cost = ENG.ENG_decision_cost_25
+		complete_effect = {
+			add_ideas = ENG_BOP_Fearmongering_idea
+		}
+	}
+
+	ENG_implement_curfew_decision = {
+		icon = GFX_decision_oppression
+		visible = {
+			has_completed_focus = ENG_side_with_government
+			has_government = totalist
+		}
+		cancel_if_not_visible = yes
 		days_remove = 25
 		custom_cost_text = decision_cost_st_10_pp_40
 		custom_cost_trigger = {
     		has_political_power > 40
 		}
+		ai_will_do = {
+			factor = 100
+		}
 		fire_only_once = yes
+		available = {
+			has_completed_focus = ENG_establish_curfew
+		}
 		complete_effect = {
 			hidden_effect = {
 				add_stability = -0.1
@@ -294,25 +438,25 @@ ENG_Chaos_In_Union_BoP = {##government winning
 			add_ideas = {
 				ENG_BOP_Curfew_idea
 			}
-			custom_effect_tooltip = ENG_anarchist_momentum_lowered
+			custom_effect_tooltip = ENG_opposing_momentum_lowered
 			add_to_variable = {
-				ENG.ENG_anarchist_momentum = -1
+				ENG.ENG_momentum = -1
 			}
 		}
 	}
-	
 	ENG_run_propaganda_decision = {
 		icon = GFX_decision_trumpet
-		cancel_trigger = {
-			NOT = {
-				has_government = totalist
-			}
+		visible = {
+			has_completed_focus = ENG_side_with_government
+			has_government = totalist
+		}
+		ai_will_do = {
+			factor = 100
 		}
 		cancel_if_not_visible = yes
-		icon = mission_icon		# For GFX_decision_mission_icon
 		days_remove = 45
-		cost = 20
-		days_re_enable = 25
+		cost = ENG.ENG_decision_cost_20
+		days_re_enable = 60
 		modifier = {
 			power_balance_daily = 0.0015
 			totalist_drift = 0.04
@@ -328,11 +472,14 @@ ENG_Chaos_In_Union_BoP = {##government winning
 					ruling_only = yes
 				}
 			}
+			has_completed_focus = ENG_side_with_government
+		}
+		ai_will_do = {
+			factor = 100
 		}
 		cancel_if_not_visible = yes
-		icon = mission_icon	
 		days_remove = 24
-		cost = 15
+		cost = ENG.ENG_decision_cost_15
 		fire_only_once = yes
 		complete_effect = {
 			custom_effect_tooltip = ENG_look_for_franks
@@ -348,15 +495,24 @@ ENG_Chaos_In_Union_BoP = {##government winning
 	}
 	ENG_raid_anarchist_factories_decision = {
 		icon = GFX_decision_factories
+		visible = {
+			has_completed_focus = ENG_side_with_government
+		}
 		cancel_trigger = {
 			NOT = {
 				has_government = totalist
 			}
 		}
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				has_political_power > 60
+				add = 30
+			}
+		}
 		cancel_if_not_visible = yes
-		icon = mission_icon		# For GFX_decision_mission_icon
 		days_remove = 40
-		cost = 25
+		cost = ENG.ENG_decision_cost_25
 		modifier = {
 			power_balance_daily = 0.0025
 			industrial_capacity_dockyard = -0.05
@@ -366,11 +522,7 @@ ENG_Chaos_In_Union_BoP = {##government winning
 	}
 	#Mosley-exclusive ones
 	ENG_deploy_biff_boys_decision = {
-		cancel_trigger = {
-			NOT = {
-				has_government = totalist
-			}
-		}
+		icon = GFX_decision_generic_military
 		cancel_if_not_visible = yes
 		visible = {
 			has_country_leader = {
@@ -378,11 +530,14 @@ ENG_Chaos_In_Union_BoP = {##government winning
 				ruling_only = yes
 			}
 			has_completed_focus = ENG_MAX_glory_of_biff_boys
+			has_completed_focus = ENG_side_with_government
 		}
-		icon = mission_icon		# For GFX_decision_mission_icon
+		ai_will_do = {
+			factor = 100
+		}
 		days_remove = 20
 		days_re_enable = 60
-		cost = 25
+		cost = ENG.ENG_decision_cost_25
 		complete_effect = {
 			if = {
 				limit = { has_country_flag = ENG_biff_boys_expanded }
@@ -402,6 +557,7 @@ ENG_Chaos_In_Union_BoP = {##government winning
 	}
 
 	ENG_expand_biff_boys_decision = {
+		icon = GFX_decision_generic_welfare
 		cancel_if_not_visible = yes
 		visible = {
 			has_country_leader = {
@@ -409,8 +565,8 @@ ENG_Chaos_In_Union_BoP = {##government winning
 				ruling_only = yes
 			}
 			has_completed_focus = ENG_MAX_glory_of_biff_boys
+			has_completed_focus = ENG_side_with_government
 		}
-		icon = mission_icon		# For GFX_decision_mission_icon
 		fire_only_once = yes
 		custom_cost_text = decision_cost_pp_25_ie_1000
 		custom_cost_trigger = {
@@ -419,7 +575,9 @@ ENG_Chaos_In_Union_BoP = {##government winning
 			}
 			has_political_power > 24
 		}
-
+		ai_will_do = {
+			factor = 100
+		}
 		complete_effect = {
 			add_power_balance_value = {
 				id = ENG_Anarchist_Totalist_balance
@@ -436,112 +594,137 @@ ENG_Chaos_In_Union_BoP = {##government winning
 		}
 	}
 
-	#Anarchists activities ------------------------------- 
-	#change this so momentum builds, with a chance of an activity that resets momentum, higher momentum = more destructive
-	#higher momentum = slower build but moves bop more
-	#lower momentum has higher chances of just building more when the timer runs out instead of doing a weak activity
-	ENG_Anarchist_activity_mission = {
-		activation = {
-			has_power_balance = {
-				id = ENG_Anarchist_Totalist_balance
-			}
-		}
-		available = {
-			always = no
+	# Anarchist versions of the decisions #
+	ENG_raid_factories_decision = {
+		icon = GFX_decision_factories
+		visible = {
+			has_completed_focus = ENG_side_with_anarchists
 		}
 		cancel_if_not_visible = yes
-		visible = {
-			has_government = totalist
-			has_power_balance = {
-				id = ENG_Anarchist_Totalist_balance
-			}
+		days_remove = 40
+		cost = ENG.ENG_decision_cost_25
+		ai_will_do = {
+			factor = 100
 		}
-		icon = generic_ignite_civil_war
-		is_good = no
-		days_mission_timeout = 45
-		days_re_enable = 7
-		selectable_mission = no
-		timeout_effect = {
-			if = {
+		modifier = {
+			power_balance_daily = -0.0025
+			industrial_capacity_dockyard = -0.05
+			industrial_capacity_factory = -0.05
+			production_factory_efficiency_gain_factor = -0.1
+		}
+		complete_effect = {
+			random_owned_controlled_state = {
 				limit = {
-					check_variable = {
-						var = ENG.ENG_anarchist_momentum
-						value = 4
-						compare = less_than_or_equals
-					}
+					arms_factory > 0
 				}
-				ENG_anarchist_do_activity_low = yes
+				damage_building = {
+					type = arms_factory
+					damage = 0.45
+				}
 			}
-			else_if = {
-				limit = {
-					AND = {
-						check_variable = {
-							var = ENG.ENG_anarchist_momentum
-							value = 5
-							compare = greater_than_or_equals
-						}
-						check_variable = {
-							var = ENG.ENG_anarchist_momentum
-							value = 7
-							compare = less_than_or_equals
-						}
-					}
-				}
-				ENG_anarchist_do_activity_med = yes
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						ENG.ENG_anarchist_momentum > 7
-					}
-				}
-				ENG_anarchist_do_activity_high = yes
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 100
 			}
 		}
 	}
-
-
-	ENG_Anarchist_build_momentum_mission = {
-		activation = {
-			has_power_balance = {
-				id = ENG_Anarchist_Totalist_balance
-			}
-		}
-		available = {
-			always = no
+	ENG_strike_heart_decision = {
+		icon = GFX_decision_generic_wreckers
+		visible = {
+			has_completed_focus = ENG_side_with_anarchists
 		}
 		cancel_if_not_visible = yes
-		visible = {
-			has_government = totalist
-			has_power_balance = {
+		days_remove = 70
+		days_re_enable = 35
+		cost = ENG.ENG_decision_cost_35
+		ai_will_do = {
+			factor = 100
+		}
+		available = {
+			has_completed_focus = ENG_strike_militant_heart
+		}
+		modifier = {
+			power_balance_daily = -0.003
+			weekly_manpower = -600
+			stability_weekly = -0.005
+		}
+		complete_effect = {
+			add_power_balance_value = {
 				id = ENG_Anarchist_Totalist_balance
+				value = -0.14
+			}
+			random_owned_controlled_state = {
+				limit = {
+					arms_factory > 0
+				}
+				damage_building = {
+					type = arms_factory
+					damage = 0.6
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					arms_factory > 0
+				}
+				damage_building = {
+					type = arms_factory
+					damage = 0.6
+				}
+			}
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 1000
+			}
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				amount = 125
 			}
 		}
-		icon = generic_ignite_civil_war
-		is_good = no
-		days_mission_timeout = 28
-		days_re_enable = 0
-		selectable_mission = no
-		timeout_effect = {
-			add_political_power = 5
-			custom_effect_tooltip = ENG_anarchist_momentum_increased
-			custom_effect_tooltip = ENG_current_anarchist_momentum
-			add_to_variable = {
-				ENG.ENG_anarchist_momentum = 1
+	}
+	ENG_stalk_shadows_decision = {
+		icon = GFX_decision_recruit_operative
+		visible = {
+			has_completed_focus = ENG_side_with_anarchists
+		}
+		days_remove = 25
+		cost = ENG.ENG_decision_cost_45
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 100
+		}
+		available = {
+			has_completed_focus = ENG_stalk_the_shadows
+		}
+		cancel_if_not_visible = yes
+		complete_effect = {
+			add_power_balance_value = {
+				id = ENG_Anarchist_Totalist_balance
+				value = -0.075
 			}
-			if = {
-				limit = {
-					OR = {
-						check_variable = {
-							ENG.ENG_anarchist_momentum = 4
-						}
-						check_variable = {
-							ENG.ENG_anarchist_momentum = 7
-						}
-					}
-				}
-				custom_effect_tooltip = ENG_BOP_anarchists_more_destructive
+		}
+		remove_effect = {
+			add_ideas = {
+				ENG_BOP_nightstalkers_idea
 			}
+		}
+	}
+	ENG_anarchist_flyers_decision = {
+		icon = GFX_decision_trumpet
+		visible = {
+			has_completed_focus = ENG_side_with_anarchists
+		}
+		available = {
+			has_completed_focus = ENG_threat_of_oppression
+		}
+		cancel_if_not_visible = yes
+		days_remove = 45
+		cost = ENG.ENG_decision_cost_20
+		days_re_enable = 60
+		modifier = {
+			power_balance_daily = -0.0015
+			radical_socialist_drift = 0.04
+			political_power_factor = 0.075
+			stability_weekly = 0.015
 		}
 	}
 	
@@ -549,6 +732,9 @@ ENG_Chaos_In_Union_BoP = {##government winning
 	ENG_debug_kill_tots_decision = {
 		available = {
 			has_government = totalist
+		}
+		ai_will_do = {
+			factor = 0
 		}
 		cancel_trigger = {
 			NOT = {
@@ -566,6 +752,9 @@ ENG_Chaos_In_Union_BoP = {##government winning
 	ENG_debug_kill_anarchists_decision = {
 		available = {
 			has_government = totalist
+		}
+		ai_will_do = {
+			factor = 0
 		}
 		cancel_trigger = {
 			NOT = {
