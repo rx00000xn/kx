@@ -3121,13 +3121,11 @@ country_event = { #Military junta- New
 			id = bdeausdom.5
 		}
 	}
-	
 }
-
-
 
 country_event = { #To happen after Black Monday - Fate of the German debts
 	id = bdeaus.1
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.1" }
 	title = bdeaus.1.t
 	desc = bdeaus.1.d
 	
@@ -3145,11 +3143,11 @@ country_event = { #To happen after Black Monday - Fate of the German debts
 		AUS_subtract_five_collapse = yes
 	}
 	
-	
 	option = { #Slash our payments.
 		name = bdeaus.1.b
 		add_stability = -0.15
 		add_political_power = 50
+		AUS_raise_austro_german_tensions = yes
 		increase_ruling_party_popularity_by_3 = yes
 		modify_timed_idea = {
 			idea = AUS_german_debts
@@ -3167,6 +3165,7 @@ country_event = { #To happen after Black Monday - Fate of the German debts
 
 country_event = { #GER - Austria Cancels Debt Payments
 	id = bdeaus.2
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.2" }
 	title = bdeaus.2.t
 	desc = bdeaus.2.d
 	
@@ -3179,12 +3178,16 @@ country_event = { #GER - Austria Cancels Debt Payments
 	option = { #You'll pay in time
 		name = bdeaus.2.a
 		set_global_flag = AUS_canceled_debts
-		add_war_support = 0.03
+		add_political_power = -25
+		add_stability = -0.05
+		add_war_support = 0.05
+		effect_tooltip = { AUS_raise_austro_german_tensions = yes }
 	}
 }
 
 country_event = { #Weltkrieg Debts Repaid
 	id = bdeaus.3
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.3" }
 	title = bdeaus.3.t
 	desc = bdeaus.3.d
 	
@@ -3194,7 +3197,7 @@ country_event = { #Weltkrieg Debts Repaid
 
 	is_triggered_only = yes
 
-	option = { #You'll pay in time
+	option = { #hooray
 		name = bdeaus.3.a
 		set_country_flag = AUS_did_debts
 		add_political_power = 35
@@ -3204,6 +3207,7 @@ country_event = { #Weltkrieg Debts Repaid
 
 country_event = { #Austria Defaults on Debts (if austria collapses while it haves the debts idea)
 	id = bdeaus.30
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.30" }
 	title = bdeaus.30.t
 	desc = bdeaus.30.d
 	
@@ -3218,7 +3222,7 @@ country_event = { #Austria Defaults on Debts (if austria collapses while it have
 		ai_chance = {
 			base = 67
 		}
-		add_political_power = 30
+		add_political_power = -30
 		add_stability = -0.05
 	}
 	
@@ -3227,7 +3231,8 @@ country_event = { #Austria Defaults on Debts (if austria collapses while it have
 		ai_chance = {
 			base = 33
 		}
-		add_political_power = -30
+		AUS_raise_austro_german_tensions = yes
+		add_political_power = 30
 		add_stability = 0.05
 		FROM = {
 			country_event = {
@@ -3241,6 +3246,7 @@ country_event = { #Austria Defaults on Debts (if austria collapses while it have
 
 country_event = { #Germany demands payment in kind
 	id = bdeaus.31
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.31" }
 	title = bdeaus.31.t
 	desc = bdeaus.31.d
 	
@@ -3255,6 +3261,7 @@ country_event = { #Germany demands payment in kind
 		ai_chance = {
 			base = 90
 		}
+		AUS_raise_austro_german_tensions = yes
 		add_political_power = 30
 		add_stability = -0.05
 		FROM = {
@@ -3271,8 +3278,13 @@ country_event = { #Germany demands payment in kind
 		ai_chance = {
 			base = 10
 		}
+		trigger = { has_socialist_government = no }
 		add_political_power = -30
 		add_stability = 0.05
+		add_timed_idea = {
+			idea = AUS_german_material_debt
+			days = 365
+		}
 		FROM = {
 			country_event = {
 				id = bdeaus.32
@@ -3285,10 +3297,11 @@ country_event = { #Germany demands payment in kind
 
 country_event = { #Austria agrees to payment in kind
 	id = bdeaus.32
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.32" }
 	title = bdeaus.32.t
 	desc = bdeaus.32.d
 	
-	picture = GFX_event_AUS_anglo_bank_run
+	picture = GFX_event_AUS_austria_germany_soldiers
 
 	fire_only_once = yes
 
@@ -3304,6 +3317,7 @@ country_event = { #Austria agrees to payment in kind
 
 country_event = { #Austria denies to payment in kind
 	id = bdeaus.33
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.33" }
 	title = bdeaus.33.t
 	desc = bdeaus.33.d
 	
@@ -3318,11 +3332,13 @@ country_event = { #Austria denies to payment in kind
 		decrease_ruling_party_popularity_by_5 = yes
 		add_political_power = -10
 		add_stability = -0.03
+		effect_tooltip = { AUS_raise_austro_german_tensions = yes }
 	}
 }
 
 country_event = { #Default on Weltkrieg Debt
 	id = bdeaus.34
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.34" }
 	title = bdeaus.34.t
 	desc = bdeaus.34.d
 	
@@ -3349,6 +3365,7 @@ country_event = { #Default on Weltkrieg Debt
 
 country_event = { #Austria Repays Its Debts
 	id = bdeaus.4
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.4" }
 	title = bdeaus.4.t
 	desc = bdeaus.4.d
 	
@@ -3366,13 +3383,13 @@ country_event = { #Austria Repays Its Debts
 
 country_event = { #The Kaiser's Tour
 	id = bdeaus.5
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.5" }
 	title = bdeaus.5.t
 	desc = bdeaus.5.d
 	
 	picture = GFX_event_AUS_karl_leaving_hungary
 
 	fire_only_once = yes
-	
 
 	is_triggered_only = yes
 
@@ -5407,10 +5424,7 @@ country_event = { #The Austro-American Alliance is Signed
 		effect_tooltip = { add_to_faction = FROM }
 		hidden_effect = { AUS_austro_american_alliance_form_effect = yes }
 		add_war_support = 0.03
-		add_to_variable = {
-			var = global.AUS_GER_tensions
-			value = 2
-		}
+		add_to_variable = { global.AUS_GER_tensions = 2 }
 		hidden_effect = {
 			if = {
 				limit = {
@@ -5473,7 +5487,7 @@ country_event = { #Our Side Victorious in the 2ACW
 	title = bdeausfor.31.t
 	desc = bdeausfor.31.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_statue_of_liberty
 
 	fire_only_once = yes
 
@@ -5511,7 +5525,7 @@ country_event = { #A Whisper in the Foreign Ministry
 	title = bdeausfor.32.t
 	desc = bdeausfor.32.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_american_flags
 
 	fire_only_once = yes
 
@@ -5532,7 +5546,6 @@ country_event = { #A Whisper in the Foreign Ministry
 					has_completed_focus = AUS_entente_faction
 					has_completed_focus = AUS_donau_adriabund
 					has_completed_focus = AUS_reichspakt_faction
-					
 				}
 				event_target:AUS_USA_ALLY = {
 					is_in_faction = no
@@ -5555,7 +5568,7 @@ country_event = { #Austria Comes Forth with an Offer
 	title = bdeausfor.33.t
 	desc = bdeausfor.33.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_legislature
 
 	fire_only_once = yes
 
@@ -5571,6 +5584,9 @@ country_event = { #Austria Comes Forth with an Offer
 	
 	option = { #Who cares? Liberty and justice must be spread throughout the globe.
 		name = bdeausfor.33.b
+		ai_chance = {
+			base = 100
+		}
 		AUS = {
 			country_event = {
 				id = bdeausfor.29
@@ -5886,8 +5902,10 @@ country_event = { #Aid to America Begins
 	option = { #Democracy is non-negotiable.
 		name = bdeausfor.43.a
 		add_ideas = AUS_american_aid
-		hidden_effect = {
-			event_target:AUS_USA_ALLY = {
+		add_opinion_modifier = { target = event_target:AUS_USA_ALLY modifier = KR_approves_of_govt }
+		event_target:AUS_USA_ALLY = {
+			add_opinion_modifier = { target = AUS modifier = KR_approves_of_govt }
+			hidden_effect = {
 				country_event = {
 					id = bdeausflavor.25
 					days = 14
@@ -5912,6 +5930,8 @@ country_event = { #Aid to America Canceled
 	
 	option = { #Democracy is non-negotiable.
 		name = bdeausfor.44.a
+		remove_opinion_modifier = { target = AUS_USA_ALLY modifier = KR_approves_of_govt }
+		AUS_USA_ALLY = { remove_opinion_modifier = { target = AUS modifier = KR_approves_of_govt } }
 		custom_effect_tooltip = AUS_restart_american_aid
 	}
 }
@@ -5956,7 +5976,7 @@ country_event = { #The Fate of Silesia
 		name = bdeausfor.45.b
 		add_political_power = 30
 		add_stability = 0.03
-		set_variable = { var = THIS.AUS_subject_status value = 1 }
+		set_variable = { SLS.AUS_subject_status = 1 }
 	}
 }
 
@@ -7773,9 +7793,9 @@ country_event = { #The Question the Volhynian Duchy
 		HUN_add_ten_collapse = yes
 		GAL_subtract_five_collapse = yes
 		WSU = {
-			add_ideas = AUS_part_of_the_Empire
 			set_variable = { AUS_subject_status = 1 }
 			country_event = constituents.51
+			set_cosmetic_tag = WSU_habsburg_kingdom
 		}
 		custom_effect_tooltip = AUS_will_fed_with_subject
 	}
@@ -7791,7 +7811,6 @@ country_event = { #The Question the Volhynian Duchy
 		HUN_subtract_five_collapse = yes
 		GAL_add_ten_collapse = yes
 		WSU = {
-			add_ideas = AUS_part_of_the_Empire
 			set_variable = { AUS_subject_status = 4 }
 			country_event = { id = constituents.51 }
 		}
@@ -31453,10 +31472,9 @@ country_event = { #An Unfortunately Named Company (Hornyphone)
 	option = { #Oops.
 		name = bdeausflavor.26.a
 		add_political_power = -3
+		add_war_support = 0.01
 	}
 }
-
-
 
 country_event = { #Death of Wladimir Freiherr Giesl von Gieslingen (20 April 1936)
 	id = bdeausflavor.27
@@ -31501,7 +31519,6 @@ country_event = { #Hornyphon in America
 	desc = bdeausflavor.29.d
 	
 	picture = GFX_event_AUS_hornyphon_2
-
 	
 	is_triggered_only = yes
 
@@ -31520,7 +31537,6 @@ country_event = { #Hornyphon in America
 				add_extra_state_shared_building_slots = 1
 			}
 		}
-		
 	}
 }
 
@@ -34898,6 +34914,24 @@ country_event = { #Masayrk died
 	}
 }
 
+country_event = { #The Death of Rudolf von Brudermann
+	id = bdeausflavor.160
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.160" }
+	title = bdeausflavor.160.t
+	desc = bdeausflavor.160.d
+	
+	picture = GFX_CZE_ripbozo
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {#Well, times are changing.
+		name = bdeausflavor.159.a
+		army_experience = 5
+	}
+}
+
 news_event = { #Second Hungarian Revolution
 	id = bdeausnews.1
 	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausnews.1" }
@@ -36274,6 +36308,58 @@ news_event = { #VF elected 1940
 	}
 	option = { #Danubia, erwache!
 		name = bdeausnews.29.b
+		trigger = {
+			AUS_is_constituent = yes
+		}
+	}
+}
+
+news_event = { #Austria Goes Absolutist
+	id = bdeausnews.30
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausnews.30" }
+	title = bdeausnews.30.t
+	desc = {
+		trigger = { AUS = { has_country_flag = AUS_military_coup_flag } }
+		text = bdeausnews.30.d.junta
+	}
+	desc = {
+		trigger = { AUS = { has_country_flag = AUS_otto_successor } }
+		text = bdeausnews.30.d.otto
+	}
+	desc = {
+		trigger = {
+			AUS = {
+				NOT = {
+					has_country_flag = AUS_otto_successor
+					has_country_flag = AUS_military_coup_flag
+				}
+			}
+		}
+		text = bdeausnews.30.d
+	}
+	
+	picture = GFX_news_event_AUS_hofburg_after_ww2
+	
+	major = yes
+	
+	show_major = {
+		regional_europe_news = yes
+	}
+	
+	trigger = {
+		wants_world_news = yes
+	}
+
+	is_triggered_only = yes
+
+	option = { #How long can the empire hold?
+		name = bdeausnews.30.a
+		trigger = {
+			AUS_is_constituent = no
+		}
+	}
+	option = { #The final breath
+		name = bdeausnews.30.b
 		trigger = {
 			AUS_is_constituent = yes
 		}

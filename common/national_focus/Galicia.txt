@@ -12,7 +12,7 @@ focus_tree = {
 		}
 	}
 	default = no
-	continuous_focus_position = { x = 200 y = 2500 }
+	continuous_focus_position = { x = 50 y = 750 }
 
 	##Black Monday##
 
@@ -74,6 +74,19 @@ focus_tree = {
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GAL_calm_minorities"
+			every_possible_country = {
+				limit = {
+					AUS_is_danubian_tag = yes
+					capital_scope = { is_owned_by = GAL }
+				}
+				set_temp_variable = { revolt_progress_change = -0.08 }
+				custom_override_tooltip = {
+					tooltip = BOTDE_collapse_no_country_name_with_flag_tt
+					PREV = {
+						BOTDE_add_collapse = yes
+					}
+				}
+			}
 			swap_ideas = {
 				remove_idea = GAL_minority_unrest_2
 				add_idea = GAL_minority_unrest_3
@@ -125,6 +138,14 @@ focus_tree = {
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GAL_call_gentry"
+			GAL = {
+				set_temp_variable = { revolt_progress_change = -0.075 }
+				BOTDE_add_collapse = yes
+			}
+			WSU = {
+				set_temp_variable = { revolt_progress_change = 0.075 }
+				BOTDE_add_collapse = yes
+			}
 			add_political_power = 200
 			add_popularity = {
 				ideology = social_liberal
@@ -140,6 +161,9 @@ focus_tree = {
 		prerequisite = {
 			focus = GAL_call_gentry
 		}
+		prerequisite = {
+			focus = GAL_black_gold_and_golden_fields
+		}
 		relative_position_id = GAL_call_gentry
 		x = 0
 		y = 1
@@ -154,6 +178,48 @@ focus_tree = {
 			}
 		}
 	}
+	
+	focus = {#Black Gold and Golden Fields
+		id = GAL_black_gold_and_golden_fields
+		icon = GFX_goal_AUS_Shining_City_Hill
+		cost = 5
+		prerequisite = {
+			focus = GAL_downwards_spiral
+		}
+		relative_position_id = GAL_downwards_spiral
+		x = 1
+		y = 1
+		ai_will_do = {
+			factor = 1500
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GAL_black_gold_and_golden_fields"
+			custom_override_tooltip = {
+				tooltip = GAL_build_2_infa_and_2_synth
+				for_loop_effect = {
+					end = 2
+					random_owned_controlled_state = {
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = synthetic_refinery
+							level = 1
+							instant_build = yes
+						}
+						add_extra_state_shared_building_slots = 1
+					}
+				}
+			}
+			add_tech_bonus = {
+				category = synth_resources
+				uses = 1
+				bonus = 2
+			}
+		}
+	}
 
 	focus = {# Contact Vienna
 		id = GAL_contact_vienna
@@ -163,7 +229,7 @@ focus_tree = {
 			focus = GAL_downwards_spiral
 		}
 		relative_position_id = GAL_downwards_spiral
-		x = 2
+		x = 3
 		y = 1
 		ai_will_do = {
 			factor = 1500
@@ -183,26 +249,52 @@ focus_tree = {
 
 	focus = {# Trust the Market
 		id = GAL_trust_market
-		icon = GFX_goal_GAL_trust_market
+		icon = {
+			trigger = {
+				has_country_flag = GAL_austria_gave_aid_without_demands
+			}
+			value = GFX_goal_AUS_To_Heal_Shaken_Empire
+		}
+		icon = {
+			value = GFX_goal_GAL_trust_market
+		}
+		dynamic = yes
 		cost = 3
 		prerequisite = {
 			focus = GAL_contact_vienna
 		}
 		available = {
-			has_country_flag = GAL_market_help
+			if = {
+				limit = {
+					has_country_flag = GAL_austria_gave_aid_without_demands
+				}
+				has_country_flag = GAL_austria_gave_aid_without_demands
+			}
+			else = {
+				has_country_flag = GAL_market_help
+			}
 		}
 		mutually_exclusive = {
 			focus = GAL_sell_oil
 		}
 		relative_position_id = GAL_contact_vienna
-		x = -1
+		x = -2
 		y = 1
 		ai_will_do = {
 			factor = 1500
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GAL_trust_market"
-			add_ideas = GAL_market_help
+			if = {
+				limit = {
+					has_country_flag = GAL_austria_gave_aid_without_demands
+				}
+				add_political_power = 75
+				GAL_subtract_five_collapse = yes
+			}
+			else = {
+				add_ideas = GAL_market_help
+			}
 			swap_ideas = {
 				remove_idea = GAL_rural_society
 				add_idea = GAL_rural_society_2
@@ -220,13 +312,14 @@ focus_tree = {
 		available = {
 			NOT = {
 				has_country_flag = GAL_market_help
+				has_country_flag = GAL_austria_gave_aid_without_demands
 			}
 		}
 		mutually_exclusive = {
 			focus = GAL_trust_market
 		}
 		relative_position_id = GAL_contact_vienna
-		x = 1
+		x = 0
 		y = 1
 		ai_will_do = {
 			factor = 1500
