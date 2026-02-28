@@ -4543,6 +4543,10 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 			limit = { has_country_flag = trialist_extra }
 			clr_country_flag = trialist_extra
 		}
+		every_country = {
+			limit = { has_country_flag = AUS_szekler_sztuff }
+			clr_country_flag = AUS_szekler_sztuff
+		}
 		
 		every_country = {
 			limit = { has_idea = AUS_part_of_the_Empire }
@@ -7158,6 +7162,7 @@ AUS_federalize_effect = {
 				if = {
 					limit = {
 						AUS_DWV_member = yes
+						NOT = { tag = AUS }
 					}
 					AUS_remove_from_DWV = yes
 				}
@@ -8127,24 +8132,14 @@ SZK_do_the_awesome = {
 					count = 2
 					allow_spawning_on_enemy_provs = yes
 				}
-				
 				while_loop_effect = {
-					limit = {
-						check_variable = {
-							var = SZK.extra_divs_temp
-							value = 0
-							compare = greater_than
-						}
-					}
+					limit = { check_variable = { SZK.extra_divs_temp > 0 } }
 					create_unit = { 
 						division = "name = \"Székely Ezred\" division_template = \"Székely Ezred\" start_experience_factor = 0.33" 
 						owner = PREV
 						allow_spawning_on_enemy_provs = yes
 					}
-					subtract_from_temp_variable = {
-						var = THIS.extra_divs_temp
-						value = 1
-					}
+					subtract_from_temp_variable = { THIS.extra_divs_temp = 1 }
 				}
 			}
 		}
@@ -8156,6 +8151,14 @@ SZK_do_the_awesome = {
 			type = infantry_equipment
 			amount = SZK.extra_guns
 		}
+		get_current_government_type = yes
+		AUS = {
+			set_autonomy = {
+				target = SZK
+				autonomous_state = botde_constituent
+			}
+		}
+		restore_previous_government_type = yes
 	}
 }
 
@@ -8175,10 +8178,7 @@ AUS_add_banat_array = {
 HUN_remove_SVK_array = {
 	custom_effect_tooltip = HUN_SVK_removed
 	hidden_effect = {
-		set_variable = {
-			var = SVK.subject_revolt_progress
-			value = 0.0
-		}
+		set_variable = { SVK.subject_revolt_progress = 0 }
 		remove_from_array = { ROOT.austria_minority_array = SVK }
 		set_global_flag = SVK_off_array
 	}
@@ -8443,6 +8443,7 @@ BOTDE_5BW_peace = {
 			limit = {
 				has_capitulated = yes
 			}
+			log = "[THIS.GetName] adding to array global.fucked_capped_5bw"
 			add_to_temp_array = { array = global.fucked_capped_5bw }
 			every_subject_country = {
 				limit = {
@@ -8668,11 +8669,10 @@ BOTDE_5BW_peace = {
 		if = {
 			limit = {
 				OR = {
-					is_subject_of = SER
+					tag = MNT
+					tag = SKS
 				}
-				CRO = {
-					is_in_faction_with = AUS
-				}
+				CRO = { is_in_faction_with = AUS has_war_together_with = AUS }
 			}
 			CRO = {
 				annex_country = {
@@ -8686,11 +8686,11 @@ BOTDE_5BW_peace = {
 		}
 		else_if = {
 			limit = {
-				is_subject_of = ROM
-				NOT = {
-					tag = BUK
+				OR = {
+					tag = TRS
+					tag = BAN
 				}
-				HUN = { is_in_faction_with = AUS }
+				HUN = { is_in_faction_with = AUS has_war_together_with = AUS }
 			}
 			HUN = {
 				annex_country = {
@@ -8701,7 +8701,7 @@ BOTDE_5BW_peace = {
 		else_if = {
 			limit = {
 				tag = BUK
-				GAL = { is_in_faction_with = AUS }
+				GAL = { is_in_faction_with = AUS has_war_together_with = AUS }
 			}
 			GAL = {
 				annex_country = {
@@ -8779,6 +8779,7 @@ BOTDE_5BW_init = {
 			}
 		}
 		save_global_event_target_as = 5BW_AH
+		log = "[THIS.GetName] on array global.AUS_5BW_AH_array"
 		add_to_array = {
 			array = global.AUS_5BW_AH_array
 		}
@@ -11846,6 +11847,7 @@ AUS_occupy_SER_effect = {
 	}
 	SER = {
 		set_cosmetic_tag = SER_occupied
+		SER_create_George_Obrenovic_effect = yes
 		set_politics = {
 			ruling_party = paternal_autocrat
 			name = SER_occupied_paternal_autocrat_party
@@ -11858,6 +11860,12 @@ AUS_occupy_SER_effect = {
 				AUS = { AUS_DWV_member = yes }
 			}
 			AUS_add_to_DWV = yes
+		}
+		remove_ideas = {
+			SER_jingoism
+			SER_alexanders_vision_1
+			SER_alexanders_vision_2
+			SER_alexanders_vision_3
 		}
 	}
 }
@@ -11886,6 +11894,191 @@ AUS_occupy_ROM_effect = {
 		every_core_state = {
 			limit = { is_core_of = TRS }
 			remove_core_and_add_claim = yes
+		}
+		remove_ideas = {
+			ROM_unionist_zeal
+			ROM_unionist_zeal2
+		}
+	}
+}
+AUS_5bw_AUS_victory_SER_peacedeal = {
+	every_state = {
+		limit = { has_dynamic_modifier = { modifier = SER_srpska_resistance } }
+		remove_dynamic_modifier = { modifier = SER_srpska_resistance }
+	}
+	every_state = {
+		limit = { has_dynamic_modifier = { modifier = SER_bosnia_resistance } }
+		remove_dynamic_modifier = { modifier = SER_bosnia_resistance }
+	}
+	every_state = {
+		limit = { has_dynamic_modifier = { modifier = SER_target_lands_resistance } }
+		remove_dynamic_modifier = { modifier = SER_target_lands_resistance }
+	}
+	every_state = {
+		limit = {
+			is_claimed_by = ROOT
+			OR = {
+				is_owned_by = CRO
+				is_owned_by = ALB
+				is_owned_by = MNT
+				is_owned_by = HUN
+				is_owned_by = AUS
+			}
+		}
+		remove_claim_by = ROOT
+	}
+	every_state = {
+		limit = {
+			is_core_of = ROOT
+			OR = {
+				is_owned_by = CRO
+				is_owned_by = ALB
+				is_owned_by = MNT
+				is_owned_by = HUN
+				is_owned_by = AUS
+			}
+		}
+		remove_core_of = ROOT
+	}
+	if = {
+		limit = {
+			OR = {
+				has_war_with = MNT
+				MNT = { is_in_faction_with = FROM }
+			}
+		}
+		every_owned_state = {
+			limit = {
+				state = 1269
+			}
+			transfer_state_to = MNT
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_war_with = GRE
+				GRE = { is_in_faction_with = FROM }
+			}
+		}
+		every_owned_state = {
+			limit = {
+				state = 763
+			}
+			transfer_state_to = GRE
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_war_with = ALB
+				ALB = { is_in_faction_with = FROM }
+			}
+		}
+		every_owned_state = {
+			limit = {
+				OR = {
+					state = 765
+					state = 1271
+				}
+			}
+			transfer_state_to = ALB
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_war_with = BUL
+				BUL = { is_in_faction_with = FROM }
+			}
+		}
+		every_owned_state = {
+			limit = {
+				OR = {
+					state = 106
+					state = 743
+					state = 841
+				}
+			}
+			transfer_state_to = BUL
+		}
+	}
+	every_owned_state = {
+		limit = {
+			NOT = {
+				state = 105
+				state = 107
+				state = 108
+				state = 1269
+			}
+		}
+		transfer_state_to = AUS
+	}
+}
+AUS_5bw_AUS_victory_ROM_peacedeal = {
+	every_state = {
+		limit = { has_dynamic_modifier = { modifier = ROM_target_lands_resistance } }
+		remove_dynamic_modifier = { modifier = ROM_target_lands_resistance }
+	}
+	every_state = {
+		limit = {
+			is_claimed_by = ROOT
+			OR = {
+				is_owned_by = HUN
+				is_owned_by = SZK
+				is_owned_by = GAL
+				is_owned_by = UKR
+				is_owned_by = AUS
+			}
+		}
+		remove_claim_by = ROOT
+	}
+	every_state = {
+		limit = {
+			is_core_of = ROOT
+			OR = {
+				is_owned_by = HUN
+				is_owned_by = SZK
+				is_owned_by = GAL
+				is_owned_by = UKR
+				is_owned_by = AUS
+			}
+		}
+		remove_core_of = ROOT
+	}
+	if = {
+		limit = {
+			OR = {
+				has_war_with = BUL
+				BUL = { is_in_faction_with = FROM }
+			}
+		}
+		every_owned_state = {
+			limit = {
+				OR = {
+					state = 77
+					state = 772
+				}
+			}
+			transfer_state_to = BUL
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_war_with = UKR
+				UKR = { is_in_faction_with = FROM }
+			}
+		}
+		every_owned_state = {
+			limit = {
+				OR = {
+					state = 78
+					state = 1222
+					state = 1320
+				}
+			}
+			transfer_state_to = UKR
 		}
 	}
 }
@@ -11939,6 +12132,29 @@ AUS_meta_army_reduce = {
 				}
 				AUS_army_value = "[?AUS_army_value]"
 				AUS_army_value_temp = "[?AUS_army_value_temp]"
+			}
+		}
+	}
+}
+
+AUS_meta_DWV_improve = {
+	custom_override_tooltip = {
+		tooltip = AUS_dwv_upgrade_tt
+		set_temp_variable = { AUS.DWV_upgrade_temp = AUS.DWV_upgrade }
+		add_to_variable = { AUS.DWV_upgrade = 1 }
+		every_country = {
+			limit = {
+				AUS_DWV_member = yes
+			}
+			meta_effect = {
+				text = {
+					swap_ideas = {
+						add_idea = AUS_DWV_[AUS_DMV_value]
+						remove_idea = AUS_DWV_[AUS_DMV_value_temp]
+					}
+				}
+				AUS_DMV_value = "[?AUS.DWV_upgrade]"
+				AUS_DMV_value_temp = "[?AUS.DWV_upgrade_temp]"
 			}
 		}
 	}
@@ -13681,6 +13897,134 @@ AUS_reduce_all_army_focuses_complete_cost = {
 				AUS_operation_isonzo
 			}
 			cost = temp_cost
+		}
+	}
+}
+AUS_create_silesia_effect = {
+	SLS = {
+		every_state = {
+			limit = {
+				OR = {
+					state = 66
+					state = 67
+				}
+			}
+			transfer_state_to = SLS
+			add_core_of = SLS
+		}
+		set_cosmetic_tag = SLS_HABSBURG
+		set_country_flag = CONST_proper
+		add_to_array = { global.constituents_array = THIS }
+		set_variable = { THIS.AUS_subject_status = 5 }
+		set_variable = { THIS.subject_revolt_progress = 0 }
+		set_variable = { THIS.CONST_revolt_rate_rising = -0.015 }
+		AUS = {
+			set_autonomy = {
+				target = PREV
+				autonomy_state = botde_satellite
+			}
+		}
+		transfer_technology_without_doctrines = yes
+		hidden_effect = {
+			if = {
+				limit = { overlord = { has_country_flag = rad_socs_arent_syndie } }
+				set_country_flag = rad_socs_arent_syndie
+			}
+			if = {
+				limit = { overlord = { has_government = radical_socialist } }
+				set_politics = { ruling_party = radical_socialist }
+				add_soccon_to_coalition = yes
+			}
+			else_if = {
+				limit = { overlord = { has_government = social_democrat } }
+				set_politics = { ruling_party = social_democrat }
+			}
+			else_if = {
+				limit = { overlord = { has_government = social_liberal } }
+				set_politics = { ruling_party = social_liberal }
+			}
+			else_if = {
+				limit = { overlord = { has_government = market_liberal } }
+				set_politics = { ruling_party = market_liberal }
+			}
+			else_if = {
+				limit = { overlord = { has_government = social_conservative } }
+				set_politics = { ruling_party = social_conservative }
+				add_radsoc_to_coalition = yes
+			}
+			else_if = {
+				limit = { overlord = { has_government = authoritarian_democrat } }
+				set_politics = { ruling_party = authoritarian_democrat }
+			}
+			else_if = {
+				limit = { overlord = { has_government = paternal_autocrat } }
+				set_politics = { ruling_party = paternal_autocrat }
+			}
+			else = {
+				set_politics = { ruling_party = authoritarian_democrat }
+			}
+			set_popularities = {
+				totalist = 2
+				syndicalist = 8
+				radical_socialist = 10
+				social_democrat = 13
+				social_liberal = 2
+				market_liberal = 8
+				social_conservative = 17
+				authoritarian_democrat = 20
+				paternal_autocrat = 12
+				national_populist = 8
+			}
+			increase_ruling_party_popularity_by_10 = yes
+			create_country_leader = {
+				name = "Albrecht I"
+				desc = "POLITICS_ALBRECHT_VON_HABSBURG_DESC"
+				picture = "gfx/leaders/AUS/Portrait_AUS_Albrecht_von_Habsburg_Teschen.png"
+				expire = "1965.1.1"
+				ideology = radsoc_paternal_socialism_subtype
+			}
+			create_country_leader = {
+				name = "Albrecht I"
+				desc = "POLITICS_ALBRECHT_VON_HABSBURG_DESC"
+				picture = "gfx/leaders/AUS/Portrait_AUS_Albrecht_von_Habsburg_Teschen.png"
+				expire = "1965.1.1"
+				ideology = austromarxism_subtype
+			}
+			create_country_leader = {
+				name = "Albrecht I"
+				desc = "POLITICS_ALBRECHT_VON_HABSBURG_DESC"
+				picture = "gfx/leaders/AUS/Portrait_AUS_Albrecht_von_Habsburg_Teschen.png"
+				expire = "1965.1.1"
+				ideology = soclib_agrarianism_subtype
+			}
+			create_country_leader = {
+				name = "Albrecht I"
+				desc = "POLITICS_ALBRECHT_VON_HABSBURG_DESC"
+				picture = "gfx/leaders/AUS/Portrait_AUS_Albrecht_von_Habsburg_Teschen.png"
+				expire = "1965.1.1"
+				ideology = marlib_agrarianism_subtype
+			}
+			create_country_leader = {
+				name = "Albrecht I"
+				desc = "POLITICS_ALBRECHT_VON_HABSBURG_DESC"
+				picture = "gfx/leaders/AUS/Portrait_AUS_Albrecht_von_Habsburg_Teschen.png"
+				expire = "1965.1.1"
+				ideology = paternal_socialism_subtype
+			}
+			create_country_leader = {
+				name = "Albrecht I"
+				desc = "POLITICS_ALBRECHT_VON_HABSBURG_DESC"
+				picture = "gfx/leaders/AUS/Portrait_AUS_Albrecht_von_Habsburg_Teschen.png"
+				expire = "1965.1.1"
+				ideology = autdem_christian_democracy_subtype
+			}
+			create_country_leader = {
+				name = "Albrecht I"
+				desc = "POLITICS_ALBRECHT_VON_HABSBURG_DESC"
+				picture = "gfx/leaders/AUS/Portrait_AUS_Albrecht_von_Habsburg_Teschen.png"
+				expire = "1965.1.1"
+				ideology = austropopulism_subtype
+			}
 		}
 	}
 }
