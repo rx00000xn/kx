@@ -51,8 +51,12 @@ country_event = { #intro 0
 
 	option = { #k
 		name = bdeausdebug.1.a
-		ROM = {
-			country_event = bdeausdebug.2
+		create_country_leader = {
+			name = "Arthur Seyss-Inquart"
+			desc = "POLITICS_ARTHUR_SEYSS_INQUART_DESC"
+			picture = "gfx/leaders/AUS/AUS_Arthur_Seyss-Inquart.png"
+			expire = "1965.1.1"
+			ideology = ariosophy_subtype
 		}
 	}
 }
@@ -7999,7 +8003,10 @@ country_event = { #Peace in the Balkans?
 					tag = GRE
 				}
 			}
-			white_peace = AUS
+			white_peace = {
+				tag = AUS
+				message = WHITE_PEACE_MESSAGE_NOBODY_WINS_5BW
+			}
 		}
 		country_event = {
 			id = bdeausfor.103
@@ -8607,6 +8614,8 @@ country_event = { #The Second Treaty of Wartholz
 			clr_country_flag = BOTDE_ready_held_revolt
 		}
 		hidden_effect = {
+			AUS_remove_all_SER_state_revolt_target_modifiers = yes
+			AUS_remove_all_ROM_state_revolt_target_modifiers = yes
 			for_each_scope_loop = {
 				array = global.AUS_5BW_AH_array
 				every_owned_state = {
@@ -15551,11 +15560,7 @@ country_event = { #HUN - Illyria promoted
 		add_stability = -0.03
 		AUS_gleich_add_hungarian_grievance = yes
 		set_global_flag = AUS_question_1
-		clr_global_flag = ausgleich_debating_question
-		add_to_variable = {
-			var = global.ausgleich_successes
-			value = 1
-		}
+		add_to_variable = { global.ausgleich_successes = 1 }
 	}
 	
 	option = { #New plan - bring Illyria to Transleithania as our compromise!
@@ -16019,10 +16024,7 @@ country_event = { #Hungary Accepts the Changes
 		name = bdeausgleich.39.a
 		add_political_power = 15
 		set_global_flag = AUS_gleich_HUN_accepts_customs_reform
-		add_to_variable = {
-			var = global.ausgleich_successes
-			value = 1
-		}
+		add_to_variable = { global.ausgleich_successes = 1 }
 		if = {
 			limit = {
 				has_global_flag = AUS_reform_customs_union
@@ -17182,7 +17184,7 @@ country_event = { #The Kaiser resists Hungarian antagonization (if grievances ri
 	title = bdeausgleich.55.t
 	desc = bdeausgleich.55.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_karl_inspection
 
 	fire_only_once = yes
 
@@ -17205,7 +17207,7 @@ country_event = { #HUN - People resist Anti-Habsburg sentiments (The Hungarian p
 	title = bdeausgleich.56.t
 	desc = bdeausgleich.56.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_karl_putsch_2
 
 	fire_only_once = yes
 
@@ -17216,6 +17218,8 @@ country_event = { #HUN - People resist Anti-Habsburg sentiments (The Hungarian p
 		ai_chance = {
 			factor = 10
 		}
+		AUS_subtract_five_collapse = yes
+		ALL_subtract_five_collapse = yes
 		add_stability = -0.03
 	}
 }
@@ -17329,7 +17333,7 @@ country_event = { #The End of the Ausgleich
 		}
 	}
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_Austria_Hungary_Brothers
 
 	fire_only_once = yes
 
@@ -17362,10 +17366,10 @@ country_event = { #The End of the Ausgleich
 		}
 		AUS_add_ten_collapse = yes
 		ALL_add_five_collapse = yes
-		add_to_variable = { var = HUN.extra_value value = 0.0075 }
-		add_to_variable = { var = CRO.extra_value value = 0.005 }
-		add_to_variable = { var = CZE.extra_value value = 0.005 }
-		add_to_variable = { var = GAL.extra_value value = 0.005 }
+		add_to_variable = { HUN.extra_value = 0.0075 }
+		add_to_variable = { CRO.extra_value = 0.005 }
+		add_to_variable = { CZE.extra_value = 0.005 }
+		add_to_variable = { GAL.extra_value = 0.005 }
 		hidden_effect = {
 			if = {
 				limit = {
@@ -17375,12 +17379,7 @@ country_event = { #The End of the Ausgleich
 					}
 				}
 				HUN_add_twenty_collapse = yes
-				HUN = {
-					add_to_variable = {
-						var = HUN.extra_value
-						value = 0.004
-					}
-				}
+				add_to_variable = { HUN.extra_value = 0.004 }
 			}
 			if = {
 				limit = {
@@ -17432,10 +17431,10 @@ country_event = { #The End of the Ausgleich
 		}
 		AUS_add_five_collapse = yes
 		ALL_add_three_collapse = yes
-		add_to_variable = { var = HUN.extra_value value = 0.0033 }
-		add_to_variable = { var = CRO.extra_value value = 0.002 }
-		add_to_variable = { var = CZE.extra_value value = 0.002 }
-		add_to_variable = { var = GAL.extra_value value = 0.002 }
+		add_to_variable = { HUN.extra_value = 0.0033 }
+		add_to_variable = { CRO.extra_value = 0.002 }
+		add_to_variable = { CZE.extra_value = 0.002 }
+		add_to_variable = { GAL.extra_value = 0.002 }
 		hidden_effect = {
 			if = {
 				limit = {
@@ -17444,12 +17443,7 @@ country_event = { #The End of the Ausgleich
 					}
 				}
 				HUN_add_five_collapse = yes
-				HUN = {
-					add_to_variable = {
-						var = HUN.extra_value
-						value = 0.005
-					}
-				}
+				add_to_variable = { HUN.extra_value = 0.005 }
 			}
 		}
 	}
@@ -17462,7 +17456,7 @@ country_event = { #The End of the Ausgleich
 		trigger = {
 			has_global_flag = AUS_meh_ausgleich
 		}
-		add_to_variable = { var = HUN.extra_value value = 0.005 }
+		add_to_variable = { HUN.extra_value = 0.005 }
 		if = {
 			limit = {
 				has_global_flag = AUS_ausgleich_peoples
@@ -17492,16 +17486,18 @@ country_event = { #The End of the Ausgleich
 		trigger = {
 			has_global_flag = AUS_good_ausgleich
 		}
-		add_to_variable = { var = HUN.extra_value value = -0.005 }
-		add_to_variable = { var = CRO.extra_value value = -0.01 }
-		add_to_variable = { var = CZE.extra_value value = -0.01 }
-		add_to_variable = { var = GAL.extra_value value = -0.01 }
-		AUS_fed_speed_2_add = yes
-		AUS_fed_speed_3_add = yes
+		add_to_variable = { HUN.extra_value = -0.005 }
+		add_to_variable = { CRO.extra_value = -0.01 }
+		add_to_variable = { CZE.extra_value = -0.01 }
+		add_to_variable = { GAL.extra_value = -0.01 }
+		custom_override_tooltip = {
+			tooltip = AUS_speed_future_federalizing_more
+			AUS_fed_speed_2_add = yes
+			AUS_fed_speed_3_add = yes
+		}
 		ALL_subtract_five_collapse = yes
 		AUS_lower_all_minorities = yes
 	}
-	
 }
 
 country_event = { #Hungary Dismantled
@@ -17547,9 +17543,7 @@ country_event = { #Proposal: Cancel the Ausgleich?
 		}
 		AUS_fed_speed_3_add = yes
 		add_political_power = -30
-		country_event = {
-			id = bdeausgleich.1
-		}
+		country_event = bdeausgleich.1
 	}
 	
 	option = { #Seriously? We don't actually need it.
@@ -17836,7 +17830,7 @@ country_event = { #Austria Proposes Trialist Solution
 		}
 	}
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_trialism_map
 
 	fire_only_once = yes
 
@@ -17987,10 +17981,7 @@ country_event = { #HUN - Austria Folds; Original Autonomous Transylvania Proposa
 
 	option = { #Now just how is that going to work in this federal plan?
 		name = bdeausgleich.68.a
-		add_to_variable = {
-			var = global.ausgleich_successes
-			value = -2
-		}
+		add_to_variable = { global.ausgleich_successes = -2 }
 		add_political_power = 10
 		set_global_flag = AUS_autonomous_transleithania
 		set_global_flag = AUS_question_0
@@ -18105,7 +18096,7 @@ country_event = { #Common Army Law
 	title = bdeausgleich.72.t
 	desc = bdeausgleich.72.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_guy_with_aura
 
 	fire_only_once = yes
 
@@ -18190,7 +18181,7 @@ country_event = { #HUN - Austria presents new mobilization plan
 	title = bdeausgleich.720.t
 	desc = bdeausgleich.720.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_exercise
 
 	fire_only_once = yes
 
@@ -18241,7 +18232,7 @@ country_event = { #Hungary demands less intense mobilization plan
 	title = bdeausgleich.721.t
 	desc = bdeausgleich.721.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_stormtroopers
 
 	fire_only_once = yes
 
@@ -18307,7 +18298,7 @@ country_event = { #HUN - Austria refuses to fold on army plan
 	title = bdeausgleich.722.t
 	desc = bdeausgleich.722.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_HUN_trashed_socdem_hq
 
 	fire_only_once = yes
 
@@ -18346,7 +18337,7 @@ country_event = { #Hungary folds on army plan
 	title = bdeausgleich.723.t
 	desc = bdeausgleich.723.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_exercise
 
 	fire_only_once = yes
 
@@ -18372,7 +18363,7 @@ country_event = { #Hungary walks out on army reform plan!
 	title = bdeausgleich.724.t
 	desc = bdeausgleich.724.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_orszaghaz
 
 	fire_only_once = yes
 
@@ -18403,7 +18394,7 @@ country_event = { #Austria folds on army plan
 	title = bdeausgleich.725.t
 	desc = bdeausgleich.725.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_exercise
 
 	fire_only_once = yes
 
@@ -18425,7 +18416,7 @@ country_event = { #Common Army Law Unity Edition
 	title = bdeausgleich.73.t
 	desc = bdeausgleich.73.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_karl_troops
 
 	is_triggered_only = yes
 	
@@ -18502,7 +18493,7 @@ country_event = { #Const - Common Army Law Unity Edition
 	title = bdeausgleich.730.t
 	desc = bdeausgleich.730.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_troops_color
 
 	is_triggered_only = yes
 
@@ -18542,7 +18533,7 @@ country_event = { #Consts Complain About Army Unity Plan
 	title = bdeausgleich.731.t
 	desc = bdeausgleich.731.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_legislature_protest
 	
 	fire_only_once = yes
 
@@ -18602,7 +18593,7 @@ country_event = { #Const - Austria Agrees to a Lowered Plan
 	title = bdeausgleich.732.t
 	desc = bdeausgleich.732.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_heldenplatz_rally
 
 	is_triggered_only = yes
 
@@ -18620,7 +18611,7 @@ country_event = { #Const - Austria Refuses to Compromise
 	title = bdeausgleich.733.t
 	desc = bdeausgleich.733.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_war_desk
 
 	is_triggered_only = yes
 
@@ -18658,7 +18649,7 @@ country_event = { #AUS - FROM still demands reduced unity plan
 	title = bdeausgleich.734.t
 	desc = bdeausgleich.734.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_war_desk
 
 	is_triggered_only = yes
 	
@@ -18751,7 +18742,7 @@ country_event = { #AUS - Consts agree to army unity plan
 	}
 	desc = bdeausgleich.736.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_war_desk
 	
 	fire_only_once = yes
 
@@ -18833,7 +18824,7 @@ country_event = { #Hungarian Federalization Speed, Hungarian Response
 	title = bdeausgleich.75.t
 	desc = bdeausgleich.75.d
 	
-	picture = GFX_event_AUS_karl_hungary
+	picture = GFX_event_HUN_proclamation
 
 	is_triggered_only = yes
 	
@@ -18901,7 +18892,7 @@ country_event = { #Hungarian Response: Austrian Edition
 	title = bdeausgleich.76.t
 	desc = bdeausgleich.76.d
 	
-	picture = GFX_event_AUS_karl_hungary
+	picture = GFX_event_HUN_proclamation
 
 	is_triggered_only = yes
 
@@ -18932,10 +18923,7 @@ country_event = { #Hungarian Response: Austrian Edition
 			add_political_power = 20
 			add_stability = 0.05
 			HUN_subtract_five_collapse = yes
-			add_to_variable = {
-				var = global.ausgleich_successes
-				value = 1
-			}
+			add_to_variable = { global.ausgleich_successes = 1 }
 			set_variable = { AUS.ausgleich_hungary_status_var = 2 }
 		}
 		if = {
@@ -18943,20 +18931,14 @@ country_event = { #Hungarian Response: Austrian Edition
 			add_political_power = 10
 			add_stability = 0.03
 			HUN_subtract_three_collapse = yes
-			add_to_variable = {
-				var = global.ausgleich_successes
-				value = 1
-			}
+			add_to_variable = { global.ausgleich_successes = 1 }
 			set_variable = { AUS.ausgleich_hungary_status_var = 3 }
 		}
 		if = {
 			limit = { HUN = { has_country_flag = HUN_ausgleich_ludicrous_fed_speed } }
 			add_political_power = -10
 			add_stability = -0.05
-			add_to_variable = {
-				var = global.ausgleich_successes
-				value = 2
-			}
+			add_to_variable = { global.ausgleich_successes = 2 }
 			set_variable = { AUS.ausgleich_hungary_status_var = 4 }
 		}
 	}
@@ -19031,7 +19013,7 @@ country_event = { #Hungary Loses Revolt While Ausgleich is Ongoing Release Event
 	title = bdeausgleich.77.t
 	desc = bdeausgleich.77.d
 	
-	picture = GFX_event_HUN_poster
+	picture = GFX_event_HUN_LBOZO
 	
 	fire_only_once = yes
 
@@ -19082,7 +19064,7 @@ country_event = { #Fate of Slovakia
 	title = bdeausgleich.78.t
 	desc = bdeausgleich.78.desc
 	
-	picture = GFX_event_HUN_poster
+	picture = GFX_event_HUN_LBOZO
 
 	is_triggered_only = yes
 	
@@ -19215,7 +19197,7 @@ country_event = { #Fate of Transylvania
 	title = bdeausgleich.79.t
 	desc = bdeausgleich.79.d
 	
-	picture = GFX_event_HUN_bust
+	picture = GFX_event_HUN_LBOZO
 
 	is_triggered_only = yes
 	
@@ -19339,7 +19321,7 @@ country_event = { #Fate of Carpatho-Ruthenia
 	title = bdeausgleich.80.t
 	desc = bdeausgleich.80.d
 	
-	picture = GFX_event_HUN_bust
+	picture = GFX_event_HUN_LBOZO
 
 	is_triggered_only = yes
 	
@@ -19763,9 +19745,13 @@ country_event = { #Heckling between Hungarians and National Councils
 	title = bdeausgleichflavor.11.t
 	desc = bdeausgleichflavor.11.d
 	
-	picture = GFX_event_AUS_citizenship
+	picture = GFX_event_HUN_trashed_socdem_hq
 
 	is_triggered_only = yes
+	
+	trigger = {
+		has_global_flag = AUS_ausgleich_ongoing
+	}
 
 	option = { #Worrying
 		name = bdeausgleichflavor.11.a
@@ -19782,9 +19768,13 @@ country_event = { #Procession of the Representatives; Vienna is in full festivit
 	title = bdeausgleichflavor.12.t
 	desc = bdeausgleichflavor.12.d
 	
-	picture = GFX_event_AUS_citizenship
+	picture = GFX_event_AUS_renner_walk_2
 
 	is_triggered_only = yes
+	
+	trigger = {
+		has_global_flag = AUS_ausgleich_ongoing
+	}
 
 	option = { #Worrying
 		name = bdeausgleichflavor.12.a
@@ -19801,9 +19791,13 @@ country_event = { #The Ausgleich is Stalling
 	title = bdeausgleichflavor.13.t
 	desc = bdeausgleichflavor.13.d
 	
-	picture = GFX_event_AUS_citizenship
+	picture = GFX_event_AUS_reichsrat_final_debate
 
 	is_triggered_only = yes
+	
+	trigger = {
+		has_global_flag = AUS_ausgleich_ongoing
+	}
 
 	option = { #Worrying
 		name = bdeausgleichflavor.13.a
@@ -19917,7 +19911,12 @@ country_event = { #Constituents - Drafting the Federal Constitution
 	
 	after = {
 		if = {
-			limit = { NOT = { tag = AUS } }
+			limit = {
+				NOT = {
+					tag = AUS
+					tag = ALA
+				}
+			}
 			add_ideas = AUS_federalizing_constituent_idea
 		}
 	}
@@ -21082,7 +21081,7 @@ country_event = { #The Reichsrat is Ready
 		}
 	}
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_orszaghaz
 
 	fire_only_once = yes
 
@@ -31237,17 +31236,28 @@ country_event = { #(Every 6th of November) Weltkrieg Day; the day the Weltkrieg 
 	picture = GFX_event_AUS_parade_3
 
 	is_triggered_only = yes
-
-	option = { #It still feels like it was yesterday...
-		name = bdeausflavor.17.a
-		add_stability = -0.01
-		add_war_support = -0.01
+	
+	immediate = {
 		hidden_effect = {
 			country_event = {
 				id = bdeausflavor.17
 				days = 365
 			}
 		}
+	}
+
+	option = { #It still feels like it was yesterday...
+		name = bdeausflavor.17.a
+		trigger = { NOT = { has_global_flag = GER_Second_Weltkrieg } }
+		add_stability = -0.01
+		add_war_support = -0.01
+	}
+	
+	option = { #The Drums of War Beat Yet Again
+		name = bdeausflavor.17.b
+		trigger = { has_global_flag = GER_Second_Weltkrieg }
+		add_stability = -0.01
+		add_war_support = 0.02
 	}
 }
 
@@ -31394,8 +31404,20 @@ country_event = { #The Great Viennese Coffee Riot
 country_event = { #The Kaiser Denounces the Second Weltkrieg
 	id = bdeausflavor.24
 	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.24" }
-	title = bdeausflavor.24.t
-	desc = bdeausflavor.24.d
+	title = {
+		text = bdeausflavor.24.t.5bw
+		trigger = { fifth_balkan_war = yes }
+	}
+	title = {
+		text = bdeausflavor.24.t
+	}
+	desc = {
+		text = bdeausflavor.24.d.5bw
+		trigger = { fifth_balkan_war = yes }
+	}
+	desc = {
+		text = bdeausflavor.24.d
+	}
 	
 	picture = GFX_event_AUS_random_hungarian_bridge
 
@@ -31403,12 +31425,22 @@ country_event = { #The Kaiser Denounces the Second Weltkrieg
 
 	is_triggered_only = yes
 
-	option = { #We accept
+	option = { #what is there to be done?
 		name = bdeausflavor.24.a
+		trigger = { fifth_balkan_war = no }
 		add_stability = 0.05
 		add_political_power = 30
 		add_war_support = -0.08
 		AUS_subtract_eight_collapse = yes
+	}
+	
+	option = { #Europa in flames
+		name = bdeausflavor.24.b
+		trigger = { fifth_balkan_war = yes }
+		add_stability = -0.05
+		add_political_power = 30
+		add_war_support = 0.08
+		AUS_subtract_five_collapse = yes
 	}
 }
 

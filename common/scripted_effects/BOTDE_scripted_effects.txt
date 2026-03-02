@@ -334,9 +334,7 @@ CONST_do_additional_revolt_progress = {
 	add_to_temp_variable = { THIS.revolt_progress_change = CONST_revolt_rate_rising }
 	add_to_variable = { THIS.subject_revolt_progress = 0.01 }
 	if = {
-		limit = {
-			has_country_flag = AUS_evidenzbureau_focus
-		}
+		limit = { has_country_flag = AUS_evidenzbureau_focus }
 		add_to_variable = { THIS.subject_revolt_progress = -0.015 }
 	}
 	log = "[GetDateText]: [THIS.GetName]: CONST_do_additional_revolt_progress: [?revolt_progress_change]"
@@ -6493,11 +6491,11 @@ do_minority_rise = {
 				}
 			}
 		}
-		else = {
-			THIS = { 
-				set_temp_variable = { revolt_progress_change = 0.01 }
-				BOTDE_add_collapse = yes
-			}
+	}
+	else = {
+		THIS = { 
+			set_temp_variable = { revolt_progress_change = 0.01 }
+			BOTDE_add_collapse = yes
 		}
 	}
 }
@@ -6876,79 +6874,63 @@ AUS_screamer = {
 }
 
 AUS_fed_speed_1 = {
-	custom_override_tooltip = {
-		tooltip = govt_raise_fed1
+	hidden_effect = {
 		set_global_flag = AUS_fed_speed_1
-		add_to_variable = {
-			var = global.government_percentage
-			value = 0.06
-		}
-		add_to_variable = {
-			var = global.government_percentage
-			value = AUS.fed_level_1_speedup
-		}
+		add_to_variable = { global.government_percentage = 0.06 }
+		add_to_variable = { global.government_percentage = AUS.fed_level_1_speedup }
+		set_temp_variable = { temp_percent = AUS.fed_level_1_speedup }
+		add_to_temp_variable = { temp_percent = 0.06 }
 	}
+	custom_effect_tooltip = govt_raise_fed_tt
 }
 
 AUS_fed_speed_2 = {
-	custom_override_tooltip = {
-		tooltip = govt_raise_fed2
+	hidden_effect = {
 		set_global_flag = AUS_fed_speed_2
-		add_to_variable = {
-			var = global.government_percentage
-			value = 0.06
-		}
-		add_to_variable = {
-			var = global.government_percentage
-			value = AUS.fed_level_2_speedup
-		}
+		add_to_variable = { global.government_percentage = 0.06 }
+		add_to_variable = { global.government_percentage = AUS.fed_level_2_speedup }
+		set_temp_variable = { temp_percent = AUS.fed_level_2_speedup }
+		add_to_temp_variable = { temp_percent = 0.06 }
 	}
+	custom_effect_tooltip = govt_raise_fed_tt
 }
 
 AUS_fed_speed_3 = {
-	custom_override_tooltip = {
-		tooltip = govt_raise_fed3
+	hidden_effect = {
 		set_global_flag = AUS_fed_speed_3
-		add_to_variable = {
-			var = global.government_percentage
-			value = 0.06
-		}
-		add_to_variable = {
-			var = global.government_percentage
-			value = AUS.fed_level_3_speedup
-		}
+		add_to_variable = { global.government_percentage = 0.06 }
+		add_to_variable = { global.government_percentage = AUS.fed_level_3_speedup }
+		set_temp_variable = { temp_percent = AUS.fed_level_3_speedup }
+		add_to_temp_variable = { temp_percent = 0.06 }
 	}
+	custom_effect_tooltip = govt_raise_fed_tt
 }
 
 AUS_fed_speed_1_add = {
-	custom_effect_tooltip = AUS_speed_future_federalizing
-	add_to_variable = {
-		var = AUS.fed_level_1_speedup
-		value = 0.03
+	custom_override_tooltip = {
+		tooltip = AUS_speed_future_federalizing
+		add_to_variable = { AUS.fed_level_1_speedup = 0.03 }
 	}
 }
 
 AUS_fed_speed_2_add = {
-	custom_effect_tooltip = AUS_speed_future_federalizing
-	add_to_variable = {
-		var = AUS.fed_level_2_speedup
-		value = 0.03
+	custom_override_tooltip = {
+		tooltip = AUS_speed_future_federalizing
+		add_to_variable = { AUS.fed_level_2_speedup = 0.03 }
 	}
 }
 
 AUS_fed_speed_3_add = {
-	custom_effect_tooltip = AUS_speed_future_federalizing
-	add_to_variable = {
-		var = AUS.fed_level_3_speedup
-		value = 0.03
+	custom_override_tooltip = {
+		tooltip = AUS_speed_future_federalizing
+		add_to_variable = { AUS.fed_level_3_speedup = 0.03 }
 	}
 }
 
 AUS_fed_speed_trialism_add = {
-	custom_effect_tooltip = AUS_speed_future_federalizing_but_no_other_tags
-	add_to_variable = {
-		var = AUS.fed_level_2_speedup
-		value = 0.3
+	custom_override_tooltip = {
+		tooltip = AUS_speed_future_federalizing_but_no_other_tags
+		add_to_variable = { AUS.fed_level_2_speedup = 0.3 }
 	}
 }
 
@@ -8315,11 +8297,7 @@ BOTDE_minority_pulse_test = {
 		
 		if = {
 			limit = {
-				check_variable = {
-					var = THIS.subject_revolt_progress
-					value = 1
-					compare = greater_than_or_equals
-				}
+				check_variable = { THIS.subject_revolt_progress > 0.999 }
 				NOT = {
 					OR = {
 						has_global_flag = BOTDE_imminent_minority_revolt_temp
@@ -10400,7 +10378,7 @@ AUS_habsburg_law_switch = {
 		ideology = autdem_christian_democracy_subtype
 	}
 	create_country_leader = {
-		name = "Engelbert Dollfuss"
+		name = "Engelbert Dollfuß"
 		desc = "POLITICS_DOLLFUSS_DESC"
 		picture = "gfx/leaders/AUS/AUS_Engelbert_Dollfuss.png"
 		expire = "1965.1.1"
@@ -11902,18 +11880,7 @@ AUS_occupy_ROM_effect = {
 	}
 }
 AUS_5bw_AUS_victory_SER_peacedeal = {
-	every_state = {
-		limit = { has_dynamic_modifier = { modifier = SER_srpska_resistance } }
-		remove_dynamic_modifier = { modifier = SER_srpska_resistance }
-	}
-	every_state = {
-		limit = { has_dynamic_modifier = { modifier = SER_bosnia_resistance } }
-		remove_dynamic_modifier = { modifier = SER_bosnia_resistance }
-	}
-	every_state = {
-		limit = { has_dynamic_modifier = { modifier = SER_target_lands_resistance } }
-		remove_dynamic_modifier = { modifier = SER_target_lands_resistance }
-	}
+	AUS_remove_all_SER_state_revolt_target_modifiers = yes
 	every_state = {
 		limit = {
 			is_claimed_by = ROOT
@@ -12016,10 +11983,7 @@ AUS_5bw_AUS_victory_SER_peacedeal = {
 	}
 }
 AUS_5bw_AUS_victory_ROM_peacedeal = {
-	every_state = {
-		limit = { has_dynamic_modifier = { modifier = ROM_target_lands_resistance } }
-		remove_dynamic_modifier = { modifier = ROM_target_lands_resistance }
-	}
+	AUS_remove_all_ROM_state_revolt_target_modifiers = yes
 	every_state = {
 		limit = {
 			is_claimed_by = ROOT
@@ -12080,6 +12044,34 @@ AUS_5bw_AUS_victory_ROM_peacedeal = {
 			}
 			transfer_state_to = UKR
 		}
+	}
+}
+AUS_remove_all_SER_state_revolt_target_modifiers = {
+	every_state = {
+		limit = { has_dynamic_modifier = { modifier = SER_srpska_resistance } }
+		remove_dynamic_modifier = { modifier = SER_srpska_resistance }
+	}
+	every_state = {
+		limit = { has_dynamic_modifier = { modifier = SER_bosnia_resistance } }
+		remove_dynamic_modifier = { modifier = SER_bosnia_resistance }
+	}
+	every_state = {
+		limit = { has_dynamic_modifier = { modifier = SER_target_lands_resistance } }
+		remove_dynamic_modifier = { modifier = SER_target_lands_resistance }
+	}
+}
+AUS_remove_all_ROM_state_revolt_target_modifiers = {
+	every_state = {
+		limit = { has_dynamic_modifier = { modifier = ROM_target_lands_resistance } }
+		remove_dynamic_modifier = { modifier = ROM_target_lands_resistance }
+	}
+	every_state = {
+		limit = { has_dynamic_modifier = { modifier = ROM_transylvanian_resistance } }
+		remove_dynamic_modifier = { modifier = ROM_transylvanian_resistance }
+	}
+	every_state = {
+		limit = { has_dynamic_modifier = { modifier = ROM_transylvanian_collaboration } }
+		remove_dynamic_modifier = { modifier = ROM_transylvanian_collaboration }
 	}
 }
 AUS_unlock_foreign_policy_small = {
