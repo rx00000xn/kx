@@ -503,6 +503,7 @@ country_event = {
 	}
 	option = {
 		name = BAS.20.c
+		trigger	= { NOT = { has_country_flag = BAS_arana_unification }}
 		ai_chance = {
 			factor = 35
 			}
@@ -6912,7 +6913,66 @@ country_event = { #Balkanized Spain
 		}
 	}
 }
-country_event = { #aberri navarra man
+	country_event = {#incinerate integrists
+	id = BAS.448
+	immediate = {log = "[GetDateText]: [Root.GetName]: event BAS.263"}
+	title = BAS.448.t
+	desc = BAS.448.d
+	picture = GFX_report_event_generic_diplomacy3
+	is_triggered_only = yes
+
+	option = {
+		name = BAS.448.a
+		add_stability = 0.03
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.01
+			}
+		}
+	option = {
+		name = BAS.448.b
+		decrease_ruling_party_popularity_by_3 = yes
+		set_country_leader_ideology = authdem_corporatocracy_subtype
+		custom_effect_tooltip = authdem_authdem_corporatocracy_subtype_swap_tt
+		}
+	}
+}
+	country_event = {#incinerate integrists
+	id = BAS.450
+	immediate = {log = "[GetDateText]: [Root.GetName]: event BAS.263"}
+	title = BAS.450.t
+	desc = BAS.450.d
+	picture = GFX_report_event_generic_diplomacy3
+	is_triggered_only = yes
+
+	option = {
+		name = BAS.450.a
+		add_stability = 0.05
+		add_popularity = {
+			ideology = national_populist
+			popularity = -0.15
+		}
+	}
+}
+	country_event = {#CATHOLIC MOTHERFUCKING CORPORATISM BAYBEE
+	id = BAS.451
+	immediate = {log = "[GetDateText]: [Root.GetName]: event BAS.263"}
+	title = BAS.451.t
+	desc = BAS.451.d
+	picture = GFX_report_event_generic_diplomacy3
+	is_triggered_only = yes
+
+	option = {
+		name = BAS.451.a
+		add_stability = 0.02
+		add_political_power = 25
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.04
+		}
+	}
+}
+country_event = {#do we shit the bed and try to do a Basque monarchy or do we do Carlist republicanism
 	id = BAS.452
 	title = BAS.452.t
 	desc = BAS.452.d
@@ -7098,4 +7158,85 @@ country_event = { #aberri navarra man
 					ideology = christian_syndicalism_subtype
 				}
 		}
+}
+country_event = {#etruscans
+	id = BAS.453
+	title = BAS.453.t 
+	desc = BAS.453.d 
+	picture = GFX_NFE_spain
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #reject
+		name = BAS.453.a
+		ai_chance = { factor = 100 }
+		add_stability = 0.07
+	}
+	option = {
+		name = BAS.453.b
+		ai_chance = { factor = 0 }
+		add_state_core = 162
+		add_state_core = 1		
+		add_state_core = 161
+		add_state_core = 1004
+		add_state_core = 764
+		add_state_core = 2
+		add_state_core = 1149
+		add_state_core = 1005
+		add_state_core = 117		
+		create_wargoal = {
+			type = annex_everything
+			target = 1.owner
+		}
+		create_wargoal = {
+			type = annex_everything
+			target = 117.owner
+		}
+		create_wargoal = {
+			type = annex_everything
+			target = 162.owner
+		}
+		create_wargoal = {
+			type = annex_everything
+			target = 2.owner
+		}
+	}
+}
+country_event = {#gang back together
+	id = BAS.454
+	title = BAS.454.t 
+	desc = BAS.454.d 
+	picture = GFX_NFE_spain
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #reject
+		name = BAS.454.a
+		ai_chance = { factor = 100 }
+		add_stability = 0.07
+		add_political_power = 150
+		add_soccon_to_coalition = yes
+	}
+	option = {
+		name = BAS.454.b
+		ai_chance = { factor = 0 }
+		set_country_flag = BAS_arana_unification
+		add_soccon_to_coalition = yes
+		increase_ruling_party_popularity_by_15 = yes
+		set_country_leader_ideology = pataut_christian_democracy_subtype
+		custom_effect_tooltip = pataut_pataut_christian_democracy_subtype_swap_tt
+		set_party_name = { 
+			ideology = paternal_autocrat
+			long_name = BAS_social_conservative_party_long
+			name = BAS_social_conservative_party
+		}
+		remove_all_ministers = yes
+		add_ideas = {
+			BAS_Jose_Antonio_de_Aguirre_y_Lecube_hog_sco
+			BAS_Jesus_Maria_de_Leizaola_for_sco
+			BAS_Manu_Robles_Arangiz_eco_pau
+			BAS_Zeferino_Jemein_sec_pau
+			}
+		}
+	}
 }
