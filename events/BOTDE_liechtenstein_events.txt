@@ -17,9 +17,13 @@ country_event = { #debug
 
 	option = { #Egads!
 		name = licdebug.0.a
-		clr_country_flag = LIC_coin_AUS
-		clr_country_flag = LIC_coin_LIC
-		clr_country_flag = LIC_coin_SWI
+		create_country_leader = {
+	name = "Franz I"
+	desc = "LIC_FRANZ_I_DESC"
+	picture = "gfx/leaders/LIC/LIC_Franz_I.png"
+	expire = "1965.1.1"
+	ideology = marlib_austropopulism_subtype
+}
 	}
 }
 
@@ -540,6 +544,15 @@ country_event = { #Liechtenstein Wishes for Annexation
 				change_tag_from = LIC
 			}
 		}
+		LIC = {
+			every_subject_country = {
+				get_current_government_type = yes
+				ROOT = {
+					puppet = PREV
+				}
+				restore_previous_government_type = yes
+			}
+		}
 		annex_country = {
 			target = LIC
 			transfer_troops = yes
@@ -573,7 +586,7 @@ country_event = { #The VDBL Mounts a Coup!
 			ruling_party = national_populist
 		}
 		set_country_flag = LIC_couped
-		remove_dynamic_modifier = { modifier = LIC_shadow_empire }
+		remove_dynamic_modifier = { modifier = LIC_shadow_empire_dynmod }
 		remove_dynamic_modifier = { modifier = LIC_princely_holdings_idea }
 		country_event = {
 			id = lic.10
@@ -2382,6 +2395,27 @@ country_event = { #Alpabfahrtstag
 
 	option = { #Damn
 		name = licflavor.55.a
+	}
+}
+
+country_event = { #The Death of Wilhelm Beck
+	id = licflavor.55
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.55" }
+	title = licflavor.55.t
+	desc = licflavor.55.d
+	
+	picture = GFX_event_LIC_state_meeting_swiss
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Damn
+		name = licflavor.55.a
+		add_popularity = {
+			ideology = social_conservative
+			popularity = -0.05
+		}
 	}
 }
 
@@ -4276,6 +4310,44 @@ country_event = { #Operation Marterl
 			set_country_flag = LIC_marterl_tt_badboy_dontwar
 		}
 	}
+	
+	option = { #Directly intervene on their side- that is, Liechtenstein's.
+		name = licfor.49.e
+		trigger = {
+			is_ai = no
+		}
+		custom_effect_tooltip = AUS_join_war_with_LIC
+		AUS_add_ten_collapse = yes
+		add_stability = -0.05
+		add_war_support = -0.05
+		add_political_power = -45
+		add_manpower = -4000
+		send_equipment = {
+			equipment = infantry_equipment
+			amount = 1500
+			target = LIC
+		}
+		send_equipment = {
+			equipment = support_equipment
+			amount = 80
+			target = LIC
+		}
+		send_equipment = {
+			equipment = artillery_equipment
+			amount = 100
+			target = LIC
+		}
+		LIC = {
+			set_country_flag = LIC_marterl_support
+			set_country_flag = LIC_marterl_support_DEGLOVING
+			add_manpower = 4000
+		}
+		ai_chance = {
+			factor = 25
+		}
+		AUS_raise_austro_german_tensions = yes
+	}
+	
 }
 
 country_event = { #Pressuring Switzerland - Our Offer.
