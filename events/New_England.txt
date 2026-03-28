@@ -109,7 +109,7 @@ country_event = { # ACW nation informed that Canada has seized New England
 	
 	trigger = {
 		NOT = {
-			has_global_flag = CAL_peaceoutgang
+			has_global_flag = CAl_peaceoutgang
 			tag = CAL
 		}
 	}
@@ -507,7 +507,7 @@ country_event = { # America is reunited
 	immediate = {log = "[GetDateText]: [Root.GetName]: event newengland.7"}
 	title = newengland.7.t
 	desc = newengland.7.d
-	picture = GFX_report_event_USA_congress
+	picture = [GetNEEUnificationPic]
 
 	fire_only_once = yes
 
@@ -550,6 +550,13 @@ country_event = { # America is reunited
 				BBR = {
 					exists = yes
 					has_country_flag = BBR_claimed_america
+					is_ally_of_ROOT = no
+				}
+			}
+			AND = {
+				HAW = {
+					exists = yes
+					has_country_flag = HAW_claimed_america
 					is_ally_of_ROOT = no
 				}
 			}
@@ -2288,6 +2295,7 @@ country_event = { # 1940 Election
 					traits = {
 						CSA_first_lady_of_the_revolution
 					}
+					female = yes
 				}
 			}
 			
@@ -2392,6 +2400,7 @@ country_event = { # 1940 Election
 					traits = {
 						economic_reformer
 					}
+					female = yes
 				}
 				remove_all_ministers = yes
 				add_ideas = NEE_Frances_Perkins_hog_sde
@@ -3460,6 +3469,7 @@ country_event = { # 1944 election
 					traits = {
 						CSA_first_lady_of_the_revolution
 					}
+					female = yes
 				}
 			}
 			if = { # Clarence Pickett
@@ -3664,6 +3674,7 @@ country_event = { # 1944 election
 					traits = {
 						economic_reformer
 					}
+					female = yes
 				}
 				remove_all_ministers = yes
 				add_ideas = NEE_Frances_Perkins_hog_sde
@@ -4695,6 +4706,7 @@ country_event = { # 1948 election
 					traits = {
 						CSA_first_lady_of_the_revolution
 					}
+					female = yes
 				}
 			}
 			if = { # Clarence Pickett
@@ -4871,6 +4883,7 @@ country_event = { # 1948 election
 					traits = {
 						economic_reformer
 					}
+					female = yes
 				}
 				remove_all_ministers = yes
 				add_ideas = NEE_Frances_Perkins_hog_sde
@@ -5883,6 +5896,7 @@ country_event = { # 1952 election
 					traits = {
 						CSA_first_lady_of_the_revolution
 					}
+					female = yes
 				}
 			}
 			if = { # Clarence Pickett
@@ -6049,6 +6063,7 @@ country_event = { # 1952 election
 					traits = {
 						economic_reformer
 					}
+					female = yes
 				}
 				remove_all_ministers = yes
 				add_ideas = NEE_Frances_Perkins_hog_sde
@@ -9518,6 +9533,7 @@ country_event = { # The Great Strike-Leftist Victory
 	fire_only_once = yes
 
 	option = { #Hardliners Win Out
+		trigger = { CSA = { exists = yes } }
 		ai_chance = {
 			factor = 30
 			modifier = {
@@ -14653,6 +14669,7 @@ country_event = {# face obvilion
 				expire = "1.1.1"
 				ideology = tot_bahai_universalism_subtype
 				traits = { queen_in_yellow }
+				female = yes
 			}
 		}	
 		else = {
@@ -14663,6 +14680,7 @@ country_event = {# face obvilion
 				expire = "1.1.1"
 				ideology = tot_leftcraftism_subtype
 				traits = { queen_in_yellow }
+				female = yes
 			}
 		}
 		if = {
@@ -14679,6 +14697,7 @@ country_event = {# face obvilion
 				expire = "1.1.1"
 				ideology = bahai_universalism_subtype
 				traits = { queen_in_yellow }
+				female = yes
 			}
 		}	
 		else = {
@@ -14689,6 +14708,7 @@ country_event = {# face obvilion
 				expire = "1.1.1"
 				ideology = leftcraftism_subtype
 				traits = { queen_in_yellow }
+				female = yes
 			}
 		}
 		set_country_flag = NEE_queen_in_yellow
@@ -14862,6 +14882,7 @@ country_event = {# go tot?
 			expire = "1.1.1"
 			ideology = tot_leftcraftism_subtype
 			traits = { queen_in_yellow }
+			female = yes
 		}
 	}
 	else_if = {
@@ -14878,6 +14899,7 @@ country_event = {# go tot?
 			expire = "1.1.1"
 			ideology = tot_leftcraftism_subtype
 			traits = { queen_in_yellow }
+			female = yes
 		}
 	}
 		set_politics = {
@@ -16258,6 +16280,7 @@ country_event = { #King Albert Shot!
 				expire = "1.1.1"
 				ideology = absolute_monarchy_subtype
 				traits = {  }
+				female = yes
 			}
 		country_event = { id = neebritishflavor.11 days = 5 } #Death of king Albert	
 	}
@@ -16287,6 +16310,7 @@ country_event = { #Lizzie's title
 				expire = "1.1.1"
 				ideology = absolute_monarchy_subtype
 				traits = {  }
+				female = yes
 			}
 		}
 	}
@@ -16303,6 +16327,7 @@ country_event = { #Lizzie's title
 				expire = "1.1.1"
 				ideology = absolute_monarchy_subtype
 				traits = {  }
+				female = yes
 			}
 		}
 	}
@@ -17955,6 +17980,12 @@ country_event = { #mac vists Boston, hates it and insults groves
 		}
 		if = {
 			limit = {
+				HAW = { has_country_flag = HAW_claimed_america }
+			}
+			create_wargoal = { type = annex_everything target = HAW }
+		}
+		if = {
+			limit = {
 				NYC = { has_country_flag = NYC_can_invade_america }
 			}
 			create_wargoal = { type = annex_everything target = NYC }
@@ -18051,6 +18082,12 @@ country_event = { #navy vists Boston, hates it and insults groves
 					BBR = { has_country_flag = BBR_claimed_america }
 				}
 				create_wargoal = { type = annex_everything target = BBR }
+			}
+			if = {
+				limit = {
+					HAW = { has_country_flag = HAW_claimed_america }
+				}
+				create_wargoal = { type = annex_everything target = HAW }
 			}
 			if = {
 				limit = {
@@ -18197,6 +18234,12 @@ country_event = { #the war is over
 			}
 			if = {
 				limit = {
+					HAW = { has_country_flag = HAW_claimed_america }
+				}
+				create_wargoal = { type = annex_everything target = HAW }
+			}
+			if = {
+				limit = {
 					NYC = { has_country_flag = NYC_can_invade_america }
 				}
 				create_wargoal = { type = annex_everything target = NYC }
@@ -18336,6 +18379,12 @@ country_event = { #said no
 					BBR = { has_country_flag = BBR_claimed_america }
 				}
 				create_wargoal = { type = annex_everything target = BBR }
+			}
+			if = {
+				limit = {
+					HAW = { has_country_flag = HAW_claimed_america }
+				}
+				create_wargoal = { type = annex_everything target = HAW }
 			}
 			if = {
 				limit = {
@@ -19361,6 +19410,7 @@ country_event = {# pershing elections
 					traits = {
 						
 					}
+					female = yes
 				}
 				clr_country_flag = NEE_whigg_curtis
 
@@ -19378,6 +19428,7 @@ country_event = {# pershing elections
 					traits = {
 						
 					}
+					female = yes
 				}
 				clr_country_flag = NEE_whigg_vanderbilt
 
@@ -19425,6 +19476,7 @@ country_event = {# pershing elections
 					traits = {
 						CSA_first_lady_of_the_revolution
 					}
+					female = yes
 				}
 				create_country_leader = {
 					name = "Eleanor Roosevelt"
@@ -19435,6 +19487,7 @@ country_event = {# pershing elections
 					traits = {
 						CSA_first_lady_of_the_revolution
 					}
+					female = yes
 				}	
 				clr_country_flag = NEE_dr_Roosevelt
 
@@ -22120,6 +22173,7 @@ country_event = { # 1940 Election
 					traits = {
 						CSA_first_lady_of_the_revolution
 					}
+					female = yes
 				}
 			}
 		}
@@ -22192,6 +22246,7 @@ country_event = { # 1940 Election
 					traits = {
 						economic_reformer
 					}
+					female = yes
 				}
 				remove_all_ministers = yes
 				add_ideas = NEE_Frances_Perkins_hog_sde
@@ -29390,6 +29445,7 @@ country_event = { #lovell
 			expire = "1.1.1"
 			ideology = eco_socialism_subtype
 			traits = { }
+			female = yes
 		}
 		custom_effect_tooltip = radsoc_eco_socialism_subtype_swap_tt
 	}

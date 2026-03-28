@@ -2542,6 +2542,10 @@ country_event = { # Ireland can ask for protection
 					}
 					has_game_rule = {
 						rule = IRE_forpol
+						option = IRE_FORPOL_ALLYUSA
+					}
+					has_game_rule = {
+						rule = IRE_forpol
 						option = IRE_FORPOL_LATIN_UNION
 					}
 				}
@@ -2587,6 +2591,10 @@ country_event = { # Ireland can ask for protection
 					has_game_rule = {
 						rule = IRE_forpol
 						option = IRE_FORPOL_ALLYGER
+					}
+					has_game_rule = {
+						rule = IRE_forpol
+						option = IRE_FORPOL_ALLYUSA
 					}
 					has_game_rule = {
 						rule = IRE_forpol
@@ -6313,7 +6321,680 @@ country_event = { #eco demobilisation
 			idea = ENG_silence_idea
 			days = 145
 		}
-		
+	}
+	option = {
+		name = uob.351.b
+		ai_chance = {
+			factor = 40
+		}
+		add_political_power = 100
+		add_timed_idea = {
+			idea = ENG_peace_help_idea
+			days = 365
+		}
+	}
+}
+
+### Offices
+
+# Exchequer
+
+country_event = {
+	id = uob.352
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.352" }
+	title = uob.352.t
+	desc = uob.352.d
+	picture = GFX_report_event_communists_cheer
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = {
+		name = uob.352.a
+		ai_chance = {
+			factor = 30
+		}
+		add_ideas = ENG_Clement_Attlee_eco_syn
+		add_political_power = 25
+		338 = {
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = industrial_complex
+				level = 2
+				instant_build = yes
+			}
+		}
+		#set_country_flag = { TUC2 value = 1 } doesn't exist yet
+	}
+	option = {
+		name = uob.352.b
+		ai_chance = {
+			factor = 60
+		}
+		add_ideas = ENG_Nye_Bevan_eco_syn
+		add_resource = {
+			type = steel
+			amount = 4
+			state = 130
+		}
+		add_resource = {
+			type = steel
+			amount = 4
+			state = 131
+		}
+	}
+	option = {
+		name = uob.352.c
+		ai_chance = {
+			factor = 10
+		}
+		add_ideas = ENG_Barbara_Castle_eco_syn
+		add_political_power = 100
+	}
+	option = {
+		name = uob.352.e
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+
+# Foreign Affairs
+
+country_event = {
+	id = uob.353
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.353" }
+	title = uob.353.t
+	desc = uob.353.d
+	picture = GFX_report_event_communists_cheer
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = {
+		name = uob.353.a
+		ai_chance = {
+			factor = 50
+		}
+		add_ideas = ENG_Ernest_Bevin_for_syn
+	}
+	option = {
+		name = uob.353.b
+		ai_chance = {
+			factor = 30
+		}
+		trigger = {
+			has_country_flag = WK2W
+		}
+		add_ideas = ENG_Leslie_Solley_for_tot
+		#reverse_add_opinion_modifier = { target = FRA modifier = ENG_solley_op }
+		#reverse_add_opinion_modifier = { target = SRI modifier = ENG_solley_op }
+		#reverse_add_opinion_modifier = { target = CSA modifier = ENG_solley_op }
+		#reverse_add_opinion_modifier = { target = SOV modifier = ENG_solley_op }
+	}
+	option = {
+		name = uob.353.c
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = WK2W
+		}
+		add_ideas = ENG_Ian_Mikardo_for_syn
+		add_political_power = 50
+	}
+	option = {
+		name = uob.353.e
+		ai_chance = {
+			factor = 50
+		}
+		trigger = {
+			has_country_flag = PWH2
+		}
+		add_ideas = ENG_Ian_Mikardo_for_syn
+		add_political_power = 50
+	}
+	option = {
+		name = uob.353.f
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+
+# Home Department
+
+country_event = {
+	id = uob.354
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.354" }
+	title = uob.354.t
+	desc = uob.354.d
+	picture = GFX_report_event_communists_cheer
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = {
+		name = uob.354.a
+		ai_chance = {
+			factor = 40
+		}
+		add_ideas = ENG_Herbert_Morrison_sec_syn
+	}
+	option = {
+		name = uob.354.b
+		ai_chance = {
+			factor = 40
+		}
+		add_ideas = ENG_William_Joyce_sec_tot
+		add_political_power = 50
+	}
+	option = {
+		name = uob.354.c
+		ai_chance = {
+			factor = 20
+		}
+	}
+}
+
+### Chairmen/-woman
+
+# Mosley is Chairman
+
+country_event = {
+	id = uob.356
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.356" }
+	title = uob.356.t
+	desc = uob.356.d
+	picture = GFX_report_event_election_vote
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = {
+		name = uob.356.a
+		ai_chance = {
+			factor = 20
+		}
+		set_politics = {
+			ruling_party = totalist
+		}
+		retire_country_leader = yes
+		create_country_leader = {
+			name = "John Strachey"
+			desc = "POLITICS_JOHN_STRACHEY_DESC"
+			picture = "gfx/leaders/ENG/Portrait_England_John_Strachey.png"
+			expire = "1.1.1"
+			ideology = tot_reformed_natsynd_subtype
+		}
+		set_country_flag = strachey_chairman
+		add_ideas = ENG_John_Strachey_hog_tot
+		add_political_power = 60
+	}
+
+	option = {
+		name = uob.356.b
+		ai_chance = {
+			factor = 20
+		}
+		set_politics = {
+			ruling_party = totalist
+		}
+		retire_country_leader = yes
+		create_country_leader = {
+			name = "Eric Blair"
+			desc = "POLITICS_ERIC_BLAIR_DESC"
+			picture = "gfx/leaders/ENG/Portrait_England_Eric_Blair.png"
+			expire = "1.1.1"
+			ideology = internationalism_subtype
+		}
+		set_country_flag = blair_chairman
+		add_ideas = ENG_Eric_Blair_hog_tot
+		add_political_power = 60
+	}
+
+	option = {
+		name = uob.356.c
+		ai_chance = {
+			factor = 20
+		}
+		set_politics = {
+			ruling_party = syndicalist
+		}
+		create_country_leader = {
+			name = "Annie Kenney"
+			desc = "POLITICS_ANNIE_KENNEY_DESC"
+			picture = "gfx/leaders/ENG/Portrait_England_Annie_Kenney.png"
+			expire = "1.1.1"
+			ideology = feminist_syndicalist_subtype
+			female = yes
+		}
+		set_country_flag = kenney_chairman
+		add_ideas = ENG_Barbara_Castle_hog_syn
+		hidden_effect = {
+			set_party_name = {
+				ideology = syndicalist
+				long_name = ENG_CON_syndicalist_party_long
+				name = ENG_CON_syndicalist_party
+			}
+		}
+	}
+
+	option = {
+		name = uob.356.dd
+		ai_chance = {
+			factor = 40
+			# If the Second Peace With Honor was signed, AI is guaranteed to pick this
+			modifier = {
+				factor = 5
+				has_country_flag = PWH2
+			}
+		}
+		set_country_flag = mosley_dictator
+		hidden_effect = {
+			add_country_leader_trait = dictator
+		}
+		add_political_power = -400
+	}
+}
+
+# Kenney is Chairwoman
+
+country_event = {
+	id = uob.357
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.357" }
+	title = uob.357.t
+	desc = uob.357.d
+	picture = GFX_report_event_election_vote
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = {
+		name = uob.357.a
+		ai_chance = {
+			factor = 20
+		}
+		set_politics = {
+			ruling_party = totalist
+		}
+		add_ideas = ENG_John_Strachey_hog_tot
+	}
+
+	option = {
+		name = uob.357.b
+		ai_chance = {
+			factor = 20
+		}
+		add_ideas = ENG_Clement_Attlee_hog_syn
+		add_political_power = -100
+	}
+
+	option = {
+		name = uob.357.c
+		ai_chance = {
+			factor = 30
+		}
+		add_ideas = ENG_Barbara_Castle_hog_syn
+		add_political_power = -40
+	}
+
+	option = {
+		name = uob.357.c
+		ai_chance = {
+			factor = 30
+		}
+		create_country_leader = {
+			name = "Sylvia Pankhurst"
+			picture = "gfx/leaders/ENG/Portrait_England_Sylvia_Pankhurst.png"
+			expire = "1.1.1"
+			ideology = syn_council_communism_subtype
+			female = yes
+		}
+		add_ideas = ENG_Christabel_Pankhurst_hog_syn
+		add_political_power = -60
+	}
+}
+
+# y Glais is Chairman
+
+country_event = {
+	id = uob.358
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.358" }
+	title = uob.358.t
+	desc = uob.358.d
+	picture = GFX_report_event_election_vote
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = {
+		name = uob.358.a
+		ai_chance = {
+			factor = 30
+		}
+		set_politics = {
+			ruling_party = totalist
+		}
+		add_ideas = ENG_John_Strachey_hog_tot
+	}
+
+	option = {
+		name = uob.358.b
+		trigger = { SCT = { NOT = { has_government = syndicalist } } }
+		ai_chance = {
+			factor = 30
+		}
+		set_politics = {
+			ruling_party = syndicalist
+		}
+		create_country_leader = {
+			name = "William Gallacher"
+			desc = "POLITICS_WILLIAM_GALLACHER_DESC"
+			picture = "gfx/leaders/ENG/Portrait_England_William_Gallacher.png"
+			expire = "1.1.1"
+			ideology = syn_teetotalism_subtype
+		}
+		add_ideas = ENG_JB_Priestley_hog_rso
+	}
+
+	option = {
+		name = uob.358.b2
+		trigger = { SCT = { has_government = syndicalist } }
+		ai_chance = {
+			factor = 30
+		}
+		set_politics = {
+			ruling_party = syndicalist
+		}
+		create_country_leader = {
+			name = "Ebenezer Edwards"
+			picture = "gfx/leaders/BRG/Portrait_BRG_Ebby_Edwards.png"
+			expire = "1.1.1"
+			ideology = syndicalist_subtype
+		}
+		add_ideas = ENG_JB_Priestley_hog_rso
+	}
+
+	option = {
+		name = uob.358.c
+		ai_chance = {
+			factor = 40
+		}
+		add_ideas = ENG_Nye_Bevan_hog_syn
+		add_political_power = -40
+	}
+}
+
+# Horner is Chairman
+
+country_event = {
+	id = uob.359
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.359" }
+	title = uob.359.t
+	desc = uob.359.d
+	picture = GFX_report_event_election_vote
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = {
+		name = uob.359.a
+		ai_chance = {
+			factor = 20
+		}
+		add_ideas = ENG_GDH_Cole_hog_syn
+		add_political_power = -60
+	}
+
+	option = {
+		name = uob.359.b
+		ai_chance = {
+			factor = 20
+		}
+		retire_country_leader = yes
+		create_country_leader = {
+			name = "Clem Attlee"
+			desc = "POLITICS_CLEM_ATTLEE_DESC"
+			picture = "gfx/leaders/ENG/Portrait_England_Clem_Attlee.png"
+			expire = "1.1.1"
+			ideology = syn_guild_socialism_subtype
+		}
+		add_ideas = ENG_GDH_Cole_hog_syn
+	}
+
+	option = {
+		name = uob.359.c
+		ai_chance = {
+			factor = 40
+		}
+		set_politics = {
+			ruling_party = totalist
+		}
+		add_ideas = ENG_Eric_Blair_hog_tot
+		add_political_power = -40
+	}
+
+	option = {
+		name = uob.359.e
+		ai_chance = {
+			factor = 20
+		}
+		retire_country_leader = yes
+		create_country_leader = {
+			name = "Barbara Castle"
+			desc = "POLITICS_BARBARA_CASTLE_DESC"
+			picture = "gfx/leaders/ENG/Portrait_England_Barbara_Castle.png"
+			expire = "1.1.1"
+			ideology = feminist_syndicalist_subtype
+			female = yes
+		}
+		add_ideas = ENG_James_Maxton_hog_syn
+		add_political_power = -50
+	}
+}
+
+# Maximists dont like Autonomy
+
+country_event = {
+	id = uob.360
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.360" }
+	title = uob.360.t
+	desc = uob.360.d
+	picture = GFX_report_event_election_vote
+
+	trigger = {
+		tag = ENG
+		WAL = {
+			is_subject_of = ENG
+		}
+		SCT = {
+			is_subject_of = ENG
+		}
+		has_government = totalist
+	}
+
+	mean_time_to_happen = {
+		days = 30
+	}
+
+	fire_only_once = yes
+
+	option = {
+		name = uob.360.a
+		ai_chance = {
+			factor = 100
+		}
+		annex_country = {
+			target = WAL
+			transfer_troops = yes
+		}
+		annex_country = {
+			target = SCT
+			transfer_troops = yes
+		}
+		add_political_power = -400
+		add_timed_idea = {
+			idea = ENG_home_rule_broken_idea
+			days = 365
+		}
+	}
+
+	option = {
+		name = uob.360.b
+		ai_chance = {
+			factor = 0
+		}
+		add_political_power = -200
+	}
+}
+
+# A cold, wet day for Eric Blair
+
+country_event = {
+	id = uob.361
+	title = uob.361.t
+	desc = uob.361.d
+	picture = GFX_report_event_ENG_cold_wet_day
+
+	trigger = {
+		tag = ENG
+		has_country_flag = mosley_chairman
+		OR = {
+		has_country_flag = PWH2
+		NOT = { country_exists = GER }
+		}
+		NOT = {
+			has_country_flag = Eric_Blair_dead
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 3
+	}
+
+	fire_only_once = yes
+
+	immediate = {
+		clr_country_flag = mosley_chairman
+	}
+
+	option = {
+		name = uob.361.a
+		ai_chance = {
+			factor = 65
+		}
+		retire_country_leader = yes
+		create_country_leader = {
+			name = "Eric Blair"
+			desc = "POLITICS_ERIC_BLAIR_DESC"
+			picture = "gfx/leaders/ENG/Portrait_England_Eric_Blair.png"
+			expire = "1.1.1"
+			ideology = moderate_socialist_subtype
+		}
+		remove_all_ministers = yes
+		add_ideas = ENG_Harry_Pollitt_hog_syn
+		add_ideas = ENG_Barbara_Castle_eco_syn
+		add_ideas = ENG_Nye_Bevan_sec_syn
+		add_ideas = ENG_James_Maxton_for_syn
+		add_political_power = -50
+		set_politics = {
+			ruling_party = radical_socialist
+		}
+		hidden_effect = {
+			set_party_name = {
+				ideology = radical_socialist
+				long_name = ENG_BLR_radical_socialist_party_long
+				name = ENG_BLR_radical_socialist_party
+			}
+		}
+	}
+	
+	option = {
+		name = uob.361.b
+		ai_chance = { factor = 25 }
+		set_politics = { ruling_party = syndicalist }
+		retire_country_leader = yes
+		create_country_leader = {
+			name = "T.E. Lawrence"
+			desc = "ENG_lawrence_desc"
+			picture = "gfx/leaders/ENG/Portrait_England_T_E_Lawrence.png"
+			expire = "1.1.1"
+			ideology = syn_red_junta_subtype
+			traits = { dictator }
+		}
+		set_country_flag = ENG_dictator_lawrence
+		clr_country_flag = mosley_chairman		
+		set_country_flag = junta
+		remove_all_ministers = yes
+		add_ideas = ENG_Harry_Pollitt_hog_syn
+		add_ideas = ENG_Ernest_Bevin_for_syn
+		add_ideas = ENG_Clement_Attlee_eco_syn
+		add_ideas = ENG_Nye_Bevan_sec_syn
+		add_political_power = -50
+	}
+
+	option = {
+		name = uob.361.c
+		ai_chance = {
+			factor = 30
+		}
+		set_country_flag = Eric_Blair_dead
+		add_political_power = -600
+	}
+}
+
+# A cold, wet, dark day for Eric Blair
+
+news_event = {
+	id = uob.362
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.362" }
+	title = uob.362.t
+	desc = uob.362.d
+	picture = UoB_news_cold_wet_day
+
+	trigger = {
+		tag = ENG
+		has_country_flag = mosley_dictator
+		NOT = {
+			has_country_flag = Eric_Blair_dead
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 13
+	}
+
+	fire_only_once = yes
+
+	option = {
+		name = uob.362.a
+		set_country_flag = Eric_Blair_dead
+	}
+}
+
+# Damn we need oil
+
+country_event = {
+	id = uob.363
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.363" }
+	title = uob.363.t
+	desc = uob.363.d
+	picture = GFX_report_event_BUR_oil_fields
+
+	is_triggered_only = yes
+	trigger = { NOT = { has_country_flag = BRG_new_britain } }
+
+	option = {
+		name = uob.363.a
+		add_ideas = ENG_synthetic_oil_lover
 	}
 }
 
@@ -6392,11 +7073,594 @@ country_event = {
 	}
 }
 
-country_event = { #Government or anarchists
-	id = uob.125
-	immediate = {log = "[GetDateText]: [Root.GetName]: event uob.125"}
-	title = uob.125.t
-	desc = uob.125.d
+##############################
+### British Flavour Events ###
+##############################
+
+add_namespace = uobflavour
+
+### The Imitation Game
+
+# A riddle
+
+country_event = {
+	id = uobflavour.1
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobflavour.1" }
+	title = uobflavour.1.t
+	desc = uobflavour.1.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = {
+		name = uobflavour.1.a
+		ai_chance = {
+			factor = 50
+		}
+		hidden_effect = {
+			random_list = {
+				75 = {
+					country_event = {
+						id = uobflavour.2
+						days = 60
+					}
+				}
+				15 = {
+					country_event = {
+						id = uobflavour.2
+						days = 45
+					}
+				}
+				5 = {
+					country_event = {
+						id = uobflavour.2
+						days = 25
+					}
+				}
+				5 = {
+					country_event = {
+						id = uobflavour.2
+						days = 10
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = uobflavour.1.b
+		ai_chance = {
+			factor = 50
+		}
+	}
+}
+
+# Wrapped in a mystery
+
+country_event = {
+	id = uobflavour.2
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobflavour.2" }
+	title = uobflavour.2.t
+	desc = uobflavour.2.d
+	picture = GFX_report_event_pierre_laval
+
+	is_triggered_only = yes
+
+	option = {
+		name = uobflavour.2.a
+		ai_chance = {
+			factor = 50
+			modifier = {
+				has_political_power > 100
+				factor = 2
+			}
+			modifier = {
+				has_political_power > 75
+				factor = 1.5
+			}
+		}
+		add_political_power = -50
+		hidden_effect = {
+			country_event = {
+				id = uobflavour.3
+				days = 150
+			}
+		}
+	}
+
+	option = {
+		name = uobflavour.2.b
+		ai_chance = {
+			factor = 50
+			modifier = {
+				has_political_power < 50
+				factor = 0.5
+			}
+			modifier = {
+				has_political_power < 0
+				factor = 0
+			}
+		}
+	}
+}
+
+# Inside an Enigma
+
+country_event = {
+	id = uobflavour.3
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobflavour.3" }
+	title = uobflavour.3.t
+	desc = {
+		text = uobflavour.3.d_1
+		trigger = {
+			NOT = {
+				has_completed_focus = ENG_bletchley_park
+			}
+		}
+	}
+	desc = {
+		text = uobflavour.3.d_2
+		trigger = {
+			has_completed_focus = ENG_bletchley_park
+		}
+	}
+	picture = GFX_report_event_physics_lab_02
+
+	is_triggered_only = yes
+
+	option = {
+		name = uobflavour.3.a
+		add_tech_bonus = {
+			name = uobflavour.3.t
+			bonus = 2
+			uses = 1
+			category = electronics
+		}
+		add_political_power = 100
+	}
+}
+
+# The Encylopedia
+
+country_event = {
+	id = uobflavour.4
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobflavour.4" }
+	title = uobflavour.4.t
+	desc = uobflavour.4.d
+	picture = GFX_report_event_communists_cheer
+
+	trigger = {
+		tag = ENG
+		date > 1938.7.1
+		has_socialist_government = yes
+	}
+
+	mean_time_to_happen = {
+		days = 2
+	}
+
+	fire_only_once = yes
+
+	option = {
+		name = uobflavour.4.a
+		ai_chance = {
+			factor = 30
+		}
+		add_political_power = 25
+		every_other_country = {
+			limit = {
+				has_socialist_government = yes
+			}
+			add_opinion_modifier = {
+				target = ENG
+				modifier = ENG_encyclopedia_modifier
+			}
+		}
+		hidden_effect = {
+			news_event = {
+				id = uobflavour.7
+				days = 7
+			}
+		}
+	}
+
+	option = {
+		name = uobflavour.4.b
+		ai_chance = {
+			factor = 45
+		}
+		add_political_power = 50
+	}
+
+	option = {
+		name = uobflavour.4.c
+		ai_chance = {
+			factor = 25
+		}
+	}
+}
+
+# The Smuggler's Island
+
+country_event = {
+	id = uobflavour.5
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobflavour.5" }
+	title = uobflavour.5.t
+	desc = uobflavour.5.d
+	picture = GFX_report_event_communists_cheer
+
+	trigger = {
+		date > 1938.1.13
+		tag = ENG
+		has_socialist_government = yes
+	}
+
+	mean_time_to_happen = {
+		days = 2
+	}
+
+	fire_only_once = yes
+
+	option = {
+		name = uobflavour.5.a
+	}
+}
+
+# The Union in forty years
+
+country_event = {
+	id = uobflavour.6
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobflavour.6" }
+	title = uobflavour.6.t
+	desc = uobflavour.6.d
+	picture = GFX_report_event_communists_cheer
+
+	trigger = {
+		date > 1944.5.6
+		tag = ENG
+		has_socialist_government = yes
+	}
+
+	mean_time_to_happen = {
+		days = 2
+	}
+
+	fire_only_once = yes
+
+	option = {
+		name = uobflavour.6.a
+	}
+}
+
+# The Encyclopedia - News
+
+news_event = {
+	id = uobflavour.7
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobflavour.7" }
+	title = uobflavour.7.t
+	desc = uobflavour.7.d
+	picture = GFX_news_event_006
+
+	is_triggered_only = yes
+
+	option = {
+		name = uobflavour.7.a
+		trigger = {
+			has_socialist_government = yes
+		}
+	}
+
+	option = {
+		name = uobflavour.7.b
+		trigger = {
+			has_socialist_government = no
+		}
+	}
+}
+
+#######################
+### Death Events
+#######################
+
+country_event = {
+	id = uobflavour.14
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobflavour.14" }
+	title = uobflavour.14.t
+	desc = uobflavour.14.d
+	picture = GFX_news_event_FRA_valois_funeral
+
+	trigger = {
+		tag = ENG
+		has_idea = ENG_Tom_Mann_hog_syn
+		date > 1941.3.10
+	}
+
+	fire_only_once = yes
+
+	option = {
+		name = uobflavour.14.a
+		swap_ideas = {
+			remove_idea = ENG_Tom_Mann_hog_syn
+			add_idea = ENG_Arthur_Horner_hog_syn
+		}
+		set_country_flag = Tom_Mann_dead
+	}
+}
+
+country_event = {
+	id = uobflavour.15
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobflavour.15" }
+	title = uobflavour.15.t
+	desc = uobflavour.15.d
+	picture = GFX_news_event_FRA_valois_funeral
+
+	trigger = {
+		tag = ENG
+		has_country_flag = mann_chairman
+		date > 1941.3.10
+	}
+
+	fire_only_once = yes
+
+	option = {
+		name = uobflavour.15.a
+		create_country_leader = {
+			name = "Arthur Horner"
+			desc = "POLITICS_ARTHUR_HORNER_DESC"
+			picture = "gfx/leaders/ENG/Portrait_England_Arthur_Horner.png"
+			expire = "1.1.1"
+			ideology = syndicalist_subtype
+		}
+	}
+}
+
+country_event = {
+	id = uobflavour.17
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobflavour.17" }
+	title = uobflavour.17.t
+	desc = uobflavour.17.d
+	picture = GFX_news_event_FRA_valois_funeral
+
+	trigger = {
+		tag = ENG
+		OR = {
+			has_idea = ENG_Annie_Kenney_hog_syn
+			has_country_flag = kenney_chairman
+		}
+		date > 1953.6.9
+		has_socialist_government = yes
+	}
+
+	fire_only_once = yes
+
+	option = {
+		name = uobflavour.17.a
+		if = {
+			limit = { has_country_leader = { ruling_only = yes name = "Annie Kenney" } }
+			create_country_leader = {
+				name = "Christabel Pankhurst"
+				picture = "gfx/leaders/ENG/Portrait_England_Christabel_Pankhurst.png"
+				expire = "1.1.1"
+				ideology = feminist_syndicalist_subtype
+				female = yes
+			}
+		}
+		else = {
+			swap_ideas = {
+				remove_idea = ENG_Annie_Kenney_hog_syn
+				add_idea = ENG_Christabel_Pankhurst_hog_syn
+			}
+		}
+		set_country_flag = Annie_Kenney_dead
+	}
+}
+
+### Dinner parties with a twist
+
+# Canada
+
+news_event = {
+	id = uobflavour.18
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobflavour.18" }
+	title = uobflavour.18.t
+	desc = uobflavour.18.d
+	picture = GFX_news_event_gathering_protest
+
+	is_triggered_only = yes
+
+	trigger = {
+		ENG = {
+			exists = yes
+			NOT = {
+				has_war_with = CAN
+				has_war_with = IRE
+				has_socialist_government = yes
+			}
+		}
+		CAN = {
+			exists = yes
+			is_faction_leader = yes
+		}
+		IRE = {
+			exists = yes
+			NOT = { has_war_with = CAN }
+		}
+	}
+
+	option = {
+		name = uobflavour.18.a
+		trigger = {
+			tag = ENG
+		}
+		add_political_power = -10
+	}
+
+	option = {
+		name = uobflavour.18.b
+		trigger = {
+			OR = {
+				tag = CAN
+				tag = IRE
+			}
+		}
+		add_political_power = -20
+	}
+
+	option = {
+		name = uobflavour.18.c
+		trigger = {
+			NOT = {
+				tag = ENG
+				tag = IRE
+				tag = CAN
+			}
+		}
+	}
+}
+
+# Germany
+
+news_event = {
+	id = uobflavour.19
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobflavour.19" }
+	title = uobflavour.19.t
+	desc = uobflavour.19.d
+	picture = GFX_news_event_gathering_protest
+
+	is_triggered_only = yes
+
+	trigger = {
+		ENG = {
+			exists = yes
+			NOT = {
+				has_war_with = GER
+				has_war_with = IRE
+			}
+		}
+		GER = {
+			exists = yes
+			is_faction_leader = yes
+		}
+		IRE = {
+			exists = yes
+			NOT = { has_war_with = GER }
+		}
+	}
+
+	option = {
+		name = uobflavour.19.a
+		trigger = {
+			tag = ENG
+		}
+		add_political_power = -10
+	}
+
+	option = {
+		name = uobflavour.19.b
+		trigger = {
+			OR = {
+				tag = GER
+				tag = IRE
+			}
+		}
+		add_political_power = -20
+	}
+
+	option = {
+		name = uobflavour.19.c
+		trigger = {
+			NOT = {
+				tag = ENG
+				tag = IRE
+				tag = GER
+			}
+		}
+	}
+}
+
+# The John MacLean
+
+news_event = {
+	id = uobflavour.20
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobflavour.20" }
+	title = uobflavour.20.t
+	desc = uobflavour.20.d
+	picture = GFX_news_event_025
+
+	trigger = {
+		tag = ENG
+		date > 1937.5.1
+		has_socialist_government = yes
+	}
+
+	mean_time_to_happen = {
+		days = 2
+	}
+
+	fire_only_once = yes
+
+	option = {
+		name = uobflavour.20.a
+	}
+}
+
+### The Totalist Charter
+
+country_event = {
+	id = uobflavour.21
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobflavour.21" }
+	title = uobflavour.21.t
+	desc = uobflavour.21.d
+	picture = GFX_report_event_generic_diplomacy1
+
+	trigger = {
+		tag = ENG
+		date > 1936.1.5
+		has_socialist_government = yes
+	}
+
+	mean_time_to_happen = {
+		days = 5
+	}
+
+	fire_only_once = yes
+
+	option = {
+		name = uobflavour.21.a
+		hidden_effect = {
+			SRI = {
+				country_event = {
+					id = uobflavour.22
+					days = 5
+				}
+			}
+			FRA = {
+				country_event = {
+					id = uobflavour.23
+					days = 5
+				}
+			}
+			SWI = {
+				country_event = {
+					id = swiss.80
+					days = 5
+				}
+			}
+			news_event = {
+				id = worldnews.209
+				days = 10
+			}
+		}
+	}
+}
+
+country_event = {
+	id = uobflavour.22
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobflavour.22" }
+	title = uobflavour.22.t
+	desc = uobflavour.22.d
 	picture = GFX_report_event_journalists_speech
 	is_triggered_only = yes
 	fire_only_once = yes
@@ -6705,10 +7969,25 @@ country_event = {#TUC reforms
 			idea = ENG_AUT_TUC_reform_idea
 			days = 300
 		}
-		add_political_power = -30
-		add_popularity = {
-			ideology = radical_socialist
-			popularity = 0.065
+	}
+	option = {
+		name = uob.512.b
+		set_country_flag = Eric_Blair_dead
+		hidden_effect = {
+			set_party_name = {
+				ideology = radical_socialist
+				long_name = ENG_NAT_radical_socialist_party
+				name = ENG_NAT_radical_socialist_party_long
+			}
+			create_country_leader = {
+				name = "Barbara Castle"
+				desc = "POLITICS_BARBARA_CASTLE_DESC"
+				picture = "gfx/leaders/ENG/Portrait_England_Barbara_Castle.png"
+				expire = "1.1.1"
+				ideology = radsoc_socialist_feminism_subtype
+				traits = { }
+				female = yes
+			}
 		}
 	}
 }
