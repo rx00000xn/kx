@@ -35,11 +35,7 @@ SER_serb_uprising = {
 			NOT = {
 				is_in_faction_with = AUS
 			}
-			check_variable = {
-				var = SKS.subject_revolt_progress
-				value = 0.60
-				compare = greater_than_or_equals
-			}
+			check_variable = { SKS.subject_revolt_progress > 0.59 }
 		}
 		available = {
 			NOT = {
@@ -59,21 +55,16 @@ SER_serb_uprising = {
 						set_temp_variable = { revolt = SKS.subject_revolt_progress }
 						multiply_temp_variable = { revolt = 2.75 }
 						factor = revolt
-						always = yes
 					}
 					modifier = {
 						set_temp_variable = { opps = FROM.success_value_opp }
 						multiply_temp_variable = { opps = 25 }
 						add = opps
-						always = yes
 					}
 					FROM = {
 						AUS_change_minority_paramilitary_serbian = yes
 					}
-					set_variable = {
-						var = FROM.success_value_opp
-						value = 0
-					}
+					set_variable = { FROM.success_value_opp = 0 }
 					hidden_effect = {
 						scoped_sound_effect = "AUS_paramilitary_pacified"
 						FROM = {
@@ -111,10 +102,7 @@ SER_serb_uprising = {
 					}
 				}
 				85 = {
-					add_to_variable = {
-						var = FROM.success_value_opp
-						value = 1
-					}
+					add_to_variable = { FROM.success_value_opp = 1 }
 					custom_effect_tooltip = SKS_more_likely_to_succeed
 					army_experience = -2
 					add_political_power = -5
@@ -300,32 +288,27 @@ SER_serb_uprising = {
 				}
 			}
 			if = {
-				limit = {
-					is_ai = yes
-				}
-				MNT = {
-					set_country_flag = BOTDE_revolt_hold
-				}
-				BOS = {
-					set_country_flag = BOTDE_revolt_hold
-				}
-				SKS = {
+				limit = { is_ai = yes }
+				every_country = {
+					limit = { is_in_array = { global.bp_occupied_tag_array_SER = THIS } }
 					set_country_flag = BOTDE_revolt_hold
 				}
 				add_ideas = BP_pp_cheat
 			}
 		}
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove SER_seek_chetnik_ties"
 			set_country_flag = SER_funded_seppies
-			add_to_variable = { SER.revolt = 1 } #1
+			add_to_variable = { SER.revolt = 1 }
 			SER_shoot_down_a_airplane_effect = yes
-			BOS = {
-				THIS_add_five_collapse = yes
+			every_possible_country = {
+				limit = { is_in_array = { global.bp_occupied_tag_array_SER = THIS } }
+				set_temp_variable = { revolt_progress_change = 0.05 }
+				custom_override_tooltip = {
+					tooltip = BOTDE_collapse_no_country_name_with_flag_tt
+					BOTDE_add_collapse = yes
+				}
 			}
-			SKS = {
-				THIS_add_five_collapse = yes
-			}
-			
 			if = { #Romania will complete their decision
 				limit = {
 					ROM = {
@@ -344,25 +327,20 @@ SER_serb_uprising = {
 				AUS = {
 					country_event = {
 						id = bdeausfor.90
-						days = 7
-						random = 144
+						days = 1
+						random_hours = 144
 					}
 				}
 				if = {
-					limit = {
-						CRO = {
-							is_in_faction_with = AUS
-						}
-					}
+					limit = { CRO = { is_in_faction_with = AUS } }
 					CRO = {
 						country_event = {
 							id = bdeausfor.90
-							days = 7
-							random = 144
+							days = 1
+							random_hours = 144
 						}
 					}
 				}
-				
 			}
 		}
 		ai_will_do = {
@@ -429,7 +407,7 @@ SER_serb_uprising = {
 		}
 	}
 	
-	SER_intrigue_italy = { #Change this to Venice state target)
+	SER_intrigue_italy = {
 		ai_hint_pp_cost = 25
 		cost = 25
 		
@@ -439,7 +417,11 @@ SER_serb_uprising = {
 		visible = {
 			tag = SER
 			NOT = {
+				has_global_flag = AUS_fifth_balkan_war_begun
 				has_war_with = ITA
+				ITA = {
+					is_in_faction = yes
+				}
 			}
 		}
 		available = {
@@ -458,7 +440,12 @@ SER_serb_uprising = {
 			log = "[GetDateText]: [Root.GetName]: Decision SER_intrigue_italy"
 		}
 		remove_effect = {
-			#Event for ITA....
+			ITA = {
+				country_event = {
+					id = botdepact.23
+					days = 1
+				}
+			}
 		}
 		ai_will_do = {
 			factor = 3
@@ -486,6 +473,7 @@ SER_serb_uprising = {
 				is_in_faction_with = AUS
 			}
 			has_completed_focus = SER_claim_dalmatia
+			FIU = { NOT = { is_in_faction_with = AUS } }
 		}
 		available = {
 			FIU = {
@@ -544,22 +532,40 @@ SER_serb_uprising = {
 			log = "[GetDateText]: [Root.GetName]: Decision SER_supplement_panslav_attitude"
 		}
 		remove_effect = {
-			for_each_scope_loop = {
-				array = global.SER_srpska_states
-				tooltip = SER_srpska_resistance_effect_tooltip
-				add_to_variable = {
-					var = SER_target_lands_resistance_target
-					value = 0.075
-					tooltip = SER_srpska_resistance_target_tooltip
+			if = {
+				limit = { is_in_array = { global.bp_occupied_tag_array_SER = SKS } }
+				for_each_scope_loop = {
+					array = global.SER_srpska_states
+					tooltip = SER_srpska_resistance_effect_tooltip
+					add_to_variable = {
+						var = SER_target_lands_resistance_target
+						value = 0.075
+						tooltip = SER_srpska_resistance_target_tooltip
+					}
 				}
 			}
-			for_each_scope_loop = {
-				array = global.SER_bosnia_states
-				tooltip = SER_bosnia_resistance_effect_tooltip
-				add_to_variable = {
-					var = SER_target_lands_resistance_target
-					value = 0.075
-					tooltip = SER_bosnia_resistance_target_tooltip
+			if = {
+				limit = { is_in_array = { global.bp_occupied_tag_array_SER = BOS } }
+				for_each_scope_loop = {
+					array = global.SER_bosnia_states
+					tooltip = SER_bosnia_resistance_effect_tooltip
+					add_to_variable = {
+						var = SER_target_lands_resistance_target
+						value = 0.075
+						tooltip = SER_bosnia_resistance_target_tooltip
+					}
+				}
+			}
+			if = {
+				limit = { is_in_array = { global.bp_occupied_tag_array_SER = SLO } }
+				for_each_scope_loop = {
+					array = global.SER_slovenia_states
+					tooltip = SER_slovenia_resistance_effect_tooltip
+					add_to_variable = {
+						var = SER_target_lands_resistance_target
+						value = 0.075
+						tooltip = SER_bosnia_resistance_target_tooltip
+					}
 				}
 			}
 		}
@@ -598,32 +604,60 @@ SER_serb_uprising = {
 			}
 		}
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SER_supplement_panslav_attitude"
+			log = "[GetDateText]: [Root.GetName]: Decision SER_litter_leaflets"
 		}
 		remove_effect = {
-			SKS = {
-				THIS_add_five_collapse = yes
-			}
-			BOS = {
-				THIS_add_five_collapse = yes
-			}
-			for_each_scope_loop = {
-				array = global.SER_srpska_states
-				tooltip = SER_srpska_resistance_effect_tooltip
-				add_to_variable = {
-					SER_target_lands_resistance_activity = 0.05
-					tooltip = SER_srpska_resistance_activity_tooltip_5
+			every_possible_country = {
+				limit = { is_in_array = { global.bp_occupied_tag_array_SER = THIS } }
+				if = {
+					limit = { has_country_flag =  AUS_evidenzbureau_focus }
+					custom_effect_tooltip = SER_minority_has_evidenzbureau_malus_tt
+					set_temp_variable = { revolt_progress_change = 0.02 }
 				}
-				add_compliance = -3
-			}
-			for_each_scope_loop = {
-				array = global.SER_bosnia_states
-				tooltip = SER_bosnia_resistance_effect_tooltip
-				add_to_variable = {
-					SER_target_lands_resistance_activity = 0.03
-					tooltip = SER_bosnia_resistance_activity_tooltip_3
+				else = { set_temp_variable = { revolt_progress_change = 0.05 } }
+				custom_override_tooltip = {
+					tooltip = BOTDE_collapse_no_country_name_with_flag_tt
+					BOTDE_add_collapse = yes
 				}
-				add_compliance = -3
+			}
+			if = {
+				limit = { is_in_array = { global.bp_occupied_tag_array_SER = SKS } }
+				for_each_scope_loop = {
+					array = global.SER_srpska_states
+					tooltip = SER_srpska_resistance_effect_tooltip
+					add_to_variable = {
+						SER_target_lands_resistance_activity = 0.05
+						tooltip = SER_srpska_resistance_activity_tooltip_5
+					}
+					add_compliance = -3
+					add_resistance = 3
+				}
+			}
+			if = {
+				limit = { is_in_array = { global.bp_occupied_tag_array_SER = BOS } }
+				for_each_scope_loop = {
+					array = global.SER_bosnia_states
+					tooltip = SER_bosnia_resistance_effect_tooltip
+					add_to_variable = {
+						SER_target_lands_resistance_activity = 0.03
+						tooltip = SER_bosnia_resistance_activity_tooltip_3
+					}
+					add_compliance = -3
+					add_resistance = 3
+				}
+			}
+			if = {
+				limit = { is_in_array = { global.bp_occupied_tag_array_SER = SLO } }
+				for_each_scope_loop = {
+					array = global.SER_slovenia_states
+					tooltip = SER_slovenia_resistance_effect_tooltip
+					add_to_variable = {
+						SER_target_lands_resistance_activity = 0.03
+						tooltip = SER_bosnia_resistance_activity_tooltip_3
+					}
+					add_compliance = -3
+					add_resistance = 3
+				}
 			}
 		}
 		ai_will_do = {
@@ -654,7 +688,6 @@ SER_serb_uprising = {
 			has_political_power > 19.99
 			command_power > 14.99
 		}
-		
 		icon = GFX_decision_radar
 		fire_only_once = no
 		days_remove = 25
@@ -665,7 +698,7 @@ SER_serb_uprising = {
 				is_in_faction_with = AUS
 			}
 			has_country_flag = SER_funded_seppies
-			has_dlc = "La Resistance"
+			has_dlc_lar = yes
 		}
 		available = {
 			NOT = {
@@ -674,7 +707,7 @@ SER_serb_uprising = {
 			has_country_flag = SER_funded_seppies
 		}
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SER_supplement_panslav_attitude"
+			log = "[GetDateText]: [Root.GetName]: Decision SER_reach_out_to_chetnik_contacts"
 			hidden_effect = {
 				add_political_power = -20
 				add_command_power = -15
@@ -689,23 +722,44 @@ SER_serb_uprising = {
 				target = CRO
 				ratio = 0.12
 			}
-			for_each_scope_loop = {
-				array = global.SER_srpska_states
-				tooltip = SER_srpska_resistance_effect_tooltip
-				add_to_variable = {
-					SER_target_lands_factory_sabotage = 0.025
-					tooltip = SER_factory_sabotage_025
+			if = {
+				limit = { is_in_array = { global.bp_occupied_tag_array_SER = SKS } }
+				for_each_scope_loop = {
+					array = global.SER_srpska_states
+					tooltip = SER_srpska_resistance_effect_tooltip
+					add_to_variable = {
+						SER_target_lands_factory_sabotage = 0.025
+						tooltip = SER_factory_sabotage_025
+					}
+					add_compliance = -3
+					add_resistance = 3
 				}
-				add_compliance = -3
 			}
-			for_each_scope_loop = {
-				array = global.SER_bosnia_states
-				tooltip = SER_bosnia_resistance_effect_tooltip
-				add_to_variable = {
-					SER_target_lands_factory_sabotage = 0.025
-					tooltip = SER_factory_sabotage_025
+			if = {
+				limit = { is_in_array = { global.bp_occupied_tag_array_SER = BOS } }
+				for_each_scope_loop = {
+					array = global.SER_bosnia_states
+					tooltip = SER_bosnia_resistance_effect_tooltip
+					add_to_variable = {
+						SER_target_lands_factory_sabotage = 0.025
+						tooltip = SER_factory_sabotage_025
+					}
+					add_compliance = -3
+					add_resistance = 3
 				}
-				add_compliance = -3
+			}
+			if = {
+				limit = { is_in_array = { global.bp_occupied_tag_array_SER = SLO } }
+				for_each_scope_loop = {
+					array = global.SER_slovenia_states
+					tooltip = SER_slovenia_resistance_effect_tooltip
+					add_to_variable = {
+						SER_target_lands_factory_sabotage = 0.025
+						tooltip = SER_factory_sabotage_025
+					}
+					add_compliance = -3
+					add_resistance = 3
+				}
 			}
 		}
 		ai_will_do = {
@@ -861,6 +915,7 @@ SER_serb_uprising = {
 				is_in_faction_with = AUS
 				country_exists = SKS
 			}
+			is_in_array = { global.bp_occupied_tag_array_SER = SKS }
 			has_country_flag = SER_funded_seppies
 		}
 		available = {
@@ -877,6 +932,7 @@ SER_serb_uprising = {
 			for_each_scope_loop = {
 				array = global.SER_srpska_states
 				add_compliance = -6
+				add_resistance = 6
 			}
 		}
 		ai_will_do = {
@@ -903,6 +959,7 @@ SER_serb_uprising = {
 				is_in_faction_with = AUS
 				country_exists = BOS
 			}
+			is_in_array = { global.bp_occupied_tag_array_SER = BOS }
 			has_country_flag = SER_funded_seppies
 		}
 		available = {
@@ -913,12 +970,20 @@ SER_serb_uprising = {
 		}
 		complete_effect = {
 			BOS = {
-				THIS_add_ten_collapse = yes
+				if = {
+					limit = { has_country_flag = AUS_evidenzbureau_minority_focus }
+					custom_effect_tooltip = SER_minority_has_evidenzbureau_malus_tt
+					THIS_add_five_collapse = yes
+				}
+				else = {
+					THIS_add_ten_collapse = yes
+				}
 				BOTDE_minority_test_for_revolt_extra = yes
 			}
 			for_each_scope_loop = {
 				array = global.SER_bosnia_states
 				add_compliance = -6
+				add_resistance = 6
 			}
 		}
 		ai_will_do = {
@@ -945,6 +1010,7 @@ SER_serb_uprising = {
 				is_in_faction_with = AUS
 				country_exists = MNT
 			}
+			is_in_array = { global.bp_occupied_tag_array_SER = MNT }
 			has_country_flag = SER_funded_seppies
 		}
 		available = {
@@ -955,8 +1021,66 @@ SER_serb_uprising = {
 		}
 		complete_effect = {
 			MNT = {
-				THIS_add_five_collapse = yes
+				if = {
+					limit = { has_country_flag = AUS_evidenzbureau_minority_focus }
+					custom_effect_tooltip = SER_minority_has_evidenzbureau_malus_tt
+					THIS_add_two_collapse = yes
+				}
+				else = {
+					THIS_add_five_collapse = yes
+				}
 				BOTDE_minority_test_for_revolt_extra = yes
+			}
+		}
+		ai_will_do = {
+			base = 300
+			modifier = {
+				any_enemy_country = {
+					limit = {
+						NOT = { tag = AUS }
+						is_major = yes
+					}
+				}
+				factor = 0
+			}
+		}
+	}
+	
+	SER_agitate_SLO = {
+		cost = 15
+		icon = GFX_decision_generic_nationalism
+		days_re_enable = 12
+		visible = {
+			tag = SER
+			NOT = {
+				is_in_faction_with = AUS
+				country_exists = SLO
+			}
+			is_in_array = { global.bp_occupied_tag_array_SER = SLO }
+			has_country_flag = SER_funded_seppies
+		}
+		available = {
+			NOT = {
+				has_global_flag = no_backers_allowed
+			}
+			has_country_flag = SER_funded_seppies
+		}
+		complete_effect = {
+			SLO = {
+				if = {
+					limit = { has_country_flag = AUS_evidenzbureau_minority_focus }
+					custom_effect_tooltip = SER_minority_has_evidenzbureau_malus_tt
+					THIS_add_five_collapse = yes
+				}
+				else = {
+					THIS_add_ten_collapse = yes
+				}
+				BOTDE_minority_test_for_revolt_extra = yes
+			}
+			for_each_scope_loop = {
+				array = global.SER_slovenia_states
+				add_compliance = -6
+				add_resistance = 6
 			}
 		}
 		ai_will_do = {
@@ -1007,9 +1131,7 @@ SER_serb_uprising = {
 					}
 					resistance > 0.5
 				}
-				has_dynamic_modifier = {
-					modifier = CRO_chetnik_presence
-				}
+				has_dynamic_modifier = { modifier = CRO_chetnik_presence }
 			}
 		}
 		available = {
@@ -1060,10 +1182,7 @@ SER_serb_uprising = {
 				}
 				THIS_add_three_collapse = yes
 			}
-			add_to_variable = {
-				var = SER.extra_divs
-				value = 1
-			}
+			add_to_variable = { SER.extra_divs = 1 }
 			custom_effect_tooltip = extra_div_turns_serb_more_training
 		}
 		ai_will_do = {
@@ -1097,11 +1216,12 @@ SER_serb_uprising = {
 		icon = GFX_decision_generic_ignite_civil_war
 		war_with_on_timeout = AUS
 		war_with_on_timeout = CRO
-		targets = { SKS BOS MNT }
+		targets = { SKS BOS MNT SLO }
 		target_non_existing = yes
 		target_trigger = {
 			FROM = {
 				has_country_flag = BOTDE_ready_held_revolt
+				is_in_array = { global.bp_occupied_tag_array_SER = FROM }
 				NOT = {
 					has_country_flag = BOTDE_imminent_minority_revolt_owner
 					has_global_flag = BPTROLL_revolt_incoming
@@ -1113,8 +1233,13 @@ SER_serb_uprising = {
 		visible = {
 			#is_ai = yes
 			always = yes
+			NOT = {
+				has_global_flag = 5BW_BP_VICTORY
+				has_global_flag = fifth_balkan_war_ended
+			}
 		}
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout SER_start_revolt_mission"
 			set_global_flag = no_4_months
 			FROM = {
 				set_country_flag = BPTROLL_revolt_start
@@ -1158,6 +1283,20 @@ SER_serb_uprising = {
 		war_with_on_timeout = CRO
 		available = {
 			always = no
+		}
+		cancel_trigger = {
+			OR = {
+				AND = {
+					if = {
+						limit = { any_possible_country = { has_event_target = BOTDE_backer_revolt_tag } }
+						SER = { owns_state = event_target:BOTDE_backer_revolt_tag.capital_scope }
+					}
+					else = { always = no }
+				}
+				has_global_flag = 5BW_BP_VICTORY
+				has_global_flag = fifth_balkan_war_ended
+				SER = { is_subject = yes }
+			}
 		}
 		timeout_effect = {
 			log = "[GetDateText]: [Root.GetName]: Mission timeout SER_revolt_mission"
@@ -1324,25 +1463,22 @@ SER_serb_uprising = {
 			}
 		}
 		available = {
-			NOT = {
-				has_global_flag = no_backers_allowed
-			}
+			NOT = { has_global_flag = no_backers_allowed }
 			has_country_flag = SER_funded_seppies
 			has_defensive_war_with = AUS
 		}
 		complete_effect = {
-			MNT = {
-				THIS_add_ten_collapse = yes
-			}
-			BOS = {
-				THIS_add_ten_collapse = yes
-			}
-			SKS = {
-				THIS_add_ten_collapse = yes
+			every_possible_country = {
+				limit = { is_in_array = { global.bp_occupied_tag_array_SER = THIS } }
+				set_temp_variable = { revolt_progress_change = 0.1 }
+				custom_override_tooltip = {
+					tooltip = BOTDE_collapse_no_country_name_with_flag_tt
+					BOTDE_add_collapse = yes
+				}
 			}
 			add_timed_idea = {
 				idea = BOTDE_delenda_est
-				days  = 150
+				days = 150
 			}
 		}
 		ai_will_do = {
@@ -1403,33 +1539,25 @@ ROM_romanian_uprising = {
 				}
 			}
 			if = {
-				limit = {
-					is_ai = yes
-				}
-				TRS = {
+				limit = { is_ai = yes }
+				every_country = {
+					limit = { is_in_array = { global.bp_occupied_tag_array_ROM = THIS } }
 					set_country_flag = BOTDE_revolt_hold
 				}
-				BUK = {
-					set_country_flag = BOTDE_revolt_hold
-				}
-				BAN = {
-					set_country_flag = BOTDE_revolt_hold
-				}
-				add_ideas = BP_pp_cheat
+				add_ideas = BP_pp_cheat_ROM
 			}
 		}
 		remove_effect = {
 			set_country_flag = ROM_funded_seppies
 			add_to_variable = { ROM.revolt = 1 } #1
 			ROM_invent_banat_effect = yes
-			BAN = {
-				THIS_add_five_collapse = yes
-			}
-			BUK = {
-				THIS_add_five_collapse = yes
-			}
-			TRS = {
-				THIS_add_five_collapse = yes
+			every_possible_country = {
+				limit = { is_in_array = { global.bp_occupied_tag_array_ROM = THIS } }
+				set_temp_variable = { revolt_progress_change = 0.05 }
+				custom_override_tooltip = {
+					tooltip = BOTDE_collapse_no_country_name_with_flag_tt
+					BOTDE_add_collapse = yes
+				}
 			}
 			hidden_effect = {
 				AUS = {
@@ -1478,9 +1606,7 @@ ROM_romanian_uprising = {
 				limit = {
 					SER = {
 						is_ai = yes
-						NOT = {
-							has_country_flag = SER_funded_seppies
-						}
+						NOT = { has_country_flag = SER_funded_seppies }
 					}
 				}
 				SER = {
@@ -1515,24 +1641,23 @@ ROM_romanian_uprising = {
 			}
 		}
 		available = {
-			NOT = {
-				has_global_flag = no_backers_allowed
-			}
+			NOT = { has_global_flag = no_backers_allowed }
 			has_country_flag = ROM_funded_seppies
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision ROM_influence_bukovina"
-			hidden_effect = {
-				
-			}
 		}
 		remove_effect = {
 			BUK = {
-				THIS_add_eight_collapse = yes
+				if = {
+					limit = { has_country_flag = AUS_evidenzbureau_minority_focus }
+					custom_effect_tooltip = SER_minority_has_evidenzbureau_malus_tt
+					THIS_add_three_collapse = yes
+				}
+				else = {
+					THIS_add_eight_collapse = yes
+				}
 				BOTDE_minority_test_for_revolt_extra = yes
-				#add_to_variable = {
-				#	var = THIS.romanian_loyalty_value
-				#}
 			}
 			for_each_scope_loop = {
 				array = global.ROM_bukovina_states
@@ -1572,24 +1697,23 @@ ROM_romanian_uprising = {
 			}
 		}
 		available = {
-			NOT = {
-				has_global_flag = no_backers_allowed
-			}
+			NOT = { has_global_flag = no_backers_allowed }
 			has_country_flag = ROM_funded_seppies
 		}
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision ROM_influence_bukovina"
-			hidden_effect = {
-				
-			}
+			log = "[GetDateText]: [Root.GetName]: Decision ROM_influence_banat"
 		}
 		remove_effect = {
 			BAN = {
-				THIS_add_eight_collapse = yes
+				if = {
+					limit = { has_country_flag = AUS_evidenzbureau_minority_focus }
+					custom_effect_tooltip = SER_minority_has_evidenzbureau_malus_tt
+					THIS_add_three_collapse = yes
+				}
+				else = {
+					THIS_add_eight_collapse = yes
+				}
 				BOTDE_minority_test_for_revolt_extra = yes
-				#add_to_variable = {
-				#	var = THIS.romanian_loyalty_value
-				#}
 			}
 			for_each_scope_loop = {
 				array = global.ROM_banat_states
@@ -1634,18 +1758,19 @@ ROM_romanian_uprising = {
 			has_country_flag = ROM_funded_seppies
 		}
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision ROM_influence_bukovina"
-			hidden_effect = {
-				
-			}
+			log = "[GetDateText]: [Root.GetName]: Decision ROM_influence_transylvania"
 		}
 		remove_effect = {
 			TRS = {
-				THIS_add_five_collapse = yes
+				if = {
+					limit = { has_country_flag = AUS_evidenzbureau_minority_focus }
+					custom_effect_tooltip = SER_minority_has_evidenzbureau_malus_tt
+					THIS_add_two_collapse = yes
+				}
+				else = {
+					THIS_add_five_collapse = yes
+				}
 				BOTDE_minority_test_for_revolt_extra = yes
-				#add_to_variable = {
-				#	var = THIS.romanian_loyalty_value
-				#}
 			}
 			for_each_scope_loop = {
 				array = global.ROM_transylvania_states
@@ -1689,6 +1814,31 @@ ROM_romanian_uprising = {
 					tooltip = SER_srpska_resistance_activity_tooltip_75
 				}
 				add_compliance = -3
+				if = {
+					limit = {
+						owner = {
+							OR = {
+								AND = {
+									is_core_of = TRS
+									TRS = { has_country_flag = AUS_evidenzbureau_minority_focus }
+								}
+								AND = {
+									is_core_of = BAN
+									BAN = { has_country_flag = AUS_evidenzbureau_minority_focus }
+								}
+								AND = {
+									is_core_of = BUK
+									BUK = { has_country_flag = AUS_evidenzbureau_minority_focus }
+								}
+							}
+						}
+					}
+					custom_effect_tooltip = SER_minority_has_evidenzbureau_malus_tt
+					add_resistance = 1
+				}
+				else = {
+					add_resistance = 3
+				}
 			}
 		}
 		ai_will_do = {
@@ -1715,18 +1865,17 @@ ROM_romanian_uprising = {
 			has_defensive_war_with = AUS
 		}
 		complete_effect = {
-			TRS = {
-				THIS_add_ten_collapse = yes
-			}
-			BAN = {
-				THIS_add_ten_collapse = yes
-			}
-			BUK = {
-				THIS_add_ten_collapse = yes
+			every_possible_country = {
+				limit = { is_in_array = { global.bp_occupied_tag_array_ROM = THIS } }
+				set_temp_variable = { revolt_progress_change = 0.1 }
+				custom_override_tooltip = {
+					tooltip = BOTDE_collapse_no_country_name_with_flag_tt
+					BOTDE_add_collapse = yes
+				}
 			}
 			add_timed_idea = {
 				idea = BOTDE_delenda_est
-				days  = 150
+				days = 150
 			}
 		}
 		ai_will_do = {
@@ -1751,6 +1900,7 @@ ROM_romanian_uprising = {
 		target_trigger = {
 			FROM = {
 				has_country_flag = BOTDE_ready_held_revolt
+				is_in_array = { global.bp_occupied_tag_array_ROM = FROM }
 				NOT = {
 					has_country_flag = BOTDE_imminent_minority_revolt_owner
 					has_global_flag = BPTROLL_revolt_incoming
@@ -1762,6 +1912,7 @@ ROM_romanian_uprising = {
 		visible = {
 			#is_ai = yes
 			always = yes
+			NOT = { has_global_flag = 5BW_BP_VICTORY }
 		}
 		complete_effect = {
 			set_global_flag = no_4_months
@@ -1809,7 +1960,7 @@ ROM_romanian_uprising = {
 	}
 	
 	ROM_revolt_mission = {
-		days_mission_timeout = 30
+		days_mission_timeout = 60
 		activation = {
 			always = no
 		}
@@ -1819,6 +1970,20 @@ ROM_romanian_uprising = {
 		war_with_on_timeout = GAL
 		available = {
 			always = no
+		}
+		cancel_trigger = {
+			OR = {
+				AND = {
+					if = {
+						limit = { any_possible_country = { has_event_target = BOTDE_backer_revolt_tag } }
+						ROM = { owns_state = event_target:BOTDE_backer_revolt_tag.capital_scope }
+					}
+					else = { always = no }
+				}
+				has_global_flag = 5BW_BP_VICTORY
+				has_global_flag = fifth_balkan_war_ended
+				ROM = { is_subject = yes }
+			}
 		}
 		timeout_effect = {
 			log = "[GetDateText]: [Root.GetName]: Mission timeout ROM_revolt_mission"
@@ -2042,10 +2207,7 @@ ROM_romanian_uprising = {
 				}
 			}
 			FROM = { set_state_flag = BOTDE_resistance_recruited }
-			add_to_variable = {
-				var = ROM.extra_divs
-				value = 1
-			}
+			add_to_variable = { ROM.extra_divs = 1 }
 			custom_effect_tooltip = extra_div_turns_serb_more_training
 		}
 		ai_will_do = {
@@ -2084,7 +2246,6 @@ ROM_romanian_uprising = {
 			FROM = {
 				owner = {
 					AUS_is_constituent = yes
-					is_in_faction_with = AUS
 				}
 				is_core_of = TRS
 				NOT = {
@@ -2093,7 +2254,6 @@ ROM_romanian_uprising = {
 						modifier = HUN_cross_brotherhood_presence
 					}
 				}
-				resistance > 30
 			}
 		}
 		visible = {
@@ -2132,13 +2292,11 @@ ROM_romanian_uprising = {
 						set_temp_variable = { revolt = TRS.subject_revolt_progress }
 						multiply_temp_variable = { revolt = 2.75 }
 						factor = revolt
-						always = yes
 					}
 					modifier = {
 						set_temp_variable = { opps = FROM.success_value_opp }
 						multiply_temp_variable = { opps = 25 }
 						add = opps
-						always = yes
 					}
 					modifier = {
 						power_balance_value = {
@@ -2157,10 +2315,7 @@ ROM_romanian_uprising = {
 					FROM = {
 						AUS_change_minority_paramilitary_transylvanian = yes
 					}
-					set_variable = {
-						var = FROM.success_value_opp
-						value = 0
-					}
+					set_variable = { FROM.success_value_opp = 0 }
 					hidden_effect = {
 						scoped_sound_effect = "AUS_paramilitary_pacified"
 						FROM = {
@@ -2191,10 +2346,7 @@ ROM_romanian_uprising = {
 					FROM = { add_resistance = -5 }
 				}
 				65 = {
-					add_to_variable = {
-						var = FROM.success_value_opp
-						value = 1
-					}
+					add_to_variable = { FROM.success_value_opp = 1 }
 					custom_effect_tooltip = SKS_more_likely_to_succeed
 					army_experience = -2
 					add_political_power = -5
@@ -2226,7 +2378,6 @@ ROM_romanian_uprising = {
 			FROM = {
 				owner = {
 					AUS_is_constituent = yes
-					is_in_faction_with = AUS
 				}
 				is_core_of = BAN
 				NOT = {
@@ -2234,7 +2385,6 @@ ROM_romanian_uprising = {
 						modifier = HUN_indrazneti_presence
 					}
 				}
-				resistance > 30
 			}
 		}
 		visible = {
@@ -2273,13 +2423,11 @@ ROM_romanian_uprising = {
 						set_temp_variable = { revolt = BAN.subject_revolt_progress }
 						multiply_temp_variable = { revolt = 2.75 }
 						factor = revolt
-						always = yes
 					}
 					modifier = {
 						set_temp_variable = { opps = FROM.success_value_opp }
 						multiply_temp_variable = { opps = 25 }
 						add = opps
-						always = yes
 					}
 					modifier = {
 						power_balance_value = {
@@ -2298,10 +2446,7 @@ ROM_romanian_uprising = {
 					FROM = {
 						AUS_change_minority_paramilitary_banatian = yes
 					}
-					set_variable = {
-						var = FROM.success_value_opp
-						value = 0
-					}
+					set_variable = { FROM.success_value_opp = 0 }
 					hidden_effect = {
 						scoped_sound_effect = "AUS_paramilitary_pacified"
 						FROM = {
@@ -2367,7 +2512,6 @@ ROM_romanian_uprising = {
 			FROM = {
 				owner = {
 					AUS_is_constituent = yes
-					is_in_faction_with = AUS
 				}
 				is_core_of = BUK
 				NOT = {
@@ -2375,7 +2519,6 @@ ROM_romanian_uprising = {
 						modifier = GAL_lancieri_presence
 					}
 				}
-				resistance > 30
 			}
 		}
 		visible = {
@@ -2414,13 +2557,11 @@ ROM_romanian_uprising = {
 						set_temp_variable = { revolt = BUK.subject_revolt_progress }
 						multiply_temp_variable = { revolt = 2.75 }
 						factor = revolt
-						always = yes
 					}
 					modifier = {
 						set_temp_variable = { opps = FROM.success_value_opp }
 						multiply_temp_variable = { opps = 25 }
 						add = opps
-						always = yes
 					}
 					modifier = {
 						power_balance_value = {
@@ -2439,10 +2580,7 @@ ROM_romanian_uprising = {
 					FROM = {
 						AUS_change_minority_paramilitary_bukovinian = yes
 					}
-					set_variable = {
-						var = FROM.success_value_opp
-						value = 0
-					}
+					set_variable = { FROM.success_value_opp = 0 }
 					hidden_effect = {
 						scoped_sound_effect = "AUS_paramilitary_pacified"
 						FROM = {
@@ -2536,6 +2674,72 @@ ROM_romanian_uprising = {
 		}
 	}
 	
+	ROM_avenge_hungary = {
+		icon = eng_puppet_usa
+
+		available = {
+			OR = {
+				TRS = {
+					custom_override_tooltip = {
+						tooltip = BOTDE_at_least_20_revolt_progress_tt
+						check_variable = { TRS.subject_revolt_progress > 0.19 }
+					}
+				}
+				HUN = { is_subject = no }
+			}
+		}
+
+		visible = {
+			tag = ROM
+		}
+
+		cost = 50
+		days_remove = 20
+		fire_only_once = yes
+
+		ai_will_do = {
+			base = 5
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ROM_avenge_hungary"
+			custom_override_tooltip = {
+				tooltip = ROM_avenge_hungary_SZK_buff_tt
+				SZK = {
+					add_to_variable = { SZK.extra_divs = 5 }
+					add_to_variable = { SZK.extra_guns = 5000 }
+				}
+				every_country = {
+					limit = {
+						OR = {
+							tag = AUS
+							tag = HUN
+						}
+						is_in_faction_with = HUN
+					}
+					country_event = {
+						id = botdepact.22
+						days = 5
+					}
+				}
+			}
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ROM_avenge_hungary"
+			add_state_claim = 73
+			add_state_claim = 154
+			add_state_claim = 1108
+			add_state_claim = 1110
+			add_state_claim = 1119
+			if = {
+				limit = { HUN = { is_subject = no } }
+				create_wargoal = {
+					target = HUN
+					type = annex_everything
+				}
+			}
+		}
+	}
 }
 
 political_actions = {
@@ -2563,11 +2767,7 @@ political_actions = {
 			
 		}
 		complete_effect = {
-			ITA = {
-				country_event = {
-					id = botdepact.8
-				}
-			}
+			ITA = { country_event = botdepact.8 }
 		}
 	}
 
@@ -2579,12 +2779,8 @@ political_actions = {
 		visible = {
 			tag = SER
 			OR = {
-				SKS = {
-					is_subject_of = SER
-				}
-				BOS = {
-					is_subject_of = SER
-				}
+				SKS = { is_subject_of = SER }
+				BOS = { is_subject_of = SER }
 			}
 		}
 		target_trigger = {
@@ -2597,13 +2793,30 @@ political_actions = {
 			}
 		}
 		available = {
-			has_war = no
+			NOT = {
+				has_war_with = AUS
+				has_war_with = HUN
+			}
 		}
 		remove_effect = {
 			annex_country = {
 				target = FROM
 				transfer_troops = yes
 			}
+			hidden_effect = {
+				FROM = {
+					if = {
+						limit = { is_ai = no }
+						ROOT = { change_tag_from = FROM }
+					}
+					every_core_state = { add_core_of = ROOT }
+					every_unit_leader = { set_nationality = ROOT }
+					every_scientist = { set_nationality = ROOT }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 999
 		}
 	}
 
@@ -2615,15 +2828,9 @@ political_actions = {
 		visible = {
 			tag = ROM
 			OR = {
-				TRS = {
-					is_subject_of = ROM
-				}
-				BUK = {
-					is_subject_of = ROM
-				}
-				BAN = {
-					is_subject_of = ROM
-				}
+				TRS = { is_subject_of = ROM }
+				BUK = { is_subject_of = ROM }
+				BAN = { is_subject_of = ROM }
 			}
 		}
 		target_trigger = {
@@ -2798,6 +3005,9 @@ political_actions = {
 			
 			
 		}
+		ai_will_do = {
+			factor = 999
+		}
 	}
 }
 
@@ -2929,11 +3139,17 @@ foreign_politics = {
 									is_major = yes
 								}
 							}
+							has_country_flag = ITA_won_5BW_second_expedition
+							has_country_flag = ITA_lost_5BW_second_expedition
 						}
 					}
 					AND = {
 						tag = MNT
 						has_socialist_government = no
+					}
+					AND = {
+						tag = CZE
+						has_idea = CZE_czech_revolution
 					}
 				}
 				is_subject = no
@@ -2942,12 +3158,15 @@ foreign_politics = {
 					tag = ITA
 				}
 				is_in_faction = no
-				NOT = { has_war_with = ROOT }
+				NOT = {
+					has_war_with = ROOT
+					has_country_flag = 5BW_peaced_out_at_40_cap
+				}
 			}
 		}
 		fire_only_once = yes
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete SER_invite_nation_to_belgrade_pact"
+			log = "[GetDateText]: [Root.GetName]: Decision complete SER_invite_nation_to_belgrade_pact FROM: [From.GetName]"
 			FROM = {
 				country_event = {
 					id = botdepact.12

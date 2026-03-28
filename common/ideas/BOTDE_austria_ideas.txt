@@ -18,11 +18,9 @@ ideas = {
 		#Anarchist idea for LARP purpose
 		
 		AUS_anarchist_free_state = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_anarchist_free_state"}
 			picture = FAUD_ANARCHO
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			cancel = {
 				NOT = {
 					is_subject_of = AUS
@@ -41,9 +39,7 @@ ideas = {
 		AUS_anglo_austrian_empire = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_anglo_austrian_empire"}
 			picture = CAN_brit_culture_idea
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			cancel = {
 				NOT = {
 					is_subject_of = ENG
@@ -60,9 +56,7 @@ ideas = {
 		ENG_anglo_austrian_empire = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_anglo_austrian_empire"}
 			picture = CAN_brit_culture_idea
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			cancel = {
 				NOT = {
 					is_subject_of = AUS
@@ -79,11 +73,9 @@ ideas = {
 		#AWR Revolution Idea
 		
 		AWR_revolution = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AWR_revolution"}
 			picture = MEX_revolutionary_army
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			cancel = {
 				NOT = {
 					has_war_with = AUS
@@ -119,7 +111,23 @@ ideas = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_american_aid" }
 			picture = AUS_american_aid
 			allowed = { always = no }
-			# cancel handled via on_action because hoi4 jank
+			cancel = {
+				OR = {
+					AND = {
+						if = {
+							limit = { any_country = { has_event_target = AUS_USA_ALLY } } 
+							event_target:AUS_USA_ALLY = {
+								has_volunteers_amount_from = {
+									tag = AUS
+									count < 1
+								}
+							}
+						}
+						else = { always = no }
+					}
+					has_global_flag = AUS_collapsed
+				}
+			}
 			on_remove = {
 				log = "[GetDateText]: [Root.GetName]: remove idea AUS_american_aid"
                 if = {
@@ -406,7 +414,7 @@ ideas = {
 		}
 		
 		AUS_approaching_ausgleich = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_approaching_ausgleich"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_approaching_ausgleich" }
 			picture = AUS_austrian_decline
 			allowed = { always = no }
 			modifier = {
@@ -443,6 +451,7 @@ ideas = {
 			picture = AUS_foderalismusplan
 			allowed = { always = no }
 			modifier = {
+				custom_modifier_tooltip = AUS_federalizing_constituent_fake_effects_tt
 			}
 		}
 		
@@ -1081,11 +1090,9 @@ ideas = {
 		
 		
 		AUS_one_on_one_idea = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_one_on_one_idea"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.1
 				war_support_weekly = 0.003
@@ -1096,11 +1103,9 @@ ideas = {
 		}
 		
 		AUS_schutzkorps = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_schutzkorps"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				conscription = 0.02
 				production_speed_arms_factory_factor = 0.075
@@ -1110,11 +1115,9 @@ ideas = {
 		}
 		
 		AUS_decentralization_idea = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_decentralization_idea"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_speed_buildings_factor = 0.1
 				production_speed_infrastructure_factor = 0.06
@@ -1124,11 +1127,9 @@ ideas = {
 		}
 		
 		AUS_pan_catholic_unity = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_pan_catholic_unity"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				conscription = 0.01
 				political_power_factor = 0.1
@@ -1136,12 +1137,22 @@ ideas = {
 			}
 		}
 		
-		AUS_emergency_plan_1683_idea_2 = {
+		AUS_emergency_plan_1683_idea = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
 			picture = x
-			allowed = {
-				always = no
+			allowed = { always = no }
+			modifier = {
+				production_speed_arms_factory_factor = 0.12
+				war_support_weekly = 0.003
+				conscription = 0.015
 			}
+		}
+		
+		AUS_emergency_plan_1683_idea_2 = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_emergency_plan_1683_idea_2" }
+			name = AUS_emergency_plan_1683_idea
+			picture = x
+			allowed = { always = no }
 			modifier = {
 				production_speed_arms_factory_factor = 0.12
 				production_factory_max_efficiency_factor = 0.03
@@ -1152,25 +1163,10 @@ ideas = {
 			}
 		}
 		
-		AUS_emergency_plan_1683_idea = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
-			picture = x
-			allowed = {
-				always = no
-			}
-			modifier = {
-				production_speed_arms_factory_factor = 0.12
-				war_support_weekly = 0.003
-				conscription = 0.015
-			}
-		}
-		
 		AUS_guaranteed_federalism_idea = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_guaranteed_federalism_idea"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.1
 				stability_weekly = 0.004
@@ -1181,9 +1177,7 @@ ideas = {
 		AUS_agrarian_populist = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				conscription = 0.01
 				global_building_slots_factor = 0.1
@@ -1192,11 +1186,9 @@ ideas = {
 		}
 		
 		AUS_expunge_radicals_idea = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_expunge_radicals_idea"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.075
 				stability_weekly = 0.002
@@ -1207,11 +1199,9 @@ ideas = {
 		}
 		
 		AUS_petroleum_idea = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_petroleum_idea"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = 0.03
 				conscription_factor = -0.01
@@ -1221,11 +1211,9 @@ ideas = {
 		}
 		
 		AUS_church_unity = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_church_unity"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				war_support_weekly = 0.004
 				stability_weekly = 0.004
@@ -1236,11 +1224,9 @@ ideas = {
 		}
 		
 		AUS_agrarian_means = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_agrarian_means"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				industrial_capacity_dockyard = 0.1
 				industrial_capacity_factory = 0.1
@@ -1250,11 +1236,9 @@ ideas = {
 		}
 		
 		AUS_great_soldier = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_great_soldier"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				conscription = 0.01
 				army_morale_factor = 0.1
@@ -1264,11 +1248,9 @@ ideas = {
 		}
 		
 		AUS_conservative_conglomerate_idea = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_conservative_conglomerate_idea"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.1
 				stability_weekly = 0.002
@@ -1278,11 +1260,9 @@ ideas = {
 		}
 		
 		AUS_coalition_building = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_coalition_building"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.1
 				stability_weekly = 0.002
@@ -1292,11 +1272,9 @@ ideas = {
 		}
 		
 		AUS_volksmilizen_idea = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_volksmilizen_idea"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				conscription_factor = 0.05
 				mobilization_speed = 0.1
@@ -1308,11 +1286,9 @@ ideas = {
 		}
 		
 		AUS_political_adaptations_idea = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_political_adaptations_idea"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.1
 				production_factory_efficiency_gain_factor = 0.1
@@ -1321,11 +1297,9 @@ ideas = {
 		}
 		
 		AUS_unbiased_judges = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_unbiased_judges"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				conscription_factor = 0.03
 				political_power_factor = 0.1
@@ -1335,11 +1309,9 @@ ideas = {
 		}
 		
 		AUS_legacy_of_revolts = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_legacy_of_revolts"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				conscription = 0.015
 				army_org_factor = 0.05
@@ -1350,11 +1322,9 @@ ideas = {
 		}
 		
 		AUS_landwirte_arbeiter = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_landwirte_arbeiter"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				monthly_population = 0.15
 				conscription_factor = 0.03
@@ -1363,11 +1333,9 @@ ideas = {
 		}
 		
 		AUS_progressive_unions = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_progressive_unions"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				industrial_capacity_factory = 0.1
 				industrial_capacity_dockyard = 0.1
@@ -1390,9 +1358,7 @@ ideas = {
 		AUS_cultural_units = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_cultural_units"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				conscription = 0.01
 				political_power_factor = 0.1
@@ -1405,9 +1371,7 @@ ideas = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_cultural_units_2"}
 			name = AUS_cultural_units
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				conscription = 0.01
 				political_power_factor = 0.1
@@ -1421,9 +1385,7 @@ ideas = {
 		AUS_irrespective_religious_ethic = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_irrespective_religious_ethic" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				conscription = 0.015
 				army_morale_factor = 0.05
@@ -1435,9 +1397,7 @@ ideas = {
 		AUS_bauernburo = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_bauernburo" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.03
 				production_speed_infrastructure_factor = 0.1
@@ -1450,9 +1410,7 @@ ideas = {
 		AUS_wahrheit_siegt_idea = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_wahrheit_siegt_idea" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.1
 				stability_weekly = 0.003
@@ -1464,9 +1422,7 @@ ideas = {
 		AUS_VF_DBP_idea = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_VF_DBP_idea" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				global_building_slots_factor = 0.1
 				production_factory_efficiency_gain_factor = 0.05
@@ -1476,9 +1432,7 @@ ideas = {
 		AUS_military_economic_defense_idea = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_military_economic_defense_idea" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_speed_buildings_factor = 0.1
 				production_factory_max_efficiency_factor = 0.05
@@ -1512,9 +1466,7 @@ ideas = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_vienna_circle_2_idea" }
 			name = AUS_vienna_circle
 			picture = AUS_vienna_circle
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				research_speed_factor = 0.075
 				scientist_breakthrough_bonus_factor = 0.075
@@ -1535,9 +1487,7 @@ ideas = {
 		AUS_traditionalism_idea = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_traditionalism_idea" }
 			picture = AUS_traditionalism_idea
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.1
 				stability_weekly = 0.002
@@ -1647,9 +1597,7 @@ ideas = {
 		AUS_workerboss_harmony_idea = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_workerboss_harmony_idea"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_speed_buildings_factor = 0.05
 				production_factory_max_efficiency_factor = 0.075
@@ -1661,9 +1609,7 @@ ideas = {
 		AUS_farmers_idea = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_farmers_idea" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				monthly_population = 0.15
 				political_power_factor = 0.05
@@ -1673,9 +1619,7 @@ ideas = {
 		AUS_legacy_of_hre_idea = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_legacy_of_hre_idea" }
 			picture = AUS_legacy_of_hre_idea
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.1
 				conscription = 0.0075
@@ -1686,9 +1630,7 @@ ideas = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_legacy_of_hre_idea_2" }
 			name = AUS_legacy_of_hre_idea
 			picture = AUS_legacy_of_hre_idea
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				conscription = 0.015
 				production_speed_buildings_factor = 0.075
@@ -1699,9 +1641,7 @@ ideas = {
 		AUS_evolutionary_understanding_idea = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_evolutionary_understanding_idea" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				monthly_population = 0.2
 				production_factory_max_efficiency_factor = 0.1
@@ -1713,9 +1653,7 @@ ideas = {
 		AUS_national_personal_autonomy_idea = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_national_personal_autonomy_idea" }
 			picture = AUS_national_personal_autonomy_idea
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.075
 				consumer_goods_factor = -0.03
@@ -1726,9 +1664,7 @@ ideas = {
 		AUS_christian_hellenic_religion_idea = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_christian_hellenic_religion_idea" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.05
 				stability_weekly = 0.001
@@ -1740,9 +1676,7 @@ ideas = {
 		AUS_sudbahn_gesellschaft = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_sudbahn_gesellschaft" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.01
 				production_speed_infrastructure_factor = 0.1
@@ -1753,9 +1687,7 @@ ideas = {
 		AUS_interimperial_unions = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_interimperial_unions" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_factory_efficiency_gain_factor = 0.1
 				political_power_factor = 0.1
@@ -1769,9 +1701,7 @@ ideas = {
 		AUS_wienerkommission_idea = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_wienerkommission_idea" }
 			picture = AUS_wienerkommission_idea
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.025
 				production_factory_efficiency_gain_factor = 0.05
@@ -1781,9 +1711,7 @@ ideas = {
 		AUS_vienna_insurance = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_vienna_insurance" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_factory_efficiency_gain_factor = 0.075 
 				political_power_factor = 0.12
@@ -1798,9 +1726,7 @@ ideas = {
 		AUS_reichsgewerkschaftskommission = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_reichsgewerkschaftskommission" }
 			picture = AUS_reichsgewerkschaftskommission
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.1
 				conscription_factor = 0.01
@@ -1815,9 +1741,7 @@ ideas = {
 		AUS_bridled_capitalism = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_bridled_capitalism" }
 			picture = AUS_bridled_capitalism
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.1
 				conscription_factor = 0.025
@@ -1834,9 +1758,7 @@ ideas = {
 		AUS_renner_plan = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_renner_plan"}
 			picture = AUS_renner_plan
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_lack_of_resource_penalty_factor = -0.1
 				consumer_goods_factor = -0.015
@@ -1848,22 +1770,23 @@ ideas = {
 		AUS_divided_society_botde = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_divided_society_botde" }
 			picture = AUS_divided_society
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
-				political_power_gain = -0.25
-				stability_weekly = -0.005
-				war_support_weekly = -0.0025
+				political_power_gain = -0.2
+				stability_weekly = -0.0033
+				war_support_weekly = -0.002
+				BOTDE_revolt_rate_modifier = 0.001
+				drift_defence_factor = -0.5
+				surrender_limit = -0.05
+				totalist_drift = 0.01
+				national_populist_drift = 0.01
 			}
 		}
 		
 		AUS_bm_1 = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_bm_1"}
 			picture = AUS_bm_1
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				industrial_capacity_factory = -0.35
 				production_factory_max_efficiency_factor = -0.15
@@ -1872,15 +1795,15 @@ ideas = {
 				production_factory_efficiency_gain_factor = -0.2
 				production_factory_start_efficiency_factor = -0.2
 				local_resources_factor = -0.2
+				stability_weekly = -0.002
+				BOTDE_revolt_rate_modifier = 0.003
 			}
 		}
 		
 		AUS_bm_2 = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_bm_2"}
 			name = AUS_bm_1
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				industrial_capacity_factory = -0.28
 				production_factory_max_efficiency_factor = -0.15
@@ -1889,15 +1812,15 @@ ideas = {
 				production_factory_efficiency_gain_factor = -0.16
 				production_factory_start_efficiency_factor = -0.16
 				local_resources_factor = -0.15
+				stability_weekly = -0.001
+				BOTDE_revolt_rate_modifier = 0.002
 			}
 		}
 		
 		AUS_bm_3 = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_bm_3"}
 			name = AUS_bm_1
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				industrial_capacity_factory = -0.21
 				production_factory_max_efficiency_factor = -0.16
@@ -1906,15 +1829,15 @@ ideas = {
 				production_factory_efficiency_gain_factor = -0.12
 				production_factory_start_efficiency_factor = -0.12
 				local_resources_factor = -0.1
+				stability_weekly = -0.001
+				BOTDE_revolt_rate_modifier = 0.001
 			}
 		}
 		
 		AUS_bm_4 = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_bm_4"}
 			name = AUS_bm_1
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				industrial_capacity_factory = -0.14
 				production_factory_max_efficiency_factor = -0.12
@@ -1928,9 +1851,7 @@ ideas = {
 		AUS_bm_5 = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_bm_5"}
 			name = AUS_bm_1
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				industrial_capacity_factory = -0.07
 				production_factory_max_efficiency_factor = -0.1
@@ -1944,9 +1865,7 @@ ideas = {
 		AUS_trieste_strike = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_trieste_strike" }
 			picture = AUS_trieste_strike
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				industrial_capacity_factory = -0.05
 				industrial_capacity_dockyard = -0.1
@@ -1958,9 +1877,7 @@ ideas = {
 		AUS_civil_war_reconstruction = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_civil_war_reconstruction" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = 0.05
 				industrial_capacity_dockyard = -0.25
@@ -1969,11 +1886,9 @@ ideas = {
 		}
 
 		AUS_mises_model = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_mises_model" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.025
 				industrial_capacity_factory = 0.03
@@ -1982,11 +1897,9 @@ ideas = {
 		}
 
 		AUS_economic_school = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_economic_school" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.03
 				industrial_capacity_factory = 0.05
@@ -1997,11 +1910,9 @@ ideas = {
 		}
 
 		AUS_calculation_problem = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_calculation_problem" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_lack_of_resource_penalty_factor = -0.1
 				production_factory_start_efficiency_factor = 0.05
@@ -2012,9 +1923,7 @@ ideas = {
 		AUS_uphold_catholicism = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_uphold_catholicism"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.12
 				surrender_limit = 0.075
@@ -2025,9 +1934,7 @@ ideas = {
 		AUS_dollfuss_heimwehr_idea = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_dollfuss_heimwehr_idea"}
 			picture = AUS_dollfuss_heimwehr_idea
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				conscription = 0.01
 				army_org_factor = 0.05
@@ -2037,11 +1944,9 @@ ideas = {
 		}
 		
 		AUS_OSS = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_OSS"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.075
 				production_speed_buildings_factor = 0.05
@@ -2052,9 +1957,7 @@ ideas = {
 		AUS_DPT_radio = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_DPT_radio"}
 			picture = AUS_DPT_radio
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_gain = 0.1
 				army_speed_factor = 0.03
@@ -2067,9 +1970,7 @@ ideas = {
 		AUS_austromarxism_idea = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_austromarxism_idea"}
 			picture = AUS_austromarxism_idea
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.1
 				stability_weekly = 0.003
@@ -2081,9 +1982,7 @@ ideas = {
 		AUS_religion_no_matter = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_religion_no_matter"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				conscription = 0.015
 				army_org_factor = -0.03
@@ -2096,9 +1995,7 @@ ideas = {
 		AUS_central_management_marxism_idea = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_central_management_marxism_idea"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_factory_efficiency_gain_factor = 0.075
 				production_factory_max_efficiency_factor = 0.1
@@ -2443,11 +2340,9 @@ ideas = {
 		}
 		
 		AUS_intellect = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_intellect"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				research_speed_factor = 0.025
 				political_power_factor = 0.05
@@ -2456,11 +2351,9 @@ ideas = {
 		}
 		
 		AUS_catholic_unity = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_catholic_unity"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				resistance_growth = -0.1
 				compliance_growth = 0.1
@@ -2468,11 +2361,9 @@ ideas = {
 		}
 		
 		AUS_KRFO = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_KRFO"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_gain = 0.15
 				production_factory_efficiency_gain_factor = 0.06
@@ -2481,11 +2372,9 @@ ideas = {
 		}
 		
 		AUS_russian_plan_idea = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_russian_plan_idea"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			targeted_modifier = {
 				tag = RUS
 				attack_bonus_against = 0.1
@@ -2499,11 +2388,9 @@ ideas = {
 		}
 		
 		AUS_bipartisan_politics_idea = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_bipartisan_politics_idea"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.12
 				stability_weekly = 0.003
@@ -2512,22 +2399,18 @@ ideas = {
 		}
 		
 		AUS_ssd = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_ssd"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				research_speed_factor = 0.035
 			}
 		}
 		
 		AUS_arbeitsschlacht = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_arbeitsschlacht"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_factory_efficiency_gain_factor = 0.05
 				production_factory_max_efficiency_factor = 0.05
@@ -2538,11 +2421,9 @@ ideas = {
 		}
 		
 		AUS_kammersystem = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea BOS_"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_kammersystem"}
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				global_building_slots_factor = 0.1
 				monthly_population = 0.15
@@ -2695,10 +2576,9 @@ ideas = {
 		}
 		
 		AUS_operation_isonzo_idea = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_operation_isonzo_idea" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				experience_gain_army_factor = 0.05
 			}
@@ -2715,21 +2595,20 @@ ideas = {
 		}
 		
 		AUS_funkartillerie = {
-			picture = x
-			allowed = {
-				always = no
-			}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_funkartillerie" }
+			picture = AUS_funkartillerie
+			allowed = { always = no }
 			modifier = {
-				encryption_factor = 0.05
-				decryption_factor = 0.05
+				army_artillery_attack_factor = 0.075
+				army_artillery_defence_factor = 0.075
+				army_artillery_speed_factor = -0.03
 			}
 		}
 		
 		AUS_air_ground_idea = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_air_ground_idea" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				air_superiority_bonus_in_combat = 0.05
 				cas_damage_reduction = 0.03
@@ -2737,10 +2616,9 @@ ideas = {
 		}
 		
 		AUS_kriegsschule = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_kriegsschule" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				reassignment_duration_factor = -0.25
 				promote_cost_factor = -0.5
@@ -2751,10 +2629,9 @@ ideas = {
 		}
 		
 		AUS_flexibility = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_flexibility" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				air_superiority_bonus_in_combat = 0.03
 				army_speed_factor = 0.05
@@ -2765,20 +2642,18 @@ ideas = {
 		}
 		
 		AUS_CNT = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_CNT" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				repair_speed_factor	= 0.1
 			}
 		}
 		
 		AUS_decommissioned_wk_ships = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_decommissioned_wk_ships" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				navy_submarine_detection_factor = 0.1
 				critical_receive_chance = -0.075
@@ -2788,10 +2663,9 @@ ideas = {
 		}
 		
 		AUS_versurchsgleitsboote = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_versurchsgleitsboote" }
 			picture = AUS_versurchsgleitsboote
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				convoy_retreat_speed = 0.075
 				invasion_preparation = 0.05
@@ -2800,10 +2674,9 @@ ideas = {
 		}
 		
 		AUS_whitehead = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_whitehead" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				naval_torpedo_cooldown_factor = -0.1
 				naval_torpedo_hit_chance_factor = 0.05
@@ -2812,10 +2685,9 @@ ideas = {
 		}
 		
 		AUS_lockdown_sea = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_lockdown_sea" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				positioning = 0.05
 				naval_detection = 0.05
@@ -2825,14 +2697,12 @@ ideas = {
 		}
 		
 		AUS_seebomberkorps_idea = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_seebomberkorps_idea" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				air_nav_efficiency = 0.05
 				air_strategic_bomber_bombing_factor = 0.03
-				
 				navy_carrier_air_agility_factor	 = 0.025
 				navy_carrier_air_attack_factor = 0.025
 				navy_carrier_air_targetting_factor = 0.075
@@ -2840,10 +2710,9 @@ ideas = {
 		}
 		
 		AUS_horthy_navy_plan = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_horthy_navy_plan" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				navy_capital_ship_attack_factor = 0.05
 				navy_capital_ship_defence_factor = 0.075
@@ -2852,10 +2721,10 @@ ideas = {
 		}
 		
 		AUS_horthy_navy_plan_2 = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_horthy_navy_plan" }
+			name = AUS_horthy_navy_plan
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				navy_capital_ship_attack_factor = 0.075
 				navy_capital_ship_defence_factor = 0.1
@@ -2867,10 +2736,9 @@ ideas = {
 		}
 		
 		AUS_trapp_navy_plan = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_trapp_navy_plan" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				navy_submarine_attack_factor = 0.05
 				navy_submarine_defence_factor = 0.05
@@ -2879,10 +2747,10 @@ ideas = {
 		}
 		
 		AUS_trapp_navy_plan_2 = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_trapp_navy_plan_2" }
+			name = AUS_trapp_navy_plan
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				navy_submarine_attack_factor = 0.075
 				navy_submarine_defence_factor = 0.075
@@ -2894,10 +2762,9 @@ ideas = {
 		}
 		
 		AUS_banfield_navy_plan = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_banfield_navy_plan" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				navy_carrier_air_agility_factor	 = 0.025
 				navy_carrier_air_attack_factor = 0.025
@@ -2905,10 +2772,10 @@ ideas = {
 		}
 		
 		AUS_banfield_navy_plan_2 = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_banfield_navy_plan_2" }
+			name = AUS_banfield_navy_plan
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				navy_carrier_air_agility_factor	 = 0.04
 				navy_carrier_air_attack_factor = 0.04
@@ -2920,10 +2787,9 @@ ideas = {
 		}
 		
 		AUS_gegen_italie = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_gegen_italie" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				carrier_traffic = 0.1
 				navy_carrier_air_targetting_factor = 0.05
@@ -2933,10 +2799,9 @@ ideas = {
 		}
 		
 		AUS_snakes_boot = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_snakes_boot" }
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				port_strike = 0.25
 				naval_speed_factor = 0.1
@@ -2947,9 +2812,7 @@ ideas = {
 		
 		AUS_shield_heart = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				navy_org_factor = 0.1
 				naval_coordination = 0.1
@@ -2964,9 +2827,7 @@ ideas = {
 		
 		AUS_bypass_lake = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				naval_speed_factor = 0.1
 				navy_max_range_factor = 0.1
@@ -2983,9 +2844,7 @@ ideas = {
 		
 		AUS_acapella = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				naval_torpedo_screen_penetration_factor = 0.05
 				naval_torpedo_cooldown_factor = -0.06
@@ -2996,9 +2855,7 @@ ideas = {
 		
 		AUS_blood_water = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				sub_retreat_speed = 0.1
 			}
@@ -3013,9 +2870,7 @@ ideas = {
 		
 		AUS_die_nachtlichter_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				air_night_penalty = -0.05
 				air_strategic_bomber_night_penalty = -0.1
@@ -3026,9 +2881,7 @@ ideas = {
 		
 		AUS_die_nachtlichter_idea_2 = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				air_night_penalty = -0.15
 				air_strategic_bomber_night_penalty = -0.15
@@ -3052,9 +2905,7 @@ ideas = {
 		
 		AUS_fliegerkompanie_41j = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				air_cas_efficiency = 0.025
 				air_intercept_efficiency = 0.045
@@ -3064,9 +2915,7 @@ ideas = {
 		
 		AUS_fliegerkompanie_41j_2 = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				air_cas_efficiency = 0.05
 				air_cas_present_factor = 0.03
@@ -3088,9 +2937,7 @@ ideas = {
 		
 		AUS_flugfunkkompanie = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				air_range_factor = 0.1
 				air_superiority_detect_factor = 0.03
@@ -3099,9 +2946,7 @@ ideas = {
 		
 		AUS_flugfunkkompanie_2 = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				air_range_factor = 0.1
 				air_superiority_detect_factor = 0.05
@@ -3128,9 +2973,7 @@ ideas = {
 		
 		AUS_Luftfahrschule = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			research_bonus = {
 				air_equipment = 0.075
 			}
@@ -3138,9 +2981,7 @@ ideas = {
 		
 		AUS_corpo_heimwehr = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_speed_arms_factory_factor = 0.05
 				production_factory_efficiency_gain_factor = 0.03
@@ -3152,9 +2993,7 @@ ideas = {
 		
 		AUS_frontkampfervereinigung = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				industrial_capacity_factory = 0.05
 				army_org_factor = 0.03
@@ -3164,9 +3003,7 @@ ideas = {
 		
 		AUS_die_eine_ausnahme_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.015
 				production_factory_start_efficiency_factor = 0.05
@@ -3176,9 +3013,7 @@ ideas = {
 		
 		AUS_legislature_reduction_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				stability_weekly = 0.01
 				war_support_weekly = 0.01
@@ -3188,9 +3023,7 @@ ideas = {
 		
 		AUS_tro_german_eco_deal = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				license_purchase_cost = -0.33
 				production_factory_start_efficiency_factor = 0.05
@@ -3200,9 +3033,7 @@ ideas = {
 		
 		AUS_anti_italy = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				industrial_capacity_dockyard = 0.05
 			}
@@ -3220,9 +3051,7 @@ ideas = {
 		
 		AUS_russian_officers = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				army_speed_factor = 0.03
 				army_morale_factor = 0.05
@@ -3233,9 +3062,7 @@ ideas = {
 		
 		AUS_wk_review = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				max_planning_factor = 0.15
 				planning_speed = 0.15
@@ -3260,9 +3087,7 @@ ideas = {
 		
 		AUS_legacy_of_collapse = {
 			picture = AUS_legacy_of_collapse
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = 0.1
 				industrial_capacity_factory = -0.2
@@ -3276,9 +3101,7 @@ ideas = {
 		AUS_legacy_of_collapse_2 = {
 			name = AUS_legacy_of_collapse
 			picture = AUS_legacy_of_collapse
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = 0.075
 				industrial_capacity_factory = -0.15
@@ -3292,9 +3115,7 @@ ideas = {
 		AUS_legacy_of_collapse_3 = {
 			name = AUS_legacy_of_collapse
 			picture = AUS_legacy_of_collapse
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = 0.05
 				industrial_capacity_factory = -0.1
@@ -3308,9 +3129,7 @@ ideas = {
 		AUS_legacy_of_collapse_4 = {
 			name = AUS_legacy_of_collapse
 			picture = AUS_legacy_of_collapse
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = 0.03
 				industrial_capacity_factory = -0.05
@@ -3323,9 +3142,7 @@ ideas = {
 		
 		AUS_betriebsraete = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				industrial_capacity_factory = 0.03
 				production_factory_max_efficiency_factor = 0.05
@@ -3335,9 +3152,7 @@ ideas = {
 		
 		AUS_klahr_plan = { #Österreichisches Klarheitsprogramm
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				totalist_drift = 0.01
 				political_power_factor = 0.03
@@ -3350,9 +3165,7 @@ ideas = {
 		
 		AUS_legacy_of_strike = { #Österreichisches Klarheitsprogramm
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				conscription = 0.01
 				production_factory_efficiency_gain_factor = 0.06
@@ -3364,9 +3177,7 @@ ideas = {
 		
 		AUS_KPO_resistance = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				compliance_growth_on_our_occupied_states = -0.05
 				compliance_growth = 0.035
@@ -3379,9 +3190,7 @@ ideas = {
 		
 		AUS_handgewerkschaften = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				industrial_capacity_factory = 0.05
 				consumer_goods_factor = -0.02
@@ -3394,9 +3203,7 @@ ideas = {
 		
 		AUS_agri_industrial_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				monthly_population = 0.1
 				conscription = 0.01
@@ -3408,9 +3215,7 @@ ideas = {
 		
 		AUS_red_evidenzbureau_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				agency_upgrade_time = -0.1
 				decryption_factor = 0.075
@@ -3421,9 +3226,7 @@ ideas = {
 		
 		AUS_truth_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.075
 				research_speed_factor = 0.015
@@ -3433,9 +3236,7 @@ ideas = {
 		
 		AUS_esperanto_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_factory_max_efficiency_factor = 0.03
 				political_power_factor = 0.03
@@ -3447,9 +3248,7 @@ ideas = {
 		AUS_esperanto_idea_2 = {
 			name = AUS_esperanto_idea
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_factory_max_efficiency_factor = 0.05
 				political_power_factor = 0.075
@@ -3461,9 +3260,7 @@ ideas = {
 		
 		AUS_marxist_society = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				industrial_capacity_factory = 0.05
 				production_lack_of_resource_penalty_factor = -0.075
@@ -3475,9 +3272,7 @@ ideas = {
 		
 		AUS_no_regression = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				industrial_capacity_factory = 0.075
 				industrial_capacity_dockyard = 0.075
@@ -3489,9 +3284,7 @@ ideas = {
 		
 		AUS_social_revolution = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.075
 				trade_opinion_factor = 0.15
@@ -3504,9 +3297,7 @@ ideas = {
 		
 		AUS_kalergite_anarchism_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				research_speed_factor = 0.015
 				compliance_growth = 0.1
@@ -3518,9 +3309,7 @@ ideas = {
 		
 		AUS_urban_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_speed_buildings_factor = 0.1
 				conscription_factor = 0.05
@@ -3530,9 +3319,7 @@ ideas = {
 		
 		AUS_canton_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				research_speed_factor = 0.01
 				production_factory_efficiency_gain_factor = 0.03
@@ -3543,9 +3330,7 @@ ideas = {
 		
 		AUS_contact_network = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				agency_upgrade_time = -0.05
 				decryption_factor = 0.03
@@ -3558,9 +3343,7 @@ ideas = {
 		
 		AUS_no_party = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.05
 				stability_weekly = 0.002
@@ -3572,9 +3355,7 @@ ideas = {
 		
 		AUS_big_4_gone = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				army_morale_factor = 0.05
 				army_org_factor = 0.03
@@ -3586,9 +3367,7 @@ ideas = {
 		
 		AUS_knighthood = {
 			picture = AUS_knighthood
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_factory_efficiency_gain_factor = 0.05
 				army_attack_factor = 0.05
@@ -3601,9 +3380,7 @@ ideas = {
 		
 		AUS_eichmann_intel = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				agency_upgrade_time = -0.1
 				decryption_factor = 0.075
@@ -3614,9 +3391,7 @@ ideas = {
 		
 		AUS_easy_success = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				industrial_capacity_factory = 0.03
 				production_factory_efficiency_gain_factor = 0.1
@@ -3626,9 +3401,7 @@ ideas = {
 		
 		AUS_red_resistance = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				stability_weekly = -0.01
 				production_factory_max_efficiency_factor = -0.1
@@ -3639,9 +3412,7 @@ ideas = {
 		
 		AUS_right_resistance = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				stability_weekly = -0.01
 				conscription = -0.01
@@ -3654,9 +3425,7 @@ ideas = {
 		
 		AUS_ariosophist_resistance = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				stability_weekly = -0.01
 				war_support_weekly = -0.01
@@ -3668,9 +3437,7 @@ ideas = {
 		
 		AUS_habsburg_resistance = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				stability_weekly = -0.01
 				political_power_factor = -0.2
@@ -3683,9 +3450,7 @@ ideas = {
 		
 		AUS_red_crown = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				stability_weekly = 0.005
 				political_power_factor = 0.05
@@ -3697,9 +3462,7 @@ ideas = {
 		
 		AUS_women_equality = {
 			picture = AUS_feminism_WE_ARE_HERE_STAGE_5
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_factory_efficiency_gain_factor = 0.075
 				production_factory_start_efficiency_factor = 0.05
@@ -3711,9 +3474,7 @@ ideas = {
 		
 		AUS_red_counts = {
 			picture = AUS_red_counts
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.02
 				conscription_factor = 0.05
@@ -3722,9 +3483,7 @@ ideas = {
 		
 		AUS_collapse_god = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.01
 				conscription_factor = 0.035
@@ -3734,9 +3493,7 @@ ideas = {
 		
 		AUS_aeiou_idea = {
 			picture = AUS_aeiou_idea
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				justify_war_goal_time = -0.2
 				conscription = 0.01
@@ -3746,9 +3503,7 @@ ideas = {
 		
 		AUS_legacy_of_paramilitaries = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				experience_gain_army_factor = 0.05
 				army_org_factor = 0.03
@@ -3758,9 +3513,7 @@ ideas = {
 		
 		AUS_interdependency = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.05
 				production_factory_efficiency_gain_factor = 0.05
@@ -3771,9 +3524,7 @@ ideas = {
 		
 		AUS_liberal_agrarianism = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				monthly_population = 0.1
 				global_building_slots_factor = 0.075
@@ -3785,9 +3536,7 @@ ideas = {
 		AUS_liberal_agrarianism_2 = {
 			name = AUS_liberal_agrarianism
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				monthly_population = 0.1
 				global_building_slots_factor = 0.075
@@ -3800,9 +3549,7 @@ ideas = {
 		
 		AUS_corporations_small = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_factory_efficiency_gain_factor = 0.05
 				production_factory_max_efficiency_factor = 0.1
@@ -3812,9 +3559,7 @@ ideas = {
 		
 		AUS_christendom = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.065
 				stability_weekly = 0.003
@@ -3826,9 +3571,7 @@ ideas = {
 		
 		AUS_nostalgia = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.025
 				war_support_weekly = 0.004
@@ -3839,9 +3582,7 @@ ideas = {
 		
 		AUS_invest = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.05
 				production_factory_efficiency_gain_factor = 0.1
@@ -3850,9 +3591,7 @@ ideas = {
 		
 		AUS_new_constitution = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				stability_weekly = 0.005
 				political_power_factor = 0.1
@@ -3863,9 +3602,7 @@ ideas = {
 		
 		AUS_restored_bureaucracy = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_factory_efficiency_gain_factor = 0.07
 				production_lack_of_resource_penalty_factor = -0.1
@@ -3875,9 +3612,7 @@ ideas = {
 		
 		AUS_patriotic_internationalism_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				send_volunteer_size	= 2
 				fuel_gain_factor = 0.12
@@ -3886,9 +3621,7 @@ ideas = {
 		
 		AUS_food_program = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				monthly_population = 0.1
 				paternal_autocrat_drift = 0.02
@@ -3900,9 +3633,7 @@ ideas = {
 		
 		AUS_united_christendom = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_factory_max_efficiency_factor = 0.05
 				production_factory_start_efficiency_factor = 0.05
@@ -3914,9 +3645,7 @@ ideas = {
 		
 		AUS_reconstructive_mobilization_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				industrial_capacity_factory = 0.07
 				industrial_capacity_dockyard = 0.07
@@ -3929,9 +3658,7 @@ ideas = {
 		
 		AUS_fatherland_cult = {
 			picture = AUS_fatherland_cult
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				conscription = 0.015
 				mobilization_speed = 0.1
@@ -3945,9 +3672,7 @@ ideas = {
 		
 		AUS_freemarket_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				industry_free_repair_factor = 0.25
 				production_factory_start_efficiency_factor = 0.04
@@ -3960,9 +3685,7 @@ ideas = {
 		
 		AUS_mass_politics = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.05
 				production_speed_buildings_factor = 0.05
@@ -3973,9 +3696,7 @@ ideas = {
 		
 		AUS_dollfuss_legacy = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_factory_max_efficiency_factor = 0.03
 				production_factory_efficiency_gain_factor = 0.05
@@ -3989,9 +3710,7 @@ ideas = {
 		AUS_dollfuss_legacy_2 = {
 			name = AUS_dollfuss_legacy
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_factory_max_efficiency_factor = 0.05
 				production_factory_efficiency_gain_factor = 0.06
@@ -4007,9 +3726,7 @@ ideas = {
 		
 		AUS_socialist_terror = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				compliance_growth = 0.05
 				political_power_factor = 0.03
@@ -4021,9 +3738,7 @@ ideas = {
 		
 		AUS_kanzler_and_kaiser_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				army_org_factor = 0.05
 				army_morale_factor = 0.05
@@ -4034,9 +3749,7 @@ ideas = {
 		
 		AUS_new_habsburg_monarchy = {
 			picture = AUS_new_habsburg_monarchy
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				army_morale_factor = 0.06
 				political_power_factor = 0.05
@@ -4048,9 +3761,7 @@ ideas = {
 		
 		AUS_middle_ages = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				conscription = 0.01
 				mobilization_speed = 0.2
@@ -4063,9 +3774,7 @@ ideas = {
 		
 		AUS_women_reconstruction = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				conscription_factor = 0.05
 				monthly_population = 0.1
@@ -4078,9 +3787,7 @@ ideas = {
 		
 		AUS_mandl = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			equipment_bonus = {
 				infantry_equipment = {
 					build_cost_ic = -0.05
@@ -4091,9 +3798,7 @@ ideas = {
 		
 		AUS_external_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				army_defence_factor = 0.03
 				army_fuel_consumption_factor = -0.06
@@ -4103,9 +3808,7 @@ ideas = {
 		
 		AUS_austerity_oclk = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.02
 				production_speed_industrial_complex_factor = 0.03
@@ -4115,9 +3818,7 @@ ideas = {
 		
 		AUS_foderalismusplan_small_troll = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_gain = 0.25
 				trade_opinion_factor = 0.2
@@ -4127,9 +3828,7 @@ ideas = {
 		
 		AUS_new_evidenzbureau = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				resistance_growth = -0.05
 				decryption_factor = 0.06
@@ -4139,9 +3838,7 @@ ideas = {
 		
 		AUS_oath = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_speed_arms_factory_factor = 0.05
 				non_core_manpower = 0.03
@@ -4151,9 +3848,7 @@ ideas = {
 		
 		AUS_styrian_lessons = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				national_populist_drift = 0.1
 				political_power_factor = 0.03
@@ -4163,9 +3858,7 @@ ideas = {
 		
 		AUS_volkisch_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				army_core_attack_factor = 0.07
 				army_org_factor = 0.03
@@ -4176,9 +3869,7 @@ ideas = {
 		
 		AUS_universalism = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_speed_buildings_factor = 0.06
 				production_lack_of_resource_penalty_factor = -0.075
@@ -4188,9 +3879,7 @@ ideas = {
 		
 		AUS_UG = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.03
 				industry_free_repair_factor = 0.15
@@ -4199,9 +3888,7 @@ ideas = {
 		
 		AUS_patriotism_over_background_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.03
 				conscription = 0.0125
@@ -4210,9 +3897,7 @@ ideas = {
 		
 		AUS_propaganda_steidle_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.05
 				war_support_weekly = 0.003
@@ -4224,9 +3909,7 @@ ideas = {
 		
 		AUS_noble_soldier = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				conscription = 0.02
 				army_org_factor = 0.05
@@ -4236,9 +3919,7 @@ ideas = {
 		
 		AUS_austropopulist_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.03
 				industrial_capacity_factory = 0.06
@@ -4249,9 +3930,7 @@ ideas = {
 		
 		AUS_CS_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.05
 				production_factory_efficiency_gain_factor = 0.075
@@ -4262,9 +3941,7 @@ ideas = {
 		
 		AUS_new_gymnastics = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.05
 				conscription_factor = 0.03
@@ -4274,9 +3951,7 @@ ideas = {
 		
 		AUS_new_constitution_heimatblock = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				stability_weekly = 0.003
 				production_factory_efficiency_gain_factor = 0.075
@@ -4286,9 +3961,7 @@ ideas = {
 		
 		AUS_changing_political_atmosphere = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				compliance_growth = 0.03
 				monthly_population = 0.12
@@ -4299,9 +3972,7 @@ ideas = {
 		
 		AUS_DAP_support = {
 			picture = AUS_DAP_support
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_speed_infrastructure_factor = 0.1
 				production_speed_buildings_factor = 0.05
@@ -4312,9 +3983,7 @@ ideas = {
 		
 		AUS_police_paramilitary_synthesis_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				conscription = 0.02
 				conscription_factor = 0.06
@@ -4326,9 +3995,7 @@ ideas = {
 		
 		AUS_empowered_president = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.12
 				conscription = 0.01
@@ -4337,9 +4004,7 @@ ideas = {
 		
 		AUS_with_or_against_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				army_core_attack_factor = 0.075
 				army_defence_factor = 0.05
@@ -4349,9 +4014,7 @@ ideas = {
 		
 		AUS_estates = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				industrial_capacity_factory = 0.05
 				production_factory_max_efficiency_factor = 0.08
@@ -4361,9 +4024,7 @@ ideas = {
 		
 		AUS_agri_schools = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				research_speed_factor = 0.05
 				production_speed_buildings_factor = 0.05
@@ -4373,9 +4034,7 @@ ideas = {
 		
 		AUS_children_of_the_land_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				industrial_capacity_factory = 0.05
 				production_factory_efficiency_gain_factor = 0.03
@@ -4386,9 +4045,7 @@ ideas = {
 		
 		AUS_rationality = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				stability_factor = 0.07
 				production_speed_buildings_factor = 0.1
@@ -4398,9 +4055,7 @@ ideas = {
 		
 		AUS_linz_program = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				conscription = 0.01
 				army_org_factor = 0.07
@@ -4411,9 +4066,7 @@ ideas = {
 		
 		AUS_autarky = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_lack_of_resource_penalty_factor = 0.15
 				production_factory_efficiency_gain_factor = 0.1
@@ -4427,9 +4080,7 @@ ideas = {
 		
 		AUS_greenspace = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				stability_weekly = 0.003
 				production_speed_buildings_factor = 0.03
@@ -4442,9 +4093,7 @@ ideas = {
 		
 		AUS_new_justice = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				stability_weekly = 0.003
 				war_support_weekly = 0.003
@@ -4455,9 +4104,7 @@ ideas = {
 		
 		AUS_germanic_individualism_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				conscription = 0.01
 				industrial_capacity_factory = 0.05
@@ -4467,9 +4114,7 @@ ideas = {
 		
 		AUS_realschule_reform_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				research_speed_factor = 0.06
 			}
@@ -4477,9 +4122,7 @@ ideas = {
 		
 		AUS_hagenbund_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.1
 				justify_war_goal_time = -0.15
@@ -4489,9 +4132,7 @@ ideas = {
 		
 		AUS_danubian_highways = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_speed_infrastructure_factor = 0.1
 				army_speed_factor = 0.06
@@ -4502,9 +4143,7 @@ ideas = {
 		
 		AUS_german_nationalism_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				conscription = 0.01
 				compliance_growth = 0.1
@@ -4516,9 +4155,7 @@ ideas = {
 		
 		AUS_family_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.015
 				production_factory_efficiency_gain_factor = 0.05
@@ -4529,9 +4166,7 @@ ideas = {
 		
 		AUS_aryan_principles_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.015
 				political_power_factor = 0.06
@@ -4541,9 +4176,7 @@ ideas = {
 		
 		AUS_volksuni_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				research_speed_factor = 0.075
 				consumer_goods_factor = 0.05
@@ -4553,9 +4186,7 @@ ideas = {
 		
 		AUS_interpol_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				research_speed_factor = 0.02
 				consumer_goods_factor = -0.025
@@ -4565,9 +4196,7 @@ ideas = {
 		
 		AUS_cs_support = {
 			picture = AUS_cs_support
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.05
 				industrial_capacity_dockyard = 0.07
@@ -4578,9 +4207,7 @@ ideas = {
 		
 		AUS_new_banking = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.05
 				production_factory_efficiency_gain_factor = 0.075
@@ -4589,9 +4216,7 @@ ideas = {
 		
 		AUS_farm_factory_fraternity_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				conscription = 0.01
 				global_building_slots_factor = 0.1
@@ -4602,9 +4227,7 @@ ideas = {
 		
 		AUS_liberate_germaus = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				planning_speed = 0.07
 				army_core_attack_factor = 0.06
@@ -4614,9 +4237,7 @@ ideas = {
 		
 		AUS_UKR_trade = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				monthly_population = 0.2
 				political_power_factor = 0.03
@@ -4627,9 +4248,7 @@ ideas = {
 		
 		AUS_UKR_trade_UKR = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				monthly_population = 0.2
 				political_power_factor = 0.03
@@ -4639,9 +4258,7 @@ ideas = {
 		
 		AUS_volksbanken_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.03
 				political_power_factor = 0.05
@@ -4650,9 +4267,7 @@ ideas = {
 		
 		AUS_free_trade_unions = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.03
 				production_factory_max_efficiency_factor = 0.075
@@ -4662,9 +4277,7 @@ ideas = {
 		
 		AUS_habsburg_law_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = -0.05
 				stability_weekly = 0.004
@@ -4674,9 +4287,7 @@ ideas = {
 		
 		AUS_red_duchess_support = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.025
 				production_speed_buildings_factor = 0.05
@@ -4687,9 +4298,7 @@ ideas = {
 		
 		AUS_revolutionary_fervor = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				totalist_drift = 0.04
 				syndicalist_drift = 0.04
@@ -4702,9 +4311,7 @@ ideas = {
 		
 		AUS_wehrsport_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				production_speed_arms_factory_factor = 0.1
 				training_time_factor = -0.1
@@ -4715,9 +4322,7 @@ ideas = {
 		
 		AUS_third_way = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				social_democrat_drift = 0.03
 				radical_socialist_drift = 0.03
@@ -4728,9 +4333,7 @@ ideas = {
 		
 		AUS_free_student_associations = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				research_speed_factor = 0.03
 				political_power_gain = 0.12
@@ -4739,9 +4342,7 @@ ideas = {
 		
 		AUS_new_austrian_warmongering = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				justify_war_goal_time = -0.15
 				war_support_factor = 0.03
@@ -4752,9 +4353,7 @@ ideas = {
 		
 		AUS_superpolitical_work_idea = {
 			picture = x
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				army_org_factor = 0.05
 				stability_weekly = 0.002
@@ -4764,9 +4363,7 @@ ideas = {
 		
 		AUS_union_support = {
 			picture = KIV_unionism_idea
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				industrial_capacity_factory = 0.1
 				industrial_capacity_dockyard = 0.1
@@ -4777,9 +4374,7 @@ ideas = {
 		
 		AUS_revolution_idea = {
 			picture = AUS_revolution_idea
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				stability_factor = -0.1
 				war_support_factor = -0.1
@@ -4793,9 +4388,7 @@ ideas = {
 		
 		AUS_revolution_idea_2 = {
 			picture = AUS_revolution_idea_2
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				conscription = 0.01
 				conscription_factor = 0.05
@@ -4808,9 +4401,7 @@ ideas = {
 		
 		AUS_ruski_assistance = {
 			picture = MEX_revolutionary_army
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				research_speed_factor = 0.03
 				conscription = 0.01
@@ -4823,9 +4414,7 @@ ideas = {
 		
 		AUS_pressure_socialist_italy_idea = {
 			picture = MEX_revolutionary_army
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				terrain_penalty_reduction = 0.05
 			}
@@ -4838,9 +4427,7 @@ ideas = {
 		
 		AUS_entente_navy = {
 			picture = idea_advisors_canada
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				experience_gain_navy_factor = 0.075
 				experience_gain_air_factor = 0.075
@@ -4865,9 +4452,7 @@ ideas = {
 		
 		AUS_german_extracting = {
 			picture = idea_advisors_canada
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				local_resources_factor = 0.2
 				production_lack_of_resource_penalty_factor = -0.2
@@ -4877,9 +4462,7 @@ ideas = {
 		
 		AUS_austrian_neutrality = {
 			picture = idea_advisors_canada
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				justify_war_goal_time = 0.5
 				send_volunteer_factor = -1
@@ -4894,9 +4477,7 @@ ideas = {
 		
 		AUS_sailor_tradition_idea = {
 			picture = idea_advisors_canada
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				experience_gain_navy_factor = 0.075
 				industrial_capacity_dockyard = 0.1
@@ -4905,9 +4486,7 @@ ideas = {
 		
 		AUS_sailor_tradition_lissa_idea = {
 			picture = idea_advisors_canada
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				experience_gain_navy_factor = 0.125
 				industrial_capacity_dockyard = 0.12
@@ -4919,9 +4498,7 @@ ideas = {
 		
 		AUS_sailor_tradition_cattaro_idea = {
 			picture = idea_advisors_canada
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				experience_gain_navy_factor = 0.125
 				industrial_capacity_dockyard = 0.18
@@ -4933,9 +4510,7 @@ ideas = {
 		
 		AUS_swiss_air_idea = {
 			picture = idea_advisors_canada
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				experience_gain_air_factor = 0.075
 				air_range_factor = 0.1
@@ -4954,9 +4529,7 @@ ideas = {
 		
 		AUS_swiss_air_idea_german = {
 			picture = idea_advisors_canada
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				experience_gain_air_factor = 0.1
 				air_range_factor = 0.1
@@ -4978,9 +4551,7 @@ ideas = {
 		
 		AUS_swiss_air_idea_other = {
 			picture = idea_advisors_canada
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				experience_gain_air_factor = 0.1
 				air_range_factor = 0.1
@@ -5004,9 +4575,7 @@ ideas = {
 		
 		AUS_postcollapse_army_idea = {
 			picture = AUS_sucky_military
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				experience_gain_army_factor = -0.1
 				army_morale_factor = -0.15
@@ -5019,9 +4588,7 @@ ideas = {
 		AUS_postcollapse_army_idea_2 = {
 			name = AUS_postcollapse_army_idea
 			picture = AUS_sucky_military
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				experience_gain_army_factor = -0.05
 				army_morale_factor = -0.1
@@ -5034,9 +4601,7 @@ ideas = {
 		AUS_postcollapse_army_idea_3 = {
 			name = AUS_postcollapse_army_idea
 			picture = AUS_sucky_military
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				army_morale_factor = -0.05
 				army_org_factor = -0.05
@@ -5104,9 +4669,7 @@ ideas = {
 		
 		AUS_paramilitary_prevalence = {
 			picture = GEN_army_doctrine_def
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				conscription_factor = 0.05
 				war_support_factor = 0.1
@@ -5123,9 +4686,7 @@ ideas = {
 		
 		AUS_carlist_corpus = {
 			picture = advisors_spain_carlist
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.06
 				army_morale_factor = 0.05
@@ -5136,9 +4697,7 @@ ideas = {
 		
 		AUS_karloktavismus = {
 			picture = advisors_spain_carlist
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				experience_gain_army_factor = 0.05
 				initiative_factor = 0.05
@@ -5152,9 +4711,7 @@ ideas = {
 		
 		AUS_program_of_peace = {
 			picture = advisors_spain_carlist
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				mobilization_speed = -0.15
 				industrial_capacity_factory = 0.05
@@ -5165,9 +4722,7 @@ ideas = {
 		
 		AUS_old_olympianism = {
 			picture = advisors_spain_carlist
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				research_speed_factor = 0.05
 				planning_speed = 0.15
@@ -5178,9 +4733,7 @@ ideas = {
 		
 		AUS_hoch_und_deutschmeister_idea = {
 			picture = advisors_spain_carlist
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				army_org_factor = 0.05
 				army_morale_factor = 0.05
@@ -5193,9 +4746,7 @@ ideas = {
 		
 		AUS_marianer = {
 			picture = advisors_spain_carlist
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				experience_loss_factor = -0.1
 				out_of_supply_factor = -0.1
@@ -5205,9 +4756,7 @@ ideas = {
 		
 		AUS_chivalry_idea = {
 			picture = advisors_spain_carlist
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.1
 				send_volunteer_size	= 2
@@ -5219,9 +4768,7 @@ ideas = {
 		
 		AUS_legitimist_idea = {
 			picture = advisors_spain_carlist
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				political_power_factor = 0.1
 				army_morale_factor = 0.05
@@ -5234,9 +4781,7 @@ ideas = {
 		
 		AUS_external_pressure_idea = {
 			picture = advisors_spain_carlist
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				industrial_capacity_factory = 0.075
 				production_factory_max_efficiency_factor = 0.1
@@ -5246,9 +4791,7 @@ ideas = {
 		
 		AUS_kaisertreuen_return_idea = {
 			picture = advisors_spain_carlist
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				army_artillery_attack_factor = 0.1
 				army_artillery_defence_factor = 0.1
@@ -5259,9 +4802,7 @@ ideas = {
 		
 		AUS_ferdinand_idea = {
 			picture = advisors_spain_carlist
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				army_speed_factor = 0.07
 				army_org_regain = 0.1
@@ -5272,9 +4813,7 @@ ideas = {
 		
 		AUS_aggressive_idea = {
 			picture = advisors_spain_carlist
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				promote_cost_factor = -0.2
 				grant_medal_cost_factor	= -0.33
@@ -5285,9 +4824,7 @@ ideas = {
 		
 		AUS_air_tourism = {
 			picture = advisors_spain_carlist
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.05
 				political_power_factor = 0.05
@@ -5300,9 +4837,7 @@ ideas = {
 		
 		AUS_german_advisors = {
 			picture = advisors_germany2
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				experience_gain_army = 0.1
 				army_armor_speed_factor = 0.05
@@ -5315,9 +4850,7 @@ ideas = {
 		
 		AUS_french_advisors = {
 			picture = advisors_france2
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				experience_gain_army = 0.1
 				planning_speed = 0.15
@@ -5346,9 +4879,7 @@ ideas = {
 		
 		AUS_river_crossing = {
 			picture = advisors_germany2
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			modifier = {
 				terrain_trait_xp_gain_factor = 0.2
 				amphibious_invasion_defence = 0.25
@@ -5407,9 +4938,7 @@ ideas = {
 		
 		AUS_restore_federation_idea = {
 			picture = militia_support
-			allowed = {
-				always = no
-			}
+			allowed = { always = no }
 			targeted_modifier = {
 				tag = HUN
 				attack_bonus_against = 0.075
@@ -5544,15 +5073,15 @@ ideas = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_fighting_for_the_people" }
 			picture = AUS_fighting_for_the_people
 			allowed = { always = no }
-			cancel = {
-				has_war = no
-			}
+			cancel = { has_war = no }
 			modifier = {
-				surrender_limit = 0.05
-				conscription_factor = 0.2
-				war_support_factor = 0.35
-				army_attack_factor = 0.15
-				army_defence_factor = 0.15
+				surrender_limit = 0.1
+				conscription_factor = 0.25
+				war_support_factor = 0.4
+				army_attack_factor = 0.05
+				army_defence_factor = 0.05
+				army_core_attack_factor = 0.1
+				army_core_defence_factor = 0.15
 			}
 		}
 		
@@ -5838,23 +5367,21 @@ ideas = {
 				
 			}
 		}
-		
 	}
 	
 	hidden_ideas = {
 		AUS_part_of_the_Empire = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_part_of_the_Empire"}
 			picture = AUS_part_of_the_Empire
 			allowed = { always = no }
 			cancel = {
 				NOT = {
-					OR = {
-						is_in_faction_with = AUS
-						is_puppet_of = AUS
-					}
+					is_in_faction_with = AUS
+					is_subject_of = AUS
 				}
 			}
 			modifier = {
-				ai_call_ally_desire_factor = -1000
+				ai_call_ally_desire_factor = 100
 				#cic_to_overlord_factor = 0.15
 				#mic_to_overlord_factor= 0.15
 				#extra_trade_to_overlord_factor = 0.25
@@ -5865,7 +5392,7 @@ ideas = {
 		AUS_DWV_0 = { #Danubische Wirtschaftsvereinigung
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_DWV_0"}
 			name = AUS_DWV
-			picture = AUS_foderalismusplan
+			picture = AUS_DWV
 			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.01
@@ -5876,7 +5403,7 @@ ideas = {
 		AUS_DWV_1 = { #Danubische Wirtschaftsvereinigung
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_DWV_1"}
 			name = AUS_DWV
-			picture = AUS_foderalismusplan
+			picture = AUS_DWV
 			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.015
@@ -5891,7 +5418,7 @@ ideas = {
 		AUS_DWV_2 = { #Danubische Wirtschaftsvereinigung
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_DWV_2"}
 			name = AUS_DWV
-			picture = AUS_foderalismusplan
+			picture = AUS_DWV
 			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.015
@@ -5908,7 +5435,7 @@ ideas = {
 		AUS_DWV_3 = { #Danubische Wirtschaftsvereinigung
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_DWV_3"}
 			name = AUS_DWV
-			picture = AUS_foderalismusplan
+			picture = AUS_DWV
 			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.02
@@ -5926,7 +5453,7 @@ ideas = {
 		AUS_DWV_4 = { #Danubische Wirtschaftsvereinigung
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_DWV_4"}
 			name = AUS_DWV
-			picture = AUS_foderalismusplan
+			picture = AUS_DWV
 			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.02
@@ -5946,7 +5473,7 @@ ideas = {
 		AUS_DWV_5 = { #Danubische Wirtschaftsvereinigung
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_DWV_5"}
 			name = AUS_DWV
-			picture = AUS_foderalismusplan
+			picture = AUS_DWV
 			allowed = { always = no }
 			modifier = {
 				consumer_goods_factor = -0.03
@@ -5971,7 +5498,7 @@ ideas = {
 			allowed = {
 				OR = {
 					tag = AUS
-					tag = event_target:AUS_USA_ALLY
+					has_event_target = AUS_USA_ALLY
 				}
 			}
 			available = { has_country_flag = hornyphon_unlocked }

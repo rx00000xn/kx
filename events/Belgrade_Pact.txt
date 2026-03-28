@@ -5772,6 +5772,7 @@ country_event = { #Country Invited to Belgrade Pact
 	immediate = { log = "[GetDateText]: [Root.GetName]: event botdepact.12" }
 	title = botdepact.12.t
 	desc = botdepact.12.d
+	
 	picture = GFX_SER_skk
 
 	is_triggered_only = yes
@@ -5894,6 +5895,7 @@ country_event = { #SER - invited country says no
 	immediate = { log = "[GetDateText]: [Root.GetName]: event botdepact.14" }
 	title = botdepact.14.t
 	desc = botdepact.14.d
+	
 	picture = GFX_SER_skk
 
 	is_triggered_only = yes
@@ -5954,6 +5956,7 @@ country_event = { #FROM offers peace
 	immediate = { log = "[GetDateText]: [Root.GetName]: event botdepact.16" }
 	title = botdepact.16.t
 	desc = botdepact.16.d
+	
 	picture = GFX_event_AUS_legislature
 
 	is_triggered_only = yes
@@ -5966,6 +5969,7 @@ country_event = { #FROM offers peace
 		FROM = {
 			leave_faction = yes
 			hidden_effect = {
+				set_country_flag = 5BW_peaced_out_at_40_cap
 				clr_country_flag = balkan_war_participant
 				clr_country_flag = 5BW_surrender_afrer_40_cap
 				every_enemy_country = {
@@ -6029,6 +6033,7 @@ country_event = { #ITA wins second expedition of the thousand after 120 days
 	immediate = { log = "[GetDateText]: [Root.GetName]: event botdepact.18" }
 	title = botdepact.18.t
 	desc = botdepact.18.d
+	
 	picture = GFX_event_LIC_tyrol_map
 
 	is_triggered_only = yes
@@ -6054,6 +6059,7 @@ country_event = { #ITA wins second expedition of the thousand after 120 days
 				tag = AUS
 				message = WHITE_PEACE_MESSAGE_ITA_WINS_5BW_EXPEDITION
 			}
+			set_country_flag = ITA_won_5BW_second_expedition
 		}
 	}
 }
@@ -6067,7 +6073,7 @@ country_event = { #ITA losses second expedition of the thousand after 120 days
 
 	is_triggered_only = yes
 
-	option = { #damnit!
+	option = { #hooray
 		name = botdepact.19.a
 		ITA = {
 			leave_faction = yes
@@ -6075,6 +6081,7 @@ country_event = { #ITA losses second expedition of the thousand after 120 days
 				tag = AUS
 				message = WHITE_PEACE_MESSAGE_ITA_LOSS_5BW_EXPEDITION
 			}
+			set_country_flag = ITA_lost_5BW_second_expedition
 		}
 	}
 }
@@ -6093,5 +6100,132 @@ country_event = { #FROM rejects peace
 		add_political_power = 25
 		add_stability = -0.05
 		add_war_support = 0.1
+	}
+}
+
+country_event = { #BOTDE_leave_BP_on_5BW_end country leave BP
+	id = botdepact.21
+	immediate = { log = "[GetDateText]: [Root.GetName]: event botdepact.21" }
+	title = botdepact.21.t
+	desc = botdepact.21.d
+	
+	picture = GFX_SER_skk
+
+	is_triggered_only = yes
+
+	option = { #bye bye
+		name = botdepact.21.a
+		leave_faction = yes
+		hidden_effect = {
+			clr_country_flag = BOTDE_leave_BP_on_5BW_end
+			remove_opinion_modifier = {
+				target = SER
+				modifier = faction_traitor
+			}
+			SER = {
+				remove_opinion_modifier = {
+					target = ROOT
+					modifier = faction_traitor
+				}
+			}
+		}
+	}
+}
+
+country_event = { #AUS/HUN - Romania Claims up to the Tisza
+	id = botdepact.22
+	immediate = { log = "[GetDateText]: [Root.GetName]: event botdepact.22" }
+	title = botdepact.22.t
+	desc = botdepact.22.d
+	
+	picture = GFX_event_AUS_Tisza_Painting
+
+	is_triggered_only = yes
+
+	option = { #copper wires
+		name = botdepact.22.a
+		add_political_power = 25
+		add_war_support = 0.075
+		custom_effect_tooltip = AUS_avenge_hungary_SZK_buff_tt
+	}
+}
+
+country_event = { #ITA decision invite
+	id = botdepact.23
+	immediate = { log = "[GetDateText]: [Root.GetName]: event botdepact.23" }
+	title = botdepact.23.t
+	desc = botdepact.23.d
+	
+	picture = GFX_SER_skk
+	
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #sure
+		name = botdepact.23.a
+		ai_chance = {
+			base = 20
+			modifier = {
+				has_government = national_populist
+				add = 80
+			}
+		}
+		every_state = {
+			limit = {
+				OR = {
+					state = 39
+					state = 736
+					state = 783
+					state = 1100
+				}
+			}
+			if = {
+				limit = { is_claim_or_core_of_ROOT = no }
+				add_claim_of_ROOT = yes
+			}
+		}
+		FROM = {
+			country_event = {
+				id = botdepact.24
+				days = 1
+			}
+		}
+	}
+	option = { #hell no
+		name = botdepact.23.b
+		ai_chance = {
+			base = 80
+			modifier = {
+				has_government = national_populist
+				factor = 0
+			}
+		}
+		FROM = {
+			country_event = {
+				id = botdepact.14
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = { #ITA joins BP via decision
+	id = botdepact.24
+	immediate = { log = "[GetDateText]: [Root.GetName]: event botdepact.24" }
+	title = botdepact.24.t
+	desc = botdepact.24.d
+	
+	picture = GFX_event_AUS_anti_italian
+	
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #hooray
+		name = botdepact.24.a
+		add_political_power = 25
+		add_war_support = 0.075
+		add_to_faction = FROM
 	}
 }

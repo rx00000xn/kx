@@ -183,13 +183,11 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				bonus = 1
 			}
 			if = {
-				limit = {
-					has_government = radical_socialist
-				}
+				limit = { has_government = radical_socialist }
 				country_event = bdeausflavor.34 #Echoes of the First Red Vienna
-				else = {
-					country_event = bdeausflavor.35 #Construction of Karl-Marx-Hof
-				}
+			}
+			else = {
+				country_event = bdeausflavor.35 #Construction of Karl-Marx-Hof
 			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
@@ -223,7 +221,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			country_event = {
 				id = bdeausint.23
 				days = 10
-				random = 500
+				random_hours = 500
 			}
 		}
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL }
@@ -636,7 +634,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	
 	
 	
-	#### Ethnic Stabilization - SDAP ####
+	#### Ethnic Stabilization - SDAPO ####
 	
 	
 
@@ -661,6 +659,16 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			AUS_subtract_three_collapse = yes
 			add_war_support = 0.05
 			add_stability = 0.05
+			hidden_effect = {
+				if = {
+					limit = { has_government = radical_socialist }
+					country_event = {
+						id = bdeausint.34
+						days = 3
+						random_hours = 48
+					}
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 	}
@@ -14454,7 +14462,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				limit = {
 					has_completed_focus = AUS_k_u_k_kriegsmarine
 					has_completed_focus = AUS_k_u_k_luftfahrtruppen
-					OR = { has_country_leader = { name = "Karl I" ruling_only = yes } has_country_leader = { name = "Franz Josef II" ruling_only = yes } }
+					AUS_habsburg_in_charge = yes
 				}
 				country_event = {
 					id = bdeaus.5
@@ -14749,8 +14757,12 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 					}
 				}
 			}
+			custom_override_tooltip = {
+				tooltip = AUS_evidenzbureau_minority_buff_tt
+				set_global_flag = AUS_minorites_can_get_targeted_by_evidenz_anytime
+			}
 		}
-		search_filters = { FOCUS_FILTER_ARMY_BONUS }
+		search_filters = { FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_STABILITY }
 	}
 	
 	focus = {
@@ -14909,6 +14921,72 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 	}
 	
+	focus = {
+		id = AUS_atomic_bomb
+		icon = GFX_goal_AUS_nuke
+		relative_position_id = AUS_k_k_landwehr
+		x = 1
+		y = 9
+		cost = 8
+		ai_will_do = {
+			factor = 100
+		}
+		available = {
+			has_completed_focus = DNB_to_save_the_empire
+		}
+		prerequisite = {
+			focus = AUS_retool_kuk_kriegsschule
+		}
+		prerequisite = {
+			focus = AUS_gott_beschutze_osterreich
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 1
+				uses = 1
+				category = nuclear
+			}
+			if = {
+				limit = { NOT = { has_country_flag = AUS_innsbruck_project_event_fired } }
+				country_event = {
+					id = bdeausflavor.8
+					days = 1
+					random_hours = 24
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+	
+	focus = {
+		id = AUS_conquer_the_skies
+		icon = GFX_goal_AUS_rocket
+		relative_position_id = AUS_k_k_landwehr
+		x = -1
+		y = 9
+		cost = 5
+		ai_will_do = {
+			factor = 100
+		}
+		available = {
+			has_completed_focus = DNB_to_save_the_empire
+		}
+		prerequisite = {
+			focus = AUS_kuk_gebirgstruppe
+		}
+		prerequisite = {
+			focus = AUS_gott_beschutze_osterreich
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 1
+				uses = 1
+				category = rocketry
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+	
 	
 	focus = {
 		id = AUS_bohme_grand_battleplan
@@ -14937,7 +15015,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = land_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_grand_battle_plan
+				category = land_doctrine
 			}
 			add_ideas = AUS_bohme_idea
 		}
@@ -14988,7 +15066,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = land_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_grand_battle_plan
+				category = land_doctrine
 			}
 			random_owned_controlled_state = {
 				add_building_construction = {
@@ -15032,7 +15110,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = land_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_grand_battle_plan
+				category = land_doctrine
 			}
 			add_tech_bonus = {
 				category = motorized_equipment
@@ -15121,7 +15199,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = land_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_grand_battle_plan
+				category = land_doctrine
 			}
 			add_tech_bonus = {
 				category = engineers_tech
@@ -15156,7 +15234,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = land_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_grand_battle_plan
+				category = land_doctrine
 			}
 			add_tech_bonus = {
 				category = armor
@@ -15194,7 +15272,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = land_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_mass_assault
+				category = land_doctrine
 			}
 			add_ideas = AUS_hotzendorf_idea
 		}
@@ -15221,7 +15299,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = land_doc_bonus
 				cost_reduction = 0.75
 				uses = 2
-				category = cat_mass_assault
+				category = land_doctrine
 			}
 			add_war_support = 0.05
 		}
@@ -15248,7 +15326,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = land_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_mass_assault
+				category = land_doctrine
 			}
 			add_manpower = 60000
 			add_one_random_infrastructure = yes
@@ -15311,7 +15389,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = land_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_mass_assault
+				category = land_doctrine
 			}
 			add_tech_bonus = {
 				category = radar_tech
@@ -15410,7 +15488,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = land_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_superior_firepower
+				category = land_doctrine
 			}
 			add_ideas = AUS_liebitzky_idea
 			if = {
@@ -15466,7 +15544,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = land_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_superior_firepower
+				category = land_doctrine
 			}
 			add_tech_bonus = {
 				category = artillery
@@ -15543,7 +15621,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = land_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_superior_firepower
+				category = land_doctrine
 			}
 			swap_ideas = {
 				add_idea = AUS_liebitzky_idea_2
@@ -15632,7 +15710,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = land_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_superior_firepower
+				category = land_doctrine
 			}
 		}
 	}
@@ -15664,7 +15742,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = land_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_mobile_warfare
+				category = land_doctrine
 			}
 			add_ideas = AUS_raus_idea
 		}
@@ -15710,7 +15788,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = land_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_mobile_warfare
+				category = land_doctrine
 			}
 		}
 	}
@@ -15737,7 +15815,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = land_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_mobile_warfare
+				category = land_doctrine
 			}
 			add_manpower = 30000
 		}
@@ -15765,7 +15843,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = land_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_mobile_warfare
+				category = land_doctrine
 			}
 			add_tech_bonus = {
 				category = armor
@@ -16148,7 +16226,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = naval_doc_bonus
 				cost_reduction = 1
 				uses = 1
-				category = cat_fleet_in_being
+				category = land_doctrine
 			}
 			add_ideas = AUS_horthy_navy_plan
 		}
@@ -16177,7 +16255,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = naval_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_fleet_in_being
+				category = naval_doctrine
 			}
 			HUN_subtract_ten_collapse = yes
 			navy_experience = 25
@@ -16270,7 +16348,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = naval_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_fleet_in_being
+				category = naval_doctrine
 			}
 			add_one_random_dockyard = yes
 			add_tech_bonus = {
@@ -16305,7 +16383,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = naval_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_fleet_in_being
+				category = naval_doctrine
 			}
 			add_tech_bonus = {
 				uses = 1
@@ -16437,7 +16515,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = naval_doc_bonus
 				cost_reduction = 1
 				uses = 1
-				category = cat_trade_interdiction
+				category = naval_doctrine
 			}
 			add_ideas = AUS_trapp_navy_plan
 		}
@@ -16466,7 +16544,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = naval_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_trade_interdiction
+				category = naval_doctrine
 			}
 			add_tech_bonus = {
 				bonus = 1
@@ -16558,7 +16636,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = naval_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_trade_interdiction
+				category = naval_doctrine
 			}
 			add_ideas = AUS_whitehead
 			set_country_flag = frogmen_trigger
@@ -16590,7 +16668,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = naval_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_trade_interdiction
+				category = naval_doctrine
 			}
 			add_ideas = AUS_lockdown_sea
 		}
@@ -16652,7 +16730,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = naval_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_trade_interdiction
+				category = naval_doctrine
 			}
 			add_ideas = AUS_acapella
 		}
@@ -16684,7 +16762,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = naval_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_trade_interdiction
+				category = naval_doctrine
 			}
 			add_ideas = AUS_blood_water
 		}
@@ -16719,7 +16797,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = naval_doc_bonus
 				cost_reduction = 1
 				uses = 1
-				category = cat_base_strike
+				category = naval_doctrine
 			}
 			add_ideas = AUS_banfield_navy_plan
 		}
@@ -16836,7 +16914,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = naval_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_base_strike
+				category = naval_doctrine
 			}
 			random_owned_controlled_state = {
 				limit = {
@@ -16876,7 +16954,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = naval_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_base_strike
+				category = naval_doctrine
 			}
 			add_tech_bonus = {
 				uses = 1
@@ -16920,7 +16998,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = naval_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_base_strike
+				category = naval_doctrine
 			}
 			navy_experience = 30
 			air_experience = 30
@@ -16954,7 +17032,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = naval_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_base_strike
+				category = naval_doctrine
 			}
 			add_ideas = AUS_gegen_italie
 		}
@@ -16986,7 +17064,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = naval_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_base_strike
+				category = naval_doctrine
 			}
 			add_ideas = AUS_snakes_boot
 		}
@@ -17105,7 +17183,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	
 	focus = {
 		id = AUS_ensure_a_stockpile
-		icon = GFX_goal_AUS_raised_working_week
+		icon = GFX_goal_AUS_flik_flet_flar
 		relative_position_id = AUS_k_u_k_luftfahrtruppen
 		x = -2
 		y = 2
@@ -17172,7 +17250,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = air_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_strategic_destruction
+				category = air_doctrine
 			}
 		}
 	}
@@ -17209,7 +17287,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = air_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_strategic_destruction
+				category = air_doctrine
 			}
 		}
 	}
@@ -17244,7 +17322,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = air_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_strategic_destruction
+				category = air_doctrine
 			}
 		}
 	}
@@ -17312,6 +17390,11 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 					plane_bomb_upgrade = 1
 				}
 			}
+			if = {
+				limit = { has_dlc_aat = yes }
+				unlock_military_industrial_organization_tooltip = mio:phonix_mio
+			}
+			else = { custom_effect_tooltip = AUS_unlock_phonix_not_mio_tt }
 		}
 	}
 	
@@ -17340,7 +17423,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = air_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_battlefield_support
+				category = air_doctrine
 			}
 		}
 	}
@@ -17366,7 +17449,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = air_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_battlefield_support
+				category = air_doctrine
 			}
 			add_ideas = AUS_fliegerkompanie_41j
 			air_experience = 20
@@ -17409,7 +17492,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	
 	focus = {
 		id = AUS_support_steyr_daimler_puch_aeronautics
-		icon = GFX_goal_AUS_steyr_daimler_puch
+		icon = GFX_goal_AUS_AD_aircraft_engine
 		relative_position_id = AUS_k_u_k_luftfahrtruppen
 		x = 1
 		y = 3
@@ -17435,7 +17518,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = air_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_battlefield_support
+				category = air_doctrine
 			}
 			air_experience = 10
 		}
@@ -17443,7 +17526,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	
 	focus = {
 		id = AUS_der_rammbock
-		icon = GFX_goal_USA_organic_air_support
+		icon = GFX_goal_AUS_rammbock
 		relative_position_id = AUS_k_u_k_luftfahrtruppen
 		x = 0
 		y = 4
@@ -17504,14 +17587,14 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = air_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_operational_integrity
+				category = air_doctrine
 			}
 		}
 	}
 	
 	focus = {
 		id = AUS_diversify_flugfunkkompanien
-		icon = GFX_goal_generic_air_command
+		icon = GFX_goal_AUS_diversify_flugfunk
 		relative_position_id = AUS_k_u_k_luftfahrtruppen
 		x = 4
 		y = 2
@@ -17530,7 +17613,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = air_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_operational_integrity
+				category = air_doctrine
 			}
 			add_ideas = AUS_flugfunkkompanie
 		}
@@ -17566,7 +17649,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	
 	focus = {
 		id = AUS_seefliegerkorps_cooperation
-		icon = GFX_goal_CZE_air_is_sea
+		icon = GFX_goal_AUS_seeflieger_coop
 		relative_position_id = AUS_k_u_k_luftfahrtruppen
 		x = 5
 		y = 3
@@ -17621,7 +17704,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				name = air_doc_bonus
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_operational_integrity
+				category = air_doctrine
 			}
 			swap_ideas = {
 				add_idea = AUS_flugfunkkompanie_2
@@ -17643,7 +17726,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	
 	focus = {
 		id = AUS_kuk_Luftfahrschule
-		icon = GFX_goal_KSV_rule_from_the_air
+		icon = GFX_goal_AUS_luftfahrschule
 		relative_position_id = AUS_k_u_k_luftfahrtruppen
 		x = 2
 		y = 4
@@ -17664,7 +17747,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	
 	focus = {
 		id = AUS_license_aircraft
-		icon = GFX_goal_CRE_paratrooper_state
+		icon = GFX_goal_AUS_jagdkommando
 		relative_position_id = AUS_k_u_k_luftfahrtruppen
 		x = -2
 		y = 4
@@ -17959,6 +18042,9 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			}
 			is_faction_leader = yes
 		}
+		bypass = {
+			UKR = { is_ally_of_ROOT = yes }
+		}
 		completion_reward = {
 			unlock_decision_tooltip = AUS_repudiate_brest_litovsk_decision
 		}
@@ -17997,8 +18083,20 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		completion_reward = {
 			if = {
-				limit = { BUL = { BUL_paying_reps_trigger = yes } }
+				limit = {
+					fifth_balkan_war = no
+					BUL = { BUL_paying_reps_trigger = yes }
+				}
 				custom_effect_tooltip = AUS_BUL_reps_secret_5bw_alliance
+				set_country_flag = AUS_secret_BUL_invite_flag
+			}
+			else_if = {
+				limit = {
+					fifth_balkan_war = yes
+					BUL = { BUL_paying_reps_trigger = yes }
+				}
+				custom_effect_tooltip = AUS_unlock_decision_bulgaria
+				BUL = { set_country_flag = AUS_faction_invitee }
 			}
 			else = {
 				custom_effect_tooltip = AUS_unlock_decision_bulgaria
@@ -18031,12 +18129,22 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		will_lead_to_war_with = ITA
 		will_lead_to_war_with = VNC
 		will_lead_to_war_with = LOM
+		bypass = {
+			OR = {
+				has_war_with = var:159.owner
+				has_war_with = var:160.owner
+				AND = {
+					owns_state = 759
+					owns_state = 160
+					owns_state = 159
+				}
+			}
+		}
 		completion_reward = {
 			add_state_core = 759
 			add_state_core = 160
 			add_state_core = 159
 			AUS_federalize_italy_effects = yes
-			
 			if = {
 				limit = {
 					NOT = {
@@ -18046,7 +18154,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 						}
 					}
 				}
-				declare_war_on = {
+				create_wargoal = {
 					target = 160.owner
 					type = annex_everything
 				}
@@ -18054,6 +18162,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			}
 			if = {
 				limit = {
+					var:159.owner = { NOT = { owns_state = 160 } }
 					NOT = {
 						owns_state = 159
 						any_allied_country = {
@@ -18061,7 +18170,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 						}
 					}
 				}
-				declare_war_on = {
+				create_wargoal = {
 					target = 159.owner
 					type = annex_everything
 				}
@@ -18105,13 +18214,9 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		completion_reward = {
 			custom_effect_tooltip = AUS_unlock_decision_papacy
-			PAP = {
-				set_country_flag = AUS_faction_invitee
-			}
+			PAP = { set_country_flag = AUS_faction_invitee }
 			custom_effect_tooltip = AUS_unlock_decision_sicily
-			SIC = {
-				set_country_flag = AUS_faction_invitee
-			}
+			SIC = { set_country_flag = AUS_faction_invitee }
 			custom_effect_tooltip = AUS_break_balance
 			#custom_effect_tooltip = AUS_italian_policy
 		}
@@ -18185,11 +18290,13 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			}
 			is_faction_leader = yes
 		}
+		bypass = {
+			is_faction_leader = yes
+			TUR = { is_in_faction_with = ROOT }
+		}
 		completion_reward = {
 			custom_effect_tooltip = AUS_unlock_decision_turkey
-			TUR = {
-				set_country_flag = AUS_faction_invitee
-			}
+			TUR = { set_country_flag = AUS_faction_invitee }
 			custom_effect_tooltip = AUS_donau_accord
 		}
 	}
@@ -19438,8 +19545,11 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_reichspakt_faction
 			focus = AUS_austro_american_alliance
 		}
+		bypass = {
+			has_war_with = FRA
+		}
 		completion_reward = {
-			declare_war_on = {
+			create_wargoal = {
 				target = FRA
 				type = annex_everything
 			}
@@ -19479,8 +19589,11 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		prerequisite = {
 			focus = AUS_weltkrieg_intervention
 		}
+		bypass = {
+			has_war_with = RUS
+		}
 		completion_reward = {
-			declare_war_on = {
+			create_wargoal = {
 				target = RUS
 				type = annex_everything
 			}
@@ -19879,8 +19992,11 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 					AUS_raise_austro_german_tensions = yes
 				}
 			}
-			event_target:AUS_USA_ALLY = {
-				add_state_claim = 685
+			if = {
+				limit = { any_country = { has_event_target = AUS_USA_ALLY } }
+				event_target:AUS_USA_ALLY = {
+					add_state_claim = 685
+				}
 			}
 			custom_effect_tooltip = AUS_unlock_decision_panama
 			PAN = { set_country_flag = AUS_faction_invitee }
@@ -19986,8 +20102,11 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		completion_reward = {
 			add_ideas = AUS_arsenal_of_democracy_idea
-			event_target:AUS_USA_ALLY = {
-				add_ideas = AUS_arsenal_of_democracy_idea
+			if = {
+				limit = { any_country = { has_event_target = AUS_USA_ALLY } }
+				event_target:AUS_USA_ALLY = {
+					add_ideas = AUS_arsenal_of_democracy_idea
+				}
 			}
 		}
 	}

@@ -802,7 +802,7 @@ focus_tree = {
 				bonus = 1
 				uses = 1
 			}
-			random_owned_state = {
+			capital_scope = {
 				add_building_construction = {
 					type = industrial_complex
 					level = 1
@@ -810,6 +810,11 @@ focus_tree = {
 				add_building_construction = {
 					type = infrastructure
 					level = 1
+				}
+				add_state_modifier = {
+					modifier = {
+						state_production_speed_infrastructure_factor = 0.25
+					}
 				}
 			}
 			LIC_focus_BM_reduce = yes
@@ -1156,7 +1161,7 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = LIC_franz_josef_ii
+			has_country_flag = LIC_franz_josef_ii_flag
 			NOT = {
 				has_country_flag = LIC_couped
 			}
@@ -1169,35 +1174,18 @@ focus_tree = {
 		completion_reward = {
 			unlock_decision_tooltip = LIC_railgun_development
 			unlock_decision_tooltip = LIC_university_of_liechtenstein_decision
-			capital_scope = {
-				add_resource = {
-					type = oil
-					amount = 12
-				}
-				add_resource = {
-					type = aluminium
-					amount = 12
-				}
-				add_resource = {
-					type = rubber
-					amount = 12
-				}
-				add_resource = {
-					type = tungsten
-					amount = 12
-				}
-				add_resource = {
-					type = steel
-					amount = 12
-				}
-				add_resource = {
-					type = chromium
-					amount = 12
-				}
-				increase_state_category_by_one_level = yes
-			}
 			remove_dynamic_modifier = { modifier = LIC_bm_1 }
 			remove_ideas = LIC_legacy_of_trans_alpine_strikes_3
+			capital_scope = {
+				increase_state_category_by_one_level = yes
+				add_state_modifier = {
+					modifier = {
+						state_production_speed_industrial_complex_factor = 0.25
+						state_production_speed_arms_factory_factor = 0.25
+					}
+				}
+				
+			}
 		}
 	}
 	
@@ -1232,6 +1220,11 @@ focus_tree = {
 		completion_reward = {
 			army_experience = 20
 			add_stability = 0.075
+			add_tech_bonus = {
+				category = military_police_tech
+				uses = 1
+				bonus = 1
+			}
 		}
 	}
 	
@@ -1248,11 +1241,8 @@ focus_tree = {
 			focus = LIC_landezpolizei
 		}
 		completion_reward = {
-			add_equipment_to_stockpile = {
-				type = infantry_equipment
-				amount = 3000
-				producer = LIC
-			}
+			country_event = licfor.57
+			custom_effect_tooltip = more_guns_if_loyal
 		}
 	}
 	
@@ -1276,9 +1266,11 @@ focus_tree = {
 			}
 			add_equipment_to_stockpile = {
 				type = motorized_equipment
-				amount = 200
+				amount = 75
 				producer = LIC
 			}
+			country_event = licflavor.60
+			unlock_decision_tooltip = LIC_bikes_decision
 		}
 	}
 	
@@ -1396,16 +1388,9 @@ focus_tree = {
 		completion_reward = {
 			add_political_power = -50
 			add_stability = -0.03
-			add_equipment_to_stockpile = {
-				type = small_plane_airframe
-				amount = 25
-				producer = LIC
-			}
-			add_equipment_to_stockpile = {
-				type = medium_plane_scout_plane_airframe
-				amount = 25
-				producer = LIC
-			}
+			country_event = licfor.58
+			custom_effect_tooltip = more_planes_if_loyal
+			unlock_decision_tooltip = LIC_zeppelin_mail
 		}
 	}
 	
@@ -1454,6 +1439,21 @@ focus_tree = {
 				value = 0.2
 				tooltip_side = LIC_austro_swiss_austria
 			}
+			custom_effect_tooltip = LIC_free_template
+			division_template = {
+				name = "Infanteriedivision"
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 0 y = 2 }
+					infantry = { x = 1 y = 0 }
+					infantry = { x = 1 y = 1 }
+					infantry = { x = 1 y = 2 }
+					infantry = { x = 2 y = 0 }
+					infantry = { x = 2 y = 1 }
+					infantry = { x = 2 y = 2 }
+				}
+			}
 			hidden_effect = {
 				country_event = {
 					id = licflavor.14
@@ -1478,6 +1478,15 @@ focus_tree = {
 		}
 		completion_reward = {
 			set_technology = { elite_infantry_tech = 1 }
+			add_equipment_bonus = {
+				bonus = {
+					support_equipment = { # Type of equipment
+						build_cost_ic = -0.1
+						instant = yes
+					}
+				}
+			}
+			army_experience = 50
 		}
 	}
 	
@@ -1518,6 +1527,12 @@ focus_tree = {
 		}
 		completion_reward = {
 			set_technology = { tech_extensive_reconaissance = 1 }
+			capital_scope = {
+				create_unit = { 
+					division = "name = \"Landespolizei\" division_template = \"Landespolizei\" start_experience_factor = 1" 
+					owner = LIC
+				}
+			}
 		}
 	}
 	
@@ -1538,11 +1553,24 @@ focus_tree = {
 			focus = LIC_restore_the_army
 		}
 		completion_reward = {
-			add_ideas = LIC_military_police
+			add_ideas = LIC_military_police_idea
 			add_power_balance_value = {
 				id = LIC_austro_swiss
 				value = -0.2
 				tooltip_side = LIC_austro_swiss_swiss
+			}
+			custom_effect_tooltip = LIC_free_template
+			division_template = {
+				name = "Landespolizei"
+				is_locked = yes
+				regiments = {
+					militia = { x = 0 y = 0 }
+					militia = { x = 0 y = 1 }
+					militia = { x = 0 y = 2 }
+					militia = { x = 1 y = 0 }
+					militia = { x = 1 y = 1 }
+					militia = { x = 1 y = 2 }
+				}
 			}
 		}
 	}
@@ -2370,14 +2398,11 @@ focus_tree = {
 					type = industrial_complex
 					level = 1
 				}
-				add_extra_state_shared_building_slots = 2
-			}
-			random_owned_state = {
 				add_building_construction = {
-					type = dockyard
+					type = arms_factory
 					level = 1
 				}
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 3
 			}
 			if = {
 				limit = {
@@ -2386,29 +2411,11 @@ focus_tree = {
 					}
 				}
 				capital_scope = {
-					add_resource = {
-						type = oil
-						amount = 12
-					}
-					add_resource = {
-						type = aluminium
-						amount = 12
-					}
-					add_resource = {
-						type = rubber
-						amount = 12
-					}
-					add_resource = {
-						type = tungsten
-						amount = 12
-					}
-					add_resource = {
-						type = steel
-						amount = 12
-					}
-					add_resource = {
-						type = chromium
-						amount = 12
+					add_state_modifier = {
+						modifier = {
+							state_production_speed_industrial_complex_factor = 0.25
+							state_production_speed_arms_factory_factor = 0.25
+						}
 					}
 				}
 			}
@@ -2447,6 +2454,7 @@ focus_tree = {
 				ideology = national_populist
 				popularity = 0.05
 			}
+			add_ideas = LIC_divinity
 			add_stability = 0.1
 			add_manpower = 10000
 			if = {
@@ -2647,10 +2655,17 @@ focus_tree = {
 		}
 		available = {
 			AUS = {
-				is_faction_leader = yes
+				OR = {
+					is_faction_leader = yes
+					has_global_flag = AUS_collapsed
+				}
 				exists = yes
 			}
-			is_in_faction_with = AUS
+			OR = {
+				is_in_faction_with = AUS
+				has_global_flag = AUS_collapsed
+			}
+			has_war = no
 		}
 		prerequisite = {
 			focus = LIC_keep_austrian
@@ -2879,7 +2894,7 @@ focus_tree = {
 			NOT = {
 				has_dynamic_modifier = { modifier = LIC_bm_1 }
 			}
-			has_country_flag = LIC_franz_josef_ii
+			has_country_flag = LIC_franz_josef_ii_flag
 		}
 		prerequisite = {
 			focus = LIC_research_treaty
@@ -3138,6 +3153,36 @@ focus_tree = {
 	}
 	
 	focus = {
+		id = LIC_payback_habsburgs
+		icon = GFX_goal_LIC_payback
+		x = 15
+		y = 13
+		cost = 5
+		ai_will_do = {
+			factor = 100
+		}
+		available = {
+			AUS = {
+				AUS_habsburg_in_charge = no
+				AUS_habsburg_in_charge_regent = no
+				AUS_habsburg_in_charge_junta = no
+			}
+			has_country_flag = LIC_habsburg_loyalist_flag
+		}
+		prerequisite = {
+			focus = LIC_unternehmen_marterl
+		}
+		prerequisite = {
+			focus = LIC_seize_tyrol
+		}
+		completion_reward = {
+			custom_effect_tooltip = LIC_retake_empire
+			unlock_decision_tooltip = LIC_restore_austria_hungary
+			unlock_decision_tooltip = LIC_feed_AH
+		}
+	}
+	
+	focus = {
 		id = LIC_occupied
 		icon = GFX_goal_LIC_no_bitches
 		x = 2
@@ -3173,7 +3218,30 @@ focus_tree = {
 			focus = LIC_occupied
 		}
 		completion_reward = {
-			#Timed idea for mucho free repair
+			capital_scope = {
+				random_list = {
+					50 = {
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+						add_extra_state_shared_building_slots = 1
+					}
+					50 = {
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+						add_extra_state_shared_building_slots = 1
+					}
+				}
+			}
+			add_timed_idea = {
+				idea = LIC_reconstruction_idea
+				days = 120
+			}
 		}
 	}
 	
@@ -3194,6 +3262,31 @@ focus_tree = {
 		}
 		completion_reward = {
 			#Stability, autonomy, flavor event here
+			add_popularity = {
+				ideology = social_democrat
+				popularity = -1
+			}
+			add_popularity = {
+				ideology = social_liberal
+				popularity = -1
+			}
+			add_popularity = {
+				ideology = market_liberal
+				popularity = -1
+			}
+			add_popularity = {
+				ideology = social_conservative
+				popularity = -1
+			}
+			add_popularity = {
+				ideology = authoritarian_democrat
+				popularity = -1
+			}
+			add_stability = 0.1
+			add_war_support = 0.1
+			country_event = {
+				id = licflavor.61 
+			}
 		}
 	}
 	
@@ -3220,7 +3313,9 @@ focus_tree = {
 			focus = LIC_russian_occupation
 		}
 		completion_reward = {
-			#Syndie pop, timed idea for construction
+			add_ideas = LIC_french_occupation_idea
+			increase_ruling_party_popularity_by_5 = yes
+			add_political_power = -100
 		}
 	}
 	
@@ -3247,7 +3342,9 @@ focus_tree = {
 			focus = LIC_french_occupation
 		}
 		completion_reward = {
-			#Natpop pop, timed idea for natpop pop and mobilizing
+			add_ideas = LIC_russian_occupation_idea
+			increase_ruling_party_popularity_by_5 = yes
+			add_political_power = -100
 		}
 	}
 	
@@ -3268,7 +3365,64 @@ focus_tree = {
 			focus = LIC_russian_occupation
 		}
 		completion_reward = {
-			#Gain some generals, military, etc.
+			custom_effect_tooltip = LIC_stuff_gens
+			if = {
+				limit = {
+					has_country_flag = LIC_occupied_govt_THINT
+				}
+				create_corps_commander = {
+					name = "Hans Kahle"
+					portrait_path = "gfx/leaders/LIC/general/LIC_Hans_Kahle.png"
+					skill = 1
+					id = 811900
+					attack_skill = 1
+					defense_skill = 1
+					planning_skill = 2
+					logistics_skill = 1
+				}
+				create_corps_commander = {
+					name = "Richard Staimer"
+					portrait_path = "gfx/leaders/LIC/general/LIC_Richard_Staimer.png"
+					skill = 2
+					id = 811901
+					attack_skill = 2
+					defense_skill = 3
+					planning_skill = 2
+					logistics_skill = 1
+				}
+				INT = {
+					country_event = {
+						id = licfor.60
+					}
+				}
+				else = {
+					create_corps_commander = {
+						name = "Nikolai Tarasov"
+						portrait_path = "gfx/leaders/LIC/general/LIC_Nikolai_Tarasov.png"
+						skill = 2
+						id = 811902
+						attack_skill = 2
+						defense_skill = 2
+						planning_skill = 2
+						logistics_skill = 2
+					}
+					create_corps_commander = {
+						name = "Sergey Ryasnyansky"
+						portrait_path = "gfx/leaders/LIC/general/LIC_Sergey_Ryasnyansky.png"
+						skill = 2
+						id = 811903
+						attack_skill = 3
+						defense_skill = 2
+						planning_skill = 2
+						logistics_skill = 3
+					}
+					RUS = {
+						country_event = {
+							id = licfor.60
+						}
+					}
+				}
+			}
 		}
 	}
 	
@@ -3289,8 +3443,13 @@ focus_tree = {
 			focus = LIC_french_occupation
 		}
 		completion_reward = {
+			custom_effect_tooltip = LIC_shadow_empire_cash_in_tt
+			custom_effect_tooltip = LIC_shadow_empire_reenabled
+			add_dynamic_modifier = {
+				modifier = LIC_shadow_empire_occupied
+			}
 			#Shadow Empire can now expand if your ALLIES take states...
-			#Re-Enable Shadow Empire
+			#Re-Enable Shadow Empire	
 		}
 	}
 	
@@ -3311,7 +3470,28 @@ focus_tree = {
 			focus = LIC_russian_occupation
 		}
 		completion_reward = {
-			#Get the Grand Duke guy or restore the Prince
+			#Convert your National Stockpile score into factories and a boon
+			capital_scope = {
+				increase_state_category_by_one_level = yes
+				random_list = {
+					50 = {
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+						add_extra_state_shared_building_slots = 1
+					}
+					50 = {
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+						add_extra_state_shared_building_slots = 1
+					}
+				}
+			}
 		}
 	}
 	
@@ -3334,6 +3514,8 @@ focus_tree = {
 		completion_reward = {
 			#Life or death for Liechtenstein? LIFE!!!!!!
 			#If you decide to live, get decision to request control of Tyrol/Vorarlberg
+			custom_effect_tooltip = LIC_unlock_decision_state
+			country_event = lic.25
 		}
 	}
 	
@@ -3357,7 +3539,12 @@ focus_tree = {
 			focus = LIC_ultimate_fate
 		}
 		completion_reward = {
-			#Get the Grand Duke guy or restore the Prince
+			country_event = lic.27
+			country_event = { id = lic.29 days = 20 }
+			swap_ideas = {
+				add_idea = LIC_russian_occupation_2_idea
+				remove_idea = LIC_russian_occupation_idea
+			}
 		}
 	}
 	
@@ -3381,7 +3568,32 @@ focus_tree = {
 			focus = LIC_ultimate_fate
 		}
 		completion_reward = {
-			#Get the Grand Duke guy or restore the Prince
+			#If Austria did the secret alliance thing that Bauer can do, ability to restore Princes and have this Liechtenstein get inflated with German land.
+			country_event = { id = lic.29 days = 20 }
+			capital_scope = {
+				random_list = {
+					50 = {
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+						add_extra_state_shared_building_slots = 1
+					}
+					50 = {
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+						add_extra_state_shared_building_slots = 1
+					}
+				}
+			}
+			swap_ideas = {
+				add_idea = LIC_french_occupation_2_idea
+				remove_idea = LIC_french_occupation_idea
+			}
 		}
 	}
 	

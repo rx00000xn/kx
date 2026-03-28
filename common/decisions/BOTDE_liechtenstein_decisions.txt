@@ -474,6 +474,7 @@ BOTDE_LIC_decisions = {
 		cost = 50
 		allowed = { tag = LIC }
 		fire_only_once = yes
+		icon = GFX_paternal_autocrat_decision
 		visible = {
 			has_country_flag = LIC_franz_josef_ii
 		}
@@ -845,10 +846,21 @@ BOTDE_LIC_decisions = {
 								has_autonomy_state = LIC_sister_state
 							}
 						}
-						tag = LIC
+						AND = {
+							tag = LIC
+							is_in_home_area = no
+						}
 					}
 				}
 				is_in_home_area = no
+				NOT = {
+					AND = {
+						has_state_flag = no_schwesterstaat
+						owner = {
+							is_subject_of = LIC
+						}
+					}
+				}
 			}
 		}
 		complete_effect = {
@@ -1092,6 +1104,227 @@ BOTDE_LIC_decisions = {
 		days_remove = 180
 		remove_effect = {
 			country_event = licflavor.51
+		}
+	}
+	
+	LIC_bikes_decision = {
+		cost = 75
+		allowed = { tag = LIC }
+		fire_only_once = yes
+		visible = {
+			has_completed_focus = LIC_motor_transport
+		}
+		icon = GFX_decision_motorbike
+		modifier = {
+			civilian_factory_use = 4
+		}
+		available = {
+			num_of_civilian_factories_available_for_projects > 3
+			is_special_project_completed = sp:sp_land_military_engineering_vehicles
+		}
+		days_remove = 180
+		remove_effect = {
+			add_motorbike_supp_tech_all = yes
+		}
+	}
+	
+	LIC_zeppelin_mail = {
+		custom_cost_trigger = {
+			has_air_experience > 34
+			num_of_civilian_factories_available_for_projects > 2
+		}
+		custom_cost_text = AE_35_civ_2
+		allowed = { tag = LIC }
+		fire_only_once = yes
+		visible = {
+			has_completed_focus = LIC_purchase_old_models
+		}
+		icon = GFX_decision_airship
+		modifier = {
+			civilian_factory_use = 3
+		}
+		available = {
+			num_of_civilian_factories_available_for_projects > 2
+		}
+		days_remove = 180
+		complete_effect = {
+			hidden_effect = {
+				air_experience = -35
+			}
+		}
+		remove_effect = {
+			set_technology = {
+				airships1 = 1
+			}
+		}
+	}
+	
+	LIC_restore_austria_hungary = {
+		allowed = { tag = LIC }
+		fire_only_once = yes
+		visible = {
+			has_completed_focus = LIC_payback_habsburgs
+		}
+		icon = GFX_decision_austrian_eagle
+		available = {
+			OR = {
+				AUS = {
+					is_subject_of = LIC
+					every_core_state = {
+						is_owned_by = LIC
+					}
+				}
+			}
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					NOT = {
+						country_exists = AUS
+					}
+				}
+				AUS = {
+					every_core_state = {
+						transfer_state_to = AUS
+					}
+					LIC = {
+						puppet = PREV
+					}
+					set_politics = {
+						ruling_party = paternal_autocrat
+					}
+					create_country_leader = {
+						name = "Karl I"
+						desc = "POLITICS_KARL_BOTDE_DESC"
+						picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I.png"
+						expire = "1965.1.1"
+						ideology = absolute_monarchy_subtype
+					}
+				}
+			}
+			set_country_flag = LIC_restored_habsburgs
+		}
+	}
+	
+	LIC_feed_AH = {
+		allowed = { tag = LIC }
+		fire_only_once = no
+		visible = {
+			has_completed_focus = LIC_payback_habsburgs
+			any_state = {
+				limit = {
+					has_state_flag = default_danubian_state
+					LIC = {
+						OR = {
+							owns_state = PREV
+							any_subject_country = {
+								limit = {
+									NOT = {
+										has_autonomy_state = LIC_sister_state
+									}
+								}
+								owns_state = PREV.PREV
+							}
+						}
+					}
+					NOT = {
+						is_owned_by = AUS
+						state = 153
+						state = 39
+						state = 942
+						state = 783
+					}
+				}
+			}
+		}
+		icon = GFX_decision_generic_flags
+		available = {
+			any_state = {
+				limit = {
+					has_state_flag = default_danubian_state
+					LIC = {
+						OR = {
+							owns_state = PREV
+							any_subject_country = {
+								owns_state = PREV.PREV
+							}
+						}
+					}
+					NOT = {
+						is_owned_by = AUS
+					}
+					is_controlled_by_ROOT_or_subject = yes
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = LIC_restores_states
+			every_state = {
+				limit = {
+					has_state_flag = default_danubian_state
+					LIC = {
+						OR = {
+							owns_state = PREV
+							any_subject_country = {
+								limit = {
+									NOT = {
+										has_autonomy_state = LIC_sister_state
+									}
+								}
+								owns_state = PREV.PREV
+							}
+						}
+					}
+					NOT = {
+						is_owned_by = AUS
+					}
+					is_controlled_by_ROOT_or_subject = yes
+				}
+				transfer_state_to = AUS
+				add_core_of = AUS
+			}
+		}
+	}
+	
+	LIC_schwesterstaat_destroy_AH = {
+		allowed = { tag = LIC }
+		fire_only_once = yes
+		visible = {
+			has_completed_focus = LIC_payback_habsburgs
+			has_country_flag = LIC_restored_habsburgs
+		}
+		state_target = yes
+		on_map_mode = map_only
+		target_trigger = {
+			FROM = {
+				owner = {
+					AND = {
+						is_subject_of = LIC
+						has_autonomy_state = LIC_sister_state
+					}
+				}
+				is_capital = yes
+			}
+		}
+		icon = GFX_decision_generic_trumpet
+		available = {
+			FROM = {
+				has_capitulated = no
+			}
+			AUS = {
+				is_subject_of = LIC
+			}
+		}
+		complete_effect = {
+			FROM = {
+				set_state_flag = no_schwesterstaat
+			}
+			AUS = {
+				annex_country = {
+					target = FROM.owner
+					transfer_troops = yes
+				}
+			}
 		}
 	}
 	
@@ -1392,6 +1625,9 @@ BOTDE_LIC_decisions = {
 			FROM = {
 				is_owned_by = LIC
 				is_claim_of = LIC
+				NOT = {
+					is_core_of = ROOT
+				}
 				OR = {
 					state = 942
 					state = 153
@@ -1438,6 +1674,9 @@ BOTDE_LIC_decisions = {
 			FROM = {
 				is_owned_by = LIC
 				is_claim_of = LIC
+				NOT = {
+					is_core_of = LIC
+				}
 				OR = {
 					state = 942
 					state = 153
@@ -2035,13 +2274,6 @@ LIC_POST_PURCHASE_CEYLON = {
 					expire = "1965.1.1"
 					ideology = syndicalist_subtype
 				}
-				create_country_leader = {
-					name = "Franz Josef II"
-					desc = "LIC_FRANZ_II_DESC"
-					picture = "gfx/leaders/LIC/LIC_Franz_Joseph_II.png"
-					expire = "1965.1.1"
-					ideology = totalist_subtype
-				}
 				set_cosmetic_tag = CEY_LIC
 			}
 			puppet = CEY
@@ -2291,6 +2523,17 @@ LIC_neutrality_cat = {
 	
 }
 
+
+#Minigame ideas:
+# Get missions to fulfill a quota for each year: mid-37, mid-38, mid-39, mid-40.
+# Fulfilling the quota will give small bonuses. Failing it will give small maluses.
+# Events like Haute-Savoie, 2ACW, Austrian collapse, and 2WK take away big chunks of stockpile.
+# Events like Switzerland joining Austria, Ukraine joining Austria, or federalization give some stockpile.
+# Weekly stockpile gain affected by decision and position in BOP.
+# Stockpile going under will afflict you with very bad famine conditions and nerf Holdings of the House. Goes down slowly over time. Spend stability and factories to fix quicker.
+# Harvest events. Black Monday will give negative stockpile gain.
+# Fuck up the stockpiles a lot and get famine to get VDBL (so, in other words, Luigi this game)
+
 LIC_playing_60_seconds_speedrun = {
 	LIC_stock_food = {
 		custom_cost_trigger = {
@@ -2314,7 +2557,7 @@ LIC_playing_60_seconds_speedrun = {
 		}
 	}
 	LIC_negotiations_foreign = {
-		cost = 50
+		cost = 35
 		icon = GFX_decision_generic_agreement
 		allowed = { tag = LIC }
 		fire_only_once = no
@@ -2330,15 +2573,15 @@ LIC_playing_60_seconds_speedrun = {
 	}
 	
 	LIC_princely_focus = {
-		cost = 40
+		cost = 50
 		icon = GFX_decision_AUS_liechtenstein
 		allowed = { tag = LIC }
 		fire_only_once = no
 		days_remove = 25
-		days_re_enable = 10
+		days_re_enable = 25
 		remove_effect = {
-			LIC_readiness_increase_2 = yes
-			add_stability = 0.01
+			LIC_readiness_increase_3 = yes
+			increase_ruling_party_popularity_by_2 = yes
 		}
 	}
 	LIC_foreign_currency = {
@@ -2494,34 +2737,7 @@ LIC_playing_60_seconds_speedrun = {
 		allowed = { tag = LIC }
 		fire_only_once = no
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = LIC_no_negatives
-				check_variable = {
-					var = LIC.ph_min_export
-					value = 0
-					compare = less_than_or_equals
-				}
-				check_variable = {
-					var = LIC.ph_production_resources
-					value = 0
-					compare = less_than_or_equals
-				}
-				check_variable = {
-					var = LIC.ph_local_resources
-					value = 0
-					compare = greater_than_or_equals
-				}
-				check_variable = {
-					var = LIC.ph_research_factor
-					value = 0
-					compare = greater_than_or_equals
-				}
-				check_variable = {
-					var = LIC.ph_consumer_goods
-					value = 0
-					compare = less_than_or_equals
-				}
-			}
+			LIC_no_negs_HH = yes
 		}
 
 		days_re_enable = 25
@@ -2555,4 +2771,86 @@ LIC_playing_60_seconds_speedrun = {
 		}
 	}
 	
+	
+	
+	LIC_quota_mission = {
+		cost = 25
+		icon = GFX_decision_generic_scorched_earth
+		allowed = { tag = LIC }
+		fire_only_once = no
+		activation = {
+			always = no
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = LIC_quota_tt
+				check_variable = {
+					var = LIC.govt_readiness
+					value = LIC.quota_value
+					compare = greater_than_or_equals
+				}
+			}
+		}
+		is_good = no
+		days_mission_timeout = 365
+		days_re_enable = 25
+		complete_effect = {
+			LIC_next_quota = yes
+			increase_ruling_party_popularity_by_3 = yes
+			add_political_power = 50
+		}
+		timeout_effect = {
+			LIC_next_quota = yes
+			decrease_ruling_party_popularity_by_5 = yes
+			add_political_power = -50
+			add_stability = -0.075
+			add_war_support = -0.075
+		}
+	}
+}
+
+LIC_occupation_govt_cat = {
+	LIC_request_FROM = {
+		cost = 25
+		icon = GFX_decision_boned_austrian_eagle
+		allowed = { tag = LIC }
+		fire_only_once = no
+		visible = {
+			has_country_flag = LIC_for_berryboy
+		}
+		available = {
+			FROM = {
+				owner = {
+					is_in_faction_with = ROOT
+				}
+			}
+		}
+		state_target = yes
+		target_trigger = {
+			FROM = {
+				NOT = {
+					is_owned_by = LIC
+				}
+				OR = {
+					state = 942
+					state = 153
+					state = 39
+					state = 783
+				}
+				any_neighbor_state = {
+					is_owned_by = LIC
+				}
+			}
+		}
+
+		days_re_enable = 25
+		complete_effect = {
+			FROM = {
+				save_global_event_target_as = LIC_state_lol
+				owner = {
+					country_event = licfor.62
+				}
+			}
+		}
+	}
 }

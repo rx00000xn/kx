@@ -9,6 +9,20 @@ save_austria = {
 		available = {
 			always = no
 		}
+		cancel_trigger = {
+			OR = {
+				AND = {
+					if = {
+						limit = { any_possible_country = { has_event_target = BOTDE_backer_revolt_tag } }
+						SER = { owns_state = event_target:BOTDE_backer_revolt_tag.capital_scope }
+					}
+					else = { always = no }
+				}
+				has_global_flag = 5BW_BP_VICTORY
+				has_global_flag = fifth_balkan_war_ended
+				SER = { is_subject = yes }
+			}
+		}
 		priority = 100
 		days_mission_timeout = 60
 		timeout_effect = {
@@ -38,18 +52,14 @@ save_austria = {
 			}
 			hidden_effect = {
 				every_country = {
-					limit = {
-						has_active_mission = AUS_SER_revolt_mission
-					}
+					limit = { has_active_mission = AUS_SER_revolt_mission }
 					add_days_mission_timeout = {
 						mission = AUS_SER_revolt_mission
 						days = 14
 					}
 				}
 				every_country = {
-					limit = {
-						has_active_mission = SER_revolt_mission
-					}
+					limit = { has_active_mission = SER_revolt_mission }
 					add_days_mission_timeout = {
 						mission = SER_revolt_mission
 						days = 14
@@ -66,6 +76,20 @@ save_austria = {
 		
 		available = {
 			always = no
+		}
+		cancel_trigger = {
+			OR = {
+				AND = {
+					if = {
+						limit = { any_possible_country = { has_event_target = BOTDE_backer_revolt_tag } }
+						ROM = { owns_state = event_target:BOTDE_backer_revolt_tag.capital_scope }
+					}
+					else = { always = no }
+				}
+				has_global_flag = 5BW_BP_VICTORY
+				has_global_flag = fifth_balkan_war_ended
+				ROM = { is_subject = yes }
+			}
 		}
 		priority = 100
 		days_mission_timeout = 60
@@ -96,18 +120,14 @@ save_austria = {
 			}
 			hidden_effect = {
 				every_country = {
-					limit = {
-						has_active_mission = AUS_ROM_revolt_mission
-					}
+					limit = { has_active_mission = AUS_ROM_revolt_mission }
 					add_days_mission_timeout = {
 						mission = AUS_ROM_revolt_mission
 						days = 14
 					}
 				}
 				every_country = {
-					limit = {
-						has_active_mission = ROM_revolt_mission
-					}
+					limit = { has_active_mission = ROM_revolt_mission }
 					add_days_mission_timeout = {
 						mission = ROM_revolt_mission
 						days = 14
@@ -450,7 +470,7 @@ save_austria = {
 		available = {
 			has_active_mission = BOTDE_czech_revolt_headsup
 		}
-		cost = 10
+		cost = 25
 		priority = 50
 		days_remove = 21
 		remove_effect = {
@@ -629,7 +649,7 @@ save_austria = {
 		available = {
 			has_active_mission = BOTDE_hungarian_revolt_headsup
 		}
-		cost = 10
+		cost = 25
 		priority = 50
 		days_remove = 21
 		remove_effect = {
@@ -791,7 +811,7 @@ save_austria = {
 		available = {
 			has_active_mission = BOTDE_illyrian_revolt_headsup
 		}
-		cost = 10
+		cost = 25
 		priority = 50
 		days_remove = 21
 		remove_effect = {
@@ -945,7 +965,7 @@ save_austria = {
 		available = {
 			has_active_mission = BOTDE_galician_revolt_headsup
 		}
-		cost = 10
+		cost = 25
 		priority = 50
 		days_remove = 21
 		remove_effect = {
@@ -1179,7 +1199,7 @@ save_austria = {
 			}
 		}
 		custom_cost_trigger = {
-			has_stability > -0.94
+			has_stability > 0
 		}
 		custom_cost_text = AUS_5_stab
 		priority = 50
@@ -1226,7 +1246,7 @@ save_austria = {
 			}
 		}
 		custom_cost_trigger = {
-			has_stability > -0.94
+			has_stability > 0
 		}
 		custom_cost_text = AUS_5_stab
 		priority = 50
@@ -1276,7 +1296,7 @@ save_austria = {
 			}
 		}
 		custom_cost_trigger = {
-			has_stability > -0.94
+			has_stability > 0
 		}
 		custom_cost_text = AUS_5_stab
 		priority = 50
@@ -1338,7 +1358,7 @@ save_austria = {
 			}
 		}
 		custom_cost_trigger = {
-			has_stability > -0.94
+			has_stability > 0
 		}
 		custom_cost_text = AUS_5_stab
 		priority = 50
@@ -1396,7 +1416,7 @@ save_austria = {
 			}
 		}
 		custom_cost_trigger = {
-			has_stability > -0.94
+			has_stability > 0
 		}
 		custom_cost_text = AUS_5_stab
 		priority = 20
@@ -1482,6 +1502,7 @@ save_austria = {
 		war_with_on_timeout = REV
 		days_mission_timeout = 30
 		fire_only_once = no
+		priority = 5
 		
 		cancel_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision cancel BOTDE_imminent_minority_revolt_headsup"
@@ -1491,16 +1512,16 @@ save_austria = {
 				}
 				AUS_subtract_three_collapse = yes
 				ALL_subtract_three_collapse = yes
-				clr_global_flag = BOTDE_imminent_minority_revolt_temp
-				REV = {
-					clr_country_flag = BOTDE_imminent_minority_revolt
-					THIS_subtract_ten_collapse = yes
-				}
-				RVO = {
-					clr_country_flag = BOTDE_imminent_minority_revolt_owner
-					THIS_subtract_five_collapse = yes
-				}
 				hidden_effect = {
+					clr_global_flag = BOTDE_imminent_minority_revolt_temp
+					REV = {
+						clr_country_flag = BOTDE_imminent_minority_revolt
+						THIS_subtract_ten_collapse = yes
+					}
+					RVO = {
+						clr_country_flag = BOTDE_imminent_minority_revolt_owner
+						THIS_subtract_five_collapse = yes
+					}
 					AUS = {
 						scoped_sound_effect = "AUS_prevent_revolution"
 					}
@@ -1518,19 +1539,17 @@ save_austria = {
 				}
 				ALL_add_five_collapse = yes
 				AUS_add_three_collapse = yes
-				REV = {
-					do_minority_revolt_setup = yes
-					set_variable = {
-						var = THIS.extra_value
-						value = 0
-					}
-				}
-				clr_global_flag = BOTDE_imminent_minority_revolt_temp
-				REV = {
-					clr_country_flag = BOTDE_imminent_minority_revolt
-					set_country_flag = BOTDE_has_revolted_before
-				}
 				hidden_effect = {
+					REV = {
+						do_minority_revolt_setup = yes
+						set_variable = { THIS.extra_value = 0 }
+						set_variable = { THIS.subject_revolt_progress = 0 }
+					}
+					clr_global_flag = BOTDE_imminent_minority_revolt_temp
+					REV = {
+						clr_country_flag = BOTDE_imminent_minority_revolt
+						set_country_flag = BOTDE_has_revolted_before
+					}
 					AUS = {
 						scoped_sound_effect = "AUS_revolt_begins"
 					}
@@ -1539,6 +1558,35 @@ save_austria = {
 			else = {
 				custom_effect_tooltip = REV_revolt
 			}
+		}
+	}
+	
+	BOTDE_minority_revolt_delay_decision = {
+		icon = GFX_decision_generic_ignite_civil_war
+		allowed = { tag = AUS }		
+		visible = {
+			has_active_mission = BOTDE_imminent_minority_revolt_headsup
+		}
+		cancel_if_not_visible = yes
+		cost = 20
+		days_remove = 7
+		days_re_enable = 7
+		priority = 4
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove BOTDE_minority_revolt_delay_decision"
+			add_days_mission_timeout = {
+				mission = BOTDE_imminent_minority_revolt_headsup
+				days = 14
+			}
+		}
+		cancel_effect = {
+			hidden_effect = {
+				add_political_power = 20
+				add_stability = 0.01
+			}
+		}
+		ai_will_do = {
+			factor = 100
 		}
 	}
 
@@ -1747,64 +1795,165 @@ save_austria = {
 		}
 	}
 	
-	AUS_deploy_evidenzbureau = {
-		allowed = { original_tag = AUS }
-		icon = GFX_decision_generic_intelligence_operation
-		
-		days_remove = 20
-		
-		target_trigger = {
-			FROM = {
-				has_country_flag = CONST_proper
-				NOT = {
-					has_country_flag = AUS_evidenzbureau_focus
-					has_country_flag = CONST_no_evidenzbureau
-					tag = ROOT
-				}
-			}
-		}
-		available = {
-			NOT = {
-				has_global_flag = AUS_evidenzbureau_decision
-				custom_override_tooltip = {
-					tooltip = AUS_no_evidenzbureau_tt
-					not_tooltip = AUS_no_evidenzbureau_tt_NOT
-					has_country_flag = AUS_no_evidenzbureau
-				}
-			}
-		}
-		
-		custom_cost_trigger = {
-			command_power > 9.9
-		}
-		custom_cost_text = CP_10
-		priority = 30
-		ai_will_do = {
-			factor = 5
-		}
-		
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision AUS_deploy_evidenzbureau"
-			custom_effect_tooltip = AUS_evidenzbureau_focus_tt
-			hidden_effect = {
-				add_command_power = -10
-				every_other_country = {
-					limit = { has_country_flag = AUS_evidenzbureau_focus }
-					clr_country_flag = AUS_evidenzbureau_focus
-				}
-			}
-			set_global_flag = AUS_evidenzbureau_decision
-		}
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_deploy_evidenzbureau"
-			hidden_effect = {
-				FROM = {
-					set_country_flag = AUS_evidenzbureau_focus
-				}
-			}
-			clr_global_flag = AUS_evidenzbureau_decision
-		}
-	}
+	#AUS_deploy_evidenzbureau = {
+	#	allowed = { original_tag = AUS }
+	#	icon = GFX_decision_generic_intelligence_operation
+	#	
+	#	days_remove = 20
+	#	
+	#	target_trigger = {
+	#		FROM = {
+	#			has_country_flag = CONST_proper
+	#			NOT = {
+	#				has_country_flag = AUS_evidenzbureau_focus
+	#				has_country_flag = CONST_no_evidenzbureau
+	#				tag = ROOT
+	#			}
+	#		}
+	#	}
+	#	available = {
+	#		NOT = {
+	#			has_global_flag = AUS_evidenzbureau_decision
+	#			custom_override_tooltip = {
+	#				tooltip = AUS_no_evidenzbureau_tt
+	#				not_tooltip = AUS_no_evidenzbureau_tt_NOT
+	#				has_country_flag = AUS_no_evidenzbureau
+	#			}
+	#		}
+	#	}
+	#	
+	#	custom_cost_trigger = {
+	#		command_power > 9.9
+	#	}
+	#	custom_cost_text = CP_10
+	#	priority = 30
+	#	ai_will_do = {
+	#		factor = 5
+	#	}
+	#	
+	#	complete_effect = {
+	#		log = "[GetDateText]: [Root.GetName]: Decision AUS_deploy_evidenzbureau"
+	#		custom_override_tooltip = {
+	#			tooltip = AUS_evidenzbureau_focus_tt
+	#			add_command_power = -10
+	#			every_other_country = {
+	#				limit = { has_country_flag = AUS_evidenzbureau_focus }
+	#				clr_country_flag = AUS_evidenzbureau_focus
+	#			}
+	#			if = {
+	#				limit = { NOT = { has_global_flag = AUS_minorites_can_get_targeted_by_evidenz_anytime } }
+	#				every_possible_country = {
+	#					limit = {
+	#						AUS_is_minority = yes
+	#						capital_scope = { is_owned_by = FROM }
+	#						has_country_flag = AUS_evidenzbureau_minority_focus
+	#					}
+	#					clr_country_flag = AUS_evidenzbureau_minority_focus
+	#				}
+	#			}
+	#		}
+	#		set_global_flag = AUS_evidenzbureau_decision
+	#	}
+	#	remove_effect = {
+	#		log = "[GetDateText]: [Root.GetName]: Decision remove AUS_deploy_evidenzbureau"
+	#		hidden_effect = {
+	#			FROM = {
+	#				set_country_flag = AUS_evidenzbureau_focus
+	#			}
+	#		}
+	#		clr_global_flag = AUS_evidenzbureau_decision
+	#	}
+	#}
+	#
+	#AUS_deploy_minority_evidenzbureau = {
+	#	allowed = { original_tag = AUS }
+	#	
+	#	icon = GFX_decision_generic_intelligence_operation
+	#	
+	#	days_remove = 7
+	#	
+	#	target_trigger = {
+	#		FROM = {
+	#			AUS_is_minority = yes
+	#			exists = no
+	#			OR = {
+	#				has_global_flag = AUS_minorites_can_get_targeted_by_evidenz_anytime
+	#				capital_scope.owner = {
+	#					OR = {
+	#						tag = AUS
+	#						has_country_flag = AUS_evidenzbureau_focus
+	#					}
+	#				}
+	#			}
+	#			OR = {
+	#				meta_trigger = {
+	#					#debug = yes
+	#					text = {
+	#						has_global_flag = [TAG]_on_array
+	#					}
+	#					TAG = "[FROM.GetTag]"
+	#				}
+	#				NOT = { #tags which only appear when the TAG_on_array global flag is set for them
+	#					tag = CZE
+	#					tag = CRO
+	#					tag = BAN
+	#					tag = KRK
+	#					tag = PGU
+	#					tag = VNC
+	#				}
+	#			}
+	#			NOT = {
+	#				has_country_flag = AUS_evidenzbureau_minority_focus
+	#				has_country_flag = no_minority_revolt
+	#				has_war_with = AUS
+	#			}
+	#		}
+	#	}
+	#	target_non_existing = yes
+	#	available = {
+	#		NOT = {
+	#			has_global_flag = AUS_evidenzbureau_decision
+	#			custom_override_tooltip = {
+	#				tooltip = AUS_no_evidenzbureau_tt
+	#				not_tooltip = AUS_no_evidenzbureau_tt_NOT
+	#				has_country_flag = AUS_no_evidenzbureau
+	#			}
+	#		}
+	#	}
+	#	visible = {
+	#		OR = {
+	#			any_country = { has_country_flag = AUS_evidenzbureau_focus }
+	#			has_global_flag = AUS_minorites_can_get_targeted_by_evidenz_anytime
+	#		}
+	#	}
+	#	custom_cost_trigger = {
+	#		command_power > 4.9
+	#	}
+	#	custom_cost_text = CP_5
+	#	priority = 30
+	#	ai_will_do = {
+	#		factor = 5
+	#	}
+	#	
+	#	complete_effect = {
+	#		log = "[GetDateText]: [Root.GetName]: Decision AUS_deploy_minority_evidenzbureau"
+	#		custom_override_tooltip = {
+	#			tooltip = AUS_evidenzbureau_minority_focus_tt
+	#			add_command_power = -5
+	#			every_possible_country = {
+	#				limit = { has_country_flag = AUS_evidenzbureau_minority_focus }
+	#				clr_country_flag = AUS_evidenzbureau_minority_focus
+	#			}
+	#		}
+	#		set_global_flag = AUS_evidenzbureau_decision
+	#	}
+	#	remove_effect = {
+	#		log = "[GetDateText]: [Root.GetName]: Decision remove AUS_deploy_minority_evidenzbureau"
+	#		hidden_effect = { FROM = { set_country_flag = AUS_evidenzbureau_minority_focus } }
+	#		clr_global_flag = AUS_evidenzbureau_decision
+	#	}
+	#}
+	
 	AUS_want_to_revolt = {
 		icon = GFX_decision_generic_nationalism
 		allowed = {
@@ -1860,7 +2009,7 @@ save_austria = {
 	}
 	
 	HUN_agitate_for_independence = {
-		icon = GFX_decision_generic_nationalism
+		icon = GFX_decision_generic_ignite_civil_war
 		allowed = {
 			OR = {
 				original_tag = HUN
@@ -1886,7 +2035,7 @@ save_austria = {
 	}
 	
 	CONST_help_austria = {
-		icon = GFX_decision_generic_nationalism
+		icon = GFX_decision_austrian_eagle
 		allowed = {
 			OR = {
 				original_tag = HUN
@@ -1980,31 +2129,10 @@ save_austria = {
 		complete_effect = {
 			ALL_subtract_five_collapse = yes
 			AUS_5_fed = yes
-			
 		}
 		timeout_effect = {
 			add_political_power = -20
 			ALL_add_one_collapse = yes
-		}
-	}
-	
-	AUS_hide_paramilitary_decisions = {
-		icon = GFX_decision_investigation
-		priority = 6
-		ai_will_do = {
-			factor = 0
-		}
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_hide_paramilitary_decisions"
-			if = {
-				limit = { has_country_flag = paramilitary_decisions_hidden }
-				custom_effect_tooltip = shows_paramilitary_decisions
-				clr_country_flag = paramilitary_decisions_hidden
-			}
-			else = {
-				custom_effect_tooltip = hides_paramilitary_decisions
-				set_country_flag = paramilitary_decisions_hidden
-			}
 		}
 	}
 	
@@ -2153,7 +2281,7 @@ save_austria = {
 	}
 	
 	AUS_attack_minority_paramilitary = {
-		icon = GFX_decision_scales
+		icon = GFX_decision_generic_prepare_civil_war
 		priority = 5
 		allowed = {
 			OR = {
@@ -2177,15 +2305,13 @@ save_austria = {
 				FROM = { is_owned_by = ROOT }
 				is_in_faction_with = AUS
 			}
-			NOT = {
-				has_country_flag = paramilitary_decisions_hidden
-			}
+			NOT = { has_country_flag = paramilitary_decisions_hidden }
 		}
 		custom_cost_trigger = {
-			command_power > 25
-			has_army_experience	> 10
+			command_power > 9.9
+			has_army_experience	> 9
 		}
-		custom_cost_text = AUS_25_cp_10_xp
+		custom_cost_text = AUS_10_cp_10_xp
 		state_target = yes
 		on_map_mode = map_and_decisions_view
 		target_trigger = {
@@ -2202,11 +2328,12 @@ save_austria = {
 		available = {
 			NOT = {
 				has_country_flag = AUS_undergoing_operation
+				FROM = { has_state_flag = BOTDE_state_undergoing_operation }
 			}
 		}
 		fire_only_once = no
 		
-		days_remove = 30
+		days_remove = 14
 		fixed_random_seed = no
 		ai_will_do = {
 			factor = 300
@@ -2215,6 +2342,7 @@ save_austria = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision AUS_attack_minority_paramilitary target: [From.GetName]"
 			hidden_effect = {
+				FROM = { set_state_flag = BOTDE_state_undergoing_operation }
 				set_country_flag = AUS_undergoing_operation
 				add_command_power = -25
 				army_experience = -10			
@@ -2223,33 +2351,35 @@ save_austria = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_attack_minority_paramilitary target: [From.GetName]"
 			random_list = {
-				40 = {
-					modifier = {
-						set_temp_variable = { supps = FROM.success_value_supp }
-						multiply_temp_variable = { supps = 15 }
-						add = supps
-						always = yes
-					}
+				60 = {
 					modifier = {
 						set_temp_variable = { homosexual_relationships = AUS.paramilitary_boon }
 						multiply_temp_variable = { homosexual_relationships = 24 }
 						add = homosexual_relationships
-						always = yes
 					}
-					#modifier = {
-					#	factor = THIS.subject_revolt_progress
-					#}
 					modifier = {
 						FROM = { state = 789 }
 						ROOT = { has_country_flag = AUS_szekler_sztuff }
 						add = 35
 					}
-					FROM = {
-						AUS_remove_minority_paramilitary = yes
+					modifier = {
+						FROM = { owner = { has_country_flag = AUS_evidenzbureau_focus } }
+						factor = 0.9
 					}
-					custom_effect_tooltip = AUS_paramilitaries_removed
+					if = {
+						limit = { is_ai = no }
+						decrease_ruling_party_popularity_by_3 = yes
+						army_experience = -5
+						minority_paramilitary_gain_unrest = yes
+					}
+					add_to_variable = { FROM.success_value_supp = 1 }
 				}
-				60 = {
+				40 = {
+					modifier = {
+						set_temp_variable = { supps = FROM.success_value_supp }
+						multiply_temp_variable = { supps = 15 }
+						add = supps
+					}
 					modifier = {
 						set_temp_variable = { whatthefuck2 = ROOT.stability }
 						clamp_temp_variable = {
@@ -2278,21 +2408,20 @@ save_austria = {
 							state = FROM
 						}
 					}
-					if = {
-						limit = {
-							is_ai = no
-						}
-						decrease_ruling_party_popularity_by_3 = yes
-						army_experience = -5
-						minority_paramilitary_gain_unrest = yes
+					modifier = {
+						FROM = { owner = { has_country_flag = AUS_evidenzbureau_focus } }
+						factor = 1.1
 					}
-					add_to_variable = {
-						var = FROM.success_value_supp
-						value = 1
+					FROM = {
+						AUS_remove_minority_paramilitary = yes
+						owner = {
+							add_stability = 0.03
+						}
 					}
 				}
 			}
 			clr_country_flag = AUS_undergoing_operation
+			FROM = { clr_state_flag = BOTDE_state_undergoing_operation }
 		}
 	}
 	
@@ -2334,7 +2463,7 @@ save_austria = {
 			set_country_flag = AUS_undergoing_operation
 			add_command_power = -25
 			army_experience = -10
-			hidden_effect = {		
+			hidden_effect = {
 				add_equipment_to_stockpile = {
 					type = infantry_equipment
 					amount = -2000
@@ -2348,13 +2477,13 @@ save_austria = {
 			clr_country_flag = AUS_undergoing_operation
 		}
 	}
-	
 	AUS_dispel_opposition = {
 		icon = GFX_decision_generic_arrest
 		priority = 5
 		allowed = {
 			OR = {
 				original_tag = AUS
+				original_tag = HUN
 				original_tag = CRO
 			}
 		}
@@ -2362,14 +2491,26 @@ save_austria = {
 			NOT = {
 				has_global_flag = AUS_investigation_underway
 				has_global_flag = AUS_investigation_done_SKS
+				has_country_flag = dispel_opposition_decisions_hidden
 			}
 			has_country_flag = AUS_resistance_networks_realized
-			SER = {
-				has_country_flag = SER_funded_seppies
-				NOT = {
-					is_subject_of = AUS
-					any_allied_country = {
-						has_subject = PREV
+			OR = {
+				SER = {
+					has_country_flag = SER_funded_seppies
+					NOT = {
+						is_subject_of = AUS
+						any_allied_country = {
+							has_subject = PREV
+						}
+					}
+				}
+				ROM = {
+					has_country_flag = ROM_funded_seppies
+					NOT = {
+						is_subject_of = AUS
+						any_allied_country = {
+							has_subject = PREV
+						}
 					}
 				}
 			}
@@ -2381,14 +2522,18 @@ save_austria = {
 		target_trigger = {
 			FROM = {
 				has_variable = FROM.success_value_opp
-				OR = {
-					compliance > 20
-					has_resistance = no
+				has_active_resistance = yes
+				resistance > 10
+				AUS = {
+					OR = {
+						any_allied_country = { controls_state = PREV.PREV }
+						controls_state = PREV
+					}
 				}
 			}
 		}
 		fire_only_once = no		
-		days_remove = 30
+		days_remove = 7
 		ai_will_do = {
 			factor = 300
 		}
@@ -2400,10 +2545,10 @@ save_austria = {
 			FROM = {
 				if = {
 					limit = { has_resistance = yes }
-					add_compliance = -8
+					add_resistance = -8
 				}
+				owner = { add_stability = 0.03 }
 			}
-			add_stability = 0.03
 		}
 	}
 	
@@ -2679,16 +2824,13 @@ save_austria = {
 					owns_state = 789
 				}
 			}
+			NOT = { has_global_flag = szeklerland_solidified_global }
 		}
 		available = {
-			NOT = {
-				has_global_flag = szeklerland_solidified_global
-			}
+			NOT = { has_global_flag = szeklerland_solidified_global }
 		}
 		custom_cost_trigger = {
-			has_equipment = {
-				infantry_equipment > 599
-			}
+			has_equipment = { infantry_equipment > 599 }
 		}
 		custom_cost_text = AUS_600_gun
 		
@@ -2717,10 +2859,7 @@ save_austria = {
 					value = -0.08
 					tooltip = ROM_resistance_target_8_minus
 				}
-				add_to_variable = {
-					var = SZK.help_value
-					value = 1
-				}
+				add_to_variable = { SZK.help_value = 1 }
 				add_compliance = 5
 			}
 		}
@@ -2848,20 +2987,14 @@ save_austria = {
 				target = SZK
 			}
 			SZK = {
-				add_to_variable = {
-					var = SZK.extra_divs
-					value = 1.33
-				}
-				add_to_variable = {
-					var = SZK.extra_guns
-					value = 2400
-				}
+				add_to_variable = { SZK.extra_divs = 1.33 }
+				add_to_variable = { SZK.extra_guns = 2400 }
 			}
 		}
 	}
 	
 	AUS_SZK_pacify = {
-		icon = GFX_decision_generic_flags
+		icon = GFX_decision_generic_prepare_civil_war
 		priority = 5
 		allowed = {
 			OR = {
@@ -2888,18 +3021,13 @@ save_austria = {
 					owns_state = 789
 				}
 			}
-			NOT = {
-				has_global_flag = szeklerland_solidified_global
-			}
+			NOT = { has_global_flag = szeklerland_solidified_global }
+			has_global_flag = AUS_fifth_balkan_war_begun
 		}
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = help_szekler		
-				check_variable = {
-					var = SZK.help_value
-					value = 5
-					compare = greater_than_or_equals
-				}
+				check_variable = { SZK.help_value > 4 }
 			}
 			has_global_flag = AUS_fifth_balkan_war_begun
 		}
@@ -2954,6 +3082,7 @@ save_austria = {
 					owns_state = 789
 				}
 			}
+			has_global_flag = AUS_fifth_balkan_war_begun
 		}
 		available = {
 			OR = {
@@ -2995,6 +3124,111 @@ save_austria = {
 			SZK_do_the_awesome = yes
 		}
 	}
+	
+	AUS_jagdkommandos_SZK = { #them madersprach boyz
+		icon = GFX_decision_szekler_battle_flag
+		priority = 5
+		allowed = {
+			OR = {
+				original_tag = AUS
+				original_tag = HUN
+			}
+		}
+		visible = {
+			SZK = {
+				has_war_with = ROM
+			}
+			fifth_balkan_war = yes
+		}
+		available = {
+			SZK = {
+				has_war_with = ROM
+				is_in_faction_with = ROOT
+				has_capitulated = yes
+			}
+			has_war_with = ROM
+			has_global_flag = AUS_fifth_balkan_war_begun
+		}
+		fire_only_once = yes
+		days_remove = 7
+		
+		ai_will_do = {
+			factor = 300
+			modifier = {
+				factor = 0
+				tag = AUS
+				HUN = {
+					is_ai = no
+				}
+			}
+			modifier = {
+				factor = 0
+				tag = HUN
+				AUS = {
+					is_ai = no
+				}
+			}
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision AUS_incite_kratochvil target: [From.GetName]"
+			AUS = {
+				country_event = bdeausflavor.164
+			}
+			HUN = {
+				country_event = bdeausflavor.164
+			}
+			ROM = {
+				country_event = bdeausflavor.164
+			}
+			#Perhaps add a state modifier that reduces enemy supply.
+		}
+	}
+	
+	AUS_HUN_annex_SZK = {
+		icon = GFX_decision_szekler
+		priority = 5
+		allowed = {
+			OR = {
+				original_tag = AUS
+				original_tag = HUN
+			}
+		}
+		visible = {
+			fifth_balkan_war = no
+			NOT = {
+				has_global_flag = AUS_collapsed
+			}
+			SZK = {
+				exists = yes
+				OR = {
+					is_in_faction_with = AUS
+					is_in_faction_with = HUN
+				}
+			}
+		}
+		available = {
+			SZK = {
+				NOT = {
+					has_war_with = ROOT
+					has_war_with = ROM
+					has_war_with = SER
+				}
+			}
+		}
+		cost = 20
+		fire_only_once = yes
+		days_remove = 7
+		ai_will_do = {
+			factor = 300
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision AUS_HUN_annex_SZK"
+			annex_country = {
+				target = SZK
+				transfer_troops = yes
+			}
+		}
+	}
 	AUS_pull_out = {
 		icon = GFX_decision_boned_austrian_eagle
 		
@@ -3027,6 +3261,25 @@ save_austria = {
 			set_country_flag = AUS_no_sgw
 		}
 	}
+	AUS_UKR_murder_WSU_decision = {
+		icon = GFX_decision_austrian_eagle
+		cost = 50
+		fire_only_once = yes
+		days_remove = 14
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 1000
+		}
+		visible = {
+			has_country_flag = AUS_UKR_murder_WSU_decision_flag
+			NOT = { has_global_flag = no_more_collapse }
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_UKR_murder_WSU_decision"
+			add_stability = 0.1
+			WSU = { THIS_minority_stop_revolt = yes }
+		}
+	}
 }
 
 help_austria = {
@@ -3039,14 +3292,19 @@ help_austria = {
 		visible = {
 			hidden_trigger = {
 				is_in_faction_with = AUS
+				NOT = { is_subject_of = AUS }
 				AUS_is_constituent = no
 			}
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove FACTION_MEMBER_send_support_to_AUS"
 			add_faction_influence_score = 5
-			AUS_subtract_three_collapse = yes
-			AUS = { add_stability = 0.03 }
+			AUS_subtract_two_collapse = yes
+		}
+		cancel_effect = {
+			hidden_effect = {
+				add_political_power = 20
+			}
 		}
 		ai_will_do = {
 			factor = 100
@@ -3062,6 +3320,7 @@ help_austria = {
 			hidden_trigger = {
 				is_in_faction_with = AUS
 				AUS_is_constituent = no
+				check_variable = { num_armies@ROOT > 0 }
 			}
 		}
 		remove_effect = {
@@ -3073,6 +3332,11 @@ help_austria = {
 			AUS = {
 				army_experience = 5
 				add_war_support = 0.03
+			}
+		}
+		cancel_effect = {
+			hidden_effect = {
+				add_political_power = 50
 			}
 		}
 		ai_will_do = {
@@ -5049,7 +5313,7 @@ AUS_foreign_policy_category = {
 			FROM = {
 				country_event = {
 					id = bdeausfor.2
-					days = 3
+					days = 1
 					random_hours = 24
 				}
 			}
@@ -5109,6 +5373,69 @@ AUS_foreign_policy_category = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_invite_swiss target: [SWI.GetName]"
 			SWI = {
+				country_event = {
+					id = bdeausfor.2
+					hours = 1
+					random_hours = 11
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 500
+		}
+	}
+	
+	AUS_invite_bulgaria_secret = {
+		cost = 20
+		icon = generic_agreement
+		allowed = {
+			tag = AUS
+		}
+		visible = {
+			is_faction_leader = yes
+			has_country_flag = AUS_secret_BUL_invite_flag
+			BUL = {
+				is_in_faction = no
+				is_subject = no
+			}
+		}
+		fire_only_once = yes
+		days_remove = 20
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_invite_bulgaria_secret"
+			BUL = {
+				country_event = {
+					id = bdeausfor.215
+					days = 1
+					random_hours = 24
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	AUS_invite_BUL = {
+		cost = 0
+		icon = generic_agreement
+		allowed = {
+			tag = AUS
+		}
+		visible = {
+			is_faction_leader = yes
+			has_country_flag = BUL_AUS_secret_alliance
+			fifth_balkan_war = yes
+			BUL = {
+				is_in_faction = no
+				has_country_flag = BUL_AUS_secret_alliance
+				NOT = { has_war_with = AUS }
+			}
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_invite_BUL"
+			BUL = {
 				country_event = {
 					id = bdeausfor.2
 					hours = 1
@@ -5903,12 +6230,12 @@ AUS_foreign_policy_category = {
 		targets = { UKR }
 		target_trigger = {
 			FROM = {
+				is_ally_of_ROOT = no
 				NOT = {
 					is_in_faction_with = RUS
 					has_war_with = ROOT
 				}
 			}
-		
 		}
 		target_root_trigger = {
 			is_faction_leader = yes
@@ -6014,7 +6341,11 @@ AUS_foreign_policy_category = {
 			is_faction_leader = yes
 			is_subject = no
 			american_civil_war = yes
-			NOT = { has_global_flag = AUS_ACW_choice_made }
+			NOT = {
+				has_global_flag = AUS_ACW_choice_made
+				has_global_flag = AUS_collapsed
+				has_global_flag = USA_civil_war_over_flag
+			}
 			OR = {
 				has_country_flag = ACW_supported_CSA
 				has_country_flag = ACW_supported_USA
@@ -6305,6 +6636,45 @@ AUS_foreign_policy_category = {
 			}
 			annex_country = {
 				target = FROM
+				transfer_troops = yes
+			}
+		}
+	}
+	
+	AUS_federalize_ukraine = {
+		icon = GFX_decision_austrian_eagle
+		
+		visible = {
+			has_global_flag = AUS_federalized
+			UKR = {
+				is_subject_of = AUS
+				has_country_flag = UKR_can_be_federalized_by_AUS
+			}
+		}
+		
+		days_remove = 45
+		fire_only_once = yes
+		modifier = {
+			political_power_factor = -0.10
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision AUS_federalize_ukraine"
+			hidden_effect = {
+				UKR = {
+					if = {
+						limit = { is_ai = no }
+						ROOT = { change_tag_from = UKR }
+					}
+					every_core_state = { add_core_of = ROOT }
+					every_unit_leader = { set_nationality = ROOT }
+					every_scientist = { set_nationality = ROOT }
+				}
+			}
+			annex_country = {
+				target = UKR
 				transfer_troops = yes
 			}
 		}

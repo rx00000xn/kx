@@ -17,13 +17,7 @@ country_event = { #debug
 
 	option = { #Egads!
 		name = licdebug.0.a
-		create_country_leader = {
-	name = "Franz I"
-	desc = "LIC_FRANZ_I_DESC"
-	picture = "gfx/leaders/LIC/LIC_Franz_I.png"
-	expire = "1965.1.1"
-	ideology = marlib_austropopulism_subtype
-}
+		recruit_character = AUS_Gunther_Burstyn
 	}
 }
 
@@ -129,7 +123,7 @@ country_event = { #Death of Franz I
 		name = lic.3.a
 		add_political_power = -100
 		add_stability = -0.15
-		set_country_flag = LIC_franz_josef_ii
+		set_country_flag = LIC_franz_josef_ii_flag
 		create_country_leader = {
 			name = "Franz Josef II"
 			desc = "LIC_FRANZ_II_DESC"
@@ -156,7 +150,7 @@ country_event = { #Death of Franz I
 			desc = "LIC_FRANZ_II_DESC"
 			picture = "gfx/leaders/LIC/LIC_Franz_Joseph_II.png"
 			expire = "1965.1.1"
-			ideology = liberal_conservative_subtype
+			ideology = marlib_austropopulism_subtype
 		}
 		create_country_leader = {
 			name = "Franz Josef II"
@@ -185,13 +179,6 @@ country_event = { #Death of Franz I
 			picture = "gfx/leaders/LIC/LIC_Franz_Joseph_II.png"
 			expire = "1965.1.1"
 			ideology = liberalized_syndicalism_subtype
-		}
-		create_country_leader = {
-			name = "Franz Josef II"
-			desc = "LIC_FRANZ_II_DESC"
-			picture = "gfx/leaders/LIC/LIC_Franz_Joseph_II.png"
-			expire = "1965.1.1"
-			ideology = totalist_subtype
 		}
 		news_event = {
 			id = licnews.1
@@ -648,6 +635,7 @@ country_event = { #Habsburg Loyalists Arrive
 	
 	option = { #It shall be used wisely.
 		name = lic.15.a
+		set_country_flag = LIC_habsburg_loyalist_flag
 		add_manpower = 30000
 		add_equipment_to_stockpile = {
 			type = infantry_equipment
@@ -932,6 +920,12 @@ country_event = { #The Currency Act!
 country_event = { #The Occupation Government
 	id = lic.23
 	title = {
+		text = lic.23.t.a
+		trigger = {
+			has_socialist_government = no
+		}
+	}
+	title = {
 		text = lic.23.t.b
 		trigger = {
 			has_socialist_government = yes
@@ -939,6 +933,12 @@ country_event = { #The Occupation Government
 	}
 	desc = {
 		text = lic.23.d.a
+		trigger = {
+			has_socialist_government = no
+		}
+	}
+	desc = {
+		text = lic.23.d.b
 		trigger = {
 			has_socialist_government = no
 		}
@@ -951,12 +951,541 @@ country_event = { #The Occupation Government
 	is_triggered_only = yes
 	
 	option = { #I'm literally Hitler in the bunker!
-		name = lic.22.a
+		name = lic.23.a
 		add_stability = -0.40
 		add_war_support = -0.40
 		add_political_power = -500
+		if = {
+			limit = {
+				has_socialist_government = no
+			}
+			set_party_name = {
+				ideology = paternal_autocrat
+				name = LIC_occupation_govt_RUS_party
+				long_name = LIC_occupation_govt_RUS_party_long
+			}
+			else = {
+				set_party_name = {
+					ideology = totalist
+					name = LIC_occupation_govt_FRA_party
+					long_name = LIC_occupation_govt_FRA_party_long
+				}
+				set_party_name = {
+					ideology = syndicalist
+					name = LIC_occupation_govt_FRA_party
+					long_name = LIC_occupation_govt_FRA_party_long
+				}
+			}
+		}
 	}
 }
+
+country_event = { #Occupation Government Forms
+	id = lic.24
+	title = {
+		text = lic.24.t.a #Declaration of the Commune
+		trigger = {
+			has_socialist_government = no
+		}
+	}
+	title = {
+		text = lic.24.t.b #The Junta Government
+		trigger = {
+			has_socialist_government = yes
+		}
+	}
+	desc = {
+		text = lic.24.d.a
+		trigger = {
+			has_socialist_government = no
+		}
+	}
+	desc = {
+		text = lic.24.d.b
+		trigger = {
+			has_socialist_government = yes
+		}
+	}
+	
+	picture = GFX_event_LIC_arthur_holmston
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+	
+	option = { #Keep Beimler junta
+		name = lic.24.a
+		trigger = {
+			has_socialist_government = yes
+		}
+		set_cosmetic_tag = LIC_occupied_tag_THINT
+		add_political_power = 50
+		add_war_support = 0.05
+	}
+	
+	option = { #Rauscher Govt
+		name = lic.24.b
+		trigger = {
+			has_socialist_government = yes
+		}
+		set_cosmetic_tag = LIC_occupied_tag_THINT
+		set_politics = {
+			ruling_party = syndicalist
+		}
+		increase_ruling_party_popularity_by_5 = yes
+		add_stability = 0.05
+	}
+	
+	option = { #OK
+		name = lic.24.c
+		trigger = {
+			has_socialist_government = no
+		}
+		set_cosmetic_tag = LIC_occupied_tag_RUS
+		add_political_power = 35
+		add_stability = 0.03
+		add_war_support = 0.03
+	}
+	
+}
+
+country_event = { #life or death for berryboy
+	id = lic.25
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.25" }
+	title = lic.25.t
+	desc = lic.25.d
+	
+	picture = GFX_event_LIC_kieber
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #LIFE!!! (no annex)
+		name = lic.25.a
+		add_stability = 0.12
+		add_war_support = 0.12
+		add_political_power = -50
+		set_country_flag = LIC_for_berryboy
+	}
+	
+	option = { #DEATH!! (annex to Austria)
+		name = lic.25.b
+		trigger = {
+			OR = {
+				AND = {
+					is_in_faction_with = TYR
+					is_neighbor_of = TYR
+				}
+				AND = {
+					is_in_faction_with = AUS
+					is_neighbor_of = AUS
+				}
+			}
+		}
+		if = {
+			limit = {
+				is_neighbor_of = TYR
+			}
+			TYR = {
+				country_event = lic.26
+				annex_country = {
+					target = ROOT
+					transfer_troops = yes
+				}
+			}
+			else = {
+				AUS = {
+					country_event = lic.26
+					annex_country = {
+						target = ROOT
+						transfer_troops = yes
+					}
+				}
+			}
+		}
+	}
+	
+	option = { #DEATH!! (annex to Switzerland)
+		name = lic.25.c
+		trigger = {
+			is_in_faction_with = SWI
+			is_neighbor_of = SWI
+		}
+		SWI = {
+			country_event = lic.26
+			annex_country = {
+				target = ROOT
+				transfer_troops = yes
+			}
+		}
+	}
+	
+	option = { #DEATH!! (annex to nearest Germany)
+		name = lic.25.e
+		trigger = {
+			OR = {
+				AND = {
+					is_in_faction_with = BAY
+					is_neighbor_of = BAY
+				}
+				AND = {
+					is_in_faction_with = GER
+					is_neighbor_of = GER
+				}
+			}
+			if = {
+				limit = {
+					is_neighbor_of = BAY
+				}
+				BAY = {
+					country_event = lic.26
+					annex_country = {
+						target = ROOT
+						transfer_troops = yes
+					}
+				}
+				else = {
+					GER = {
+						country_event = lic.26
+						annex_country = {
+							target = ROOT
+							transfer_troops = yes
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Liechtenstein Incorporated
+	id = lic.26
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.26" }
+	title = lic.26.t
+	desc = lic.26.d
+	
+	picture = GFX_event_LIC_kieber
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Egads!
+		name = lic.26.a
+		add_state_core = 1235
+		add_political_power = -10
+	}
+}
+
+country_event = { #Who shall lead Vaduz-Schellenberg?
+	id = lic.27
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.27" }
+	title = lic.27.t
+	desc = lic.27.d
+	
+	picture = GFX_event_LIC_kieber
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Return their Princes!
+		name = lic.27.a
+		add_stability = 0.1
+		add_political_power = 50
+		if = {
+			limit = {
+				#If Liechtenstein-Alaska or Liechtenstein-Britain exists... must ask if they want to Switch Teams
+			}
+			else = {
+				set_cosmetic_tag = LIC
+				create_country_leader = {
+					name = "Franz Josef II"
+					desc = "LIC_FRANZ_II_DESC"
+					picture = "gfx/leaders/LIC/LIC_Franz_Joseph_II.png"
+					expire = "1965.1.1"
+					ideology = austropopulism_subtype
+				}
+				create_country_leader = {
+					name = "Franz Josef II"
+					desc = "LIC_FRANZ_II_DESC"
+					picture = "gfx/leaders/LIC/LIC_Franz_Joseph_II.png"
+					expire = "1965.1.1"
+					ideology = authoritarian_democrat_subtype
+				}
+				create_country_leader = {
+					name = "Franz Josef II"
+					desc = "LIC_FRANZ_II_DESC"
+					picture = "gfx/leaders/LIC/LIC_Franz_Joseph_II.png"
+					expire = "1965.1.1"
+					ideology = national_conservative_subtype
+				}
+				create_country_leader = {
+					name = "Franz Josef II"
+					desc = "LIC_FRANZ_II_DESC"
+					picture = "gfx/leaders/LIC/LIC_Franz_Joseph_II.png"
+					expire = "1965.1.1"
+					ideology = marlib_austropopulism_subtype
+				}
+				create_country_leader = {
+					name = "Franz Josef II"
+					desc = "LIC_FRANZ_II_DESC"
+					picture = "gfx/leaders/LIC/LIC_Franz_Joseph_II.png"
+					expire = "1965.1.1"
+					ideology = social_liberal_subtype
+				}
+				create_country_leader = {
+					name = "Franz Josef II"
+					desc = "LIC_FRANZ_II_DESC"
+					picture = "gfx/leaders/LIC/LIC_Franz_Joseph_II.png"
+					expire = "1965.1.1"
+					ideology = social_democrat_subtype
+				}
+				create_country_leader = {
+					name = "Franz Josef II"
+					desc = "LIC_FRANZ_II_DESC"
+					picture = "gfx/leaders/LIC/LIC_Franz_Joseph_II.png"
+					expire = "1965.1.1"
+					ideology = moderate_socialist_subtype
+				}
+				create_country_leader = {
+					name = "Franz Josef II"
+					desc = "LIC_FRANZ_II_DESC"
+					picture = "gfx/leaders/LIC/LIC_Franz_Joseph_II.png"
+					expire = "1965.1.1"
+					ideology = liberalized_syndicalism_subtype
+				}
+				country_event = licflavor.62
+			}
+		}
+	}
+	
+	option = { #Restore civilian rule.
+		name = lic.27.b
+		add_state_core = 1235
+		add_political_power = -10
+		add_popularity = {
+			ideology = paternal_autocrat
+			popularity = -0.33
+		}
+		add_popularity = {
+			ideology = social_democrat
+			popularity = 0.16
+		}
+		add_popularity = {
+			ideology = market_liberal
+			popularity = 0.16
+		}
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.16
+		}
+		country_event = lic.28 #Special Elections
+		hidden_effect = {
+			country_event = { id = licflavor.63 days = 30 random_days = 90 } #Radicalization without a Prince (+tot, synd, radsoc, etc popularity)
+		}
+	}
+	
+	option = { #...The Grand Prince.
+		trigger = {
+			RUS = {
+				has_country_leader = {
+					name = "Vladimir III"
+				}
+			}
+		}
+		name = lic.27.c
+		set_cosmetic_tag = LIC_occupied_tag_RUS_GD
+		set_country_flag = LIC_GD_flag
+		country_event = { id = licflavor.64 days = 3 } #The Coronation of a Grand Princ
+	}	
+}
+
+country_event = { #Who shall lead Vaduz-Schellenberg?
+	id = lic.28
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.28" }
+	title = lic.28.t
+	desc = lic.28.d
+	
+	picture = GFX_event_LIC_kieber
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #The FBP!
+		name = lic.28.a
+		set_politics = {
+			ruling_party = social_conservative
+		}
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.05
+		}
+		LIC_darkrp_hobo_role_change = yes 
+	}
+	
+	option = { #The VU!
+		name = lic.28.a
+		set_politics = {
+			ruling_party = market_liberal
+		}
+		add_popularity = {
+			ideology = market_liberal
+			popularity = 0.05
+		}
+		LIC_darkrp_hobo_role_change = yes 
+	}
+	
+	option = { #The UEK!
+		name = lic.28.a
+		set_politics = {
+			ruling_party = social_democrat
+		}
+		add_popularity = {
+			ideology = social_democrat
+			popularity = 0.05
+		}
+		LIC_darkrp_hobo_role_change = yes 
+	}
+}
+
+country_event = { #The End of the Occupation Government
+	id = lic.29
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.29" }
+	title = lic.29.t
+	desc = lic.29.d
+	
+	picture = GFX_event_LIC_kieber
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #The FBP!
+		name = lic.29.a
+		add_stability = 0.15
+		add_war_support = 0.15
+		add_political_power = 50
+		if = {
+			limit = {
+				has_completed_focus = LIC_new_spartacists
+			}
+			set_party_name = {
+				ideology = totalist
+				name = LIC_totalist_party_postfrance
+				long_name = LIC_totalist_party_postfrance_long
+			}
+			set_party_name = {
+				ideology = syndicalist
+				name = LIC_syndicalist_party
+				long_name = LIC_syndicalist_party_long
+			}
+			else_if = {
+				limit = {
+					NOT = {
+						has_country_flag = LIC_GD_flag
+					}
+				}
+				set_party_name = {
+					ideology = paternal_autocrat
+					name = LIC_paternal_autocrat_party
+					long_name = LIC_paternal_autocrat_party_long
+				}
+			}
+		}
+		overlord = {
+			end_puppet = LIC
+			country_event = lic.30
+		}
+	}
+}
+
+country_event = { #(overlord, can be FRA/RUS) End of the Liechtenstein Occupation
+	id = lic.30
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.30" }
+	title = lic.30.t
+	desc = lic.30.d
+	
+	picture = GFX_event_LIC_kieber
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #OK
+		name = lic.30.a
+		add_stability = 0.01
+	}
+}
+
+country_event = { #Peace in Haute-Savoie
+	id = lic.31
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.31" }
+	title = lic.31.t
+	desc = lic.31.d
+	
+	picture = GFX_event_LIC_kieber
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #So there is no French threat?
+		name = lic.31.a
+		add_stability = 0.05
+		custom_effect_tooltip = LIC_change_quota
+		subtract_from_variable = {
+			var = LIC.quota_value
+			value = 0.1
+		}
+	}
+}
+
+country_event = { #Second American Civil War
+	id = lic.32
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.32" }
+	title = lic.32.t
+	desc = lic.32.d
+	
+	picture = GFX_event_LIC_kieber
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #So there is no French threat?
+		name = lic.32.a
+		add_stability = -0.03
+		LIC_readiness_take_10 = yes
+	}
+}
+
+country_event = { #Haute-Savoie Crisis Triggers Swiss Worries (temporary swiss halting of trade to austria)
+	id = lic.33
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.33" }
+	title = lic.33.t
+	desc = lic.33.d
+	
+	picture = GFX_event_LIC_kieber
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #So there is no French threat?
+		name = lic.33.a
+		add_political_power = -35
+		add_power_balance_value = {
+			id = LIC_austro_swiss
+			value = 0.25
+			tooltip_side = LIC_austro_swiss_austria
+		}
+		LIC_readiness_take_15 = yes
+	}
+}
+
 
 
 country_event = { #Death of the Last Soldier of the Army, 1939
@@ -2204,8 +2733,8 @@ country_event = { #Commission to Study the Weltkrieg! (Army path)
 			has_completed_focus = LIC_maintain_the_police
 		}
 		swap_ideas = {
-			add_idea = LIC_military_police_2
-			remove_idea = LIC_military_police
+			add_idea = LIC_military_police_idea_2
+			remove_idea = LIC_military_police_idea
 		}
 	}
 }
@@ -2399,27 +2928,6 @@ country_event = { #Alpabfahrtstag
 }
 
 country_event = { #The Death of Wilhelm Beck
-	id = licflavor.55
-	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.55" }
-	title = licflavor.55.t
-	desc = licflavor.55.d
-	
-	picture = GFX_event_LIC_state_meeting_swiss
-
-	fire_only_once = yes
-
-	is_triggered_only = yes
-
-	option = { #Damn
-		name = licflavor.55.a
-		add_popularity = {
-			ideology = social_conservative
-			popularity = -0.05
-		}
-	}
-}
-
-country_event = { #Girl Scouts of Liechtenstein https://pfadi.li/organisation/abteilungen/fuerst-franz-und-fuerstin-gina-pfadfinderinnen-schaan-planken
 	id = licflavor.56
 	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.56" }
 	title = licflavor.56.t
@@ -2433,8 +2941,289 @@ country_event = { #Girl Scouts of Liechtenstein https://pfadi.li/organisation/ab
 
 	option = { #Damn
 		name = licflavor.56.a
+		add_popularity = {
+			ideology = social_conservative
+			popularity = -0.05
+		}
 	}
 }
+
+country_event = { #Girl Scouts of Liechtenstein https://pfadi.li/organisation/abteilungen/fuerst-franz-und-fuerstin-gina-pfadfinderinnen-schaan-planken
+	id = licflavor.57
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.57" }
+	title = licflavor.57.t
+	desc = licflavor.57.d
+	
+	picture = GFX_event_LIC_state_meeting_swiss
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Damn
+		name = licflavor.57.a
+	}
+}
+
+country_event = { #Max Auwarter's Gold Medal for a Corrosion-Resistant Dental Mirror (1937)
+	id = licflavor.58
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.58" }
+	title = licflavor.58.t
+	desc = licflavor.58.d
+	
+	picture = GFX_event_LIC_state_meeting_swiss
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Employ him in military affairs
+		name = licflavor.58.a
+		add_tech_bonus = {
+			category = industry
+			uses = 1
+			bonus = 1
+		}
+		recruit_character = LIC_Max_Auwarter
+	}
+	
+}
+
+country_event = { #The Death of Egon Rheinberger https://historisches-lexikon.li/Rheinberger,_Egon
+	id = licflavor.59
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.59" }
+	title = licflavor.59.t
+	desc = licflavor.59.d
+	
+	picture = GFX_event_LIC_state_meeting_swiss
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Damn
+		name = licflavor.59.a
+		add_tech_bonus = {
+			category = industry
+			uses = 1
+			bonus = 1
+		}
+	}
+}
+
+country_event = { #Nascent Motorization
+	id = licflavor.60
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.60" }
+	title = licflavor.60.t
+	desc = licflavor.60.d
+	
+	picture = GFX_event_LIC_state_meeting_swiss
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Damn
+		name = licflavor.60.a
+		set_technology = {
+			bicycle_infantry = 1
+		}
+	}
+	
+	option = { #Damn
+		name = licflavor.60.b
+		add_equipment_bonus = {
+			bonus = {
+				motorized_equipment = { # Type of equipment
+					build_cost_ic = -0.1
+					instant = yes
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Mass Flag-Burning
+	id = licflavor.61
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.61" }
+	title = licflavor.61.t
+	desc = licflavor.61.d
+	
+	picture = GFX_event_LIC_state_meeting_swiss
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Damn
+		name = licflavor.61.a
+		add_political_power = -25
+		increase_ruling_party_popularity_by_5 = yes
+	}
+}
+
+country_event = { #The Return of the Princes!
+	id = licflavor.62
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.61" }
+	title = licflavor.62.t
+	desc = licflavor.62.d
+	
+	picture = GFX_event_LIC_state_meeting_swiss
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Hurrah!
+		name = licflavor.62.a
+		add_political_power = 100
+	}
+}
+
+country_event = { #Radicalism on the Rise (NO PRINCES?)
+	id = licflavor.63
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.61" }
+	title = licflavor.63.t
+	desc = licflavor.63.d
+	
+	picture = GFX_event_LIC_state_meeting_swiss
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Hurrah!
+		name = licflavor.63.a
+		add_popularity = {
+			ideology = totalist
+			popularity = 0.04
+		}
+		add_popularity = {
+			ideology = syndicalist
+			popularity = 0.04
+		}
+		add_popularity = {
+			ideology = radical_socialist
+			popularity = 0.04
+		}
+		add_popularity = {
+			ideology = national_populist
+			popularity = 0.08
+		}
+	}
+}
+
+country_event = { #Coronation of a Grand Prince
+	id = licflavor.64
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.64" }
+	title = licflavor.64.t
+	desc = licflavor.64.d
+	
+	picture = GFX_event_LIC_state_meeting_swiss
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Hurrah!
+		name = licflavor.64.a
+		add_political_power = 50
+		add_stability = -0.15
+		country_event = { id = licflavor.65 days = 10 random_days = 30 }
+		set_politics = {
+			ruling_party = paternal_autocrat
+		}
+		set_party_name = {
+			ideology = paternal_autocrat
+			name = LIC_absolute_party_GD
+			long_name = LIC_absolute_party_GD_LONG
+		}
+		create_country_leader = {
+			name = "Vladimir I"
+			desc = "POLITICS_VLADIMIR_ROMANOV_ABS_DESC"
+			picture = "gfx/leaders/RUS/Portrait_RUS_Vladimir_Romanov.png"
+			expire = "1.1.1"
+			ideology = absolute_monarchy_subtype
+		}
+		create_country_leader = {
+			name = "Vladimir I"
+			desc = "POLITICS_VLADIMIR_ROMANOV_ABS_DESC"
+			picture = "gfx/leaders/RUS/Portrait_RUS_Vladimir_Romanov.png"
+			expire = "1.1.1"
+			ideology = authoritarian_democrat_subtype
+		}
+		create_country_leader = {
+			name = "Vladimir I"
+			desc = "POLITICS_VLADIMIR_ROMANOV_ABS_DESC"
+			picture = "gfx/leaders/RUS/Portrait_RUS_Vladimir_Romanov.png"
+			expire = "1.1.1"
+			ideology = marlib_austropopulism_subtype
+		}
+		create_country_leader = {
+			name = "Vladimir I"
+			desc = "POLITICS_VLADIMIR_ROMANOV_ABS_DESC"
+			picture = "gfx/leaders/RUS/Portrait_RUS_Vladimir_Romanov.png"
+			expire = "1.1.1"
+			ideology = social_liberal_subtype
+		}
+		create_country_leader = {
+			name = "Vladimir I"
+			desc = "POLITICS_VLADIMIR_ROMANOV_ABS_DESC"
+			picture = "gfx/leaders/RUS/Portrait_RUS_Vladimir_Romanov.png"
+			expire = "1.1.1"
+			ideology = social_democrat_subtype
+		}
+		create_country_leader = {
+			name = "Vladimir I"
+			desc = "POLITICS_VLADIMIR_ROMANOV_ABS_DESC"
+			picture = "gfx/leaders/RUS/Portrait_RUS_Vladimir_Romanov.png"
+			expire = "1.1.1"
+			ideology = moderate_socialist_subtype
+		}
+		create_country_leader = {
+			name = "Vladimir I"
+			desc = "POLITICS_VLADIMIR_ROMANOV_ABS_DESC"
+			picture = "gfx/leaders/RUS/Portrait_RUS_Vladimir_Romanov.png"
+			expire = "1.1.1"
+			ideology = liberalized_syndicalism_subtype
+		}
+	}
+}
+
+country_event = { #Disloyalty to the Sovereign
+	id = licflavor.65
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.65" }
+	title = licflavor.65.t
+	desc = licflavor.65.d
+	
+	picture = GFX_event_LIC_state_meeting_swiss
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Hurrah!
+		name = licflavor.65.a
+		add_stability = -0.05
+		add_popularity = {
+			ideology = national_populist
+			popularity = 0.05
+		}
+		add_popularity = {
+			ideology = syndicalist
+			popularity = 0.05
+		}
+		create_country_leader = {
+			name = "Emil Risch"
+			desc = "POLITICS_EMIL_RISCH_DESC"
+			picture = "gfx/leaders/LIC/LIC_Emil_Risch.png"
+			expire = "1.1.1"
+			ideology = syndicalism_subtype
+		}
+	}
+}
+
+
 
 country_event = { #GER - Liechtenstein Requests Reichpakt Membership
 	id = licfor.1
@@ -3228,12 +4017,6 @@ country_event = { #Franz Josef Selected for King
 	option = { #This is our most lucrative property yet!
 		name = licfor.21.a
 		add_political_power = 50
-		ENG = {
-			LIC = {
-				puppet = PREV
-			}
-			restore_previous_government_type = yes
-		}
 		set_country_flag = LIC_WON_BRITAIN
 	}
 }
@@ -4673,6 +5456,388 @@ country_event = { #Our Expansion
 	}
 }
 
+country_event = { #Buying Guns
+	id = licfor.57
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.57" }
+	title = licfor.57.t
+	desc = licfor.57.d
+	
+	picture = GFX_event_LIC_state_meeting_swiss
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Swiss
+		name = licfor.57.a
+		add_power_balance_value = {
+			id = LIC_austro_swiss
+			value = -0.1
+			tooltip_side = LIC_austro_swiss_swiss
+		}
+		if = {
+			limit = {
+				power_balance_value = {
+					id = LIC_austro_swiss
+					value < -0.8
+				}
+			}
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 4000
+				producer = SWI
+			}
+			else = {
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 2000
+					producer = SWI
+				}
+			}
+		}
+	}
+	
+	option = { #Austrian
+		name = licfor.57.b
+		add_power_balance_value = {
+			id = LIC_austro_swiss
+			value = 0.1
+			tooltip_side = LIC_austro_swiss_austria
+		}
+		if = {
+			limit = {
+				power_balance_value = {
+					id = LIC_austro_swiss
+					value > 0.8
+				}
+			}
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 4000
+				producer = AUS
+			}
+			else = {
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 2000
+					producer = AUS
+				}
+			}
+		}
+	}
+	
+}
+
+country_event = { #Buying Planes
+	id = licfor.58
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.58" }
+	title = licfor.58.t
+	desc = licfor.58.d
+	
+	picture = GFX_event_LIC_state_meeting_swiss
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Swiss
+		name = licfor.58.a
+		add_power_balance_value = {
+			id = LIC_austro_swiss
+			value = -0.15
+			tooltip_side = LIC_austro_swiss_swiss
+		}
+		if = {
+			limit = {
+				power_balance_value = {
+					id = LIC_austro_swiss
+					value < -0.8
+				}
+			}
+			add_equipment_to_stockpile = {
+				type = small_plane_airframe
+				amount = 50
+				producer = SWI
+			}
+			else = {
+				add_equipment_to_stockpile = {
+					type = small_plane_airframe_0
+					amount = 25
+					producer = SWI
+				}
+			}
+		}
+	}
+	
+	option = { #Austrian
+		name = licfor.58.b
+		add_power_balance_value = {
+			id = LIC_austro_swiss
+			value = 0.15
+			tooltip_side = LIC_austro_swiss_austria
+		}
+		if = {
+			limit = {
+				power_balance_value = {
+					id = LIC_austro_swiss
+					value > 0.8
+				}
+			}
+			add_equipment_to_stockpile = {
+				type = small_plane_airframe
+				amount = 50
+				producer = AUS
+			}
+			else = {
+				add_equipment_to_stockpile = {
+					type = small_plane_airframe_0
+					amount = 25
+					producer = AUS
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Austria dood wat nou
+	id = licfor.59
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.59" }
+	title = licfor.59.t
+	desc = licfor.59.d
+	
+	picture = GFX_event_AUS_justice_palace_fire
+
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = { #Damn.
+		name = licfor.59.a
+		add_political_power = -100
+		add_stability = -0.1
+		if = {
+			limit = { has_power_balance = { id = LIC_austro_swiss } }
+			add_power_balance_value = {
+				id = LIC_austro_swiss
+				value = -0.5
+			}
+		}
+	}
+}
+
+country_event = { #Liechtenstein requests some additional resources
+	id = licfor.60
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.60" }
+	title = licfor.60.t
+	desc = licfor.60.d
+	
+	picture = GFX_event_AUS_justice_palace_fire
+
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = { #A lot
+		name = licfor.60.a
+		send_equipment = {
+			equipment = infantry_equipment
+			amount = 2000
+			target = LIC
+		}
+		send_equipment = {
+			equipment = artillery_equipment
+			amount = 400
+			target = LIC
+		}
+		send_equipment = {
+			equipment = support_equipment
+			amount = 250
+			target = LIC
+		}
+		add_manpower = -20000
+		FROM = {
+			add_manpower = 20000
+			set_country_flag = LIC_foreign_support
+			country_event = {
+				id = licfor.61
+			}
+		}
+	}
+	
+	option = { #Some
+		name = licfor.60.b
+		send_equipment = {
+			equipment = infantry_equipment
+			amount = 1000
+			target = LIC
+		}
+		send_equipment = {
+			equipment = artillery_equipment
+			amount = 200
+			target = LIC
+		}
+		send_equipment = {
+			equipment = support_equipment
+			amount = 100
+			target = LIC
+		}
+		add_manpower = -10000
+		FROM = {
+			add_manpower = 10000
+			set_country_flag = LIC_foreign_support
+			country_event = {
+				id = licfor.61
+			}
+		}
+	}
+	
+	option = { #GO FUCK YOURSELF!
+		name = licfor.60.c
+		ai_chance = { factor = 0 }
+		add_political_power = 5
+		add_stability = -0.03
+		FROM = {
+			country_event = {
+				id = licfor.61
+			}
+		}
+	}
+}
+
+country_event = { #Liechtenstein requests some additional resources
+	id = licfor.61
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.61" }
+	title = {
+		text = licfor.61.t.a
+		trigger = {
+			has_country_flag = LIC_foreign_support
+		}
+	}
+	title = {
+		text = licfor.61.t.b
+		trigger = {
+			NOT = {
+				has_country_flag = LIC_foreign_support
+			}
+		}
+	}
+	desc = {
+		text = licfor.61.d.a
+		trigger = {
+			has_country_flag = LIC_foreign_support
+		}
+	}
+	desc = {
+		text = licfor.61.d.b
+		trigger = {
+			NOT = {
+				has_country_flag = LIC_foreign_support
+			}
+		}
+	}
+	
+	picture = GFX_event_AUS_justice_palace_fire
+
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = { #A lot
+		name = licfor.61.a
+		trigger = {
+			has_country_flag = LIC_foreign_support
+		}
+	}
+	
+	option = { #A lot
+		name = licfor.61.b
+		trigger = {
+			NOT = {
+				has_country_flag = LIC_foreign_support
+			}
+		}
+	}
+	
+}
+
+country_event = { #vorarlberg
+	id = licfor.62
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.62" }
+	title = licfor.62.t
+	desc = licfor.62.d
+	
+	picture = GFX_event_LIC_rip_franz_i
+
+	is_triggered_only = yes
+	fire_only_once = no
+	
+	option = { #yea
+		name = licfor.62.a
+		LIC = {
+			country_event = licfor.63
+			transfer_state = event_target:LIC_state_lol
+			clear_global_event_target = LIC_state_lol
+		}
+	}
+	
+	option = { #nau
+		name = licfor.62.b
+		ai_chance = {
+			factor = 0
+		}
+		LIC = {
+			country_event = licfor.64
+		}
+	}
+}
+
+country_event = { #we got that
+	id = licfor.63
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.63" }
+	title = licfor.63.t
+	desc = licfor.63.d
+	
+	picture = GFX_event_LIC_rip_franz_i
+
+	is_triggered_only = yes
+	fire_only_once = no
+	
+	option = { #yea
+		name = licfor.62.a
+		
+	}
+	
+}
+
+country_event = { #we no got that
+	id = licfor.64
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.64" }
+	title = licfor.64.t
+	desc = licfor.64.d
+	
+	picture = GFX_event_LIC_rip_franz_i
+
+	is_triggered_only = yes
+	fire_only_once = no
+	
+	option = { #yea
+		name = licfor.64.a
+		
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4773,5 +5938,38 @@ news_event = { #Franz Josef II declares absolute monarchy
 
 	option = { #Interesting.
 		name = licnews.4.a
+	}
+}
+
+news_event = { #Liechtenstein Buys Alaska
+	id = licnews.5
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licnews.5" }
+	title = licnews.5.t
+	desc = licnews.5.d
+	
+	picture = GFX_event_LIC_alaskan_map
+	
+	show_major = {
+		OR = {
+			regional_europe_news = yes
+			regional_north_america_news = yes
+		}
+	}
+	
+	trigger = {
+		wants_world_news = yes
+	}
+
+	is_triggered_only = yes
+	
+	major = yes
+
+	option = { #For such a small state they sure have deep pockets.
+		name = licnews.5.a
+		trigger = { NOT = { is_in_faction_with = LIC } }
+	}
+	option = { #Nach Norden nach Alaska!
+		name = licnews.5.b
+		trigger = { is_in_faction_with = LIC }
 	}
 }
