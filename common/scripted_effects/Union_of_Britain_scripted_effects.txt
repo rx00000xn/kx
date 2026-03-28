@@ -13,6 +13,7 @@ ENG_get_tuc_outcome = {
 	add_to_temp_variable = {
 		aut_anc_total = ENG_tuc_autonomist
 	} 
+	set_country_flag = ENG_manual_complete_tuc_focus
 	if = {#maximists
 		limit = {
 			check_variable = {
@@ -387,7 +388,6 @@ ENG_AUT_ITS_DEVOLUTION_BABY = {
 					ideology = radsoc_national_communism_subtype
 				}
 			}
-
 		}
 		WAL = {
 			add_state_core = 122
@@ -868,4 +868,72 @@ ENG_AUT_set_up_council_east = {
 			}
 		}
 	}	
+}
+
+ENG_add_to_femternationale = {
+	if = {
+		limit = { ENG_is_in_femternationale = no }
+		custom_effect_tooltip = ENG_add_to_femternationale
+		set_country_flag = ENG_is_in_femternationale
+		add_to_array = { ENG.ENG_femternationale_members = THIS }
+		add_ideas = ENG_femternationale_member
+	}
+}
+
+ENG_remove_from_femternationale = {
+	if = {
+		limit = { ENG_is_in_femternationale = yes }
+		custom_effect_tooltip = ENG_remove_from_femternationale
+		hidden_effect = {
+			remove_from_array = { ENG.ENG_femternationale_members = THIS }
+			remove_ideas = {
+				ENG_femternationale_member
+			}
+		}
+	}
+}
+
+ENG_FED_update_integration_levels = {
+	if = {
+		limit = {
+			FROM = {
+				count_triggers = {
+					amount = 3
+					has_country_flag = ENG_FED_accepted_eco_flag
+					has_country_flag = ENG_FED_accepted_mil_flag
+					has_country_flag = ENG_FED_accepted_pol_flag
+				}
+			}
+		}
+		remove_from_array = { ENG.ENG_integration_amount_puppet = FROM }
+		add_to_array = { ENG.ENG_integration_amount_full = FROM }
+	}
+	else_if = {
+		limit = {
+			FROM = {
+				count_triggers = {
+					amount = 2
+					has_country_flag = ENG_FED_accepted_eco_flag
+					has_country_flag = ENG_FED_accepted_mil_flag
+					has_country_flag = ENG_FED_accepted_pol_flag
+				}
+			}
+		}
+		remove_from_array = { ENG.ENG_integration_amount_faction = FROM }
+		add_to_array = { ENG.ENG_integration_amount_puppet = FROM }
+	}
+	else_if = {
+		limit = {
+			FROM = {
+				count_triggers = {
+					amount = 1
+					has_country_flag = ENG_FED_accepted_eco_flag
+					has_country_flag = ENG_FED_accepted_mil_flag
+					has_country_flag = ENG_FED_accepted_pol_flag
+				}
+			}
+		}
+		add_to_array = { ENG.ENG_integration_amount_faction = FROM }
+	}
+
 }

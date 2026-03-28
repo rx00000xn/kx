@@ -204,7 +204,9 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_foreign_discussion"
 			add_stability = 0.075
 			custom_effect_tooltip = ENG_TUC_Winner_Announced_tt
-			ENG_get_tuc_outcome = yes
+			hidden_effect = {
+				ENG_get_tuc_outcome = yes
+			}
 		}
 	}
 
@@ -251,16 +253,12 @@ focus_tree = {
 			focus = ENG_side_with_anarchists
 		}
 		available = {
-			has_power_balance = {
-				id = ENG_Anarchist_Totalist_balance
-			}
-			hidden_trigger = {
-				has_country_flag = ENG_BOP_sided_with_government
-			}
+			always = no
 		}
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_side_with_government"
+			custom_effect_tooltip = tooltip_focus_unlocked_by_event
 			add_political_power = 10
 			add_power_balance_value = {
 				id = ENG_Anarchist_Totalist_balance
@@ -379,16 +377,13 @@ focus_tree = {
 			focus = ENG_side_with_government
 		}
 		available = {
-			has_power_balance = {
-				id = ENG_Anarchist_Totalist_balance
-			}
-			hidden_trigger = {
-				has_country_flag = ENG_BOP_sided_with_anarchists
-			}
+			always = no
+			
 		}
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_side_with_anarchists"
+			custom_effect_tooltip = tooltip_focus_unlocked_by_event
 			add_political_power = 10
 			add_power_balance_value = {
 				id = ENG_Anarchist_Totalist_balance
@@ -501,10 +496,10 @@ focus_tree = {
 	## Anarchist - Democratic ## 
 	focus = {
 		id = ENG_1936_Anarchist_Victory
-		icon = GFX_RUS_National_Agrarian_Fund
+		icon = GFX_goal_ENG_1936_Anarchist_Victory
 		cost = 0
 		relative_position_id = ENG_voice_of_tuc
-		x = -25
+		x = -22
 		y = 4
 		available = {
 			always = no
@@ -522,7 +517,468 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
+	focus = {
+		id = ENG_ANA_greed_of_excess
+		icon = GFX_goal_ENG_ANA_greed_of_excess
+		cost = 8
+		relative_position_id = ENG_1936_Anarchist_Victory
+		x = -2
+		y = 1
+		prerequisite = {
+			focus = ENG_1936_Anarchist_Victory
+		}
+		available = {
+			ENG_anarchists_lead = yes
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_greed_of_excess"
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = ENG_ANA_allies_across_ocean
+		icon = GFX_goal_ENG_ANA_allies_across_ocean
+		cost = 8
+		relative_position_id = ENG_ANA_greed_of_excess
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = ENG_ANA_greed_of_excess
+		}
+		available = {
+			ENG_anarchists_lead = yes
+			has_global_flag = USA_civil_war_begun_flag
+			country_exists = CSA
+			NOT = {
+				has_global_flag = USA_civil_war_over_flag
+			}
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_allies_across_ocean"
+			add_ideas = ENG_ANA_anarchism_across_atlantic_idea
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = ENG_ANA_platformist_approach
+		icon = GFX_goal_ENG_ANA_platformist_approach
+		cost = 8
+		relative_position_id = ENG_1936_Anarchist_Victory
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = ENG_1936_Anarchist_Victory
+		}
+		available = {
+			ENG_anarchists_lead = yes
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_platformist_approach"
+			add_political_power = 50
+			add_ideas = ENG_ANA_idea_1
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = ENG_ANA_leaders_to_liaison
+		icon = GFX_goal_ENG_ANA_leaders_to_liaison
+		cost = 8
+		relative_position_id = ENG_1936_Anarchist_Victory
+		x = 2
+		y = 1
+		prerequisite = {
+			focus = ENG_1936_Anarchist_Victory
+		}
+		available = {
+			ENG_anarchists_lead = yes
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_leaders_to_liaison"
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = ENG_ANA_east_london_allies
+		icon = GFX_goal_ENG_ANA_east_london_allies
+		cost = 8
+		relative_position_id = ENG_ANA_leaders_to_liaison
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = ENG_ANA_leaders_to_liaison
+		}
+		available = {
+			ENG_anarchists_lead = yes
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_east_london_allies"
+			
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = ENG_ANA_no_forced_servitude
+		icon = GFX_goal_ENG_ANA_no_forced_servitude
+		cost = 8
+		relative_position_id = ENG_ANA_platformist_approach
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = ENG_ANA_platformist_approach
+		}
+		available = {
+			ENG_anarchists_lead = yes
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_no_forced_servitude"
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = ENG_ANA_individual_first
+		icon = GFX_goal_ENG_ANA_individual_first
+		cost = 8
+		relative_position_id = ENG_ANA_no_forced_servitude
+		x = -1
+		y = 1
+		prerequisite = {
+			focus = ENG_ANA_no_forced_servitude
+		}
+		prerequisite = {
+			focus = ENG_ANA_greed_of_excess
+		}
+		mutually_exclusive = {
+			focus = ENG_ANA_collective_first
+		}
+		available = {
+			ENG_anarchists_lead = yes
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_individual_first"
+			swap_ideas = {
+				remove_idea = ENG_ANA_idea_1
+				add_idea = ENG_ANA_individual_idea_2
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = ENG_ANA_collective_first
+		icon = GFX_goal_ENG_ANA_collective_first
+		cost = 8
+		relative_position_id = ENG_ANA_no_forced_servitude
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = ENG_ANA_no_forced_servitude
+		}
+		prerequisite = {
+			focus = ENG_ANA_leaders_to_liaison
+		}
+		mutually_exclusive = {
+			focus = ENG_ANA_individual_first
+		}
+		available = {
+			ENG_anarchists_lead = yes
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_collective_first"
+			swap_ideas = {
+				remove_idea = ENG_ANA_idea_1
+				add_idea = ENG_ANA_collective_idea_2
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = ENG_ANA_yield_to_WSPU
+		icon = GFX_goal_ENG_ANA_yield_to_WSPU
+		cost = 8
+		relative_position_id = ENG_ANA_individual_first
+		x = -1
+		y = 1
+		prerequisite = {
+			focus = ENG_ANA_individual_first
+			focus = ENG_ANA_collective_first
+		}
+		available = {
+			ENG_anarchists_lead = yes
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_yield_to_WSPU"
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = ENG_ANA_power_in_multiple_hands
+		icon = GFX_goal_ENG_ANA_power_in_multiple_hands
+		cost = 8
+		relative_position_id = ENG_ANA_no_forced_servitude
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = ENG_ANA_individual_first
+			focus = ENG_ANA_collective_first
+		}
+		available = {
+			ENG_anarchists_lead = yes
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_power_in_multiple_hands"
+			set_cosmetic_tag = ENG_ANA_anarchist_britain
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = ENG_ANA_expand_strickland
+		icon = GFX_goal_ENG_ANA_expand_strickland
+		cost = 8
+		relative_position_id = ENG_ANA_collective_first
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = ENG_ANA_individual_first
+			focus = ENG_ANA_collective_first
+		}
+		available = {
+			ENG_anarchists_lead = yes
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_expand_strickland"
+			custom_effect_tooltip = ENG_ANA_will_improve_strickland
+			custom_effect_tooltip = tooltip_white_line
+			if = {
+				limit = { has_dlc = "La Resistance" }
+				if = {
+					limit = { has_intelligence_agency = yes }
+					if = {
+						limit = {
+							NOT = { has_done_agency_upgrade = upgrade_psycho_warfare }
+						}
+						upgrade_intelligence_agency = upgrade_psycho_warfare
+					}
+				}
+				else_if = {
+					limit = { has_intelligence_agency = no }
+					create_intelligence_agency = yes
+				}
+			}
+			if = {
+				limit = { NOT = { has_dlc = "La Resistance" } }
+				army_experience = 25
+				add_political_power = 40
+			}
+			if = {
+				limit = {
+					has_completed_focus = ENG_ANA_east_london_allies
+				}
+				add_ideas = ENG_ANA_strickland_press_better_idea
+			}
+			else = {
+				add_ideas = ENG_ANA_strickland_press_idea
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = ENG_ANA_lessons_from_summerhill
+		icon = GFX_goal_ENG_ANA_lessons_from_summerhill
+		cost = 8
+		relative_position_id = ENG_ANA_yield_to_WSPU
+		x = -1
+		y = 1
+		prerequisite = {
+			focus = ENG_ANA_power_in_multiple_hands
+			focus = ENG_ANA_expand_strickland
+		}
+		prerequisite = {
+			focus = ENG_ANA_yield_to_WSPU
+		}
+		available = {
+			ENG_anarchists_lead = yes
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_lessons_from_summerhill"
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = ENG_ANA_end_militant_terror
+		icon = GFX_goal_ENG_ANA_end_militant_terror
+		cost = 8
+		relative_position_id = ENG_ANA_expand_strickland
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = ENG_ANA_yield_to_WSPU
+			focus = ENG_ANA_power_in_multiple_hands
+		}
+		prerequisite = {
+			focus = ENG_ANA_expand_strickland
+		}
+		available = {
+			ENG_anarchists_lead = yes
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_end_militant_terror"
+			add_popularity = {
+				ideology = totalist
+				popularity = -0.06
+			}
+			add_popularity = {
+				ideology = syndicalist
+				popularity = -0.02
+			}
+			add_equipment_to_stockpile = {
+				type = infantry_equipment_1
+				amount = 750
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = 125
+			}
+		}
+		
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
 
+	focus = {
+		id = ENG_ANA_anarchist_beauty
+		icon = GFX_goal_ENG_ANA_anarchist_beauty
+		cost = 8
+		relative_position_id = ENG_ANA_power_in_multiple_hands
+		x = -1
+		y = 1
+		prerequisite = {
+			focus = ENG_ANA_power_in_multiple_hands
+		}
+		available = {
+			ENG_anarchists_lead = yes
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_anarchist_beauty"
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = ENG_ANA_question_of_church
+		icon = GFX_goal_ENG_ANA_question_of_church
+		cost = 8
+		relative_position_id = ENG_ANA_power_in_multiple_hands
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = ENG_ANA_power_in_multiple_hands
+		}
+		available = {
+			ENG_anarchists_lead = yes
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_question_of_church"
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = ENG_ANA_individual_above_all
+		icon = GFX_goal_ENG_ANA_individual_above_all
+		cost = 8
+		relative_position_id = ENG_ANA_lessons_from_summerhill
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = ENG_ANA_lessons_from_summerhill
+		}
+		prerequisite = {
+			focus = ENG_ANA_anarchist_beauty
+		}
+		prerequisite = {
+			focus = ENG_ANA_question_of_church
+		}
+		prerequisite = {
+			focus = ENG_ANA_end_militant_terror
+		}
+		available = {
+			ENG_anarchists_lead = yes
+			has_completed_focus = ENG_ANA_individual_first
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_individual_above_all"
+			swap_ideas = {
+				remove_idea = ENG_ANA_individual_idea_2
+				add_idea = ENG_ANA_individual_idea_3
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = ENG_ANA_we_before_i
+		icon = GFX_goal_ENG_ANA_we_before_i
+		cost = 8
+		relative_position_id = ENG_ANA_end_militant_terror
+		x = -1
+		y = 1
+		prerequisite = {
+			focus = ENG_ANA_lessons_from_summerhill
+		}
+		prerequisite = {
+			focus = ENG_ANA_anarchist_beauty
+		}
+		prerequisite = {
+			focus = ENG_ANA_question_of_church
+		}
+		prerequisite = {
+			focus = ENG_ANA_end_militant_terror
+		}
+		available = {
+			ENG_anarchists_lead = yes
+			has_completed_focus = ENG_ANA_collective_first
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_we_before_i"
+			swap_ideas = {
+				remove_idea = ENG_ANA_collective_idea_2
+				add_idea = ENG_ANA_collective_idea_3
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = ENG_ANA_free_europe
+		icon = GFX_goal_ENG_ANA_free_europe
+		cost = 8
+		relative_position_id = ENG_ANA_individual_above_all
+		x = 2
+		y = 1
+		prerequisite = {
+			focus = ENG_ANA_individual_above_all
+			focus = ENG_ANA_we_before_i
+		}
+		available = {
+			ENG_anarchists_lead = yes
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_free_europe"
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
 	## Autonomist ## 
 	focus = {
 		id = ENG_1936_Autonomist_Victory
@@ -2185,11 +2641,10 @@ focus_tree = {
 		y = 1
 		prerequisite = {
 			focus = ENG_FED_revolutionary_backbone
-			
 		}
 		available = {
 			ENG_Federationists_lead = yes
-			OR ={
+			OR = {
 				has_completed_focus = ENG_FED_follow_snowden
 				has_completed_focus = ENG_FED_embrace_hornerism
 			}
@@ -2737,8 +3192,8 @@ focus_tree = {
 			}
 			set_party_name = {
 				ideology = syndicalist
-				long_name = ENG_PPSU_party_long
-				name = ENG_PPSU_party
+				long_name = ENG_PSPU_party_long
+				name = ENG_PSPU_party
 			}
 			add_popularity = {
 				ideology = syndicalist
@@ -2856,6 +3311,79 @@ focus_tree = {
 	}
 
 	focus = {
+		id = ENG_WSPU_ode_to_sisterhood
+		icon = GFX_goal_ENG_WSPU_ode_to_sisterhood
+		cost = 6
+		relative_position_id = ENG_WSPU_memories_of_martyrs
+		x = -1
+		y = 1
+		prerequisite = {
+			focus = ENG_WSPU_memories_of_martyrs
+		}
+		available = {
+			ENG_Feminists_lead = yes
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_WSPU_ode_to_sisterhood"
+			add_political_power = 50
+			if = {
+				limit = {
+					any_other_country = {
+						has_socialist_government = yes
+						is_female = yes
+					}
+				}
+				every_other_country = {
+					limit = {
+						has_socialist_government = yes
+						is_female = yes
+					}
+					add_political_power = 50
+					ENG = {
+						add_opinion_modifier = {
+							target = FROM
+							modifier = ENG_WSPU_sisterhood
+						}
+						reverse_add_opinion_modifier = {
+							target = FROM
+							modifier = ENG_WSPU_sisterhood
+						}
+					}
+				}
+			}
+			else = {
+				custom_effect_tooltip = ENG_WSPU_sisterhood_reach_out
+			}
+			
+		}
+	}
+	focus = {
+		id = ENG_WSPU_cultural_feminism
+		icon = GFX_goal_ENG_WSPU_cultural_feminism
+		cost = 6
+		relative_position_id = ENG_WSPU_hunt_cat_and_mouse
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = ENG_WSPU_hunt_cat_and_mouse
+		}
+		available = {
+			ENG_Feminists_lead = yes
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_WSPU_cultural_feminism"
+			add_ideas = ENG_WSPU_cultural_feminism_idea
+			hidden_effect = {
+				country_event = {
+					id = uob.718 #suffragetto
+					days = 7
+				}
+			}
+		}
+	}
+	focus = {
 		id = ENG_WSPU_emancipation_of_all
 		icon = GFX_goal_ENG_WSPU_Emancipation_of_all
 		cost = 8
@@ -2886,12 +3414,6 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			hidden_effect = {
-				country_event = {
-					id = uob.718 #suffragetto
-					days = 7
-				}
-			}
 		}
 	}
 
@@ -2916,7 +3438,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_WSPU_for_women_of_the_world"
 			add_popularity = {
-				ideology = radical_socialist
+				ideology = syndicalist
 				popularity = 0.04
 			}
 			swap_ideas = {
@@ -2932,6 +3454,11 @@ focus_tree = {
 			}
 		}
 	}
+	#Don't look at these...
+	#https://en.wikipedia.org/wiki/Socialist_International_Women
+	#https://en.wikipedia.org/wiki/International_Council_of_Women
+	#https://en.wikipedia.org/wiki/Communist_Women%27s_International
+	#https://en.wikipedia.org/wiki/International_Alliance_of_Women
 
 	focus = {
 		id = ENG_WSPU_internationale_cooperation
@@ -2951,11 +3478,11 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_WSPU_internationale_cooperation"
 			every_country = {
 				limit = { is_in_faction_with = ENG }
-				add_doctrine_cost_reduction = {
+				add_tech_bonus = {
+					name = ENG_WSPU_internationale_cooperation
+					category = infantry_tech
+					bonus = 0.2
 					uses = 2
-					cost_reduction = 0.33
-					name = land_doc_bonus
-					category = land_doctrine
 				}
 				army_experience = 30
 				navy_experience = 30
@@ -3009,6 +3536,11 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_WSPU_equality_in_the_new_age"
+			if = {
+				limit = { has_completed_focus = ENG_WSPU_ode_to_sisterhood }
+				custom_effect_tooltip = ENG_WSPU_eco_sphere_potential
+				custom_effect_tooltip = tooltip_white_line
+			}
 			swap_ideas = {
 				remove_idea = ENG_WSPU_idea_2
 				add_idea = ENG_WSPU_idea_3
@@ -3154,7 +3686,7 @@ focus_tree = {
 			}
 			hidden_effect = {
 				country_event = {
-					id = uob.709 #christabel "Not an empire" empire
+					id = uob.709 #christabels "Not an empire" empire
 					days = 25
 				}
 			}
@@ -3654,6 +4186,12 @@ focus_tree = {
 				add_idea = ENG_Fractured_Union_Idea_3
 			}
 			set_cosmetic_tag = ENG_BSP
+			hidden_effect = {
+				country_event = {
+					id = uob.611
+					days = 20
+				}
+			}
 		}
 	}
 
@@ -3674,7 +4212,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_BSP_emphasise_heroic_deeds"
 			add_doctrine_cost_reduction = {
-					uses = 2
+					uses = 1
 					cost_reduction = 0.33
 					name = land_doc_bonus
 					category = land_doctrine
@@ -4333,7 +4871,7 @@ focus_tree = {
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
 				cost_reduction = 0.33
-				uses = 2
+				uses = 1
 				category = land_doctrine
 			}
 			set_variable = {
@@ -4758,7 +5296,7 @@ focus_tree = {
 		y = 10
 		
 		available = {
-			has_country_flag = ENG_manual_complete_tuc_focus
+			always = yes
 		}
 
 		ai_will_do = { factor = 500 }
@@ -4778,13 +5316,6 @@ focus_tree = {
 		x = -2
 		y = 1
 
-		available = {
-			OR = {
-				has_country_flag = ENG_tuc_economy_glais
-				has_country_flag = ENG_tuc_economy_fem
-				has_country_flag = BRG_new_britain
-			}
-		}
 		mutually_exclusive = {
 			focus = ENG_central_industry_research
 		}
@@ -4872,14 +5403,6 @@ focus_tree = {
 		relative_position_id = ENG_the_common_land
 		x = 2
 		y = 1
-
-		available = {
-			OR = {
-				has_country_flag = ENG_tuc_economy_fem
-				has_country_flag = ENG_tuc_economy_mosley
-				has_country_flag = BRG_new_britain
-			}
-		}
 		mutually_exclusive = {
 			focus = ENG_local_talent
 		}
@@ -5317,7 +5840,7 @@ focus_tree = {
 		}
 		cost = 5.00
 		available = {
-			has_country_flag = ENG_manual_complete_tuc_focus
+			always = yes
 		}
 
 		x = 60
@@ -5370,14 +5893,7 @@ focus_tree = {
 		relative_position_id = ENG_improve_army
 		x = 3
 		y = 1
-		
-		available = {
-			OR = {
-				has_country_flag = ENG_tuc_military_fem
-				has_country_flag = ENG_tuc_military_mosley
-				has_country_flag = BRG_new_britain
-			}
-		}
+	
 		mutually_exclusive = {
 			focus = ENG_decentralized_command
 		}
@@ -5422,13 +5938,6 @@ focus_tree = {
 		x = 1
 		y = 1
 		
-		available = {
-			OR = {
-				has_country_flag = ENG_tuc_military_fem
-				has_country_flag = ENG_tuc_military_glais
-				has_country_flag = BRG_new_britain
-			}
-		}
 		mutually_exclusive = {
 			focus = ENG_central_command
 		}
@@ -5490,13 +5999,6 @@ focus_tree = {
 		}
 		mutually_exclusive = {
 			focus = ENG_officer_corps_academy
-		}
-		available = {
-			OR = {
-				has_country_flag = ENG_tuc_military_fem
-				has_country_flag = ENG_tuc_military_glais
-				has_country_flag = BRG_new_britain
-			}
 		}
 		ai_will_do = { factor = 100 }
 		completion_reward = {
@@ -5697,13 +6199,6 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = ENG_improve_army
-		available = {
-			OR = {
-				has_country_flag = ENG_tuc_military_fem
-				has_country_flag = ENG_tuc_military_mosley
-				has_country_flag = BRG_new_britain
-			}
-		}
 		ai_will_do = {
 			factor = 2
 			modifier = {
@@ -5754,14 +6249,6 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = ENG_improve_army
-		available = {
-			OR = {
-				has_country_flag = ENG_tuc_military_fem
-				has_country_flag = ENG_tuc_military_glais
-				has_country_flag = ENG_militia_good
-				has_country_flag = BRG_new_britain
-			}
-		}
 		ai_will_do = {
 			factor = 2
 			modifier = {
@@ -5803,13 +6290,6 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = ENG_improve_army
-		available = {
-			OR = {
-				has_country_flag = ENG_tuc_military_fem
-				has_country_flag = ENG_tuc_military_mosley
-				has_country_flag = BRG_new_britain
-			}
-		}
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -6096,7 +6576,7 @@ focus_tree = {
 		y = 0
 
 		available = {
-			has_country_flag = ENG_manual_complete_tuc_focus
+			always = yes
 		}
 		ai_will_do = {
 			factor = 2
@@ -6791,7 +7271,7 @@ focus_tree = {
 		y = 0
 
 		available = {
-			has_country_flag = ENG_manual_complete_tuc_focus
+			always = yes
 		}
 		ai_will_do = {
 			factor = 4
