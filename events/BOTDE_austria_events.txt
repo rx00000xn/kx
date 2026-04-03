@@ -3978,6 +3978,9 @@ country_event = { #Evidenz
 			set_country_flag = AUS_evidenzbureau_focus
 			set_country_flag = GUI_evidenz_decision
 			scoped_sound_effect = "BOTDE_AUS_evidenz_noise"
+			AUS = {
+				scoped_sound_effect = "BOTDE_AUS_evidenz_noise"
+			}
 			clr_global_flag = AUS_evidenzbureau_decision
 		}
 		else = {
@@ -4158,6 +4161,22 @@ country_event = { #Austria Proposes Alliance - Add to faction
 				}
 			}
 			italy_break_balance = yes
+		}
+		if = {
+			limit = {
+				tag = BUL
+				fifth_balkan_war = yes
+			}
+			AUS = {
+				every_enemy_country = {
+					BUL = {
+						declare_war_on = {
+							target = PREV
+							type = annex_everything
+						}
+					}
+				}
+			}
 		}
 		hidden_effect = {
 			if = {
@@ -8249,7 +8268,7 @@ country_event = { #The Fifth Balkan War Begins
 		}
 	}
 	
-	picture = GFX_event_AUS_karl_troops
+	picture = GFX_event_AUS_you_aint_built_for_this_fifth_balkan_war_son
 	
 	option = { #Gott erhalte Karl den Kaiser...
 		name = bdeausfor.101.a
@@ -8262,6 +8281,11 @@ country_event = { #The Fifth Balkan War Begins
 		set_global_flag = AUS_fifth_balkan_war_begun
 		if = {
 			limit = { tag = AUS }
+			add_faction_goal_slot = {
+				category = long_term
+				value = 1 
+			}
+			add_faction_goal = faction_goal_win_fifth_balkan_war
 			hidden_effect = {
 				country_event = {
 					id = bdeausfor.102
@@ -8269,6 +8293,7 @@ country_event = { #The Fifth Balkan War Begins
 				}
 				country_event = {
 					id = super.4
+					days = 2
 				}
 				random_other_country = {
 					news_event = {
@@ -8277,7 +8302,7 @@ country_event = { #The Fifth Balkan War Begins
 					}
 				}
 			}
-			add_war_support = 0.05
+			add_war_support = 0.25
 			AUS_subtract_eight_collapse = yes
 			ALL_subtract_ten_collapse = yes
 			set_country_flag = balkan_war_participant
@@ -8299,32 +8324,33 @@ country_event = { #The Fifth Balkan War Begins
 			}
 		}
 		else = {
-			add_war_support = 0.08
+			add_war_support = 0.25
 		}
 	}
-	option = { #
+	option = { #Za Otadžbinu!
 		name = bdeausfor.101.b
 		trigger = {
 			OR = {
 				tag = SER
 				is_subject_of = SER
 			}
-			
 		}
 		if = {
-			limit = {
-				tag = SER
-			}
+			limit = { tag = SER }
 			set_major = yes
-		}
-		add_war_support = 0.1
-		set_country_flag = balkan_war_participant
-		if = {
-			limit = {
-				NOT = {
-					has_idea = BOTDE_delenda_est
+			if = {
+				limit = { is_faction_leader = yes }
+				add_faction_goal = faction_goal_win_fifth_balkan_war
+				add_faction_goal_slot = {
+					category = long_term
+					value = 1 
 				}
 			}
+		}
+		add_war_support = 0.25
+		set_country_flag = balkan_war_participant
+		if = {
+			limit = { NOT = { has_idea = BOTDE_delenda_est } }
 			hidden_effect = { add_timed_idea = { idea = BOTDE_delenda_est days = 240 } }
 		}
 		set_global_flag = {
@@ -8333,7 +8359,7 @@ country_event = { #The Fifth Balkan War Begins
 			value = 1
 		}
 	}
-	option = { #
+	option = { #Pentru Patrie!
 		name = bdeausfor.101.c
 		trigger = {
 			OR = {
@@ -8342,23 +8368,17 @@ country_event = { #The Fifth Balkan War Begins
 			}
 		}
 		if = {
-			limit = {
-				tag = ROM
-			}
+			limit = { tag = ROM }
 			set_major = yes
 		}
-		add_war_support = 0.1
+		add_war_support = 0.25
 		set_country_flag = balkan_war_participant
 		if = {
-			limit = {
-				NOT = {
-					has_idea = BOTDE_delenda_est
-				}
-			}
+			limit = { NOT = { has_idea = BOTDE_delenda_est } }
 			hidden_effect = { add_timed_idea = { idea = BOTDE_delenda_est days = 240 } }
 		}
 	}
-	option = { #
+	option = { #Austria delenda est!
 		name = bdeausfor.101.e
 		trigger = {
 			NOT = {
@@ -8629,7 +8649,7 @@ country_event = { #Treaty of Princip
 		trigger = {
 			OR = {
 				tag = SER
-				is_in_faction_with = SER
+				is_ally_with = SER
 				tag = ROM
 			}
 		}
@@ -8653,7 +8673,7 @@ country_event = { #Treaty of Princip
 		trigger = {
 			NOT = {
 				tag = SER
-				is_in_faction_with = SER
+				is_ally_with = SER
 				tag = ROM
 			}
 		}
@@ -14110,7 +14130,7 @@ country_event = { #The Ausgleich Begins
 	id = bdeausgleich.4
 	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausgleich.4 ausgleich success: [?global.ausgleich_successes]" }
 	
-	picture = GFX_event_AUS_karl_hungary
+	picture = GFX_event_AUS_1867_Ausgleich
 
 	title = {
 		text = bdeausgleich.4.t_magyar
@@ -14201,16 +14221,35 @@ country_event = { #The Ausgleich Begins
 	
 	option = { #Time to put forward our plan
 		name = bdeausgleich.4.b
-		trigger = {
-			tag = AUS
-		}
-		custom_effect_tooltip = BOTDE_minigame_paused
 		trigger = { tag = AUS }
+		custom_effect_tooltip = BOTDE_minigame_paused
 		unlock_decision_tooltip = AUS_fate_of_illyria
 		unlock_decision_tooltip = AUS_renegotiary_debts
 		unlock_decision_tooltip = AUS_common_army_law
 		unlock_decision_tooltip = AUS_hungarian_federalisation
 		set_global_flag = AUS_ausgleich_ongoing
+		if = {
+			limit = { has_active_mission = BOTDE_czech_revolt_headsup }
+			remove_mission = BOTDE_czech_revolt_headsup
+		}
+		if = {
+			limit = { has_active_mission = BOTDE_czech_revolt_headsup }
+			remove_mission = BOTDE_czech_revolt_headsup
+		}
+		if = {
+			limit = { has_active_mission = BOTDE_hungarian_revolt_headsup }
+			remove_mission = BOTDE_hungarian_revolt_headsup
+		}
+		if = {
+			limit = { has_active_mission = BOTDE_illyrian_revolt_headsup }
+			remove_mission = BOTDE_illyrian_revolt_headsup
+		}
+		if = {
+			limit = { has_active_mission = BOTDE_collapse_headsup }
+			remove_mission = BOTDE_collapse_headsup
+		}
+		AUS_subtract_ten_collapse = yes
+		ALL_subtract_ten_collapse = yes
 		every_country = {
 			limit = {
 				OR = {
@@ -14919,7 +14958,7 @@ country_event = { #HUN - Austrian counter-demand: all minorities to be given aut
 			country_event = {
 				id = bdeausgleich.20
 				days = 3
-				random_hours = 120
+				random_hours = 24
 			}
 		}
 		set_country_flag = hungary_loyal
@@ -15148,7 +15187,7 @@ country_event = { #Hungary Accepts Minority Solution
 	title = bdeausgleich.20.t
 	desc = bdeausgleich.20.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_HUN_LBOZO
 
 	fire_only_once = yes
 
@@ -18247,6 +18286,12 @@ country_event = { #HUN - Austria presents new mobilization plan
 		ai_chance = {
 			base = 70
 			modifier = {
+				has_variable = HUN.subject_revolt_progress
+				set_temp_variable = { temp_factor = 1 }
+				subtract_from_temp_variable = { temp_factor = HUN.subject_revolt_progress }
+				factor = temp_factor
+			}
+			modifier = {
 				has_global_flag = AUS_ausgleich_common_army_law_large
 				factor = 0.5
 			}
@@ -18268,8 +18313,8 @@ country_event = { #HUN - Austria presents new mobilization plan
 		ai_chance = {
 			base = 30
 			modifier = {
-				has_global_flag = AUS_ausgleich_common_army_law_large
-				factor = 1.5
+				has_variable = HUN.subject_revolt_progress
+				factor = HUN.subject_revolt_progress
 			}
 		}
 		FROM = {
@@ -19959,7 +20004,8 @@ country_event = { #HIDDEN - Govt percentage
 	desc = bdeausint.4.d
 	
 	picture = GFX_report_event_BAN_big_speech2
-
+	
+	trigger = { NOT = { has_global_flag = AUS_collapsed } }
 		
 	hidden = yes
 
@@ -19969,9 +20015,7 @@ country_event = { #HIDDEN - Govt percentage
 		name = bdeausint.4.a
 		AUS_raise_govt_percentage_1 = yes
 		if = {
-			limit = {
-				check_variable = { global.government_percentage < 1 }
-			}
+			limit = { check_variable = { global.government_percentage < 1 } }
 			country_event = {
 				id = bdeausint.4
 				days = 5
@@ -20417,9 +20461,7 @@ country_event = { #Creation of the Danubische Wirtschaftsvereinigung
 		every_country = {
 			limit = {
 				is_in_faction_with = AUS
-				NOT = {
-					tag = AUS
-				}
+				NOT = { tag = AUS }
 			}
 			country_event = {
 				id = bdeausint.20
@@ -20455,12 +20497,17 @@ country_event = { #Membership in the DWV
 			add_to_tech_sharing_group = austrian_research
 		}
 		if = {
-			limit = { NOT = { is_subject_of = FROM } }
+			limit = {
+				NOT = {
+					is_subject_of = FROM
+					overlord = { is_subject_of = FROM }
+				}
+			}
 			FROM = {
 				country_event = {
 					id = bdeausint.21
-					days = 2
-					random_hours = 29
+					days = 1
+					random_hours = 48
 				}
 			}
 		}
@@ -20483,12 +20530,15 @@ country_event = { #Membership in the DWV
 		add_political_power = 20
 		add_war_support = 0.03
 		add_stability = 0.03
-		ROOT_add_five_collapse = yes
+		if = {
+			limit = { AUS_is_constituent = yes }
+			ROOT_add_five_collapse = yes
+		}
 		FROM = {
 			country_event = {
 				id = bdeausint.22
-				days = 3
-				random_hours = 72
+				days = 1
+				random_hours = 48
 			}
 		}
 	}
@@ -30841,11 +30891,7 @@ country_event = { #(Josef) Hoffmann and the Emperor (event about a Vienna Secess
 
 	option = { #Marvelous!
 		name = bdeausflavor.5.a
-
-		
 	}
-	
-	
 }
 
 country_event = { #Death of Infante Alfonso Carlos (gets ran over)
@@ -31264,16 +31310,17 @@ country_event = { #(Every 6th of November) Weltkrieg Day; the day the Weltkrieg 
 
 	option = { #It still feels like it was yesterday...
 		name = bdeausflavor.17.a
-		trigger = { NOT = { has_global_flag = GER_Second_Weltkrieg } }
+		trigger = { threat < 0.5 }
 		add_stability = -0.01
 		add_war_support = -0.01
 	}
 	
 	option = { #The Drums of War Beat Yet Again
 		name = bdeausflavor.17.b
-		trigger = { has_global_flag = GER_Second_Weltkrieg }
+		trigger = { threat > 0.49 }
 		add_stability = -0.01
 		add_war_support = 0.02
+		add_command_power = 1
 	}
 }
 
