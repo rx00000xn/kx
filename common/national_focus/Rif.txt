@@ -544,7 +544,13 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-			country_event = RIF.20
+			if = {
+				limit = { has_country_flag = RIF_emir }
+				add_ideas = RIF_advisory_imgharen
+			}
+			else = {
+				add_ideas = RIF_imgharen_parliament	
+			}
 		}
 	}	
 	focus = {
@@ -573,7 +579,16 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-			country_event = RIF.20
+			if = {
+				limit = { has_country_flag = RIF_emir }
+				remove_ideas = RIF_international_zone_occupation
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = RIF_international_zone_occupation
+					add_idea = RIF_pragmatic_european_collaboration
+				}
+			}
 		}
 	}
 	focus = {
@@ -602,7 +617,13 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-			country_event = RIF.20
+			if = {
+				limit = { has_country_flag = RIF_emir }
+				add_ideas = RIF_allah_supreme
+			}
+			else = {
+				add_ideas = RIF_quranic_republicanism	
+			}
 		}
 	}
 	focus = {
@@ -631,7 +652,17 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-			country_event = RIF.20
+			if = {
+				limit = { has_country_flag = RIF_emir }
+			random_owned_controlled_state = {
+				prioritize = { 290 }
+				increase_state_category_by_one_level = yes
+				add_extra_state_shared_building_slots = 2
+				}
+			}
+			else = {
+				add_ideas = RIF_state_islam	
+			}
 		}
 	}
 	focus = {
@@ -660,7 +691,19 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-			country_event = RIF.20
+			if = {
+				limit = { has_country_flag = RIF_emir }
+				set_technology = { asymmetrical_warfare = 1 }
+			}
+			else = {
+			increase_conscription = yes
+			increase_mobilisation = yes
+			every_unit_leader = {
+				add_skill_level = 1
+				add_logistics = 1
+				add_planning = 1
+				}
+			}
 		}
 	}
 	focus = {
@@ -689,7 +732,19 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-			country_event = RIF.20
+			if = {
+				limit = { has_country_flag = RIF_emir }
+				swap_ideas = {
+					remove_idea = RIF_lack_of_control
+					add_idea = RIF_liff_balancing
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = RIF_lack_of_control
+					add_idea = RIF_anti_chieftainism
+				}
+			}
 		}
 	}
 	focus = {
@@ -718,7 +773,15 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-			country_event = RIF.20
+			if = {
+				limit = { has_country_flag = RIF_emir }
+				add_ideas = RIF_zoco_tax
+			}
+			else = {
+			every_owned_state = {
+				increase_state_category_by_one_level = yes
+				}
+			}
 		}
 	}
 	focus = {
@@ -747,7 +810,36 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-			country_event = RIF.20
+			if = {
+				limit = { has_country_flag = RIF_emir }
+				add_resource = {
+					type = steel
+					amount = 15
+					state = 290
+				}
+				add_resource = {
+					type = tungsten
+					amount = 8
+					state = 290
+				}
+				add_resource = {
+					type = coal
+					amount = 15
+					state = 290
+				}
+			}
+			else = {
+				add_resource = {
+					type = steel
+					amount = 25
+					state = 290
+				}
+				add_resource = {
+					type = coal
+					amount = 10
+					state = 290
+				}	
+			}
 		}
 	}
 	focus = {
@@ -805,7 +897,15 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-			country_event = RIF.20
+			if = {
+				limit = { has_country_flag = RIF_emir }
+			country_event = RIF.301
+			add_research_slot = 1
+			}
+			else = {
+			country_event = RIF.302
+			add_research_slot = 1
+			}
 		}
 	}
 	focus = {
@@ -837,7 +937,29 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-			country_event = RIF.20
+			if = {
+				limit = { has_country_flag = RIF_emir }
+					remove_ideas = RIF_smuggling
+					290 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+					type = arms_factory 
+					level = 2
+					instant_build = yes
+					}
+				}
+			}
+			else = {
+				remove_ideas = RIF_smuggling
+				290 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+				type = industrial_complex 
+				level = 3
+				instant_build = yes
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -869,7 +991,13 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-			country_event = RIF.20
+			if = {
+				limit = { has_country_flag = RIF_emir }
+			country_event = RIF.303
+			}
+			else = {
+			country_event = RIF.304
+			}
 		}
 	}
 	focus = {
@@ -1615,7 +1743,7 @@ focus_tree = {
 				add_ideas = RIF_mehalla_khalifiana
 			}
 			else = {
-				remove_ideas = RIF_tribal_dissent	
+				remove_ideas = RIF_lack_of_control	
 			}
 		}
 	}
@@ -1649,10 +1777,10 @@ focus_tree = {
 		completion_reward = {
 			if = {
 				limit = { has_country_flag = RIF_jalifa }
-				add_ideas = RIF_mehalla_khalifiana
+				country_event = RIF_150
 			}
 			else = {
-				remove_ideas = RIF_policia_indigena_support	
+				add_ideas = RIF_policia_indigena_support	
 			}
 		}
 	}
@@ -1689,10 +1817,10 @@ focus_tree = {
 		completion_reward = {
 			if = {
 				limit = { has_country_flag = RIF_jalifa }
-				add_ideas = RIF_sephardic_society_support
+				add_ideas = RIF_sephardic_society_support	
 			}
 			else = {
-				remove_ideas = RIF_policia_indigena_support	
+				add_ideas = RIF_hispano_arabism			
 			}
 		}
 	}
@@ -1724,8 +1852,21 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-		add_political_power = 1
-		add_political_power = -1
+			if = {
+				limit = { has_country_flag = RIF_jalifa }
+				remove_ideas = RIF_international_zone_occupation
+			}
+			else = {
+				remove_ideas = RIF_international_zone_occupation
+				random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+					}	
+				}				
+			}
 		}
 	}
 	focus = {
@@ -1756,8 +1897,13 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-		add_political_power = 1
-		add_political_power = -1
+			if = {
+				limit = { has_country_flag = RIF_jalifa }
+				remove_ideas = RIF_lack_of_control	
+			}
+			else = {
+				remove_ideas = RIF_policia_indigena_support	
+			}
 		}
 	}
 	focus = {
@@ -1791,8 +1937,13 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-		add_political_power = 1
-		add_political_power = -1
+			if = {
+				limit = { has_country_flag = RIF_jalifa }
+				remove_ideas = RIF_lack_of_control	
+			}
+			else = {
+				remove_ideas = RIF_policia_indigena_support	
+			}
 		}
 	}
 	focus = {
@@ -1826,8 +1977,14 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-		add_political_power = 1
-		add_political_power = -1
+			if = {
+				limit = { has_country_flag = RIF_jalifa }
+				remove_ideas = RIF_lack_of_control	
+			}
+			else = {
+				set_technology = { tech_assault_battalion = 1 }
+				set_technology = { tech_anti-partisan = 1 }
+			}
 		}
 	}
 	focus = {
@@ -1861,8 +2018,13 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-		add_political_power = 1
-		add_political_power = -1
+			if = {
+				limit = { has_country_flag = RIF_jalifa }
+				remove_ideas = RIF_lack_of_control	
+			}
+			else = {
+				remove_ideas = RIF_policia_indigena_support	
+			}
 		}
 	}
 	focus = {
@@ -1874,6 +2036,7 @@ focus_tree = {
 		cost = 1
 		available = {
 			has_government = authoritarian_democrat
+			has_country_flag = RIF_the_barbary_king
 		}
 		ai_will_do = {
 			factor = 100
@@ -1920,8 +2083,7 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-		add_political_power = 1
-		add_political_power = -1
+		remove_ideas = RIF_lack_of_control	
 		}
 	}
 	focus = {
@@ -2067,8 +2229,7 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-		add_political_power = 1
-		add_political_power = -1
+		remove_ideas = RIF_international_zone_occupation
 		}
 	}
 	focus = {
@@ -2233,8 +2394,7 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-		add_political_power = 1
-		add_political_power = -1
+		remove_ideas = RIF_lack_of_control
 		}
 	}
 		focus = {
@@ -2293,7 +2453,10 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-		add_ideas = RIF_lighthouse_of_liberty
+		swap_ideas = {
+			remove_idea = RIF_international_zone_occupation
+			add_idea = RIF_lighthouse_of_liberty
+			}
 		}
 	}
 		focus = {
@@ -2614,6 +2777,10 @@ focus_tree = {
 		prerequisite = {
 			focus = RIF_Settling_a_Program
 		}
+		available = {
+			has_government = totalist
+			has_country_flag = RIF_totalist_gordon
+		}
 		ai_will_do = {
 			factor = 100
 		}
@@ -2901,6 +3068,10 @@ focus_tree = {
 		cost = 1
 		prerequisite = {
 			focus = RIF_Settling_a_Program
+		}
+		available = {
+			has_government = national_populist
+			has_country_flag = RIF_natpop_gordon
 		}
 		ai_will_do = {
 			factor = 100
@@ -3224,6 +3395,7 @@ focus_tree = {
 		cost = 1
 		available = {
 			has_government = radical_socialist
+			has_country_flag = RIF_radsoc_dems
 		}
 		ai_will_do = {
 			factor = 100
@@ -3485,6 +3657,7 @@ focus_tree = {
 		cost = 1
 		available = {
 			has_government = social_democrat
+			has_country_flag = RIF_socdem_dems
 		}
 		ai_will_do = {
 			factor = 100
@@ -3731,6 +3904,7 @@ focus_tree = {
 		cost = 1
 		available = {
 			has_government = social_liberal
+			has_country_flag = RIF_soclib_dems
 		}
 		ai_will_do = {
 			factor = 100
@@ -4013,6 +4187,7 @@ focus_tree = {
 		cost = 1
 		available = {
 			has_government = market_liberal
+			has_country_flag = RIF_international_zone
 		}
 		ai_will_do = {
 			factor = 100
