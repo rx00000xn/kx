@@ -34461,9 +34461,6 @@ country_event = { #
 		text = russoc.195.d3
 		trigger = { 
 			has_government = totalist
-			OR = {
-				has_country_flag = SOV_zinovievite_bukharinist_bloc_exists
-			}
 		}
 	}
 		
@@ -43692,7 +43689,7 @@ country_event = { #
 		}
 		remove_ideas_with_trait = security_minister
 		add_ideas = RUS_Yakov_S_Agranov_sec_tot
-		complete_national_focus = SOV_Shadow_Government_Bolshie
+		complete_national_focus = SOV_Shadow_Government
 		if = {
 			limit = {
 				NOT = { has_idea = SOV_council_of_labor_and_defense_2 }
@@ -54048,9 +54045,9 @@ country_event = { #Russian demands GEO
 			limit = { 
 				NOT = { tag = GEO }
 			}
-			set_temp_variable = { target = GEO }
-			clear_all_relations_with_TARGET = yes
+			set_temp_variable = { target = ROOT }
 			GEO = {
+				clear_all_relations_with_TARGET = yes
 				country_event = { id = rusfor.1029 days = 1 }
 			}
 		}
@@ -65975,6 +65972,10 @@ country_event = { # Japan-RUS peace
 			}
 		}
 	}
+	option = {
+		name = rusfor.1462.b
+		trigger = { is_ai = no }
+	}
 }
 country_event = { # Japan-RUS peace
 	id = rusfor.1463
@@ -66601,6 +66602,16 @@ country_event = { # Peaceful unification with Transamur
 				TRM_become_russia_effect = yes
 			}
 			else = {
+				# annex transbaikal puppet
+				if = {
+					limit = {
+						TRB = { 
+							exists = yes 
+							is_subject_of = TRM
+						}
+					}
+					TRM = { annex_country = { target = TRB } }
+				}
 				# give transbaikal and yakutia to Russia
 				every_owned_state = {
 					limit = { 
@@ -66710,6 +66721,16 @@ country_event = { # Peaceful unification with Transamur
 				}
 			}
 			else = {
+				# annex transbaikal puppet
+				if = {
+					limit = {
+						TRB = { 
+							exists = yes 
+							is_subject_of = TRM
+						}
+					}
+					TRM = { annex_country = { target = TRB } }
+				}
 				# give transbaikal and yakutia to Russia
 				FROM = {
 					every_owned_state = {

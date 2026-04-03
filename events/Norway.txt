@@ -8,6 +8,7 @@ add_namespace = norway
 add_namespace = nor_syncon
 add_namespace = nor_new
 add_namespace = nor_collapse
+add_namespace = nor_chudternational
 
 ### Norwegian introduction
 
@@ -9520,6 +9521,139 @@ country_event = {
 	}
 }
 
+#########################################################
+##############   Chudternational Events  ################
+#########################################################
+
+country_event = {
+	id = nor_chudternational.0
+	title = nor_chudternational.0.t
+	desc = nor_chudternational.0.d
+	immediate = { log = "[GetDateText]: [Root.GetName]: event nor_chudternational.0" }
+	picture = GFX_report_event_generic_diplomacy2
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+	
+	hidden = yes
+	
+	option = {
+		name = nor_chudternational.0.a
+		set_global_flag = CHD_exists
+		save_global_event_target_as = KX_chud_axis_leader
+	}
+}
+
+country_event = {
+	id = nor_chudternational.1
+	title = nor_chudternational.1.t
+	desc = nor_chudternational.1.d
+	immediate = { log = "[GetDateText]: [Root.GetName]: event nor_chudternational.1" }
+	picture = GFX_report_event_generic_diplomacy2
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+	
+	option = {
+		name = nor_chudternational.1.a
+		if = { 
+			limit = {
+				CHD = {
+					is_faction_leader = yes
+				}
+			}
+			every_other_country = {
+				limit = {
+				 is_in_faction_with = CHD
+				}
+             add_to_array = { global.european_peace_union = THIS }
+			 add_ideas = chud_axis_economic_council
+           }
+        }
+	}
+}
+
+country_event = {
+	id = nor_chudternational.2
+	title = nor_chudternational.2.t
+	desc = nor_chudternational.2.d
+	immediate = { log = "[GetDateText]: [Root.GetName]: event nor_chudternational.2" }
+	picture = GFX_report_event_generic_diplomacy2
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+	
+	option = {
+		name = nor_chudternational.2.a
+		ai_chance = {
+			factor = 90
+		}
+		add_political_power = 50
+		reverse_add_opinion_modifier = {
+		target = FROM
+			modifier = NOR_NAT_diplomacy
+		}
+		add_opinion_modifier = {
+			target = CHD
+			modifier = NOR_NAT_diplomacy
+		}
+		if = {
+			limit = { has_global_flag = chud_axis_economic_upgrade_level_0 }
+			add_to_array = { global.european_peace_union = THIS }
+			add_ideas = chud_axis_economic_council
+		}
+		if = {
+			limit = { has_global_flag = chud_axis_economic_upgrade_level_1 }
+			add_ideas = chud_axis_economic_upgraded
+		}
+		if = {
+			limit = {
+				has_global_flag = chud_axis_chud_ethos
+			}
+			add_ideas = NOR_Nationalist_International_idea
+		}
+		FROM = {
+			add_to_faction = ROOT
+		}
+	}
+	option = {
+		name = nor_chudternational.2.b
+		ai_chance = {
+			factor = 10
+		}
+		reverse_add_opinion_modifier = {
+			target = FROM
+			modifier = ITA_dislikes_govt
+		}
+		FROM = {
+			country_event = {
+				id = nor_chudternational.3
+				days = 2
+			}
+		}
+		hidden_effect = {
+			set_country_flag = CHD_recent_axis_invite
+		}
+	}
+}
+
+country_event = { # CHD informed when a country declines
+	id = nor_chudternational.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nor_chudternational.3"}
+	title = ustates.3.t
+	desc = ustates.3.d
+	picture = GFX_report_event_generic_diplomacy2
+
+	is_triggered_only = yes
+
+	option = {
+		name = ustates.3.a
+		add_political_power = -25
+	}
+}
 
 #########################################################
 ##############   World News Events  #####################

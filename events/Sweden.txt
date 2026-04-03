@@ -16,7 +16,6 @@ add_namespace = newsswe
 add_namespace = sweelect
 add_namespace = sweden
 add_namespace = swerev
-add_namespace = swereact
 
 #######New events here######### 
 
@@ -72,7 +71,7 @@ country_event = { ####fate of german industry ##LS##
 	immediate = { log = "[GetDateText]: [Root.GetName]: event sweden.4" }
 	title = sweden.4.t
 	desc = sweden.4.d
-	picture = GFX_report_event_GER_european_union
+	picture = GFX_GER_european_union
 
 	is_triggered_only = yes
 
@@ -1826,7 +1825,7 @@ country_event = { #authdem restore elections - elections
 		add_pataut_to_coalition = yes
 		
 		add_ideas = SWE_Elmo_Lindholm_hog_npo
-		add_ideas = SWE_Bjorn_Holmgren_for_ade
+		add_ideas = SWE_Sven_Hedin_for_ade
 		add_ideas = SWE_Per_Engdahl_eco_pau
 		add_ideas = SWE_Alf_Meyerhoffer_sec_npo
 				set_country_leader_ideology = gustavianism_subtype
@@ -2283,7 +2282,7 @@ country_event = { #### Election and leader events
 		hidden_effect = {	
 		
 		add_ideas = SWE_Elmo_Lindholm_hog_npo
-		add_ideas = SWE_Bjorn_Holmgren_for_ade
+		add_ideas = SWE_Sven_Hedin_for_ade
 		add_ideas = SWE_Per_Engdahl_eco_npo
 		add_ideas = SWE_Alf_Meyerhoffer_sec_npo
 		set_country_flag = SWE_flag_1940_national_league_victory
@@ -2921,7 +2920,7 @@ country_event = { #### Election and leader events
 		add_pataut_to_coalition = yes
 		
 		add_ideas = SWE_Elmo_Lindholm_hog_npo
-		add_ideas = SWE_Bjorn_Holmgren_for_ade
+		add_ideas = SWE_Sven_Hedin_for_ade
 		add_ideas = SWE_Per_Engdahl_eco_npo
 		add_ideas = SWE_Alf_Meyerhoffer_sec_npo
 	
@@ -3471,8 +3470,8 @@ country_event = { ####Who shall win this struggle ##LS##
 			ideology = junta_subtype
 		}
 		
-			country_event = { id = swereact.1 days = 3 }
-			country_event = { id = swereact.2 days = 9 }
+			country_event = { id = swemil.0 days = 3 }
+			country_event = { id = swemil.1 days = 8 }
 			
 		}		
 		
@@ -3482,17 +3481,61 @@ country_event = { ####Who shall win this struggle ##LS##
 
 ########Military Tree Events###############
 
+country_event = { ####eyes in the dark ##LS##
+	id = swemil.9999
+	immediate = { log = "[GetDateText]: [Root.GetName]: event swemil.9999" }
+	title = swemil.9999.t
+	desc = swemil.9999.d
+	picture = GFX_report_event_SWE_army_shoot
+
+	is_triggered_only = yes
+
+	option = {
+		name = swemil.9999.a
+		random_owned_state = {
+			add_state_modifier = {
+				modifier = {
+					local_manpower = 0.01
+				}
+			}
+		}
+		add_political_power = 30
+		hidden_effect = {
+			country_event = { id = swemil.52 days = 250 }
+			
+		}		
+
+	}
+}
+
+country_event = { ####Wastes to soldiers ##LS##
+	id = swemil.8888
+	immediate = { log = "[GetDateText]: [Root.GetName]: event swemil.8888" }
+	title = swemil.8888.t
+	desc = swemil.8888.d
+	picture = GFX_report_event_SWE_Swedish_military_3
+
+	is_triggered_only = yes
+
+	option = {
+		name = swemil.8888.a
+		add_manpower = 4000
+		add_political_power = -25
+
+	}
+}
+
 country_event = { ####Gustav is DEAD!
-	id = swereact.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.1" }
-	title = swereact.1.t
-	desc = swereact.1.d
+	id = swemil.0
+	immediate = { log = "[GetDateText]: [Root.GetName]: event swemil.0" }
+	title = swemil.0.t
+	desc = swemil.0.d
 	picture = GFX_report_event_SWE_gustav_funeral
 
 	is_triggered_only = yes
 
-	option = { #good grief..
-		name = swereact.1.a
+	option = {
+		name = swemil.0.a
 		add_stability = -0.04
 		add_political_power = -25
 		custom_effect_tooltip = SWE_gustav_killed_tt
@@ -3500,136 +3543,328 @@ country_event = { ####Gustav is DEAD!
 	}
 }
 
-country_event = { ####army in charge now
-	id = swereact.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.2" }
-	title = swereact.2.t
-	desc = swereact.2.d
-	picture = GFX_report_event_SWE_gustav_funeral
+country_event = { ####Military starts stabilizing the nation ##LS##
+	id = swemil.1
+	immediate = { log = "[GetDateText]: [Root.GetName]: event swemil.1" }
+	title = swemil.1.t
+	desc = swemil.1.d
+	picture = GFX_report_event_SWE_Swedish_military
 
 	is_triggered_only = yes
 
-	option = { #time to end the socialists
-		name = swereact.2.a
-		add_stability = 0.04
-		add_popularity = { ideology = paternal_autocrat popularity = 0.05 }
-		hidden_effect = {
-			country_event = { id = swereact.35 days = 1 } 
-			country_event = { id = swereact.3 days = 5 }
+	option = {
+		name = swemil.1.a
+		add_stability = 0.05
+		hidden_effect = { 
 			create_country_leader = {
 				name = "Carl August Ehrensvärd"
 				desc = "Politics_Carl_August_desc"
 				picture = "gfx/leaders/SWE/Portrait_SWE_Carl_August_Ehrensvard_kx.png"
 				expire = "1.1.1"
 				ideology = authdem_junta_subtype
-			}			
+			}				
 		}
+
 	}
 }
 
-country_event = { ####red militants intensify
-	id = swereact.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.3" }
-	title = swereact.3.t
-	desc = swereact.3.d
-	picture = GFX_report_event_SWE_gustav_funeral
+country_event = { ####Rince out reds ##LS##
+	id = swemil.2
+	immediate = { log = "[GetDateText]: [Root.GetName]: event swemil.2" }
+	title = swemil.2.t
+	desc = swemil.2.d
+	picture = GFX_report_event_FIN_purges
 
 	is_triggered_only = yes
 
-	option = { #we will stop them
-		name = swereact.3.a
-		add_popularity = { ideology = radical_socialist popularity = 0.05 }
-		add_popularity = { ideology = syndicalist popularity = 0.07 }
-		hidden_effect = {
-			country_event = { id = swereact.6 days = 54 }
-		}
-	}
-}
-
-country_event = { ####army martial law and purges intensify
-	id = swereact.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.4" }
-	title = swereact.4.t
-	desc = swereact.4.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#we will work with the public
-		name = swereact.4.a
+	option = {
+		name = swemil.2.a
 		add_stability = 0.06
-		add_political_power = -50
-		decrease_ruling_party_popularity_by_3 = yes
+		add_popularity = { ideology = totalist popularity = -0.03 }		
+		add_popularity = { ideology = syndicalist popularity = -0.03 }		
+		add_popularity = { ideology = radical_socialist popularity = -0.03 }
+		SWE = { SWE_paramilitary_leaders = yes }
 	}
-
-	option = {#we will enforce law and order alone
-		name = swereact.4.b
-		add_war_support = 0.05
-		increase_ruling_party_popularity_by_2 = yes
-		
-	}	
 }
 
-country_event = { ####munkscka corp forms
-	id = swereact.5
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.5" }
-	title = swereact.5.t
-	desc = swereact.5.d
-	picture = GFX_report_event_SWE_gustav_funeral
+country_event = { ####soldiers in factories ##LS##
+	id = swemil.3
+	immediate = { log = "[GetDateText]: [Root.GetName]: event swemil.3" }
+	title = swemil.3.t
+	desc = swemil.3.d
+	picture = GFX_report_event_NFA_event_Aftermath
 
 	is_triggered_only = yes
 
-	option = {#useful thugs
-		name = swereact.5.a
-		add_popularity = { ideology = national_populist popularity = 0.02 }
-		add_manpower = 800
-		add_war_support = 0.05
-		SWE = { SWE_paramilitary_leaders = yes }
-		
-		hidden_effect = {
-			country_event = { id = swereact.112 days = 50 }
-		}
+	option = {
+		name = swemil.3.a
+		add_popularity = { ideology = paternal_autocrat popularity = 0.03 }
+		add_stability = 0.07
+		add_war_support = -0.03
 
+	}
+}
+
+country_event = { ####crown or no crown ##LS##
+	id = swemil.4
+	immediate = { log = "[GetDateText]: [Root.GetName]: event swemil.4" }
+	title = swemil.4.t
+	desc = swemil.4.d
+	picture = GFX_report_event_MEX_mexican_crown
+
+	is_triggered_only = yes
+
+	option = {
+		name = swemil.4.a
+		ai_chance = {
+			factor = 70
+			modifier = {
+				factor = 0
+				has_game_rule = {
+					rule = SWE_KING_OR_NOT 
+					option = SWE_KING_IS_BACK
+				}
+			}
+		}
+		add_stability = -0.07
+		add_popularity = { ideology = national_populist popularity = 0.02 }		
+		country_event = { id = swemil.6 days = 1 }	
+		hidden_effect = {
+			add_country_leader_trait = SWE_Helge_jung_trait
+			country_event = { id = newsswe.4 days = 12 }
+		}
 	}
 	
-	option = {#give them more equipment
-		name = swereact.5.b
+	option = {
+		name = swemil.4.b
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 0
+				has_game_rule = {
+					rule = SWE_KING_OR_NOT 
+					option = SWE_NO_KING_CHAT
+				}
+			}
+		}		
+		add_stability = 0.04
+		add_political_power = 20
+		add_popularity = { ideology = authoritarian_democrat popularity = 0.06 }		
+		country_event = { id = swemil.555 days = 6 }
+		hidden_effect = {
+			country_event = { id = newsswe.3 days = 13 }
+		}
+
+
+	}		
+}
+
+
+country_event = { #choosing a king ##LS##
+	id = swemil.555
+	immediate = { log = "[GetDateText]: [Root.GetName]: event swemil.555" }
+	title = swemil.555.t
+	desc = swemil.555.d
+	picture = GFX_report_event_SWE_royal_palace
+
+	is_triggered_only = yes
+
+	option = { 
+		name = swemil.555.a
+		country_event = { id = swemil.5 days = 3 }
+		add_popularity = { ideology = authoritarian_democrat popularity = -0.02 }
+		add_popularity = { ideology = paternal_autocrat popularity = 0.03 }
 		add_popularity = { ideology = national_populist popularity = 0.05 }
-		add_manpower = 1600
-		add_war_support = 0.05
-		add_political_power = -25
-		SWE = { SWE_paramilitary_leaders = yes }
-	}	
-}
+		
+		}
+	option = { 
+		name = swemil.555.b
+		country_event = { id = swemil.557 days = 3 }
+		add_popularity = { ideology = social_conservative popularity = 0.03 }
+		add_popularity = { ideology = authoritarian_democrat popularity = 0.04 }
+		add_popularity = { ideology = paternal_autocrat popularity = -0.01 }
+		add_popularity = { ideology = national_populist popularity = -0.03 }
 
-country_event = { ####red militants slowly give up 
-	id = swereact.6
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.6" }
-	title = swereact.6.t
-	desc = swereact.6.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#finally
-		name = swereact.6.a
-		add_stability = 0.03
-		add_popularity = { ideology = radical_socialist popularity = -0.04 }
-		add_popularity = { ideology = syndicalist popularity = -0.03 }
+		
+		}
+		
 	}
-}
 
-country_event = { ####choice of riksledare
-	id = swereact.7
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.7" }
-	title = swereact.7.t
-	desc = swereact.7.d
-	picture = GFX_report_event_SWE_gustav_funeral
+country_event = { #choosing name before coronation ##LS##
+	id = swemil.557
+	immediate = { log = "[GetDateText]: [Root.GetName]: event swemil.557" }
+	title = swemil.557.t
+	desc = swemil.557.d
+	picture = GFX_report_event_SWE_kingly_items
 
 	is_triggered_only = yes
 
-	option = {#Helge Jung - Pataut
-		name = swereact.7.a
+	option = { 
+		name = swemil.557.a
+		add_political_power = 10
+		country_event = { id = swemil.556 }
+			hidden_effect = {
+		set_country_flag = SWE_flag_carl
+
+			}
+		}
+		
+	option = { 
+		name = swemil.557.b
+		add_political_power = 5
+		country_event = { id = swemil.556 }
+			hidden_effect = {
+		set_country_flag = SWE_flag_oscar
+
+			}
+		}
+		
+	option = { 
+		name = swemil.557.c
+		add_political_power = 15
+		country_event = { id = swemil.556 }
+			hidden_effect = {
+		set_country_flag = SWE_flag_folke
+
+			}
+		}			
+	}
+
+country_event = { #Coronation of Carl XVI ##LS##
+	id = swemil.556
+	immediate = { log = "[GetDateText]: [Root.GetName]: event swemil.556" }
+	title = swemil.556.t
+	desc = swemil.556.d
+	picture = GFX_report_event_SWE_folke_king
+
+	is_triggered_only = yes
+
+	option = { 
+		name = swemil.556.a
+		add_political_power = 90
+
+
+		
+			hidden_effect = {
+	
+			if = {
+				limit = {
+					has_country_flag = SWE_flag_carl
+					}
+				SWE_create_folk = yes
+				drop_cosmetic_tag = yes
+		remove_all_ministers = yes
+		add_ideas = SWE_Helge_Jung_hog_pau
+		add_ideas = SWE_Gunnar_Berggren_for_pau
+		add_ideas = SWE_Marcus_Wallenberg_eco_pau
+		add_ideas = SWE_Axel_Rappe_sec_pau
+
+		add_country_leader_trait = SWE_bleeding_heart_king_trait
+		add_country_leader_trait = SWE_puppet_king_trait		
+		set_country_flag = SWE_flag_crown_restored
+		set_cosmetic_tag = SWE_king_mil				
+				}
+				
+				else_if = {
+					limit = {
+						has_country_flag = SWE_flag_oscar
+						}
+				SWE_create_folk_2 = yes
+				drop_cosmetic_tag = yes	
+		remove_all_ministers = yes
+		add_ideas = SWE_Helge_Jung_hog_pau
+		add_ideas = SWE_Gunnar_Berggren_for_pau
+		add_ideas = SWE_Marcus_Wallenberg_eco_pau
+		add_ideas = SWE_Axel_Rappe_sec_pau
+
+		add_country_leader_trait = SWE_bleeding_heart_king_trait
+		add_country_leader_trait = SWE_puppet_king_trait		
+		set_country_flag = SWE_flag_crown_restored
+		set_cosmetic_tag = SWE_king_mil				
+				} 
+				
+				else_if = {
+					limit = {
+						has_country_flag = SWE_flag_folke 
+						}
+				SWE_create_folk_3 = yes
+				drop_cosmetic_tag = yes	
+		remove_all_ministers = yes
+		add_ideas = SWE_Helge_Jung_hog_pau
+		add_ideas = SWE_Gunnar_Berggren_for_pau
+		add_ideas = SWE_Marcus_Wallenberg_eco_pau
+		add_ideas = SWE_Axel_Rappe_sec_pau	
+		
+		add_country_leader_trait = SWE_bleeding_heart_king_trait
+		add_country_leader_trait = SWE_puppet_king_trait
+		set_country_flag = SWE_flag_crown_restored
+		set_cosmetic_tag = SWE_king_mil				
+					}
+			}
+		}
+	}
+	
+	
+
+country_event = { #Coronation of Gustaf VI Adolf ##LS##
+	id = swemil.5
+	immediate = { log = "[GetDateText]: [Root.GetName]: event swemil.5" }
+	title = swemil.5.t
+	desc = swemil.5.d
+	picture = GFX_report_event_SWE_adolf_king
+
+	is_triggered_only = yes
+
+	option = { 
+		name = swemil.5.a
+		add_political_power = 45
+
+			hidden_effect = {
+		SWE_create_gustaf_adolf_jr = yes
+		drop_cosmetic_tag = yes	
+		remove_all_ministers = yes
+		add_ideas = SWE_Helge_Jung_hog_pau
+		add_ideas = SWE_Gunnar_Berggren_for_pau
+		add_ideas = SWE_Marcus_Wallenberg_eco_pau
+		add_ideas = SWE_Axel_Rappe_sec_pau	
+
+		set_country_flag = SWE_flag_crown_restored
+		set_cosmetic_tag = SWE_king_mil
+		add_country_leader_trait = SWE_puppet_king_trait		
+			}
+		}	
+	}
+
+
+country_event = { #unhappy 
+	id = swemil.6
+	immediate = { log = "[GetDateText]: [Root.GetName]: event swemil.6" }
+	title = swemil.6.t
+	desc = swemil.6.d
+	picture = GFX_CZE_protest
+
+	is_triggered_only = yes
+
+	option = { 
+		name = swemil.6.a
+		add_war_support = -0.02
+		add_political_power = -25
+		
+		}	
+	}
+
+
+country_event = { #Inter-military election ##LS##
+	id = swemil.7
+	immediate = { log = "[GetDateText]: [Root.GetName]: event swemil.7" }
+	title = swemil.7.t
+	desc = swemil.7.d
+	picture = GFX_report_event_SWE_military_meeting
+
+	is_triggered_only = yes
+
+	option = { ##Jung Junta pataut
+		name = swemil.7.a
 		ai_chance = {
 			factor = 40
 			modifier = {
@@ -3650,12 +3885,19 @@ country_event = { ####choice of riksledare
 				}
 			}
 		}		
-		add_popularity = { ideology = paternal_autocrat popularity = 0.04 }
-		set_country_flag = SWE_flag_jung_chosen
-	}
+		set_country_flag = SWE_flag_jung_junta
+		add_stability = 0.10
+		add_popularity = { ideology = paternal_autocrat popularity = 0.14 }
 
-	option = {# Carl Ehrensvärd - Authdem
-		name = swereact.7.b
+		hidden_effect = {
+			country_event = { id = swe.30 days = 400 }
+			country_event = { id = swemil.19 }
+			set_country_flag = SWE_flag_no_elmo_nats
+			}		
+	}
+	
+	option = { ##Authdem
+		name = swemil.7.b
 		ai_chance = {
 			factor = 30
 			modifier = {
@@ -3676,12 +3918,41 @@ country_event = { ####choice of riksledare
 				}
 			}
 		}		
-		add_popularity = { ideology = authoritarian_democrat popularity = 0.04 }
-		set_country_flag = SWE_flag_ehrensvard_chosen
+		set_country_flag = SWE_flag_authdem_junta
+		add_stability = 0.10
+		add_popularity = { ideology = authoritarian_democrat popularity = 0.10 }		
+		set_politics = { ruling_party = authoritarian_democrat elections_allowed = no }
+		remove_all_ministers = yes
+		add_ideas = SWE_Carl_August_Ehrensvaerd_hog_ade
+		add_ideas = SWE_Sven_Hedin_for_ade
+		add_ideas = SWE_Harald_Malmberg_eco_ade
+		add_ideas = SWE_Carlos_Adlercreutz_sec_ade
+		
+		hidden_effect = {
+			set_country_flag = SWE_flag_no_elmo_nats
+			if = {
+				limit = { has_country_flag = SWE_flag_crown_restored }				
+				} 
+				
+				else = {
+					
+					create_country_leader = {
+					name = "Carl August Ehrensvärd"
+					desc = ""
+					picture = "gfx/leaders/SWE/Portrait_SWE_Carl_August_Ehrensvard_kx.png"
+					expire = "1.1.1"
+					ideology = authdem_junta_subtype
+					}
+					add_country_leader_trait = SWE_authdem_trait
+				}
+
+			country_event = { id = swe.30 days = 400 }
+				
+			}		
 	}
 
-	option = {#Archibald Douglas - National Populist
-		name = swereact.7.c
+	option = { ##Archibald natpop
+		name = swemil.7.c
 		ai_chance = {
 			factor = 30
 			modifier = {
@@ -3698,476 +3969,23 @@ country_event = { ####choice of riksledare
 				}
 			}
 		}		
-		add_popularity = { ideology = national_populist popularity = 0.04 }
-		set_country_flag = SWE_flag_douglas_chosen
-	}	
-}
-
-country_event = { ####conservatives offer aid for restoration
-	id = swereact.8
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.8" }
-	title = swereact.8.t
-	desc = swereact.8.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#accept restoration concession
-		name = swereact.8.a
-		add_popularity = { ideology = social_conservative popularity = 0.04 }
-		add_popularity = { ideology = market_liberal popularity = 0.02 }
-		add_stability = 0.05
-		set_country_flag = SWE_flag_restoration_accepted
-		
-		hidden_effect = {
-			country_event = { id = swereact.9 days = 5 }
-		}
-	}
-
-	option = {#Army rule alone - no civs
-		name = swereact.8.b
-		add_stability = -0.03
-		add_popularity = { ideology = paternal_autocrat popularity = 0.04 }
-		hidden_effect = {
-			country_event = { id = swereact.10 days = 5 }
-		}
-	}	
-}
-
-country_event = { ####conservatives join
-	id = swereact.9
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.9" }
-	title = swereact.9.t
-	desc = swereact.9.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#Conservatives join our side
-		name = swereact.9.a
-		add_stability = 0.02
-		add_political_power = 50
-		
-
-	}
-}
-
-country_event = { ####conservatives bared and revolt
-	id = swereact.10
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.10" }
-	title = swereact.10.t
-	desc = swereact.10.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#conservatives make our job harder
-		name = swereact.10.a
-		add_stability = -0.03
-		add_political_power = 25
-	}
-}
-
-country_event = { ####restore monarchy or not?
-	id = swereact.11
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.11" }
-	title = swereact.11.t
-	desc = swereact.11.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#restore the crown
-		name = swereact.11.a
-		country_event = { id = swereact.12 days = 2 }
-		
-	}
-	
-	option = {#maintain army rule
-		name = swereact.11.b
-		if = {
-			limit = {
-				has_country_flag = SWE_flag_restoration_accepted
-				}
-			country_event = { id = swereact.16 days = 5 }
-		} else = {
-			add_political_power = 45
-		}
-	}	
-}
-
-country_event = { #choosing a king ##LS##
-	id = swereact.12
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.12" }
-	title = swereact.12.t
-	desc = swereact.12.d
-	picture = GFX_report_event_SWE_royal_palace
-
-	is_triggered_only = yes
-
-	option = { #Adolph
-		name = swereact.12.a
-		country_event = { id = swereact.15 days = 10 }
-		add_popularity = { ideology = authoritarian_democrat popularity = -0.02 }
-		add_popularity = { ideology = paternal_autocrat popularity = 0.03 }
-		add_popularity = { ideology = national_populist popularity = 0.05 }
-		
-		}
-	option = { #Folke
-		name = swereact.12.b
-		country_event = { id = swereact.13 days = 5 }
-		add_popularity = { ideology = social_conservative popularity = 0.03 }
-		add_popularity = { ideology = authoritarian_democrat popularity = 0.04 }
-		add_popularity = { ideology = paternal_autocrat popularity = -0.01 }
-		add_popularity = { ideology = national_populist popularity = -0.03 }
-
-		
-		}
-		
-}
-
-country_event = { #choosing name before coronation ##LS##
-	id = swereact.13
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.13" }
-	title = swereact.13.t
-	desc = swereact.13.d
-	picture = GFX_report_event_SWE_kingly_items
-
-	is_triggered_only = yes
-
-	option = { 
-		name = swereact.13.a
-		add_political_power = 10
-		country_event = { id = swereact.14 days = 5 }
-			hidden_effect = {
-		set_country_flag = SWE_flag_carl
-			}
-		}
-		
-	option = { 
-		name = swereact.13.b
-		add_political_power = 5
-		country_event = { id = swereact.14 days = 5 }
-			hidden_effect = {
-		set_country_flag = SWE_flag_oscar
-			}
-		}
-		
-	option = { 
-		name = swereact.13.c
-		add_political_power = 15
-		country_event = { id = swereact.14 days = 5 }
-			hidden_effect = {
-		set_country_flag = SWE_flag_folke
-			}
-		}			
-}
-
-country_event = { #Coronation of Carl XVI ##LS##
-	id = swereact.14
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.14" }
-	title = swereact.14.t
-	desc = swereact.14.d
-	picture = GFX_report_event_SWE_folke_king
-
-	is_triggered_only = yes
-
-	option = { 
-		name = swereact.14.a
-		add_political_power = 90
-		add_stability = 0.02
-			hidden_effect = {
-			if = {
-				limit = {
-					has_country_flag = SWE_flag_carl
-					}
-				SWE_create_folk = yes
-				drop_cosmetic_tag = yes
-		remove_all_ministers = yes
-		add_ideas = SWE_Helge_Jung_hog_pau
-		add_ideas = SWE_Gunnar_Berggren_for_pau
-		add_ideas = SWE_Marcus_Wallenberg_eco_pau
-		add_ideas = SWE_Axel_Rappe_sec_pau
-
-		add_country_leader_trait = SWE_bleeding_heart_king_trait
-		add_country_leader_trait = SWE_puppet_king_trait		
-		set_country_flag = SWE_flag_crown_restored
-		set_cosmetic_tag = SWE_king_mil				
-				}		
-				else_if = {
-					limit = {
-						has_country_flag = SWE_flag_oscar
-						}
-				SWE_create_folk_2 = yes
-				drop_cosmetic_tag = yes	
-		remove_all_ministers = yes
-		add_ideas = SWE_Helge_Jung_hog_pau
-		add_ideas = SWE_Gunnar_Berggren_for_pau
-		add_ideas = SWE_Marcus_Wallenberg_eco_pau
-		add_ideas = SWE_Axel_Rappe_sec_pau
-
-		add_country_leader_trait = SWE_bleeding_heart_king_trait
-		add_country_leader_trait = SWE_puppet_king_trait		
-		set_country_flag = SWE_flag_crown_restored
-		set_cosmetic_tag = SWE_king_mil				
-				} 		
-			else_if = {
-					limit = {
-						has_country_flag = SWE_flag_folke 
-						}
-				SWE_create_folk_3 = yes
-				drop_cosmetic_tag = yes	
-		remove_all_ministers = yes
-		add_ideas = SWE_Helge_Jung_hog_pau
-		add_ideas = SWE_Gunnar_Berggren_for_pau
-		add_ideas = SWE_Marcus_Wallenberg_eco_pau
-		add_ideas = SWE_Axel_Rappe_sec_pau	
-		
-		add_country_leader_trait = SWE_bleeding_heart_king_trait
-		add_country_leader_trait = SWE_puppet_king_trait
-		set_country_flag = SWE_flag_crown_restored
-		set_cosmetic_tag = SWE_king_mil				
-					}
-			}
-		}
-}
-	
-	
-
-country_event = { #Coronation of Gustaf VI Adolf ##LS##
-	id = swereact.15
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.15" }
-	title = swereact.15.t
-	desc = swereact.15.d
-	picture = GFX_report_event_SWE_adolf_king
-
-	is_triggered_only = yes
-
-	option = { 
-		name = swereact.15.a
-		add_political_power = 45
-		add_stability = 0.05
-			hidden_effect = {
-		SWE_create_gustaf_adolf_jr = yes
-		drop_cosmetic_tag = yes	
-		remove_all_ministers = yes
-		add_ideas = SWE_Helge_Jung_hog_pau
-		add_ideas = SWE_Gunnar_Berggren_for_pau
-		add_ideas = SWE_Marcus_Wallenberg_eco_pau
-		add_ideas = SWE_Axel_Rappe_sec_pau	
-
-		set_country_flag = SWE_flag_crown_restored
-		set_cosmetic_tag = SWE_king_mil
-		add_country_leader_trait = SWE_puppet_king_trait		
-			}
-		}	
-}
-
-country_event = { ####conservatives furious over false promise
-	id = swereact.16
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.16" }
-	title = swereact.16.t
-	desc = swereact.16.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#oh crap...
-		name = swereact.16.a
-		add_stability = -0.05
-		
-		if = {
-			limit = {
-				has_country_flag = SWE_flag_douglas_chosen
-				}
-			country_event = { id = swereact.56 days = 5 }
-		} else = {
-			country_event = { id = swereact.17 days = 5 }
-		}
-	}
-}
-
-country_event = { ####Hedin and Rosen offer to fix the issue
-	id = swereact.17
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.17" }
-	title = swereact.17.t
-	desc = swereact.17.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#we graciously accept
-		name = swereact.17.a
-		set_politics = { ruling_party = paternal_autocrat elections_allowed = no }
-		create_country_leader = {
-			name = "Sven Hedin"
-			desc = ""
-			picture = "gfx/leaders/SWE/Portrait_SWE_Sven_Hedin.png"
-			expire = "1.1.1"
-			ideology = pataut_oligarchy_subtype
-		}		
-		set_party_name = {
-			ideology = paternal_autocrat
-			long_name = SWE_paternal_autocrat_hedin_party_long
-			name = SWE_paternal_autocrat_hedin_party
-		}			
-		country_event = { id = swereact.79 days = 12 }
-		
-		hidden_effect = {
-            remove_all_ministers = yes 
-            add_ideas = SWE_Sven_Hedin_hog_pau
-			add_ideas = SWE_Erik_von_Rosen_sec_pau
-			add_ideas =	SWE_Adrian_Molin_for_pau
-			add_ideas = SWE_Rutger_Essen_eco_pau
-		}
-
-	}
-	
-	option = {#No, we can handle this...
-		name = swereact.17.b
-		add_stability = -0.10
-		country_event = { id = swereact.18 days = 13 }
-	}	
-}
-
-country_event = { ####Manhem Society coup during the chaos
-	id = swereact.18
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.18" }
-	title = swereact.18.t
-	desc = swereact.18.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#what, how?
-		name = swereact.18.a
-		set_politics = { ruling_party = national_populist elections_allowed = no }
-		
-		create_country_leader = {
-			name = "Herman Lundborg"
-			desc = ""
-			picture = "gfx/leaders/SWE/Portrait_SWE_Herman_Lundborg.png"
-			expire = "1.1.1"
-			ideology = manhem_nordicism_subtype
-		}
-		
-		set_party_name = {
-			ideology = national_populist
-			long_name = SWE_national_populist_manhem_party_long
-			name = SWE_national_populist_manhem_party
-		}		
-		
-		custom_effect_tooltip = tooltip_white_line
-		custom_effect_tooltip = natpop_manhem_nordicism_subtype_swap_tt
-		hidden_effect = {
-			remove_all_ministers = yes
-			add_ideas = SWE_Herman_Lundborg_hog_npo
-			add_ideas = SWE_Emanuel_Linderholm_for_npo
-			add_ideas = SWE_Carl_Ernfrid_Carlberg_eco_npo
-			add_ideas = SWE_Gosta_Haggqvist_sec_npo			
-		}
-	}
-}
-
-country_event = { ###declaration of the regime
-	id = swereact.19
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.19" }
-	title = swereact.19.t
-	desc = swereact.19.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#Jung wins
-		name = swereact.19.a
-		trigger = {
-			has_country_flag = SWE_flag_jung_chosen
-		}
-		
-		if = {
-			limit = {
-				NOT = {
-						has_country_flag = SWE_flag_crown_restored
-					}
-				}
-			set_country_flag = SWE_flag_jung_junta
-			add_stability = 0.10
-			add_popularity = { ideology = paternal_autocrat popularity = 0.14 }
-		} else = {
-			set_country_flag = SWE_flag_jung_junta
-			add_stability = 0.05
-			add_popularity = { ideology = paternal_autocrat popularity = 0.08 }		
-		}
-	}
-
-	option = {#ehrensvard wins
-		name = swereact.19.b
-		trigger = {
-			has_country_flag = SWE_flag_ehrensvard_chosen
-		}
-		set_country_flag = SWE_flag_authdem_junta
-		add_stability = 0.10
-				
-		set_politics = { ruling_party = authoritarian_democrat elections_allowed = no }
-		
-		hidden_effect = {
-		remove_all_ministers = yes
-		add_ideas = SWE_Carl_August_Ehrensvaerd_hog_ade
-		add_ideas = SWE_Bjorn_Holmgren_for_ade
-		add_ideas = SWE_Harald_Malmberg_eco_ade
-		add_ideas = SWE_Carlos_Adlercreutz_sec_ade
-		if = {
-			limit = {
-				NOT = {
-						has_country_flag = SWE_flag_crown_restored
-					}
-				}
-				create_country_leader = {
-					name = "Carl August Ehrensvärd"
-					desc = ""
-					picture = "gfx/leaders/SWE/Portrait_SWE_Carl_August_Ehrensvard_kx.png"
-					expire = "1.1.1"
-					ideology = authdem_junta_subtype
-				}
-					add_country_leader_trait = SWE_authdem_trait
-					add_popularity = { ideology = authoritarian_democrat popularity = 0.08 }
-			} else = {
-				add_popularity = { ideology = authoritarian_democrat popularity = 0.10 }
-			}
-		}	
-	}
-
-	option = {#douglas wins
-		name = swereact.19.c
-		trigger = {
-			has_country_flag = SWE_flag_douglas_chosen
-		}
 		add_stability = 0.05	
-		
+		add_popularity = { ideology = national_populist popularity = 0.12 }
 		set_politics = { ruling_party = national_populist elections_allowed = no }
-		hidden_effect = {
-		if = {
-			limit = {
-				has_country_flag = SWE_flag_restoration_accepted
-				has_country_flag = SWE_flag_crown_restored
-				}
-				country_event = { id = swereact.98 days = 5 }
-			}
-		
-		
 		remove_all_ministers = yes
 		add_ideas = SWE_Archibald_Douglas_hog_npo
 		add_ideas = SWE_Annie_akerhielm_for_npo
 		add_ideas = SWE_Elof_Eriksson_eco_npo
-		add_ideas = SWE_Martin_Ekstroem_sec_npo			
-		if = {
-			limit = {
-				NOT = {
-						has_country_flag = SWE_flag_crown_restored
-					}
-				}
-				add_popularity = { ideology = national_populist popularity = 0.06 }
-				set_cosmetic_tag = SWE_natpop_mil
+		add_ideas = SWE_Martin_Ekstroem_sec_npo	
+		set_cosmetic_tag = SWE_natpop_mil		
+		hidden_effect = {
+			if = {
+				limit = { has_country_flag = SWE_flag_crown_restored }	
+					set_cosmetic_tag = SWE_natpop_king
+				} 			
+				else = {
+				
+					
 					create_country_leader = {
 					name = "Archibald Douglas"
 					desc = "Politics_Archibald_Douglas_desc"
@@ -4175,2187 +3993,27 @@ country_event = { ###declaration of the regime
 					expire = "1.1.1"
 					ideology = militarism_subtype
 					}
+					set_cosmetic_tag = SWE_natpop_mil
 					add_country_leader_trait = SWE_natpop_riksledare_trait
-
-			} else = {
-				set_cosmetic_tag = SWE_natpop_king
-				add_popularity = { ideology = national_populist popularity = 0.1 }
-			}
-		}
-	}	
-}
-
-country_event = { ####jung secures rule
-	id = swereact.20
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.20" }
-	title = swereact.20.t
-	desc = swereact.20.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.20.a
-
-	}
-}
-
-country_event = { ####use landstormen to secure
-	id = swereact.21
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.21" }
-	title = swereact.21.t
-	desc = swereact.21.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.21.a
-		add_manpower = -20
-		add_offsite_building = { type = industrial_complex level = 1 }
-	}
-}
-
-country_event = { ####demonize politicians
-	id = swereact.22
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.22" }
-	title = swereact.22.t
-	desc = swereact.22.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.22.a
-
-		hidden_effect = {
-			country_event = { id = swereact.24 days = 25 }
-		}
-
-	}
-}
-
-country_event = { ####defence act again
-	id = swereact.23
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.23" }
-	title = swereact.23.t
-	desc = swereact.23.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.23.a
-		add_offsite_building = { type = arms_factory level = 1 }
-	}
-}
-
-country_event = { ####jung displeases other generals
-	id = swereact.24
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.24" }
-	title = swereact.24.t
-	desc = swereact.24.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#please them, lets work together
-		name = swereact.24.a
-		add_stability = 0.04
-		add_political_power = -25
-	}
-
-	option = {#screw em
-		name = swereact.24.b
-		add_war_support = -0.03
-		hidden_effect = {
-			country_event = { id = swereact.25 days = 30 }
-		}
-	}	
-}
-
-country_event = { ####jung vs gylenkrok
-	id = swereact.25
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.25" }
-	title = swereact.25.t
-	desc = swereact.25.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#Jung wins with his influence
-		name = swereact.25.a
-		add_stability = 0.1
-		add_war_support = 0.05
-		add_popularity = { ideology = paternal_autocrat popularity = 0.05 }
-	}
-	
-	option = {#Axel replaces Jung as the regimes spokesman
-		name = swereact.25.b
-			if = {
-				limit = {
-					has_country_flag = SWE_flag_crown_restored
+					
 				}
-				
-				remove_ideas_with_trait = head_of_government
-				add_ideas = SWE_Axel_Gyllenkrok_hog_npo			
-				set_country_leader_ideology = pataut_legionarism_subtype
-				
-			} else = {
-			
-			remove_country_leader_trait = SWE_Helge_jung_trait
-			
-			create_country_leader = {
-			name = "Axel Gyllenkrok"
-			desc = "Politics_Axel_Gyllenkrok_desc"
-			picture = "gfx/leaders/SWE/Portrait_SWE_Axel_Gyllenkrok.png"
-			expire = "1.1.1"
-			ideology = pataut_legionarism_subtype	
-			}
-			add_country_leader_trait = SWE_Axel_trait
-		}	
-		add_stability = 0.05
-		add_war_support = 0.12
-		set_country_flag = SWE_flag_axel_here
-		add_popularity = { ideology = national_populist popularity = 0.05 }
-		custom_effect_tooltip = pataut_pataut_legionarism_subtype_swap_tt
-	}	
-}
+			country_event = { id = swe.30 days = 400 }	
 
-country_event = { ####jung made cult of personality
-	id = swereact.26
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.26" }
-	title = swereact.26.t
-	desc = swereact.26.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.26.a
-		
-	}
-}
-
-country_event = { ####axel made leader, increases politization
-	id = swereact.27
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.27" }
-	title = swereact.27.t
-	desc = swereact.27.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.27.a
-
-	}
-}
-
-country_event = { ####more syndie crackdowns
-	id = swereact.28
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.28" }
-	title = swereact.28.t
-	desc = swereact.28.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.28.a
-
-	}
-}
-
-country_event = { ####jung ends non-army paramilitaries
-	id = swereact.29
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.29" }
-	title = swereact.29.t
-	desc = swereact.29.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.29.a
-
-	}
-}
-
-country_event = { ####rearmament focus
-	id = swereact.30
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.30" }
-	title = swereact.30.t
-	desc = swereact.30.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.30.a
-
-	}
-}
-
-country_event = { ####axel leadership becomes known etc, he is harsh
-	id = swereact.31
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.31" }
-	title = swereact.31.t
-	desc = swereact.31.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.31.a
-
-	}
-}
-
-country_event = { ####axel abuses secretary, government coverup
-	id = swereact.32
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.32" }
-	title = swereact.32.t
-	desc = swereact.32.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.32.a
-
-	}
-}
-
-country_event = { ####axel brings rifle training to scouts
-	id = swereact.33
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.33" }
-	title = swereact.33.t
-	desc = swereact.33.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.33.a
-
-	}
-}
-
-country_event = { ####government does grand parade in stockholm
-	id = swereact.34
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.34" }
-	title = swereact.34.t
-	desc = swereact.34.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.34.a
-
-	}
-}
-
-country_event = { ###start a remembrance day 
-	id = swereact.35
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.35" }
-	title = swereact.35.t
-	desc = swereact.35.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	trigger = {
-		tag = SWE
-		OR = {
-			has_government = national_populist
-			has_government = paternal_autocrat
-			has_government = authoritarian_democrat
-		}
-	}
-
-	option = {#
-		name = swereact.35.a
-		increase_ruling_party_popularity_by_1 = yes
-		hidden_effect = { country_event = { id = swereact.36 days = 365 } }
-	}
-}
-
-country_event = { ###military salvation day 
-	id = swereact.36
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.36" }
-	title = swereact.36.t
-	desc = swereact.36.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	trigger = {
-		tag = SWE
-		OR = {
-			has_government = national_populist
-			has_government = paternal_autocrat
-			has_government = authoritarian_democrat
-		}
-	}
-
-	option = {#
-		name = swereact.36.a
-		increase_ruling_party_popularity_by_1 = yes
-		add_political_power = 10
-		hidden_effect = { country_event = { id = swereact.36 days = 365 } }
-	}
-}
-
-country_event = { ####Oscar II history revival
-	id = swereact.37
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.37" }
-	title = swereact.37.t
-	desc = swereact.37.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.37.a
-
-	}
-}
-
-country_event = { ####swedish societal change to martialness
-	id = swereact.38
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.38" }
-	title = swereact.38.t
-	desc = swereact.38.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#nice 
-		name = swereact.38.a
-
-	}
-	
-	option = {#WE HEART GUSTAV!!!
-		name = swereact.38.a
-		set_country_leader_ideology = pataut_gustavianism_subtype
-	}	
-}
-
-country_event = { ####force thornells retirement
-	id = swereact.39
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.39" }
-	title = swereact.39.t
-	desc = swereact.39.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.39.a
-
-	}
-}
-
-## Natpop Army Events ##
-
-country_event = { ####natpop victory
-	id = swereact.40
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.40" }
-	title = swereact.40.t
-	desc = swereact.40.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.40.a
-
-	}
-}
-
-country_event = { ####syndicalist purge proper
-	id = swereact.41
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.41" }
-	title = swereact.41.t
-	desc = swereact.41.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.41.a
-
-	}
-}
-
-country_event = { ####high society nationalism becomes evident
-	id = swereact.42
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.42" }
-	title = swereact.42.t
-	desc = swereact.42.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.42.a
-
-	}
-}
-
-country_event = { ####party or army?
-	id = swereact.43
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.43" }
-	title = swereact.43.t
-	desc = swereact.43.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#Army - douglas
-		name = swereact.43.a
-
-	}
-
-	option = {#Party - Ekstrom
-		name = swereact.43.b
-		hidden_effect = {
-			remove_ideas_with_trait = head_of_government
-			add_ideas = SWE_Martin_Ekstroem_hog_npo		
 			if = {
 				limit = { has_country_flag = SWE_flag_crown_restored }
-				set_country_leader_ideology = national_security_state_subtype
-				
-				} 
-				
-				else = {
-					
-				create_country_leader = {
-				name = "Martin Ekström"
-				desc = "Politics_Martin_Ekstrom_desc"
-				picture = "gfx/leaders/SWE/Portrait_SWE_Martin_Ekstrom.png"
-				expire = "1.1.1"
-				ideology = legionarism_subtype
-				}
-				
-				add_country_leader_trait = SWE_ekstroem_trait					
-				}
+					country_event = { id = swemil.9 days = 5 }	
+			} else = { 
+				country_event = { id = swemil.10 days = 5 }
+				set_country_flag = SWE_flag_no_elmo_nats
+				set_country_flag = SWE_flag_archibald_winning
 			}
-	}	
-}
-
-country_event = { ####douglas propaganda
-	id = swereact.44
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.44" }
-	title = swereact.44.t
-	desc = swereact.44.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.44.a
-
-	}
-	
-	option = {#
-		name = swereact.44.b
-		set_country_leader_ideology = natpop_oligarchy_subtype
-	}	
-}
-
-country_event = { ####ekstroem makes sweden legionary
-	id = swereact.45
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.45" }
-	title = swereact.45.t
-	desc = swereact.45.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.45.a
-
-	}
-
-	option = {#
-		name = swereact.45.b
-		set_country_leader_ideology = national_security_state_subtype
-	}	
-}
-
-country_event = { ####army college becomes mechanised or aggressive
-	id = swereact.46
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.46" }
-	title = swereact.46.t
-	desc = swereact.46.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#mech
-		name = swereact.46.a
-
-	}
-
-	option = {#aggression
-		name = swereact.46.b
-
-	}	
-}
-
-country_event = { ####propaganda starts working well
-	id = swereact.47
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.47" }
-	title = swereact.47.t
-	desc = swereact.47.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.47.a
-
-	}
-}
-
-country_event = { ####youth nationalist program
-	id = swereact.48
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.48" }
-	title = swereact.48.t
-	desc = swereact.48.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.48.a
-
-	}
-}
-
-country_event = { ####issues of state vs private companies
-	id = swereact.49
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.49" }
-	title = swereact.49.t
-	desc = swereact.49.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.49.a
-
-	}
-}
-
-country_event = { ####Rosen joins our cause (thank you)
-	id = swereact.50
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.50" }
-	title = swereact.50.t
-	desc = swereact.50.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.50.a
-
-	}
-}
-
-country_event = { ####memories of the civil war - archibald douglas 
-	id = swereact.51
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.51" }
-	title = swereact.51.t
-	desc = swereact.51.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.51.a
-
-	}
-}
-
-country_event = { ####brutal leadership - ekstrom massacre reference
-	id = swereact.52
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.52" }
-	title = swereact.52.t
-	desc = swereact.52.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.52.a
-
-	}
-}
-
-country_event = { ####nordic or swedish supremacy
-	id = swereact.53
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.53" }
-	title = swereact.53.t
-	desc = swereact.53.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#Swedish
-		name = swereact.53.a
-
-	}
-	
-	option = {#Nordic
-		name = swereact.53.a
-
-	}	
-}
-
-country_event = { ####aristocracy of nobles - monarchy was restored
-	id = swereact.54
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.54" }
-	title = swereact.54.t
-	desc = swereact.54.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.54.a
-
-	}
-}
-
-country_event = { ####aristocracy of businessmen - monarchy not restored
-	id = swereact.55
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.55" }
-	title = swereact.55.t
-	desc = swereact.55.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.55.a
-
-	}
-}
-
-## Authdem Events ##
-
-country_event = { ####ehrensvard intro
-	id = swereact.57
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.57" }
-	title = swereact.57.t
-	desc = swereact.57.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.57.a
-
-	}
-}
-
-country_event = { ####ehrensvard organises generals into a council
-	id = swereact.58
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.58" }
-	title = swereact.58.t
-	desc = swereact.58.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.58.a
-
-	}
-}
-
-country_event = { ####calm down the radical right - talks with cousin
-	id = swereact.59
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.59" }
-	title = swereact.59.t
-	desc = swereact.59.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#talk them down - monarchy only
-		name = swereact.59.a
-
-	}
-
-	option = {#stomp them out
-		name = swereact.59.b
-
-	}	
-	
-	option = {#integrate them - republic only
-		name = swereact.59.c
-
-	}	
-}
-
-country_event = { ####issue of different views on the market
-	id = swereact.60
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.60" }
-	title = swereact.60.t
-	desc = swereact.60.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#full state protection - soccon like
-		name = swereact.60.a
-
-	}
-	
-	option = {#limited free market - marlib like
-		name = swereact.60.a
-
-	}	
-}
-
-country_event = { ####faith slowly restored
-	id = swereact.61
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.61" }
-	title = swereact.61.t
-	desc = swereact.61.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.61.a
-
-	}
-}
-
-country_event = { ####youth military organisation demonstration
-	id = swereact.62
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.62" }
-	title = swereact.62.t
-	desc = swereact.62.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.62.a
-
-	}
-}
-
-country_event = { ####ehrensvard LOVES canada guys
-	id = swereact.63
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.63" }
-	title = swereact.63.t
-	desc = swereact.63.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.63.a
-
-	}
-}
-
-country_event = { ####gustav love is back
-	id = swereact.64
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.64" }
-	title = swereact.64.t
-	desc = swereact.64.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#WE LOVE GUSTAV
-		name = swereact.64.a
-
-	}
-	
-	option = {#we do not like gustav
-		name = swereact.64.b
-
-	}	
-}
-
-country_event = { ####Riksradet or riksdag
-	id = swereact.65
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.65" }
-	title = swereact.65.t
-	desc = swereact.65.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#Restore the riksdag - monarchy only
-		name = swereact.65.a
- 
-	}
-	
-	option = {#restore the riksradet - either
-		name = swereact.65.b
-		
-	}	
-}
-
-country_event = { ####Riksdag elections planned
-	id = swereact.66
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.66" }
-	title = swereact.66.t
-	desc = swereact.66.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.66.a
-
-	}
-}
-
-country_event = { ####pardon the soclibs
-	id = swereact.67
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.67" }
-	title = swereact.67.t
-	desc = swereact.67.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#sorry
-		name = swereact.67.a
-
-	}
-}
-
-country_event = { ####rightists are happy
-	id = swereact.68
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.68" }
-	title = swereact.68.t
-	desc = swereact.68.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.68.a
-
-	}
-}
-
-country_event = { ####new laws against SAP or SSV returning
-	id = swereact.69
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.69" }
-	title = swereact.69.t
-	desc = swereact.69.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.69.a
-
-	}
-}
-
-country_event = { ####monarchy and Democracy enshrined by Ehrensvard
-	id = swereact.70
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.70" }
-	title = swereact.70.t
-	desc = swereact.70.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.70.a
-
-	}
-}
-
-country_event = { ####elections are back!
-	id = swereact.71
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.71" }
-	title = swereact.71.t
-	desc = swereact.71.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.71.a
-
-	}
-}
-
-country_event = { ####Riksradet formed
-	id = swereact.72
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.72" }
-	title = swereact.72.t
-	desc = swereact.72.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.72.a
-
-	}
-}
-
-country_event = { ####new nobility - generals and businessmen alongside royals
-	id = swereact.73
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.73" }
-	title = swereact.73.t
-	desc = swereact.73.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.73.a
-
-	}
-}
-
-country_event = { ####regions abandoned for mil districts
-	id = swereact.74
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.74" }
-	title = swereact.74.t
-	desc = swereact.74.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.74.a
-
-	}
-}
-
-country_event = { ####new council decides ideology
-	id = swereact.75
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.75" }
-	title = swereact.75.t
-	desc = swereact.75.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#side with gustavs
-		name = swereact.75.a
-		set_country_leader_ideology = gustavianism_subtype
-	}
-
-	option = {#side with generals
-		name = swereact.75.b
-
-	}
-
-	option = {#side with oligarchs
-		name = swereact.75.c
-		set_country_leader_ideology = oligarchy_subtype
-	}
-
-	option = {#side with toryism
-		name = swereact.75.e
-		set_country_leader_ideology = authdem_toryism_subtype
-	}	
-}
-
-country_event = { ####ehrensvard better for war not peace, viking tamm offered leadership
-	id = swereact.76
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.76" }
-	title = swereact.76.t
-	desc = swereact.76.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#ehrensvard
-		name = swereact.76.a
-
-	}
-
-	option = {#tamm
-		name = swereact.76.a
-			create_country_leader = {
-				name = "Viking Tamm"
-				desc = ""
-				picture = "gfx/leaders/SWE/Portrait_SWE_Viking_Tamm.png"
-				expire = "1.1.1"
-				ideology = authdem_junta_subtype
-			}		
-	}	
-}
-
-country_event = { ####protecting the economy
-	id = swereact.77
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.77" }
-	title = swereact.77.t
-	desc = swereact.77.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.77.a
-
-	}
-}
-
-country_event = { ####moderate marshal sweden
-	id = swereact.78
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.78" }
-	title = swereact.78.t
-	desc = swereact.78.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.78.a
-
-	}
-}
-
- ## Sven Hedin x Von Rosen Events ##
- 
-country_event = { ####king or regency
-	id = swereact.79
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.79" }
-	title = swereact.79.t
-	desc = swereact.79.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#king
-		name = swereact.79.a
-		country_event = { id = swereact.80 }
-		set_country_flag = SWE_flag_hedin_rosen_victory
-		hidden_effect = {
-			SWE_create_gustaf_adolf_jr = yes	
-			set_country_flag = SWE_flag_crown_restored
-			add_country_leader_trait = SWE_puppet_king_trait
-			set_country_leader_ideology = pataut_oligarchy_subtype
-		}		
-	}
-
-	option = {#
-		name = swereact.79.b
-		country_event = { id = swereact.80 }
-		set_country_flag = SWE_flag_hedin_rosen_victory
-		hidden_effect = {
-			SWE_create_regency = yes	
-			set_country_flag = SWE_flag_crown_restored
-			set_country_leader_ideology = pataut_oligarchy_subtype
-		}		
-		
-	}	
-}
-
-country_event = { ####rosen joins
-	id = swereact.80
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.80" }
-	title = swereact.80.t
-	desc = swereact.80.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.80.a
-
-		hidden_effect = {
-            set_country_flag = DOUBLE_LEADER_GUI_VISIBLE
-            set_country_flag = USES_CUSTOM_TITLE
-            set_country_flag = SWE_Eric_Von_Rosen_Baron_Minister
-        }
-
-	}
-}
-
-country_event = { ####Rosen starts shenanigans
-	id = swereact.81
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.81" }
-	title = swereact.81.t
-	desc = swereact.81.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.81.a
-
-	}
-} 
- 
-country_event = { ####ethnography
-	id = swereact.82
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.82" }
-	title = swereact.82.t
-	desc = swereact.82.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.82.a
-
-	}
-} 
-
-country_event = { ####finishing populism, only aristocracy here - gustavianism
-	id = swereact.83
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.83" }
-	title = swereact.83.t
-	desc = swereact.83.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#stay
-		name = swereact.83.a
-
-	}
-	
-	option = {#gustav
-		name = swereact.83.b
-		set_country_leader_ideology = pataut_gustavianism_subtype
-	}	
-}
-
-country_event = { ####hedins explorations - tibet
-	id = swereact.84
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.84" }
-	title = swereact.84.t
-	desc = swereact.84.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.84.a
-		country_event = { id = swereact.89 days = 120 }
-	}
-}
-
-country_event = { ####in search of agartha
-	id = swereact.85
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.85" }
-	title = swereact.85.t
-	desc = swereact.85.d
-	picture = GFX_report_event_SWE_agartha_expidition_1
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.85.a
-		add_political_power = -25
-		hidden_effect = {
-			country_event = { id = swereact.95 days = 250 random_days = 50 }
-		}
-		
-	}
-	
-	option = {#
-		name = swereact.85.b
-		add_political_power = 50
-		add_stability = 0.05
-		hidden_effect = {
-			country_event = { id = swereact.96 days = 250 random_days = 50 }
-		}		
-	}	
-}
-
-country_event = { ####history of rosens swastika - esotericism
-	id = swereact.86
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.86" }
-	title = swereact.86.t
-	desc = swereact.86.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.86.a
-
-	}
-	
-	option = {#
-		name = swereact.86.b
-		set_country_leader_ideology = pataut_occultism_subtype
-	}	
-}
-
-country_event = { ####establish ties to German politicians - volkism
-	id = swereact.87
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.87" }
-	title = swereact.87.t
-	desc = swereact.87.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.87.a
-
-	}
-
-	option = {#
-		name = swereact.87.b
-		set_country_leader_ideology = pataut_volkism_subtype
-	}	
-}
-
-country_event = { ####new nation of aristocracy
-	id = swereact.88
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.88" }
-	title = swereact.88.t
-	desc = swereact.88.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.88.a
-
-	}
-	
-	option = {#nationalism
-		name = swereact.88.b
-		set_country_leader_ideology = pataut_national_conservative_subtype
-	}	
-}
-
-country_event = { ####another hedin exploration event - mongolia and turkestan
-	id = swereact.89
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.89" }
-	title = swereact.89.t
-	desc = swereact.89.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.89.a
-
-	}
-}
-
-country_event = { ####question of the jews
-	id = swereact.90
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.90" }
-	title = swereact.90.t
-	desc = swereact.90.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#Hedin - no persecution
-		name = swereact.90.a
-
-	}
-
-	option = {#Rosen - persecution
-		name = swereact.90.b
-
-	}	
-}
-
-country_event = { ####foundation of the Riksföreningen blucher
-	id = swereact.91
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.91" }
-	title = swereact.91.t
-	desc = swereact.91.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.91.a
-
-	}
-} 
- 
-country_event = { ####rosen and georing letters (probs cant meet irl)
-	id = swereact.92
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.92" }
-	title = swereact.92.t
-	desc = swereact.92.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.92.a
-
-	}
-}  
- 
-country_event = { ####SWEDISH or nordic
-	id = swereact.93
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.93" }
-	title = swereact.93.t
-	desc = swereact.93.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#we are SWEDISH - not nord formable
-		name = swereact.93.a
-
-	}
-	
-	option = {#nordic chat
-		name = swereact.93.b
-
-	}	
-}  
-
-country_event = { ####imperialism is le good?
-	id = swereact.94
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.94" }
-	title = swereact.94.t
-	desc = swereact.94.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.94.a
-
-	}
-}
-
-country_event = { ####Agartha found?
-	id = swereact.95
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.95" }
-	title = swereact.95.t
-	desc = swereact.95.d
-	picture = GFX_report_event_SWE_agartha_found
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.95.a
-
-	}
-}
-
-country_event = { ####Expedition is lost
-	id = swereact.96
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.96" }
-	title = swereact.96.t
-	desc = swereact.96.d
-	picture = GFX_report_event_SWE_agartha_expidition_lost
-
-	is_triggered_only = yes
-
-	option = {#
-		name = swereact.96.a
-
-	}
-}
-
- ## Army Decisions ##
-
-country_event = { ####army decision choice
-	id = swereact.97
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.97" }
-	title = swereact.97.t
-	desc = swereact.97.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {# focus on building ideology
-		name = swereact.97.a
-		set_country_flag = SWE_flag_army_decision_ideology
-		set_country_flag = SWE_flag_army_decision_ideology_phase1
-	}
-
-	option = {# focus on defensive preparedness
-		name = swereact.97.b
-		set_country_flag = SWE_flag_army_decision_construction
-	}	
-}
-
-country_event = { ####army decision choice
-	id = swereact.98
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.98" }
-	title = swereact.98.t
-	desc = swereact.98.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {# focus on building ideology
-		name = swereact.98.a
-		increase_ruling_party_popularity_by_2 = yes 
-		add_political_power = 50
-	}	
-}
-
- ## Elmo Lindholm Events ##
- 
-country_event = { ####civilian issues with monarchists not liking ardent army men
-	id = swereact.99
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.99" }
-	title = swereact.99.t
-	desc = swereact.99.d
-	picture = GFX_report_event_SWE_gustav_funeral
-
-	is_triggered_only = yes
-
-	option = {# 
-		name = swereact.99.a
-		add_political_power = 25
-		add_stability = -0.02
-	}
-
-	option = {# 
-		name = swereact.99.b
-		country_event = { id = swereact.100 days = 5 }
-		
-	}	
-} 
- 
-country_event = { #sesame street ##LS##
-	id = swereact.100
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.100" }
-	title = swereact.100.t
-	desc = swereact.100.d
-	picture = GFX_report_event_SWE_elmo_lindholm
-
-	is_triggered_only = yes
-
-	option = { #stay
-		name = swereact.100.a
-		ai_chance = {
-			factor = 85
-			modifier = {
-				factor = 0
-				OR = {
-					has_game_rule = {
-						rule = SWE_riksdag_election
-						option = SWE_ELECTION_MILITARY_MORASS
-					}					
-				}
-			}
-		}		
-		add_political_power = 15
-		set_country_flag = SWE_flag_no_elmo_nats
-		set_country_flag = SWE_flag_archibald_winning	
-	}
-	
-	option = { #Elmo says we are friends!
-		name = swereact.100.b
-		ai_chance = {
-			factor = 15
-			modifier = {
-				factor = 0
-				NOT = {
-					has_game_rule = {
-						rule = SWE_riksdag_election
-						option = SWE_ELECTION_MILITARY_MORASS
-					}					
-				}
-			}
-		}		
-		add_popularity = { ideology = national_populist popularity = 0.05 }
-		add_war_support = 0.05
-		set_country_flag = SWE_flag_elmo_world
-		clr_country_flag = SWE_flag_archibald_winning
-		set_country_leader_ideology = riksvitalism_subtype
-		custom_effect_tooltip = natpop_riksvitalism_subtype_swap_tt
-		set_party_name = {
-			ideology = national_populist
-			long_name = SWE_national_populist_maurass_party_long
-			name = SWE_national_populist_maurass_party
-		}
-		
-		hidden_effect = {
-			remove_all_ministers = yes
-			add_ideas = SWE_Elmo_Lindholm_hog_npo
-			add_ideas = SWE_Annie_akerhielm_for_npo
-			add_ideas = SWE_Elof_Eriksson_eco_npo
-			add_ideas = SWE_Alf_Meyerhoffer_sec_npo			
-		}
-	}	
-}
- 
-country_event = { #elmo start ##LS##
-	id = swereact.101
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.101" }
-	title = swereact.101.t
-	desc = swereact.101.d
-	picture = GFX_report_event_SWE_Swedish_military_2
-
-	is_triggered_only = yes
-
-	option = { 
-		name = swereact.101.a
-		add_political_power = 40
-	
-	}
-} 
- 
-country_event = { #religious issues start ##LS##
-	id = swereact.102
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.102" }
-	title = swereact.102.t
-	desc = swereact.102.d
-	picture = GFX_report_event_SWE_Swedish_military_2
-
-	is_triggered_only = yes
-
-	option = { 
-		name = swereact.102.a
-		add_stability = -0.02
-		add_command_power = 10
-	
-	}
-} 
- 
-country_event = { #freemasonry
-	id = swereact.103
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.103" }
-	title = swereact.103.t
-	desc = swereact.103.d
-	picture = GFX_report_event_SWE_Swedish_military_2
-
-	is_triggered_only = yes
-
-	option = { #lets keep the status-quo
-		name = swereact.103.a
-		add_stability = -0.02
-		increase_ruling_party_popularity_by_2 = yes
-	}
-
-	option = { #remove freemasonry
-		name = swereact.103.b
-		add_war_support = 0.02
-		add_stability = 0.02
-	}
-} 
- 
-country_event = { #visit from the kingdom of france
-	id = swereact.104
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.104" }
-	title = swereact.104.t
-	desc = swereact.104.d
-	picture = GFX_report_event_NFA_event_AFRessurection
-
-	is_triggered_only = yes
-
-	option = { #yay!
-		name = swereact.104.a
-		add_war_support = 0.01
-		add_political_power	= -10		
-	
-		add_popularity = {
-			ideology = national_populist
-			popularity = 0.10
-			} 		
-	}	
-} 
- 
-country_event = { #Charles XII part 1
-	id = swereact.105
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.105" }
-	title = swereact.105.t
-	desc = swereact.105.d
-	picture = GFX_report_event_SWE_charles_xii_sit_event
-
-	is_triggered_only = yes
-
-	option = { #yay!
-		name = swereact.105.a
-		add_political_power = 25
-		add_war_support	= 0.02
-		increase_ruling_party_popularity_by_5 = yes
-	}	
-} 
- 
-country_event = { #integral nationalism ##LS##
-	id = swereact.106
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.106" }
-	title = swereact.106.t
-	desc = swereact.106.d
-	picture = GFX_report_event_SWE_church_auth
-
-	is_triggered_only = yes
-
-	option = { #yay!
-		name = swereact.106.a
-		add_stability = 0.05
-		add_war_support = -0.02
-		add_political_power	= 12		
-		add_popularity = {
-			ideology = national_populist
-			popularity = 0.10
-			} 
-	
-	}	
-} 
- 
-country_event = { #paramilitaries into a royal guard ##LS##
-	id = swereact.107
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.107" }
-	title = swereact.107.t
-	desc = swereact.107.d
-	picture = GFX_report_event_SWE_Swedish_military_2
-
-	is_triggered_only = yes
-
-	option = { #elmo still leads
-		name = swereact.107.a
-		increase_ruling_party_popularity_by_2 = yes
-	
-	}	
-
-	option = { #meyerhoffer leads
-		name = swereact.107.b
-		remove_ideas_with_trait = head_of_government
-		add_ideas = SWE_Alf_Meyerhoffer_hog_npo	
-		set_country_leader_ideology = riksvitalism_subtype
-		custom_effect_tooltip = natpop_riksvitalism_subtype_swap_tt
-		hidden_effect = {
-			remove_ideas_with_trait = minister_of_interior
-			add_ideas = SWE_Martin_Ekstroem_sec_npo
-		}
-		
-	}
-
-	option = { #meyerhoffer leads natsecurity
-		name = swereact.107.c
-		remove_ideas_with_trait = head_of_government
-		add_ideas = SWE_Alf_Meyerhoffer_hog_npo	
-		set_country_leader_ideology = national_security_state_subtype
-		custom_effect_tooltip = natpop_national_security_state_subtype_swap_tt
-		hidden_effect = {
-			remove_ideas = SWE_Alf_Meyerhoffer_sec_npo
-			add_ideas = SWE_Martin_Ekstroem_sec_npo
-		}		
-	}	
-}
- 
-country_event = { #Ingvar Kamprad ##LS##
-	id = swereact.108
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.108" }
-	title = swereact.108.t
-	desc = swereact.108.d
-	picture = GFX_report_event_SWE_IKEA_man
-
-	is_triggered_only = yes
-	
-	trigger = {
-		date > 1943.8.8
-		NOT = {
-			has_socialist_government = yes
-		}
-	}
-	option = { #nice, give help
-		name = swereact.108.a
-		add_political_power = 10
-	
-	}
-	
-	option = { #He would do good in government
-		name = swereact.108.b
-		trigger = {
-			has_government = national_populist
-		}
-		add_stability = 0.08
-		remove_ideas_with_trait = economy_minister
-		add_ideas = SWE_Ingvar_Kamprad_eco_npo
-	}
-} 
- 
-country_event = { #elmo flag switcher ##LS##
-	id = swereact.109
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.109" }
-	title = swereact.109.t
-	desc = swereact.109.d
-	picture = GFX_report_event_SWE_elmo_flag_picker
-
-	is_triggered_only = yes
-
-	option = { #elmo 1
-		name = swereact.109.a
-		set_cosmetic_tag = SWE_elmo_empire
-	}	
-	option = { #elmo 2
-		name = swereact.109.b
-		set_cosmetic_tag = SWE_elmo_empire2
-	}
-	option = { #elmo 3
-		name = swereact.109.c
-		set_cosmetic_tag = SWE_elmo_empire3
-	}
-
-	option = { #elmo herald
-		name = swereact.109.f
-		set_cosmetic_tag = SWE_elmo_empire_herald
-	}	
-} 
- 
-country_event = { ####eyes in the dark ##LS##
-	id = swereact.110
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.110" }
-	title = swereact.110.t
-	desc = swereact.110.d
-	picture = GFX_report_event_SWE_army_shoot
-
-	is_triggered_only = yes
-
-	option = {
-		name = swereact.110.a
-		random_owned_state = {
-			add_state_modifier = {
-				modifier = {
-					local_manpower = 0.01
-				}
-			}
-		}
-		add_political_power = 30
-		hidden_effect = {
-			country_event = { id = swereact.111 days = 250 }
 			
-		}		
-
-	}
-} 
-
-country_event = { #IB
-	id = swereact.111
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.111" }
-	title = swereact.111.t
-	desc = swereact.111.d
-	picture = GFX_report_event_SWE_military_police
-
-	is_triggered_only = yes
-
-	option = { #IB
-		name = swereact.111.a
-		add_command_power = 15
-		add_ideas = SWE_general_security_agency_idea
-		
-
-	}
-}
-
-country_event = { ####Rince out reds ##LS##
-	id = swereact.112
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.112" }
-	title = swereact.112.t
-	desc = swereact.112.d
-	picture = GFX_report_event_FIN_purges
-
-	is_triggered_only = yes
-
-	option = {
-		name = swereact.112.a
-		add_stability = 0.06
-		add_popularity = { ideology = totalist popularity = -0.03 }		
-		add_popularity = { ideology = syndicalist popularity = -0.03 }		
-		add_popularity = { ideology = radical_socialist popularity = -0.03 }
-		
-	}
-}
-
- 
- ## Manhem Society Events ##
-
-country_event = { ###Begin operation of enlightenment
-	id = swereact.113
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.113" }
-	title = swereact.113.t
-	desc = swereact.113.d
-	picture = GFX_report_event_FIN_purges
-
-	is_triggered_only = yes
-
-	option = {
-		name = swereact.113.a
-			add_timed_idea = {
-				idea = SWE_cutting_out_traditionalists
-				days = 120
 			}
-		hidden_effect = {
-			country_event = { id = swereact.124 days = 200 random_days = 50 }
-		}			
-	}
-}
-
-country_event = { ###weapons of the spirit
-	id = swereact.114
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.114" }
-	title = swereact.114.t
-	desc = swereact.114.d
-	picture = GFX_report_event_FIN_purges
-
-	is_triggered_only = yes
-
-	option = {
-		name = swereact.114.a
-		
-	}
-}
-
-country_event = { ###nordicist history
-	id = swereact.115
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.115" }
-	title = swereact.115.t
-	desc = swereact.115.d
-	picture = GFX_report_event_FIN_purges
-
-	is_triggered_only = yes
-
-	option = {
-		name = swereact.115.a
-		
-	}
-}
-
-country_event = { ###nordic holy spirit explained - somehow
-	id = swereact.116
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.116" }
-	title = swereact.116.t
-	desc = swereact.116.d
-	picture = GFX_report_event_FIN_purges
-
-	is_triggered_only = yes
-
-	option = {
-		name = swereact.116.a
-		
-	}
-}
-
-country_event = { ###per engahl helps us
-	id = swereact.117
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.117" }
-	title = swereact.117.t
-	desc = swereact.117.d
-	picture = GFX_report_event_FIN_purges
-
-	is_triggered_only = yes
-
-	option = {
-		name = swereact.117.a
-		
-	}
-}
-
-country_event = { ###geatish society lore dump
-	id = swereact.118
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.118" }
-	title = swereact.118.t
-	desc = swereact.118.d
-	picture = GFX_report_event_FIN_purges
-
-	is_triggered_only = yes
-
-	option = {
-		name = swereact.118.a
-		hidden_effect = {
-			country_event = { id = swereact.132 days = 120 }
-		}		
-	}
-}
-
-country_event = { ###church is reborn - after event swereact.122
-	id = swereact.119
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.119" }
-	title = swereact.119.t
-	desc = swereact.119.d
-	picture = GFX_report_event_FIN_purges
-
-	is_triggered_only = yes
-
-	option = {
-		name = swereact.119.a
-		hidden_effect = {
-			country_event = { id = swereact.123 days = 95 }
-		}		
-	}
-}
-
-country_event = { ###rumours from atlantis
-	id = swereact.120
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.120" }
-	title = swereact.120.t
-	desc = swereact.120.d
-	picture = GFX_report_event_FIN_purges
-
-	is_triggered_only = yes
-
-	option = {
-		name = swereact.120.a
-		
-	}
-}
-
-country_event = { ###new thrall class
-	id = swereact.121
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.121" }
-	title = swereact.121.t
-	desc = swereact.121.d
-	picture = GFX_report_event_FIN_purges
-
-	is_triggered_only = yes
-
-	option = {
-		name = swereact.121.a
-		
-	}
-}
-
-country_event = { ###cleanse christianity of jewishness
-	id = swereact.122
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.122" }
-	title = swereact.122.t
-	desc = swereact.122.d
-	picture = GFX_report_event_FIN_purges
-
-	is_triggered_only = yes
-
-	option = {
-		name = swereact.122.a
-		
-		hidden_effect = {
-			country_event = { id = swereact.119 days = 180 }
+			
+			
 		}
 	}
-}
-
-country_event = { ###issue of primordial faiths
-	id = swereact.123
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.123" }
-	title = swereact.123.t
-	desc = swereact.123.d
-	picture = GFX_report_event_FIN_purges
-
-	is_triggered_only = yes
-
-	option = {
-		name = swereact.123.a
-		
-	}
-}
-
-country_event = { ###Rassenseelenkunde - is aryan in the soul or body
-	id = swereact.124
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.124" }
-	title = swereact.124.t
-	desc = swereact.124.d
-	picture = GFX_report_event_FIN_purges
-
-	is_triggered_only = yes
-
-	option = {
-		name = swereact.124.a
-		
-	}
-}
-
-country_event = { ###gestalt psychology
-	id = swereact.125
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.125" }
-	title = swereact.125.t
-	desc = swereact.125.d
-	picture = GFX_report_event_FIN_purges
-
-	is_triggered_only = yes
-
-	option = {
-		name = swereact.125.a
-		
-	}
-}
-
-country_event = { ###hyperborea
-	id = swereact.126
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.126" }
-	title = swereact.126.t
-	desc = swereact.126.d
-	picture = GFX_report_event_FIN_purges
-
-	is_triggered_only = yes
-
-	option = {
-		name = swereact.126.a
-		
-	}
-}
-
-country_event = { ###arcane research
-	id = swereact.127
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.127" }
-	title = swereact.127.t
-	desc = swereact.127.d
-	picture = GFX_report_event_FIN_purges
-
-	is_triggered_only = yes
-
-	option = {
-		name = swereact.127.a
-		
-	}
-}
-
-country_event = { ###expand the institute for racial biology
-	id = swereact.128
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.128" }
-	title = swereact.128.t
-	desc = swereact.128.d
-	picture = GFX_report_event_FIN_purges
-
-	is_triggered_only = yes
-
-	option = {
-		name = swereact.128.a
-		
-	}
-}
-
-country_event = { ###allies in germany and uob
-	id = swereact.129
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.129" }
-	title = swereact.129.t
-	desc = swereact.129.d
-	picture = GFX_report_event_FIN_purges
-
-	is_triggered_only = yes
-
-	option = {
-		name = swereact.129.a
-		
-	}
-}
-
-country_event = { ###further research into Unverricht–Lundborg disease
-	id = swereact.130
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.130" }
-	title = swereact.130.t
-	desc = swereact.130.d
-	picture = GFX_report_event_FIN_purges
-
-	is_triggered_only = yes
-
-	option = {
-		name = swereact.130.a
-		
-	}
-}
-
-country_event = { ###under the all-father
-	id = swereact.131
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.131" }
-	title = swereact.131.t
-	desc = swereact.131.d
-	picture = GFX_report_event_FIN_purges
-
-	is_triggered_only = yes
-
-	option = {
-		name = swereact.131.a
-		
-	}
-}
-
-country_event = { ###renewed effort for race biology in nobel prize
-	id = swereact.132
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.132" }
-	title = swereact.132.t
-	desc = swereact.132.d
-	picture = GFX_report_event_FIN_purges
-
-	is_triggered_only = yes
-
-	option = {
-		name = swereact.132.a
-		
-	}
-}
-
-country_event = { ###hedin cosmetic
-	id = swereact.133
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swereact.133" }
-	title = swereact.133.t
-	desc = swereact.133.d
-	picture = GFX_report_event_FIN_purges
-
-	is_triggered_only = yes
-
-	option = {
-		name = swereact.133.a
-		set_cosmetic_tag = SWE_hedin_1
-	}
-
-	option = {
-		name = swereact.133.b
-		set_cosmetic_tag = SWE_hedin_2
-	}	
-}
-
-
-
-
-
-
-
-
-country_event = { ####Wastes to soldiers ##LS##
-	id = swemil.8888
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swemil.8888" }
-	title = swemil.8888.t
-	desc = swemil.8888.d
-	picture = GFX_report_event_SWE_Swedish_military_3
-
-	is_triggered_only = yes
-
-	option = {
-		name = swemil.8888.a
-		add_manpower = 4000
-		add_political_power = -25
-
-	}
-}
-
-
-
-country_event = { ####soldiers in factories ##LS##
-	id = swemil.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swemil.3" }
-	title = swemil.3.t
-	desc = swemil.3.d
-	picture = GFX_report_event_NFA_event_Aftermath
-
-	is_triggered_only = yes
-
-	option = {
-		name = swemil.3.a
-		add_popularity = { ideology = paternal_autocrat popularity = 0.03 }
-		add_stability = 0.07
-		add_war_support = -0.03
-
-	}
-}
-
+	
 
 
 country_event = { #Archy wins ##LS##
@@ -7049,7 +4707,7 @@ country_event = { #religious issues start ##LS##
 	}
 }
 
-country_event = { #freemasonry
+country_event = { #yo elmo what we playing as? AAAHHHHHHH ##LS##
 	id = swemil.36
 	immediate = { log = "[GetDateText]: [Root.GetName]: event swemil.36" }
 	title = swemil.36.t
@@ -7060,18 +4718,23 @@ country_event = { #freemasonry
 
 	option = { #lets keep the status-quo
 		name = swemil.36.a
-		add_stability = -0.02
-		increase_ruling_party_popularity_by_2 = yes
+		country_event = { id = swemil.37 days = 16 }
+
 	}
 
-	option = { #remove freemasonry
+	option = { #I LOVE MEDIEVAL FIEFDOM!
 		name = swemil.36.b
-		add_war_support = 0.02
-		add_stability = 0.02
+
+		
+		
+
+
 	}
+
+	
 }
 
-country_event = { #visit from the kingdom of france
+country_event = { #kept status quo ##LS##
 	id = swemil.37
 	immediate = { log = "[GetDateText]: [Root.GetName]: event swemil.37" }
 	title = swemil.37.t
@@ -7184,16 +4847,12 @@ country_event = { #Ingvar Kamprad ##LS##
 	
 	trigger = {
 		date > 1943.8.8
-		NOT = {
-			has_socialist_government = yes
-		}
 	}
 	option = { #nice, give help
 		name = swemil.41.a
 		add_political_power = 10
 	
-	}
-	
+	}	
 	option = { #He would do good in government
 		name = swemil.41.b
 		trigger = {
@@ -7202,8 +4861,8 @@ country_event = { #Ingvar Kamprad ##LS##
 		add_stability = 0.08
 		remove_ideas_with_trait = economy_minister
 		add_ideas = SWE_Ingvar_Kamprad_eco_npo
-	}
-} 
+		}
+	} 
 	
 
 
@@ -7236,6 +4895,102 @@ country_event = { #elmo flag switcher ##LS##
 	}	
 }
 
+
+country_event = { #letter to ottowa - canada side ##LS##
+	id = swemil.43
+	immediate = { log = "[GetDateText]: [Root.GetName]: event swemil.43" }
+	title = swemil.43.t
+	desc = swemil.43.d
+	picture = GFX_report_event_CAN_canadian_monarchy
+
+	is_triggered_only = yes
+
+	option = { 
+		name = swemil.43.a	
+		ai_chance = {
+			factor = 90
+		}
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = -700
+			producer = CAN
+		}
+		add_equipment_to_stockpile = {
+			type = support_equipment
+			amount = -110
+			producer = CAN
+		}
+		add_manpower = -650
+		add_political_power = -15	
+		hidden_effect = {
+			SWE = {
+				country_event = { id = swemil.44 days = 1 }		
+			}	
+		}		
+	}
+	option = { 
+		name = swemil.43.b
+
+		ai_chance = {
+			factor = 10
+		}		
+		add_political_power = 20
+		
+		hidden_effect = {
+			SWE = {
+				country_event = { id = swemil.45 days = 1 }		
+			}	
+		}	
+				
+	}	
+}
+
+country_event = { #letter to ottowa - canada is nice ##LS##
+	id = swemil.44
+	immediate = { log = "[GetDateText]: [Root.GetName]: event swemil.44" }
+	title = swemil.44.t
+	desc = swemil.44.d
+	picture = GFX_report_event_CAN_canadian_monarchy
+
+	is_triggered_only = yes
+
+	option = { 
+		name = swemil.44.a	
+		set_country_flag = SWE_flag_entente_nice
+		add_manpower = 649
+		add_political_power = 5
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 700
+			producer = CAN
+		}
+		add_equipment_to_stockpile = {
+			type = support_equipment
+			amount = 110
+			producer = CAN
+		}		
+		
+	}
+
+}
+
+country_event = { #letter to ottowa - canada is mean ##LS##
+	id = swemil.45
+	immediate = { log = "[GetDateText]: [Root.GetName]: event swemil.45" }
+	title = swemil.45.t
+	desc = swemil.45.d
+	picture = GFX_report_event_CAN_canadian_monarchy
+
+	is_triggered_only = yes
+
+	option = { 
+		name = swemil.45.a	
+		set_country_flag = SWE_flag_entente_bad
+		add_political_power = 45
+		add_stability = -0.01
+		
+	}	
+}
 
 country_event = { #Shakirah - Thornel starting mil tree  ##LS##
 	id = swemil.46
@@ -7322,9 +5077,56 @@ country_event = { #elmo herald flag
 		
 }
 
+country_event = { #Dissolution of the trade unions
+	id = swemil.49
+	immediate = { log = "[GetDateText]: [Root.GetName]: event swemil.49" }
+	title = swemil.49.t
+	desc = swemil.49.d
+	picture = GFX_report_event_SWE_Trade_Unions
 
+	is_triggered_only = yes
 
+	option = { #Good Riddance
+		name = swemil.49.a
+		add_political_power = 25
+		increase_ruling_party_popularity_by_2 = yes 
+	}
+}
 
+country_event = { #charles XII part 2
+	id = swemil.50
+	immediate = { log = "[GetDateText]: [Root.GetName]: event swemil.50" }
+	title = swemil.50.t
+	desc = swemil.50.d
+	picture = GFX_report_event_SWE_charles_xii_death_event
+
+	is_triggered_only = yes
+
+	option = { #
+		name = swemil.50.a
+		add_war_support = -0.01
+		increase_ruling_party_popularity_by_2 = yes
+		hidden_effect = {
+				country_event = { id = swemil.51 }		
+		}		
+		
+	}
+}
+
+country_event = { #poem
+	id = swemil.51
+	immediate = { log = "[GetDateText]: [Root.GetName]: event swemil.51" }
+	title = swemil.51.t
+	desc = swemil.51.d
+	picture = GFX_report_event_SWE_knights
+
+	is_triggered_only = yes
+
+	option = { #Good Riddance
+		name = swemil.51.a
+		add_political_power = 40
+	}
+}
 
 country_event = { #IB
 	id = swemil.52
@@ -9420,8 +7222,7 @@ country_event = { ####hugo refuses linderots broadness
 		add_ideas = SWE_Arvid_Olsson_sec_tot
 		add_ideas = SWE_Knut_Senander_for_tot
 		add_ideas = SWE_Set_Persson_eco_tot
-		add_ideas = SWE_Hugo_Sillen_hog_tot	
-		clr_country_flag = SWE_flag_linderot_victory
+		add_ideas = SWE_Hugo_Sillen_hog_tot		
 	
 	}	
 }
@@ -9654,7 +7455,12 @@ country_event = { #### dead flyg
 			expire = "1.1.1"
 			ideology = natsynd_subtype
 		}		
-	
+		if = {
+			limit = {
+				has_country_flag = SWE_flag_flyg_bukharin
+			}
+			custom_effect_tooltip = tot_natsynd_subtype_swap_tt	
+		}	
 	}	
 	
 	option = { # 
@@ -9671,6 +7477,37 @@ country_event = { #### dead flyg
 			expire = "1.1.1"
 			ideology = socialist_security_state_subtype
 		}		
+		custom_effect_tooltip = tot_socialist_security_state_subtype_swap_tt	
+	}
+
+	option = { # appoint the magazine bros
+		name = swerev.78.c
+		add_war_support = 0.10
+		add_stability = -0.05
+		remove_ideas_with_trait = head_of_government
+		add_ideas = SWE_Albin_Amelian_hog_tot
+		
+		if = {
+			limit = {
+				has_country_flag = SWE_flag_flyg_bukharin
+			}
+		create_country_leader = {
+			name = "Ingeborg Björklund"
+			desc = ""
+			picture = "gfx/leaders/SWE/Portrait_SWE_Ingeborg_Bjorklund.png"
+			expire = "1.1.1"
+			ideology = bukharinist_subtype
+		}		
+		
+		} else = {
+		create_country_leader = {
+			name = "Ingeborg Björklund"
+			desc = ""
+			picture = "gfx/leaders/SWE/Portrait_SWE_Ingeborg_Bjorklund.png"
+			expire = "1.1.1"
+			ideology = natsynd_subtype
+		}
+		}
 	
 	}	
 }
@@ -9798,7 +7635,7 @@ country_event = { ####reactionary allies - coalition add ##LS##
 			long_name = SWE_totalist_lind_party_long
 			name = SWE_totalist_lind_party
 		}		
-		add_popularity = { ideology = national_populist popularity = 0.1 }
+		
 	}				
 	
 }
@@ -10404,7 +8241,7 @@ country_event = { #[GetYear] Swedish General Elections
 		hidden_effect = {
 			remove_all_ministers = yes
 			add_ideas = SWE_Elmo_Lindholm_hog_npo
-			add_ideas = SWE_Bjorn_Holmgren_for_ade
+			add_ideas = SWE_Sven_Hedin_for_ade
 			add_ideas = SWE_Per_Engdahl_eco_npo
 			add_ideas = SWE_Alf_Meyerhoffer_sec_npo
 			add_pataut_to_coalition = yes
@@ -10631,7 +8468,7 @@ country_event = { ####swedish gold coast ##LS##
 					expire = "1.1.1"
 					ideology = autocratic_colonial_govt_subtype
 				}						
-			}
+				}
 			} else = {
 				GHA = {
 					load_focus_tree = generic_focus				
@@ -10800,21 +8637,16 @@ country_event = { #Finland now ours
 				844 = { is_owned_and_controlled_by = SWE }
 				150 = { is_owned_and_controlled_by = SWE }
 				864 = { is_owned_and_controlled_by = SWE } 
-				146 = { is_owned_and_controlled_by = SWE }
-				865 = { is_owned_and_controlled_by = SWE }
-				
-				NOT = {
-					has_country_flag = SWE_flag_finland_annex_event_fired
-				}
+				111 = { is_owned_and_controlled_by = SWE }
 		}
 
 	option = { ##Full integration
 		name = swefop.777.a
 		set_country_flag = SWE_flag_integrate_finland
-		set_country_flag = SWE_flag_finland_annex_event_fired
 		add_ideas = SWE_integrate_finland
 		add_stability = -0.1
 		add_war_support = 0.04	
+		unlock_decision_tooltip = SWE_FOP_integrate_finland
 		country_event = { id = swefop.30 days = 4 }
 		
 
@@ -10822,7 +8654,6 @@ country_event = { #Finland now ours
 	
 	option = { ##Take essential, setup puppet
 		name = swefop.777.b
-		set_country_flag = SWE_flag_finland_annex_event_fired
 		if = { limit = { has_government = national_populist } 
 		every_state = {
 			limit = {
@@ -10833,14 +8664,7 @@ country_event = { #Finland now ours
 			add_state_core = 149
 			add_state_core = 148
 			add_state_core = 844
-			add_state_core = 147
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
-			}			
+			add_state_core = 147		
 			FIN = {
 				add_state_core = 150
 				add_state_core = 864
@@ -10858,11 +8682,24 @@ country_event = { #Finland now ours
 				transfer_state = 111
 				transfer_state = 863
 				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = national_populist
 				}
@@ -10893,13 +8730,8 @@ country_event = { #Finland now ours
 				load_focus_tree = generic_focus
 				add_ideas = SWE_occupation_finland
 			}
-
-
 		}
-
-
-		
-		else_if = { limit = { has_government = paternal_autocrat	}
+		else_if = { limit = { has_government = paternal_autocrat }
 		every_state = {
 			limit = {
 				is_core_of = FIN
@@ -10927,11 +8759,24 @@ country_event = { #Finland now ours
 				transfer_state = 111
 				transfer_state = 863
 				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = paternal_autocrat
 				}
@@ -10960,21 +8805,9 @@ country_event = { #Finland now ours
 				}
 				set_cosmetic_tag = SWE_FIN_occupied
 				load_focus_tree = generic_focus
-				add_ideas = SWE_occupation_finland				
+				add_ideas = SWE_occupation_finland		
 			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
-			}
-
-
-
 		}
-
 		else_if = { limit = { has_government = authoritarian_democrat }
 		every_state = {
 			limit = {
@@ -11002,12 +8835,25 @@ country_event = { #Finland now ours
 				transfer_state = 864
 				transfer_state = 111
 				transfer_state = 863
-				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+				transfer_state = 840		
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = authoritarian_democrat
 				}
@@ -11036,21 +8882,9 @@ country_event = { #Finland now ours
 				}
 				set_cosmetic_tag = SWE_FIN_occupied
 				load_focus_tree = generic_focus
-				add_ideas = SWE_occupation_finland				
+				add_ideas = SWE_occupation_finland		
 			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
-			}
-
-
-
 		}
-
 		else_if = { limit = { has_government = radical_socialist }
 		every_state = {
 			limit = {
@@ -11078,12 +8912,25 @@ country_event = { #Finland now ours
 				transfer_state = 864
 				transfer_state = 111
 				transfer_state = 863
-				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+				transfer_state = 840		
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = radical_socialist
 				}
@@ -11112,21 +8959,9 @@ country_event = { #Finland now ours
 				}
 				set_cosmetic_tag = SWE_FIN_liberated
 				load_focus_tree = generic_focus
-				add_ideas = SWE_occupation_finland				
+				add_ideas = SWE_occupation_finland		
 			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
-			}
-
-
-
 		} 
-
 		else_if = { limit = { has_government = syndicalist }
 		every_state = {
 			limit = {
@@ -11155,11 +8990,24 @@ country_event = { #Finland now ours
 				transfer_state = 111
 				transfer_state = 863
 				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = syndicalist
 				}
@@ -11188,18 +9036,9 @@ country_event = { #Finland now ours
 				}
 				set_cosmetic_tag = SWE_FIN_liberated
 				load_focus_tree = generic_focus
-				add_ideas = SWE_occupation_finland				
-			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
+				add_ideas = SWE_occupation_finland		
 			}
 		} 		
-
 		else_if = { limit = { has_government = totalist }
 		every_state = {
 			limit = {
@@ -11227,12 +9066,25 @@ country_event = { #Finland now ours
 				transfer_state = 864
 				transfer_state = 111
 				transfer_state = 863
-				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+				transfer_state = 840		
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = totalist
 				}
@@ -11261,19 +9113,9 @@ country_event = { #Finland now ours
 				}
 				set_cosmetic_tag = SWE_FIN_rev
 				load_focus_tree = generic_focus
-				add_ideas = SWE_occupation_finland				
-			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
+				add_ideas = SWE_occupation_finland	
 			}
 		}		
-		
-		
 		else = {
 		every_state = {
 			limit = {
@@ -11306,7 +9148,24 @@ country_event = { #Finland now ours
 				transfer_state = 1325
 				transfer_state = 146
 				transfer_state = 1326
-
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = social_liberal
 				}
@@ -11335,25 +9194,13 @@ country_event = { #Finland now ours
 				}
 				set_cosmetic_tag = SWE_FINDEM
 				load_focus_tree = generic_focus
-				add_ideas = SWE_occupation_finland				
+				add_ideas = SWE_occupation_finland	
 			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
-			}
-
-		}		
-		
-		
+		}	
 	}
 	
 	option = { ##Limited self independence
 		name = swefop.777.c
-		set_country_flag = SWE_flag_finland_annex_event_fired
 		if = { limit = { has_government = national_populist } 	
 			FIN = {
 				add_state_core = 150
@@ -11372,11 +9219,24 @@ country_event = { #Finland now ours
 				transfer_state = 111
 				transfer_state = 863
 				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = national_populist
 				}
@@ -11407,19 +9267,8 @@ country_event = { #Finland now ours
 				load_focus_tree = generic_focus
 				add_ideas = SWE_occupation_finland
 			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
-			}
 		}
-
-
-		
-		else_if = { limit = { has_government = paternal_autocrat	}
+		else_if = { limit = { has_government = paternal_autocrat }
 			FIN = {
 				add_state_core = 150
 				add_state_core = 864
@@ -11436,12 +9285,25 @@ country_event = { #Finland now ours
 				transfer_state = 864
 				transfer_state = 111
 				transfer_state = 863
-				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+				transfer_state = 840		
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = paternal_autocrat
 				}
@@ -11470,21 +9332,9 @@ country_event = { #Finland now ours
 				}
 				set_cosmetic_tag = SWE_FIN_occupied
 				load_focus_tree = generic_focus
-				add_ideas = SWE_occupation_finland				
+				add_ideas = SWE_occupation_finland	
 			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
-			}
-
-
-
 		}
-
 		else_if = { limit = { has_government = authoritarian_democrat }
 			FIN = {
 				add_state_core = 150
@@ -11502,12 +9352,25 @@ country_event = { #Finland now ours
 				transfer_state = 864
 				transfer_state = 111
 				transfer_state = 863
-				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+				transfer_state = 840			
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = authoritarian_democrat
 				}
@@ -11536,23 +9399,10 @@ country_event = { #Finland now ours
 				}
 				set_cosmetic_tag = SWE_FIN_occupied
 				load_focus_tree = generic_focus
-				add_ideas = SWE_occupation_finland				
+				add_ideas = SWE_occupation_finland		
 			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
-			}
-
-
-
 		}
-
 		else_if = { limit = { has_government = radical_socialist }
-		
 			FIN = {
 				add_state_core = 150
 				add_state_core = 864
@@ -11569,12 +9419,25 @@ country_event = { #Finland now ours
 				transfer_state = 864
 				transfer_state = 111
 				transfer_state = 863
-				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+				transfer_state = 840			
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = radical_socialist
 				}
@@ -11603,23 +9466,10 @@ country_event = { #Finland now ours
 				}
 				set_cosmetic_tag = SWE_FIN_liberated
 				load_focus_tree = generic_focus
-				add_ideas = SWE_occupation_finland				
+				add_ideas = SWE_occupation_finland		
 			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
-			}
-
-
-
 		} 
-
 		else_if = { limit = { has_government = syndicalist }
-		
 			FIN = {
 				add_state_core = 150
 				add_state_core = 864
@@ -11636,12 +9486,25 @@ country_event = { #Finland now ours
 				transfer_state = 864
 				transfer_state = 111
 				transfer_state = 863
-				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+				transfer_state = 840			
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = syndicalist
 				}
@@ -11670,18 +9533,9 @@ country_event = { #Finland now ours
 				}
 				set_cosmetic_tag = SWE_FIN_liberated
 				load_focus_tree = generic_focus
-				add_ideas = SWE_occupation_finland				
-			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
+				add_ideas = SWE_occupation_finland		
 			}
 		} 		
-
 		else_if = { limit = { has_government = totalist }
 			FIN = {
 				add_state_core = 150
@@ -11699,12 +9553,25 @@ country_event = { #Finland now ours
 				transfer_state = 864
 				transfer_state = 111
 				transfer_state = 863
-				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+				transfer_state = 840			
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = totalist
 				}
@@ -11733,19 +9600,9 @@ country_event = { #Finland now ours
 				}
 				set_cosmetic_tag = SWE_FIN_rev
 				load_focus_tree = generic_focus
-				add_ideas = SWE_occupation_finland				
-			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
+				add_ideas = SWE_occupation_finland
 			}
 		}		
-		
-		
 		else = {		
 			FIN = {
 				add_state_core = 150
@@ -11763,12 +9620,25 @@ country_event = { #Finland now ours
 				transfer_state = 864
 				transfer_state = 111
 				transfer_state = 863
-				transfer_state = 840
-				transfer_state = 865
-				transfer_state = 1325
-				transfer_state = 146
-				transfer_state = 1326
-
+				transfer_state = 840			
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 865
+						state = 1325
+						state = 146
+						state = 1326
+						state = 1324
+					}
+				}
+				FIN = { transfer_state = PREV }
+			}
+			set_autonomy = {
+				target = FIN
+				autonomous_state = kx_colored_puppet
+			}
+			FIN = { 
 				set_politics = { 
 					ruling_party = social_liberal
 				}
@@ -11797,23 +9667,11 @@ country_event = { #Finland now ours
 				}
 				set_cosmetic_tag = SWE_FINDEM
 				load_focus_tree = generic_focus
-				add_ideas = SWE_occupation_finland				
+				add_ideas = SWE_occupation_finland
 			}
-			
-			release_puppet = FIN
-			SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = kx_colored_puppet
-				}
-			}
-
 		}		
-		
 	}	
 }
-
-
 
 country_event = { #give you nordic if not
 	id = swefop.500
@@ -12980,6 +10838,7 @@ country_event = { #should we go for eu or nah
 		name = swefop.34.b
 		add_stability = 0.05
 	}
+	
 }
 
 country_event = { #hugo union
@@ -13179,7 +11038,10 @@ country_event = { #
 	option = { # Get Wargoal
 		name = swefop.41.a
 		add_war_support = 0.05
-
+		create_wargoal = {
+			type = take_state_focus
+			target = NOR
+		}
 	}
 }
 
@@ -13197,7 +11059,10 @@ country_event = { #
 	option = { # Get Wargoal
 		name = swefop.42.a
 		add_war_support = 0.05
-
+		create_wargoal = {
+			type = take_state_focus
+			target = DEN
+		}
 	}
 }
 
@@ -13362,1187 +11227,70 @@ country_event = {
 	}
 }
 
-country_event = { #finland demands
+country_event = {
 	id = swefop.48
 	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.48" }
 	title = swefop.48.t
 	desc = swefop.48.d
-	picture = GFX_report_event_generic_diplomacy2
+	picture = GFX_report_event_SWE_Revolutionary_Committee
 
 	is_triggered_only = yes
 
 	fire_only_once = yes
 
-	option = { # Yes, join Sweden
+	option = { #yes with flag
 		name = swefop.48.a
-		ai_chance = {
-			factor = 50
-			modifier = {
-				factor = 100
-					FIN = { is_in_faction = yes }
-			}			
+		ai_chance = { factor = 0 }
+		if = {
+			limit = {
+				is_in_faction_with = ENG
+				is_in_faction_with = FRA
+				}
+			leave_faction = yes
 		}
-		SWE = {
-			country_event = { 
-				hours = 2 
-				id = swefop.49
+		
+		add_war_support = 0.05
+		custom_effect_tooltip = tooltip_white_line
+		custom_effect_tooltip = SWE_break_with_3rd_international_tt	
+		custom_effect_tooltip = tooltip_white_line
+		
+		increase_ruling_party_popularity_by_5 = yes
+		set_cosmetic_tag = SWE_syndicalist_world
+		every_country = {		
+			SWE = {
+			   create_wargoal = {
+				 type = annex_everything
+				 target = PREV
+				}
 			}
 		}
+		    every_state = {
+				limit = {
+					OR = {
+					is_on_continent = europe
+					is_on_continent = north_america
+					is_on_continent = south_america
+					is_on_continent = australia
+					is_on_continent = africa
+					is_on_continent = asia
+					is_on_continent = middle_east
+					is_on_continent = central_america
+					}
+				}
+				SWE = { 
+					add_state_claim = PREV 
+			    }
+			}
+
 		
 	}
 	
-	option = { # No, we refuse
+	option = { #no sorry
 		name = swefop.48.b
-		ai_chance = {
-			factor = 50
-		}
-		SWE = {
-			country_event = { days = 1 id = swefop.50 }
-		}
-	}
-}
-
-country_event = { # 
-	id = swefop.49
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.49" }
-	title = swefop.49.t
-	desc = swefop.49.d
-	picture = GFX_report_event_generic_diplomacy3
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = { # puppet
-		name = swefop.49.a
-			SWE = {
-				puppet = FIN
-			}
-	}
-}
-
-country_event = { # 
-	id = swefop.50
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.50" }
-	title = swefop.50.t
-	desc = swefop.50.d
-	picture = GFX_report_event_SWE_victory_in_battle
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = { # Get Wargoal
-		name = swefop.50.a
-		add_war_support = 0.05
-
-	}
-}
-
-country_event = { #Approach to the baltics
-	id = swefop.51
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.51" }
-	title = swefop.51.t
-	desc = swefop.51.d
-	picture = GFX_report_event_SWE_victory_in_battle
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = { #Demand them - dip maybe war
-		name = swefop.51.a
-		trigger = {
-			BAT = { exists = yes }
-		}
-		BAT = {
-			country_event = { id = swefop.52 }
-		}		
-	}
-	
-	option = { #support forest brothers - war
-		name = swefop.51.b
-		trigger = {
-			BAT = { exists = yes }
-			has_completed_focus = SWE_FOP_reclaim_the_empire_policy
-		}
-		
-		BAT = {
-			add_ideas = SWE_forest_brothers_supported
-		}
-	}
-
-	option = { #abandon the region
-		name = swefop.51.b
-		trigger = {
-			BAT = { exists = yes }
-			NOT = {
-				has_completed_focus = SWE_FOP_reclaim_the_empire_policy
-			}
-		}
-		set_country_flag = SWE_flag_baltics_abandoned
-	}	
-}
-
-country_event = { #Batlic duchy demands
-	id = swefop.52
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.52" }
-	title = swefop.52.t
-	desc = swefop.52.d
-	picture = GFX_report_event_generic_diplomacy2
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = { # Yes, join Sweden
-		name = swefop.52.a
-		ai_chance = {
-			factor = 50
-			modifier = {
-				factor = 0
-					BAT = { is_in_faction = yes }
-			}			
-		}
-		SWE = {
-			country_event = { 
-				hours = 2 
-				id = swefop.49
-			}
-		}
-		
-	}
-	
-	option = { # No, we refuse
-		name = swefop.52.b
-		ai_chance = {
-			factor = 50
-		}
-		SWE = {
-			country_event = { days = 1 id = swefop.50 }
-		}
-	}
-}
-
-country_event = { # 
-	id = swefop.53
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.53" }
-	title = swefop.53.t
-	desc = swefop.53.d
-	picture = GFX_report_event_generic_diplomacy3
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = { # puppet
-		name = swefop.53.a
-			SWE = {
-				puppet = BAT
-			}
-	}
-}
-
-country_event = { # 
-	id = swefop.54
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.54" }
-	title = swefop.54.t
-	desc = swefop.54.d
-	picture = GFX_report_event_SWE_victory_in_battle
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = { # Get Wargoal
-		name = swefop.54.a
-		add_war_support = 0.05
-
-	}
-}
-
-country_event = { #Estonia demands
-	id = swefop.55
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.55" }
-	title = swefop.55.t
-	desc = swefop.55.d
-	picture = GFX_report_event_generic_diplomacy2
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = { # Yes, join Sweden
-		name = swefop.55.a
-		ai_chance = {
-			factor = 50
-			modifier = {
-				factor = 0
-					EST = { is_in_faction = yes }
-			}			
-		}
-		SWE = {
-			country_event = { 
-				hours = 2 
-				id = swefop.56
-			}
-		}
-		
-	}
-	
-	option = { # No, we refuse
-		name = swefop.55.b
-		ai_chance = {
-			factor = 50
-		}
-		SWE = {
-			country_event = { days = 1 id = swefop.57 }
-		}
-	}
-}
-
-country_event = { # 
-	id = swefop.56
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.56" }
-	title = swefop.56.t
-	desc = swefop.56.d
-	picture = GFX_report_event_generic_diplomacy3
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = { # puppet
-		name = swefop.56.a
-			SWE = {
-				puppet = EST
-			}
-	}
-}
-
-country_event = { # 
-	id = swefop.57
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.57" }
-	title = swefop.57.t
-	desc = swefop.57.d
-	picture = GFX_report_event_SWE_victory_in_battle
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = { # Get Wargoal
-		name = swefop.57.a
-		add_war_support = 0.05
-
-	}
-}
-
-country_event = { #latvia demands
-	id = swefop.58
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.58" }
-	title = swefop.58.t
-	desc = swefop.58.d
-	picture = GFX_report_event_generic_diplomacy2
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = { # Yes, join Sweden
-		name = swefop.58.a
-		ai_chance = {
-			factor = 50
-			modifier = {
-				factor = 100
-					LAT = { is_in_faction = yes }
-			}			
-		}
-		SWE = {
-			country_event = { 
-				hours = 2 
-				id = swefop.59
-			}
-		}
-		
-	}
-	
-	option = { # No, we refuse
-		name = swefop.58.b
-		ai_chance = {
-			factor = 50
-		}
-		SWE = {
-			country_event = { days = 1 id = swefop.60 }
-		}
-	}
-}
-
-country_event = { # 
-	id = swefop.59
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.59" }
-	title = swefop.59.t
-	desc = swefop.59.d
-	picture = GFX_report_event_generic_diplomacy3
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = { # puppet
-		name = swefop.59.a
-			SWE = {
-				puppet = EST
-			}
-	}
-}
-
-country_event = { # 
-	id = swefop.60
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.60" }
-	title = swefop.60.t
-	desc = swefop.60.d
-	picture = GFX_report_event_SWE_victory_in_battle
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = { # Get Wargoal
-		name = swefop.60.a
-		add_war_support = 0.05
-
-	}
-}
-
-
-##Forced united scandinavia events for sweden##
-country_event = { #tensions still present 
-	id = swefop.61
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.61" }
-	title = swefop.61.t
-	desc = swefop.61.d
-	picture = GFX_report_event_SWE_victory_in_battle
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = { #drats!
-		name = swefop.61.a
-
-
-	}
-}
-
-country_event = { #language question 
-	id = swefop.62
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.62" }
-	title = swefop.62.t
-	desc = swefop.62.d
-	picture = GFX_report_event_SWE_victory_in_battle
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = { #allow multilingualism
-		name = swefop.62.a
-
-
-	}
-	
-	option = { #only SWEDISH!!!
-		name = swefop.62.b
-
-
-	}
-
-	option = { #try to formulate a united language
-		name = swefop.62.c
-
-
-	}	
-}
-
-country_event = { #allow other government helps or nah? 
-	id = swefop.63
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.63" }
-	title = swefop.63.t
-	desc = swefop.63.d
-	picture = GFX_report_event_SWE_victory_in_battle
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = { #welcome their help
-		name = swefop.63.a
-		trigger = {
-			NOT = {
-				has_country_flag = SWE_flag_military_steps_in
-			}
-		}
-
-
-	}
-	
-	option = { #bugger off
-		name = swefop.63.b
-
-
-	}	
-}
-
-country_event = { #kalmar casket?
-	id = swefop.64
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.64" }
-	title = swefop.64.t
-	desc = swefop.64.d
-	picture = GFX_report_event_SWE_victory_in_battle
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = { #to ease tensions, form the kalmar union!
-		name = swefop.64.a
-		trigger = {
-			NOT = {
-				has_country_flag = SWE_flag_military_steps_in
-			}
-		}
-
-	}
-
-	option = { #screw that!
-		name = swefop.64.b
-
-
-	}	
-}
-
-# swedish financial alliance
-country_event = {
-	id = swefop.65
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.65" }
-	title = swefop.65.t
-	desc = swefop.65.d
-	picture = GFX_report_event_CAN_air_traning_scheme
-
-	is_triggered_only = yes
-
-	option = {
-		name = swefop.65.a
-		hidden_effect = {
-			every_other_country = {
-				limit = {
-					is_in_faction_with = SWE
-					NOT = { tag = SWE }
-				}
-				country_event = swefop.66
-			}
-		}
-	}
-}
-
-# Sweden member invited to join
-country_event = {
-	id = swefop.66
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.66" }
-	title = swefop.66.t
-	desc = swefop.66.d
-	picture = GFX_report_event_CAN_air_traning_scheme
-
-	is_triggered_only = yes
-
-	option = { # Agree
-		name = swefop.66.a
-		ai_chance = {
-			factor = 80
-		}
-		add_ideas = SWE_financial_faction
-		SWE = {
-			add_opinion_modifier = { target = ROOT modifier = KR_pleased }
-			country_event = { id = swefop.67 days = 1 random = 264 }
-		}
-	}
-	option = { # Refuse
-		name = swefop.66.b
-		ai_chance = {
-			factor = 20
-		}
-		SWE = {
-			add_opinion_modifier = { target = ROOT modifier = KR_disapproves_of_govt }
-		}
-		add_political_power = 25
-	}
-}
-
-# member joins the programme
-country_event = {
-	id = swefop.67
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.67" }
-	title = swefop.67.t
-	desc = swefop.67.d
-	picture = GFX_report_event_CAN_air_traning_scheme
-
-	is_triggered_only = yes
-
-	trigger = {
-		is_in_faction_with = FROM
-	}
-
-	option = {
-		name = swefop.67.a
-		add_political_power = 1
-	}
-}
-
-country_event = { #Spain faction - sweden sends aid
-	id = swefop.68
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.68" }
-	title = swefop.68.t
-	desc = swefop.68.d
-	picture = GFX_report_event_CAN_air_traning_scheme
-
-	is_triggered_only = yes
-
-	option = {
-		name = swefop.68.a
-		add_political_power = 1
-	}
-}
-
-country_event = { #decision on USA
-	id = swefop.69
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.69" }
-	title = swefop.69.t
-	desc = swefop.69.d
-	picture = GFX_report_event_CAN_air_traning_scheme
-
-	is_triggered_only = yes
-
-
-	option = { #Support the feds
-		name = swefop.69.a
-		trigger = {
-			NOT = {
-				has_country_flag = SWE_flag_red_in_sweden
-			}
-		}		
-		add_political_power = -5
-		set_country_flag = SWE_flag_fed_supported
-		set_country_flag = SWE_flag_ACW_supported
-	}
-
-	option = { #Support the CORs
-		name = swefop.69.b
-		trigger = {
-			NOT = {
-				has_country_flag = SWE_flag_red_in_sweden
-			}
-		}		
-		add_political_power = -5
-		set_country_flag = SWE_flag_con_supported
-		set_country_flag = SWE_flag_ACW_supported
-	}
-
-	option = { #Support the AUSs
-		name = swefop.69.c
-		trigger = {
-			NOT = {
-				has_country_flag = SWE_flag_red_in_sweden
-			}
-		}		
-		add_political_power = -5
-		set_country_flag = SWE_flag_aus_supported
-		set_country_flag = SWE_flag_ACW_supported
-	}
-
-	option = { #Support the CSAs
-		name = swefop.69.e
-		trigger = {
-			has_country_flag = SWE_flag_red_in_sweden
-		}
-		add_political_power = -5
-		set_country_flag = SWE_flag_csa_supported
-		set_country_flag = SWE_flag_ACW_supported
-	}
-
-	option = { #Support the opt out
-		name = swefop.69.f
-		add_political_power = 10
-	}
-
-	option = { #make a claim to the old colonies
-		name = swefop.69.g
-		trigger = {
-			NOT = {
-				has_country_flag = SWE_flag_red_in_sweden
-			}		
-			has_completed_focus = SWE_FOP_reclaim_the_empire_policy
-		}
-		add_political_power = -15
-		set_country_flag = SWE_flag_colonial_supported
-	}	
-}
-
-country_event = { #sweden demands New sweden small
-	id = swefop.70
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.70" }
-	title = swefop.70.t
-	desc = swefop.70.d
-	picture = GFX_report_event_CAN_air_traning_scheme
-
-	is_triggered_only = yes
-
-	option = { #what... no lol
-		name = swefop.70.a
-		ai_chance = {
-			factor = 30			
-		}
-		SWE = {
-			country_event = { 
-				hours = 2 
-				id = swefop.71
-			}
-		}
-	}
-	
-	option = { #if they pay us their dues
-		name = swefop.70.a
-		ai_chance = {
-			factor = 70
-		}
-		add_ideas = SWE_small_new_sweden_sale
-		SWE = {
-			country_event = { days = 1 id = swefop.72 }
-		}
-	}	
-}
-
-country_event = { # person accepts new sweden small claim
-	id = swefop.71
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.71" }
-	title = swefop.71.t
-	desc = swefop.71.d
-	picture = GFX_report_event_generic_diplomacy3
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = { # get states
-		name = swefop.71.a
-			add_ideas = SWE_small_new_sweden_purchase
-			every_state = {
-				limit = {
-					OR = {
-						state = 359 #new jersey
-						state = 1162 #southern new jersey
-					}
-				}
-				transfer_state_to = SWE
-			}
-	}
-}
-
-country_event = { # person denies our new sweden small claim
-	id = swefop.72
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.72" }
-	title = swefop.72.t
-	desc = swefop.72.d
-	picture = GFX_report_event_SWE_victory_in_battle
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = { # Get Wargoal
-		name = swefop.72.a
-		ai_chance = {
-			factor = 20			
-		}		
-			create_wargoal = {
-				target = 1359.owner
-				type = annex_everything
-			}		
-
-	}
-
-	option = { # give up
-		name = swefop.72.b
-		ai_chance = {
-			factor = 80			
-		}		
-		add_political_power = 10
-
-	}	
-}
-
-country_event = { #sweden demands New sweden large 
-	id = swefop.73
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.73" }
-	title = swefop.73.t
-	desc = swefop.73.d
-	picture = GFX_report_event_CAN_air_traning_scheme
-
-	is_triggered_only = yes
-
-	option = { #what... no lol
-		name = swefop.73.a
-		ai_chance = {
-			factor = 30			
-		}
-		SWE = {
-			country_event = { 
-				hours = 2 
-				id = swefop.75
-			}
-		}
-	}
-	
-	option = { #if they pay us their dues
-		name = swefop.73.a
-		ai_chance = {
-			factor = 70
-		}
-		add_ideas = SWE_new_sweden_sale
-		SWE = {
-			country_event = { days = 1 id = swefop.74 }
-		}
-	}	
-}
-
-country_event = { # person accepts new sweden claim
-	id = swefop.74
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.74" }
-	title = swefop.74.t
-	desc = swefop.74.d
-	picture = GFX_report_event_generic_diplomacy3
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = { # get states
-		name = swefop.74.a
-			add_ideas = SWE_new_sweden_purchase
-			every_state = {
-				limit = {
-					OR = {
-						state = 359 #new jersey
-						state = 1162 #southern new jersey
-						state = 358 #NYC
-						state = 360 #penn
-						state = 930 #delawere
-						
-					}
-				}
-				transfer_state_to = SWE
-			}
-	}
-}
-
-country_event = { # person denies our new sweden claim
-	id = swefop.75
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.75" }
-	title = swefop.75.t
-	desc = swefop.75.d
-	picture = GFX_report_event_SWE_victory_in_battle
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = { # Get Wargoal
-		name = swefop.75.a
-		ai_chance = {
-			factor = 20			
-		}		
-			create_wargoal = {
-				target = 1359.owner
-				type = annex_everything
-			}		
-
-	}
-
-	option = { # give up
-		name = swefop.75.b
-		ai_chance = {
-			factor = 80			
-		}		
-		add_political_power = 10
-
-	}	
-}
-
-country_event = { #ACW - sweden sends aid
-	id = swefop.76
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.76" }
-	title = swefop.76.t
-	desc = swefop.76.d
-	picture = GFX_report_event_CAN_air_traning_scheme
-
-	is_triggered_only = yes
-
-	option = {
-		name = swefop.76.a
-		add_political_power = 5
-	}
-}
-
-country_event = { #decide on essequibo - nonrev
-	id = swefop.77
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.77" }
-	title = swefop.77.t
-	desc = swefop.77.d
-	picture = GFX_report_event_CAN_air_traning_scheme
-
-	is_triggered_only = yes
-
-	option = { #leave it alone
-		name = swefop.77.a
-		add_political_power = 10
-	}
-	
-	option = { #ask for the territory
-		name = swefop.77.b
-			var:687.owner = {
-				country_event = {
-					id = swefop.79
-					days = 1
-				}			
-			}		
-	}
-
-	option = { #War against whoever controls it!
-		name = swefop.77.c
-			add_political_power = -5
-			create_wargoal = {
-				target = 687.owner
-				type = annex_everything
-			}
-	}	
-}
-
-country_event = { #decide on essequibo - rev
-	id = swefop.78
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.78" }
-	title = swefop.78.t
-	desc = swefop.78.d
-	picture = GFX_report_event_CAN_air_traning_scheme
-
-	is_triggered_only = yes
-
-	option = { #leave it alone
-		name = swefop.78.a
-		add_political_power = 10
-	}
-	
-	option = { #ask for the territory
-		name = swefop.78.b
-			var:687.owner = {
-				country_event = {
-					id = swefop.80
-					days = 1
-				}			
-			}		
-	}
-
-	option = { #War against whoever controls it!
-		name = swefop.78.c
-
-	}	
-}
-
-country_event = { #demand essequibo - nonrev
-	id = swefop.79
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.77" }
-	title = swefop.79.t
-	desc = swefop.79.d
-	picture = GFX_report_event_CAN_air_traning_scheme
-
-	is_triggered_only = yes
-
-	option = { #no
-		name = swefop.79.a
-		SWE = {
-			country_event = { id = swefop.82 }
-		}
-	}
-	
-	option = { #ok sure
-		name = swefop.79.b
-		SWE = {
-			country_event = { id = swefop.81 }
-		}				
+		ai_chance = { factor = 100 }
 	}
 	
 }
-
-country_event = { #demand essequibo - rev
-	id = swefop.80
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.80" }
-	title = swefop.80.t
-	desc = swefop.80.d
-	picture = GFX_report_event_CAN_air_traning_scheme
-
-	is_triggered_only = yes
-
-	option = { #no
-		name = swefop.80.a
-		SWE = {
-			country_event = { id = swefop.82 }
-		}
-	}
-	
-	option = { #ok sure
-		name = swefop.80.b
-		SWE = {
-			country_event = { id = swefop.81 }
-		}		
-		
-	}
-	
-}
-
-country_event = { #demand essequibo - yes response
-	id = swefop.81
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.81" }
-	title = swefop.81.t
-	desc = swefop.81.d
-	picture = GFX_report_event_CAN_air_traning_scheme
-
-	is_triggered_only = yes
-
-	option = { #leave it be
-		name = swefop.81.a
-			every_state = {
-				limit = {
-					OR = {
-						state = 687 
-						state = 1039
-						state = 1308
-						state = 1079
-						state = 1078		
-					}
-				}
-				transfer_state_to = SWE
-			}
-	}
-	
-}
-
-country_event = { #demand essequibo - no response
-	id = swefop.82
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.82" }
-	title = swefop.82.t
-	desc = swefop.82.d
-	picture = GFX_report_event_CAN_air_traning_scheme
-
-	is_triggered_only = yes
-
-	option = { #leave it be
-		name = swefop.82.a
-		add_political_power = 10
-	}
-	
-	option = { #war it is
-		name = swefop.82.b
-		add_political_power = -10
-			create_wargoal = {
-				target = 687.owner
-				type = annex_everything
-			}		
-	}
-	
-}
-
-country_event = { #sweden demands vinland
-	id = swefop.83
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.83" }
-	title = swefop.83.t
-	desc = swefop.83.d
-	picture = GFX_report_event_CAN_air_traning_scheme
-
-	is_triggered_only = yes
-
-	option = { #what... no lol
-		name = swefop.83.a
-		ai_chance = {
-			factor = 70			
-		}
-		SWE = {
-			country_event = { 
-				hours = 2 
-				id = swefop.85
-			}
-		}
-	}
-	
-	option = { #if they pay us their dues
-		name = swefop.83.a
-		ai_chance = {
-			factor = 30
-		}
-		SWE = {
-			country_event = { days = 1 id = swefop.84 }
-		}
-	}	
-}
-
-country_event = { #demand vinland - yes response
-	id = swefop.84
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.84" }
-	title = swefop.84.t
-	desc = swefop.84.d
-	picture = GFX_report_event_CAN_air_traning_scheme
-
-	is_triggered_only = yes
-
-	option = { 
-		name = swefop.84.a
-			every_state = {
-				limit = {
-					OR = {
-						state = 331
-						state = 730
-						state = 332
-					}
-				}
-				transfer_state_to = SWE
-			}
-	}
-	
-}
-
-country_event = { #demand vinland - no response
-	id = swefop.85
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.85" }
-	title = swefop.85.t
-	desc = swefop.85.d
-	picture = GFX_report_event_CAN_air_traning_scheme
-
-	is_triggered_only = yes
-
-	option = { #leave it be
-		name = swefop.85.a
-		add_political_power = 10
-	}
-	
-	option = { #war it is
-		name = swefop.85.b
-		add_political_power = -10
-			create_wargoal = {
-				target = 331.owner
-				type = annex_everything
-			}		
-	}
-	
-}
-
-country_event = { #sweden want to buy us
-	id = swefop.86
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.86" }
-	title = swefop.86.t
-	desc = swefop.86.d
-	picture = GFX_report_event_CAN_air_traning_scheme
-
-	is_triggered_only = yes
-
-	option = { #no
-		name = swefop.86.a
-		ai_chance = {
-			factor = 70			
-		}
-		SWE = {
-			country_event = { 
-				hours = 2 
-				id = swefop.88
-			}
-		}
-	}
-	
-	option = { #sure
-		name = swefop.86.b
-		ai_chance = {
-			factor = 30
-		}
-		SWE = {
-			country_event = { days = 1 id = swefop.87 }
-		}		
-	}
-	
-}
-
-country_event = { #gold coast bought!
-	id = swefop.87
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.87" }
-	title = swefop.87.t
-	desc = swefop.87.d
-	picture = GFX_report_event_CAN_air_traning_scheme
-
-	is_triggered_only = yes
-
-	option = {
-		name = swefop.87.a
-			every_state = {
-				limit = {
-					OR = {
-						state = 274
-						state = 1321
-						state = 1322
-						state = 1323
-					}
-				}
-				transfer_state_to = SWE
-			}
-	}
-	
-}
-
-country_event = { #gold coast purchase denied
-	id = swefop.88
-	immediate = { log = "[GetDateText]: [Root.GetName]: event swefop.88" }
-	title = swefop.88.t
-	desc = swefop.88.d
-	picture = GFX_report_event_CAN_air_traning_scheme
-
-	is_triggered_only = yes
-
-	option = { #no
-		name = swefop.88.a
-	}
-	
-	option = { #sure
-		name = swefop.88.b
-		trigger = {
-			NOT = {
-				has_completed_focus = SWE_FOP_our_home_defended_policy
-			}
-		}
-			create_wargoal = {
-				target = 274.owner
-				type = annex_everything
-			}		
-	}
-	
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

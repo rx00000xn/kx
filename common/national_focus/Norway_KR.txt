@@ -208,7 +208,7 @@ focus_tree = {
 		prerequisite = { focus = NOR_north_industry }
 		x = 1
 		y = 4
-		cost = 5
+		cost = 8
 
 		ai_will_do = {
 			factor = 2
@@ -222,6 +222,19 @@ focus_tree = {
 				state = 144
 			}
 			144 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_resource = {
+				type = coal
+				amount = 8
+				state = 1147
+			}
+			1147 = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
@@ -5393,10 +5406,7 @@ focus_tree = {
 		
 		available = {
 			is_subject = no
-			OR = {
-				has_global_flag = NOR_nationalist_nation
-				has_country_flag = NOR_ragnarok_arrived
-			}
+			has_global_flag = NOR_nationalist_nation
 		}
 		
 		relative_position_id = NOR_DEM_internationalism
@@ -5659,6 +5669,264 @@ focus_tree = {
 			add_political_power = 100		
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	
+	focus = {
+		id = NOR_NAT_chud_ties
+		icon = GFX_goal_NOR_legionary_axis
+		prerequisite = { focus = NOR_DEM_internationalism }
+		x = 33
+		y = 1
+		cost = 5
+
+		available = {
+			is_subject = no
+			has_global_flag = NOR_nationalist_nation
+			has_country_flag = NOR_quisling_rules
+		}
+
+		relative_position_id = NOR_DEM_internationalism
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 100
+				has_game_rule = { rule = NOR_foreign_policy option = NOR_FOREIGN_POLICY_NATAXIS }
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NOR_NAT_chud_ties"
+			custom_effect_tooltip = NOR_chud_axis_decisions_tooltip
+			unlock_decision_category_tooltip = NOR_chud_axis_decisions
+			create_faction_from_template = { 
+				template = faction_template_european_dominance 
+				name = NOR_Chud_Axis_Faction
+				icon = GFX_faction_nationalist_axis
+			}
+			add_named_threat = {
+				threat = 3
+				name = "Formation of the Nationalist Axis"
+			}
+			hidden_effect = {
+				country_event = { id = nor_chudternational.0 }
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	
+	focus = {
+		id = NOR_NAT_chudternational_research
+		icon = GFX_goal_NOR_combine_national_geniuses
+		prerequisite = { focus = NOR_NAT_chud_ties }
+		x = -2
+		y = 1
+		cost = 5
+
+		available = {
+			is_subject = no
+			has_global_flag = NOR_nationalist_nation
+			amount_research_slots > 5
+		}
+
+		relative_position_id = NOR_NAT_chud_ties
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NOR_NAT_chudternational_research"
+			add_breakthrough_progress = {
+				specialization = specialization_land
+				value = 1
+			}
+			add_to_tech_sharing_group = chudternational_research
+			set_global_flag = NOR_chudternational_research_created
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+	focus = {
+		id = NOR_NAT_joint_maneuvers
+		icon = GFX_goal_NOR_conduct_joint_maneuvers
+		prerequisite = { focus = NOR_NAT_chud_ties }
+		x = 0
+		y = 1
+		cost = 5
+
+		available = {
+			is_subject = no
+			has_global_flag = NOR_nationalist_nation
+			NOR = {
+				has_army_manpower = {
+					size > 100000
+				}
+				has_any_grand_doctrine = land
+			}
+		}
+
+		relative_position_id = NOR_NAT_chud_ties
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NOR_NAT_joint_maneuvers"
+			custom_effect_tooltip = NOR_NAT_joint_maneuvers_tt
+			hidden_effect = {
+				every_country = {
+					limit = {
+						is_in_faction_with = CHD
+					}	
+					add_ideas = CHD_joint_maneuvers
+					add_doctrine_cost_reduction = {
+						name = land_doc_bonus
+						cost_reduction = 0.5
+						uses = 2
+						category = land_doctrine
+					}
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_ARMY_BONUS }
+	}
+	focus = {
+		id = NOR_NAT_patriotic_labour
+		icon = GFX_goal_NOR_patriotic_labour_movement
+		prerequisite = { focus = NOR_NAT_chud_ties }
+		x = 2
+		y = 1
+		cost = 5
+
+		available = {
+			is_subject = no
+			has_global_flag = NOR_nationalist_nation
+			num_of_factories > 75
+			has_resources_in_country = {
+				resource = steel
+				amount > 49
+				extracted = yes
+			}
+			has_resources_in_country = {
+				resource = coal
+				amount > 29
+				extracted = yes
+			}
+		}
+
+		relative_position_id = NOR_NAT_chud_ties
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NOR_NAT_patriotic_labour"
+			add_ideas = chud_axis_economic_council
+			country_event = { id = nor_chudternational.1 }
+			custom_effect_tooltip = NOR_european_peace_union_sphere_tooltip
+			hidden_effect = {
+				set_global_flag = chud_axis_economic_upgrade_level_0
+				add_to_array = { global.european_peace_union = THIS }
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = NOR_NAT_nation_europa
+		icon = GFX_goal_NOR_nation_europa
+		prerequisite = { focus = NOR_NAT_chudternational_research }
+		prerequisite = { focus = NOR_NAT_patriotic_labour }
+		x = 0
+		y = 2
+		cost = 5
+
+		available = {
+			is_subject = no
+			has_global_flag = NOR_nationalist_nation
+			OR = {
+				NOR = {
+					num_of_factories > 150
+				}
+				all_allied_country = {		
+					num_of_factories > 250
+				}
+			}
+		}
+
+		relative_position_id = NOR_NAT_chud_ties
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NOR_NAT_nation_europa"
+			custom_effect_tooltip = NOR_NAT_nation_europa_tt
+			hidden_effect = {
+				clr_global_flag = chud_axis_economic_upgrade_level_0
+				set_global_flag = chud_axis_economic_upgrade_level_1
+				every_country = {
+					limit = {
+						is_in_faction_with = CHD
+					}
+					swap_ideas = {
+						remove_idea = chud_axis_economic_council
+						add_idea = chud_axis_economic_upgraded
+					}
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = NOR_NAT_chudternational
+		icon = GFX_goal_NOR_legionary_international
+		prerequisite = { focus = NOR_NAT_nation_europa }
+		x = 0
+		y = 3
+		cost = 5
+
+		available = {
+			is_subject = no
+			has_global_flag = NOR_nationalist_nation
+			AND = {
+				all_allied_country = {
+					has_army_manpower = {
+						size > 350000
+					}
+				}
+				NOR = {
+					has_army_manpower = {
+						size > 250000
+					}
+				}
+			}
+		}
+
+		relative_position_id = NOR_NAT_chud_ties
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus NOR_NAT_chudternational"
+			custom_effect_tooltip = NOR_NAT_chudternational_tt
+			set_global_flag = chud_axis_chud_ethos
+			show_ideas_tooltip = NOR_Nationalist_International_idea
+			hidden_effect = {
+				add_ideas = NOR_Nationalist_International_idea
+				every_country = {
+					limit = {
+						is_in_faction_with = CHD
+					}
+					add_ideas = NOR_Nationalist_International_idea
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ARMY_BONUS }
 	}
 	
 	########################
@@ -7021,7 +7289,7 @@ focus_tree = {
 		icon = GFX_goal_NOR_end_of_the_old
 		cost = 1.00
 		x = 83
-		y = 6
+		y = 1
 		
 		available = {
 			is_subject = no
@@ -8345,7 +8613,7 @@ focus_tree = {
 	}
 	focus = {
 		id = NOR_Rag_confront_the_western_colossus
-		icon = GFX_goal_NOR_rebuild_our_seafaring_empire
+		icon = GFX_goal_NOR_western_collosus
 		cost = 5.00
 		prerequisite = {
 			focus = NOR_Rag_vinland_onwards
@@ -8380,7 +8648,7 @@ focus_tree = {
 	}
 	focus = {
 		id = NOR_Rag_the_return_of_quetzalcoatl
-		icon = GFX_goal_NOR_rebuild_our_seafaring_empire
+		icon = GFX_goal_NOR_return_of_quetzalcoatl
 		cost = 5.00
 		prerequisite = {
 			focus = NOR_Rag_vinland_onwards
@@ -8409,7 +8677,7 @@ focus_tree = {
 	}
 	focus = {
 		id = NOR_Rag_solar_sons_of_the_andes
-		icon = GFX_goal_NOR_rebuild_our_seafaring_empire
+		icon = GFX_goal_NOR_solar_son_of_the_andes
 		cost = 5.00
 		prerequisite = {
 			focus = NOR_Rag_confront_the_western_colossus
@@ -8496,7 +8764,7 @@ focus_tree = {
 	}
 	focus = {
 		id = NOR_Rag_route_to_miklagard
-		icon = GFX_goal_NOR_rebuild_our_seafaring_empire
+		icon = GFX_goal_NOR_route_to_mikligardor
 		cost = 5.00
 		prerequisite = {
 			focus = NOR_Rag_rurikid_legacy
@@ -8531,7 +8799,7 @@ focus_tree = {
 	}
 	focus = {
 		id = NOR_Rag_odins_ancient_realm
-		icon = GFX_goal_NOR_rebuild_our_seafaring_empire
+		icon = GFX_goal_NOR_odins_realm
 		cost = 5.00
 		prerequisite = {
 			focus = NOR_Rag_rurikid_legacy
@@ -8566,7 +8834,7 @@ focus_tree = {
 	}
 	focus = {
 		id = NOR_Rag_hyperboreans_in_hellas
-		icon = GFX_goal_NOR_rebuild_our_seafaring_empire
+		icon = GFX_goal_NOR_hyperboreans_in_hellas
 		cost = 5.00
 		prerequisite = {
 			focus = NOR_Rag_route_to_miklagard
@@ -8606,7 +8874,7 @@ focus_tree = {
 	}
 	focus = {
 		id = NOR_Rag_onwards_to_the_hollow_earth
-		icon = GFX_goal_NOR_rebuild_our_seafaring_empire
+		icon = GFX_goal_NOR_hollow_earth
 		cost = 5.00
 		prerequisite = {
 			focus = NOR_Rag_route_to_miklagard
@@ -8648,7 +8916,7 @@ focus_tree = {
 	}
 	focus = {
 		id = NOR_Rag_annihilate_the_false_aryans
-		icon = GFX_goal_NOR_rebuild_our_seafaring_empire
+		icon = GFX_goal_NOR_false_aryans
 		cost = 5.00
 		prerequisite = {
 			focus = NOR_Rag_hyperboreans_in_hellas
