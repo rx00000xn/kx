@@ -295,6 +295,24 @@ scripted_gui = {
 					set_country_flag = economic_sphere_list_open
 				}
 			}
+			KR_femternationale_button_click = {
+				add_to_array = { ROOT.economic_sphere_list_array = ENG }
+				for_each_loop = {
+					array = ENG.ENG_femternationale_members 
+					if = {
+						limit = {
+							NOT = {
+								is_in_array = { ROOT.economic_sphere_list_array = v }
+							}
+						}
+						add_to_array = { ROOT.economic_sphere_list_array = v }
+					}
+				}
+				ROOT = {
+					set_variable = { economic_sphere_leader = ENG }
+					set_country_flag = economic_sphere_list_open
+				}
+			}
 			KR_european_peace_union_button_click = {
 				add_to_array = { ROOT.economic_sphere_list_array = CHD }
 				for_each_loop = {

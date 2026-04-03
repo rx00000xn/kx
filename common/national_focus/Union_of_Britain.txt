@@ -511,7 +511,11 @@ focus_tree = {
 			hidden_effect = {
 				news_event = {
 					id = uobplaceholderWorldNews.6
-					days = 7
+					days = 3
+				}
+				country_event = {
+					id = uob.311
+					days = 12
 				}
 			}
 		}
@@ -533,6 +537,13 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_greed_of_excess"
+			add_ideas = ENG_ANA_end_to_excess_idea
+			add_tech_bonus = {
+				name = ENG_ANA_greed_of_excess
+				bonus = 0.33
+				uses = 2
+				category = industry
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -579,6 +590,12 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_platformist_approach"
 			add_political_power = 50
 			add_ideas = ENG_ANA_idea_1
+			hidden_effect = {
+				country_event = {
+					id = uob.300
+					days = 30
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -598,6 +615,29 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_leaders_to_liaison"
+			every_country = {
+				limit = {
+					has_socialist_government = yes
+					NOT = {
+						tag = ENG
+					}
+				}
+				add_opinion_modifier = {
+					target = ENG
+					modifier = ENG_ANA_liaison_leader
+				}
+				reverse_add_opinion_modifier = {
+					target = ENG
+					modifier = ENG_ANA_liaison_leader
+				}
+			}
+			ENG_ANA_reduce_tot_resistance = yes
+			hidden_effect = {
+				country_event = {
+					id = uob.307
+					days = 7
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -617,7 +657,38 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_east_london_allies"
-			
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			country_event = {
+				id = uob.301
+				days = 7
+			}
+			hidden_effect = {
+				country_event = {
+					id = uob.302
+					days = 60
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -634,9 +705,26 @@ focus_tree = {
 		available = {
 			ENG_anarchists_lead = yes
 		}
+		bypass = {
+			has_war_with_major = yes
+		}
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_no_forced_servitude"
+			if = {
+				limit = {
+					OR = {
+						has_idea = extensive_conscription
+						has_idea = limited_conscription
+					}
+				}
+				reduce_conscription_to_volunteer = yes
+				add_political_power = 75
+			}
+			add_ideas = ENG_ANA_no_conscription_idea
+			custom_effect_tooltip = tooltip_white_line
+			custom_effect_tooltip = ENG_ANA_no_conscription_idea_desc
+			set_country_flag = cannot_have_conscription
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -663,9 +751,14 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_individual_first"
 			swap_ideas = {
+				remove_idea = ENG_Fractured_Union_Idea_1
+				add_idea = ENG_Fractured_Union_Idea_2
+			}
+			swap_ideas = {
 				remove_idea = ENG_ANA_idea_1
 				add_idea = ENG_ANA_individual_idea_2
 			}
+			
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -692,9 +785,14 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_collective_first"
 			swap_ideas = {
+				remove_idea = ENG_Fractured_Union_Idea_1
+				add_idea = ENG_Fractured_Union_Idea_2
+			}
+			swap_ideas = {
 				remove_idea = ENG_ANA_idea_1
 				add_idea = ENG_ANA_collective_idea_2
 			}
+			
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -715,6 +813,11 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_yield_to_WSPU"
+			ENG_ANA_reduce_tot_resistance = yes
+			country_event = {
+				id = uob.308
+				days = 3
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -756,8 +859,6 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_expand_strickland"
-			custom_effect_tooltip = ENG_ANA_will_improve_strickland
-			custom_effect_tooltip = tooltip_white_line
 			if = {
 				limit = { has_dlc = "La Resistance" }
 				if = {
@@ -768,10 +869,18 @@ focus_tree = {
 						}
 						upgrade_intelligence_agency = upgrade_psycho_warfare
 					}
+					if = {
+						limit = {
+							NOT = { has_done_agency_upgrade = upgrade_invisible_ink }
+						}
+						upgrade_intelligence_agency = upgrade_invisible_ink
+					}
 				}
+
 				else_if = {
 					limit = { has_intelligence_agency = no }
 					create_intelligence_agency = yes
+					upgrade_intelligence_agency = upgrade_psycho_warfare
 				}
 			}
 			if = {
@@ -779,14 +888,13 @@ focus_tree = {
 				army_experience = 25
 				add_political_power = 40
 			}
-			if = {
-				limit = {
-					has_completed_focus = ENG_ANA_east_london_allies
+			custom_effect_tooltip = ENG_ANA_can_expand_later
+			hidden_effect = {
+				country_event = {
+					id = uob.303
+					days = 40
+					random_days = 15
 				}
-				add_ideas = ENG_ANA_strickland_press_better_idea
-			}
-			else = {
-				add_ideas = ENG_ANA_strickland_press_idea
 			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -811,6 +919,15 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_lessons_from_summerhill"
+			add_stability = 0.03
+			add_popularity = {
+				ideology = radical_socialist
+				popularity = 0.02
+			}
+			country_event = {
+				id = uob.312
+				days = 3
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -834,21 +951,51 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_end_militant_terror"
-			add_popularity = {
-				ideology = totalist
-				popularity = -0.06
+			custom_effect_tooltip = ENG_ANA_will_improve_focus
+			ENG_ANA_reduce_tot_resistance = yes
+			custom_effect_tooltip = tooltip_white_line
+			if = {
+				limit = {
+					has_completed_focus = ENG_ANA_east_london_allies
+				}
+				add_popularity = {
+					ideology = totalist
+					popularity = -0.08
+				}
+				add_popularity = {
+					ideology = syndicalist
+					popularity = -0.04
+				}
+				add_equipment_to_stockpile = {
+					type = infantry_equipment_1
+					amount = 1250
+				}
+				add_equipment_to_stockpile = {
+					type = support_equipment
+					amount = 300
+				}
 			}
-			add_popularity = {
-				ideology = syndicalist
-				popularity = -0.02
-			}
-			add_equipment_to_stockpile = {
-				type = infantry_equipment_1
-				amount = 750
-			}
-			add_equipment_to_stockpile = {
-				type = support_equipment
-				amount = 125
+			else = {
+				add_popularity = {
+					ideology = totalist
+					popularity = -0.06
+				}
+				add_popularity = {
+					ideology = syndicalist
+					popularity = -0.02
+				}
+				add_popularity = {
+					ideology = radical_socialist
+					popularity = 0.035
+				}
+				add_equipment_to_stockpile = {
+					type = infantry_equipment_1
+					amount = 750
+				}
+				add_equipment_to_stockpile = {
+					type = support_equipment
+					amount = 125
+				}
 			}
 		}
 		
@@ -871,6 +1018,15 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_anarchist_beauty"
+			133 = { increase_state_category_by_one_level = yes }
+			338 = { increase_state_category_by_one_level = yes }
+			127 = { increase_state_category_by_one_level = yes }
+			custom_effect_tooltip = tooltip_white_line
+			ENG_ANA_reduce_tot_resistance = yes
+			swap_ideas = {
+				remove_idea = ENG_Fractured_Union_Idea_2
+				add_idea = ENG_Fractured_Union_Idea_3
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -890,6 +1046,21 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_question_of_church"
+			add_synd_to_coalition = yes
+			add_war_support = -0.05
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 2
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 2
+			}
+			random_owned_controlled_state = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			#check aldreds wikipeida page for some stuff about his agnosticism
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -976,6 +1147,11 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_ANA_free_europe"
+			add_war_support = 0.1
+			country_event = {
+				id = uob.314
+				days = 3
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -5167,6 +5343,12 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_MAX_russell_in_charge"
 			add_country_leader_trait = ENG_credit_fanatic
+			hidden_effect = {
+				country_event = {
+					id = uob.828
+					days = 30
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
