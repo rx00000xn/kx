@@ -1,472 +1,4 @@
-#BOTDE_SRI_LANKA_LOBBY = {
-#	
-#	#Add way for Germany to help GEA along
-#	#GEA and GER lobbying raises compliance
-#	#GEA and GER weakening resistance lowers resistance and independence %
-#	#LIC and PRF weakening resistance lowers only independence %
-#	#Sabotaging will lower compliance of Ceylon
-#	#Sabotaging by LIC or PRF lowers compliance and resistance
-#	#Make lobbying by LIC or PRF give Ceylon resistance, 50%+ resistance starts separatists going up, 8% at <30% compliance, 5% at <60%, 3% at <75%
-#	#Demilitarize hausaland
-#	#Make (AI) montenegro unable to declare on Serbia if Bulgaria has won the Balkan war
-#	#Focus to get rid of Legacy of Trans-Alpine Strikes
-#	#Give effect for Technological Agreements (join faction research and add 1 research slot)
-#	#Buff "Company Enlargement" to add research slot
-#	
-#	
-#	
-#	#### Test 2 ####
-#	
-#	#Make Alaska puppet of LIC instead of AUS
-#	#Make Integrate Lands into Alpine Idea actually make AI move to your border
-#	#Reduce stability gains/increase penalties
-#	#More flavor for the 40's
-#	
-#	#### Test 3 ####
-#	
-#	#Make coup fire 365 days instead of 200
-#	#Ministers for Ariosophists
-#	#Give Ariosophists resource and research bonus
-#	#Make royal events not trigger
-#	#Make absolutist decision not trigger as Ariosophists
-#	#Cosmetic tag for Liechtenstein-Tyrol (ariosophist)
-#	#Liechtenstein-Tyrol's cosmetic tags do not change
-#	#Make Liechtenstein lose all its core territory (Liechtenstein + Vorarlberg/Tyrol if owned) when evacuating Vaduz
-#	#Make Counter-Revolutionary Britain (Franz Josef II) instantly join Liechtenstein's faction, or drop out if it is in none
-#	
-#	
-#	GER_lobby_for_GEA = {
-#		cost = 30
-#		icon = cash_flow
-#		fire_only_once = no
-#		days_re_enable = 30
-#		allowed = { tag = GER }
-#		visible = {
-#			has_global_flag = black_monday
-#			NOT = {
-#				has_global_flag = CEYLON_BOUGHT
-#				has_global_flag = BATTLE_FOR_CEYLON_OVER
-#			}
-#			tag = GER
-#		}
-#		available = {
-#			GER = {
-#				owns_state = 422
-#			}
-#			NOT = {
-#				has_global_flag = BATTLE_FOR_CEYLON_OVER
-#			}
-#		}
-#		ai_will_do = {
-#			factor = 400
-#		}
-#		complete_effect = {
-#			custom_effect_tooltip = CEYLON_influence_gain_GEA
-#			if = {
-#				limit = {
-#					has_global_flag = GER_blackmonday_is_over
-#				}
-#				add_to_variable = {
-#					var = GEA.CEYLON_INFLEUNCE
-#					value = 2
-#				}
-#				else = {
-#					add_to_variable = {
-#						var = GEA.CEYLON_INFLEUNCE
-#						value = 1
-#					}
-#				}
-#			}
-#			422 = {
-#				add_resistance = -8
-#				add_compliance = 6
-#			}
-#			CEYLON_do_math = yes
-#		}
-#	}
-#	
-#	LIC_lobby_for_ceylon = {
-#		cost = 20
-#		icon = cash_flow
-#		fire_only_once = no
-#		days_re_enable = 20
-#		allowed = { OR = { tag = LIC tag = PRF tag = GEA } }
-#		visible = {
-#			has_global_flag = black_monday
-#			NOT = {
-#				has_global_flag = CEYLON_BOUGHT
-#				has_global_flag = BATTLE_FOR_CEYLON_OVER
-#				tag = GER
-#			}
-#		}
-#		available = {
-#			GER = {
-#				owns_state = 422
-#			}
-#			NOT = {
-#				has_country_flag = recent_sabotage
-#				has_global_flag = BATTLE_FOR_CEYLON_OVER
-#			}
-#		}
-#		ai_will_do = {
-#			factor = 300
-#			modifier = {
-#				factor = 0.25
-#				422 = {
-#					resistance > 50
-#				}
-#			}
-#		}
-#		complete_effect = {
-#			custom_effect_tooltip = CEYLON_influence_gain
-#			if = {
-#				limit = {
-#					has_global_flag = GER_blackmonday_is_over
-#				}
-#				add_to_variable = {
-#					var = ROOT.CEYLON_INFLEUNCE
-#					value = 3
-#				}
-#				else = {
-#					add_to_variable = {
-#						var = ROOT.CEYLON_INFLEUNCE
-#						value = 2
-#					}
-#				}
-#			}
-#			if = {
-#				limit = {
-#					OR = {
-#						tag = LIC
-#						tag = PRF
-#					}
-#				}
-#				422 = {
-#					add_resistance= 5
-#					add_compliance= -3
-#				}
-#				else = {
-#					422 = {
-#						add_resistance = -3
-#						add_compliance= -3
-#					}
-#				}
-#			}
-#			CEYLON_do_math = yes
-#		}
-#	}
-#	
-#	GER_sabotage_competitor = {
-#		cost = 40
-#		icon = GFX_decision_generic_assassination
-#		fire_only_once = no
-#		days_re_enable = 30
-#		target_trigger = {
-#			FROM = {
-#				OR = {
-#					tag = LIC
-#					tag = PRF
-#				}
-#				NOT = {
-#					tag = ROOT
-#				}
-#			}
-#		}
-#		allowed = { tag = GER }
-#		visible = {
-#			has_global_flag = black_monday
-#			NOT = {
-#				has_global_flag = CEYLON_BOUGHT
-#				has_global_flag = BATTLE_FOR_CEYLON_OVER
-#			}
-#		}
-#		available = {
-#			GER = {
-#				owns_state = 422
-#			}
-#			NOT = {
-#				has_country_flag = recent_sabotage
-#				has_global_flag = BATTLE_FOR_CEYLON_OVER
-#			}
-#		}
-#		ai_will_do = {
-#			factor = 240
-#		}
-#		complete_effect = {
-#			custom_effect_tooltip = CEYLON_sabotage
-#			if = {
-#				limit = {
-#					has_global_flag = GER_blackmonday_is_over
-#				}
-#				subtract_from_variable = {
-#					var = FROM.CEYLON_INFLEUNCE
-#					value = 4
-#				}
-#				else = {
-#					subtract_from_variable = {
-#						var = FROM.CEYLON_INFLEUNCE
-#						value = 2
-#					}
-#				}
-#			}
-#			422 = {
-#				add_compliance = 8
-#			}
-#			CEYLON_do_math = yes
-#		}
-#	}
-#	
-#	LIC_sabotage_competitor = {
-#		cost = 32
-#		icon = GFX_decision_generic_assassination
-#		fire_only_once = no
-#		days_re_enable = 30
-#		target_trigger = {
-#			FROM = {
-#				OR = {
-#					tag = LIC
-#					tag = PRF
-#					tag = GEA
-#				}
-#				NOT = {
-#					tag = ROOT
-#				}
-#			}
-#		}
-#		allowed = { OR = { tag = LIC tag = PRF tag = GEA } }
-#		visible = {
-#			has_global_flag = black_monday
-#			NOT = {
-#				has_global_flag = CEYLON_BOUGHT
-#				has_global_flag = BATTLE_FOR_CEYLON_OVER
-#			}
-#		}
-#		available = {
-#			GER = {
-#				owns_state = 422
-#			}
-#			NOT = {
-#				has_country_flag = recent_sabotage
-#				has_global_flag = BATTLE_FOR_CEYLON_OVER
-#			}
-#		}
-#		ai_will_do = {
-#			factor = 240
-#		}
-#		complete_effect = {
-#			custom_effect_tooltip = CEYLON_sabotage
-#			if = {
-#				limit = {
-#					has_global_flag = GER_blackmonday_is_over
-#				}
-#				subtract_from_variable = {
-#					var = FROM.CEYLON_INFLEUNCE
-#					value = 5
-#				}
-#				else = {
-#					subtract_from_variable = {
-#						var = FROM.CEYLON_INFLEUNCE
-#						value = 3
-#					}
-#				}
-#			}
-#			if = {
-#				limit = {
-#					OR = {
-#						tag = LIC
-#						tag = PRF
-#					}
-#				}
-#				422 = {
-#					add_compliance	= -5
-#				}
-#				else = {
-#					422 = {
-#						add_compliance = 10
-#					}
-#				}
-#			}
-#			CEYLON_do_math = yes
-#		}
-#	}
-#	
-#	LIC_discredit_separatists = {
-#		cost = 25
-#		icon = GFX_decision_generic_prepare_civil_war
-#		fire_only_once = no
-#		days_re_enable = 15
-#		allowed = { OR = { tag = LIC tag = PRF tag = GEA } }
-#		visible = {
-#			has_global_flag = black_monday
-#			has_global_flag = CEYLON_separatists
-#			NOT = {
-#				has_global_flag = CEYLON_BOUGHT
-#				has_global_flag = BATTLE_FOR_CEYLON_OVER
-#			}
-#		}
-#		available = {
-#			GER = {
-#				owns_state = 422
-#			}
-#			NOT = {
-#				has_country_flag = recent_sabotage
-#				has_global_flag = BATTLE_FOR_CEYLON_OVER
-#			}
-#		}
-#		ai_will_do = {
-#			factor = 200
-#			modifier = {
-#				check_variable = {
-#					var = CEY.IndependenceLevel
-#					value = 0.8
-#					compare = greater_than_or_equals
-#				}
-#				factor = 2
-#			}
-#			modifier = {
-#				factor = 1.25
-#				422 = {
-#					resistance > 50
-#				}
-#			}
-#		}
-#		complete_effect = {
-#			subtract_from_variable = {
-#				var = CEY.IndependenceLevel
-#				value = 0.08
-#			}
-#			clamp_variable = {
-#				var = CEY.IndependenceLevel
-#				min = 0
-#				max = 1
-#			}
-#			422 = {
-#				add_resistance = -8
-#				add_compliance = 3
-#			}
-#		}
-#	}
-#	
-#	LIC_buy_sri_lanka = {
-#		cost = 100
-#		icon = GFX_decision_give_cash
-#		fire_only_once = yes
-#		allowed = { OR = { tag = LIC tag = PRF tag = GEA } }
-#		available = {
-#			GER = {
-#				owns_state = 422
-#			}
-#			#date > 1937.01.01
-#			OR = {
-#				AND = {
-#					original_tag = PRF
-#					has_global_flag = PRF_ceylon_victory
-#				}
-#				AND = {
-#					original_tag = LIC
-#					has_global_flag = LIC_ceylon_victory
-#				}
-#				AND = {
-#					original_tag = GEA
-#					has_global_flag = GEA_ceylon_victory
-#				}
-#			}
-#			NOT = {
-#				has_global_flag = BATTLE_FOR_CEYLON_OVER
-#			}
-#		}
-#		ai_will_do = {
-#			factor = 1000
-#		}
-#		complete_effect = {
-#			GER = {
-#				country_event = {
-#					id = licfor.3
-#					days = 3
-#				}
-#			}
-#			set_global_flag = CEYLON_BOUGHT
-#			set_country_flag = WON_CEYLON
-#		}
-#	}
-#	
-#	LIC_battle_over = {
-#		icon = scales
-#		fire_only_once = yes
-#		allowed = { OR = { tag = LIC tag = PRF tag = GEA } }
-#		available = {
-#			has_global_flag = CEYLON_BOUGHT
-#		}
-#		visible = {
-#			has_global_flag = GER_blackmonday_is_over
-#		}
-#		is_good = no
-#		activation = {
-#			has_global_flag = GER_blackmonday_is_over
-#		}
-#		days_mission_timeout = 180
-#		timeout_effect = {
-#			custom_effect_tooltip = CEYLON_UNBUYABLE
-#			set_global_flag = BATTLE_FOR_CEYLON_OVER
-#		}
-#	}
-#	
-#	LIC_ceylonese_independence = {
-#		icon = GFX_decision_generic_ignite_civil_war
-#		fire_only_once = yes
-#		allowed = { OR = { tag = LIC tag = PRF tag = GEA } }
-#		available = {
-#			OR = {
-#				has_global_flag = CEYLON_BOUGHT
-#				has_global_flag = BATTLE_FOR_CEYLON_OVER
-#			}
-#		}
-#		is_good = no
-#		activation = {
-#			custom_trigger_tooltip = {
-#				tooltip = CEYLON_REVOLT_TT
-#				has_global_flag = CEYLON_REVOLTS
-#			}
-#			NOT = {
-#				has_global_flag = BATTLE_FOR_CEYLON_OVER
-#			}
-#		}
-#		days_mission_timeout = 20
-#		timeout_effect = {
-#			CEY = {
-#				transfer_state = 422
-#			}
-#			set_global_flag = BATTLE_FOR_CEYLON_OVER
-#			hidden_effect = {
-#				LIC = {
-#					country_event = {
-#						id = licfor.12
-#						days = 1
-#					}
-#				}
-#				PRF = {
-#					country_event = {
-#						id = licfor.12
-#						days = 1 
-#					}
-#				}
-#				GEA = {
-#					country_event = {
-#						id = licfor.12
-#						days = 1
-#					}
-#				}
-#				GER = {
-#					country_event = {
-#						id = licfor.12
-#						days = 1
-#					}
-#				}
-#			}
-#		}
-#	}
-#	
-#}
+
 
 BOTDE_LIC_decisions = {
 	
@@ -802,7 +334,7 @@ BOTDE_LIC_decisions = {
 		allowed = { tag = LIC }
 		fire_only_once = yes
 		visible = {
-			has_completed_focus = LIC_protector_of_micronations
+			#has_completed_focus = LIC_protector_of_micronations
 		}
 		icon = GFX_decision_freedom
 		state_target = yes
@@ -846,14 +378,11 @@ BOTDE_LIC_decisions = {
 								has_autonomy_state = LIC_sister_state
 							}
 						}
-						AND = {
-							tag = LIC
-							is_in_home_area = no
-						}
+						tag = LIC
 					}
 				}
-				is_in_home_area = no
 				NOT = {
+					is_in_home_area = yes
 					AND = {
 						has_state_flag = no_schwesterstaat
 						owner = {
@@ -1159,6 +688,131 @@ BOTDE_LIC_decisions = {
 		}
 	}
 	
+	LIC_bunker_mission = {
+		allowed = { tag = LIC }
+		fire_only_once = yes
+		activation = {
+			always = no
+		}
+		visible = {
+			has_completed_focus = LIC_purchase_old_models
+		}
+		icon = GFX_decision_fortress
+		available = {
+			1235 = {
+				any_province_building_level = {
+					province = {
+						id = 14609
+					}
+					building = bunker
+					level > 3
+				}
+			}
+		}
+		is_good = no
+		days_mission_timeout = 365
+		complete_effect = {
+			1235 = {
+				add_state_modifier = {
+					modifier = {
+						state_bunker_max_level_terrain_limit = 1
+					}
+				}
+			}
+			sp:sp_land_stronghold_network = {
+				add_project_progress_ratio = 0.65
+			}
+			hidden_effect = {
+				remove_ideas = LIC_bunker_recipient
+				event_target:LIC_allied_nation = {
+					remove_ideas = LIC_bunker_donor
+					country_event = licfor.6
+				}
+			}
+		}
+		timeout_effect = {
+			custom_effect_tooltip = LIC_stronghold_breakthrough
+			LIC_do_stronghold_breakthrough = yes
+			hidden_effect = {
+				remove_ideas = LIC_bunker_recipient
+				event_target:LIC_allied_nation = {
+					remove_ideas = LIC_bunker_donor
+					country_event = licfor.6
+				}
+			}
+		}
+	}
+	
+	LIC_repurpose_stockpile = {
+		custom_cost_trigger = {
+			check_variable = {
+				var = LIC.govt_readiness
+				value = 0.1
+				compare = greater_than_or_equals
+			}
+		}
+		custom_cost_text = LIC_10_stockpile
+		allowed = { tag = LIC }
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = LIC_10_stockpile_tt
+				check_variable = {
+					var = LIC.govt_readiness
+					value = 0.1
+					compare = greater_than_or_equals
+				}
+			}
+			has_active_mission = LIC_bunker_mission
+		}
+		visible = {
+			has_active_mission = LIC_bunker_mission
+			has_country_flag = LIC_stockpiling_flag
+		}
+		icon = GFX_decision_cement_mixer
+		days_re_enable = 50
+		complete_effect = {
+			LIC_take_10_readiness = yes
+			1235 = {
+				add_state_modifier = {
+					modifier = {
+						state_production_speed_bunker_factor = 0.075
+					}
+				}
+			}
+		}
+	}
+	
+	LIC_reach_out_to_our_ally = {
+		cost = 30
+		allowed = { tag = LIC }
+		fire_only_once = yes
+		available = {
+			OR = {
+				has_completed_focus = LIC_reichspakt
+				has_completed_focus = LIC_neutrality
+				has_completed_focus = LIC_russia
+				has_completed_focus = LIC_keep_austrian
+			}
+			hidden_trigger = {
+				any_country = {
+					has_event_target = LIC_allied_nation
+				}
+			}
+		}
+		visible = {
+			has_active_mission = LIC_bunker_mission
+		}
+		icon = GFX_decision_generic_flags
+		days_remove = 15
+		remove_effect = {
+			event_target:LIC_allied_nation = {
+				country_event = licfor.3
+			}
+		}
+	}
+	
+	
 	LIC_restore_austria_hungary = {
 		allowed = { tag = LIC }
 		fire_only_once = yes
@@ -1373,6 +1027,68 @@ BOTDE_LIC_decisions = {
 		}
 	}
 	
+	LIC_IM_PLAYING_MOEREDUX_AND_I_WANT_TO_LARP = {
+		allowed = { tag = LIC }
+		fire_only_once = no
+		visible = {
+			FROM = {
+				owner = {
+					has_cosmetic_tag = LIC_swst_anzio_MEME
+				}
+			}
+			is_any_meme_mode_flag_on = yes
+		}
+		icon = GFX_decision_italy_flag
+		state_target = yes
+		on_map_mode = map_only
+		target_trigger = {
+			FROM = {
+				owner = {
+					AND = {
+						is_subject_of = LIC
+						has_autonomy_state = LIC_sister_state
+					}
+				}
+				state = 1149
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = please_use_this_only_if_using_moeredux
+			hidden_effect = {
+				FROM = {
+					owner = {
+						if = {
+							limit = {
+								check_variable = {
+									var = THIS.portrait_stat
+									value = 0
+									compare = equals
+								}
+							}
+							LIC_FIVE_MILLION_ISONZO_BATTLES = yes
+							add_to_variable = { var = THIS.portrait_stat value = 1 }
+							else_if = {
+								limit = {
+									check_variable = {
+										var = THIS.portrait_stat
+										value = 1
+										compare = equals
+									}
+								}
+								LIC_SIX_MILLION_ISONZO_BATTLES = yes
+								add_to_variable = { var = THIS.portrait_stat value = 1 }
+								else = {
+									LIC_EIGHT_MILLION_ISONZO_BATTLES = yes
+									set_variable = { var = THIS.portrait_stat value = 0 }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
 	LIC_holding_expansion = {
 		cost = 40
 		allowed = { tag = LIC }
@@ -1512,6 +1228,39 @@ BOTDE_LIC_decisions = {
 				var = LIC.ph_production_resources
 				value = -0.025
 			}
+		}
+	}
+	
+	LIC_autarky_Decision = {
+		cost = 50
+		allowed = { tag = LIC }
+		fire_only_once = yes
+		visible = {
+			#has_idea = LIC_stockpile_empty
+		}
+		icon = GFX_decision_generic_industry
+		available = {
+			has_idea = LIC_stockpile_empty
+			custom_trigger_tooltip = {
+				tooltip = LIC_dr_doofenshmirtz
+				942 = {
+					is_fully_controlled_by_ROOT_and_is_core_of_ROOT = yes
+				}
+				1235 = {
+					is_fully_controlled_by_ROOT_and_is_core_of_ROOT = yes
+				}
+				any_owned_state = {
+					NOT = {
+						state = 942
+						state = 1235
+					}
+					is_fully_controlled_by_ROOT_and_is_core_of_ROOT = yes
+				}
+			}
+		}
+		complete_effect = {
+			remove_ideas = LIC_stockpile_empty
+			set_country_flag = LIC_all_done
 		}
 	}
 	
@@ -1801,7 +1550,6 @@ BOTDE_LIC_decisions = {
 				has_capitulated = yes
 				surrender_progress > 0.2
 			}
-			has_country_flag = LIC_CEY_PACIFIED
 		}
 		available = {
 			OR = {
@@ -2095,250 +1843,6 @@ BOTDE_LIC_decisions = {
 	}
 }
 
-LIC_POST_PURCHASE_CEYLON = {
-
-	LIC_discredit_separatists_post_ceylon = {
-		cost = 25
-		allowed = { tag = LIC }
-		fire_only_once = no
-		days_re_enable = 20
-		visible = {
-			owns_state = 422
-			has_country_flag = WON_CEYLON
-			has_global_flag = CEYLON_BOUGHT
-		}
-		ai_will_do = {
-			factor = 0
-		}
-		complete_effect = {
-			subtract_from_variable = {
-				var = CEY.IndependenceLevel
-				value = 0.08
-			}
-			clamp_variable = {
-				var = CEY.IndependenceLevel
-				min = 0
-				max = 1
-			}
-		}
-	}
-	
-	#LIC_discredit_separatists_post_ceylon_resistance {
-	#	cost = 20
-	#	allowed = { tag = LIC }
-	#	fire_only_once = no
-	#	days_re_enable = 30
-	#	visible = {
-	#		owns_state = 422
-	#		has_country_flag = LIC_landespolizei_ceylon
-	#	}
-	#	ai_will_do = {
-	#		factor = 0
-	#	}
-	#	complete_effect = {
-	#		422 = {
-	#			add_resistance = -7.5
-	#		}
-	#	}
-	#}
-	#
-	#LIC_discredit_separatists_post_ceylon_compliance {
-	#	cost = 20
-	#	allowed = { tag = LIC }
-	#	fire_only_once = no
-	#	days_re_enable = 30
-	#	visible = {
-	#		owns_state = 422
-	#		has_country_flag = LIC_landespolizei_ceylon
-	#	}
-	#	ai_will_do = {
-	#		factor = 0
-	#	}
-	#	complete_effect = {
-	#		422 = {
-	#			add_compliance = 5
-	#		}
-	#	}
-	#}
-	
-	LIC_introduce_landezpolizei_contingent = {
-		cost = 75
-		allowed = { tag = LIC }
-		fire_only_once = yes
-		visible = {
-			owns_state = 422
-			has_country_flag = WON_CEYLON
-			has_global_flag = CEYLON_BOUGHT
-		}
-		ai_will_do = {
-			factor = 0
-		}
-		complete_effect = {
-			hidden_effect = {
-				load_oob = LIC_CEY_police
-			}
-			custom_effect_tooltip = LIC_unlocks_new_options
-			set_country_flag = LIC_landespolizei_ceylon
-		}
-	}
-	
-	LIC_form_the_LIC_raj = {
-		cost = 100
-		allowed = { tag = LIC }
-		fire_only_once = yes
-		visible = {
-			owns_state = 422
-		}
-		available = {
-			owns_state = 422
-			has_country_flag = WON_CEYLON
-			#422 = {
-			#	resistance < 40
-			#	compliance > 60
-			#}
-			custom_trigger_tooltip = {
-				tooltip = CEY_revolt_less_than_50
-			}
-			check_variable = {
-				var = CEY.IndependenceLevel
-				value = 0.5
-				value = less_than_or_equals
-			}
-		}
-		complete_effect = {
-			add_manpower = 12000
-			add_ideas = LIC_liechtensteiner_raj_idea
-			CEY = {
-				transfer_state = 422
-				add_ideas = LIC_liechtensteiner_raj_idea_CEY
-				create_country_leader = {
-					name = "Franz Josef II"
-					desc = "LIC_FRANZ_II_DESC"
-					picture = "gfx/leaders/LIC/LIC_Franz_Joseph_II.png"
-					expire = "1965.1.1"
-					ideology = national_populist_subtype
-				}
-				create_country_leader = {
-					name = "Franz Josef II"
-					desc = "LIC_FRANZ_II_DESC"
-					picture = "gfx/leaders/LIC/LIC_Franz_Joseph_II.png"
-					expire = "1965.1.1"
-					ideology = paternal_autocrat_subtype
-				}
-				create_country_leader = {
-					name = "Franz Josef II"
-					desc = "LIC_FRANZ_II_DESC"
-					picture = "gfx/leaders/LIC/LIC_Franz_Joseph_II.png"
-					expire = "1965.1.1"
-					ideology = authoritarian_democrat_subtype
-				}
-				create_country_leader = {
-					name = "Franz Josef II"
-					desc = "LIC_FRANZ_II_DESC"
-					picture = "gfx/leaders/LIC/LIC_Franz_Joseph_II.png"
-					expire = "1965.1.1"
-					ideology = social_conservative_subtype
-				}
-				create_country_leader = {
-					name = "Franz Josef II"
-					desc = "LIC_FRANZ_II_DESC"
-					picture = "gfx/leaders/LIC/LIC_Franz_Joseph_II.png"
-					expire = "1965.1.1"
-					ideology = market_liberal_subtype
-				}
-				create_country_leader = {
-					name = "Franz Josef II"
-					desc = "LIC_FRANZ_II_DESC"
-					picture = "gfx/leaders/LIC/LIC_Franz_Joseph_II.png"
-					expire = "1965.1.1"
-					ideology = social_liberal_subtype
-				}
-				create_country_leader = {
-					name = "Franz Josef II"
-					desc = "LIC_FRANZ_II_DESC"
-					picture = "gfx/leaders/LIC/LIC_Franz_Joseph_II.png"
-					expire = "1965.1.1"
-					ideology = social_democrat_subtype
-				}
-				create_country_leader = {
-					name = "Franz Josef II"
-					desc = "LIC_FRANZ_II_DESC"
-					picture = "gfx/leaders/LIC/LIC_Franz_Joseph_II.png"
-					expire = "1965.1.1"
-					ideology = radical_socialist_subtype
-				}
-				create_country_leader = {
-					name = "Franz Josef II"
-					desc = "LIC_FRANZ_II_DESC"
-					picture = "gfx/leaders/LIC/LIC_Franz_Joseph_II.png"
-					expire = "1965.1.1"
-					ideology = syndicalist_subtype
-				}
-				set_cosmetic_tag = CEY_LIC
-			}
-			puppet = CEY
-			422 = {
-				add_extra_state_shared_building_slots = 4
-			}
-			set_country_flag = LIC_CEY_PACIFIED
-		}
-	}
-	
-	LIC_direct_rule_from_vaduz = {
-		cost = 100
-		allowed = { tag = LIC }
-		fire_only_once = yes
-		visible = {
-			owns_state = 422
-		}
-		available = {
-			owns_state = 422
-			has_country_flag = WON_CEYLON
-			#422 = {
-			#	resistance < 20
-			#	compliance > 80
-			#}
-			check_variable = {
-				var = CEY.IndependenceLevel
-				value = 0.25
-				value = less_than_or_equals
-			}
-		}
-		complete_effect = {
-			add_manpower = 10000
-			add_state_core = 422
-			422 = {
-				add_extra_state_shared_building_slots = 2
-			}
-			set_country_flag = LIC_CEY_PACIFIED
-		}
-	}
-	
-	LIC_ceylonese_independence_post = {
-		icon = GFX_decision_generic_ignite_civil_war
-		fire_only_once = yes
-		allowed = { tag = LIC }
-		available = {
-			has_country_flag = LIC_CEY_PACIFIED
-		}
-		is_good = no
-		activation = {
-			custom_trigger_tooltip = {
-				tooltip = CEYLON_REVOLT_TT
-				has_global_flag = CEYLON_REVOLTS
-			}
-		}
-		days_mission_timeout = 20
-		timeout_effect = {
-			country_event = {
-				id = licfor.23
-				days = 1
-			}
-		}
-	}
-	
-}
-
 
 LIC_neutrality_cat = {
 
@@ -2424,13 +1928,65 @@ LIC_neutrality_cat = {
 		}
 		available = {
 			has_global_flag = black_monday
+			power_balance_value = {
+				id = LIC_austro_swiss
+				value > 0.1
+			}
+			NOT = {
+				has_country_flag = LIC_got_bailout
+			}
 		}
 		days_remove = 45
 		remove_effect = {
+			reduce_focus_completion_cost = {
+				focus = LIC_continue_customs_union
+				cost = 10
+			}
 			add_power_balance_value = {
 				id = LIC_austro_swiss
 				value = 0.25
 				tooltip_side = LIC_austro_swiss_austria
+			}
+			AUS = {
+				country_event = licfor.7
+			}
+		}
+	}
+	
+	LIC_ask_for_swiss_assistance = {
+		cost = 75
+		icon = GFX_decision_SWI_support_humanitarian_efforts
+		allowed = { tag = LIC }
+		fire_only_once = yes
+		visible = {
+			has_power_balance = {
+				id = LIC_austro_swiss
+			}
+			#has_global_flag = black_monday
+		}
+		available = {
+			has_global_flag = black_monday
+			power_balance_value = {
+				id = LIC_austro_swiss
+				value < -0.1
+			}
+			NOT = {
+				has_country_flag = LIC_got_bailout
+			}
+		}
+		days_remove = 45
+		remove_effect = {
+			reduce_focus_completion_cost = {
+				focus = LIC_swiss_compact
+				cost = 10
+			}
+			add_power_balance_value = {
+				id = LIC_austro_swiss
+				value = -0.25
+				tooltip_side = LIC_austro_swiss_swiss
+			}
+			SWI = {
+				country_event = licfor.7
 			}
 		}
 	}
@@ -2486,13 +2042,13 @@ LIC_neutrality_cat = {
 			}
 		}
 		days_remove = 30
-		complete_effect = {
+		remove_effect = {
 			custom_effect_tooltip = LIC_tax_code_tt
 			add_to_variable = { var = BM_efficiency value = 0.075 }
 			add_to_variable = { var = ph_consumer_goods value = -0.025 }
 			add_power_balance_value = {
 				id = LIC_austro_swiss
-				value = -0.12
+				value = -0.2
 				tooltip_side = LIC_austro_swiss_swiss
 			}
 		}
@@ -2509,13 +2065,13 @@ LIC_neutrality_cat = {
 			}
 		}
 		days_remove = 60
-		complete_effect = {
+		remove_effect = {
 			custom_effect_tooltip = LIC_tax_code_tt
 			add_to_variable = { var = BM_efficiency value = 0.075 }
 			add_to_variable = { var = ph_consumer_goods value = -0.025 }
 			add_power_balance_value = {
 				id = LIC_austro_swiss
-				value = -0.1
+				value = -0.3
 				tooltip_side = LIC_austro_swiss_swiss
 			}
 		}
@@ -2543,8 +2099,16 @@ LIC_playing_60_seconds_speedrun = {
 		icon = GFX_decision_generic_agriculture
 		allowed = { tag = LIC }
 		fire_only_once = no
+		visible = {
+			NOT = {
+				has_country_flag = LIC_quotas_done
+			}
+		}
 		available = {
 			num_of_civilian_factories_available_for_projects > 0
+			NOT = {
+				has_country_flag = LIC_quotas_done
+			}
 		}
 		modifier = {
 			civilian_factory_use = 1
@@ -2561,6 +2125,16 @@ LIC_playing_60_seconds_speedrun = {
 		icon = GFX_decision_generic_agreement
 		allowed = { tag = LIC }
 		fire_only_once = no
+		available = {
+			NOT = {
+				has_country_flag = LIC_quotas_done
+			}
+		}
+		visible = {
+			NOT = {
+				has_country_flag = LIC_quotas_done
+			}
+		}
 		modifier = {
 			political_power_gain = -0.75
 		}
@@ -2579,6 +2153,16 @@ LIC_playing_60_seconds_speedrun = {
 		fire_only_once = no
 		days_remove = 25
 		days_re_enable = 25
+		available = {
+			NOT = {
+				has_country_flag = LIC_quotas_done
+			}
+		}
+		visible = {
+			NOT = {
+				has_country_flag = LIC_quotas_done
+			}
+		}
 		remove_effect = {
 			LIC_readiness_increase_3 = yes
 			increase_ruling_party_popularity_by_2 = yes
@@ -2638,10 +2222,14 @@ LIC_playing_60_seconds_speedrun = {
 					}
 				}
 			}
+			NOT = {
+				has_country_flag = LIC_quotas_done
+			}
 		}
 		available = {
 			NOT = {
 				has_war_with = FROM.owner
+				has_country_flag = LIC_quotas_done
 			}
 			OR = {
 				has_country_flag = LIC_coin_SWI
@@ -2700,6 +2288,12 @@ LIC_playing_60_seconds_speedrun = {
 		icon = GFX_decision_LIC_franc
 		allowed = { tag = LIC }
 		fire_only_once = no
+		visible = {
+			NOT = {
+				has_country_flag = LIC_quotas_done
+			}
+			has_dynamic_modifier = { modifier = LIC_shadow_empire_dynmod }
+		}
 		available = {
 			check_variable = {
 				var = LIC.shadow_empire_civs
@@ -2712,6 +2306,9 @@ LIC_playing_60_seconds_speedrun = {
 				compare = greater_than_or_equals
 			}
 			has_dynamic_modifier = { modifier = LIC_shadow_empire_dynmod }
+			NOT = {
+				has_country_flag = LIC_quotas_done
+			}
 		}
 		days_remove = 25
 		days_re_enable = 25
@@ -2738,8 +2335,15 @@ LIC_playing_60_seconds_speedrun = {
 		fire_only_once = no
 		available = {
 			LIC_no_negs_HH = yes
+			NOT = {
+				has_country_flag = LIC_quotas_done
+			}
 		}
-
+		visible = {
+			NOT = {
+				has_country_flag = LIC_quotas_done
+			}
+		}
 		days_re_enable = 25
 		complete_effect = {
 			LIC_nerf_hh = yes
@@ -2748,7 +2352,7 @@ LIC_playing_60_seconds_speedrun = {
 		}
 	}
 	LIC_unleverage = {
-		cost = 25
+		cost = 15
 		icon = GFX_decision_generic_inflation
 		allowed = { tag = LIC }
 		fire_only_once = no
@@ -2761,13 +2365,43 @@ LIC_playing_60_seconds_speedrun = {
 					compare = greater_than_or_equals
 				}
 			}
+			NOT = {
+				has_country_flag = LIC_quotas_done
+			}
 		}
-
+		visible = {
+			NOT = {
+				has_country_flag = LIC_quotas_done
+			}
+		}
 		days_re_enable = 25
 		complete_effect = {
 			LIC_readiness_weekly_decrease_1 = yes
 			LIC_restore_hh = yes
 			add_to_variable = { var = LIC.allocations_HH value = -1 }
+		}
+	}
+	LIC_international_aid = {
+		cost = 30
+		icon = GFX_decision_support_equipment
+		allowed = { tag = LIC }
+		fire_only_once = no
+		visible = {
+			has_dynamic_modifier = {
+				modifier = LIC_famine
+			}
+		}
+		available = {
+			has_dynamic_modifier = {
+				modifier = LIC_famine
+			}
+		}
+
+		days_re_enable = 15
+		days_remove = 15
+		remove_effect = {
+			add_stability = 0.05
+			LIC_famine_decrease = yes
 		}
 	}
 	
@@ -2790,23 +2424,134 @@ LIC_playing_60_seconds_speedrun = {
 					compare = greater_than_or_equals
 				}
 			}
+			always = no
 		}
 		is_good = no
 		days_mission_timeout = 365
 		days_re_enable = 25
-		complete_effect = {
-			LIC_next_quota = yes
-			increase_ruling_party_popularity_by_3 = yes
-			add_political_power = 50
-		}
+
 		timeout_effect = {
 			LIC_next_quota = yes
-			decrease_ruling_party_popularity_by_5 = yes
-			add_political_power = -50
-			add_stability = -0.075
-			add_war_support = -0.075
 		}
 	}
+	
+	LIC_quota_build_slot = {
+		custom_cost_trigger = {
+			check_variable = {
+				var = LIC.govt_readiness
+				value = 0.1
+				compare = greater_than_or_equals
+			}
+		}
+		custom_cost_text = LIC_10_stockpile
+		icon = GFX_decision_support_equipment
+		allowed = { tag = LIC }
+		fire_only_once = no
+		visible = {
+			has_country_flag = LIC_quotas_done
+		}
+		available = {
+			has_country_flag = LIC_quotas_done
+		}
+		days_re_enable = 25
+		remove_effect = {
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+	}
+	
+	LIC_quota_factory_civ = {
+		custom_cost_trigger = {
+			check_variable = {
+				var = LIC.govt_readiness
+				value = 0.2
+				compare = greater_than_or_equals
+			}
+		}
+		custom_cost_text = LIC_20_stockpile
+		icon = GFX_RAJ_decision_investment_civs_icon
+		allowed = { tag = LIC }
+		fire_only_once = no
+		visible = {
+			has_country_flag = LIC_quotas_done
+		}
+		available = {
+			has_country_flag = LIC_quotas_done
+		}
+		days_remove = 20
+		days_re_enable = 35
+		remove_effect = {
+			random_owned_state = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+	}
+	
+	LIC_quota_factory_mil = {
+		custom_cost_trigger = {
+			check_variable = {
+				var = LIC.govt_readiness
+				value = 0.2
+				compare = greater_than_or_equals
+			}
+		}
+		custom_cost_text = LIC_20_stockpile
+		icon = GFX_RAJ_decision_investment_mils_icon
+		allowed = { tag = LIC }
+		fire_only_once = no
+		visible = {
+			has_country_flag = LIC_quotas_done
+		}
+		available = {
+			has_country_flag = LIC_quotas_done
+		}
+		days_remove = 20
+		days_re_enable = 35
+		remove_effect = {
+			random_owned_state = {
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+	}
+	
+	LIC_quota_civil_service = {
+		custom_cost_trigger = {
+			check_variable = {
+				var = LIC.govt_readiness
+				value = 0.075
+				compare = greater_than_or_equals
+			}
+		}
+		custom_cost_text = LIC_075_stockpile
+		icon = GFX_decision_generic_civil_support
+		allowed = { tag = LIC }
+		fire_only_once = no
+		visible = {
+			has_country_flag = LIC_quotas_done
+		}
+		available = {
+			has_country_flag = LIC_quotas_done
+		}
+		days_remove = 5
+		days_re_enable = 10
+		remove_effect = {
+			add_stability = 0.05
+			add_war_support = 0.03
+			add_political_power = 30
+		}
+	}
+	
 }
 
 LIC_occupation_govt_cat = {

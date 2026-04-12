@@ -2935,14 +2935,13 @@ SPR_clear_all_intro_flags = {
 SPR_released_after_annexation_initial_effects_kingdom = {
 	set_country_flag = released_after_annexation
 	set_country_flag = SPR_released_after_annexation_block_focuses_flag
-	#if = { #for later
-	#	limit = { var:overlord = { tag = AUS } }
-	#	set_cosmetic_tag = AUS_occupation_spain
-	#}
-	#else = {
-	#	set_cosmetic_tag = SPR_kingdom
-	#}
-	set_cosmetic_tag = SPR_kingdom
+	if = {
+		limit = { var:overlord = { tag = AUS } }
+		set_cosmetic_tag = AUS_occupation_spain
+	}
+	else = {
+		set_cosmetic_tag = SPR_kingdom
+	}
 	SPR_clear_all_election_flags = yes
 	SPR_clear_all_intro_flags = yes
 	SPR_remove_political_party_ideas = yes

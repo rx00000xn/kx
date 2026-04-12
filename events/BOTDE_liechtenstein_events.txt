@@ -17,8 +17,7 @@ country_event = { #debug
 
 	option = { #Egads!
 		name = licdebug.0.a
-		LIC_vibe_check_famine = yes
-		force_update_dynamic_modifier = yes
+		LIC_do_stronghold_breakthrough = yes
 	}
 }
 
@@ -35,7 +34,7 @@ country_event = { #debug
 
 	option = { #Egads!
 		name = licdebug.1.a
-		set_variable = { var = LIC.govt_readiness value = -0.1 }
+		set_variable = { var = LIC.stronghold_breakthrough_pts value = 0 }
 	}
 }
 
@@ -824,6 +823,25 @@ country_event = { #Famine in the Weltkrieg
 		name = lic.20.a
 		custom_effect_tooltip = LIC_stockpiling_tt
 		set_country_flag = LIC_stockpiling_flag
+		set_variable = {
+			var = LIC.govt_readiness
+			value = 0.03
+		}
+		set_variable = {
+			var = LIC.weekly_readiness
+			value = -0.005
+		}
+		set_variable = {
+			var = LIC.LIC_quota_num
+			value = 1
+		}
+		activate_mission = LIC_quota_mission
+		hidden_effect = {
+			country_event = {
+				id = lic.38 #fuck on actions
+				days = 7
+			}
+		}
 	}
 }
 
@@ -853,7 +871,7 @@ country_event = { #Calibers for the Eschen Factory
 		name = lic.21.b
 		add_power_balance_value = {
 			id = LIC_austro_swiss
-			value = 12
+			value = 0.12
 			tooltip_side = LIC_austro_swiss_austria
 		}
 	}
@@ -863,6 +881,7 @@ country_event = { #The Currency Act!
 	id = lic.22
 	title = lic.22.t
 	desc = lic.22.d
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.22" }
 	
 	picture = GFX_event_LIC_hoval_factory
 
@@ -877,6 +896,10 @@ country_event = { #The Currency Act!
 			id = LIC_austro_swiss
 			value = -0.2
 			tooltip_side = LIC_austro_swiss_swiss
+		}
+		reduce_focus_completion_cost = {
+			focus = LIC_swiss_compact
+			cost = 5
 		}
 	}
 	
@@ -901,6 +924,10 @@ country_event = { #The Currency Act!
 				}
 			}
 		}
+		reduce_focus_completion_cost = {
+			focus = LIC_foreign_suspicion
+			cost = 15
+		}
 	}
 	
 	option = { #The Krone still has value.
@@ -910,6 +937,10 @@ country_event = { #The Currency Act!
 			id = LIC_austro_swiss
 			value = 0.2
 			tooltip_side = LIC_austro_swiss_austria
+		}
+		reduce_focus_completion_cost = {
+			focus = LIC_continue_customs_union
+			cost = 5
 		}
 	}
 }
@@ -940,6 +971,7 @@ country_event = { #The Occupation Government
 			has_socialist_government = no
 		}
 	}
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.23" }
 	
 	picture = GFX_event_LIC_arthur_holmston
 
@@ -952,6 +984,7 @@ country_event = { #The Occupation Government
 		add_stability = -0.40
 		add_war_support = -0.40
 		add_political_power = -500
+		clear_global_event_target = LIC_allied_nation
 		if = {
 			limit = {
 				has_socialist_government = no
@@ -960,6 +993,9 @@ country_event = { #The Occupation Government
 				ideology = paternal_autocrat
 				name = LIC_occupation_govt_RUS_party
 				long_name = LIC_occupation_govt_RUS_party_long
+			}
+			RUS = {
+				save_global_event_target_as = LIC_allied_nation
 			}
 			else = {
 				set_party_name = {
@@ -971,6 +1007,9 @@ country_event = { #The Occupation Government
 					ideology = syndicalist
 					name = LIC_occupation_govt_FRA_party
 					long_name = LIC_occupation_govt_FRA_party_long
+				}
+				INT = {
+					save_global_event_target_as = LIC_allied_nation
 				}
 			}
 		}
@@ -1003,6 +1042,7 @@ country_event = { #Occupation Government Forms
 			has_socialist_government = yes
 		}
 	}
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.24" }
 	
 	picture = GFX_event_LIC_arthur_holmston
 
@@ -1048,7 +1088,7 @@ country_event = { #Occupation Government Forms
 
 country_event = { #life or death for berryboy
 	id = lic.25
-	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.25" }
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.25" }
 	title = lic.25.t
 	desc = lic.25.d
 	
@@ -1158,7 +1198,7 @@ country_event = { #life or death for berryboy
 
 country_event = { #Liechtenstein Incorporated
 	id = lic.26
-	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.26" }
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.26" }
 	title = lic.26.t
 	desc = lic.26.d
 	
@@ -1177,7 +1217,7 @@ country_event = { #Liechtenstein Incorporated
 
 country_event = { #Who shall lead Vaduz-Schellenberg?
 	id = lic.27
-	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.27" }
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.27" }
 	title = lic.27.t
 	desc = lic.27.d
 	
@@ -1295,13 +1335,13 @@ country_event = { #Who shall lead Vaduz-Schellenberg?
 		name = lic.27.c
 		set_cosmetic_tag = LIC_occupied_tag_RUS_GD
 		set_country_flag = LIC_GD_flag
-		country_event = { id = licflavor.64 days = 3 } #The Coronation of a Grand Princ
+		country_event = { id = licflavor.64 days = 3 } #The Coronation of a Grand Prince
 	}	
 }
 
 country_event = { #Who shall lead Vaduz-Schellenberg?
 	id = lic.28
-	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.28" }
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.28" }
 	title = lic.28.t
 	desc = lic.28.d
 	
@@ -1350,7 +1390,7 @@ country_event = { #Who shall lead Vaduz-Schellenberg?
 
 country_event = { #The End of the Occupation Government
 	id = lic.29
-	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.29" }
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.29" }
 	title = lic.29.t
 	desc = lic.29.d
 	
@@ -1401,7 +1441,7 @@ country_event = { #The End of the Occupation Government
 
 country_event = { #(overlord, can be FRA/RUS) End of the Liechtenstein Occupation
 	id = lic.30
-	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.30" }
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.30" }
 	title = lic.30.t
 	desc = lic.30.d
 	
@@ -1419,7 +1459,7 @@ country_event = { #(overlord, can be FRA/RUS) End of the Liechtenstein Occupatio
 
 country_event = { #Peace in Haute-Savoie
 	id = lic.31
-	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.31" }
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.31" }
 	title = lic.31.t
 	desc = lic.31.d
 	
@@ -1442,7 +1482,7 @@ country_event = { #Peace in Haute-Savoie
 
 country_event = { #Second American Civil War
 	id = lic.32
-	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.32" }
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.32" }
 	title = lic.32.t
 	desc = lic.32.d
 	
@@ -1456,12 +1496,13 @@ country_event = { #Second American Civil War
 		name = lic.32.a
 		add_stability = -0.03
 		LIC_readiness_take_10 = yes
+		LIC_readiness_weekly_decrease_1 = yes
 	}
 }
 
 country_event = { #Haute-Savoie Crisis Triggers Swiss Worries (temporary swiss halting of trade to austria)
 	id = lic.33
-	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.33" }
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.33" }
 	title = lic.33.t
 	desc = lic.33.d
 	
@@ -1471,7 +1512,7 @@ country_event = { #Haute-Savoie Crisis Triggers Swiss Worries (temporary swiss h
 
 	is_triggered_only = yes
 
-	option = { #So there is no French threat?
+	option = { #Mein Gott!
 		name = lic.33.a
 		add_political_power = -35
 		add_power_balance_value = {
@@ -1481,29 +1522,52 @@ country_event = { #Haute-Savoie Crisis Triggers Swiss Worries (temporary swiss h
 		}
 		LIC_readiness_take_20 = yes
 	}
+	
+	option = { #Prepare at once!
+		name = lic.33.b
+		add_political_power = -35
+		add_power_balance_value = {
+			id = LIC_austro_swiss
+			value = 0.3
+			tooltip_side = LIC_austro_swiss_austria
+		}
+		LIC_readiness_take_25 = yes
+		reduce_focus_completion_cost = {
+			focus = LIC_a_war_on_horizon
+			cost = 10
+		}
+	}
 }
 
-country_event = { #American Civil War
+country_event = { #Russo-German War
 	id = lic.34
-	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.34" }
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.34" }
 	title = lic.34.t
 	desc = lic.34.d
+	
+	trigger = {
+		RUS = {
+			has_war_with = GER
+		}
+		tag = LIC
+	}
 	
 	picture = GFX_event_LIC_kieber
 
 	fire_only_once = yes
 
-	is_triggered_only = yes
+	is_triggered_only = no
 
 	option = { #Oh, the corn!
 		name = lic.34.a
-		LIC_readiness_take_10 = yes
+		LIC_readiness_take_15 = yes
+		LIC_readiness_weekly_decrease_1 = yes
 	}
 }
 
 country_event = { #Second Weltkrieg
 	id = lic.35
-	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.35" }
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.35" }
 	title = lic.35.t
 	desc = lic.35.d
 	
@@ -1511,6 +1575,7 @@ country_event = { #Second Weltkrieg
 		INT = {
 			has_war_with = GER
 		}
+		tag = LIC
 	}
 	
 	picture = GFX_event_LIC_kieber
@@ -1523,12 +1588,13 @@ country_event = { #Second Weltkrieg
 		name = lic.35.a
 		LIC_readiness_take_15 = yes
 		LIC_readiness_weekly_decrease_2 = yes
+		set_country_flag = LIC_2wk
 	}
 }
 
 country_event = { #Second Weltkrieg Ended
 	id = lic.36
-	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.35" }
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.36" }
 	title = lic.36.t
 	desc = lic.36.d
 	
@@ -1538,7 +1604,8 @@ country_event = { #Second Weltkrieg Ended
 				has_war_with = GER
 			}
 		}
-		second_weltkrieg_has_started = yes
+		has_country_flag = LIC_2wk
+		tag = LIC
 	}
 	
 	picture = GFX_event_LIC_kieber
@@ -1551,6 +1618,322 @@ country_event = { #Second Weltkrieg Ended
 		name = lic.36.a
 		add_stability = 0.1
 		LIC_readiness_weekly_increase_2 = yes
+	}
+}
+
+country_event = { #Ukrainian Breadbasket Crisis
+	id = lic.37
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.37" }
+	title = lic.37.t
+	desc = lic.37.d
+	
+	#trigger = {
+	#	INT = {
+	#		NOT = {
+	#			has_war_with = GER
+	#		}
+	#	}
+	#	second_weltkrieg_has_started = yes
+	#}
+	
+	picture = GFX_event_LIC_kieber
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Good
+		name = lic.37.a
+		LIC_readiness_take_15 = yes
+	}
+}
+
+country_event = { #Weekly stockpile check because FUCK on actions
+	id = lic.38
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.38" }
+	title = lic.38.t
+	desc = lic.38.d
+	
+	hidden = yes
+	
+	picture = GFX_event_LIC_kieber
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			has_country_flag = LIC_all_done
+		}
+	}
+
+	option = { #Good
+		name = lic.38.a
+		log = "[GetDateText]: [THIS.GetName]: Running stockpile weekly check"
+		if = {
+			limit = {
+				has_country_flag = LIC_stockpiling_flag
+			}
+			add_to_variable = {
+				var = LIC.govt_readiness
+				value = LIC.weekly_readiness
+			}
+			LIC_vibe_check_famine = yes
+			if = {
+				limit = {
+					has_dynamic_modifier = {
+						modifier = LIC_famine
+					}
+				}
+				add_to_variable = {
+					var = LIC.famine_value
+					value = 0.005
+				}
+				clamp_variable = { var = LIC.famine_value max = LIC.govt_readiness }
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = LIC_quotas_done
+			}
+			set_variable = { LIC.weekly_readiness = -0.004 }
+		}
+		country_event = {
+			id = lic.38
+			days = 7
+		}
+	}
+}
+
+country_event = { #henry stickmin NEXT QUOTA
+	id = lic.39
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.39" }
+	title = lic.39.t
+	desc = lic.39.d
+	
+	hidden = yes
+	
+	picture = GFX_event_LIC_kieber
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #Good
+		name = lic.39.a
+		log = "[GetDateText]: [THIS.GetName]: Running stockpile weekly check"
+		add_to_variable = { var = LIC.GetQuotaYear value = 1 }
+		activate_mission = LIC_quota_mission
+	}
+}
+
+country_event = { #Swiss Government Falls to Revolutionary Forces
+	id = lic.40
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.40" }
+	title = lic.40.t
+	desc = lic.40.d
+	
+	picture = GFX_event_LIC_kieber
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Mein Gott!
+		name = lic.40.a
+		add_popularity = {
+			ideology = totalist
+			popularity = 0.05
+		}
+		add_popularity = {
+			ideology = syndicalist
+			popularity = 0.05
+		}
+		add_popularity = {
+			ideology = radical_socialist
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = social_democrat
+			popularity = 0.02
+		}
+		reduce_focus_completion_cost = {
+			focus = LIC_restore_the_army
+			cost = 15
+		}
+		reduce_focus_completion_cost = {
+			focus = LIC_maintain_the_police
+			cost = 15
+		}
+		if = {
+			limit = {
+				has_government = social_democrat
+			}
+			add_power_balance_value = {
+				id = LIC_austro_swiss
+				value = 0.15
+				tooltip_side = LIC_austro_swiss_austria
+			}
+			add_war_support = 0.075
+			add_stability = -0.075
+			else = {
+				add_war_support = 0.15
+				add_stability = -0.15
+				add_power_balance_value = {
+					id = LIC_austro_swiss
+					value = 0.25
+					tooltip_side = LIC_austro_swiss_austria
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Redoubts
+	id = lic.41
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.41" }
+	title = lic.41.t
+	desc = lic.41.d
+	
+	picture = GFX_event_LIC_kieber
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Our dimunitive size and diplomacy will keep us safe.
+		name = lic.41.a
+		add_political_power = 30
+		add_stability = 0.03
+	}
+	
+	option = { #We need some assurances. Fortifications must be raised.
+		name = lic.41.b
+		activate_mission = LIC_bunker_mission
+	}
+}
+
+country_event = { #Conclusion of the Stockpile Program
+	id = lic.42
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.42" }
+	title = lic.42.t
+	desc = lic.42.d
+	
+	picture = GFX_event_LIC_kieber
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Hopefully it'll be enough.
+		name = lic.42.a
+		set_temp_variable = { LIC.quota_stab = LIC.quota_success }
+		multiply_temp_variable = { LIC.quota_stab = 0.075 }
+		add_stability = LIC.quota_stab
+		custom_effect_tooltip = LIC_disables_stockpiling_decisions
+		custom_effect_tooltip = LIC_major_famines_disabled
+		unlock_decision_tooltip = LIC_quota_build_slot
+		unlock_decision_tooltip = LIC_quota_factory_civ
+		unlock_decision_tooltip = LIC_quota_factory_mil
+		unlock_decision_tooltip = LIC_quota_civil_service
+		set_country_flag = LIC_quotas_done
+		
+		hidden_effect = {
+			while_loop_effect = { #Undo leveraging
+				limit = {
+					check_variable = {
+						var = LIC.allocations_HH
+						value = 0
+						compare = less_than_or_equals
+					}
+				}
+				subtract_from_variable = { LIC.allocations_HH = 1 }
+				LIC_readiness_weekly_decrease_1 = yes
+				LIC_restore_hh = yes
+			}
+			set_variable = { weekly_readiness = -0.004 }
+			if = {
+				limit = {
+					check_variable = {
+						var = LIC.quota_failure
+						value = 2
+						compare = equals
+					}
+				}
+				country_event = {
+					id = lic.43 #go go stab in the back myth
+					days = 240
+					random_days = 180
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							var = LIC.quota_failure
+							value = 3
+							compare = greater_than_or_equals
+						}
+					}
+					country_event = {
+						id = lic.43 #go go stab in the back myth
+						days = 180
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = { #minor food shortages #FUCKYOU
+	id = lic.43
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.42" }
+	title = lic.43.t
+	desc = lic.43.d
+	
+	picture = GFX_event_LIC_kieber
+	
+	trigger = {
+		GER = {
+			OR = {
+				has_war_with = RUS
+				has_war_with = INT
+				has_war_with = ENT
+			}
+		}
+	}
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Hopefully it'll be enough.
+		name = lic.43.a
+		if = {
+			limit = {
+				check_variable = {
+					var = LIC.quota_failure
+					value = 2
+					compare = equals
+				}
+			}
+			add_timed_idea = {
+				idea = LIC_i_love_you_bunny_GO_FUCK_YOURSELF
+				days = 180
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						var = LIC.quota_failure
+						value = 3
+						compare = greater_than_or_equals
+					}
+				}
+				add_timed_idea = {
+					idea = LIC_i_love_you_bunny_GO_FUCK_YOURSELF_worse
+					days = 365
+				}
+			}
+		}
 	}
 }
 
@@ -1665,6 +2048,7 @@ country_event = { #The Department of Department Stores
 	option = { #The vote parts!
 		name = licflavor.5.a
 		add_ideas = LIC_department_store_ban
+		LIC_readiness_increase_4 = yes
 	}
 	
 	option = { #The vote departs!
@@ -3295,6 +3679,52 @@ country_event = { #Disloyalty to the Sovereign
 	}
 }
 
+country_event = { #Mistakes of von Imhof (if quota fail)
+	id = licflavor.66
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.66" }
+	title = licflavor.66.t
+	desc = licflavor.66.d
+	
+	picture = GFX_event_LIC_shrek_yelling_gif
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #We should watch out
+		name = licflavor.66.a
+		add_stability = -0.1
+		add_popularity = {
+			ideology = national_populist
+			popularity = 0.03
+		}
+	}
+}
+
+country_event = { #Refurbishing the Lawenawerk
+	id = licflavor.67
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.67" }
+	title = licflavor.67.t
+	desc = licflavor.67.d
+	
+	picture = GFX_event_LIC_lawenatwerk
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #We should watch out
+		name = licflavor.67.a
+		1235 = {
+			add_state_modifier = {
+				modifier = {
+					local_factory_energy_consumption = -0.15
+				}
+			}
+		}
+	}
+}
+
 
 
 country_event = { #GER - Liechtenstein Requests Reichpakt Membership
@@ -3314,6 +3744,7 @@ country_event = { #GER - Liechtenstein Requests Reichpakt Membership
 		LIC = {
 			leave_faction = yes
 		}
+		save_global_event_target_as = LIC_allied_nation
 		add_to_faction = LIC
 	}
 	
@@ -3345,283 +3776,225 @@ country_event = { #Germany declines
 	}
 }
 
-#country_event = { #FROM makes a bid for Ceylon
-#	id = licfor.3
-#	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.3" }
-#	title = licfor.3.t
-#	desc = licfor.3.d
-#	
-#	picture = GFX_event_LIC_ceylon_map
-#
-#	fire_only_once = yes
-#
-#	is_triggered_only = yes
-#
-#	option = { #Yes
-#		name = licfor.3.a
-#		add_political_power = 50
-#		add_timed_idea = {
-#			idea = LIC_purchase_idea
-#			days = 180
-#		}
-#		FROM = {
-#			transfer_state = 422
-#			if = {
-#				limit = {
-#					tag = LIC
-#				}
-#				country_event = {
-#					id = licfor.24
-#					days = 1
-#				}
-#				else = {
-#					country_event = licfor.10
-#				}
-#			}
-#		}
-#		every_country = {
-#			limit = {
-#				NOT = {
-#					tag = FROM
-#				}
-#				OR = {
-#					tag = LIC
-#					tag = PRF
-#					tag = GEA
-#				}
-#			}
-#			country_event = licfor.9
-#		}
-#		422 = {
-#			add_resistance = -40
-#			add_compliance = 40
-#		}
-#		if = {
-#			limit = {
-#				FROM = {
-#					OR = {
-#						tag = GEA
-#						tag = PRF
-#					}
-#				}
-#			}
-#			add_state_core = 422
-#		}
-#		if = {
-#			limit = {
-#				FROM = {
-#					tag = LIC
-#				}
-#			}
-#			add_ideas = LIC_purchase_of_ceylon_idea
-#			hidden_effect  = {
-#				422 = {
-#					set_resistance = 65
-#					set_compliance = 30
-#				}
-#			}
-#			else = {
-#				hidden_effect = {
-#					422 = {
-#						add_resistance = -40
-#						add_compliance = 40
-#					}
-#				}
-#			}
-#		}
-#	}
-#	
-#	option = { #No
-#		name = licfor.3.b
-#		ai_chance = {
-#			factor = 0
-#		}
-#		add_political_power = -100
-#		add_stability = -0.1
-#		422 = {
-#			add_resistance = 40
-#			add_compliance = -40
-#		}
-#		add_resource = {
-#			type = rubber
-#			amount = -80
-#			state = 422
-#		}
-#		FROM = {
-#			country_event = licfor.4
-#		}
-#	}
-#}
-#
-#country_event = { #FROM denies purchase
-#	id = licfor.4
-#	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.4" }
-#	title = licfor.4.t
-#	desc = licfor.4.d
-#	
-#	picture = GFX_event_LIC_ceylon_map
-#
-#	fire_only_once = no
-#
-#	is_triggered_only = yes
-#
-#	option = { #Yes
-#		name = licfor.4.a
-#		add_political_power = 100
-#		add_stability = 0.1
-#		add_war_support = 0.1
-#	}
-#}
-#
-#country_event = { #PRF - The Princes of Liechtenstein
-#	id = licfor.5
-#	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.5" }
-#	title = licfor.5.t
-#	desc = licfor.5.d
-#	
-#	picture = GFX_report_event_BAN_big_speech2
-#
-#	fire_only_once = yes
-#
-#	is_triggered_only = yes
-#
-#	option = { #Yes
-#		name = licfor.5.a
-#		add_political_power = 50
-#		add_timed_idea = {
-#			idea = LIC_purchase_idea
-#			days = 180
-#		}
-#		LIC = {
-#			transfer_state = 423
-#		}
-#	}
-#	
-#	option = { #No
-#		name = licfor.5.b
-#		ai_chance = {
-#			factor = 0
-#		}
-#		LIC = {
-#			country_event = licfor.4
-#		}
-#	}
-#}
-#
-#country_event = { #PRF - The Princes of Liechtenstein - 2
-#	id = licfor.6
-#	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.6" }
-#	title = licfor.6.t
-#	desc = licfor.6.d
-#	
-#	picture = GFX_report_event_BAN_big_speech2
-#
-#	fire_only_once = yes
-#
-#	is_triggered_only = yes
-#
-#	option = { #Yes
-#		name = licfor.6.a
-#		add_political_power = 50
-#		add_timed_idea = {
-#			idea = LIC_purchase_idea_2
-#			days = 180
-#		}
-#		LIC = {
-#			transfer_state = 867
-#		}
-#		if = {
-#			limit = {
-#				owns_state = 1034
-#			}
-#			LIC = {
-#				transfer_state = 1034
-#			}
-#		}
-#	}
-#	
-#	option = { #No
-#		name = licfor.6.b
-#		ai_chance = {
-#			factor = 0
-#		}
-#		LIC = {
-#			country_event = licfor.4
-#		}
-#	}
-#}
-#
-#country_event = { #The Battle for Ceylon!
-#	id = licfor.7
-#	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.7" }
-#	title = licfor.7.t
-#	desc = licfor.7.d
-#	
-#	picture = GFX_event_LIC_ceylon_map
-#
-#	fire_only_once = no
-#
-#	is_triggered_only = yes
-#
-#	option = { #Ceylon must be ours!
-#		name = licfor.7.a
-#		set_variable = {
-#			var = CEY.IndependenceLevel
-#			value = 0
-#		}
-#		custom_effect_tooltip = CEYLON_UNLOCKED
-#		hidden_effect = {
-#			country_event = {
-#				id = licfor.8
-#				days = 150
-#			}
-#		}
-#	}
-#}
-#
-#country_event = { #The Battle for Ceylon - Separatists arise
-#	id = licfor.8
-#	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.8" }
-#	title = licfor.8.t
-#	desc = licfor.8.d
-#	
-#	picture = GFX_event_LIC_ceylon_separatists
-#
-#	fire_only_once = no
-#
-#	is_triggered_only = yes
-#
-#	option = { #Ceylon must be ours!
-#		name = licfor.8.a
-#		set_global_flag = CEYLON_separatists
-#		hidden_effect = {
-#			country_event = {
-#				id = licfor.13
-#				days = 20
-#			}
-#		}
-#	}
-#}
-#
-#country_event = { #The Battle of Ceylon is Over - Defeat
-#	id = licfor.9
-#	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.9" }
-#	title = licfor.9.t
-#	desc = licfor.9.d
-#	
-#	picture = GFX_event_LIC_colombo
-#
-#	fire_only_once = no
-#
-#	is_triggered_only = yes
-#
-#	option = { #Damnit!
-#		name = licfor.9.a
-#		add_war_support = 0.05
-#	}
-#}
-#
-#
+country_event = { #Liechtenstein requests fortification engineers
+	id = licfor.3
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.3" }
+	title = licfor.3.t
+	desc = licfor.3.d
+	
+	picture = GFX_event_LIC_ceylon_map
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Sure
+		name = licfor.3.a
+		custom_effect_tooltip = LIC_pledge
+		hidden_effect = {
+			add_ideas = LIC_bunker_donor
+			LIC = {
+				add_ideas = LIC_bunker_recipient
+			}
+		}
+		LIC = {
+			country_event = licfor.4
+		}
+	}
+	
+	option = { #No
+		name = licfor.3.b
+		LIC = {
+			country_event = licfor.5
+		}
+	}
+}
+
+country_event = { #FROM pledges assistance
+	id = licfor.4
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.4" }
+	title = licfor.4.t
+	desc = licfor.4.d
+	
+	picture = GFX_event_LIC_ceylon_map
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #Yes
+		name = licfor.4.a
+		custom_effect_tooltip = LIC_recipient_tt
+	}
+}
+
+country_event = { #FROM rejects
+	id = licfor.5
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.5" }
+	title = licfor.5.t
+	desc = licfor.5.d
+	
+	picture = GFX_report_event_BAN_big_speech2
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Yes
+		name = licfor.5.a
+		add_political_power = -5
+	}
+}
+
+country_event = { #Liechtenstein's Fortification Program Concludes
+	id = licfor.6
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.6" }
+	title = licfor.6.t
+	desc = licfor.6.d
+	
+	picture = GFX_report_event_BAN_big_speech2
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Yes
+		name = licfor.6.a
+		custom_effect_tooltip = returned_factories_LIC
+	}
+}
+
+country_event = { #AUS/SWI - Liechtenstein Asks for Economic Assistance
+	id = licfor.7
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.7" }
+	title = {
+		text = licfor.7.t_austria
+		trigger = {
+			tag = AUS
+		}
+	}
+	desc = {
+		text = licfor.7.d_austria
+		trigger = {
+			tag = AUS
+		}
+	}
+	
+	title = {
+		text = licfor.7.t_switzerland
+		trigger = {
+			tag = SWI
+		}
+	}
+	desc = {
+		text = licfor.7.d_switzerland
+		trigger = {
+			tag = SWI
+		}
+	}
+	
+	picture = GFX_event_LIC_ceylon_map
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #We can.
+		name = licfor.7.a
+		ai_chance = { factor = 80 }
+		LIC = {
+			country_event = licfor.8
+		}
+		add_timed_idea = {
+			idea = AUS_SWI_Bailout
+			days = 180
+		}
+		custom_effect_tooltip = LIC_BOP_goes_to_us
+	}
+	
+	option = { #We cannot.
+		name = licfor.7.b
+		ai_chance = { factor = 20 }
+		LIC = {
+			country_event = licfor.9
+		}
+	}
+	
+}
+
+country_event = { #FROM accepts
+	id = licfor.8
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.8" }
+	title = licfor.8.t
+	desc = licfor.8.d
+	
+	picture = GFX_event_LIC_ceylon_separatists
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #Ceylon must be ours!
+		name = licfor.8.a
+		set_country_flag = LIC_got_bailout
+		if = {
+			limit = {
+				FROM = {
+					tag = AUS
+				}
+			}
+			add_timed_idea = {
+				idea = LIC_bailout_AUS
+				days = 180
+			}
+			else = {
+				add_timed_idea = {
+					idea = LIC_bailout_SWI
+					days = 180
+				}
+			}
+		}
+	}
+}
+
+country_event = { #FROM denies
+	id = licfor.9
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.9" }
+	title = licfor.9.t
+	desc = licfor.9.d
+	
+	picture = GFX_event_LIC_colombo
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #Damnit!
+		name = licfor.9.a
+		add_stability = -0.05
+		if = {
+			limit = {
+				FROM = {
+					tag = AUS
+				}
+			}
+			add_power_balance_value = {
+				id = LIC_austro_swiss
+				value = -0.075
+				tooltip_side = LIC_austro_swiss_swiss
+			}
+			else = {
+				add_power_balance_value = {
+					id = LIC_austro_swiss
+					value = 0.074
+					tooltip_side = LIC_austro_swiss_austria
+				}
+			}
+		}
+	}
+}
+
+
 #country_event = { #The Battle of Ceylon is Over - Victory
 #	id = licfor.10
 #	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.10" }
@@ -4044,6 +4417,16 @@ country_event = { #Alaska Becomes Independent
 
 	option = { #Make the purchase offer once again.
 		name = licfor.19.a
+		trigger = {
+			NOT = {
+				has_dynamic_modifier = {
+					modifier = LIC_famine
+				}
+			}
+		}
+		add_stability = -0.05
+		add_political_power = -30
+		LIC_readiness_take_20 = yes
 		ALA = {
 			country_event = {
 				id = Alaska.110
@@ -4089,6 +4472,12 @@ country_event = { #Franz Josef Selected for King
 	option = { #This is our most lucrative property yet!
 		name = licfor.21.a
 		add_political_power = 50
+		if = {
+			limit = {
+				has_country_flag = LIC_stockpiling_flag
+			}
+			LIC_readiness_increase_4 = yes
+		}
 		set_country_flag = LIC_WON_BRITAIN
 	}
 }
@@ -5687,6 +6076,7 @@ country_event = { #Austria dood wat nou
 		name = licfor.59.a
 		add_political_power = -100
 		add_stability = -0.1
+		LIC_readiness_weekly_decrease_1 = yes
 		if = {
 			limit = { has_power_balance = { id = LIC_austro_swiss } }
 			add_power_balance_value = {
