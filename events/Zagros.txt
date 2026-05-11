@@ -18,6 +18,7 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = zagros.90.a
+		set_cosmetic_tag = ZGS
 	}
 
 	option = {
@@ -705,7 +706,7 @@ country_event = {
 	}
 	title = zagros.18.t
 	desc = zagros.18.d
-	picture = GFX_report_event_generic_diplomacy
+	picture = GFX_report_event_generic_diplomacy1
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -956,7 +957,7 @@ country_event = {
 	}
 	title = zagros.23.t
 	desc = zagros.23.d
-	picture = GFX_report_event_generic_diplomacy
+	picture = GFX_report_event_generic_diplomacy4
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -994,7 +995,7 @@ country_event = {
 	}
 	title = zagros.25.t
 	desc = zagros.25.d
-	picture = GFX_report_event_generic_diplomacy
+	picture = GFX_report_event_generic_diplomacy3
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -1450,5 +1451,330 @@ country_event = {
         hidden_effect = {
             country_event = { id = zagros.42 days = 30 }
         }
+    }
+}
+
+country_event = {
+    id = zagros.43
+    immediate = {
+        log = "[GetDateText]: [Root.GetName]: event zagros.43"
+    }
+    title = zagros.43.t
+    desc = zagros.43.d
+    picture = GFX_report_event_generic_parliament
+    fire_only_once = yes
+    is_triggered_only = yes
+
+    option = {
+        name = zagros.43.a
+        set_country_flag = ZGS_assyrian_support_unlocked
+        add_political_power = 25
+        custom_effect_tooltip = ZGS_assyrian_support_unlocked_tt
+    }
+}
+
+country_event = {
+    id = zagros.44
+    immediate = { log = "[GetDateText]: [Root.GetName]: event zagros.44" }
+    title = zagros.44.t
+    desc = zagros.44.d
+    fire_only_once = yes
+    is_triggered_only = yes
+
+    option = {
+        name = zagros.44.a
+        add_political_power = 10
+    }
+}
+
+country_event = {
+    id = zagros.45
+    immediate = { log = "[GetDateText]: [Root.GetName]: event zagros.45" }
+    title = zagros.45.t
+    desc = zagros.45.d
+    fire_only_once = yes
+    is_triggered_only = yes
+
+    option = {
+        name = zagros.45.a
+        add_political_power = 10
+    }
+}
+
+country_event = {
+    id = zagros.46
+    immediate = { log = "[GetDateText]: [Root.GetName]: event zagros.46" }
+    title = zagros.46.t
+    desc = zagros.46.d
+    fire_only_once = yes
+    is_triggered_only = yes
+
+    option = {
+        name = zagros.46.a
+        add_political_power = 25
+    }
+}
+
+country_event = {
+    id = zagros.47
+    immediate = { log = "[GetDateText]: [Root.GetName]: event zagros.47" }
+    title = zagros.47.t
+    desc = zagros.47.d
+    picture = GFX_report_event_EGY_egyptian_palace
+    fire_only_once = yes
+    is_triggered_only = yes
+
+    option = {
+        name = zagros.47.a
+        EGY = {
+            country_event = { id = palcon.5 days = 3 }
+        }
+        add_political_power = 25
+    }
+}
+
+country_event = {
+    id = zagros.48
+    immediate = { log = "[GetDateText]: [Root.GetName]: event zagros.48" }
+    title = zagros.48.t
+    desc = zagros.48.d
+    picture = GFX_report_event_generic_diplomacy1
+    fire_only_once = yes
+    is_triggered_only = yes
+    option = {
+        name = zagros.48.a
+        set_country_flag = ZGS_joined_desert_war
+        declare_war_on = {
+            target = TUR
+            type = annex_everything
+        }
+        EGY = { give_military_access = ZGS }
+        SAU = { give_military_access = ZGS }
+        add_war_support = 0.10
+    }
+    option = {
+        name = zagros.48.b
+        add_war_support = 0.05
+        EGY = { give_military_access = ZGS }
+        SAU = { give_military_access = ZGS }
+    }
+}
+
+country_event = {
+    id = zagros.49
+    immediate = { log = "[GetDateText]: [Root.GetName]: event zagros.49" }
+    title = zagros.49.t
+    desc = zagros.49.d
+    picture = GFX_report_event_generic_diplomacy2
+    fire_only_once = yes
+    is_triggered_only = yes
+    option = {
+        name = zagros.49.a
+        set_country_flag = ZGS_joined_desert_war
+        set_country_flag = ZGS_khazal_war_of_expansion
+        declare_war_on = {
+            target = TUR
+            type = annex_everything
+        }
+        291 = { add_claim_by = ZGS }
+        812 = { add_claim_by = ZGS }
+        add_war_support = 0.15
+    }
+    option = {
+        name = zagros.49.b
+        set_country_flag = ZGS_khazal_biding_time
+        add_political_power = 25
+    }
+}
+
+country_event = {
+    id = zagros.50
+    immediate = { log = "[GetDateText]: [Root.GetName]: event zagros.50" }
+    hidden = yes
+    fire_only_once = yes
+    trigger = {
+        tag = ZGS
+        has_global_flag = OTT_cairo_pact_war
+        OR = {
+            has_country_flag = ZGS_khazal_arab_unity
+            has_country_flag = ZGS_khazal_independent_arab
+        }
+    }
+    mean_time_to_happen = {
+        days = 2
+    }
+    immediate = {
+        if = {
+            limit = {
+                has_country_flag = ZGS_khazal_arab_unity
+            }
+            country_event = { id = zagros.48 days = 1 }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = ZGS_khazal_independent_arab
+            }
+            country_event = { id = zagros.49 days = 1 }
+        }
+    }
+}
+
+country_event = {
+    id = zagros.51
+    immediate = { log = "[GetDateText]: [Root.GetName]: event zagros.51" }
+    title = zagros.51.t
+    desc = zagros.51.d
+    picture = GFX_report_event_ZGS_assyrian_teamster
+    fire_only_once = yes
+    is_triggered_only = yes
+
+    option = {
+        name = zagros.51.a
+        add_political_power = 25
+        add_war_support = 0.05
+    }
+}
+
+country_event = {
+    id = zagros.52
+    immediate = { log = "[GetDateText]: [Root.GetName]: event zagros.52" }
+    title = zagros.52.t
+    desc = zagros.52.d
+    picture = GFX_report_event_generic_rally
+    fire_only_once = yes
+
+    trigger = {
+        tag = ZGS
+        has_country_flag = ZGS_khazal_war_of_expansion
+        has_global_flag = AXIS_VICTORY
+        NOT = { has_war_with = TUR }
+    }
+
+    mean_time_to_happen = { days = 7 }
+
+    option = {
+        name = zagros.52.a
+        trigger = {
+            owns_state = 812
+            owns_state = 291
+            owns_state = 676
+        }
+        add_state_core = 812
+        add_state_core = 291
+        add_state_core = 676
+        add_state_core = 349
+        add_stability = 0.05
+        add_war_support = -0.10
+    }
+
+    option = {
+        name = zagros.52.b
+        trigger = {
+            owns_state = 812
+            owns_state = 291
+            NOT = { owns_state = 676 }
+        }
+        add_state_core = 812
+        add_state_core = 291
+        add_stability = 0.10
+        add_war_support = -0.05
+    }
+
+option = {
+    name = zagros.52.c
+    trigger = {
+        owns_state = 676
+    }
+    every_owned_state = {
+        limit = {
+            is_core_of = IRQ
+			NOT = {state = 812}
+        }
+        transfer_state_to = IRQ
+    }
+    set_temp_variable = { tag_to_release = IRQ }
+    puppet_released_tag = yes
+    set_cosmetic_tag = ZGS_emirate_arabestan
+    add_stability = 0.05
+	}
+}
+
+country_event = {
+    id = zagros.53
+    immediate = { log = "[GetDateText]: [Root.GetName]: event zagros.53" }
+    title = zagros.53.t
+    desc = zagros.53.d
+    picture = GFX_report_event_generic_parliament
+    fire_only_once = yes
+    is_triggered_only = yes
+
+    option = {
+        name = zagros.53.a
+        white_peace = TUR
+        clr_country_flag = ZGS_joined_desert_war
+        add_stability = -0.05
+        add_war_support = 0.10
+        custom_effect_tooltip = ZGS_abandon_desert_war_tt
+    }
+
+    option = {
+        name = zagros.53.b
+        add_stability = -0.15
+        add_war_support = 0.10
+        add_timed_idea = {
+            idea = ZGS_fighting_on_all_fronts
+            days = 60
+        }
+    }
+}
+
+country_event = {
+    id = zagros.54
+    immediate = { log = "[GetDateText]: [Root.GetName]: event zagros.54" }
+    title = zagros.54.t
+    desc = zagros.54.d
+    picture = GFX_report_event_EGY_egyptian_palace
+    fire_only_once = yes
+
+    trigger = {
+        tag = ZGS
+        has_country_flag = ZGS_wassmuss_path
+        has_global_flag = Arab_Congress
+    }
+
+    mean_time_to_happen = { days = 3 }
+
+    option = {
+        name = zagros.54.a
+        GER = {
+            add_opinion_modifier = {
+                target = ROOT
+                modifier = small_increase
+            }
+        }
+        add_political_power = 10
+    }
+}
+
+country_event = {
+    id = zagros.55
+    immediate = { log = "[GetDateText]: [Root.GetName]: event zagros.55" }
+    title = zagros.55.t
+    desc = zagros.55.d
+    picture = GFX_report_event_EGY_egypt_army
+    fire_only_once = yes
+
+    trigger = {
+        tag = ZGS
+        has_country_flag = ZGS_wassmuss_path
+        has_global_flag = OTT_cairo_pact_war
+    }
+
+    mean_time_to_happen = { days = 5 }
+
+    option = {
+        name = zagros.55.a
+        add_war_support = 0.05
+        add_political_power = 25
     }
 }
