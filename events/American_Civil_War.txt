@@ -20,7 +20,6 @@ country_event = { # Jack Reed declares revolution against MacArthur
 
 	immediate = {
 		log = "[GetDateText]: [Root.GetName]: event amcivwar.1"
-		set_country_flag = USA_reed_was_president
 		USA_release_CSA = yes
 	}
 
@@ -470,7 +469,7 @@ country_event = { # WCC released
 			USA_initial_events = yes
 			WCC_initial_events = yes
 			if = {
-				limit = { has_global_flag = USA_reed_was_president }
+				limit = { has_global_flag = USA_president_reed }
 				news_event = { id = amcivwar.4 hours = 8 }
 			}
 			else_if = {
@@ -486,7 +485,7 @@ country_event = { # WCC released
 				news_event = { id = amcivwar.16 hours = 8 }
 			}
 			else_if = {
-				limit = { has_country_flag = USA_president_norris }
+				limit = { has_global_flag = USA_president_norris }
 				news_event = { id = amcivwar.19 hours = 8 }
 			}
 			else_if = {
@@ -531,7 +530,7 @@ country_event = { # WCC released
 		hidden_effect = {
 			USA_initial_events = yes
 			if = {
-			limit = { has_global_flag = USA_reed_was_president }
+			limit = { has_global_flag = USA_president_reed }
 			news_event = { id = amcivwar.4 hours = 8 }
 			}
 			else_if = {
@@ -547,7 +546,7 @@ country_event = { # WCC released
 			news_event = { id = amcivwar.16 hours = 8 }
 			}
 			else_if = {
-			limit = { has_country_flag = USA_president_norris }
+			limit = { has_global_flag = USA_president_norris }
 			news_event = { id = amcivwar.19 hours = 8 }
 				}
 			else_if = {
@@ -3762,7 +3761,6 @@ country_event = { # Huey Long declares Rebellion against MacArthur
 	fire_only_once = yes
 
 	immediate = {
-		set_country_flag = USA_long_was_president
 		USA_release_TEX = yes
 	}
 
@@ -3824,7 +3822,7 @@ country_event = { # Old Democrats Breakoff
 	desc = {
 	text = amcivwar.6000.d.long
 	trigger = {
-	has_country_flag = USA_long_was_president
+	has_global_flag = USA_long_is_president
 		}
 	}
 	
@@ -3839,7 +3837,7 @@ country_event = { # Old Democrats Breakoff
 	text = amcivwar.6000.d.liberal
 	trigger = {
 	NOT = {
-	has_country_flag = USA_long_was_president
+	has_global_flag = USA_long_is_president
 	has_country_leader = { ruling_only = yes name = "Douglas MacArthur" }
 		}
 	}
@@ -4011,7 +4009,6 @@ country_event = { # Pacific States declares revolution against MacArthur
 		hidden_effect = {
 			USA_initial_events = yes
 			CAL_initial_events = yes
-			news_event = { id = amcivwar.9 hours = 8 }
 		}
 		hidden_effect = {
 		USA = {
@@ -4043,7 +4040,6 @@ country_event = { # Pacific States declares revolution against MacArthur
 		hidden_effect = {
 			USA_initial_events = yes
 			CAL_initial_events = yes
-			news_event = { id = amcivwar.9 hours = 8 }
 		}
 		CAL = {
 			change_tag_from = USA
@@ -4279,7 +4275,6 @@ country_event = { # Jack Reed declares revolution against Murray and Mac
 
 	immediate = {
 		log = "[GetDateText]: [Root.GetName]: event amcivwar.1012"
-		set_country_flag = USA_reed_was_president
 		USA_release_CSA = yes
 	}
 
@@ -6345,6 +6340,12 @@ country_event = { # CSA wins the civil war
 		add_ideas = USA_civil_war_war_aftermath_idea
 		add_ideas = USA_civil_war_political_aftermath_idea
 		hidden_effect = {
+			CAL = {
+				set_nationality = {
+					target_country = CSA
+					character = CAL_Jack_Parsons
+				}
+		    }
 			add_ideas = {
 				civilian_economy
 				volunteer_only
@@ -8825,7 +8826,7 @@ country_event = { # Chief of Navy
 		}
 		NOT = {
 			has_idea = TEX_Arthur_Lee_Willard_cnav
-			has_idea = TEX_William_Frederick_Halsey_Jr_cnav
+			has_idea = TEX_Lynne_C_Quiggle_cnav
 		}
 	}
 
@@ -8836,10 +8837,6 @@ country_event = { # Chief of Navy
 	option = { # Lynne Quiggle
 		name = amcivwar.52.b
 		add_ideas = TEX_Lynne_C_Quiggle_cnav
-	}
-	option = { # William_Frederick_Halsey_Jr
-		name = amcivwar.52.c
-		add_ideas = TEX_William_Frederick_Halsey_Jr_cnav
 	}
 }
 
@@ -9977,7 +9974,6 @@ country_event = {
 		hidden_effect = {
 			USA_initial_events = yes
 			CSA_initial_events = yes
-			news_event = { id = amcivwar.127 hours = 8 }
 			country_event = { id = amcivwar.128 days = 30 }
 		}
 	}
@@ -10004,41 +10000,11 @@ country_event = {
 		hidden_effect = {
 			USA_initial_events = yes
 			CSA_initial_events = yes
-			news_event = { id = amcivwar.127 hours = 8 }
 			country_event = { id = amcivwar.128 days = 30 }
 		}
 		CSA = {
 			change_tag_from = USA
 		}
-	}
-}
-
-news_event = {
-	id = amcivwar.127
-	immediate = {log = "[GetDateText]: [Root.GetName]: event amcivwar.127"}
-	title = amcivwar.127.t
-	picture = GFX_news_event_gathering_protest
-	
-	desc = {
-		text = amcivwar.127.d.long
-		trigger = { USA = { has_country_flag = USA_assassinated_long } }
-	}
-	desc = {
-		text = amcivwar.127.d.austerity
-		trigger = { USA = { has_country_flag = USA_ACW_austerity_rejected } }
-	}
-
-	major = yes
-	is_triggered_only = yes
-
-	trigger = {
-		wants_world_news = yes
-	}
-
-	show_major = {}
-
-	option = {
-		name = amcivwar.127.a
 	}
 }
 
@@ -10120,7 +10086,6 @@ country_event = {
 		hidden_effect = {
 			TEX_initial_events = yes
 			USA_initial_events = yes
-			news_event = { id = amcivwar.132 hours = 8 }
 			country_event = { id = amcivwar.133 days = 30 }
 		}
 	}
@@ -10139,41 +10104,11 @@ country_event = {
 		hidden_effect = {
 			TEX_initial_events = yes
 			USA_initial_events = yes
-			news_event = { id = amcivwar.132 hours = 8 }
 			country_event = { id = amcivwar.133 days = 30 }
 		}
 		TEX = {
 			change_tag_from = USA
 		}
-	}
-}
-
-news_event = {
-	id = amcivwar.132
-	immediate = {log = "[GetDateText]: [Root.GetName]: event amcivwar.132"}
-	title = amcivwar.132.t
-	picture = GFX_news_event_gathering_protest
-	
-	desc = {
-		text = amcivwar.132.d.reed
-		trigger = { USA = { has_country_flag = USA_assassinated_reed } }
-	}
-	desc = {
-		text = amcivwar.132.d.compromise
-		trigger = { USA = { has_country_flag = USA_ACW_compromise_rejected } }
-	}
-
-	major = yes
-	is_triggered_only = yes
-
-	trigger = {
-		wants_world_news = yes
-	}
-
-	show_major = {}
-
-	option = {
-		name = amcivwar.132.a
 	}
 }
 
@@ -10352,7 +10287,6 @@ country_event = { # Pacific States declares revolution against MacArthur
 		hidden_effect = {
 			USA_initial_events = yes
 			CAL_initial_events = yes
-			#news_event = { id = amcivwar.138 hours = 8 }
 			country_event = { id = amcivwar.139 days = 30 }
 		}
 		hidden_effect = {
@@ -10385,7 +10319,6 @@ country_event = { # Pacific States declares revolution against MacArthur
 		hidden_effect = {
 			USA_initial_events = yes
 			CAL_initial_events = yes
-			news_event = { id = amcivwar.138 hours = 8 }
 			country_event = { id = amcivwar.139 days = 30 }
 		}
 		CAL = {
@@ -10399,27 +10332,6 @@ country_event = { # Pacific States declares revolution against MacArthur
 				}
 			}
 		}
-	}
-}
-
-news_event = {
-	id = amcivwar.138
-	immediate = {log = "[GetDateText]: [Root.GetName]: event amcivwar.138"}
-	title = amcivwar.138.t
-	desc = amcivwar.138.d
-	picture = GFX_news_event_gathering_protest
-
-	major = yes
-	is_triggered_only = yes
-
-	trigger = {
-		wants_world_news = yes
-	}
-
-	show_major = {}
-
-	option = {
-		name = amcivwar.138.a
 	}
 }
 
@@ -14911,7 +14823,7 @@ country_event = {
 		modifier = {
 			factor = 0.75
 			tag = CSA
-			USA = { has_global_flag = USA_reed_was_president }
+			USA = { has_global_flag = USA_president_reed }
 		}
 		modifier = {
 			factor = 0.75
@@ -16699,12 +16611,16 @@ country_event = { # Black Legion Crushed
 	option = { # No Resistance
 		name = amcivwar.625.a
 		if = {
-		limit = { has_idea = ACW_black_legion_resistance_2 }
-		remove_ideas = ACW_black_legion_resistance_2
+		limit = { has_idea = ACW_black_legion_resistance_4 }
+		remove_ideas = ACW_black_legion_resistance_4
 		}
-		if = {
+		else_if = {
 		limit = { has_idea = ACW_black_legion_resistance_3 }
 		remove_ideas = ACW_black_legion_resistance_3
+		}
+		else_if = {
+		limit = { has_idea = ACW_black_legion_resistance_2 }
+		remove_ideas = ACW_black_legion_resistance_2
 		}
 		else = {
 		remove_ideas = ACW_black_legion_resistance_1
@@ -16894,12 +16810,16 @@ country_event = { # Socialist Crushed
 	option = { # No Resistance
 		name = amcivwar.633.a
 		if = {
-		limit = { has_idea = ACW_socialist_resistance_2 }
-		remove_ideas = ACW_socialist_resistance_2
+		limit = { has_idea = ACW_socialist_resistance_4 }
+		remove_ideas = ACW_socialist_resistance_4
 		}
-		if = {
+		else_if = {
 		limit = { has_idea = ACW_socialist_resistance_3 }
 		remove_ideas = ACW_socialist_resistance_3
+		}
+		else_if = {
+		limit = { has_idea = ACW_socialist_resistance_2 }
+		remove_ideas = ACW_socialist_resistance_2
 		}
 		else = {
 		remove_ideas = ACW_socialist_resistance_1
@@ -17092,12 +17012,16 @@ country_event = { # Minutemen Crushed
 	option = { # No Resistance
 		name = amcivwar.640.a
 		if = {
-			limit = { has_idea = ACW_minutemen_resistance_2 }
-			remove_ideas = ACW_minutemen_resistance_2
+			limit = { has_idea = ACW_minutemen_resistance_4 }
+			remove_ideas = ACW_minutemen_resistance_4
 		}
-		if = {
+		else_if = {
 			limit = { has_idea = ACW_minutemen_resistance_3 }
 			remove_ideas = ACW_minutemen_resistance_3
+		}
+		else_if = {
+			limit = { has_idea = ACW_minutemen_resistance_2 }
+			remove_ideas = ACW_minutemen_resistance_2
 		}
 		else = {
 			remove_ideas = ACW_minutemen_resistance_1
@@ -17290,12 +17214,16 @@ country_event = { # klan Crushed
 	option = { # No Resistance
 		name = amcivwar.648.a
 		if = {
-			limit = { has_idea = ACW_klan_resistance_2 }
-			remove_ideas = ACW_klan_resistance_2
+			limit = { has_idea = ACW_klan_resistance_4 }
+			remove_ideas = ACW_klan_resistance_4
 		}
-		if = {
+		else_if = {
 			limit = { has_idea = ACW_klan_resistance_3 }
 			remove_ideas = ACW_klan_resistance_3
+		}
+		else_if = {
+			limit = { has_idea = ACW_klan_resistance_2 }
+			remove_ideas = ACW_klan_resistance_2
 		}
 		else = {
 			remove_ideas = ACW_klan_resistance_1
@@ -17488,11 +17416,15 @@ country_event = { # fed Crushed
 	option = { # No Resistance
 		name = amcivwar.656.a
 		if = {
-		limit = { has_idea = ACW_fed_resistance_2 }
-		remove_ideas = ACW_fed_resistance_2
+		limit = { has_idea = ACW_fed_resistance_4 }
+		remove_ideas = ACW_fed_resistance_4
 		}
-		if = {
+		else_if = {
 		limit = { has_idea = ACW_fed_resistance_3 }
+		remove_ideas = ACW_fed_resistance_3
+		}
+		else_if = {
+		limit = { has_idea = ACW_fed_resistance_2 }
 		remove_ideas = ACW_fed_resistance_3
 		}
 		else = {
@@ -17757,12 +17689,16 @@ country_event = { # liberal Crushed
 	option = { # No Resistance
 		name = amcivwar.670.a
 		if = {
-		limit = { has_idea = ACW_liberal_resistance_2 }
-		remove_ideas = ACW_liberal_resistance_2
+		limit = { has_idea = ACW_liberal_resistance_4 }
+		remove_ideas = ACW_liberal_resistance_4
 		}
-		if = {
+		else_if = {
 		limit = { has_idea = ACW_liberal_resistance_3 }
 		remove_ideas = ACW_liberal_resistance_3
+		}
+		else_if = {
+		limit = { has_idea = ACW_liberal_resistance_2 }
+		remove_ideas = ACW_liberal_resistance_2
 		}
 		else = {
 		remove_ideas = ACW_liberal_resistance_1
@@ -17938,12 +17874,16 @@ country_event = { # Black Nationalist Crushed
 	option = { # No Resistance
 		name = amcivwar.677.a
 		if = {
-		limit = { has_idea = ACW_black_nationalist_resistance_2 }
-		remove_ideas = ACW_black_nationalist_resistance_2
+		limit = { has_idea = ACW_black_nationalist_resistance_4 }
+		remove_ideas = ACW_black_nationalist_resistance_4
 		}
-		if = {
+		else_if = {
 		limit = { has_idea = ACW_black_nationalist_resistance_3 }
 		remove_ideas = ACW_black_nationalist_resistance_3
+		}
+		else_if = {
+		limit = { has_idea = ACW_black_nationalist_resistance_2 }
+		remove_ideas = ACW_black_nationalist_resistance_2
 		}
 		else = {
 		remove_ideas = ACW_black_nationalist_resistance_1

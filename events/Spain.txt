@@ -1576,13 +1576,15 @@ country_event = {
 		add_political_power = -100
 	}
 }
-country_event = {
+country_event = { #Puppeting spain: absolutist or democratic spain
 	id = sprf.4
+	immediate = { log = "[GetDateText]: [Root.GetName]: event sprf.4" }
 	title = sprf.4.t
 	desc = sprf.4.d
 	picture = GFX_report_event_generic_diplomacy1
 
 	is_triggered_only = yes
+
 	trigger = { 
 		SPR = {
 			NOT = {
@@ -1592,10 +1594,19 @@ country_event = {
 		}
 	}
 
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = { has_country_flag = SPR_sprf_4_after_a_event }
+				clr_country_flag = SPR_sprf_4_after_a_event
+			}
+		}
+	}
+
 	option = {
 		name = sprf.4.a
-		custom_effect_tooltip = sprf.4.absolutism_tt
-		hidden_effect = {
+		custom_override_tooltip = {
+			tooltip = sprf.4.absolutism_tt
 			SPR = {
 				set_country_flag = SPR_released_after_annexation_force_absolutism
 				SPR_released_after_annexation_political_effects_kingdom = yes
@@ -1607,8 +1618,8 @@ country_event = {
 	}
 	option = {
 		name = sprf.4.b
-		custom_effect_tooltip = sprf.4.democracy_tt
-		hidden_effect = {
+		custom_override_tooltip = {
+			tooltip = sprf.4.democracy_tt
 			SPR = {
 				set_country_flag = SPR_released_after_annexation_force_democracy
 				SPR_released_after_annexation_political_effects_kingdom = yes
@@ -1623,6 +1634,7 @@ country_event = {
 # Latin Economic Union
 country_event = {
 	id = sprf.6
+	immediate = { log = "[GetDateText]: [Root.GetName]: event sprf.6" }
 	title = sprf.6.t
 	desc = sprf.6.d
 	picture = GFX_report_event_SPA_javier
@@ -1641,6 +1653,7 @@ country_event = {
 # Portugal Friendship
 country_event = {
 	id = sprf.7
+	immediate = { log = "[GetDateText]: [Root.GetName]: event sprf.7" }
 	title = sprf.7.t
 	desc = sprf.7.d
 	picture = GFX_report_event_por_salazar_franco1
@@ -1670,6 +1683,7 @@ country_event = {
 # Spanish Friendship
 country_event = {
 	id = sprf.8
+	immediate = { log = "[GetDateText]: [Root.GetName]: event sprf.8" }
 	title = sprf.8.t
 	desc = sprf.8.d
 	picture = GFX_report_event_SIC_naples
@@ -8372,6 +8386,7 @@ country_event = {
 					has_country_flag = SPR_FRANCO_SPAIN
 					has_country_flag = SPR_iberian_union
 					has_country_flag = SPR_formed_hre
+					has_country_flag = SPR_King_Leopoldo
 				}
 			}
 			set_cosmetic_tag = SPR_tyre_kingdom
@@ -16611,6 +16626,7 @@ country_event = { #Iberian Flag Picker Event
 			}
 		}
 		clr_country_flag = SPR_iberia_allow_flag_picker_decision
+		custom_effect_tooltip = SPR_disable_flag_picker_tt
 	}
 }
 country_event = { #Morocco more like Poorocco
@@ -16788,6 +16804,7 @@ country_event = { #Latin Union Flag Picker Event
 			}
 		}
 		clr_country_flag = SPR_latin_union_allow_flag_picker_decision
+		custom_effect_tooltip = SPR_disable_flag_picker_tt
 	}
 }
 country_event = {
@@ -17123,9 +17140,28 @@ country_event = { #Absolutism event - Juan
 			long_name = SPR_social_conservative_party_pf_long
 			name = SPR_social_conservative_party_pf
 		}
-		hidden_effect = {
-			set_country_flag = SPR_flag_soccon_appointed
-			complete_national_focus = SPR_moderate_absolutism
+		set_country_flag = SPR_flag_soccon_appointed
+		complete_national_focus = SPR_moderate_absolutism
+		if = {
+			limit = { has_country_flag = SPR_King_Karl_Pius }
+			create_country_leader = {
+				name = "Carlos VIII"
+				desc = "POLITICS_CARLOS_PIO_DESC"
+				picture = "gfx/leaders/CAR/Portrait_CAR_Carlos_VIII.png"
+				expire = "1.1.1"
+				ideology = clientelism_subtype
+			}
+		}
+		else_if = {
+			limit = { has_country_flag = SPR_King_Leopoldo }
+			create_country_leader = {
+				name = "Leopoldo I"
+				picture = "gfx/leaders/SPR/Friedrich_Viktor_von_Hohenzollern.png"
+				expire = "1.1.1"
+				ideology = clientelism_subtype
+			}
+		}
+		else = {
 			create_country_leader = {
 				name = "Juan III"
 				desc = "POLITICS_JUAN_BOURBON_DESC"
@@ -17133,12 +17169,15 @@ country_event = { #Absolutism event - Juan
 				expire = "1.1.1"
 				ideology = clientelism_subtype
 			}
-			add_ideas = {
-				SPR_Alvaro_de_Figueroa_hog_sco
-				SPR_Alexandre_Boveda_Iglesias_for_sco
-				SPR_Francisco_de_Borbon_de_la_Torre_eco_sco
-				SPR_Miguel_Cabanellas_Ferrer_sec_sco
-			}
+		}
+		custom_effect_tooltip = soccon_clientelism_subtype_swap_tt
+		add_ideas = {
+			SPR_Alvaro_de_Figueroa_hog_sco
+			SPR_Alexandre_Boveda_Iglesias_for_sco
+			SPR_Francisco_de_Borbon_de_la_Torre_eco_sco
+			SPR_Miguel_Cabanellas_Ferrer_sec_sco
+		}
+		hidden_effect = {
 			set_country_flag = SPR_monarch_appointed_someone
 			set_party_name = {
 				ideology = authoritarian_democrat
@@ -17174,6 +17213,7 @@ country_event = { #Absolutism event - Juan
 					has_country_flag = SPR_FRANCO_SPAIN
 					has_country_flag = SPR_iberian_union
 					has_country_flag = SPR_formed_hre
+					has_country_flag = SPR_King_Leopoldo
 				}
 			}
 			set_cosmetic_tag = SPR_ap_kingdom
@@ -17186,13 +17226,35 @@ country_event = { #Absolutism event - Juan
 			ideology = authoritarian_democrat
 			popularity = 0.15
 		}
-		create_country_leader = {
-			name = "Juan III"
-			desc = "POLITICS_JUAN_BOURBON_DESC"
-			picture = "gfx/leaders/SPR/Portrait_SPR_Juan_III.png"
-			expire = "1.1.1"
-			ideology = oligarchy_subtype
+		if = {
+			limit = { has_country_flag = SPR_King_Karl_Pius }
+			create_country_leader = {
+				name = "Carlos VIII"
+				desc = "POLITICS_CARLOS_PIO_DESC"
+				picture = "gfx/leaders/CAR/Portrait_CAR_Carlos_VIII.png"
+				expire = "1.1.1"
+				ideology = oligarchy_subtype
+			}
 		}
+		else_if = {
+			limit = { has_country_flag = SPR_King_Leopoldo }
+			create_country_leader = {
+				name = "Leopoldo I"
+				picture = "gfx/leaders/SPR/Friedrich_Viktor_von_Hohenzollern.png"
+				expire = "1.1.1"
+				ideology = oligarchy_subtype
+			}
+		}
+		else = {
+			create_country_leader = {
+				name = "Juan III"
+				desc = "POLITICS_JUAN_BOURBON_DESC"
+				picture = "gfx/leaders/SPR/Portrait_SPR_Juan_III.png"
+				expire = "1.1.1"
+				ideology = oligarchy_subtype
+			}
+		}
+		custom_effect_tooltip = authdem_oligarchy_subtype_swap_tt
 		add_ideas = {
 			SPR_JM_Gil_Robles_Quinones_hog_ade
 			SPR_Claudio_Sanchez_Albornoz_for_sco
@@ -17235,6 +17297,7 @@ country_event = { #Absolutism event - Juan
 					has_country_flag = SPR_FRANCO_SPAIN
 					has_country_flag = SPR_iberian_union
 					has_country_flag = SPR_formed_hre
+					has_country_flag = SPR_King_Leopoldo
 				}
 			}
 			set_cosmetic_tag = SPR_umn_kingdom
@@ -17252,13 +17315,35 @@ country_event = { #Absolutism event - Juan
 			long_name = SPR_paternal_autocrat_party_long
 			name = SPR_paternal_autocrat_party
 		}
-		create_country_leader = {
-			name = "Juan III"
-			desc = "POLITICS_JUAN_BOURBON_DESC"
-			picture = "gfx/leaders/SPR/Portrait_SPR_Juan_III.png"
-			expire = "1.1.1"
-			ideology = absolute_monarchy_subtype
+		if = {
+			limit = { has_country_flag = SPR_King_Karl_Pius }
+			create_country_leader = {
+				name = "Carlos VIII"
+				desc = "POLITICS_CARLOS_PIO_DESC"
+				picture = "gfx/leaders/CAR/Portrait_CAR_Carlos_VIII.png"
+				expire = "1.1.1"
+				ideology = absolute_monarchy_subtype
+			}
 		}
+		else_if = {
+			limit = { has_country_flag = SPR_King_Leopoldo }
+			create_country_leader = {
+				name = "Leopoldo I"
+				picture = "gfx/leaders/SPR/Friedrich_Viktor_von_Hohenzollern.png"
+				expire = "1.1.1"
+				ideology = absolute_monarchy_subtype
+			}
+		}
+		else = {
+			create_country_leader = {
+				name = "Juan III"
+				desc = "POLITICS_JUAN_BOURBON_DESC"
+				picture = "gfx/leaders/SPR/Portrait_SPR_Juan_III.png"
+				expire = "1.1.1"
+				ideology = absolute_monarchy_subtype
+			}
+		}
+		custom_effect_tooltip = pataut_absolute_monarchy_subtype_swap_tt
 		add_ideas = {
 			SPR_Jose_Sanjurjo_Sacanell_hog_ade
 			SPR_Francisco_de_Asis_Serrat_y_Bonastre_for_pau
@@ -17301,6 +17386,7 @@ country_event = { #Absolutism event - Juan
 					has_country_flag = SPR_FRANCO_SPAIN
 					has_country_flag = SPR_iberian_union
 					has_country_flag = SPR_formed_hre
+					has_country_flag = SPR_King_Leopoldo
 				}
 			}
 			set_cosmetic_tag = SPR_ae_kingdom
@@ -17318,13 +17404,35 @@ country_event = { #Absolutism event - Juan
 			long_name = SPR_national_populist_party_ae_long
 			name = SPR_national_populist_party_ae
 		}
-		create_country_leader = {
-			name = "Juan III"
-			desc = "POLITICS_JUAN_BOURBON_DESC"
-			picture = "gfx/leaders/SPR/Portrait_SPR_Juan_III.png"
-			expire = "1.1.1"
-			ideology = hispanism_subtype
+		if = {
+			limit = { has_country_flag = SPR_King_Karl_Pius }
+			create_country_leader = {
+				name = "Carlos VIII"
+				desc = "POLITICS_CARLOS_PIO_DESC"
+				picture = "gfx/leaders/CAR/Portrait_CAR_Carlos_VIII.png"
+				expire = "1.1.1"
+				ideology = hispanism_subtype
+			}
 		}
+		else_if = {
+			limit = { has_country_flag = SPR_King_Leopoldo }
+			create_country_leader = {
+				name = "Leopoldo I"
+				picture = "gfx/leaders/SPR/Friedrich_Viktor_von_Hohenzollern.png"
+				expire = "1.1.1"
+				ideology = hispanism_subtype
+			}
+		}
+		else = {
+			create_country_leader = {
+				name = "Juan III"
+				desc = "POLITICS_JUAN_BOURBON_DESC"
+				picture = "gfx/leaders/SPR/Portrait_SPR_Juan_III.png"
+				expire = "1.1.1"
+				ideology = hispanism_subtype
+			}
+		}
+		custom_effect_tooltip = natpop_hispanism_subtype_swap_tt
 		add_ideas = {
 			SPR_Ramiro_de_Maeztu_hog_npo
 			SPR_Jose_Luis_Arrese_Magra_for_pau
@@ -17378,6 +17486,7 @@ country_event = { #Absolutism event - Jamie
 					has_country_flag = SPR_FRANCO_SPAIN
 					has_country_flag = SPR_iberian_union
 					has_country_flag = SPR_formed_hre
+					has_country_flag = SPR_King_Leopoldo
 				}
 			}
 			set_cosmetic_tag = SPR_agr_kingdom
@@ -17395,13 +17504,35 @@ country_event = { #Absolutism event - Jamie
 			long_name = SPR_social_conservative_party_pae_long
 			name = SPR_social_conservative_party_pae
 		}
-		create_country_leader = {
-			name = "Jaime I"
-			desc = "POLITICS_JAIME_BOURBON_DESC"
-			picture = "gfx/leaders/SPR/Portrait_SPR_Jaime_I.png"
-			expire = "1.1.1"
-			ideology = soccon_agrarianism_subtype
+		if = {
+			limit = { has_country_flag = SPR_King_Karl_Pius }
+			create_country_leader = {
+				name = "Carlos VIII"
+				desc = "POLITICS_CARLOS_PIO_DESC"
+				picture = "gfx/leaders/CAR/Portrait_CAR_Carlos_VIII.png"
+				expire = "1.1.1"
+				ideology = soccon_agrarianism_subtype
+			}
 		}
+		else_if = {
+			limit = { has_country_flag = SPR_King_Leopoldo }
+			create_country_leader = {
+				name = "Leopoldo I"
+				picture = "gfx/leaders/SPR/Friedrich_Viktor_von_Hohenzollern.png"
+				expire = "1.1.1"
+				ideology = soccon_agrarianism_subtype
+			}
+		}
+		else = {
+			create_country_leader = {
+				name = "Jaime I"
+				desc = "POLITICS_JAIME_BOURBON_DESC"
+				picture = "gfx/leaders/SPR/Portrait_SPR_Jaime_I.png"
+				expire = "1.1.1"
+				ideology = soccon_agrarianism_subtype
+			}
+		}
+		custom_effect_tooltip = soccon_soccon_agrarianism_subtype_swap_tt
 		add_ideas = {
 			SPR_Jose_Martinez_de_Velasco_hog_sco
 			SPR_Claudio_Sanchez_Albornoz_for_sco
@@ -17444,6 +17575,7 @@ country_event = { #Absolutism event - Jamie
 					has_country_flag = SPR_FRANCO_SPAIN
 					has_country_flag = SPR_iberian_union
 					has_country_flag = SPR_formed_hre
+					has_country_flag = SPR_King_Leopoldo
 				}
 			}
 			set_cosmetic_tag = SPR_ap_kingdom
@@ -17456,13 +17588,35 @@ country_event = { #Absolutism event - Jamie
 			ideology = authoritarian_democrat
 			popularity = 0.15
 		}
-		create_country_leader = {
-			name = "Jaime I"
-			desc = "POLITICS_JAIME_BOURBON_DESC"
-			picture = "gfx/leaders/SPR/Portrait_SPR_Jaime_I.png"
-			expire = "1.1.1"
-			ideology = authdem_national_conservative_subtype
+		if = {
+			limit = { has_country_flag = SPR_King_Karl_Pius }
+			create_country_leader = {
+				name = "Carlos VIII"
+				desc = "POLITICS_CARLOS_PIO_DESC"
+				picture = "gfx/leaders/CAR/Portrait_CAR_Carlos_VIII.png"
+				expire = "1.1.1"
+				ideology = authdem_national_conservative_subtype
+			}
 		}
+		else_if = {
+			limit = { has_country_flag = SPR_King_Leopoldo }
+			create_country_leader = {
+				name = "Leopoldo I"
+				picture = "gfx/leaders/SPR/Friedrich_Viktor_von_Hohenzollern.png"
+				expire = "1.1.1"
+				ideology = authdem_national_conservative_subtype
+			}
+		}
+		else = {
+			create_country_leader = {
+				name = "Jaime I"
+				desc = "POLITICS_JAIME_BOURBON_DESC"
+				picture = "gfx/leaders/SPR/Portrait_SPR_Jaime_I.png"
+				expire = "1.1.1"
+				ideology = authdem_national_conservative_subtype
+			}
+		}
+		custom_effect_tooltip = authdem_authdem_national_conservative_subtype_swap_tt
 		add_ideas = {
 			SPR_JM_Gil_Robles_Quinones_hog_ade
 			SPR_Claudio_Sanchez_Albornoz_for_sco
@@ -17505,6 +17659,7 @@ country_event = { #Absolutism event - Jamie
 					has_country_flag = SPR_FRANCO_SPAIN
 					has_country_flag = SPR_iberian_union
 					has_country_flag = SPR_formed_hre
+					has_country_flag = SPR_King_Leopoldo
 				}
 			}
 			set_cosmetic_tag = SPR_pne_kingdom
@@ -17522,13 +17677,35 @@ country_event = { #Absolutism event - Jamie
 			long_name = SPR_paternal_autocrat_party_alt_long
 			name = SPR_paternal_autocrat_party_alt
 		}
-		create_country_leader = {
-			name = "Jaime I"
-			desc = "POLITICS_JAIME_BOURBON_DESC"
-			picture = "gfx/leaders/SPR/Portrait_SPR_Jaime_I.png"
-			expire = "1.1.1"
-			ideology = pataut_legionarism_subtype
+		if = {
+			limit = { has_country_flag = SPR_King_Karl_Pius }
+			create_country_leader = {
+				name = "Carlos VIII"
+				desc = "POLITICS_CARLOS_PIO_DESC"
+				picture = "gfx/leaders/CAR/Portrait_CAR_Carlos_VIII.png"
+				expire = "1.1.1"
+				ideology = pataut_legionarism_subtype
+			}
 		}
+		else_if = {
+			limit = { has_country_flag = SPR_King_Leopoldo }
+			create_country_leader = {
+				name = "Leopoldo I"
+				picture = "gfx/leaders/SPR/Friedrich_Viktor_von_Hohenzollern.png"
+				expire = "1.1.1"
+				ideology = pataut_legionarism_subtype
+			}
+		}
+		else = {
+			create_country_leader = {
+				name = "Jaime I"
+				desc = "POLITICS_JAIME_BOURBON_DESC"
+				picture = "gfx/leaders/SPR/Portrait_SPR_Jaime_I.png"
+				expire = "1.1.1"
+				ideology = pataut_legionarism_subtype
+			}
+		}
+		custom_effect_tooltip = pataut_pataut_legionarism_subtype_swap_tt
 		add_ideas = {
 			SPR_Jose_Maria_Albinana_y_Sanz_hog_pau
 			SPR_Jose_Luis_Arrese_Magra_for_pau
@@ -17571,6 +17748,7 @@ country_event = { #Absolutism event - Jamie
 					has_country_flag = SPR_FRANCO_SPAIN
 					has_country_flag = SPR_iberian_union
 					has_country_flag = SPR_formed_hre
+					has_country_flag = SPR_King_Leopoldo
 				}
 			}
 			set_cosmetic_tag = SPR_re_kingdom
@@ -17583,13 +17761,35 @@ country_event = { #Absolutism event - Jamie
 			ideology = national_populist
 			popularity = 0.15
 		}
-		create_country_leader = {
-			name = "Jaime I"
-			desc = "POLITICS_JAIME_BOURBON_DESC"
-			picture = "gfx/leaders/SPR/Portrait_SPR_Jaime_I.png"
-			expire = "1.1.1"
-			ideology = maurrassism_subtype
+		if = {
+			limit = { has_country_flag = SPR_King_Karl_Pius }
+			create_country_leader = {
+				name = "Carlos VIII"
+				desc = "POLITICS_CARLOS_PIO_DESC"
+				picture = "gfx/leaders/CAR/Portrait_CAR_Carlos_VIII.png"
+				expire = "1.1.1"
+				ideology = maurrassism_subtype
+			}
 		}
+		else_if = {
+			limit = { has_country_flag = SPR_King_Leopoldo }
+			create_country_leader = {
+				name = "Leopoldo I"
+				picture = "gfx/leaders/SPR/Friedrich_Viktor_von_Hohenzollern.png"
+				expire = "1.1.1"
+				ideology = maurrassism_subtype
+			}
+		}
+		else = {
+			create_country_leader = {
+				name = "Jaime I"
+				desc = "POLITICS_JAIME_BOURBON_DESC"
+				picture = "gfx/leaders/SPR/Portrait_SPR_Jaime_I.png"
+				expire = "1.1.1"
+				ideology = maurrassism_subtype
+			}
+		}
+		custom_effect_tooltip = natpop_maurrassism_subtype_swap_tt
 		add_ideas = {
 			SPR_Jose_Calvo_Sotelo_hog_npo
 			SPR_Tomas_Conde_de_Redezno_for_pau
@@ -17871,6 +18071,7 @@ country_event = {
 	desc = sprd.1176.d 
 	fire_only_once = no
 	is_triggered_only = yes
+	picture = GFX_report_event_SPA_iberian_empire_flag
 	
 	option = {
 		name = sprd.1176.a
@@ -17945,6 +18146,7 @@ country_event = {
 			}
 		}
 		clr_country_flag = SPR_iberia_absolute_allow_flag_picker_decision
+		custom_effect_tooltip = SPR_disable_flag_picker_tt
 	}
 }
 
@@ -17954,6 +18156,7 @@ country_event = {
 	desc = sprd.1177.d 
 	fire_only_once = no
 	is_triggered_only = yes
+	picture = GFX_report_event_SPA_pne_flag
 	
 	option = {
 		name = sprd.1177.a
@@ -18028,6 +18231,7 @@ country_event = {
 			}
 		}
 		clr_country_flag = SPR_pne_allow_flag_picker_decision
+		custom_effect_tooltip = SPR_disable_flag_picker_tt
 	}
 }
 country_event = { 
@@ -18036,6 +18240,7 @@ country_event = {
 	desc = sprd.1178.d 
 	fire_only_once = no
 	is_triggered_only = yes	
+	picture = GFX_report_event_SPA_hre_flag
 	
 	option = {
 		name = sprd.1178.a
@@ -18125,6 +18330,7 @@ country_event = {
 			}
 		}
 		clr_country_flag = SPR_hre_allow_flag_picker_decision
+		custom_effect_tooltip = SPR_disable_flag_picker_tt
 	}
 }
 country_event = {
@@ -18133,6 +18339,7 @@ country_event = {
 	desc = sprd.1179.d 
 	fire_only_once = no
 	is_triggered_only = yes
+	picture = GFX_report_event_SPA_ap_flag
 	
 	option = {
 		name = sprd.1179.a
@@ -18192,6 +18399,7 @@ country_event = {
 			}
 		}
 		clr_country_flag = SPR_ap_allow_flag_picker_decision
+		custom_effect_tooltip = SPR_disable_flag_picker_tt
 	}
 }
 country_event = { #Fate of the Kingdom

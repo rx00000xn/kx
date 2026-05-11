@@ -184,7 +184,7 @@ country_event = { #The Return of Alexander
 		name = serbia.12.a
 		effect_tooltip = { retire_country_leader = yes }
 		create_country_leader = {
-			name = "Alexander II"
+			name = "Aleksandar II"
 			desc = "POLITICS_ALEXANDER_II_DESC"
 			picture = "gfx/leaders/SER/Portrait_SER_Alexander_II.png"
 			expire = "1.1.1"
@@ -192,14 +192,14 @@ country_event = { #The Return of Alexander
 		}
 		hidden_effect = {
 			create_country_leader = {
-				name = "Alexander II"
+				name = "Aleksandar II"
 				desc = "POLITICS_ALEXANDER_II_DESC"
 				picture = "gfx/leaders/SER/Portrait_SER_Alexander_II.png"
 				expire = "1.1.1"
 				ideology = yugoslavism_subtype
 			}
 			create_country_leader = {
-				name = "Alexander II"
+				name = "Aleksandar II"
 				desc = "POLITICS_ALEXANDER_II_DESC"
 				picture = "gfx/leaders/SER/Portrait_SER_Alexander_II.png"
 				expire = "1.1.1"
@@ -780,7 +780,7 @@ country_event = { #fire Macedonian resistance events
 
 	option = {
 		trigger = {
-			has_country_leader = { name = "Alexander II" }
+			has_country_leader = { name = "Aleksandar II" }
 			check_variable = { SER_macedonian_attacks > 6 }
 		}
 		ai_chance = { base = 10000 }
@@ -940,7 +940,7 @@ country_event = { #King Alexander Shot Dead!
 	desc = serbia.30.d
 
 	trigger = {
-		has_country_leader = { name = "Alexander II" }
+		has_country_leader = { name = "Aleksandar II" }
 		owns_state = 106
 		has_idea = SER_macedonian_resistance
 	}
@@ -953,31 +953,31 @@ country_event = { #King Alexander Shot Dead!
 		add_political_power = -150
 		hidden_effect = {
 			create_country_leader = {
-				name = "Peter II"
+				name = "Petar II"
 				picture = "gfx/leaders/SER/Portrait_SER_Peter_II.png"
 				expire = "1.1.1"
 				ideology = authoritarian_democrat_subtype
 			}
 			create_country_leader = {
-				name = "Peter II"
+				name = "Petar II"
 				picture = "gfx/leaders/SER/Portrait_SER_Peter_II.png"
 				expire = "1.1.1"
 				ideology = social_conservative_subtype
 			}
 			create_country_leader = {
-				name = "Peter II"
+				name = "Petar II"
 				picture = "gfx/leaders/SER/Portrait_SER_Peter_II.png"
 				expire = "1.1.1"
 				ideology = market_liberal_subtype
 			}
 			create_country_leader = {
-				name = "Peter II"
+				name = "Petar II"
 				picture = "gfx/leaders/SER/Portrait_SER_Peter_II.png"
 				expire = "1.1.1"
 				ideology = social_liberal_subtype
 			}
 			create_country_leader = {
-				name = "Peter II"
+				name = "Petar II"
 				picture = "gfx/leaders/SER/Portrait_SER_Peter_II.png"
 				expire = "1.1.1"
 				ideology = social_democrat_subtype
@@ -985,7 +985,7 @@ country_event = { #King Alexander Shot Dead!
 			country_event = { id = serbia.31 days = 10 }
 		}
 		create_country_leader = {
-			name = "Peter II"
+			name = "Petar II"
 			picture = "gfx/leaders/SER/Portrait_SER_Peter_II.png"
 			expire = "1.1.1"
 			ideology = yugoslavism_subtype
@@ -2020,222 +2020,6 @@ country_event = {
 		add_political_power = -50
 	}
 }
-country_event = { #SKS - Serbia Recommends Annexation
-	id = serbia.69
-	title = serbia.69.t
-	desc = serbia.69.d
-	
-	picture = GFX_event_SER_jevdevic_talk
-
-	is_triggered_only = yes
-	immediate = {
-		log = "[GetDateText]: [Root.GetName]: event serbia.69"
-	}
-
-	option = { #We accept
-		name = serbia.69.a # Attack!
-		ai_chance = {
-			factor = 60
-
-			modifier = {
-				factor = 0
-
-				owns_state = 1142
-				owns_state = 1141
-			}
-		}
-		every_unit_leader = {
-			set_nationality = SER
-		}
-		every_owned_state = {
-			add_core_of = SER
-		}
-		every_core_state = {
-			limit = {
-				NOT = {
-					is_owned_by = ROOT
-				}
-			}
-			add_claim_by = SER
-		}
-		if = {
-			limit = {
-				CRO = {
-					is_neighbor_of = SKS
-				}
-				1099 = {
-					NOT = {
-						is_in_home_area = yes
-					}
-				}
-			}
-			CRO = {
-				save_event_target_as = karlovac_owner
-			}
-			1099 = {
-				set_state_flag = give_up_state
-			}
-		}
-		SER = {
-			annex_country = {
-				target = SKS
-				transfer_troops = yes
-			}
-			if = {
-				limit = {
-					1099 = {
-						has_state_flag = give_up_state
-					}
-				}
-				event_target:karlovac_owner = {
-					transfer_state = 1099
-				}
-			}
-		}
-		
-	}
-
-	option = {
-		name = serbia.69.b #No
-
-		ai_chance = {
-			factor = 30
-		}
-
-		SER = {
-			country_event = {
-				id = serbia.70
-				days = 2
-				random = 24
-			}
-		}
-	}
-}
-country_event = { #SER - Rejection
-	id = serbia.70
-	title = serbia.70.t
-	desc = serbia.70.d
-	
-	picture = GFX_event_SER_jevdevic_talk
-
-	is_triggered_only = yes
-	immediate = {
-		log = "[GetDateText]: [Root.GetName]: event serbia.69"
-	}
-
-	option = { #We'll invade
-		name = serbia.70.a # Attack!
-		ai_chance = {
-			factor = 60
-
-			modifier = {
-				factor = 0
-
-				owns_state = 1142
-				owns_state = 1141
-			}
-		}
-		add_political_power = -100
-		add_stability = -0.075
-		declare_war_on = {
-			target = SKS
-			type = annex_everything
-		}
-	}
-
-	option = {
-		name = serbia.70.b #No
-
-		ai_chance = {
-			factor = 30
-		}
-		add_political_power = -25
-	}
-}
-country_event = { #BAN - Serbia demands West Banat
-	id = serbia.71
-	title = serbia.71.t
-	desc = serbia.71.d
-	
-	picture = GFX_SER_black_march
-
-	is_triggered_only = yes
-	immediate = {
-		log = "[GetDateText]: [Root.GetName]: event serbia.69"
-	}
-
-	option = { #We'll give it up
-		name = serbia.71.a # Yes
-		ai_chance = {
-			factor = 60
-
-			modifier = {
-				factor = 0
-
-				owns_state = 1142
-				owns_state = 1141
-			}
-		}
-		add_political_power = -50
-		SER = {
-			transfer_state = 875
-		}
-	}
-
-	option = {
-		name = serbia.71.b #No
-
-		ai_chance = {
-			factor = 10
-		}
-		SER = {
-			country_event = {
-				id = serbia.72
-			}
-		}
-	}
-}
-country_event = { #SER - Rejection from BAN
-	id = serbia.72
-	title = serbia.72.t
-	desc = serbia.72.d
-	
-	picture = GFX_event_SER_jevdevic_talk
-
-	is_triggered_only = yes
-	immediate = {
-		log = "[GetDateText]: [Root.GetName]: event serbia.69"
-	}
-
-	option = { #We'll invade
-		name = serbia.72.a # Attack!
-		ai_chance = {
-			factor = 100
-
-			modifier = {
-				factor = 0
-
-				owns_state = 1142
-				owns_state = 1141
-			}
-		}
-		add_political_power = -60
-		add_stability = -0.05
-		create_wargoal = {
-			type = annex_everything
-			target = FROM
-		}
-	}
-
-	option = {
-		name = serbia.72.b #No
-
-		ai_chance = {
-			factor = 10
-		}
-		add_political_power = -25
-	}
-}
 ###BLACK HAND BABYYYYYYYYYYYYYYYYYYYYYYY###
 country_event = {#want some black hand love?
 	id = dhserbia.1
@@ -2274,17 +2058,17 @@ country_event = {#want some black hand love?
 		set_politics = { ruling_party = national_populist elections_allowed = no }
 		add_stability = -0.20
 		add_ideas = SER_king_alexander
-		hidden_effect = {
-			drop_cosmetic_tag = yes
+		hidden_effect={
+						drop_cosmetic_tag = yes
 			complete_national_focus = SER_black_hand
 			create_country_leader = {
-				name = "Alexander II"
+				name = "Aleksandar II"
 				desc = "POLITICS_ALEXANDER_II_DESC"
 				picture = "gfx/leaders/SER/Portrait_SER_Alexander_II.png"
 				expire = "1.1.1"
 				ideology = natpop_yugoslavism_subtype
 			}
-		}
+			}
 	}
 	option = {
 		name = dhserbia.1.b
@@ -2312,18 +2096,19 @@ country_event = {#want some black hand love?
 		
 		set_politics = { ruling_party = national_populist elections_allowed = no }
 		add_stability = -0.20
-		add_ideas = SER_king_george
-		hidden_effect = {
-			drop_cosmetic_tag = yes
+		add_ideas= SER_king_george
+		hidden_effect={
+						drop_cosmetic_tag = yes
 			complete_national_focus = SER_black_hand
 			create_country_leader = {
-				name = "George I"
+				name = "Đorđe I"
 				desc = ""
-				picture = "gfx/leaders/SER/Portrait_SER_Prince_George.png"
+				 picture = "gfx/leaders/SER/Portrait_SER_Prince_George.png"
 				expire = "1.1.1"
 				ideology = natpop_yugoslavism_subtype
+				traits = {}
 			}
-		}
+			 }
 	}
 	option = {
 		name = dhserbia.1.c
@@ -2356,19 +2141,21 @@ country_event = {#what now?
 		ai_chance = { factor = 50 }
 		
 		create_country_leader = {
-			name = "Dragutin Keresovic"
+			name = "Dragutin Keserović"
 			desc = "Dragustin_Keresovic_DESC"
 			picture = "gfx/leaders/SER/Portrait_SER_Dragutin_Keserovic.png"
 			expire = "1.1.1"
 			ideology = natpop_yugoslavism_subtype
+			traits = {}
 		}
-		hidden_effect = {
+		hidden_effect={
+			set_country_flag = LEADER_GUI_VISIBLE
 			set_country_flag = SER_black_general
 			add_ideas = {
-				SER_Petar_Zivkovic_hog_pau
-				SER_Velibor_Jonic_for_npo
-				SER_Mihailo_Olcan_eco_npo
-				SER_Tanasije_Dinic_sec_pau
+			SER_Petar_Zivkovic_hog_pau
+			SER_Velibor_Jonic_for_npo
+			SER_Mihailo_Olcan_eco_npo
+			SER_Tanasije_Dinic_sec_pau
 			}
 		}
 	}
@@ -2379,19 +2166,21 @@ country_event = {#what now?
 		ai_chance = { factor = 50 }
 		
 		create_country_leader = {
-			name = "Dimitrije Ljotic"
+			name = "Dimitrije Ljotić"
 			desc = "Dimitrije_Ljotic_DESC"
 			picture = "gfx/leaders/SER/Portrait_SER_Dimitrije_Ljotic.png"
 			expire = "1.1.1"
 			ideology = maurrassism_subtype 
+			traits = {}
 		}
-		hidden_effect = {
+		hidden_effect={
+			set_country_flag = LEADER_GUI_VISIBLE
 			set_country_flag = SER_SKK_leader
 			add_ideas = {
-				SER_Dimitrije_Ljotic_hog_npo
-				SER_Velibor_Jonic_for_npo
-				SER_Svetislav_Milosavljevic_eco_ade
-				SER_Dimitrije_Ljotic_sec_npo
+			SER_Dimitrije_Ljotic_hog_npo
+			SER_Velibor_Jonic_for_npo
+			SER_Svetislav_Milosavljevic_eco_ade
+			SER_Dimitrije_Ljotic_sec_npo
 			}
 		}
 	}

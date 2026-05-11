@@ -490,7 +490,14 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus NOR_oil_industry"
-			set_technology = { synth_oil_experiments = 1 }
+			if = {
+				limit = { NOT = { has_tech = fuel_silos } }
+				set_technology = { fuel_silos = 1 }
+			}
+			if = {
+				limit = { NOT = { has_tech = synth_oil_experiments } }
+				set_technology = { synth_oil_experiments = 1 }
+			}
 			110 = {
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
@@ -4885,8 +4892,11 @@ focus_tree = {
 			}
 			NOT = {
 				has_completed_focus = NOR_russian_alliance
-				has_completed_focus = NOR_DEM_treaty_of_stockholm
 				has_completed_focus = NOR_german_alliance
+			}
+			OR = {
+				NOT = { has_completed_focus = NOR_DEM_treaty_of_stockholm }
+				has_global_flag = SCA_nordic_council_refused
 			}
 		}
 
@@ -8446,6 +8456,24 @@ focus_tree = {
 					target = var:64.owner
 				}
 			}
+			every_state = {
+				limit = { is_core_of = SWE }
+				add_core_of = NOR
+			}
+			every_state = {
+				limit = { is_core_of = DEN }
+				add_core_of = NOR
+			}
+			every_state = {
+				limit = { is_core_of = ICE }
+				add_core_of = NOR
+			}
+			every_state = {
+				limit = { is_core_of = FIN }
+				add_core_of = NOR
+			}
+			101 = { add_core_of = NOR }
+			926 = { add_core_of = NOR }
 		}
 		
 		relative_position_id = NOR_Rag_end_of_old_world
@@ -8461,6 +8489,24 @@ focus_tree = {
 				target = GER
 				type = annex_everything
 			}
+			every_state = {
+				limit = { is_core_of = SWE }
+				add_core_of = NOR
+			}
+			every_state = {
+				limit = { is_core_of = DEN }
+				add_core_of = NOR
+			}
+			every_state = {
+				limit = { is_core_of = ICE }
+				add_core_of = NOR
+			}
+			every_state = {
+				limit = { is_core_of = FIN }
+				add_core_of = NOR
+			}
+			101 = { add_core_of = NOR }
+			926 = { add_core_of = NOR }
 		}
 	}
 	focus = {

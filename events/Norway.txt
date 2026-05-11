@@ -7020,19 +7020,32 @@ country_event = { # Agressive or just Dictator
 
 country_event = {# New flag for Norway
 	id = norway.235
-	immediate = {log = "[GetDateText]: [Root.GetName]: event norway.235"}
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event norway.235"
+		hidden_effect = {
+			if = { limit = { NOT = { has_country_flag = NOR_quisling_flag_picker_active } } }
+			set_country_flag = NOR_quisling_flag_picker_active
+		}
+	}
 	title = norway.235.t
 	desc = norway.235.d
 	picture = GFX_NOR_event_republic_flag
 	
 	is_triggered_only = yes
-
-	fire_only_once = yes
 		
 	option = {
 		name = norway.235.a #Let's Not Change the Flag
 		ai_chance = { factor = 20 }
 		add_political_power = 20
+		if = {
+			limit = {
+				OR = {
+					has_cosmetic_tag = NOR_party_flag
+					has_cosmetic_tag = NOR_alt_cross
+				}
+			}
+			drop_cosmetic_tag = yes
+		}
 	}
 
 	option = {
@@ -8403,28 +8416,24 @@ country_event = {
 	option = {
 		name = nor_new.57.a
 		add_manpower = 2750
-		add_state_claim = 909
-		add_state_claim = 960
-		add_state_claim = 666 
-		add_state_claim = 778
-		add_state_claim = 38
-		add_state_claim = 908
-		add_state_claim = 140
-		add_state_claim = 141
-		add_state_claim = 139
-		add_state_claim = 138
-		add_state_claim = 124
-		add_state_claim = 145
-		add_state_claim = 37
-		add_state_claim = 99
-		add_state_claim = 782
-		add_state_claim = 938
-		add_state_claim = 337
-		add_state_claim = 100
-		add_state_claim = 101
-		add_state_claim = 926
-		hidden_effect = {
+		every_state = {
+		limit = { is_core_of = SWE }
+		add_claim_by = NOR
 		}
+		every_state = {
+		limit = { is_core_of = DEN }
+		add_claim_by = NOR
+		}
+		every_state = {
+		limit = { is_core_of = ICE }
+		add_claim_by = NOR
+		}
+		every_state = {
+		limit = { is_core_of = FIN }
+		add_claim_by = NOR
+		}
+		101 = { add_claim_by = NOR }
+		926 = { add_claim_by = NOR }
 	}
 }
 
