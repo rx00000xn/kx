@@ -447,7 +447,7 @@ LIC_EIGHT_MILLION_ISONZO_BATTLES = {
 #state = 1236 San Marino
 #state = 1091 Riga
 #state = 116 Malta
-#state = 21 Monaco 
+#state = 762 Monaco 
 #state = 1149 Anzio (GENERIC)
 #state = 1100 Trieste (GENERIC) 
 #state = 1103 Ljubljana (GENERIC)
@@ -571,6 +571,143 @@ LIC_schwesterstaat_find_cosmetic = {
 		set_cosmetic_tag = LIC_swst_benghazi
 	}
 	
+	#### LEGATIONS ####
+	
+	if = {
+		limit = {
+			capital_scope = {
+				state = 728
+			}
+		}
+		set_cosmetic_tag = LIC_swst_zhanjiang
+	}
+	
+	if = {
+		limit = {
+			capital_scope = {
+				state = 729
+			}
+		}
+		set_cosmetic_tag = LIC_swst_macau
+	}
+	
+	if = {
+		limit = {
+			capital_scope = {
+				state = 592
+			}
+		}
+		set_cosmetic_tag = LIC_swst_guangzhou
+	}
+	
+	if = {
+		limit = {
+			capital_scope = {
+				state = 326
+			}
+		}
+		set_cosmetic_tag = LIC_swst_hong_kong
+	}
+	
+	if = {
+		limit = {
+			capital_scope = {
+				state = 801
+			}
+		}
+		set_cosmetic_tag = LIC_swst_shantou
+	}
+	
+	if = {
+		limit = {
+			capital_scope = {
+				state = 802
+			}
+		}
+		set_cosmetic_tag = LIC_swst_xiamen
+	}
+	
+	if = {
+		limit = {
+			capital_scope = {
+				state = 747
+			}
+		}
+		set_cosmetic_tag = LIC_swst_fuzhou
+	}
+	
+	if = {
+		limit = {
+			capital_scope = {
+				state = 803
+			}
+		}
+		set_cosmetic_tag = LIC_swst_wenzhou
+	}
+	
+	if = {
+		limit = {
+			capital_scope = {
+				state = 746
+			}
+		}
+		set_cosmetic_tag = LIC_swst_ningbo
+	}
+	
+	if = {
+		limit = {
+			capital_scope = {
+				state = 1075
+			}
+		}
+		set_cosmetic_tag = LIC_swst_nantong
+	}
+	
+	if = {
+		limit = {
+			capital_scope = {
+				state = 744
+			}
+		}
+		set_cosmetic_tag = LIC_swst_qingdao
+	}
+	
+	if = {
+		limit = {
+			capital_scope = {
+				state = 609
+			}
+		}
+		set_cosmetic_tag = LIC_swst_tianjin
+	}
+	if = {
+		limit = {
+			capital_scope = {
+				state = 745
+			}
+		}
+		set_cosmetic_tag = LIC_swst_port_arthur
+	}
+	
+	if = {
+		limit = {
+			capital_scope = {
+				state = 996
+			}
+		}
+		set_cosmetic_tag = LIC_swst_weihaiwei
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 
 LIC_focus_BM_reduce = {
@@ -613,10 +750,58 @@ LIC_restore_hh = {
 	subtract_from_variable = { var = LIC.ph_consumer_goods value = 0.015 }
 }
 
+LIC_add_hh = {
+	custom_effect_tooltip = LIC_add_hh_tt
+	subtract_from_variable = { var = LIC.ph_min_export value = 0.05 }
+	subtract_from_variable = { var = LIC.ph_production_resources value = 0.02 }
+	subtract_from_variable = { var = LIC.ph_local_resources value = -0.025 }
+	subtract_from_variable = { var = LIC.ph_research_factor value = -0.025 }
+	subtract_from_variable = { var = LIC.ph_consumer_goods value = 0.015 }
+}
+
+LIC_bop_check = {
+	if = {
+		limit = {
+			AND = {
+				OR = {
+					has_completed_focus = LIC_swiss_compact
+					has_completed_focus = LIC_foreign_suspicion
+					has_completed_focus = LIC_continue_customs_union
+				}
+				OR = {
+					has_completed_focus = LIC_reichspakt
+					has_completed_focus = LIC_neutrality
+					has_completed_focus = LIC_russia
+					has_completed_focus = LIC_keep_austrian
+				}
+			}
+		}
+		country_event = {
+			id = lic.54
+			days = 7
+			random_days = 7
+		}
+	}
+}
+
 LIC_famine_decrease = {
 	custom_effect_tooltip = LIC_famine_decrease
-	add_to_variable = { var = LIC.famine_value value = -0.03 }
+	add_to_variable = { var = LIC.famine_value value = 0.05 }
 	clamp_variable = { var = LIC.famine_value min = -1 max = 0 }
+	LIC_vibe_check_famine = yes
+}
+
+LIC_famine_decrease_grovel = {
+	custom_effect_tooltip = LIC_famine_decrease
+	add_to_variable = { var = LIC.famine_value value = 0.12 }
+	clamp_variable = { var = LIC.famine_value min = -1 max = 0 }
+	LIC_vibe_check_famine = yes
+}
+
+LIC_readiness_weekly_increase_025 = {
+	custom_effect_tooltip = LIC_readiness_weekly_increase_025_tt
+	add_to_variable = { var = LIC.weekly_readiness value = 0.0025 }
+	clamp_variable = { var = LIC.govt_readiness min = -1 max = 1 }
 	LIC_vibe_check_famine = yes
 }
 
@@ -637,6 +822,20 @@ LIC_readiness_weekly_increase_1 = {
 LIC_readiness_weekly_increase_2 = {
 	custom_effect_tooltip = LIC_readiness_weekly_increase_2_tt
 	add_to_variable = { var = LIC.weekly_readiness value = 0.02 }
+	clamp_variable = { var = LIC.govt_readiness min = -1 max = 1 }
+	LIC_vibe_check_famine = yes
+}
+
+LIC_readiness_weekly_decrease_025 = {
+	custom_effect_tooltip = LIC_readiness_weekly_decrease_025_tt
+	add_to_variable = { var = LIC.weekly_readiness value = -0.0025 }
+	clamp_variable = { var = LIC.govt_readiness min = -1 max = 1 }
+	LIC_vibe_check_famine = yes
+}
+
+LIC_readiness_weekly_decrease_05 = {
+	custom_effect_tooltip = LIC_readiness_weekly_decrease_05_tt
+	add_to_variable = { var = LIC.weekly_readiness value = -0.005 }
 	clamp_variable = { var = LIC.govt_readiness min = -1 max = 1 }
 	LIC_vibe_check_famine = yes
 }
@@ -701,6 +900,26 @@ LIC_vibe_check_famine = {
 				}
 			}
 			add_to_variable = { var = LIC.famine_tally_var value = 1 } #If it reaches 12, let the VDBL coup!
+			if = {
+				limit = {
+					check_variable = {
+						var = LIC.famine_tally_var
+						value = 6
+						compare = greater_than_or_equals
+					}
+				}
+				country_event = licflavor.73
+			}
+			if = {
+				limit = {
+					check_variable = {
+						var = LIC.famine_tally_var
+						value = 12
+						compare = greater_than_or_equals
+					}
+				}
+				country_event = lic.58
+			}
 			LIC_famine_tally = yes
 			if = {
 				limit = {
@@ -995,6 +1214,7 @@ LIC_quota_reward = {
 				
 			}
 			custom_effect_tooltip = LIC_big_shot
+			add_to_variable = { LIC.big_shot = 1 }
 			if = {
 				limit = {
 					has_country_flag = LIC_got_the_timer
@@ -1049,6 +1269,7 @@ LIC_quota_reward = {
 			}
 			add_to_variable = { LIC.quota_failure = 1 }
 			custom_effect_tooltip = LIC_quota_fail_tt
+			LIC_vdbl_angwy = yes
 			decrease_ruling_party_popularity_by_5 = yes
 			add_political_power = -50
 			add_stability = -0.075
@@ -1062,11 +1283,71 @@ LIC_quota_reward = {
 	}
 }
 
+LIC_vdbl_angwy = {
+	if = {
+		limit = {
+			check_variable = {
+				var = LIC.quota_failure
+				value = 1
+				compare = equals
+			}
+		}
+		country_event = {
+			id = lic.55
+			days = 15
+			random_days = 185
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				var = LIC.quota_failure
+				value = 2
+				compare = equals
+			}
+		}
+		country_event = {
+			id = lic.56
+			days = 15
+			random_days = 185
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				var = LIC.quota_failure
+				value = 3
+				compare = equals
+			}
+		}
+		country_event = {
+			id = lic.57
+			days = 15
+			random_days = 185
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				var = LIC.quota_failure
+				value = 4
+				compare = equals
+			}
+			has_country_flag = LIC_VDBL_COUP_CAN_HAPPEN
+		}
+		country_event = {
+			id = lic.12
+			days = 15
+			random_days = 185
+		}
+	}
+}
+
 LIC_next_quota = {
 	LIC_quota_reward = yes #If you go 10-15% above quota, get some bonuses - build slots, research bonus, factories, something. Incentivize active gains!
 
 
-	add_to_variable = { LIC.quota_num = 1 }
+	add_to_variable = { LIC.LIC_quota_num = 1 }
 	if = { #1938 Quota
 		limit = {
 			check_variable = {
@@ -1083,16 +1364,19 @@ LIC_next_quota = {
 					compare = less_than
 				}
 			}
-			set_temp_variable = { LIC.quota_temp = 0 }
+			set_temp_variable = { LIC.quota_temp = 0.1 }
 			else = {
 				set_temp_variable = { LIC.quota_temp = LIC.govt_readiness }
 			}
 		}
 		add_to_temp_variable = { LIC.quota_temp = 0.2 }
 		set_variable = { LIC.quota_value = LIC.quota_temp }
-		country_event = {
-			id = lic.39
-			days = 14
+		LIC_can_a_geeked_up_white_boy_goated_with_the_kasespaetzl_surplust_it_down = yes
+		hidden_effect = {
+			country_event = {
+				id = lic.39
+				days = 14
+			}
 		}
 	}
 	
@@ -1112,13 +1396,14 @@ LIC_next_quota = {
 					compare = less_than
 				}
 			}
-			set_temp_variable = { LIC.quota_temp = 0 }
+			set_temp_variable = { LIC.quota_temp = 0.1 }
 			else = {
 				set_temp_variable = { LIC.quota_temp = LIC.govt_readiness }
 			}
 		}
 		add_to_temp_variable = { LIC.quota_temp = 0.25 }
 		set_variable = { LIC.quota_value = LIC.quota_temp }
+		LIC_can_a_geeked_up_white_boy_goated_with_the_kasespaetzl_surplust_it_down = yes
 		country_event = {
 			id = lic.39
 			days = 14
@@ -1141,13 +1426,14 @@ LIC_next_quota = {
 					compare = less_than
 				}
 			}
-			set_temp_variable = { LIC.quota_temp = 0 }
+			set_temp_variable = { LIC.quota_temp = 0.1 }
 			else = {
 				set_temp_variable = { LIC.quota_temp = LIC.govt_readiness }
 			}
 		}
 		add_to_temp_variable = { LIC.quota_temp = 0.3 }
 		set_variable = { LIC.quota_value = LIC.quota_temp }
+		LIC_can_a_geeked_up_white_boy_goated_with_the_kasespaetzl_surplust_it_down = yes
 		country_event = {
 			id = lic.39
 			days = 14
@@ -1159,11 +1445,35 @@ LIC_next_quota = {
 			check_variable = {
 				var = LIC_quota_num
 				value = 4
-				compare = equals
+				compare = greater_than_or_equals
 			}
 		}
 		country_event = lic.42
 		#clr_country_flag = LIC_stockpiling_flag
+	}
+}
+
+LIC_can_a_geeked_up_white_boy_goated_with_the_kasespaetzl_surplust_it_down = {
+	if = {
+		limit = {
+			check_variable = {
+				var = LIC.quota_value
+				value = 0.99
+				compare = greater_than
+			}
+		}
+		set_variable = { LIC_quota_value = 0.9 }
+		if = {
+			limit = {
+				check_variable = {
+					var = LIC.govt_readiness
+					value = 0.85
+					compare = greater_than_or_equals
+				}
+			}
+			subtract_from_variable = { LIC.govt_readiness = 0.25 }
+			country_event = lic.51
+		}
 	}
 }
 
@@ -1223,5 +1533,37 @@ LIC_darkrp_hobo_role_change = {
 		picture = "gfx/leaders/LIC/LIC_Emil_Risch.png"
 		expire = "1965.1.1"
 		ideology = liberalized_syndicalism_subtype
+	}
+}
+
+LIC_event_roulette_lets_go_gambling = { 
+	random_list = {
+		70 = {
+			LIC_picker_roll_num = yes
+			log = "[GetDateText]: [Root.GetName]: LIC_event_roulette_lets_go_gambling: Government stockpile roulette rolled event lic.[?LIC_picker_theres_a_joke_to_be_made_here_but_im_not_clever_enough.BOTDE_event_target]"
+			meta_effect = {
+				text = {
+					country_event = {
+						id = lic.[event]
+					}
+				}
+				event = "[?global.LIC_picker_theres_a_joke_to_be_made_here_but_im_not_clever_enough]"
+			}
+		}
+		30 = {
+			
+		}
+	}
+	clear_variable = global.LIC_picker_theres_a_joke_to_be_made_here_but_im_not_clever_enough
+}
+
+LIC_picker_roll_num = {
+	
+
+	set_variable_to_random = {
+		var = global.LIC_picker_theres_a_joke_to_be_made_here_but_im_not_clever_enough
+		min = 45
+		max = 50
+		integer = yes
 	}
 }

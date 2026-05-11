@@ -39,6 +39,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus SER_Return_Of_The_Crown_Prince"
 			remove_ideas = SER_political_instability
 			hidden_effect = {
+				set_cosmetic_tag = SER_kingdom
 				create_country_leader = {
 					name = "Aleksandar II"
 					desc = "POLITICS_ALEXANDER_II_DESC"
@@ -83,6 +84,7 @@ focus_tree = {
 		prerequisite = {
 			focus = SER_Return_Of_The_Crown_Prince
 		}
+		available = { is_subject = no }
 		relative_position_id = SER_Return_Of_The_Crown_Prince
 		x = 0
 		y = 1
@@ -127,6 +129,9 @@ focus_tree = {
 		x = -1
 		y = 2
 		cost = 6
+		available = {
+			is_subject = no
+		}
 		ai_will_do = {
 			factor = 5
 			modifier = {
@@ -161,6 +166,9 @@ focus_tree = {
 		x = 1
 		y = 2
 		cost = 6
+		available = {
+			is_subject = no
+		}
 		ai_will_do = {
 			factor = 5
 		}
@@ -191,6 +199,9 @@ focus_tree = {
 		x = 1
 		y = 4
 		cost = 6
+		available = {
+			is_subject = no
+		}
 		ai_will_do = {
 			factor = 8
 		}
@@ -217,6 +228,9 @@ focus_tree = {
 		x = 2
 		y = 1
 		cost = 6
+		available = {
+			is_subject = no
+		}
 		ai_will_do = {
 			factor = 15
 		}
@@ -247,6 +261,9 @@ focus_tree = {
 		x = 2
 		y = 3
 		cost = 6
+		available = {
+			is_subject = no
+		}
 		ai_will_do = {
 			factor = 15
 		}
@@ -295,11 +312,12 @@ focus_tree = {
 	focus = {
 		id = SER_Organise_The_Radical_Union
 		icon = GFX_goal_SER_SRZ
-				available = {
-					NOT = {
-			has_government = national_populist
+		available = {
+			is_subject = no
+			NOT = {
+				has_government = national_populist
 			}
-				}
+		}
 		prerequisite = {
 			focus = SER_The_Vojvoda_Stands_Tall
 		}
@@ -332,6 +350,7 @@ focus_tree = {
 		prerequisite = {
 			focus = SER_Organise_The_Radical_Union
 		}
+		available = { is_subject = no }
 		relative_position_id = SER_The_Vojvoda_Stands_Tall
 		x = -1
 		y = 2
@@ -356,6 +375,7 @@ focus_tree = {
 		prerequisite = {
 			focus = SER_Mobilise_The_Greenshirts
 		}
+		available = { is_subject = no }
 		relative_position_id = SER_The_Vojvoda_Stands_Tall
 		x = -1
 		y = 4
@@ -404,11 +424,12 @@ focus_tree = {
 		prerequisite = {
 			focus = SER_The_Republican_Proclamation
 		}
-				available = {
-					NOT = {
-			has_government = national_populist
+		available = {
+			is_subject = no
+			NOT = {
+				has_government = national_populist
 			}
-				}
+		}
 		relative_position_id = SER_The_Republican_Proclamation
 		x = 0
 		y = 1
@@ -430,6 +451,7 @@ focus_tree = {
 		prerequisite = {
 			focus = SER_Draft_A_Constitution
 		}
+		available = { is_subject = no }
 		relative_position_id = SER_The_Republican_Proclamation
 		x = 1
 		y = 2
@@ -462,6 +484,7 @@ focus_tree = {
 		prerequisite = {
 			focus = SER_Draft_A_Constitution
 		}
+		available = { is_subject = no }
 		relative_position_id = SER_The_Republican_Proclamation
 		x = -1
 		y = 2
@@ -483,6 +506,7 @@ focus_tree = {
 		prerequisite = {
 			focus = SER_A_Nascent_Balkan_Democracy
 		}
+		available = { is_subject = no }
 		relative_position_id = SER_The_Republican_Proclamation
 		x = 1
 		y = 4
@@ -521,6 +545,7 @@ focus_tree = {
 		icon = GFX_goal_SER_Pasic_Cult
 		available = {
 			has_government = social_conservative
+			is_subject = no
 		}
 		prerequisite = {
 			focus = SER_A_Nascent_Balkan_Democracy
@@ -559,6 +584,7 @@ focus_tree = {
 		icon = GFX_goal_COR_Establish_Progressive_Capitalist_Economics
 		available = {
 			has_government = market_liberal
+			is_subject = no
 		}
 		prerequisite = {
 			focus = SER_A_Nascent_Balkan_Democracy
@@ -598,7 +624,7 @@ focus_tree = {
 		
 	focus = {
 		id = SER_congress_of_belgrade
-		icon = GFX_goal_DSR_meeting
+		icon = GFX_goal_SER_congress_of_belgrade
 		x = 30
 		y = 0
 
@@ -956,8 +982,26 @@ focus_tree = {
 						state = 1103 #Slovenia
 						state = 1104 #Slovenia
 					}
+					NOT = {
+						is_claimed_by = ROOT
+						is_core_of = ROOT
+					}
 				}
 				add_claim_by = ROOT
+			}
+			SLO = {
+				custom_override_tooltip = {
+					tooltip = SER_tag_added_to_occupied_array
+					add_to_array = { global.bp_occupied_tag_array_SER = SLO }
+					for_each_scope_loop = {
+						array = AUS.owned_states
+						if = {
+							limit = { is_core_of = SLO }
+							add_to_array = { global.SER_slovenia_states = THIS }
+							add_to_array = { global.SER_target_states = THIS }
+						}
+					}
+				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -989,9 +1033,7 @@ focus_tree = {
 			45 = { is_owned_by_ROOT_or_subject = yes }
 		}
 
-		will_lead_to_war_with = HUN
-		will_lead_to_war_with = AUS
-		will_lead_to_war_with = CRO
+		will_lead_to_war_with = var:45.owner
 
 		available_if_capitulated = yes
 
@@ -1108,6 +1150,17 @@ focus_tree = {
 				type = take_state_focus
 				generator = { 45 875 }
 			}
+			if = {
+				limit = {
+					BAN = {
+						owns_state = 875
+						NOT = {
+							owns_state = 45
+						}
+					}
+				}
+				unlock_decision_tooltip = SER_demand_westbanat
+			}
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}
@@ -1135,30 +1188,29 @@ focus_tree = {
 
 			modifier = {
 				factor = 0
-				ALB = {
-					is_subject = yes
-					overlord = {
-						strength_ratio = {
-							tag = ROOT
-							ratio > 0.6
+				OR = {
+					ALB = {
+						OR = {
+							AND = {
+								is_subject = yes
+								overlord = {
+									strength_ratio = {
+										tag = ROOT
+										ratio > 0.6
+									}
+								}
+							}
+							is_in_faction_with = AUS
 						}
 					}
+					has_war = yes
 				}
 			}
-
-			modifier = {
-				factor = 0
-				has_war = yes
-			}
 		}
 
-		will_lead_to_war_with = ALB
+		will_lead_to_war_with = var:44.owner
 
 		available_if_capitulated = yes
-
-		bypass = {
-			NOT = { can_declare_war_on = 44.owner }
-		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SER_albanian_question"
@@ -1172,7 +1224,7 @@ focus_tree = {
 
 	focus = {
 		id = SER_free_bosnia
-		icon = GFX_goal_bosnia
+		icon = GFX_goal_SER_free_bosnia
 		x = 1
 		y = 2
 		relative_position_id = SER_congress_of_belgrade
@@ -1186,13 +1238,9 @@ focus_tree = {
 
 		available = {
 			is_subject = no
-			can_declare_war_on = 104.owner
 		}
 
-		will_lead_to_war_with = CRO
-		will_lead_to_war_with = BOS
-		will_lead_to_war_with = AUS
-		will_lead_to_war_with = HUN
+		will_lead_to_war_with = var:104.owner
 
 		available_if_capitulated = yes
 
@@ -1202,112 +1250,131 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 20
-			modifier = {
-				factor = 2
-				CRO = {
-					has_war_with = AUS
-					owns_state = 104
-				}
-			}
-			modifier = {
-				factor = 0
-				has_war = yes
-			}
-			modifier = {
-				factor = 0.1
-				is_in_faction = no
-				NOT = { has_country_flag = waiting_to_attack_austria }
-			}
-			# don't attack Austria unless it's vulnerable or other countries are waiting to help
-			modifier = {
-				factor = 0
-				104 = { owned_by_austria_or_puppet = yes }
-				AUS = {
-					is_subject = no
-					is_faction_leader = yes
-					surrender_progress < 0.10
-					NOT = {
-						has_war_with = GER
-						has_war_with = RUS
-						has_war_with = HUN
-						has_war_with = POL
-						has_war_with = ITA
-					}
-				}
-				NOT = {
-					POL = { has_country_flag = waiting_to_attack_austria }
-					ITA = { has_country_flag = waiting_to_attack_austria }
-				}
-			}
-			modifier = {
-				factor = 5
-				104 = { owned_by_austria_or_puppet = yes }
-				OR = {
-					AUS = { has_war_with = HUN }
-					POL = { has_country_flag = waiting_to_attack_austria }
-					ITA = { has_country_flag = waiting_to_attack_austria }
-				}
-			}
-			modifier = {
-				factor = 10
-				has_country_flag = waiting_to_attack_austria
-			}
-			# don't attack if it's owned by someone other than Austria, who is not a puppet/faction member and is stronger
-			modifier = {
-				factor = 0
-				NOT = { owns_state = 104 }
-				104 = {
-					owned_by_austria_or_puppet = no
-					owner = {
-						NOT = { is_subject_of = AUS }
-						NOT = { is_in_faction_with = AUS }
-						surrender_progress < 0.10
-						strength_ratio = { tag = SER ratio > 1.0 }
-					}
-				}
-			}
-			# don't attack if it's owned by someone other than Austria, who is a puppet of a stronger overlord
-			modifier = {
-				factor = 0
-				NOT = { owns_state = 104 }
-				104 = {
-					owned_by_austria_or_puppet = no
-					owner = {
-						is_subject = yes
-						overlord = {
-							NOT = { tag = AUS }
-							surrender_progress < 0.10
-							strength_ratio = { tag = SER ratio > 1.0 }
-						}
-					}
-				}
-			}
-			# don't attack if it's owned by someone other than Austria, who is in a faction with a stronger leader
-			modifier = {
-				factor = 0
-				NOT = { owns_state = 104 }
-				104 = {
-					owned_by_austria_or_puppet = no
-					owner = {
-						is_in_faction = yes
-						is_faction_leader = no
-						any_allied_country = {
-							NOT = { tag = AUS }
-							is_faction_leader = yes
-							surrender_progress < 0.10
-							strength_ratio = { tag = ROM ratio > 1.0 }
-						}
-					}
-				}
-			}
+			#modifier = {
+			#	factor = 2
+			#	CRO = {
+			#		has_war_with = AUS
+			#		owns_state = 104
+			#	}
+			#}
+			#modifier = {
+			#	factor = 0
+			#	has_war = yes
+			#}
+			#modifier = {
+			#	factor = 0.1
+			#	is_in_faction = no
+			#	NOT = { has_country_flag = waiting_to_attack_austria }
+			#}
+			## don't attack Austria unless it's vulnerable or other countries are waiting to help
+			#modifier = {
+			#	factor = 0
+			#	104 = { owned_by_austria_or_puppet = yes }
+			#	AUS = {
+			#		is_subject = no
+			#		is_faction_leader = yes
+			#		surrender_progress < 0.10
+			#		NOT = {
+			#			has_war_with = GER
+			#			has_war_with = RUS
+			#			has_war_with = HUN
+			#			has_war_with = POL
+			#			has_war_with = ITA
+			#		}
+			#	}
+			#	NOT = {
+			#		POL = { has_country_flag = waiting_to_attack_austria }
+			#		ITA = { has_country_flag = waiting_to_attack_austria }
+			#	}
+			#}
+			#modifier = {
+			#	factor = 5
+			#	104 = { owned_by_austria_or_puppet = yes }
+			#	OR = {
+			#		AUS = { has_war_with = HUN }
+			#		POL = { has_country_flag = waiting_to_attack_austria }
+			#		ITA = { has_country_flag = waiting_to_attack_austria }
+			#	}
+			#}
+			#modifier = {
+			#	factor = 10
+			#	has_country_flag = waiting_to_attack_austria
+			#}
+			## don't attack if it's owned by someone other than Austria, who is not a puppet/faction member and is stronger
+			#modifier = {
+			#	factor = 0
+			#	NOT = { owns_state = 104 }
+			#	104 = {
+			#		owned_by_austria_or_puppet = no
+			#		owner = {
+			#			NOT = { is_subject_of = AUS }
+			#			NOT = { is_in_faction_with = AUS }
+			#			surrender_progress < 0.10
+			#			strength_ratio = { tag = SER ratio > 1.0 }
+			#		}
+			#	}
+			#}
+			## don't attack if it's owned by someone other than Austria, who is a puppet of a stronger overlord
+			#modifier = {
+			#	factor = 0
+			#	NOT = { owns_state = 104 }
+			#	104 = {
+			#		owned_by_austria_or_puppet = no
+			#		owner = {
+			#			is_subject = yes
+			#			overlord = {
+			#				NOT = { tag = AUS }
+			#				surrender_progress < 0.10
+			#				strength_ratio = { tag = SER ratio > 1.0 }
+			#			}
+			#		}
+			#	}
+			#}
+			## don't attack if it's owned by someone other than Austria, who is in a faction with a stronger leader
+			#modifier = {
+			#	factor = 0
+			#	NOT = { owns_state = 104 }
+			#	104 = {
+			#		owned_by_austria_or_puppet = no
+			#		owner = {
+			#			is_in_faction = yes
+			#			is_faction_leader = no
+			#			any_allied_country = {
+			#				NOT = { tag = AUS }
+			#				is_faction_leader = yes
+			#				surrender_progress < 0.10
+			#				strength_ratio = { tag = ROM ratio > 1.0 }
+			#			}
+			#		}
+			#	}
+			#}
 		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SER_free_bosnia"
-			create_wargoal = {
-				target = 104.owner
-				type = take_state_focus
-				generator = { 104 }
+			if = {
+				limit = { NOT = { has_global_flag = AUS_collapsed } }
+				SKS = { 
+					set_temp_variable = { revolt_progress_change = 0.05 }
+					BOTDE_add_collapse = yes
+				}
+				BOS = { 
+					set_temp_variable = { revolt_progress_change = 0.05 }
+					BOTDE_add_collapse = yes
+				}
+				custom_override_tooltip = {
+					tooltip = SER_free_bosnia_tt
+					custom_effect_tooltip = BOTDE_collapse_only
+					unlock_decision_tooltip = SER_Enlist_Jevdevic
+					add_to_variable = { SKS.extra_divs_meme = 3 }
+					add_to_variable = { BOS.extra_divs_meme = 3 }
+				}
+			}
+			else = {
+				create_wargoal = {
+					target = var:104.owner
+					type = annex_everything
+				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
@@ -1316,22 +1383,26 @@ focus_tree = {
 	focus = {
 		id = SER_integrate_bosnia
 		icon = GFX_goal_ATH_integrate_old_elite
+		relative_position_id = SER_congress_of_belgrade
 		x = 0
 		y = 3
-		relative_position_id = SER_congress_of_belgrade
-		cost = 6.6
+		cost = 5
 		prerequisite = { focus = SER_free_bosnia }
-		available = { owns_state = 104 } # Bosnia
-		bypass = { 104 = { is_core_of = ROOT } }
+		
+		available = { 
+			any_owned_state = {
+				limit = { is_core_of = BOS }
+			}
+		}
+		
 		ai_will_do = { factor = 40 }
+		
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SER_integrate_bosnia"
-			add_state_core = 104 # Bosnia
-			add_state_core = 1145
-			add_state_core = 1143
-			add_state_core = 1142
-			add_state_core = 1141
-						add_state_core = 1270
+			every_state = {
+				limit = { is_core_of = BOS }
+				add_core_of = ROOT
+			}
 			add_political_power = 100
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_POLITICAL }
@@ -1350,126 +1421,114 @@ focus_tree = {
 
 		available = {
 			is_subject = no
-			can_declare_war_on = 163.owner
-			OR = {
-				owns_state = 104
-				owns_state = 105
-			}
 		}
 
 		will_lead_to_war_with = CRO
-		will_lead_to_war_with = BOS
-		will_lead_to_war_with = AUS
-		will_lead_to_war_with = HUN
 
 		available_if_capitulated = yes
 
 		bypass = {
-			163 = { is_owned_by_ROOT_or_subject = yes }
+			FIU = { exists = no }
 		}
 
 		ai_will_do = {
 			factor = 10
-			modifier = {
-				factor = 0
-				has_war = yes
-			}
-			modifier = {
-				factor = 0.1
-				is_in_faction = no
-				NOT = { has_country_flag = waiting_to_attack_austria }
-			}
-			# don't attack Austria unless it's vulnerable or other countries are waiting to help
-			modifier = {
-				factor = 0
-				163 = { owned_by_austria_or_puppet = yes }
-				AUS = {
-					is_subject = no
-					is_faction_leader = yes
-					surrender_progress < 0.10
-					NOT = {
-						has_war_with = GER
-						has_war_with = RUS
-						has_war_with = HUN
-						has_war_with = POL
-						has_war_with = ITA
-					}
-				}
-				NOT = {
-					POL = { has_country_flag = waiting_to_attack_austria }
-					ITA = { has_country_flag = waiting_to_attack_austria }
-				}
-			}
-			modifier = {
-				factor = 5
-				163 = { owned_by_austria_or_puppet = yes }
-				OR = {
-					AUS = { has_war_with = HUN }
-					POL = { has_country_flag = waiting_to_attack_austria }
-					ITA = { has_country_flag = waiting_to_attack_austria }
-				}
-			}
-			modifier = {
-				factor = 10
-				has_country_flag = waiting_to_attack_austria
-			}
-			# don't attack if it's owned by someone other than Austria, who is not a puppet/faction member and is stronger
-			modifier = {
-				factor = 0
-				NOT = { owns_state = 163 }
-				163 = {
-					owned_by_austria_or_puppet = no
-					owner = {
-						NOT = { is_subject_of = AUS }
-						NOT = { is_in_faction_with = AUS }
-						surrender_progress < 0.10
-						strength_ratio = { tag = SER ratio > 1.0 }
-					}
-				}
-			}
-			# don't attack if it's owned by someone other than Austria, who is a puppet of a stronger overlord
-			modifier = {
-				factor = 0
-				NOT = { owns_state = 163 }
-				163 = {
-					owned_by_austria_or_puppet = no
-					owner = {
-						is_subject = yes
-						overlord = {
-							NOT = { tag = AUS }
-							surrender_progress < 0.10
-							strength_ratio = { tag = SER ratio > 1.0 }
-						}
-					}
-				}
-			}
-			# don't attack if it's owned by someone other than Austria, who is in a faction with a stronger leader
-			modifier = {
-				factor = 0
-				NOT = { owns_state = 163 }
-				163 = {
-					owned_by_austria_or_puppet = no
-					owner = {
-						is_in_faction = yes
-						is_faction_leader = no
-						any_allied_country = {
-							NOT = { tag = AUS }
-							is_faction_leader = yes
-							surrender_progress < 0.10
-							strength_ratio = { tag = ROM ratio > 1.0 }
-						}
-					}
-				}
-			}
+			#modifier = {
+			#	factor = 0
+			#	has_war = yes
+			#}
+			#modifier = {
+			#	factor = 0.1
+			#	is_in_faction = no
+			#	NOT = { has_country_flag = waiting_to_attack_austria }
+			#}
+			## don't attack Austria unless it's vulnerable or other countries are waiting to help
+			#modifier = {
+			#	factor = 0
+			#	163 = { owned_by_austria_or_puppet = yes }
+			#	AUS = {
+			#		is_subject = no
+			#		is_faction_leader = yes
+			#		surrender_progress < 0.10
+			#		NOT = {
+			#			has_war_with = GER
+			#			has_war_with = RUS
+			#			has_war_with = HUN
+			#			has_war_with = POL
+			#			has_war_with = ITA
+			#		}
+			#	}
+			#	NOT = {
+			#		POL = { has_country_flag = waiting_to_attack_austria }
+			#		ITA = { has_country_flag = waiting_to_attack_austria }
+			#	}
+			#}
+			#modifier = {
+			#	factor = 5
+			#	163 = { owned_by_austria_or_puppet = yes }
+			#	OR = {
+			#		AUS = { has_war_with = HUN }
+			#		POL = { has_country_flag = waiting_to_attack_austria }
+			#		ITA = { has_country_flag = waiting_to_attack_austria }
+			#	}
+			#}
+			#modifier = {
+			#	factor = 10
+			#	has_country_flag = waiting_to_attack_austria
+			#}
+			## don't attack if it's owned by someone other than Austria, who is not a puppet/faction member and is stronger
+			#modifier = {
+			#	factor = 0
+			#	NOT = { owns_state = 163 }
+			#	163 = {
+			#		owned_by_austria_or_puppet = no
+			#		owner = {
+			#			NOT = { is_subject_of = AUS }
+			#			NOT = { is_in_faction_with = AUS }
+			#			surrender_progress < 0.10
+			#			strength_ratio = { tag = SER ratio > 1.0 }
+			#		}
+			#	}
+			#}
+			## don't attack if it's owned by someone other than Austria, who is a puppet of a stronger overlord
+			#modifier = {
+			#	factor = 0
+			#	NOT = { owns_state = 163 }
+			#	163 = {
+			#		owned_by_austria_or_puppet = no
+			#		owner = {
+			#			is_subject = yes
+			#			overlord = {
+			#				NOT = { tag = AUS }
+			#				surrender_progress < 0.10
+			#				strength_ratio = { tag = SER ratio > 1.0 }
+			#			}
+			#		}
+			#	}
+			#}
+			## don't attack if it's owned by someone other than Austria, who is in a faction with a stronger leader
+			#modifier = {
+			#	factor = 0
+			#	NOT = { owns_state = 163 }
+			#	163 = {
+			#		owned_by_austria_or_puppet = no
+			#		owner = {
+			#			is_in_faction = yes
+			#			is_faction_leader = no
+			#			any_allied_country = {
+			#				NOT = { tag = AUS }
+			#				is_faction_leader = yes
+			#				surrender_progress < 0.10
+			#				strength_ratio = { tag = ROM ratio > 1.0 }
+			#			}
+			#		}
+			#	}
+			#}
 		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SER_claim_dalmatia"
-			create_wargoal = {
-				target = 163.owner
-				type = take_state_focus
-				generator = { 163 103 }
-			}
+			unlock_decision_tooltip = SER_dalmatian_connections
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}
@@ -1500,107 +1559,122 @@ focus_tree = {
 			}
 		}
 
-		will_lead_to_war_with = CRO
-		will_lead_to_war_with = BOS
-		will_lead_to_war_with = AUS
-		will_lead_to_war_with = HUN
+		will_lead_to_war_with = var:105.owner
 
 		ai_will_do = {
-			factor = 50
+			base = 50
 			modifier = {
 				factor = 0
-				has_war = yes
-			}
-			modifier = {
-				factor = 2
-				105 = {
-					owner = {
-						has_war = yes
-					}
-				}
-			}
-			# don't attack Austria unless it's vulnerable or other countries are waiting to help
-			modifier = {
-				factor = 0
-				105 = { owned_by_austria_or_puppet = yes }
-				AUS = {
-					is_subject = no
-					is_faction_leader = yes
-					surrender_progress < 0.10
-					NOT = {
-						has_war_with = GER
-						has_war_with = RUS
-						has_war_with = HUN
-						has_war_with = POL
-						has_war_with = ITA
-					}
-				}
-				NOT = {
-					POL = { has_country_flag = waiting_to_attack_austria }
-					ITA = { has_country_flag = waiting_to_attack_austria }
-				}
-			}
-			modifier = {
-				factor = 5
-				105 = { owned_by_austria_or_puppet = yes }
 				OR = {
-					AUS = { has_war_with = HUN }
-					POL = { has_country_flag = waiting_to_attack_austria }
-					ITA = { has_country_flag = waiting_to_attack_austria }
-				}
-			}
-			modifier = {
-				factor = 10
-				has_country_flag = waiting_to_attack_austria
-			}
-			# don't attack if it's owned by someone other than Austria, who is not a puppet/faction member and is stronger
-			modifier = {
-				factor = 0
-				NOT = { owns_state = 105 }
-				105 = {
-					owned_by_austria_or_puppet = no
-					owner = {
-						NOT = { is_subject_of = AUS }
-						NOT = { is_in_faction_with = AUS }
-						surrender_progress < 0.10
-						strength_ratio = { tag = SER ratio > 1.0 }
-					}
-				}
-			}
-			# don't attack if it's owned by someone other than Austria, who is a puppet of a stronger overlord
-			modifier = {
-				factor = 0
-				NOT = { owns_state = 105 }
-				105 = {
-					owned_by_austria_or_puppet = no
-					owner = {
-						is_subject = yes
-						overlord = {
-							NOT = { tag = AUS }
-							surrender_progress < 0.10
-							strength_ratio = { tag = SER ratio > 1.0 }
+					has_war = yes
+					MNT = {
+						any_faction_member = {
+							limit = { NOT = { tag = AUS } }
+							is_major = yes
 						}
 					}
-				}
-			}
-			# don't attack if it's owned by someone other than Austria, who is in a faction with a stronger leader
-			modifier = {
-				factor = 0
-				NOT = { owns_state = 105 }
-				105 = {
-					owned_by_austria_or_puppet = no
-					owner = {
-						is_in_faction = yes
-						is_faction_leader = no
-						any_allied_country = {
-							NOT = { tag = AUS }
-							is_faction_leader = yes
-							surrender_progress < 0.10
-							strength_ratio = { tag = ROM ratio > 1.0 }
-						}
+					AND = {
+						MNT = { is_in_faction_with = AUS }
+						NOT = { has_country_flag = waiting_to_attack_austria }
 					}
 				}
 			}
+			#modifier = {
+			#	factor = 2
+			#	105 = {
+			#		owner = {
+			#			has_war = yes
+			#		}
+			#	}
+			#}
+			## don't attack Austria unless it's vulnerable or other countries are waiting to help
+			#modifier = {
+			#	factor = 0
+			#	OR = {
+			#		MNT = { is_in_faction_with = AUS }
+			#		105 = { is_owned_by = CRO }
+			#	}
+			#	AUS = {
+			#		is_subject = no
+			#		is_faction_leader = yes
+			#		surrender_progress < 0.10
+			#		NOT = {
+			#			has_war_with = GER
+			#			has_war_with = RUS
+			#			has_war_with = HUN
+			#			has_war_with = POL
+			#			has_war_with = ITA
+			#		}
+			#	}
+			#	NOT = {
+			#		POL = { has_country_flag = waiting_to_attack_austria }
+			#		ITA = { has_country_flag = waiting_to_attack_austria }
+			#	}
+			#}
+			#modifier = {
+			#	factor = 5
+			#	OR = {
+			#		MNT = { is_in_faction_with = AUS }
+			#		105 = { is_owned_by = CRO }
+			#	}
+			#	OR = {
+			#		AUS = { has_war_with = HUN }
+			#		POL = { has_country_flag = waiting_to_attack_austria }
+			#		ITA = { has_country_flag = waiting_to_attack_austria }
+			#	}
+			#}
+			#modifier = {
+			#	factor = 10
+			#	has_country_flag = waiting_to_attack_austria
+			#}
+			## don't attack if it's owned by someone other than Austria, who is not a puppet/faction member and is stronger
+			#modifier = {
+			#	factor = 0
+			#	NOT = { owns_state = 105 }
+			#	105 = {
+			#		owned_by_austria_or_puppet = no
+			#		owner = {
+			#			NOT = { is_subject_of = AUS }
+			#			NOT = { is_in_faction_with = AUS }
+			#			surrender_progress < 0.10
+			#			strength_ratio = { tag = SER ratio > 1.0 }
+			#		}
+			#	}
+			#}
+			## don't attack if it's owned by someone other than Austria, who is a puppet of a stronger overlord
+			#modifier = {
+			#	factor = 0
+			#	NOT = { owns_state = 105 }
+			#	105 = {
+			#		owned_by_austria_or_puppet = no
+			#		owner = {
+			#			is_subject = yes
+			#			overlord = {
+			#				NOT = { tag = AUS }
+			#				surrender_progress < 0.10
+			#				strength_ratio = { tag = SER ratio > 1.0 }
+			#			}
+			#		}
+			#	}
+			#}
+			## don't attack if it's owned by someone other than Austria, who is in a faction with a stronger leader
+			#modifier = {
+			#	factor = 0
+			#	NOT = { owns_state = 105 }
+			#	105 = {
+			#		owned_by_austria_or_puppet = no
+			#		owner = {
+			#			is_in_faction = yes
+			#			is_faction_leader = no
+			#			any_allied_country = {
+			#				NOT = { tag = AUS }
+			#				is_faction_leader = yes
+			#				surrender_progress < 0.10
+			#				strength_ratio = { tag = ROM ratio > 1.0 }
+			#			}
+			#		}
+			#	}
+			#}
 		}
 
 		completion_reward = {
@@ -1645,7 +1719,7 @@ focus_tree = {
 
 		available = {
 			AND = {
-				owns_state = 45 # Vojvodina
+				#owns_state = 45 # Vojvodina
 				owns_state = 109 # Eastern Croatia
 				owns_state = 104 # Bosnia
 			}
@@ -1656,6 +1730,7 @@ focus_tree = {
 			NOT = {
 				country_exists = CRO
 				country_exists = BOS
+				country_exists = SKS
 			}
 		}
 
@@ -1760,7 +1835,7 @@ focus_tree = {
 			}
 		}
 
-		will_lead_to_war_with = AUS
+		will_lead_to_war_with = var:102.owner
 
 		available_if_capitulated = yes
 
@@ -2505,14 +2580,19 @@ focus_tree = {
 		id = SER_Form_The_Military_Council
 		icon = GFX_goal_SER_army
 		available = {
-			NOT = { has_idea = SER_austrias_watchful_eye }
+			SER_austria_is_watching_trigger = no
 		}
+		available_if_capitulated = yes
 		relative_position_id = SER_Farming_Subsidies
 		x = 9
 		y = 0
 		cost = 8
 		ai_will_do = {
-			factor = 25
+			base = 25
+			modifier = {
+				has_war_with = AUS
+				factor = 20
+			}
 		}
 		search_filters = { FOCUS_FILTER_ARMY_BONUS }
 		completion_reward = {
@@ -2527,12 +2607,17 @@ focus_tree = {
 		prerequisite = {
 			focus = SER_Form_The_Military_Council
 		}
+		available_if_capitulated = yes
 		relative_position_id = SER_Form_The_Military_Council
 		x = -3
 		y = 1
 		cost = 6
 		ai_will_do = {
-			factor = 10
+			base = 10
+			modifier = {
+				has_war_with = AUS
+				factor = 50
+			}
 		}
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		completion_reward = {
@@ -2556,15 +2641,20 @@ focus_tree = {
 		prerequisite = {
 			focus = SER_Form_The_Military_Council
 		}
+		available_if_capitulated = yes
 		relative_position_id = SER_Form_The_Military_Council
 		x = -1
 		y = 1
 		cost = 5
 		ai_will_do = {
-			factor = 4
+			base = 4
 			modifier = {
-				factor = 2
+				factor = 5
 				has_war = yes
+			}
+			modifier = {
+				has_war_with = AUS
+				factor = 25
 			}
 		}
 		search_filters = { FOCUS_FILTER_ARMY_BONUS }
@@ -2583,15 +2673,20 @@ focus_tree = {
 		prerequisite = {
 			focus = SER_Form_The_Military_Council
 		}
+		available_if_capitulated = yes
 		relative_position_id = SER_Form_The_Military_Council
 		x = 0
 		y = 2
 		cost = 6
 		ai_will_do = {
-			factor = 4
+			base = 4
 			modifier = {
-				factor = 2
+				factor = 5
 				has_war = yes
+			}
+			modifier = {
+				has_war_with = AUS
+				factor = 25
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -2613,15 +2708,20 @@ focus_tree = {
 			focus = SER_Found_FOMU
 			focus = SER_Modern_Howitzers
 		}
+		available_if_capitulated = yes
 		relative_position_id = SER_Training_The_New_Guard
 		x = -3
 		y = 2
 		cost = 6
 		ai_will_do = {
-			factor = 4
+			base = 4
 			modifier = {
-				factor = 2
+				factor = 5
 				has_war = yes
+			}
+			modifier = {
+				has_war_with = AUS
+				factor = 25
 			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -2655,15 +2755,20 @@ focus_tree = {
 		prerequisite = {
 			focus = SER_Training_The_New_Guard
 		}
+		available_if_capitulated = yes
 		relative_position_id = SER_Training_The_New_Guard
 		x = -1
 		y = 1
 		cost = 5
 		ai_will_do = {
-			factor = 4
+			base = 4
 			modifier = {
-				factor = 2
+				factor = 5
 				has_war = yes
+			}
+			modifier = {
+				has_war_with = AUS
+				factor = 25
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -2684,15 +2789,20 @@ focus_tree = {
 		prerequisite = {
 			focus = SER_Training_The_New_Guard
 		}
+		available_if_capitulated = yes
 		relative_position_id = SER_Training_The_New_Guard
 		x = 1
 		y = 1
 		cost = 6
 		ai_will_do = {
-			factor = 4
+			base = 4
 			modifier = {
-				factor = 2
+				factor = 5
 				has_war = yes
+			}
+			modifier = {
+				has_war_with = AUS
+				factor = 25
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -2704,6 +2814,11 @@ focus_tree = {
 				uses = 1
 				category = land_doctrine
 			}
+			add_tech_bonus = {
+				category = rangers_tech_cat
+				bonus = 1
+				uses = 1
+			}
 		}
 	}
 
@@ -2713,15 +2828,20 @@ focus_tree = {
 		prerequisite = {
 			focus = SER_Training_The_New_Guard
 		}
+		available_if_capitulated = yes
 		relative_position_id = SER_Training_The_New_Guard
 		x = 3
 		y = 1
 		cost = 5
 		ai_will_do = {
-			factor = 4
+			base = 4
 			modifier = {
-				factor = 2
+				factor = 5
 				has_war = yes
+			}
+			modifier = {
+				has_war_with = AUS
+				factor = 25
 			}
 		}
 		search_filters = { FOCUS_FILTER_ARMY_BONUS }
@@ -2754,15 +2874,20 @@ focus_tree = {
 		prerequisite = {
 			focus = SER_Begin_Mechanisation
 		}
+		available_if_capitulated = yes
 		relative_position_id = SER_Training_The_New_Guard
 		x = 4
 		y = 2
 		cost = 6
 		ai_will_do = {
-			factor = 4
+			base = 4
 			modifier = {
-				factor = 2
+				factor = 5
 				has_war = yes
+			}
+			modifier = {
+				has_war_with = AUS
+				factor = 25
 			}
 		}
 		mutually_exclusive = {
@@ -2813,15 +2938,20 @@ focus_tree = {
 		prerequisite = {
 			focus = SER_Begin_Mechanisation
 		}
+		available_if_capitulated = yes
 		relative_position_id = SER_Training_The_New_Guard
 		x = 2
 		y = 2
 		cost = 6
 		ai_will_do = {
-			factor = 4
+			base = 4
 			modifier = {
-				factor = 2
+				factor = 5
 				has_war = yes
+			}
+			modifier = {
+				has_war_with = AUS
+				factor = 25
 			}
 		}
 		mutually_exclusive = {
@@ -2871,12 +3001,21 @@ focus_tree = {
 		prerequisite = {
 			focus = SER_Training_The_New_Guard
 		}
+		available_if_capitulated = yes
 		relative_position_id = SER_Training_The_New_Guard
 		x = 0
 		y = 2
 		cost = 7
 		ai_will_do = {
-			factor = 7
+			base = 10
+			modifier = {
+				factor = 5
+				has_war = yes
+			}
+			modifier = {
+				has_war_with = AUS
+				factor = 10
+			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
@@ -2897,15 +3036,20 @@ focus_tree = {
 		prerequisite = {
 			focus = SER_Form_The_Military_Council
 		}
+		available_if_capitulated = yes
 		relative_position_id = SER_Form_The_Military_Council
 		x = 1
 		y = 1
 		cost = 6
 		ai_will_do = {
-			factor = 4
+			base = 4
 			modifier = {
-				factor = 2
+				factor = 5
 				has_war = yes
+			}
+			modifier = {
+				has_war_with = AUS
+				factor = 25
 			}
 		}
 		search_filters = { FOCUS_FILTER_MANPOWER }
@@ -2977,12 +3121,21 @@ focus_tree = {
 		prerequisite = {
 			focus = SER_Form_The_Military_Council
 		}
+		available_if_capitulated = yes
 		relative_position_id = SER_Form_The_Military_Council
 		x = 3
 		y = 1
 		cost = 5
 		ai_will_do = {
-			factor = 3
+			base = 4
+			modifier = {
+				factor = 5
+				has_war = yes
+			}
+			modifier = {
+				has_war_with = AUS
+				factor = 25
+			}
 		}
 		search_filters = { FOCUS_FILTER_ARMY_BONUS }
 		completion_reward = {
@@ -3033,6 +3186,48 @@ focus_tree = {
 			}
 		}
 	}
+	
+	focus = {
+		id = SER_Second_Great_Retreat
+		icon = GFX_goal_SER_Second_Great_Retreat
+		available = {
+			is_in_faction_with = ROM
+		}
+		prerequisite = {
+			focus = SER_Form_The_Military_Council
+		}
+		available_if_capitulated = yes
+		relative_position_id = SER_Form_The_Military_Council
+		x = 2
+		y = 2
+		cost = 5
+		ai_will_do = {
+			base = 5
+			modifier = {
+				has_war_with = AUS
+				factor = 100
+			}
+		}
+		search_filters = { FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SER_Second_Great_Retreat"
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 2000
+			}
+			add_daily_mastery = {
+				amount = 0.5
+				days = 90
+				name = SER_ROM_austria_delenda_est_mastery_name
+				folder = land
+			}
+			add_ideas = SER_Second_Great_Retreat_idea
+			custom_override_tooltip = {
+				tooltip = SER_great_retreat_two_tt
+				set_country_flag = SER_ROM_transfer_army_to_ally_on_cap
+			}
+		}
+	}
 
 	#################
 	### Air Force ###
@@ -3042,7 +3237,7 @@ focus_tree = {
 		id = SER_Expand_The_Serbian_Aviation_Command
 		icon = GFX_goal_SER_airforce
 		available = {
-			NOT = { has_idea = SER_austrias_watchful_eye }
+			SER_austria_is_watching_trigger = no
 		}
 		x = 4
 		y = 6
@@ -3323,10 +3518,22 @@ focus_tree = {
 		id = SER_Crna_Gora_I_Srbija
 		icon = GFX_goal_SER_brotherly_union
 		available = {
-			105 = { is_owned_and_controlled_by = ROOT }
+			AND = {
+				105 = { is_owned_and_controlled_by = ROOT }
+				1097 = { is_owned_and_controlled_by = ROOT }
+			}
 		}
 		bypass = {
-			105 = { is_core_of = SER }
+			OR = {
+				AND = {
+					105 = { is_owned_and_controlled_by = ROOT }
+					1097 = { is_owned_and_controlled_by = ROOT }
+				}
+				AND = {
+					105 = { is_core_of = ROOT }
+					1097 = { is_core_of = ROOT }
+				}
+			}
 		}
 		x = 10
 		y = 5
@@ -3335,20 +3542,19 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SER_Crna_Gora_I_Srbija"
-			105 = {
-				if = {
-					limit = { is_claimed_by = SER }
-					remove_claim_by = SER
+			every_state = {
+				limit = {
+					OR = {
+						state = 105
+						state = 1097
+					}
+					NOT = { is_core_of = ROOT }
 				}
-				add_core_of = SER
-			}
-			
-			1097 = {
 				if = {
-					limit = { is_claimed_by = SER }
-					remove_claim_by = SER
+					limit = { is_claimed_by = ROOT }
+					remove_claim_by = ROOT
 				}
-				add_core_of = SER
+				add_core_of = ROOT
 			}
 		}
 	}
@@ -3357,7 +3563,10 @@ focus_tree = {
 		id = SER_Connect_The_Railways
 		icon = GFX_thenorthernraillink
 		available = {
-			105 = { is_owned_and_controlled_by = ROOT }
+			AND = {
+				105 = { is_owned_and_controlled_by = ROOT }
+				1097 = { is_owned_and_controlled_by = ROOT }
+			}
 		}
 		prerequisite = {
 			focus = SER_Crna_Gora_I_Srbija
@@ -3387,7 +3596,10 @@ focus_tree = {
 		id = SER_Prospecting_In_Niksic
 		icon = GFX_goal_MNT_brskovo
 		available = {
-			105 = { is_owned_and_controlled_by = ROOT }
+			AND = {
+				105 = { is_owned_and_controlled_by = ROOT }
+				1097 = { is_owned_and_controlled_by = ROOT }
+			}
 		}
 		prerequisite = {
 			focus = SER_Connect_The_Railways
@@ -3414,7 +3626,10 @@ focus_tree = {
 		id = SER_Integrate_The_Montenegrin_Economy
 		icon = GFX_goal_MNT_niksic_saving_bank
 		available = {
-			105 = { is_owned_and_controlled_by = ROOT }
+			AND = {
+				105 = { is_owned_and_controlled_by = ROOT }
+				1097 = { is_owned_and_controlled_by = ROOT }
+			}
 		}
 		prerequisite = {
 			focus = SER_Crna_Gora_I_Srbija
@@ -3450,6 +3665,7 @@ focus_tree = {
 		icon = GFX_goal_MNT_questions_of_the_day
 		available = {
 			owns_state = 105
+			owns_state = 1097
 		}
 		prerequisite = {
 			focus = SER_Connect_The_Railways
@@ -3478,7 +3694,7 @@ focus_tree = {
 		icon = GFX_goal_SER_navy
 		available = {
 			any_owned_state = { is_coastal = yes }
-			NOT = { has_idea = SER_austrias_watchful_eye }
+			SER_austria_is_watching_trigger = no
 		}
 		relative_position_id = SER_Crna_Gora_I_Srbija
 		x = 3
@@ -3642,7 +3858,7 @@ focus_tree = {
 		icon = GFX_goal_generic_coastal_navy2
 		available = {
 			any_owned_state = { is_coastal = yes }
-			NOT = { has_idea = SER_austrias_watchful_eye }
+			SER_austria_is_watching_trigger = no
 		}
 		prerequisite = {
 			focus = SER_Form_A_Merchant_Navy
@@ -3756,16 +3972,16 @@ focus_tree = {
 		
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SER_black_hand"
-				add_ideas = SER_black_hand
-				add_popularity = {
-					ideology = national_populist
-					popularity = 0.17
-				}
-				add_political_power = 75
-				country_event ={ id = dhserbia.2 days = 14 random_days = 3
-				}
-				custom_effect_tooltip = unlock_focuses
-				hidden_effect = { set_cosmetic_tag = SER_kingdom_BH }
+			add_ideas = SER_black_hand
+			add_popularity = {
+				ideology = national_populist
+				popularity = 0.17
+			}
+			add_political_power = 75
+			country_event ={ id = dhserbia.2 days = 14 random_days = 3
+			}
+			custom_effect_tooltip = unlock_focuses
+			hidden_effect = { set_cosmetic_tag = SER_kingdom_BH }
 		}
 
 	}

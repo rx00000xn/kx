@@ -257,6 +257,8 @@ on_actions = {
 							tag = SER
 							tag = ROM
 							tag = GRE
+							tag = BUL
+							tag = ITA
 							is_ally_with = SER
 							is_ally_with = ROM
 						}
@@ -294,6 +296,14 @@ on_actions = {
 						if = {
 							limit = { is_ally_with = GRE }
 							set_temp_variable = { GRE_cap = 1 }
+						}
+						if = {
+							limit = { is_ally_with = BUL }
+							set_temp_variable = { BUL_cap = 1 }
+						}
+						if = {
+							limit = { is_ally_with = ITA }
+							set_temp_variable = { ITA_cap = 1 }
 						}
 						every_enemy_country = {
 							white_peace = {
@@ -350,10 +360,6 @@ on_actions = {
 									limit = { tag = SLO }
 									every_owned_state = { transfer_state_to = AUS }
 								}
-								every_subject_country = {
-									limit = { tag = BUL }
-									AUS_occupy_BUL_effect = yes
-								}
 								AUS_5bw_AUS_victory_SER_peacedeal = yes
 							}
 							AUS_occupy_SER_effect = yes
@@ -364,11 +370,34 @@ on_actions = {
 							AUS_occupy_GRE_effect = yes
 						}
 						if = {
+							limit = { check_variable = { BUL_cap > 0 } }
+							AUS_5bw_AUS_victory_BUL_peacedeal = yes
+							AUS_occupy_BUL_effect = yes
+						}
+						if = {
+							limit = { check_variable = { ITA_cap > 0 } }
+							ITA = {
+								every_owned_state = {
+									limit = {
+										OR = {
+											state = 159
+											state = 160
+											state = 759
+										}
+									}
+									add_core_of = AUS
+								}
+								every_owned_state = { transfer_state_to = AUS }
+							}
+						}
+						if = {
 							limit = {
 								NOT = {
 									tag = SER
 									tag = ROM
 									tag = GRE
+									tag = BUL
+									tag = ITA
 								}
 							}
 							every_owned_state = { transfer_state_to = AUS }
@@ -584,6 +613,8 @@ on_actions = {
 							tag = SER
 							tag = ROM
 							tag = GRE
+							tag = BUL
+							tag = ITA
 							is_ally_with = SER
 							is_ally_with = ROM
 						}
@@ -622,6 +653,14 @@ on_actions = {
 						if = {
 							limit = { is_ally_with = GRE }
 							set_temp_variable = { GRE_cap = 1 }
+						}
+						if = {
+							limit = { is_ally_with = BUL }
+							set_temp_variable = { BUL_cap = 1 }
+						}
+						if = {
+							limit = { is_ally_with = ITA }
+							set_temp_variable = { ITA_cap = 1 }
 						}
 						every_enemy_country = {
 							white_peace = {
@@ -683,11 +722,34 @@ on_actions = {
 							AUS_occupy_GRE_effect = yes
 						}
 						if = {
+							limit = { check_variable = { BUL_cap > 0 } }
+							AUS_5bw_AUS_victory_BUL_peacedeal = yes
+							AUS_occupy_BUL_effect = yes
+						}
+						if = {
+							limit = { check_variable = { ITA_cap > 0 } }
+							ITA = {
+								every_owned_state = {
+									limit = {
+										OR = {
+											state = 159
+											state = 160
+											state = 759
+										}
+									}
+									add_core_of = AUS
+								}
+								every_owned_state = { transfer_state_to = AUS }
+							}
+						}
+						if = {
 							limit = {
 								NOT = {
 									tag = SER
 									tag = ROM
 									tag = GRE
+									tag = BUL
+									tag = ITA
 								}
 							}
 							every_owned_state = { transfer_state_to = AUS }
@@ -896,14 +958,34 @@ on_actions = {
 			if = {
 				limit = {
 					ROOT = {
-						tag = LIC
-						has_completed_focus = LIC_shadow_empire
 						OR = {
-							has_dynamic_modifier = {
-								modifier = LIC_shadow_empire_dynmod
+							AND = {
+								if = {
+									limit = {
+										LIC = {
+											has_completed_focus = LIC_internationale_reconstruction
+										}
+									}
+									is_ally_with = LIC
+									FROM.FROM = {
+										is_on_continent = europe
+									}
+								}
+								else = {
+									always = no
+								}
 							}
-							has_dynamic_modifier = {
-								modifier = LIC_shadow_empire_occupied
+							AND = {
+								tag = LIC
+								has_completed_focus = LIC_shadow_empire
+								OR = {
+									has_dynamic_modifier = {
+										modifier = LIC_shadow_empire_dynmod
+									}
+									has_dynamic_modifier = {
+										modifier = LIC_shadow_empire_occupied
+									}
+								}
 							}
 						}
 					}
@@ -940,21 +1022,21 @@ on_actions = {
 						}
 						66 = {
 							modifier = {
-								factor = 0
+								factor = 0.6
 								LIC = {
 									has_completed_focus = LIC_internationale_reconstruction
 									NOT = {
-										has_completed_focus = LIC_french_occupation
+										has_completed_focus = LIC_occupied
 									}
+								}
+								FROM.FROM = {
+									is_on_continent = europe
 								}
 								owner = {
 									has_socialist_government = yes
 									OR = {
-										is_in_faction_with = FRA
-										is_in_faction_with = RUS
-										is_in_faction_with = CSA
-										is_in_faction_with = NIC
-										is_in_faction_with = BHC
+										is_in_faction_with = INT
+										tag = INT
 									}
 								}
 							}
@@ -1061,6 +1143,63 @@ on_actions = {
 						}
 					}
 				}
+			}
+		}
+	}
+	on_war_relation_added = { #second brothers war thingy
+		effect = {
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							ROOT = { tag = GER }
+							FROM = { tag = AUS }
+						}
+						AND = {
+							ROOT = { tag = AUS }
+							FROM = { tag = GER }
+						}
+					}
+					NOT = { has_global_flag = second_brothers_war_happened }
+				}
+				ROOT = {
+					news_event = {
+						id = bdeausnews.10
+						days = 1
+					}
+					set_variable = { global.AUS_GER_tensions = 3 }
+					set_global_flag = second_brothers_war_happened
+				}
+			}
+		}
+	}
+	on_war_relation_added = { #franco-austrian war thingy
+		effect = {
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							ROOT = {
+								OR = {
+									tag = INT
+									tag = NFA
+								}
+							}
+							FROM = { tag = AUS }
+						}
+						AND = {
+							ROOT = { tag = AUS }
+							FROM = {
+								OR = {
+									tag = INT
+									tag = NFA
+								}
+							}
+						}
+					}
+					NOT = { has_global_flag = AUS_went_to_war_with_france }
+				}
+				AUS = { country_event = bdeausflavor.170 }
 			}
 		}
 	}

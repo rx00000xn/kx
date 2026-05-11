@@ -554,6 +554,7 @@ country_event = {
 			}
 		}
 		set_country_flag = BUL_surrender_no_war
+		set_global_flag = BUL_gave_into_BP_demands
 		add_political_power = -200
 
 		belgrade_pact_gain_land_from_bulgaria = yes
@@ -1056,6 +1057,7 @@ country_event = {
 		add_political_power = 200
 		set_global_flag = balkan_war_ended
 		set_global_flag = balkan_war_ended_SER_victory
+		add_to_variable = { global.BOTDE_CBW = 1 }
 
 		BUL = {
 			white_peace_with_ROOT = yes
@@ -5955,7 +5957,10 @@ country_event = { #5BW_surrender_afrer_40_cap surrender event
 			}
 			AND = {
 				tag = UKR
-				has_war_with = RUS
+				OR = {
+					has_war_with = RUS
+					has_war_with = GER
+				}
 			}
 		}
 	}
@@ -6199,6 +6204,10 @@ country_event = { #ITA decision invite
 		ai_chance = {
 			base = 20
 			modifier = {
+				has_government = social_democrat
+				factor = 0
+			}
+			modifier = {
 				has_government = national_populist
 				add = 80
 			}
@@ -6210,6 +6219,7 @@ country_event = { #ITA decision invite
 					state = 736
 					state = 783
 					state = 1100
+					state = 1144
 				}
 			}
 			if = {

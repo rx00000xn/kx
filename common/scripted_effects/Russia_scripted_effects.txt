@@ -8459,6 +8459,25 @@ RUS_remove_kornilov_legacy = {
 }
 RUS_add_to_rostorg = {
 	if = {
+		limit = { RUS_is_in_rostorg = no }
+		custom_effect_tooltip = RUS_add_to_rostorg
+		set_country_flag = RUS_is_in_rostorg
+		AUS_check_DWV_swap_effect = yes
+		add_to_array = { RUS.RUS_rostorg_members = THIS }
+		if = {
+			limit = {
+				RUS = { has_idea = RUS_moscow_accord_leader_expansionist }
+			}
+			add_ideas = RUS_moscow_accord_member_expansionist
+		}
+		else_if = {
+			limit = {
+				RUS = { has_idea = RUS_moscow_accord_leader_realpolitik }
+			}
+			add_ideas = RUS_moscow_accord_member_realpolitik
+		}
+	}
+	if = {
 		limit = { 
 			RUS = { 
 				RUS_is_in_rostorg = no

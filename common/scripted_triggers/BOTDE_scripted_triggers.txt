@@ -448,6 +448,17 @@ AUS_has_any_DWV_idea = {
 			has_idea = AUS_DWV_3
 			has_idea = AUS_DWV_4
 			has_idea = AUS_DWV_5
+			AND = {
+				has_global_flag = DWV_alt_enabled
+				OR = {
+					has_idea = AUS_DWV_0_alt
+					has_idea = AUS_DWV_1_alt
+					has_idea = AUS_DWV_2_alt
+					has_idea = AUS_DWV_3_alt
+					has_idea = AUS_DWV_4_alt
+					has_idea = AUS_DWV_5_alt
+				}
+			}
 		}
 	}
 }
@@ -563,12 +574,13 @@ AUS_oaao_trigger = {
 
 AUS_oaao_after_civil_war_trigger = {
 	custom_override_tooltip = {
-		tooltip = AUS_oaao_tt
-		not_tooltip = AUS_oaao_tt_NOT
+		tooltip = AUS_oaao_after_civil_war_tt
+		not_tooltip = AUS_oaao_after_civil_war_tt_NOT
 		AUS_oaao_trigger = yes
+		AWR = { exists = no }
 		NOT = {
 			has_global_flag = AUS_liebenfels_civil_war
-			AWR = { exists = yes }
+			has_global_flag = AUS_hold_for_pneo_coup_flag
 			has_war_with = AUS
 			has_war_with = AWR
 		}
@@ -733,6 +745,7 @@ AUS_ausgleich_ongoing_trigger = {
 		tooltip = AUS_ausgleich_ongoing_tt
 		not_tooltip = AUS_ausgleich_ongoing_tt_NOT
 		has_global_flag = AUS_ausgleich_ongoing
+		any_country = { AUS_country_is_in_ausgleich = yes }
 	}
 }
 HUN_ausgleich_pissed_off_over_fed_speed_trigger = {
@@ -829,6 +842,16 @@ SER_ROM_do_not_do_minority_minigame_trigger = {
 		fifth_balkan_war = no
 	}
 }
+SER_austria_is_watching_trigger = {
+	custom_override_tooltip = {
+		tooltip = SER_austria_is_watching_trigger_tt
+		not_tooltip = SER_austria_is_watching_trigger_tt_NOT
+		OR = {
+			has_idea = SER_austrias_watchful_eye
+			has_idea = SER_austrias_watchful_eye_2
+		}
+	}
+}
 ## Gamerules Triggers ##
 BOTDE_AI_AVOID_COLLAPSE = {
 	has_game_rule = {
@@ -888,9 +911,42 @@ BOTDE_AI_ELECT_36_SDAPO = {
 		}
 	}
 }
-
-
-
+BOTDE_AI_JOIN_REICHSPAKT = {
+	has_game_rule = {
+		rule = BOTDE_AUS_FORPOL
+		option = BOTDE_AUS_FORPOL_REICHSPAKT
+	}
+}
+BOTDE_AI_JOIN_ENTENTE = {
+	has_game_rule = {
+		rule = BOTDE_AUS_FORPOL
+		option = BOTDE_AUS_FORPOL_ENTENTE
+	}
+}
+BOTDE_AI_JOIN_RUSSIA = {
+	has_game_rule = {
+		rule = BOTDE_AUS_FORPOL
+		option = BOTDE_AUS_FORPOL_RUSSIA
+	}
+	NOT = {
+		has_game_rule = {
+			rule = BOTDE_AUS_1936_election
+			option = BOTDE_AUS_1936_ELECTION_DBP
+		}
+	}
+}
+BOTDE_AI_DONAU_ADRIABUND = {
+	has_game_rule = {
+		rule = BOTDE_AUS_FORPOL
+		option = BOTDE_AUS_FORPOL_DONAU_ADRIABUND
+	}
+}
+BOTDE_AI_AUSTRO_AMERICAN_ALLIANCE = {
+	has_game_rule = {
+		rule = BOTDE_AUS_FORPOL
+		option = BOTDE_AUS_FORPOL_AUSTRO_AMERICAN_ALLIANCE
+	}
+}
 
 
 
