@@ -1046,10 +1046,49 @@ SWE_elmo_cohesion_effect = {
 
 
 
+SWE_scan_form_score = {
+	if = {
+		limit = { has_country_flag = SWE_flag_scandinavian_ethnic_tensions_active }
+		custom_effect_tooltip = SWE_add_scan_form_tt
+	}
+	add_to_variable = { SWE_scan_form_Success = SWE_influence_change }
+
+}
 
 
+SWE_add_scan_form_score_based_on_current_score = {
+	if = {
+		limit = { has_active_mission = SWE_scan_form_Plan }
+		if = {
+			limit = { check_variable = { SWE_scan_form_Success < 25 } }
+			set_temp_variable = { SWE_influence_change = 4 }
+			SWE_scan_form_score = yes
+		}
+		else_if = {
+			limit = { check_variable = { SWE_scan_form_Success < 50 } }
+			set_temp_variable = { SWE_influence_change = 3 }
+			SWE_scan_form_score = yes
+		}
+		else_if = {
+			limit = { check_variable = { SWE_scan_form_Success < 75 } }
+			set_temp_variable = { SWE_influence_change = 2 }
+			SWE_scan_form_score = yes
+		}
+		else = {
+			set_temp_variable = { SWE_influence_change = 1 }
+			SWE_scan_form_score = yes
+		}
+	}
+}
 
 
+SWE_setup_ethnic_tensions_active = {
+	set_variable = { SWE.SWE_ethnic_support_factor = 0.03 }
+	set_variable = { SWE.SWE_ethnic_consumer_goods_factor = 0.10 }
+	set_variable = { SWE.SWE_ethnic_pp_gain = -0.02 }
+	set_variable = { SWE.SWE_ethnic_stability_factor = -0.05 }
+	add_dynamic_modifier = { modifier = SWE_scan_form_ethnic_tension_modifier	} 
+}
 
 
 
