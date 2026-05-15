@@ -136,7 +136,7 @@ country_event = { # White Defense League requests army promotions
 					}
 					has_game_rule = {
 						rule = COR_post_civil_war
-						option = COR_POST_CIVIL_WAR_ROCKWELL
+						option = COR_POST_CIVIL_WAR_COLUMBIAN
 					}
 				}
 			}
@@ -292,7 +292,7 @@ country_event = { # Fordists
 					}
 					has_game_rule = {
 						rule = COR_post_civil_war
-						option = COR_POST_CIVIL_WAR_ROCKWELL
+						option = COR_POST_CIVIL_WAR_COLUMBIAN
 					}
 				}
 			}
@@ -374,7 +374,7 @@ country_event = { # White Leagues ask us to stop Ford
 					}
 					has_game_rule = {
 						rule = COR_post_civil_war
-						option = COR_POST_CIVIL_WAR_ROCKWELL
+						option = COR_POST_CIVIL_WAR_COLUMBIAN
 					}
 				}
 			}
@@ -488,7 +488,7 @@ country_event = { # Dinner with Alfalfa Bill
 					}
 					has_game_rule = {
 						rule = COR_post_civil_war
-						option = COR_POST_CIVIL_WAR_ROCKWELL
+						option = COR_POST_CIVIL_WAR_COLUMBIAN
 					}
 				}
 			}
@@ -1577,7 +1577,7 @@ country_event = { # Order of 76 threatened
 					}
 					has_game_rule = {
 						rule = COR_post_civil_war
-						option = COR_POST_CIVIL_WAR_ROCKWELL
+						option = COR_POST_CIVIL_WAR_COLUMBIAN
 					}
 				}
 			}
@@ -1652,7 +1652,7 @@ country_event = { # Order of 76 Recruiter Killed
 					}
 					has_game_rule = {
 						rule = COR_post_civil_war
-						option = COR_POST_CIVIL_WAR_ROCKWELL
+						option = COR_POST_CIVIL_WAR_COLUMBIAN
 					}
 				}
 			}
@@ -2881,7 +2881,7 @@ country_event = { # Christians requests meeting
 				OR = {
 					has_game_rule = {
 						rule = COR_post_civil_war
-						option = COR_POST_CIVIL_WAR_ROCKWELL
+						option = COR_POST_CIVIL_WAR_COLUMBIAN
 					}
 				}
 				has_game_rule = {
@@ -4682,7 +4682,7 @@ country_event = { # Stephenson's offer
 					}
 					has_game_rule = {
 						rule = COR_post_civil_war
-						option = COR_POST_CIVIL_WAR_ROCKWELL
+						option = COR_POST_CIVIL_WAR_COLUMBIAN
 					}
 				}
 			}
@@ -5174,7 +5174,7 @@ country_event = { # Letter to Patton
 					}
 					has_game_rule = {
 						rule = COR_post_civil_war
-						option = COR_POST_CIVIL_WAR_ROCKWELL
+						option = COR_POST_CIVIL_WAR_COLUMBIAN
 					}
 					has_game_rule = {
 						rule = COR_post_civil_war
@@ -5447,7 +5447,7 @@ country_event = { # Stephenson Killed
 					}
 					has_game_rule = {
 						rule = COR_post_civil_war
-						option = COR_POST_CIVIL_WAR_ROCKWELL
+						option = COR_POST_CIVIL_WAR_COLUMBIAN
 					}
 				}
 			}
@@ -5515,7 +5515,7 @@ country_event = { # Armstrong's Bid
 					}
 					has_game_rule = {
 						rule = COR_post_civil_war
-						option = COR_POST_CIVIL_WAR_ROCKWELL
+						option = COR_POST_CIVIL_WAR_COLUMBIAN
 					}
 				}
 			}
@@ -7002,7 +7002,7 @@ country_event = { # Great Smallpox Outbreak
 				factor = 0
 				has_game_rule = {
 					rule = COR_post_civil_war
-					option = COR_POST_CIVIL_WAR_ROCKWELL
+					option = COR_POST_CIVIL_WAR_COLUMBIAN
 				}
 			}
 		}
@@ -7031,7 +7031,7 @@ country_event = { # Smallpox outbreak grows
 				OR = {
 					has_game_rule = {
 						rule = COR_post_civil_war
-						option = COR_POST_CIVIL_WAR_ROCKWELL
+						option = COR_POST_CIVIL_WAR_COLUMBIAN
 					}
 				}
 				has_game_rule = {
@@ -7118,11 +7118,11 @@ country_event = { # Armstrong Dead
 		set_country_flag = COR_columbian_victory
 		create_country_leader = {
 			name = "Homer Loomis Jr."
-			desc = ""
+			desc = "COR_HOMER_LOOMIS_JR_DESC"
 			picture = "gfx/leaders/COR/Portrait_COR_Homer_Loomis_Jr.png"
 			expire = "1.1.1"
 			ideology = legionarism_subtype
-			traits = { young_leader_hos command_and_charisma }
+			traits = { young_leader_hos }
 		}
 		set_party_name = {
 			ideology = national_populist
@@ -7132,10 +7132,10 @@ country_event = { # Armstrong Dead
 		add_ideas = COR_Armstrong_Rebellion_idea	
 		hidden_effect = {
 			remove_all_ministers = yes
-			add_ideas = COR_Wesley_A_Swift_hog_npo
-			add_ideas = COR_Douglas_Chandler_for_npo
-			add_ideas = COR_Harold_Arrowsmith_eco_npo
-			add_ideas = COR_J_B_Stoner_sec_npo
+			add_ideas = COR_Homer_Loomis_Jr_hog_npo 
+			add_ideas = COR_Emory_Burke_sec_npo 
+			add_ideas = COR_Jack_Price_eco_npo 
+			add_ideas = COR_Ralph_Childers_for_npo 
 		}
 	}
 }
@@ -9547,7 +9547,6 @@ country_event = { #Young Klan Flag
 				name = "Samuel Green"
 			}
 		}
-	}
 	}
 
 	option = {
@@ -13577,10 +13576,65 @@ country_event = { #farmers stuff
 	
 	is_triggered_only = yes
 
-	option = { #the who?
+	option = { #jackson approach
 		name = constate.7057.a
-		
+		add_stability = 0.08
+		random_owned_state = {
+				limit = {
+					is_core_of = COR
+					is_controlled_by = COR
+					industrial_complex > 0
+				}
+				add_extra_state_shared_building_slots = 2
+		}		
 	}
+	option = { #middle ground
+		name = constate.7057.b
+			add_political_power = 10
+			random_owned_state = {
+				limit = {
+					is_core_of = COR
+					is_controlled_by = COR
+					industrial_complex > 0
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}		
+			random_owned_state = {
+				limit = {
+					is_core_of = COR
+					is_controlled_by = COR
+					industrial_complex > 0
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}		
+	}
+	option = { #command economy
+		name = constate.7057.c
+			add_stability = -0.03
+			add_ideas = command_economy
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+					arms_factory > 0
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}		
+	}	
 }
 
 country_event = { #Poor Whites info dump
@@ -13594,7 +13648,7 @@ country_event = { #Poor Whites info dump
 
 	option = { #the who?
 		name = constate.7058.a
-		
+		add_political_power = 25
 	}
 }
 
@@ -13607,10 +13661,17 @@ country_event = { #Legion thuggery question
 	
 	is_triggered_only = yes
 
-	option = { #the who?
+	option = { #reign this in
 		name = constate.7059.a
-		
+		add_stability = 0.03
+		add_war_support = -0.03
 	}
+	
+	option = { #allow it 
+		name = constate.7059.a
+		add_stability = -0.03
+		add_war_support = 0.03		
+	}	
 }
 
 country_event = { #The Columbian Creed
@@ -13654,12 +13715,8 @@ country_event = { #An accord with the old guard
 
 	option = { #sure! join us
 		name = constate.7062.a
-		
-	}
-	
-	option = { #no oldies allowed
-		name = constate.7062.b
-		
+		army_experience = 15
+		add_political_power = 10
 	}	
 }
 
@@ -13689,14 +13746,31 @@ country_event = { #Madagascar or uganda?
 	is_triggered_only = yes
 
 	option = { #Send them to madagascar
-		name = constate.7064.a
-		add_manpower = -5000
+		name = constate.7064.a	
+		if = {
+			limit = {
+				MAG = { has_completed_focus = MAG_thesolutionofaron }
+				}
+		add_manpower = -1200
 		
+		MAG = {
+			add_manpower = 1200
+		}
+		add_stability = 0.01				
+		} else = {
+		add_manpower = -1200
+		
+		MAG = {
+			add_manpower = 1200
+		}
+		add_stability = -0.03
+		}
 	}
 	
 	option = { #Send them to wherever
 		name = constate.7064.b
-		
+		add_manpower = -500
+		add_stability = -0.01
 	}	
 }
 
@@ -14393,8 +14467,21 @@ country_event = { #new day of the saxon
 	option = { #
 		name = constate.7076.a
 		add_manpower = 3500
-		add_stability = -0.01
+		add_war_support = -0.02
 	}
+	
+	option = { #
+		name = constate.7076.b
+		trigger = {
+			NOT = {
+				country_exists = NEE
+			}
+		}
+		hidden_effect = { remove_ideas = COR_Ralph_Childers_for_npo }	
+		add_ideas = COR_Lothrop_Stoddard_for_npo		
+		add_manpower = -1200
+		add_stability = -0.02
+	}	
 }
 
 country_event = { #vision fullfilled
@@ -14402,7 +14489,7 @@ country_event = { #vision fullfilled
 	immediate = {log = "[GetDateText]: [Root.GetName]: event constate.7077"}
 	title = constate.7077.t
 	desc = constate.7077.d
-	picture = GFX_COR_Homer_and_wife
+	picture = GFX_COR_george_washington_prayer
 	
 	is_triggered_only = yes
 
@@ -14417,7 +14504,7 @@ country_event = { #protectorates
 	immediate = {log = "[GetDateText]: [Root.GetName]: event constate.7078"}
 	title = constate.7078.t
 	desc = constate.7078.d
-	picture = GFX_COR_Homer_and_wife
+	picture = GFX_COR_saxon_europa
 	
 	is_triggered_only = yes
 
@@ -14427,7 +14514,7 @@ country_event = { #protectorates
 	}
 	option = { #yes
 		name = constate.7078.a
-
+		set_country_flag = COR_flag_columbian_world_puppet
 	}	
 }
 
@@ -14436,23 +14523,87 @@ country_event = { #future leadership
 	immediate = {log = "[GetDateText]: [Root.GetName]: event constate.7079"}
 	title = constate.7079.t
 	desc = constate.7079.d
-	picture = GFX_COR_Homer_and_wife
+	picture = GFX_COR_willis_carto_work
 	
 	is_triggered_only = yes
 
 	option = { #yes
 		name = constate.7079.a
+		add_stability = -0.08
 		create_country_leader = {
 			name = "Willis Carto"
 			desc = ""
 			picture = "gfx/leaders/COR/Portrait_COR_Willis_Carto.png"
 			expire = "1.1.1"
-			ideology = natpop_jeffersonianism_subtype
+			ideology = natpop_jacksonianism_subtype
 			traits = { young_leader_hos }
 			}
 	}
 	option = { #no
-		name = constate.7079.a
-		
+		name = constate.7079.b
+		add_stability = 0.05
 	}	
+}
+
+country_event = { # Saxon Europe Puppet
+	id = constate.7080
+	immediate = {log = "[GetDateText]: [Root.GetName]: event constate.7080"}
+	title = constate.7080.t
+	desc = constate.7080.d
+	picture = GFX_COR_anglo_europe_flag
+
+	hidden =  yes
+	fire_only_once = yes
+	trigger = {
+		has_country_flag = COR_flag_columbian_world_puppet
+		all_other_country = {
+			is_in_europe = yes
+			exists = no
+		}
+	}
+
+	option = { # Flavor
+		name = constate.7080.a
+		every_state = {
+			limit = {
+						 OR = {
+							is_british_isles = yes
+							is_european_france = yes
+							is_full_germany = yes
+							is_scandinavia = yes
+						 }
+			}
+			GBR = {			
+						load_focus_tree = generic_focus
+						set_cosmetic_tag = COR_anglo_europe
+				create_country_leader = {
+					   name = "Arthur Kenneth Chesterton"
+					   picture = "gfx/leaders/ENG/Portrait_Britain_A_K_Chesterton.png"
+					   expire = "1.1.1"
+					   ideology = legionarism_subtype
+					   traits = {}
+				}
+			set_country_flag = LEADER_GUI_NOT_VISIBLE
+			remove_ideas = GBR_military_chaos_1
+			add_state_core = PREV
+			transfer_state = PREV
+						transfer_state = 113
+						transfer_state = 135
+						transfer_state = 134
+						transfer_state = 119
+						transfer_state = 36
+						transfer_state = 866
+						transfer_state = 7
+						transfer_state = 35
+						transfer_state = 978
+						transfer_state = 6
+						transfer_state = 979
+						transfer_state = 34
+						transfer_state = 100
+			}
+			add_core_of = GBR
+
+		 }
+		 puppet = GBR
+	}
 }
