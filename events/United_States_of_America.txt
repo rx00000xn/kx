@@ -9239,7 +9239,8 @@ country_event = { # Leahy Coup
 				ideology = authoritarian_democrat
 				long_name = USA_navy_party_long
 				name = USA_navy_party
-			}
+		}
+		complete_national_focus = USA_admiral_leahy
 	}
 }
 
@@ -9281,6 +9282,7 @@ country_event = { # King Coup
 		add_ideas = USA_Thomas_Kinkaid_eco_pau
 		add_ideas = USA_William_Moffett_sec_ade
 		}
+		add_ideas = USA_king_unstable_rule1
 		add_ideas = USA_army_navy_tensions_idea
 		hidden_effect = {
 			country_event = {
@@ -29893,6 +29895,104 @@ country_event = { # Crime-fighting
 	}
 }
 
+country_event = { # Revolt of the Admirals
+	id = ustates.3211
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ustates.3211"}
+	title = ustates.3211.t
+	desc = ustates.3211.d
+	picture = GFX_event_USA_a_fleet_admiral
+
+	fire_only_once = yes
+
+	trigger = {
+		tag = USA
+		focus_progress = {
+			focus = USA_anchoring_our_rule
+			progress > 0.4
+		}
+	}
+
+	option = { #King stays
+		name = ustates.3211.a
+		add_political_power = 50
+		add_stability = -0.005
+		complete_national_focus = USA_admiral_of_navy
+	}
+	option = { #Halsey assumes command
+		name = ustates.3211.b
+		create_country_leader = { #Bull Halsey
+			name = "William Halsey Jr."
+			desc = "POLITICS_WILLIAM_HALSEY_DESC"
+			picture = "gfx/leaders/USA/Portrait_USA_William_Halsey_Jr_KR.png"
+			expire = "1.1.1"
+			ideology = junta_subtype
+			traits = { admiral_dictator }
+		}
+		complete_national_focus = USA_admiral_of_navy
+	}
+	option = { #Spruance assumes control
+		name = ustates.3211.c
+		create_country_leader = { #Spruance
+			name = "Raymond Spruance"
+			desc = "POLITICS_RAYMOND_SPRUANCE_DESC"
+			picture = "gfx/leaders/USA/Portrait_USA_Raymond_Spruance_KR.png"
+			expire = "1.1.1"
+			ideology = junta_subtype
+			traits = { admiral_dictator }
+		}
+		complete_national_focus = USA_admiral_of_navy
+	}
+	option = { #Triumvirate
+		name = ustates.3211.e
+		complete_national_focus = USA_admiral_of_navy
+		hidden_effect = {
+			country_event = { id = ustates.3213 days = 360 }
+		}
+	}
+}
+
+country_event = { # World Police Navy
+	id = ustates.3212
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ustates.3212"}
+	title = ustates.3212.t
+	desc = ustates.3212.d
+	picture = GFX_event_USA_a_fleet_admiral
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Washington Naval Treaty
+		name = ustates.3212.a
+		add_command_power = -5
+	}
+	option = { #Nah
+		name = ustates.3212.b
+		add_command_power = -5
+	}
+}
+
+country_event = { # pacific fleet autonomy
+	id = ustates.3213
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ustates.3213"}
+	title = ustates.3213.t
+	desc = ustates.3213.d
+	picture = GFX_event_USA_a_fleet_admiral
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #psa puppet
+		name = ustates.3213.a
+		add_command_power = -5
+	}
+	option = { #Nah
+		name = ustates.3213.b
+		add_command_power = -5
+	}
+}
+
 ### New Pre-ACW Events ###
 
 # Reintroducing the Garner-Wagner Bill
@@ -31519,18 +31619,24 @@ country_event = {# Army leadership complains about the USAAF decision
 	}
 }
 
-country_event = {# Friction with the Navy
+country_event = {# PT-109 incident
 	id = ustates.611
 	immediate = {log = "[GetDateText]: [Root.GetName]: event ustates.611"}
 	title = ustates.611.t
 	desc = ustates.611.d
-	picture = GFX_report_event_USA_macarthur
+	picture = GFX_report_event_USA_jfk_award
 	fire_only_once = yes
-	is_triggered_only = yes
-
-	option = {# Is he Crazy? 
+	trigger = {
+		tag = USA
+		has_war_with = JAP
+		has_global_flag = USA_civil_war_avoided_flag
+		has_completed_focus = USA_coastal_patrol
+		date > 1943.08.02
+		is_subject = no
+	}
+	option = {# Careful, he's a hero
 		name = ustates.611.a
-		add_political_power = -25
+		add_war_support = 0.03
 	}
 }
 
