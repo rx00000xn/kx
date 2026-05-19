@@ -1,0 +1,1588 @@
+﻿###########################
+# KX-PLX Foreign Policy Events
+###########################
+
+add_namespace = plxf
+
+###
+
+country_event = {
+	id = plxf.1 #join Russia
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.1" }
+	title = plxf.1.t
+	desc = plxf.1.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.1.a
+		ai_chance = {
+			factor = 0.7		
+		}
+		add_political_power = 10
+		if = {
+			limit = {
+				is_in_faction = no
+			}
+			create_faction = "Warsaw Accord"
+		}
+		add_to_faction = FROM
+		FROM = { country_event = plxf.4 }
+		hidden_effect = {
+			FROM = { 
+				complete_national_focus = POL_ally_russia
+			}
+		}
+	}
+
+	option = {
+		name = plxf.1.b
+		ai_chance = { 
+			factor = 0.3			
+		}
+		FROM = { country_event = plxf.8 }
+		FROM = { set_country_flag = plx_rus_refused }
+		add_war_support = -0.01	
+	}
+}
+
+country_event = {
+	id = plxf.2 #join France
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.2" }
+	title = plxf.2.t
+	desc = plxf.2.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.2.a
+		ai_chance = {
+			factor = 0.9
+		}
+		add_political_power = 10
+		add_to_faction = FROM
+		FROM = { country_event = plxf.4 }
+		hidden_effect = {
+			FROM = { 
+				complete_national_focus = POL_ally_internationale
+			}
+		}		
+	}
+
+	option = {
+		name = plxf.2.b
+		ai_chance = { 
+			factor = 0.1
+		}
+		FROM = { country_event = plxf.8 }
+		FROM = { set_country_flag = plx_int_refused }
+		add_war_support = -0.01	
+	}
+}
+
+country_event = {
+	id = plxf.3 #join Austria
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.3" }
+	title = plxf.3.t
+	desc = plxf.3.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #yes
+		name = plxf.3.a
+		trigger = { 
+			OR = {
+				AUS = { owns_state = 91 }
+				is_in_faction = no
+				GAL = {
+					is_puppet_of = AUS
+					exists = yes 
+				}				
+			}
+		} 
+		ai_chance = {
+			factor = 20
+		}
+		hidden_effect = {
+			if = { 
+				limit = { 
+					GAL = { is_subject_of = AUS }
+				}
+				POL = {
+					annex_country = {
+						target = GAL
+						transfer_troops = no
+					}
+				}
+			}
+			if = { 
+				limit = { 
+					AUS = { 
+						#owns_state = 88
+						owns_state = 91
+					}
+				}
+				AUS = {
+					every_owned_state = {
+						limit = {
+							OR = {
+								state = 1124
+								state = 88
+								state = 1319
+								state = 1314
+								state = 1125
+								state = 1126
+								state = 1127
+								state = 91
+								state = 89
+								state = 1140
+								state = 1131
+							}
+						}
+						transfer_state_to = POL
+					}
+				}
+				#GAL = {
+				#	every_owned_state = {
+				#		limit = {
+				#			OR = {
+				#				state = 1124
+				#				state = 88
+				#				state = 1319
+				#				state = 1314
+				#				state = 1125
+				#				state = 1126
+				#				state = 1127
+				#				state = 91
+				#				state = 89
+				#				state = 1140
+				#				state = 1131
+				#			}
+				#		}
+				#		transfer_state_to = POL
+				#	}
+				#}				
+			}
+			FROM = { 
+				complete_national_focus = POL_go_with_austria
+			}				
+		}
+		POL = { 
+			country_event = {
+				id = plxf.9 
+				days = 2
+			}
+		}
+	}
+	
+	option = { #west only
+		name = plxf.3.b
+		trigger = {
+			NOT = { POL = { owns_state = 1125 } }
+		}
+		ai_chance = {
+			factor = 10
+		}
+		POL = { 
+			country_event = {
+				id = plxf.5
+				days = 2
+			}
+		}
+	}
+	
+	option = { #only krakow	
+		name = plxf.3.c
+		trigger = {
+			NOT = { POL = { owns_state = 1124 } }
+		}
+		ai_chance = {
+			factor = 30
+		}
+		POL = { 
+			country_event = {
+				id = plxf.6
+				days = 2
+			}
+		}
+	}
+
+	option = { #no
+		name = plxf.3.e
+		ai_chance = {
+			factor = 30
+		}
+		POL = { 
+			country_event = {
+				id = plxf.7 
+				days = 2
+			}
+		}
+	}
+	option = { #no no
+		name = plxf.3.f
+		ai_chance = {
+			factor = 10
+		}
+		FROM = { set_country_flag = plx_aus_refused }
+		POL = { 
+			country_event = {
+				id = plxf.8
+				days = 2
+			}
+		}
+	}	
+}
+
+country_event = {
+	id = plxf.4 #Seucessfull negotiations
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.4" }
+	title = plxf.4.t
+	desc = plxf.4.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.4.a
+		add_political_power = 10
+		clr_country_flag = plx_asking_for_faction
+	}
+}
+
+country_event = {
+	id = plxf.5 #West Galicia Only
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.5" }
+	title = plxf.5.t
+	desc = plxf.5.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.5.a
+		AUS = { add_to_faction = POL }
+		hidden_effect = {
+			AUS = {
+				every_owned_state = {
+					limit = {
+						OR = {
+							state = 1124
+							state = 1125
+							state = 88
+							state = 1319
+							state = 1314
+						}
+					}
+					transfer_state_to = POL
+				}
+			}
+			GAL = {
+				every_owned_state = {
+					limit = {
+						OR = {
+							state = 1124
+							state = 1125
+							state = 88
+							state = 1319
+							state = 1314
+						}
+					}
+					transfer_state_to = POL
+				}
+			}			
+			complete_national_focus = POL_go_with_austria			
+		}
+		clr_country_flag = plx_asking_for_faction
+	}
+	option = {
+		name = plxf.5.b
+		add_war_support = 0.05
+		set_country_flag = plx_aus_refused
+		clr_country_flag = plx_asking_for_faction
+	}
+}
+
+country_event = {
+	id = plxf.6 #Krakow Only
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.6" }
+	title = plxf.6.t
+	desc = plxf.6.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.6.a
+		AUS = { add_to_faction = POL }
+		add_political_power = -10
+		hidden_effect = {
+			AUS = {
+				every_owned_state = {
+					limit = {
+						state = 1124
+					}
+					transfer_state_to = POL
+				}
+			}
+			GAL = {
+				every_owned_state = {
+					limit = {
+						state = 1124
+					}
+					transfer_state_to = POL
+				}
+			}			
+			complete_national_focus = POL_go_with_austria
+		}
+		clr_country_flag = plx_asking_for_faction
+	}
+	option = {
+		name = plxf.6.b
+		add_war_support = 0.05
+		set_country_flag = plx_aus_refused
+		clr_country_flag = plx_asking_for_faction
+	}		
+}
+
+country_event = {
+	id = plxf.7 #No Galicia
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.7" }
+	title = plxf.7.t
+	desc = plxf.7.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.7.a
+		AUS = { add_to_faction = POL }
+		add_political_power = -20
+		hidden_effect = {
+			complete_national_focus = POL_go_with_austria
+		}		
+		clr_country_flag = plx_asking_for_faction
+	}
+	option = {
+		name = plxf.7.b
+		add_war_support = 0.05
+		set_country_flag = plx_aus_refused
+		clr_country_flag = plx_asking_for_faction
+	}		
+}
+
+country_event = {
+	id = plxf.8 #negotiations fail
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.8" }
+	title = plxf.8.t
+	desc = plxf.8.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+	
+	option = {
+		name = plxf.8.a
+		add_political_power = -5
+		clr_country_flag = plx_asking_for_faction
+	}		
+}
+
+country_event = {
+	id = plxf.9 #Poland Gets Galicia
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.9" }
+	title = plxf.9.t
+	desc = plxf.9.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+	
+	option = {
+		name = plxf.9.a
+		AUS = { add_to_faction = POL }
+		add_political_power = 20
+		clr_country_flag = plx_asking_for_faction
+	}		
+}
+
+country_event = {
+	id = plxf.10 #join Austria 2
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.10" }
+	title = plxf.10.t
+	desc = plxf.10.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.10.a
+		ai_chance = {
+			factor = 0.4
+		}
+		add_political_power = 10
+		add_to_faction = FROM
+		FROM = { country_event = plxf.4 }
+		hidden_effect = {
+			FROM = { 
+				complete_national_focus = POL_go_with_austria
+			}
+		}		
+	}
+
+	option = {
+		name = plxf.10.b
+		ai_chance = { 
+			factor = 0.6
+		}
+		FROM = { country_event = plxf.8 }
+		FROM = { set_country_flag = plx_aus_refused }
+		add_war_support = -0.01	
+	}
+}
+
+###German Intervention
+country_event = {
+	id = plxf.11 #German Intervention - (German POV)
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.11" }
+	title = plxf.11.t
+	desc = plxf.11.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.11.a
+		add_stability = -0.10
+		add_war_support = -0.10
+		declare_war_on = {
+			target = POL
+			type = annex_everything
+		}
+		activate_mission = PLX_surviving_german_invasion_ger
+		add_ideas = GER_plx_polish_german_war
+		hidden_effect = {
+			POL = { activate_mission = PLX_surviving_german_invasion_pol }
+			#UKR = {
+			#	country_event = {
+			#		id = plxf.25 
+			#		days = 5
+			#	}	
+			#}			
+		}		
+		POL = {
+			country_event = plxf.12
+		}
+	}
+}
+
+country_event = {
+	id = plxf.12 #German Intervention - Poland POV
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.12" }
+	title = plxf.12.t
+	desc = plxf.12.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.12.a
+		add_war_support = 0.20
+		add_ideas = KX_PLX_independence_war
+		hidden_effect = {
+			plx_veteran_resevists_mobilised_effect = yes
+			add_equipment_to_stockpile = {
+				type = infantry_equipment_1
+				amount = 10000
+				producer = POL
+			}			
+			add_manpower = 50000
+			increase_conscription = yes
+			country_event = {
+				id = plxv2.073
+				days = 4
+			}
+			
+			if = {
+				limit = { 
+					has_country_leader = { name = "Fryderyk II Krystian" ruling_only = yes }
+					NOT = { has_country_flag = plx_saxony_claimed } 
+				}
+				country_event = {
+					id = plxv2.044 
+					days = 14
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = plxf.13 #German Intervention Defeated - German POV
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.13" }
+	title = plxf.13.t
+	desc = plxf.13.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.13.a		
+		add_war_support = 0.05
+		add_stability = -0.05
+		remove_ideas = GER_plx_polish_german_war
+		hidden_effect = {
+			POL = { country_event = plxf.14 }
+		}
+	}
+}
+
+country_event = {
+	id = plxf.14 #German Intervention Defeated - Polish POV
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.14" }
+	title = plxf.14.t
+	desc = plxf.14.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.14.a
+		ai_chance = {
+			factor = 1.0
+		}		
+		add_war_support = 0.10
+		remove_ideas = KX_PLX_independence_war
+		hidden_effect = {
+			set_country_flag = plx_independence_war_happened
+			#if = { 
+			#	limit = { 
+			#		POL = { 
+			#			controls_state = 67
+			#		}
+			#	}
+			#	POL = { 
+			#		transfer_state = 67
+			#		add_state_core = 67
+			#	}
+			#}
+			#if = { 
+			#	limit = { 
+			#		POL = { 
+			#			controls_state = 86
+			#		}
+			#	}
+			#	POL = { 
+			#		transfer_state = 86
+			#		add_state_core = 86
+			#	}
+			#}
+			##if = { 
+			##	limit = { 
+			##		POL = { 
+			##			controls_state = 93
+			##		}
+			##	}
+			##	POL = { 
+			##		transfer_state = 93
+			##		add_state_core = 93
+			##	}
+			##}
+			##if = { 
+			##	limit = { 
+			##		POL = { 
+			##			controls_state = 94
+			##		}
+			##	}
+			##	POL = { 
+			##		transfer_state = 94
+			##		add_state_core = 94
+			##	}
+			##}
+			##if = { 
+			##	limit = { 
+			##		POL = { 
+			##			controls_state = 96
+			##		}
+			##	}
+			##	POL = { 
+			##		transfer_state = 96
+			##		add_state_core = 96
+			##	}
+			##}	
+			#####From UKR
+			###if = { 
+			###	limit = { 
+			###		POL = { 
+			###			controls_state = 1140
+			###		}
+			###	}
+			###	POL = { 
+			###		transfer_state = 1140
+			###		add_state_core = 1140
+			###	}
+			###}	
+			###if = { 
+			###	limit = { 
+			###		POL = { 
+			###			controls_state = 89
+			###		}
+			###	}
+			###	POL = { 
+			###		transfer_state = 89
+			###		add_state_core = 89
+			###	}
+			###}			
+		}
+		GER = { white_peace_with_ROOT = yes }
+		#POL = { white_peace = GER }
+		#hidden_effect = {  
+		#	UKR = { country_event = plxf.29 }
+		#}
+	}
+	option = {
+		name = plxf.14.b
+		ai_chance = {
+			factor = 0.0
+		}		
+		add_war_support = -0.05
+		remove_ideas = KX_PLX_independence_war
+		hidden_effect = {
+			set_country_flag = plx_independence_war_happened
+			GER = {
+				country_event = {
+					id = plxf.17 
+					days = 14
+				}	
+			}
+		}
+	}
+}
+
+country_event = {
+	id = plxf.15 #Germany doesn't intervene
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.15" }
+	title = plxf.15.t
+	desc = plxf.15.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.15.a	
+		add_political_power = 10
+		add_stability = 0.01
+		set_country_flag = plx_ger_intervention_averted
+	}
+}
+
+country_event = {
+	id = plxf.16 #German Intervention Preperations? - (German POV)
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.11" }
+	title = plxf.16.t
+	desc = plxf.16.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.16.a
+		ai_chance = {
+			factor = 0.7
+			modifier = {
+				factor = 0
+				has_game_rule = { rule = PLX_GERMAN_INTERVENTION option = PLX_GERMAN_INTERVENTION_BLOCKED }
+			}
+		}
+		country_event = {
+			id = plxf.11 
+			days = 14
+		}		
+		hidden_effect = {
+			POL = {
+				country_event = {
+					id = plxf.18 
+					days = 4
+				}	
+			}
+			add_ai_strategy = {
+				type = prepare_for_war
+				id = POL
+				value = 1000
+			}
+		}		
+	}
+
+	option = {
+		name = plxf.16.b
+		ai_chance = {
+			factor = 0.3
+			modifier = {
+				factor = 0
+				has_game_rule = { rule = PLX_GERMAN_INTERVENTION option = PLX_GERMAN_INTERVENTION_FORCED }
+			}
+		}
+		POL = { country_event = plxf.15 }
+	}
+}
+
+country_event = {
+	id = plxf.17 #Poland Refuses Peace
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.17" }
+	title = plxf.17.t
+	desc = plxf.17.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.17.a	
+		add_war_support = 0.10
+		add_stability = -0.10
+	}
+}
+
+country_event = {
+	id = plxf.18 #rummors of german intervention
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.18" }
+	title = plxf.18.t
+	desc = plxf.18.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.18.a	
+		add_war_support = 0.05
+		#add_stability = -0.05
+		hidden_effect = {
+			add_ai_strategy = {
+				type = prepare_for_war
+				id = GER
+				value = 1000
+			}
+		}		
+	}
+}
+
+###Polish Comintern Stuff
+country_event = {
+	id = plxf.19 #declare comintern
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.19" }
+	title = plxf.19.t
+	desc = plxf.19.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.19.a	
+		add_war_support = 0.05
+		#add_stability = -0.05
+		hidden_effect = {
+			set_country_flag = plx_comintern_created
+			leave_faction = yes
+			every_country = {
+				limit = {
+					is_puppet_of = POL
+					capital_scope = { is_core_of = POL }
+				}
+				country_event = {
+					id = plxf.20 
+					days = 2
+				}
+			}
+		}
+		create_faction = "Comintern"		
+	}
+}
+country_event = {
+	id = plxf.20 #Communists demand submission
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.20" }
+	title = plxf.20.t
+	desc = plxf.20.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.20.a	
+		add_war_support = 0.10
+		hidden_effect = {
+			leave_faction = yes
+		}
+		FROM = {
+			country_event = {
+				id = plxf.21
+				days = 1
+			}			
+		}
+		ai_chance = {
+			factor = 0
+		}		
+	}
+	option = {
+		name = plxf.20.a
+		FROM = {
+			country_event = {
+				id = plxf.22
+				days = 1
+			}			
+		}
+		ai_chance = {
+			factor = 100
+		}		
+	}	
+}
+country_event = {
+	id = plxf.21 #Subject refuses submission
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.21" }
+	title = plxf.21.t
+	desc = plxf.21.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.21.a
+		declare_war_on = {
+			target = FROM
+			type = annex_everything
+		}
+	}
+}
+country_event = {
+	id = plxf.22 #Subject submits
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.22" }
+	title = plxf.22.t
+	desc = plxf.22.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.22.a
+		annex_country = {
+			target = FROM
+			transfer_troops = no
+		}
+	}
+}
+
+country_event = {
+	id = plxf.23 #join Austria
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.23" }
+	title = plxf.23.t
+	desc = plxf.23.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.23.a
+		ai_chance = {
+			factor = 0.8
+		}
+		add_political_power = 10
+		add_to_faction = FROM
+		FROM = { country_event = plxf.4 }
+		hidden_effect = {
+			FROM = { 
+				complete_national_focus = POL_go_with_austria
+			}
+		}		
+	}
+
+	option = {
+		name = plxf.23.b
+		ai_chance = { 
+			factor = 0.2
+		}
+		FROM = { country_event = plxf.8 }
+		FROM = { set_country_flag = plx_aus_refused }
+		add_war_support = -0.01	
+	}
+}
+
+country_event = {
+	id = plxf.24 #Austria about to attack
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.24" }
+	title = plxf.24.t
+	desc = plxf.24.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.24.a
+		add_war_support = 0.05		
+	}
+}
+
+country_event = {
+	id = plxf.25 #Ukraine wants Galicia - UKR POV
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.25" }
+	title = plxf.25.t
+	desc = plxf.25.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.25.a
+		POL = { 			
+			country_event = {
+				id = plxf.26 
+				days = 2
+			} 
+		}
+		ai_chance = {
+			factor = 0.7		
+		}		
+	}
+	option = { #Don't attack
+		name = plxf.25.b
+		ai_chance = {
+			factor = 0.3
+		}		
+	}	
+}
+
+country_event = {
+	id = plxf.26 #Polish response
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.26" }
+	title = plxf.26.t
+	desc = plxf.26.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #reject
+		name = plxf.26.a
+		UKR = { 			
+			country_event = {
+				id = plxf.27
+				days = 2
+			} 
+		}
+		ai_chance = {
+			factor = 0.7
+		}		
+	}
+	option = { #accept
+		name = plxf.26.b
+		UKR = { 
+			transfer_state = 91
+			add_state_core = 91
+		}
+		UKR = { 
+			transfer_state = 1126
+			add_state_core = 1126
+		}
+		UKR = { 
+			transfer_state = 1127
+			add_state_core = 1127
+		}	
+		hidden_effect = {
+			UKR = { 			
+				country_event = {
+					id = plxf.28
+					days = 2
+				} 
+			}			
+		}
+		ai_chance = {
+			factor = 0.3
+		}		
+	}	
+}
+country_event = {
+	id = plxf.27 #UKR declare war on POL
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.27" }
+	title = plxf.27.t
+	desc = plxf.27.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #reject
+		name = plxf.27.a
+		add_ideas = GER_plx_polish_german_war
+		UKR = { 
+			add_state_core = 91
+			add_state_core = 1126
+			add_state_core = 1127
+		}
+		declare_war_on = {
+			target = POL
+			type = annex_everything
+		}
+	}
+}
+
+country_event = {
+	id = plxf.28 #UKR Poland surrendered Galicia
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.28" }
+	title = plxf.28.t
+	desc = plxf.28.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #reject
+		name = plxf.28.a
+		add_political_power = 30
+	}
+}
+country_event = {
+	id = plxf.29 #Germans end war and Ukrainian response to it
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.29" }
+	title = plxf.29.t
+	desc = plxf.29.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #end war too
+		name = plxf.29.a
+		remove_ideas = GER_plx_polish_german_war
+		POL = { white_peace_with_ROOT = yes }
+		if = { 
+			limit = { 
+				POL = { 
+					controls_state = 1140
+				}
+			}
+			POL = { 
+				transfer_state = 1140
+				add_state_core = 1140
+			}
+		}	
+		if = { 
+			limit = { 
+				POL = { 
+					controls_state = 89
+				}
+			}
+			POL = { 
+				transfer_state = 89
+				add_state_core = 89
+			}
+		}		
+		ai_chance = {
+			factor = 0.7
+		}		
+	}
+	option = { #continue war
+		name = plxf.29.b
+		add_stability = -0.10
+		add_war_support = 0.10
+		hidden_effect = {
+			POL = { 			
+				country_event = {
+					id = plxf.30
+					days = 2
+				} 
+			}
+		}
+		ai_chance = {
+			factor = 0.3
+		}		
+	}
+}
+
+country_event = {
+	id = plxf.30 #
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.30" }
+	title = plxf.30.t
+	desc = plxf.30.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #
+		name = plxf.30.a
+		add_stability = -0.05
+		add_war_support = 0.05
+	}
+}
+
+country_event = {
+	id = plxf.31 #
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.31" }
+	title = plxf.31.t
+	desc = plxf.31.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #
+		name = plxf.31.a
+		POL = {
+			puppet = GAL
+		}	
+		AUS = { 
+			country_event = {
+				id = plxf.32 
+				days = 3
+			}
+		}
+		hidden_effect = {
+			GAL = {
+				create_country_leader = {
+					name = "Polish Military Administration"
+					#desc = "POLITICS_GAL_WITOLD_CZARTORYSKI_DESC"
+					picture = "gfx/leaders/GAL_backup/Portrait_PLX_military_admin.png"
+					expire = "1.1.1"
+					ideology = junta_subtype
+				}
+				set_politics = {
+					ruling_party = paternal_autocrat
+					elections_allowed = no
+				}
+				set_party_name = {
+					ideology = paternal_autocrat
+					long_name = GAL_provisional_party_long
+					name = "Tymczasowy Rząd Wojskowy"
+				}
+			}		
+			GAL = { set_cosmetic_tag = GAL_pol_military }
+		}
+	}
+}
+
+country_event = {
+	id = plxf.32 #
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.32" }
+	title = plxf.32.t
+	desc = plxf.32.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.32.a
+		add_political_power = -50
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = plxf.32.b
+		trigger = { 
+			NOT = { AUS = { is_in_faction_with = POL } }
+		}
+		declare_war_on = {
+			target = POL
+			type = annex_everything
+		}
+		add_stability = -0.10
+		hidden_effect = {
+			POL = {
+				country_event = {
+					id = plxf.36
+					days = 1
+				}				
+			}		
+		}
+		ai_chance = {
+			factor = 0
+			modifier = {
+				factor = 0
+				has_country_leader = { name = "Karol II Olbracht" ruling_only = yes }
+			}			
+			modifier = {
+				factor = 0
+				GER = { is_in_faction_with = POL }
+			}
+		}
+	}
+}
+
+country_event = {
+	id = plxf.33 #
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.33" }
+	title = plxf.33.t
+	desc = plxf.33.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #
+		name = plxf.33.a
+		POL = {
+			annex_country = {
+				target = GAL
+				transfer_troops = no
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					AUS = {
+						exists = yes
+						NOT = { is_puppet_of = POL }
+						NOT = { is_in_faction_with = POL }
+					}
+				}
+				AUS = { 
+					country_event = {
+						id = plxf.34
+						days = 7
+					}
+				}
+			}
+			if = {
+				limit = {
+					UKR = {
+						exists = yes
+						NOT = { is_puppet_of = POL }
+						NOT = { is_in_faction_with = POL }
+					}
+				}			
+				UKR = {
+					country_event = {
+						id = plxf.35
+						days = 3
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = plxf.34 #
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.34" }
+	title = plxf.34.t
+	desc = plxf.34.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.34.a
+		add_political_power = -25
+		ai_chance = {
+			factor = 0.90
+		}
+	}
+	option = {
+		name = plxf.34.b
+		trigger = {
+			#AUS = { is_subject = no }	
+			NOT = { AUS = { is_in_faction_with = POL } }
+		}
+		declare_war_on = {
+			target = POL
+			type = annex_everything
+		}
+		add_stability = -0.10
+		hidden_effect = {
+			POL = { 
+				country_event = {
+					id = plxf.36
+					days = 1
+				}
+			} 
+		}
+		ai_chance = {
+			factor = 0.10
+			modifier = {
+				factor = 0
+				has_country_leader = { name = "Karol II Olbracht" ruling_only = yes }
+			}			
+			modifier = {
+				factor = 0
+				GER = { is_in_faction_with = POL }
+			}
+		}
+	}
+}
+country_event = {
+	id = plxf.35 #
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.35" }
+	title = plxf.34.t
+	desc = plxf.34.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.35.a
+		trigger = {
+			POL = { 
+				OR = {
+					owns_state = 89 
+					owns_state = 1140 
+				}
+			}
+			UKR = { is_subject = no }
+			NOT = { UKR = { is_in_faction_with = POL } }
+		}
+		POL = {
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 89
+						state = 1140
+						state = 80
+						state = 713
+					}
+				}
+				transfer_state_to = UKR
+			}
+		}
+		hidden_effect = {
+			POL = { 
+				country_event = {
+					id = plxf.37
+					days = 1
+				}
+			}
+		}
+		ai_chance = {
+			factor = 0.80
+		}
+	}
+	option = {
+		name = plxf.35.b
+		hidden_effect = {
+			set_country_flag = plx_ukr_galicia_settled
+			ROM = { country_event = poland.117 }
+		}
+		ai_chance = {
+			factor = 0.20
+		}
+	}
+}
+country_event = {
+	id = plxf.36 #
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.36" }
+	title = plxf.36.t
+	desc = plxf.36.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.36.b
+		add_war_support = 0.05
+	}
+}
+
+country_event = {
+	id = plxf.37 #
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.37" }
+	title = plxf.37.t
+	desc = plxf.37.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.37.a
+		add_political_power = -30
+		hidden_effect = {
+			set_country_flag = plx_ukr_galicia_settled
+		}
+		ai_chance = {
+			factor = 0.85
+		}
+	}
+	option = {
+		name = plxf.37.b
+		trigger = { 
+			NOT = { UKR = { is_in_faction_with = POL } }
+		}
+		declare_war_on = {
+			target = UKR
+			type = annex_everything
+		}	
+		add_war_support = 0.05
+		hidden_effect = {
+			set_country_flag = plx_ukr_galicia_settled
+		}
+		ai_chance = {
+			factor = 0.15
+		}
+	}
+}
+
+###uniting with Bolsheviks
+country_event = {
+	id = plxf.38 #
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.38" }
+	title = plxf.38.t
+	desc = plxf.38.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.38.a
+		RUS = { country_event = plxf.39 } ##ask to become puppet
+		set_country_flag = plx_bolshevik_puppet
+		ai_chance = {
+			factor = 0.60
+		}
+	}
+	option = {
+		name = plxf.38.b
+		RUS = { country_event = plxf.39 } ##Ask to join faction
+		set_country_flag = plx_bolshevik_ally
+		ai_chance = {
+			factor = 0.15
+		}
+	}
+}
+
+country_event = {
+	id = plxf.39 #join Russia
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.39" }
+	title = plxf.39.t
+	desc = plxf.39.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.39.a
+		ai_chance = {
+			factor = 1.0
+		}
+		if = {
+			limit = {
+				is_in_faction = no
+			}
+			create_faction = "Warsaw Accord"
+		}
+		add_to_faction = FROM
+		FROM = { country_event = plxf.40 }
+		hidden_effect = {
+			FROM = { 
+				if = {
+					limit = { 
+						NOT = { 
+							has_completed_focus = POL_join_international_community 
+						} 
+					}
+					complete_national_focus = POL_join_international_community
+				}
+			}
+			if = {
+				limit = { has_country_flag = plx_bolshevik_puppet }
+				set_autonomy = {
+					target = PREV
+					autonomy_state = kr_autonomous_soviet_republic
+					end_wars = no
+				}
+			}			
+		}
+	}
+
+	option = {
+		name = plxf.39.b
+		ai_chance = { 
+			factor = 0.0
+		}
+		#FROM = { country_event = plxf.41 }
+	}
+}
+
+country_event = {
+	id = plxf.40 #
+	immediate = { log = "[GetDateText]: [Root.GetName]: event plxf.40" }
+	title = plxf.40.t
+	desc = plxf.40.d
+	#picture = GFX_report_event_soldiers_marching
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = plxf.40.a
+		add_war_support = 0.05
+	}
+}
+
