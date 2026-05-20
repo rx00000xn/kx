@@ -28030,6 +28030,7 @@ country_event = { #The Blank Check
 	option = {#Focus on Output
 		name = ustates.3169.a
 		custom_effect_tooltip = USA_blank_checks_for_industry
+		add_ideas = USA_blank_check_dockyard_idea
 		set_country_flag = USA_blank_industrial_checks
 		add_stability = 0.03
 		add_political_power = -25
@@ -29654,6 +29655,10 @@ country_event = { #Sinking Admiral Leahy
 			add_ideas = USA_William_Harrison_Standley_eco_pau
 			add_ideas = USA_John_Edgar_Hoover_sec_pau
 		clr_country_flag = USA_navy_flag
+		random_unit_leader = { 
+			limit = { has_trait = USA_admiral_leahy_trait }
+			remove_unit_leader = yes
+		}
 		if = {
 		limit = { has_country_flag = USA_leahy_gave_up_power_flag }
 		clr_global_flag = USA_leahy_gave_up_power_flag
@@ -29916,6 +29921,7 @@ country_event = { # Revolt of the Admirals
 		name = ustates.3211.a
 		add_political_power = 50
 		add_stability = -0.005
+		complete_national_focus = USA_anchoring_our_rule
 		complete_national_focus = USA_admiral_of_navy
 	}
 	option = { #Halsey assumes command
@@ -29928,6 +29934,7 @@ country_event = { # Revolt of the Admirals
 			ideology = junta_subtype
 			traits = { admiral_dictator }
 		}
+		complete_national_focus = USA_anchoring_our_rule
 		complete_national_focus = USA_admiral_of_navy
 	}
 	option = { #Spruance assumes control
@@ -29941,13 +29948,36 @@ country_event = { # Revolt of the Admirals
 			traits = { admiral_dictator }
 		}
 		complete_national_focus = USA_admiral_of_navy
+		complete_national_focus = USA_anchoring_our_rule
 	}
 	option = { #Triumvirate
 		name = ustates.3211.e
-		complete_national_focus = USA_admiral_of_navy
+		set_country_flag = USA_admiral_triumvirate
 		hidden_effect = {
-			country_event = { id = ustates.3213 days = 360 }
+			if = {
+				limit = {
+					any_unit_leader = { 
+						has_trait = USA_admiral_nimitz #Chester W. Nimitz
+					}
+				}
+				set_country_flag = LEADER_GUI_VISIBLE
+				set_country_flag = DOUBLE_LEADER_GUI_VISIBLE
+				set_country_flag = USES_CUSTOM_TITLE
+				remove_ideas = USA_William_Leahy_hog_ade
+				add_ideas = USA_William_Halsey_Jr_hog_pau
+				country_event = { id = ustates.3213 days = 360 }
+			}
+			else = {
+				set_country_flag = LEADER_GUI_VISIBLE
+				set_country_flag = DOUBLE_LEADER_GUI_VISIBLE
+				set_country_flag = USES_CUSTOM_TITLE
+				set_country_flag = USA_no_nimitz_triumvirate
+				remove_ideas = USA_William_Leahy_hog_ade
+				add_ideas = USA_William_Halsey_Jr_hog_pau
+			}
 		}
+		complete_national_focus = USA_anchoring_our_rule
+		complete_national_focus = USA_admiral_of_navy
 	}
 }
 
@@ -29985,11 +30015,194 @@ country_event = { # pacific fleet autonomy
 
 	option = { #psa puppet
 		name = ustates.3213.a
-		add_command_power = -5
+		set_country_flag = USA_pacific_fleet_puppet
+		custom_effect_tooltip = USA_Pacific_Fleet_tooltip
+		hidden_effect = {
+			829 = {
+				remove_core_of = USA
+				add_core_of = CAL
+				transfer_state_to = CAL
+			} #southern california
+			378 = {
+				remove_core_of = USA
+				add_core_of = CAL
+				transfer_state_to = CAL
+			} #northern california
+			797 = {
+				remove_core_of = USA
+				add_core_of = CAL
+				transfer_state_to = CAL
+			} #san Fran
+			385 = {
+				remove_core_of = USA
+				add_core_of = CAL
+				transfer_state_to = CAL
+			}
+			386 = { 
+				remove_core_of = USA
+				add_core_of = CAL
+				transfer_state_to = CAL
+			}
+			if = {
+				every_controlled_state = {
+					limit = {
+						OR = {
+							is_pacific_islands = yes
+							is_core_of = HAW
+						}
+					}
+					remove_core_of = USA
+					add_core_of = CAL
+					transfer_state_to = CAL
+				}
+			}
+			else = {
+				798 = {
+					remove_core_of = USA
+					add_core_of = USA
+					transfer_state_to = CAL
+				}
+			}
+			CAL = {
+				set_cosmetic_tag = USA_PSA_PACOM1
+				load_focus_tree = generic_focus
+				create_country_leader = { 
+					name = "Chester W. Nimitz"
+					desc = "POLITICS_NIMITZ_USA_DESC"
+					picture = "gfx/leaders/USA/Portrait_USA_Chester_Nimitz_KR.png"
+					expire = "1.1.1"
+					ideology = junta_subtype
+				}
+				set_popularities = {
+					totalist = 0
+					radical_socialist = 0
+					syndicalist = 0
+					social_democrat = 0
+					social_liberal = 0
+					market_liberal = 0
+					social_conservative = 0
+					authoritarian_democrat = 30
+					paternal_autocrat = 40
+					national_populist = 30
+				}
+				set_politics = {
+					ruling_party = paternal_autocrat
+					elections_allowed = no
+				}
+				set_party_name = {
+					ideology = paternal_autocrat
+					long_name = USA_navy_nimitz_party_long
+					name = USA_navy_nimitz_party
+				}
+				USA = {
+					set_autonomy = {
+						target = CAL
+						autonomous_state = kr_military_district
+					}
+				}
+			}
+		}
+		add_political_power = -150
+		add_stability = -0.015
 	}
-	option = { #Nah
+
+	option = { #psa puppet
 		name = ustates.3213.b
-		add_command_power = -5
+		set_country_flag = USA_pacific_fleet_puppet
+		custom_effect_tooltip = USA_Pacific_Fleet_tooltip
+		hidden_effect = {
+			829 = {
+				remove_core_of = USA
+				add_core_of = CAL
+				transfer_state_to = CAL
+			} #southern california
+			378 = {
+				remove_core_of = USA
+				add_core_of = CAL
+				transfer_state_to = CAL
+			} #northern california
+			797 = {
+				remove_core_of = USA
+				add_core_of = CAL
+				transfer_state_to = CAL
+			} #san Fran
+			385 = {
+				remove_core_of = USA
+				add_core_of = CAL
+				transfer_state_to = CAL
+			}
+			386 = { 
+				remove_core_of = USA
+				add_core_of = CAL
+				transfer_state_to = CAL
+			}
+			if = {
+				every_controlled_state = {
+					limit = {
+						OR = {
+							is_pacific_islands = yes
+							is_core_of = HAW
+						}
+					}
+					remove_core_of = USA
+					add_core_of = CAL
+					transfer_state_to = CAL
+				}
+			}
+			else = {
+				798 = {
+					remove_core_of = USA
+					add_core_of = USA
+					transfer_state_to = CAL
+				}
+			}
+			CAL = {
+				set_cosmetic_tag = USA_PSA_PACOM2
+				load_focus_tree = generic_focus
+				create_country_leader = { 
+					name = "Chester W. Nimitz"
+					desc = "POLITICS_NIMITZ_USA_DESC"
+					picture = "gfx/leaders/USA/Portrait_USA_Chester_Nimitz_KR.png"
+					expire = "1.1.1"
+					ideology = junta_subtype
+				}
+				set_popularities = {
+					totalist = 0
+					radical_socialist = 0
+					syndicalist = 0
+					social_democrat = 0
+					social_liberal = 0
+					market_liberal = 0
+					social_conservative = 0
+					authoritarian_democrat = 30
+					paternal_autocrat = 40
+					national_populist = 30
+				}
+				set_politics = {
+					ruling_party = paternal_autocrat
+					elections_allowed = no
+				}
+				set_party_name = {
+					ideology = paternal_autocrat
+					long_name = USA_navy_nimitz_party_long
+					name = USA_navy_nimitz_party
+				}
+				USA = {
+					set_autonomy = {
+						target = CAL
+						autonomous_state = kr_military_district
+					}
+				}
+			}
+		}
+		add_political_power = -150
+		add_stability = -0.015
+	}
+
+	option = { #Nah
+		name = ustates.3213.c
+		add_political_power = 50
+		navy_experience = -50
 	}
 }
 
@@ -32781,6 +32994,21 @@ country_event = {# Trial of the PSA Generals
 						has_id = 60 #Marshall
 					}
 					set_nationality = USA
+				}
+			}
+			if = {
+				limit = {
+					USA = {
+						has_country_flag = USA_navy_flag
+					}
+				}
+				CAL = {
+					every_unit_leader = {
+						limit = {
+							has_trait = USA_admiral_nimitz #Chester W. Nimitz
+						}
+						set_nationality = USA
+					}
 				}
 			}
 		}
