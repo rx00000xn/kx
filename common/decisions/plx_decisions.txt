@@ -1,0 +1,2447 @@
+foreign_politics = {
+
+	PLX_take_control_over_galicia = {
+		icon = generic_independence
+		allowed = { tag = POL }
+		
+		available = {
+			NOT = { POL = { is_in_faction_with = GER } }
+			OR = {
+				has_country_flag = plx_ger_intervention_averted
+				has_country_flag = plx_independence_war_happened
+			}
+		}
+		visible = {
+			is_puppet = no
+			GAL = {
+				exists = yes 
+				is_puppet_of = AUS
+			}
+			NOT = { has_country_flag = plx_galicia_vassalised }
+		}
+		cost = 0
+		fire_only_once = yes
+		
+		complete_effect = {
+			country_event = plxf.31
+			set_country_flag = plx_galicia_vassalised
+		}
+	}
+	PLX_annex_galicia = {
+		icon = generic_independence
+		allowed = { tag = POL }
+		
+		available = {
+			has_completed_focus = POL_join_international_community
+			NOT = { POL = { is_in_faction_with = GER } }
+		}
+		visible = {
+			GAL = {
+				exists = yes 
+				is_puppet_of = POL
+			}
+			NOT = { has_country_flag = plx_galicia_annexed }
+		}
+		cost = 0
+		fire_only_once = yes
+		
+		complete_effect = {
+			country_event = plxf.33
+			set_country_flag = plx_galicia_annexed
+		}
+	}	
+
+	PLX_faction_join_russia = {
+		icon = generic_agreement
+		allowed = { tag = POL }
+		
+		available = {
+			FROM = {
+				NOT = { has_country_flag = plx_asking_for_faction }
+			}
+		}
+
+		visible = {
+			FROM = {
+				is_subject = no
+				219 = {
+					owner = {
+						is_subject = no
+						is_russian_tag = yes
+						NOT = {
+							is_in_faction_with = AUS
+							is_in_faction_with = GER
+						}
+						exists = yes
+						NOT = {
+							has_war_with = POL
+						}
+						#OR = {
+						#	has_socialist_government = no
+						#	ROOT = { has_socialist_government = yes }
+						#}
+						#is_faction_leader = yes
+					}
+				}
+				is_in_faction = no
+				OR = {
+					has_country_flag = plx_claiming_poland
+					has_country_flag = plx_expansionist_poland
+				}
+				NOT = { has_country_flag = plx_rus_refused }
+				NOT = { has_active_mission = PLX_surviving_german_invasion_pol }
+				if = {
+					limit = { RUS = { has_socialist_government = yes } }
+					POL = { has_socialist_government = yes }
+				}
+			}
+		}
+
+		cost = 10
+		#days_remove = 120
+		#cancel_if_not_visible = yes
+
+		ai_will_do = {
+			factor = 1000
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove PLX_faction_join_russia target: [From.GetName]"
+			219 = {
+				owner = {
+					country_event = plxf.1 
+				}
+			}
+			set_country_flag = plx_asking_for_faction
+		}
+	}
+	PLX_faction_join_internationale = {
+		icon = generic_agreement
+		allowed = { tag = POL }
+		
+		available = {
+			FROM = {
+				NOT = { has_country_flag = plx_asking_for_faction }
+			}
+		}
+
+		visible = {
+			FROM = {
+				is_subject = no
+				INT = {
+					is_subject = no
+					exists = yes
+					has_socialist_government = yes
+					is_faction_leader = yes
+					NOT = {
+						has_war_with = POL
+					}
+				}
+				is_in_faction = no
+				NOT = { has_government = authoritarian_democrat }
+				NOT = { has_government = national_populist }
+				NOT = { has_cosmetic_tag = POL_kingdom }
+				OR = {
+					has_country_flag = plx_claiming_poland
+					has_country_flag = plx_expansionist_poland
+					has_country_flag = plx_revolutionary_bulwark
+				}
+				NOT = { has_country_flag = plx_int_refused }
+				NOT = { has_active_mission = PLX_surviving_german_invasion_pol }
+			}
+		}
+
+		cost = 10
+		#days_remove = 120
+		#cancel_if_not_visible = yes
+
+		ai_will_do = {
+			factor = 1000
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove PLX_faction_join_internationale target: [From.GetName]"
+			INT = { country_event = plxf.2 }
+			set_country_flag = plx_asking_for_faction
+		}
+	}
+	PLX_faction_join_austria = {
+		icon = generic_agreement
+		allowed = { tag = POL }
+		
+		available = {
+			FROM = {
+				NOT = { has_country_flag = plx_asking_for_faction }
+			}
+		}
+
+		visible = {
+			FROM = {
+				#has_country_leader = { name = "Karol II Olbracht" ruling_only = yes }
+				is_subject = no
+				AUS = {
+					is_subject = no
+					exists = yes
+					is_faction_leader = yes
+					NOT = {
+						has_war_with = POL
+					}					
+				}
+				is_in_faction = no
+				owns_state = 91
+				#OR = {
+				#	NOT = { owns_state = 91 }
+				#	GAL = {
+				#	`	is_puppet_of = AUS
+				#		exists = yes 
+				#	}
+				#}
+				OR = {
+					has_country_flag = plx_claiming_poland
+					has_country_flag = plx_expansionist_poland
+				}
+				NOT = { has_country_flag = plx_aus_refused }
+				NOT = { has_active_mission = PLX_surviving_german_invasion_pol }
+			}
+		}
+
+		cost = 10
+		#days_remove = 120
+		#cancel_if_not_visible = yes
+
+		ai_will_do = {
+			factor = 1000
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove PLX_faction_join_internationale target: [From.GetName]"
+			AUS = { country_event = plxf.23 }
+			#AUS = { country_event = plxf.3 }
+			set_country_flag = plx_asking_for_faction
+		}
+	}	
+	#PLX_faction_join_austria_2 = {
+	#	icon = generic_agreement
+	#	allowed = { tag = POL }
+	#	
+	#	available = {
+	#		FROM = {
+	#			NOT = { has_country_flag = plx_asking_for_faction }
+	#		}
+	#	}
+	#
+	#	visible = {
+	#		FROM = {
+	#			is_subject = no
+	#			AUS = {
+	#				is_subject = no
+	#				exists = yes
+	#				is_faction_leader = yes
+	#				NOT = {
+	#					has_war_with = POL
+	#				}					
+	#			}
+	#			is_in_faction = no
+	#			NOT = { has_government = authoritarian_democrat }
+	#			OR = {
+	#				has_country_flag = plx_claiming_poland
+	#				has_country_flag = plx_expansionist_poland
+	#			}
+	#			NOT = { has_country_flag = plx_aus_refused }
+	#			NOT = { has_active_mission = PLX_surviving_german_invasion_pol }
+	#			AND = {
+	#				owns_state = 91
+	#				NOT = {
+	#					GAL = {
+	#					`	is_puppet_of = AUS
+	#						exists = yes 
+	#					}
+	#				}
+	#			}
+	#		}
+	#	}
+	#
+	#	cost = 10
+	#	#days_remove = 120
+	#	#cancel_if_not_visible = yes
+	#
+	#	ai_will_do = {
+	#		factor = 1000
+	#	}
+	#
+	#	complete_effect = {
+	#		log = "[GetDateText]: [Root.GetName]: Decision remove PLX_faction_join_internationale target: [From.GetName]"
+	#		AUS = { country_event = plxf.10 }
+	#		set_country_flag = plx_asking_for_faction
+	#	}
+	#}		
+	PLX_faction_poland_is_alone = {
+		icon = generic_agreement
+		allowed = { tag = POL }
+		
+		available = {
+			FROM = {
+				NOT = { has_country_flag = plx_asking_for_faction }
+			}
+		}
+
+		visible = {
+			FROM = {
+				is_subject = no
+				is_in_faction = no
+				OR = {
+					has_country_flag = plx_claiming_poland
+					has_country_flag = plx_expansionist_poland
+					has_country_flag = plx_revolutionary_bulwark
+				}
+			}
+		}
+
+		cost = 10
+		#days_remove = 120
+		#cancel_if_not_visible = yes
+
+		ai_will_do = {
+			factor = 1000
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove PLX_faction_join_internationale target: [From.GetName]"
+			country_event = poland.450
+			set_country_flag = plx_asking_for_faction
+		}
+	}
+	PLX_formin_intermarium = {
+		icon = generic_agreement
+		allowed = { tag = POL }
+		
+		available = {
+			FROM = {
+				#has_country_flag = plx_expansionist_poland
+				#controls_state = 10
+				#controls_state = 96
+				#controls_state = 206
+				#controls_state = 202
+				
+				#1314 = { is_core_of = POL }
+				#1319 = { is_core_of = POL }
+				#776 = { is_core_of = POL }
+				#86 = { is_core_of = POL }
+				#67 = { is_core_of = POL }
+				#777 = { is_core_of = POL }
+				#655 = { is_core_of = POL }
+				#94 = { is_core_of = POL }
+				#96 = { is_core_of = POL }
+				#93 = { is_core_of = POL }
+				#997 = { is_core_of = POL }
+				#792 = { is_core_of = POL }
+				#95 = { is_core_of = POL }
+				#1295 = { is_core_of = POL }
+				#207 = { is_core_of = POL }
+				#1124 = { is_core_of = POL }
+				#88 = { is_core_of = POL }
+				#1125 = { is_core_of = POL }
+				#1126 = { is_core_of = POL }
+				#1127 = { is_core_of = POL }
+				#91 = { is_core_of = POL }
+				#89 = { is_core_of = POL }
+				#1140 = { is_core_of = POL }
+				#1131 = { is_core_of = POL }
+				#
+				#66 = { is_core_of = POL }
+				#68 = { is_core_of = POL }
+				#63 = { is_core_of = POL }
+				#5 = { is_core_of = POL }
+				#188 = { is_core_of = POL }
+				#189 = { is_core_of = POL }
+				#11 = { is_core_of = POL }
+				#206 = { is_core_of = POL }
+				#1294 = { is_core_of = POL }
+				#1087 = { is_core_of = POL }
+				#204 = { is_core_of = POL }
+				#194 = { is_core_of = POL }
+				#1228 = { is_core_of = POL }
+				#199 = { is_core_of = POL }
+				#1244 = { is_core_of = POL }
+				#201 = { is_core_of = POL }
+				#1245 = { is_core_of = POL }
+				#198	= { is_core_of = POL }
+
+				10 = { is_core_of = POL }
+				87 = { is_core_of = POL }
+				1124 = { is_core_of = POL }
+				86 = { is_core_of = POL }
+				66 = { is_core_of = POL }
+				776 = { is_core_of = POL }
+				91 = { is_core_of = POL }
+				96 = { is_core_of = POL }
+				5 = { is_core_of = POL }
+				OR = {
+					WHR = { is_puppet_of = POL }
+					owns_state = 206
+				}
+				OR = {
+					UKR = { is_puppet_of = POL }
+					owns_state = 202
+				}				
+			}
+		}
+	
+		visible = {
+			FROM = {
+				is_subject = no
+				NOT = { has_country_flag = plx_intermarium_formed }
+				has_country_flag = plx_expansionist_poland
+				NOT = { has_country_flag = plx_slavic_fed_formed }
+				NOT = { has_country_flag = plx_council_nation }
+				NOT = { has_country_flag = plx_russia_formed }
+				#NOT = { has_government = authoritarian_democrat }
+			}
+		}
+		
+		highlight_states = {
+			#state = 1314
+			#state = 1319
+			#state = 776
+			#state = 86
+			#state = 67
+			#state = 777
+			#state = 655
+			#state = 94
+			#state = 96
+			#state = 93
+			#state = 997
+			#state = 792
+			#state = 95
+			#state = 1295
+			#state = 207
+			#state = 1124
+			#state = 88
+			#state = 1125
+			#state = 1126
+			#state = 1127
+			#state = 91
+			#state = 89
+			#state = 1140
+			#state = 1131
+			#
+			#state = 66
+			#state = 68
+			#state = 63
+			#state = 5
+			#state = 188
+			#state = 189
+			#state = 11
+			#state = 206
+			#state = 1294
+			#state = 1087
+			#state = 204
+			#state = 194
+			#state = 1228
+			#state = 199
+			#state = 1244
+			#state = 201
+			#state = 1245
+			#state = 198
+			state = 10
+			state = 87
+			state = 1124
+			state = 86
+			state = 66
+			state = 776
+			state = 91
+			state = 96
+			state = 5
+			state = 206
+			state = 202
+		}
+	
+		cost = 400
+		#days_remove = 120
+		#cancel_if_not_visible = yes
+	
+		ai_will_do = {
+			factor = 0
+		}
+	
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove PLX_formin_intermarium target: [From.GetName]"
+			country_event = plx.39
+			set_country_flag = plx_intermarium_formed
+		}
+	}
+	PLX_formin_slavic_fed = {
+		icon = generic_agreement
+		allowed = { tag = POL }
+		
+		available = {
+			FROM = {
+				#has_country_flag = plx_slavic_ambitions
+
+				10 = { is_core_of = POL }
+				87 = { is_core_of = POL }
+				1124 = { is_core_of = POL }
+				86 = { is_core_of = POL }
+				66 = { is_core_of = POL }
+				776 = { is_core_of = POL }
+				91 = { is_core_of = POL }
+				96 = { is_core_of = POL }
+				5 = { is_core_of = POL }
+				OR = {
+					CZE = { is_puppet_of = POL }
+					owns_state = 1129
+					UKR = { is_puppet_of = POL }
+					owns_state = 202
+					WHR = { is_puppet_of = POL }
+					owns_state = 206
+				}
+			}
+		}
+	
+		visible = {
+			FROM = {
+				is_subject = no
+				has_country_flag = plx_slavic_ambitions
+				NOT = { has_country_flag = plx_intermarium_formed }
+				has_country_flag = plx_expansionist_poland
+				NOT = { has_country_flag = plx_slavic_fed_formed }
+				NOT = { has_country_flag = plx_council_nation }
+				NOT = { has_country_flag = plx_russia_formed }
+			}
+		}
+		
+		highlight_states = {
+			state = 10
+			state = 87
+			state = 1124
+			state = 86
+			state = 66
+			state = 776
+			state = 91
+			state = 96
+			state = 5
+			state = 1129
+		}
+	
+		cost = 400
+		#days_remove = 120
+		#cancel_if_not_visible = yes
+	
+		ai_will_do = {
+			factor = 0
+		}
+	
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove PLX_formin_slavic_fed target: [From.GetName]"
+			country_event = plxv2.080
+			set_country_flag = plx_slavic_fed_formed
+		}
+	}
+	PLX_formin_council_fed = {
+		icon = generic_agreement
+		allowed = { tag = POL }
+		
+		available = {
+			FROM = {
+				#has_country_flag = plx_slavic_ambitions
+
+				10 = { is_core_of = POL }
+				87 = { is_core_of = POL }
+				1124 = { is_core_of = POL }
+				86 = { is_core_of = POL }
+				66 = { is_core_of = POL }
+				776 = { is_core_of = POL }
+				91 = { is_core_of = POL }
+				96 = { is_core_of = POL }
+				5 = { is_core_of = POL }
+			}
+		}
+	
+		visible = {
+			FROM = {
+				is_subject = no
+				has_country_flag = plx_com_ambitions
+				NOT = { has_country_flag = plx_intermarium_formed }
+				has_country_flag = plx_expansionist_poland
+				NOT = { has_country_flag = plx_slavic_fed_formed }
+				NOT = { has_country_flag = plx_council_nation }
+				NOT = { has_country_flag = plx_russia_formed }
+			}
+		}
+		
+		highlight_states = {
+			state = 10
+			state = 87
+			state = 1124
+			state = 86
+			state = 66
+			state = 776
+			state = 91
+			state = 96
+			state = 5
+		}
+	
+		cost = 400
+		#days_remove = 120
+		#cancel_if_not_visible = yes
+	
+		ai_will_do = {
+			factor = 0
+		}
+	
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove PLX_formin_slavic_fed target: [From.GetName]"
+			country_event = plx.36
+			set_country_flag = plx_council_nation
+		}
+	}	
+	PLX_break_with_revisionists = {
+		icon = generic_independence
+		allowed = { tag = POL }
+		available = {
+			has_completed_focus = KX_PLX_THE_FINAL_STRUGGLE
+		}
+		visible = {
+			is_ai = no
+			NOT = { has_country_flag = plx_comintern_created }
+			has_completed_focus = KX_PLX_THE_FINAL_STRUGGLE
+		}
+		cost = 50
+		fire_only_once = yes
+		
+		complete_effect = {
+			country_event = plxf.19
+		}
+	}
+	PLX_unite_with_bolsheviks = {
+		icon = generic_independence
+		allowed = { tag = POL }
+		available = {
+			RUS = { SOV_left_communists_in_power = yes }
+		}
+		visible = {
+			RUS = { exists = yes }
+			has_country_flag = plx_communist_revolution
+			RUS = { SOV_left_communists_in_power = yes }
+			is_puppet = no
+			NOT = { is_in_faction_with = RUS } 
+		}
+		cost = 0
+		fire_only_once = yes
+		
+		complete_effect = {
+			country_event = plxf.38
+		}
+	}
+	PLX_unite_with_russia = {
+		icon = generic_independence
+		allowed = { tag = POL }
+		available = {
+			has_country_leader = { name = "Aleksander V" ruling_only = yes }
+			RUS = {
+				has_country_leader = { name = "Vsevolod I" ruling_only = yes }
+			}
+		}
+		visible = {
+			OR = { 
+				POL = { is_ai = yes }
+				RUS = { is_ai = yes }
+			}
+			has_country_leader = { name = "Aleksander V" ruling_only = yes }
+			RUS = {
+				has_country_leader = { name = "Vsevolod I" ruling_only = yes }
+			}
+			NOT = { has_country_flag = plx_intermarium_formed }
+			#has_country_flag = plx_expansionist_poland
+			NOT = { has_country_flag = plx_slavic_fed_formed }
+			NOT = { has_country_flag = plx_council_nation }
+			NOT = { has_country_flag = plx_russia_formed }					
+		}
+		cost = 0
+		fire_only_once = yes
+		
+		complete_effect = {
+			country_event = plxv2.089
+		}
+	}
+	PLX_unite_with_russia_2 = {
+		icon = generic_independence
+		allowed = { tag = POL }
+		available = {
+			FROM = {
+				#has_country_flag = plx_slavic_ambitions
+
+				10 = { is_core_of = POL }
+				87 = { is_core_of = POL }
+				1124 = { is_core_of = POL }
+				86 = { is_core_of = POL }
+				66 = { is_core_of = POL }
+				776 = { is_core_of = POL }
+				91 = { is_core_of = POL }
+				96 = { is_core_of = POL }
+				5 = { is_core_of = POL }
+				OR = {
+					RUS = { is_puppet_of = POL }
+					owns_state = 219
+				}
+			}
+			NOT = { has_war_with = RUS }
+			#POL = { is_neighbor_of = RUS }			
+			##OR = {
+			##	POL = { is_neighbor_of = RUS }
+			##	any_country	= {
+			##		AND = {
+			##			is_puppet_of = POL
+			##			is_neighbor_of = RUS
+			##		}
+			##	}			
+			##}
+		}
+		visible = {
+			has_country_leader = { name = "Aleksander V" ruling_only = yes }
+			OR = {
+				RUS = {
+					NOT = { has_country_leader = { name = "Vsevolod I" ruling_only = yes } }
+				}
+				has_country_flag = plx_rus_common_rejected
+			}
+			NOT = { has_country_flag = plx_intermarium_formed }
+			has_country_flag = plx_expansionist_poland
+			NOT = { has_country_flag = plx_slavic_fed_formed }
+			NOT = { has_country_flag = plx_council_nation }
+			NOT = { has_country_flag = plx_russia_formed }			
+		}
+		cost = 600
+		fire_only_once = yes
+		
+		complete_effect = {
+			set_country_flag = plx_russia_formed
+			country_event = plxv2.092
+		}
+	}
+	PLX_place_monarch_on_russian_throne = {
+		icon = generic_independence
+		allowed = { tag = POL }
+		available = {
+			RUS = {
+				is_puppet_of = POL
+			}
+		}
+		visible = {
+			has_country_leader = { name = "Aleksander V" ruling_only = yes }
+			RUS = {
+				is_puppet_of = POL
+				NOT = { has_country_leader = { name = "Aleksandr IV" ruling_only = yes } }
+			}
+		}
+		cost = 0
+		#fire_only_once = yes
+		
+		complete_effect = {
+			hidden_effect = {
+				RUS = {
+					set_cosmetic_tag = RUS_empire
+					create_country_leader = {
+						name = "Aleksandr IV"
+						desc = "POLITICS_VSEVOLOD_ROMANOV_CON_DESC"
+						picture = "gfx/leaders/RUS/Portrait_RUS_Vsevolod_I.png"
+						expire = "1.1.1"
+						ideology = social_democrat_subtype
+						#traits = { RUS_young_aristocrat }
+					}
+					create_country_leader = {
+						name = "Aleksandr IV"
+						desc = "POLITICS_VSEVOLOD_ROMANOV_CON_DESC"
+						picture = "gfx/leaders/RUS/Portrait_RUS_Vsevolod_I.png"
+						expire = "1.1.1"
+						ideology = social_liberal_subtype
+						#traits = { RUS_young_aristocrat }
+					}
+					create_country_leader = {
+						name = "Aleksandr IV"
+						desc = "POLITICS_VSEVOLOD_ROMANOV_CON_DESC"
+						picture = "gfx/leaders/RUS/Portrait_RUS_Vsevolod_I.png"
+						expire = "1.1.1"
+						ideology = liberal_conservative_subtype
+						#traits = { RUS_young_aristocrat }
+					}
+					create_country_leader = {
+						name = "Aleksandr IV"
+						desc = "POLITICS_VSEVOLOD_ROMANOV_CON_DESC"
+						picture = "gfx/leaders/RUS/Portrait_RUS_Vsevolod_I.png"
+						expire = "1.1.1"
+						ideology = progressive_conservatism_subtype
+						#traits = { RUS_young_aristocrat }
+					}
+					create_country_leader = {
+						name = "Aleksandr IV"
+						desc = "POLITICS_VSEVOLOD_ROMANOV_CON_DESC"
+						picture = "gfx/leaders/RUS/Portrait_RUS_Vsevolod_I.png"
+						expire = "1.1.1"
+						ideology = oligarchy_subtype
+						#traits = { RUS_young_aristocrat }
+					}
+					create_country_leader = {
+						name = "Aleksandr IV"
+						desc = "POLITICS_VSEVOLOD_ROMANOV_CON_DESC"
+						picture = "gfx/leaders/RUS/Portrait_RUS_Vsevolod_I.png"
+						expire = "1.1.1"
+						ideology = absolute_monarchy_subtype
+						#traits = { RUS_young_aristocrat }
+					}
+					create_country_leader = {
+						name = "Aleksandr IV"
+						desc = "POLITICS_VSEVOLOD_ROMANOV_CON_DESC"
+						picture = "gfx/leaders/RUS/Portrait_RUS_Vsevolod_I.png"
+						expire = "1.1.1"
+						ideology = legionarism_subtype
+						#traits = { RUS_young_aristocrat }
+					}
+				}
+			}
+		}
+	}
+}
+
+economy_decisions = {
+	PLX_gdansk_shipyards = {
+		icon = GFX_decision_generic_naval
+
+		available = {
+			776 = { is_owned_and_controlled_by = ROOT }
+		}
+
+		visible = {
+			has_completed_focus = KX_PLX_EXPAND_DOCKS
+			776 = { is_core_of = POL }
+		}
+
+		cost = 20
+		days_remove = 90
+		fire_only_once = yes
+
+		modifier = {
+			civilian_factory_use = 2
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+		highlight_states = {
+			highlight_state_targets = { state = 776 }
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove SOC_POL_Karpaty_Oil"
+			776 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = dockyard
+					level = 3
+					instant_build = yes
+				}			
+			}
+		}
+	}
+	PLX_split_shipyards = {
+		icon = GFX_decision_generic_naval
+
+		available = {
+			163 = { is_owned_and_controlled_by = ROOT }
+		}
+
+		visible = {
+			has_completed_focus = KX_PLX_EXPAND_DOCKS
+			163 = { is_core_of = POL }			
+		}
+
+		cost = 20
+		days_remove = 90
+		fire_only_once = yes
+
+		modifier = {
+			civilian_factory_use = 2
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+		highlight_states = {
+			highlight_state_targets = { state = 163 }
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove SOC_POL_Karpaty_Oil"
+			163 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = dockyard
+					level = 3
+					instant_build = yes
+				}		
+			}
+		}
+	}
+	PLX_odessa_shipyards = {
+		icon = GFX_decision_generic_naval
+
+		available = {
+			1222 = { is_owned_and_controlled_by = ROOT }
+		}
+
+		visible = {
+			has_completed_focus = KX_PLX_EXPAND_DOCKS
+			776 = { is_core_of = POL }			
+		}
+
+		cost = 20
+		days_remove = 90
+		fire_only_once = yes
+
+		modifier = {
+			civilian_factory_use = 2
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+		highlight_states = {
+			highlight_state_targets = { state = 1222 }
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove SOC_POL_Karpaty_Oil"
+			1222 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = dockyard
+					level = 3
+					instant_build = yes
+				}			
+			}
+		}
+	}	
+}
+
+political_actions = {
+	PLX_warsaw_capital = {
+		icon = generic_independence
+		available = {
+			10 = { is_owned_and_controlled_by = ROOT }
+			10 = { is_core_of = POL }
+		}
+		visible = {
+			is_ai = no
+			OR = {
+				has_completed_focus = KX_PLX_MORE_THAN_POLISH
+				has_completed_focus = KX_PLX_SLAVIC_SUPERSTATE
+			}
+			NOT = { has_country_flag = plx_capital_changed }
+		}
+		cost = 10
+		fire_only_once = yes
+		
+		complete_effect = {
+			add_stability = 0.05
+			10 = {		
+				increase_state_category_by_one_level = yes
+			}
+			set_country_flag = plx_capital_changed
+		}
+	}
+	PLX_brelin_capital = {
+		icon = generic_independence
+		available = {
+			64 = { is_owned_and_controlled_by = ROOT }
+			64 = { is_core_of = POL }
+		}
+		visible = {
+			has_completed_focus = KX_PLX_MORE_THAN_POLISH
+			NOT = { has_country_flag = plx_capital_changed }
+		}
+		cost = 10
+		fire_only_once = yes
+		
+		complete_effect = {
+			add_stability = 0.05
+			set_capital = { state = 64 remember_old_capital = no }
+			64 = {		
+				increase_state_category_by_one_level = yes
+			}
+			set_country_flag = plx_capital_changed
+		}
+	}
+	PLX_prague_capital = {
+		icon = generic_independence
+		available = {
+			1129 = { is_owned_and_controlled_by = ROOT }
+			10 = { is_core_of = POL }
+		}
+		visible = {
+			OR = {
+				has_completed_focus = KX_PLX_MORE_THAN_POLISH
+				has_completed_focus = KX_PLX_SLAVIC_SUPERSTATE
+			}
+			NOT = { has_country_flag = plx_capital_changed }
+		}
+		cost = 10
+		fire_only_once = yes
+		
+		complete_effect = {
+			add_stability = 0.05
+			set_capital = { state = 1129 remember_old_capital = no }
+			1129 = {		
+				increase_state_category_by_one_level = yes
+			}
+			set_country_flag = plx_capital_changed
+		}
+	}
+	PLX_vienna_capital = {
+		icon = generic_independence
+		available = {
+			1137 = { is_owned_and_controlled_by = ROOT }
+			1137 = { is_core_of = POL }
+		}
+		visible = {
+			has_completed_focus = KX_PLX_MORE_THAN_POLISH
+			NOT = { has_country_flag = plx_capital_changed }
+		}
+		cost = 10
+		fire_only_once = yes
+		
+		complete_effect = {
+			add_stability = 0.05
+			set_capital = { state = 1137 remember_old_capital = no }
+			1137 = {		
+				increase_state_category_by_one_level = yes
+			}
+			set_country_flag = plx_capital_changed
+		}
+	}
+	PLX_brussels_capital = {
+		icon = generic_independence
+		available = {
+			6 = { is_owned_and_controlled_by = ROOT }
+			6 = { is_core_of = POL }
+		}
+		visible = {
+			has_completed_focus = KX_PLX_MORE_THAN_POLISH
+			NOT = { has_country_flag = plx_capital_changed }
+		}
+		cost = 10
+		fire_only_once = yes
+		
+		complete_effect = {
+			add_stability = 0.05
+			set_capital = { state = 6 remember_old_capital = no }
+			6 = {		
+				increase_state_category_by_one_level = yes
+			}
+			set_country_flag = plx_capital_changed
+		}
+	}
+	PLX_paris_capital = {
+		icon = generic_independence
+		available = {
+			16 = { is_owned_and_controlled_by = ROOT }
+			16 = { is_core_of = POL }
+		}
+		visible = {
+			has_completed_focus = KX_PLX_MORE_THAN_POLISH
+			NOT = { has_country_flag = plx_capital_changed }
+			16 = { is_core_of = POL } #available only after declaring european/world abmitions
+		}
+		cost = 10
+		fire_only_once = yes
+		
+		complete_effect = {
+			add_stability = 0.05
+			set_capital = { state = 16 remember_old_capital = no }
+			16 = {		
+				increase_state_category_by_one_level = yes
+			}
+			set_country_flag = plx_capital_changed
+		}
+	}	
+	PLX_lwow_capital = {
+		icon = generic_independence
+		available = {
+			91 = { is_owned_and_controlled_by = ROOT }
+			91 = { is_core_of = POL }
+		}
+		visible = {
+			has_completed_focus = KX_PLX_SLAVIC_SUPERSTATE
+			NOT = { has_country_flag = plx_capital_changed }
+		}
+		cost = 10
+		fire_only_once = yes
+		
+		complete_effect = {
+			add_stability = 0.05
+			set_capital = { state = 91 remember_old_capital = no }
+			91 = {
+				increase_state_category_by_one_level = yes
+			}
+			set_country_flag = plx_capital_changed
+		}
+	}
+	PLX_kijow_capital = {
+		icon = generic_independence
+		available = {
+			202 = { is_owned_and_controlled_by = ROOT }
+			202 = { is_core_of = POL }
+		}
+		visible = {
+			has_completed_focus = KX_PLX_SLAVIC_SUPERSTATE
+			NOT = { has_country_flag = plx_capital_changed }
+		}
+		cost = 10
+		fire_only_once = yes
+		
+		complete_effect = {
+			add_stability = 0.05
+			set_capital = { state = 202 remember_old_capital = no }
+			202 = {
+				increase_state_category_by_one_level = yes
+			}
+			set_country_flag = plx_capital_changed
+		}
+	}
+	PLX_minsk_capital = {
+		icon = generic_independence
+		available = {
+			206 = { is_owned_and_controlled_by = ROOT }
+			206 = { is_core_of = POL }
+		}
+		visible = {
+			has_completed_focus = KX_PLX_SLAVIC_SUPERSTATE
+			NOT = { has_country_flag = plx_capital_changed }
+		}
+		cost = 10
+		fire_only_once = yes
+		
+		complete_effect = {
+			add_stability = 0.05
+			set_capital = { state = 206 remember_old_capital = no }
+			206 = {
+				increase_state_category_by_one_level = yes
+			}
+			set_country_flag = plx_capital_changed
+		}
+	}
+	PLX_moskwa_capital = {
+		icon = generic_independence
+		available = {
+			219 = { is_owned_and_controlled_by = ROOT }
+			219 = { is_core_of = POL }
+		}
+		visible = {
+			OR = {
+				has_completed_focus = KX_PLX_SLAVIC_SUPERSTATE
+				has_completed_focus = KX_PLX_MORE_THAN_POLISH
+				has_country_flag = plx_russia_formed
+			}
+			NOT = { has_country_flag = plx_capital_changed }
+			219 = { is_core_of = POL }
+		}
+		cost = 10
+		fire_only_once = yes
+		
+		complete_effect = {
+			add_stability = 0.05
+			set_capital = { state = 219 remember_old_capital = no }
+			219 = {
+				increase_state_category_by_one_level = yes
+			}
+			set_country_flag = plx_capital_changed
+		}
+	}
+
+	PLX_austria_demands_galicia = {
+		icon = generic_army_support
+		available = {
+			date > 1939.1.1
+		}
+		visible = {
+			always = no #disabled for now
+			NOT = { has_war_with = POL }
+			OR = {
+				is_ai = no
+				has_war = no
+			}
+			OR = {
+				is_ai = no
+				POL = { has_war = yes }
+			}
+			tag = AUS
+			NOT = { is_in_faction_with = POL }
+			NOT = { GER = { is_in_faction_with = POL } }
+		}
+		cost = 50
+		days_remove = 60
+		fire_only_once = yes
+		
+		complete_effect = {
+			POL = { country_event = plxf.24 }
+		}
+		timeout_effect = {
+			declare_war_on = {
+				target = POL
+				type = annex_everything
+			}
+		}	
+		#ai_strategy = {
+		#	type = declare_war
+		#	id = "POL"
+		#	value = 1000
+		#}		
+	}
+	PLX_austria_demands_galicia_ukr = {
+		icon = generic_army_support
+		available = {
+			date > 1940.1.1
+			OR = {
+				GAL = {
+					is_subject_of = AUS
+				}	
+				AUS = {
+					owns_state = 1124
+					owns_state = 91
+				}
+			}
+		}
+		visible = {
+			always = no #disabled for now
+			NOT = { has_war_with = UKR }
+			OR = {
+				is_ai = no
+				has_war = no
+			}
+			OR = {
+				is_ai = no
+				UKR = { has_war = yes }
+			}			
+			tag = AUS
+			NOT = { is_in_faction_with = UKR }
+			NOT = { GER = { is_in_faction_with = UKR } }
+		}
+		cost = 50
+		days_remove = 60
+		fire_only_once = yes
+		
+		complete_effect = {
+			UKR = { country_event = plxf.24 }
+		}
+		timeout_effect = {
+			declare_war_on = {
+				target = UKR
+				type = annex_everything
+			}
+		}	
+		#ai_strategy = {
+		#	type = declare_war
+		#	id = "UKR"
+		#	value = 1000
+		#}		
+	}	
+}
+
+operations = { 
+	PLX_surviving_german_invasion_pol = {
+		icon = generic_army_support
+
+		allowed = { always = no } #manually activated
+
+		available = {
+			hidden_trigger = { always = no }
+		}
+
+		selectable_mission = no
+		days_mission_timeout = 90
+		is_good = yes
+		fire_only_once = yes
+
+		cancel_trigger = {
+			hidden_trigger = { always = no }
+			#NOT = { has_war_with = GER }
+		}
+
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout PLX_surviving_german_invasion_pol"
+			#add_war_support = 0.10
+			custom_effect_tooltip = PLX_pol_victory_in_independance_war
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision PLX_surviving_german_invasion_pol"
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}	
+	
+	PLX_surviving_german_invasion_ger = {
+		icon = generic_army_support
+
+		allowed = { always = no } #manually activated
+
+		available = {
+			hidden_trigger = { always = no }
+		}
+
+		selectable_mission = no
+		days_mission_timeout = 90
+		is_good = no
+		fire_only_once = yes
+
+		cancel_trigger = {
+			NOT = { has_war_with = POL }
+		}
+
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout PLX_surviving_german_invasion_ger"
+			#add_war_support = -0.10
+			#add_stability = -0.10
+			country_event = plxf.13
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision PLX_surviving_german_invasion_ger"
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	####Defence Bonuses for Poland
+	#plx_fortify_cities = {
+	#	icon = generic_army_support
+	#	allowed = { tag = POL }
+	#	
+	#	available = {
+	#		has_idea = GER_plx_polish_german_war
+	#	}
+	#
+	#	visible = {
+	#		has_idea = GER_plx_polish_german_war
+	#		NOT = { has_country_flag = plx_cities_fortified }
+	#	}
+	#
+	#	cost = 0
+	#	custom_cost_text = spend_5_war_support
+	#	#days_remove = 120
+	#	#cancel_if_not_visible = yes
+	#
+	#	ai_will_do = {
+	#		factor = 1000
+	#	}
+	#
+	#	complete_effect = {
+	#		log = "[GetDateText]: [Root.GetName]: Decision remove plx_fortify_cities target: [From.GetName]"
+	#		add_war_support = -0.05
+	#		add_building_construction = {
+	#			type = bunker
+	#			province = 11479
+	#			level = 1
+	#			instant_build = yes
+	#		}			
+	#		add_building_construction = {
+	#			type = bunker
+	#			province = 9427
+	#			level = 2
+	#			instant_build = yes
+	#		}
+	#		add_building_construction = {
+	#			type = bunker
+	#			province = 9508
+	#			level = 2
+	#			instant_build = yes
+	#		}
+	#		add_building_construction = {
+	#			type = bunker
+	#			province = 3544
+	#			level = 3
+	#			instant_build = yes
+	#		}
+	#		set_country_flag = plx_cities_fortified
+	#	}
+	#}	
+}
+
+PLX_arm_decisions = {
+
+	plx_call_reserves = {
+		icon = generic_army_support
+		allowed = { tag = POL }
+		
+		available = {
+			has_war = yes
+		}
+
+		visible = {
+			NOT = { has_country_flag = plx_reserves_called }
+			has_country_flag = plx_econ_mil_unlocked
+		}
+
+		cost = 75
+		#days_remove = 120
+		#cancel_if_not_visible = yes
+
+		ai_will_do = {
+			factor = 1000
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove plx_call_reserves target: [From.GetName]"
+			set_country_flag = plx_reserves_called
+			add_war_support = -0.05
+			custom_effect_tooltip = PLX_rise_reserves_tooltip
+			hidden_effect = {
+				plx_resevists_mobilised_effect = yes
+			}
+		}
+	}
+	plx_seize_weapons = {
+		icon = generic_army_support
+		allowed = { tag = POL }
+		
+		available = {
+			OR = {
+				has_idea = partial_economic_mobilisation
+				has_idea = war_economy
+				has_idea = tot_economic_mobilisation
+			}
+		}
+
+		visible = {
+			NOT = { has_country_flag = plx_seizing_weapons }
+			has_country_flag = plx_econ_mil_unlocked
+		}
+
+		cost = 75
+		#days_remove = 120
+		#cancel_if_not_visible = yes
+
+		ai_will_do = {
+			factor = 1000
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove plx_seize_weapons target: [From.GetName]"
+			set_country_flag = plx_seizing_weapons
+			add_war_support = -0.10
+			army_experience = 50
+			add_manpower = 100000
+			add_equipment_to_stockpile = {
+				type = infantry_equipment_1
+				amount = 10000
+				producer = POL
+			}
+		}
+	}	
+	PLX_technology_catchup = {
+
+		icon = generic_research
+
+		allowed = {
+			always = yes
+		}
+
+		available = {
+			OR = {
+				has_idea = partial_economic_mobilisation
+				has_idea = war_economy
+				has_idea = tot_economic_mobilisation
+			}
+		}
+
+		visible = {
+			has_country_flag = plx_econ_mil_unlocked
+			NOT = { has_country_flag = plx_technology_catchup_done }
+		}
+
+		#cancel_trigger = {
+		#	OR = {
+		#		has_stability > 0.75
+		#		has_socialist_government = no
+		#	}
+		#}
+
+		fire_only_once = no
+
+		modifier = {
+			research_speed_factor = 0.10
+		}
+
+		days_remove = 365
+		days_re_enable = 540
+
+		cost = 60
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision PLX_divert_resources"
+			#set_country_flag = { flag = plx_technology_catchup_done days = 180 value = 1 }
+			set_country_flag = plx_technology_catchup_done
+			add_tech_bonus = {
+				name = POL_rapid_research
+				bonus = 1.0
+				uses = 1
+				category = armor
+			}
+		}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 1
+				has_political_power > 200
+			}
+		}
+	}
+	PLX_scrap_resources = {
+
+		icon = generic_industry
+
+		allowed = {
+			always = yes
+		}
+
+		available = {
+			OR = {
+				has_idea = partial_economic_mobilisation
+				has_idea = war_economy
+				has_idea = tot_economic_mobilisation
+			}			
+		}
+
+		visible = {
+			NOT = { has_country_flag = plx_scraping_resources }
+			has_country_flag = plx_econ_mil_unlocked
+		}
+
+		#cancel_trigger = {
+		#	OR = {
+		#		has_stability > 0.75
+		#		has_socialist_government = no
+		#	}
+		#}
+
+		fire_only_once = no
+
+		modifier = {
+			consumer_goods_factor = 0.10
+			political_power_cost = 0.10
+			production_lack_of_resource_penalty_factor = -0.75
+		}
+
+		days_remove = 730
+		days_re_enable = 730
+
+		cost = 50
+
+		complete_effect = {
+			add_stability = -0.10
+			log = "[GetDateText]: [Root.GetName]: Decision PLX_scrap_resources"
+			#set_country_flag = { flag = plx_scraping_resources days = 180 value = 1 }
+			set_country_flag = plx_scraping_resources
+		}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 1
+				has_political_power > 200
+			}
+		}
+	}
+	PLX_divert_resources = {
+
+		icon = generic_industry
+
+		allowed = {
+			always = yes
+		}
+
+		available = {
+			OR = {
+				has_idea = partial_economic_mobilisation
+				has_idea = war_economy
+				has_idea = tot_economic_mobilisation
+			}
+		}
+
+		visible = {
+			has_country_flag = plx_econ_mil_unlocked
+			NOT = { has_country_flag = plx_diverting_resources }
+		}
+
+		#cancel_trigger = {
+		#	OR = {
+		#		has_stability > 0.75
+		#		has_socialist_government = no
+		#	}
+		#}
+
+		fire_only_once = no
+
+		modifier = {
+			consumer_goods_factor = 0.20
+			political_power_cost = 0.15
+			industrial_capacity_factory = 0.25
+			production_factory_efficiency_gain_factor = 0.25
+			#production_lack_of_resource_penalty_factor = -0.20
+		}
+
+		days_remove = 365
+		days_re_enable = 540
+
+		cost = 50
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision PLX_divert_resources"
+			#set_country_flag = { flag = plx_diverting_resources days = 180 value = 1 }
+			set_country_flag = plx_diverting_resources
+		}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 1
+				has_political_power > 200
+			}
+		}
+	}
+	##General Economy
+	PLX_train_engineers = {
+
+		icon = generic_industry
+
+		allowed = {
+			always = yes
+		}
+
+		available = {
+			always = yes		
+		}
+
+		visible = {
+			NOT = { has_country_flag = plx_train_engineers_finished }
+			has_country_flag = plx_econ_mil_unlocked
+		}
+
+		#cancel_trigger = {
+		#	OR = {
+		#		has_stability > 0.75
+		#		has_socialist_government = no
+		#	}
+		#}
+
+		fire_only_once = no
+
+		modifier = {
+			#consumer_goods_factor = 0.05
+			#political_power_cost = 0.10
+			#production_lack_of_resource_penalty_factor = -0.75
+		}
+
+		days_remove = 90
+		days_re_enable = 120
+
+		cost = 80
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision PLX_train_engineers"
+			#set_country_flag = { flag = plx_scraping_resources days = 180 value = 1 }
+			set_country_flag = plx_train_engineers_finished			
+			#add_to_variable = { 
+			#	PLX_indutry_production_factory_max_efficiency_factor = 0.05 
+			#	tooltip = production_factory_max_efficiency_factor_tt
+			#}
+			add_to_variable = {
+				PLX_indutry_production_factory_max_efficiency_factor = 0.05
+				tooltip = production_factory_max_efficiency_factor_tt
+			}			
+			add_to_variable = { 
+				PLX_indutry_line_change_production_efficiency_factor = 0.05 
+				tooltip = line_change_production_efficiency_factor_tt
+			}
+			add_to_variable = { 
+				PLX_indutry_research_speed_factor = 0.04
+				tooltip = research_speed_factor_tt
+			}
+		}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 1
+				has_political_power > 200
+			}
+		}
+	}
+	PLX_nationalise_banks = {
+
+		icon = generic_industry
+
+		allowed = {
+			always = yes
+		}
+
+		available = {
+			OR = {
+				has_government = syndicalist
+				has_government = radical_socialist
+				has_government = social_democrat
+				has_government = totalist
+				AND = {
+					has_government = paternal_autocrat
+					OR = {
+						has_country_leader_ideology = red_tinted_autocracy_subtype
+						has_country_leader_ideology = pataut_popular_patriotism_subtype
+						has_country_leader_ideology = right_technocracy_subtype
+					}
+				}
+				AND = {
+					has_government = social_conservative
+					has_country_leader_ideology = paternal_socialism_subtype
+				}				
+			}
+		}
+
+		visible = {
+			NOT = { has_country_flag = plx_nationalise_banks_finished }
+			has_country_flag = plx_econ_mil_unlocked			
+		}
+
+		#cancel_trigger = {
+		#	OR = {
+		#		has_stability > 0.75
+		#		has_socialist_government = no
+		#	}
+		#}
+
+		fire_only_once = no
+
+		modifier = {
+			#consumer_goods_factor = 0.05
+			#political_power_cost = 0.10
+			#production_lack_of_resource_penalty_factor = -0.75
+		}
+
+		days_remove = 30
+		days_re_enable = 60
+
+		cost = 120
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision PLX_nationalise_banks"
+			#set_country_flag = { flag = plx_scraping_resources days = 180 value = 1 }
+			set_country_flag = plx_nationalise_banks_finished
+			add_to_variable = { 
+				PLX_indutry_consumer_goods_factor = -0.10 
+				tooltip = consumer_goods_factor_tt
+			}	
+			add_to_variable = { 
+				PLX_indutry_political_power_gain = 0.10 
+				tooltip = political_power_gain_tt
+			}
+		}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 1
+				has_political_power > 200
+			}
+		}
+	}
+	PLX_cooperate_with_business = {
+
+		icon = generic_industry
+
+		allowed = {
+			always = yes
+		}
+
+		available = {
+			OR = {
+				has_government = social_conservative
+				has_government = social_liberal
+				has_government = authoritarian_democrat
+				has_government = national_populist
+				has_government = paternal_autocrat
+				#AND = {
+				#	has_government = paternal_autocrat
+				#	NOT = { has_country_leader_ideology = red_tinted_autocracy_subtype }
+				#}
+			}
+		}
+
+		visible = {
+			NOT = { has_country_flag = plx_cooperate_with_business_finished }
+			has_country_flag = plx_econ_mil_unlocked
+		}
+
+		#cancel_trigger = {
+		#	OR = {
+		#		has_stability > 0.75
+		#		has_socialist_government = no
+		#	}
+		#}
+
+		fire_only_once = no
+
+		modifier = {
+			#consumer_goods_factor = 0.05
+			#political_power_cost = 0.10
+			#production_lack_of_resource_penalty_factor = -0.75
+		}
+
+		days_remove = 30
+		days_re_enable = 120
+
+		cost = 80
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision PLX_cooperate_with_business"
+			#set_country_flag = { flag = plx_scraping_resources days = 180 value = 1 }
+			set_country_flag = plx_cooperate_with_business_finished
+			add_to_variable = { 
+				PLX_indutry_consumer_goods_factor = 0.05
+				tooltip = consumer_goods_factor_tt
+			}	
+			add_to_variable = { 
+				PLX_indutry_political_power_gain = 0.05
+				tooltip = political_power_gain_tt
+			}
+			add_to_variable = { 
+				PLX_indutry_production_speed_buildings_factor = 0.05
+				tooltip = production_speed_buildings_factor_tt
+			}
+			add_to_variable = {
+				PLX_indutry_industrial_capacity_factory = 0.05 
+				tooltip = industrial_capacity_factory_tt
+			}			
+		}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 1
+				has_political_power > 200
+			}
+		}
+	}
+	PLX_cooperate_with_trade_unions = {
+
+		icon = generic_industry
+
+		allowed = {
+			always = yes
+		}
+
+		available = {
+			OR = {
+				AND = {
+					has_government = radical_socialist
+					NOT = { has_country_leader_ideology = radsoc_council_communism_subtype }
+					NOT = { has_country_leader_ideology = narodism_subtype }
+				}
+				has_government = syndicalist
+				has_government = social_democrat
+				has_government = social_conservative				
+			}	
+		}
+
+		visible = {
+			NOT = { has_country_flag = plx_cooperate_with_trade_unions_finished }
+			has_country_flag = plx_econ_mil_unlocked
+		}
+
+		#cancel_trigger = {
+		#	OR = {
+		#		has_stability > 0.75
+		#		has_socialist_government = no
+		#	}
+		#}
+
+		fire_only_once = no
+
+		modifier = {
+			#consumer_goods_factor = 0.05
+			#political_power_cost = 0.10
+			#production_lack_of_resource_penalty_factor = -0.75
+		}
+
+		days_remove = 60
+		days_re_enable = 120
+
+		cost = 80
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision PLX_cooperate_with_trade_unions"
+			#set_country_flag = { flag = plx_scraping_resources days = 180 value = 1 }
+			set_country_flag = plx_cooperate_with_trade_unions_finished
+			add_to_variable = { 
+				PLX_indutry_consumer_goods_factor = -0.05
+				tooltip = consumer_goods_factor_tt
+			}	
+			add_to_variable = { 
+				PLX_indutry_political_power_gain = 0.05
+				tooltip = political_power_gain_tt
+			}
+			add_to_variable = {
+				PLX_indutry_industrial_capacity_factory = 0.10 
+				tooltip = industrial_capacity_factory_tt
+			}			
+		}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 1
+				has_political_power > 200
+			}
+		}
+	}
+	PLX_new_steel_production_methods = {
+
+		icon = generic_industry
+
+		allowed = {
+			always = yes
+		}
+
+		available = {
+			always = yes		
+		}
+
+		visible = {
+			NOT = { has_country_flag = plx_new_steel_production_methods_finished }
+			has_country_flag = plx_econ_mil_unlocked
+		}
+
+		#cancel_trigger = {
+		#	OR = {
+		#		has_stability > 0.75
+		#		has_socialist_government = no
+		#	}
+		#}
+
+		fire_only_once = no
+
+		modifier = {
+			#consumer_goods_factor = 0.05
+			#political_power_cost = 0.10
+			#production_lack_of_resource_penalty_factor = -0.75
+		}
+
+		days_remove = 90
+		days_re_enable = 120
+
+		cost = 80
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision PLX_new_steel_production_methods"
+			#set_country_flag = { flag = plx_scraping_resources days = 180 value = 1 }
+			set_country_flag = plx_new_steel_production_methods_finished
+			#add_to_variable = { 
+			#	PLX_indutry_production_factory_efficiency_gain_factor = 0.05 
+			#	tooltip = production_factory_efficiency_gain_factor_tt
+			#}
+			add_to_variable = { 
+				PLX_indutry_production_factory_max_efficiency_factor = 0.05 
+				tooltip = production_factory_max_efficiency_factor_tt
+			}
+			add_to_variable = { 
+				PLX_indutry_production_speed_buildings_factor = 0.10
+				tooltip = production_speed_buildings_factor_tt
+			}			
+		}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 1
+				has_political_power > 200
+			}
+		}
+	}
+	PLX_modernise_agriculture = {
+
+		icon = generic_industry
+
+		allowed = {
+			always = yes
+		}
+
+		available = {
+			always = yes		
+		}
+
+		visible = {
+			NOT = { has_country_flag = plx_modernise_agriculture_finished }
+			has_country_flag = plx_econ_mil_unlocked
+		}
+
+		#cancel_trigger = {
+		#	OR = {
+		#		has_stability > 0.75
+		#		has_socialist_government = no
+		#	}
+		#}
+
+		fire_only_once = no
+
+		modifier = {
+			#consumer_goods_factor = 0.05
+			#political_power_cost = 0.10
+			#production_lack_of_resource_penalty_factor = -0.75
+		}
+
+		days_remove = 90
+		days_re_enable = 120
+
+		cost = 80
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision PLX_modernise_agriculture"
+			#set_country_flag = { flag = plx_scraping_resources days = 180 value = 1 }
+			set_country_flag = plx_modernise_agriculture_finished
+			add_to_variable = { 
+				PLX_indutry_conscription_factor = 0.10 
+				tooltip = conscription_factor_tt
+			}
+			add_to_variable = { 
+				PLX_indutry_local_resources_factor = 0.10 
+				tooltip = local_resources_factor_tt
+			}	
+			add_to_variable = { 
+				PLX_indutry_supply_factor = -0.05
+				tooltip = supply_consumption_factor_tt
+			}	
+			add_to_variable = { 
+				PLX_indutry_consumer_goods_factor = -0.05 
+				tooltip = consumer_goods_factor_tt
+			}			
+		}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 1
+				has_political_power > 200
+			}
+		}
+	}
+	PLX_eliminate_illiteracy = {
+
+		icon = generic_industry
+
+		allowed = {
+			always = yes
+		}
+
+		available = {
+			always = yes		
+		}
+
+		visible = {
+			NOT = { has_country_flag = plx_eliminate_illiteracy_finished }
+			has_country_flag = plx_econ_mil_unlocked
+		}
+
+		#cancel_trigger = {
+		#	OR = {
+		#		has_stability > 0.75
+		#		has_socialist_government = no
+		#	}
+		#}
+
+		fire_only_once = no
+
+		modifier = {
+			#consumer_goods_factor = 0.05
+			#political_power_cost = 0.10
+			#production_lack_of_resource_penalty_factor = -0.75
+		}
+
+		days_remove = 360
+		days_re_enable = 120
+
+		cost = 80
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision PLX_eliminate_illiteracy"
+			#set_country_flag = { flag = plx_scraping_resources days = 180 value = 1 }
+			set_country_flag = plx_eliminate_illiteracy_finished
+			add_to_variable = {
+				PLX_indutry_research_speed_factor = 0.06
+				tooltip = research_speed_factor_tt
+			}
+			add_to_variable = {
+				PLX_indutry_production_factory_max_efficiency_factor = 0.05 
+				tooltip = production_factory_max_efficiency_factor_tt
+			}
+		}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 1
+				has_political_power > 200
+			}
+		}
+	}
+	PLX_expand_electricity = {
+
+		icon = generic_industry
+
+		allowed = {
+			always = yes
+		}
+
+		available = {
+			always = yes		
+		}
+
+		visible = {
+			NOT = { has_country_flag = plx_expand_electricity_finished }
+			has_country_flag = plx_econ_mil_unlocked
+		}
+
+		#cancel_trigger = {
+		#	OR = {
+		#		has_stability > 0.75
+		#		has_socialist_government = no
+		#	}
+		#}
+
+		fire_only_once = no
+
+		modifier = {
+			#consumer_goods_factor = 0.05
+			#political_power_cost = 0.10
+			#production_lack_of_resource_penalty_factor = -0.75
+		}
+
+		days_remove = 120
+		days_re_enable = 120
+
+		cost = 80
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision PLX_expand_electricity"
+			#set_country_flag = { flag = plx_scraping_resources days = 180 value = 1 }
+			set_country_flag = plx_expand_electricity_finished
+			add_to_variable = {
+				PLX_indutry_production_factory_max_efficiency_factor = 0.05 
+				tooltip = production_factory_max_efficiency_factor_tt
+			}
+			add_to_variable = { 
+				PLX_indutry_production_speed_buildings_factor = 0.10 
+				tooltip = production_speed_buildings_factor_tt
+			}
+			add_to_variable = { 
+				PLX_indutry_line_change_production_efficiency_factor = 0.05 
+				tooltip = line_change_production_efficiency_factor_tt
+			}			
+		}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 1
+				has_political_power > 200
+			}
+		}
+	}
+	PLX_initiate_public_works = {
+
+		icon = generic_industry
+
+		allowed = {
+			always = yes
+		}
+
+		available = {
+			always = yes		
+		}
+
+		visible = {
+			NOT = { has_country_flag = plx_initiate_public_works_finished }
+			has_country_flag = plx_econ_mil_unlocked
+		}
+
+		#cancel_trigger = {
+		#	OR = {
+		#		has_stability > 0.75
+		#		has_socialist_government = no
+		#	}
+		#}
+
+		fire_only_once = no
+
+		modifier = {
+			#consumer_goods_factor = 0.05
+			#political_power_cost = 0.10
+			#production_lack_of_resource_penalty_factor = -0.75
+		}
+
+		days_remove = 90
+		days_re_enable = 120
+
+		cost = 100
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision PLX_initiate_public_works"
+			#set_country_flag = { flag = plx_scraping_resources days = 180 value = 1 }
+			set_country_flag = plx_initiate_public_works_finished
+			add_to_variable = { 
+				PLX_indutry_production_factory_efficiency_gain_factor = 0.10 
+				tooltip = production_factory_efficiency_gain_factor_tt
+			}
+			add_to_variable = { 
+				PLX_indutry_production_speed_buildings_factor = 0.10
+				tooltip = production_speed_buildings_factor_tt
+			}
+			add_to_variable = { 
+				PLX_indutry_conscription_factor = -0.10 
+				tooltip = conscription_factor_tt
+			}
+		}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 1
+				has_political_power > 200
+			}
+		}
+	}
+	PLX_expand_alcohol_production = {
+
+		icon = generic_industry
+
+		allowed = {
+			always = yes
+		}
+
+		available = {
+			always = yes		
+		}
+
+		visible = {
+			NOT = { has_country_flag = plx_expand_alcohol_production_finished }
+			has_country_flag = plx_econ_mil_unlocked
+		}
+
+		#cancel_trigger = {
+		#	OR = {
+		#		has_stability > 0.75
+		#		has_socialist_government = no
+		#	}
+		#}
+
+		fire_only_once = no
+
+		modifier = {
+			#consumer_goods_factor = 0.05
+			#political_power_cost = 0.10
+			#production_lack_of_resource_penalty_factor = -0.75
+		}
+
+		days_remove = 90
+		days_re_enable = 120
+
+		cost = 60
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision PLX_expand_alcohol_production"
+			#set_country_flag = { flag = plx_scraping_resources days = 180 value = 1 }
+			set_country_flag = plx_expand_alcohol_production_finished
+			add_to_variable = { 
+				PLX_indutry_political_power_gain = 0.10
+				tooltip = political_power_gain_tt
+			}
+			add_to_variable = { 
+				PLX_indutry_production_factory_efficiency_gain_factor = -0.02
+				tooltip = production_factory_efficiency_gain_factor_tt
+			}
+			add_to_variable = { 
+				PLX_indutry_production_factory_max_efficiency_factor = -0.02
+				tooltip = production_factory_max_efficiency_factor_tt
+			}
+			add_to_variable = {
+				PLX_indutry_industrial_capacity_factory = -0.02 
+				tooltip = industrial_capacity_factory_tt
+			}
+			add_to_variable = { 
+				PLX_indutry_production_speed_buildings_factor = -0.05
+				tooltip = production_speed_buildings_factor_tt
+			}
+			add_to_variable = { 
+				PLX_indutry_research_speed_factor = -0.01
+				tooltip = research_speed_factor_tt
+			}
+			add_to_variable = { 
+				PLX_indutry_consumer_goods_factor = -0.10
+				tooltip = consumer_goods_factor_tt
+			}
+			add_to_variable = { 
+				PLX_indutry_line_change_production_efficiency_factor = -0.03 
+				tooltip = line_change_production_efficiency_factor_tt
+			}
+			add_to_variable = { 
+				PLX_indutry_supply_factor = -0.05 
+				tooltip = supply_consumption_factor_tt
+			}		
+		}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 1
+				has_political_power > 200
+			}
+		}
+	}	
+	###
+	PLX_Develop_Military_Industry_In_State_BIG = {
+		name = PLX_Develop_Military_Industry_In_State
+		icon = generic_construction
+
+		allowed = { always = no } #activated by effect
+
+		available = {
+			OR = {
+				has_idea = partial_economic_mobilisation
+				has_idea = war_economy
+				has_idea = tot_economic_mobilisation
+			}
+			num_of_civilian_factories_available_for_projects > 1
+		}
+		visible = {
+			FROM = {
+				is_owned_by = ROOT
+				is_core_of = ROOT
+			}
+		}		
+
+		cost = 60
+		days_remove = 90
+		fire_only_once = yes
+		state_target = yes
+
+		modifier = {
+			civilian_factory_use = 3
+		}
+
+		ai_will_do = {
+			factor = 50
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove PLX_Develop_Military_Industry_In_State_BIG"
+			FROM = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+		}
+	}
+	PLX_Develop_Military_Industry_In_State_MEDIUM = {
+		name = PLX_Develop_Military_Industry_In_State
+		icon = generic_construction
+
+		allowed = { always = no } #activated by effect
+
+		available = {
+			OR = {
+				has_idea = partial_economic_mobilisation
+				has_idea = war_economy
+				has_idea = tot_economic_mobilisation
+			}
+			num_of_civilian_factories_available_for_projects > 1
+		}
+		visible = {
+			FROM = {
+				is_owned_by = ROOT
+				is_core_of = ROOT
+			}
+		}		
+
+		cost = 40
+		days_remove = 90
+		fire_only_once = yes
+		state_target = yes
+
+		modifier = {
+			civilian_factory_use = 2
+		}
+
+		ai_will_do = {
+			factor = 50
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove PLX_Develop_Military_Industry_In_State_MEDIUM"
+			FROM = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}	
+	PLX_Develop_Military_Industry_In_State_SMALL = {
+		name = PLX_Develop_Military_Industry_In_State
+		icon = generic_construction
+
+		allowed = { always = no } #activated by effect
+
+		available = {
+			OR = {
+				has_idea = partial_economic_mobilisation
+				has_idea = war_economy
+				has_idea = tot_economic_mobilisation
+			}
+			num_of_civilian_factories_available_for_projects > 1
+		}
+		visible = {
+			FROM = {
+				is_owned_by = ROOT
+				is_core_of = ROOT
+			}
+		}
+
+		cost = 20
+		days_remove = 90
+		fire_only_once = yes
+		state_target = yes
+
+		modifier = {
+			civilian_factory_use = 1
+		}
+
+		ai_will_do = {
+			factor = 50
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove PLX_Develop_Military_Industry_In_State_MEDIUM"
+			FROM = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+}
