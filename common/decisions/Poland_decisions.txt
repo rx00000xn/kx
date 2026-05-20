@@ -1,51 +1,51 @@
-political_actions = {
-	POL_resist_german_oppressors = {
-		icon = generic_army_support
-
-		allowed = { tag = POL } 
-
-		available = {
-			hidden_trigger = {
-				always = no
-			}
-		}
-
-		visible = { 
-			always = no
-			NOT = { has_country_flag = POL_resisted_the_german_invasion }
-			is_subject = no
-			has_war_with = GER
-			is_in_faction = no
-			NOT = { has_cosmetic_tag = POL_PLC }
-			NOT = { has_country_flag = POL_christian_takeover }
-			date > 1938.6.6
-		}
-
-		selectable_mission = no
-		is_good = no
-		days_mission_timeout = 110
-		fire_only_once = yes
-
-		cancel_trigger = {
-			always = yes
-			#OR = {
-			#NOT = { has_war_with = GER }
-			#has_capitulated = yes
-			#}
-		}
-
-		timeout_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision timeout POL_resist_german_oppressors"
-			every_enemy_country = {
-				limit = {
-					is_in_faction_with = GER
-				}
-				white_peace = POL
-			}
-			hidden_effect = { set_country_flag = POL_resisted_the_german_invasion }
-		}
-	}
-}
+#political_actions = {
+#	POL_resist_german_oppressors = {
+#		icon = generic_army_support
+#
+#		allowed = { tag = POL } 
+#
+#		available = {
+#			hidden_trigger = {
+#				always = no
+#			}
+#		}
+#
+#		visible = { 
+#			always = no
+#			NOT = { has_country_flag = POL_resisted_the_german_invasion }
+#			is_subject = no
+#			has_war_with = GER
+#			is_in_faction = no
+#			NOT = { has_cosmetic_tag = POL_PLC }
+#			NOT = { has_country_flag = POL_christian_takeover }
+#			date > 1938.6.6
+#		}
+#
+#		selectable_mission = no
+#		is_good = no
+#		days_mission_timeout = 110
+#		fire_only_once = yes
+#
+#		cancel_trigger = {
+#			always = yes
+#			#OR = {
+#			#NOT = { has_war_with = GER }
+#			#has_capitulated = yes
+#			#}
+#		}
+#
+#		timeout_effect = {
+#			log = "[GetDateText]: [Root.GetName]: Decision timeout POL_resist_german_oppressors"
+#			every_enemy_country = {
+#				limit = {
+#					is_in_faction_with = GER
+#				}
+#				white_peace = POL
+#			}
+#			hidden_effect = { set_country_flag = POL_resisted_the_german_invasion }
+#		}
+#	}
+#}
 
 POL_foreign_policy_decisions = {
 	POL_seize_galicia = {
@@ -453,403 +453,403 @@ POL_foreign_policy_decisions = {
 			}
 		}
 	}
-	POL_alliance_with_ukraine = {
-		icon = generic_prepare_civil_war
-
-		available = {
-			at_peace_or_same_enemies_as_FROM = yes
-		}
-
-		visible = {
-			always = no
-			is_in_faction = no
-			has_socialist_government = yes
-			FROM = {
-				exists = yes
-				is_subject = no
-				is_in_faction = no
-				has_socialist_government = yes
-				NOT = { has_war_with = ROOT }
-			}
-			has_completed_focus = POL_victory_of_the_people
-		}
-		
-		targets = { UKR }
-		target_root_trigger = { has_completed_focus = POL_victory_of_the_people }
-		target_trigger = {
-			FROM = {
-				is_subject = no
-				is_in_faction = no
-				has_socialist_government = yes
-			}
-		}
-
-		cost = 20
-		fire_only_once = yes
-
-		ai_will_do = {
-			factor = 100
-			modifier = {
-				factor = 0
-				OR = {
-					has_game_rule = {
-						rule = POL_foreign_policy
-						option = POL_FOREIGN_POLICY_NEUTRALITY
-					}
-					has_game_rule = {
-						rule = POL_foreign_policy
-						option = POL_FOREIGN_POLICY_INTERNATIONALE
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				FROM = { surrender_progress > 0.30 }
-			}
-		}
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision POL_alliance_with_ukraine"
-			FROM = { country_event = poland.55 }
-		}
-	}
-	POL_join_internationale = {
-		icon = generic_prepare_civil_war
-
-		available = {
-			at_peace_or_same_enemies_as_FROM = yes
-		}
-
-		visible = {
-			always = no
-			is_in_faction = no
-			has_socialist_government = yes
-			FROM = {
-				has_socialist_government = yes
-				is_faction_leader = yes
-				NOT = { has_war_with = ROOT }
-			}
-			OR = {
-				has_completed_focus = POL_lampes_reforms
-				has_completed_focus = POL_warskis_broad_socialism
-				has_completed_focus = POL_leszczynskis_true_leninism
-			}
-		}
-		
-		targets = { INT }
-		target_root_trigger = {
-			OR = {
-				has_completed_focus = POL_lampes_reforms
-				has_completed_focus = POL_warskis_broad_socialism
-				has_completed_focus = POL_leszczynskis_true_leninism
-			}
-			has_socialist_government = yes
-		}
-		target_trigger = {
-			FROM = {
-				has_socialist_government = yes
-				is_faction_leader = yes
-			}
-		}
-
-		cost = 20
-		fire_only_once = yes
-
-		ai_will_do = {
-			factor = 100
-			modifier = {
-				factor = 0
-				OR = {
-					has_game_rule = {
-						rule = POL_foreign_policy
-						option = POL_FOREIGN_POLICY_NEUTRALITY
-					}
-					has_game_rule = {
-						rule = POL_foreign_policy
-						option = POL_FOREIGN_POLICY_UKRAINE
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				FROM = { surrender_progress > 0.30 }
-			}
-		}
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision POL_join_internationale"
-			FROM = { country_event = poland.161 }
-		}
-	}
-	POL_join_austria = {
-		icon = generic_prepare_civil_war
-
-		available = {
-			at_peace_or_same_enemies_as_FROM = yes
-		}
-
-		visible = {
-			always = no
-			is_in_faction = no
-			FROM = {
-				is_faction_leader = yes
-				NOT = { has_war_with = ROOT }
-			}
-			has_completed_focus = POL_von_habsburg
-		}
-		
-		targets = { AUS }
-		target_root_trigger = {
-			has_completed_focus = POL_von_habsburg
-		}
-		target_trigger = {
-			FROM = { is_faction_leader = yes }
-		}
-
-		cost = 20
-		fire_only_once = yes
-
-		ai_will_do = {
-			factor = 100
-			modifier = {
-				factor = 0
-				OR = {
-					has_game_rule = {
-						rule = POL_foreign_policy
-						option = POL_FOREIGN_POLICY_NEUTRALITY
-					}
-					has_game_rule = {
-						rule = POL_foreign_policy
-						option = POL_FOREIGN_POLICY_REICHSPAKT
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				FROM = { surrender_progress > 0.30 }
-			}
-		}
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision POL_join_austria"
-			FROM = { country_event = poland.129 }
-		}
-	}
-	POL_detente_with_germany = {
-		icon = generic_prepare_civil_war
-
-		available = {
-			at_peace_or_same_enemies_as_FROM = yes
-		}
-
-		visible = {
-			always = no
-			is_in_faction = no
-			FROM = {
-				is_faction_leader = yes
-				NOT = { has_war_with = ROOT }
-			}
-			has_completed_focus = POL_join_international_community
-		}
-		
-		targets = { GER }
-		target_root_trigger = {
-			has_completed_focus = POL_join_international_community
-		}
-		target_trigger = {
-			FROM = { is_faction_leader = yes }
-		}
-
-		cost = 20
-		fire_only_once = yes
-
-		ai_will_do = {
-			factor = 20
-			modifier = {
-				factor = 0
-				OR = {
-					has_game_rule = {
-						rule = POL_foreign_policy
-						option = POL_FOREIGN_POLICY_NEUTRALITY
-					}
-					has_game_rule = {
-						rule = POL_foreign_policy
-						option = POL_FOREIGN_POLICY_AUSTRIA
-					}
-					has_game_rule = {
-						rule = POL_foreign_policy
-						option = POL_FOREIGN_POLICY_RUSSIA
-					}
-					has_game_rule = {
-						rule = POL_foreign_policy
-						option = POL_FOREIGN_POLICY_ENTENTE
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				FROM = { surrender_progress > 0.30 }
-			}
-		}
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision POL_detente_with_germany"
-			FROM = { country_event = poland.146 }
-		}
-	}
-	POL_look_to_russia = {
-		icon = generic_prepare_civil_war
-
-		available = {
-			at_peace_or_same_enemies_as_FROM = yes
-		}
-
-		visible = {
-			always = no
-			is_in_faction = no
-			FROM = {
-				is_faction_leader = yes
-				NOT = { has_war_with = ROOT }
-				has_socialist_government = no
-			}
-			has_completed_focus = POL_join_international_community
-		}
-		
-		targets = { RUS }
-		target_root_trigger = {
-			has_completed_focus = POL_join_international_community
-		}
-		target_trigger = {
-			FROM = { is_faction_leader = yes }
-		}
-
-		cost = 20
-		fire_only_once = yes
-
-		ai_will_do = {
-			factor = 20
-			modifier = {
-				factor = 0
-				OR = {
-					has_game_rule = {
-						rule = POL_foreign_policy
-						option = POL_FOREIGN_POLICY_NEUTRALITY
-					}
-					has_game_rule = {
-						rule = POL_foreign_policy
-						option = POL_FOREIGN_POLICY_REICHSPAKT
-					}
-					has_game_rule = {
-						rule = POL_foreign_policy
-						option = POL_FOREIGN_POLICY_AUSTRIA
-					}
-					has_game_rule = {
-						rule = POL_foreign_policy
-						option = POL_FOREIGN_POLICY_ENTENTE
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				FROM = { surrender_progress > 0.30 }
-			}
-		}
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision POL_look_to_russia"
-			FROM = { country_event = poland.149 }
-		}
-	}
-	POL_join_entente = {
-		name = GRE_join_entente
-		icon = generic_agreement
-
-		available = {
-			any_neighbor_country = { is_in_faction_with = FROM }
-			OR = {
-				has_war = no
-				custom_trigger_tooltip = {
-					tooltip = GRE_same_wars_as_entente
-					has_war = yes
-					NOT = {
-						any_enemy_country = {
-							NOT = { has_war_with = FROM }
-						}
-					}
-				}
-			}
-		}
-
-		visible = {
-			always = no
-			NOT = { country_exists = GAL }
-			OR = {
-				is_in_faction = no
-				is_faction_leader = yes
-			}
-			has_socialist_government = no
-			FROM = {
-				is_faction_leader = yes
-				NOT = { has_war_with = ROOT }
-			}
-		}
-
-		targets = { ENT }
-		target_root_trigger = {
-			NOT = { country_exists = GAL }
-			is_in_faction = no
-			has_socialist_government = no
-		}
-		target_trigger = {
-			FROM = {
-				is_faction_leader = yes
-				NOT = { has_war_with = ROOT }
-			}
-		}
-
-		cost = 20
-		fire_only_once = yes
-
-		ai_will_do = {
-		modifier = {
-				factor = 0
-				OR = {
-					has_game_rule = {
-						rule = POL_foreign_policy
-						option = POL_FOREIGN_POLICY_NEUTRALITY
-					}
-					has_game_rule = {
-						rule = POL_foreign_policy
-						option = POL_FOREIGN_POLICY_REICHSPAKT
-					}
-					has_game_rule = {
-						rule = POL_foreign_policy
-						option = POL_FOREIGN_POLICY_AUSTRIA
-					}
-				}
-			}
-			factor = 5
-			modifier = {
-				factor = 0
-				FROM = { surrender_progress > 0.20 }
-			}
-			modifier = {
-				factor = 0
-				any_neighbor_country = { is_in_faction_with = GER }
-				FROM = { has_war_with = GER }
-			}
-			modifier = {
-				factor = 0
-				any_neighbor_country = { is_in_faction_with = AUS }
-				FROM = { has_war_with = AUS }
-			}
-		}
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision POL_join_entente target: [From.GetName]"
-			FROM = { country_event = poland.64 }
-		}
-	}
+	#POL_alliance_with_ukraine = {
+	#	icon = generic_prepare_civil_war
+	#
+	#	available = {
+	#		at_peace_or_same_enemies_as_FROM = yes
+	#	}
+	#
+	#	visible = {
+	#		always = no
+	#		is_in_faction = no
+	#		has_socialist_government = yes
+	#		FROM = {
+	#			exists = yes
+	#			is_subject = no
+	#			is_in_faction = no
+	#			has_socialist_government = yes
+	#			NOT = { has_war_with = ROOT }
+	#		}
+	#		has_completed_focus = POL_victory_of_the_people
+	#	}
+	#	
+	#	targets = { UKR }
+	#	target_root_trigger = { has_completed_focus = POL_victory_of_the_people }
+	#	target_trigger = {
+	#		FROM = {
+	#			is_subject = no
+	#			is_in_faction = no
+	#			has_socialist_government = yes
+	#		}
+	#	}
+	#
+	#	cost = 20
+	#	fire_only_once = yes
+	#
+	#	ai_will_do = {
+	#		factor = 100
+	#		modifier = {
+	#			factor = 0
+	#			OR = {
+	#				has_game_rule = {
+	#					rule = POL_foreign_policy
+	#					option = POL_FOREIGN_POLICY_NEUTRALITY
+	#				}
+	#				has_game_rule = {
+	#					rule = POL_foreign_policy
+	#					option = POL_FOREIGN_POLICY_INTERNATIONALE
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			FROM = { surrender_progress > 0.30 }
+	#		}
+	#	}
+	#
+	#	complete_effect = {
+	#		log = "[GetDateText]: [Root.GetName]: Decision POL_alliance_with_ukraine"
+	#		FROM = { country_event = poland.55 }
+	#	}
+	#}
+	#POL_join_internationale = {
+	#	icon = generic_prepare_civil_war
+	#
+	#	available = {
+	#		at_peace_or_same_enemies_as_FROM = yes
+	#	}
+	#
+	#	visible = {
+	#		always = no
+	#		is_in_faction = no
+	#		has_socialist_government = yes
+	#		FROM = {
+	#			has_socialist_government = yes
+	#			is_faction_leader = yes
+	#			NOT = { has_war_with = ROOT }
+	#		}
+	#		OR = {
+	#			has_completed_focus = POL_lampes_reforms
+	#			has_completed_focus = POL_warskis_broad_socialism
+	#			has_completed_focus = POL_leszczynskis_true_leninism
+	#		}
+	#	}
+	#	
+	#	targets = { INT }
+	#	target_root_trigger = {
+	#		OR = {
+	#			has_completed_focus = POL_lampes_reforms
+	#			has_completed_focus = POL_warskis_broad_socialism
+	#			has_completed_focus = POL_leszczynskis_true_leninism
+	#		}
+	#		has_socialist_government = yes
+	#	}
+	#	target_trigger = {
+	#		FROM = {
+	#			has_socialist_government = yes
+	#			is_faction_leader = yes
+	#		}
+	#	}
+	#
+	#	cost = 20
+	#	fire_only_once = yes
+	#
+	#	ai_will_do = {
+	#		factor = 100
+	#		modifier = {
+	#			factor = 0
+	#			OR = {
+	#				has_game_rule = {
+	#					rule = POL_foreign_policy
+	#					option = POL_FOREIGN_POLICY_NEUTRALITY
+	#				}
+	#				has_game_rule = {
+	#					rule = POL_foreign_policy
+	#					option = POL_FOREIGN_POLICY_UKRAINE
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			FROM = { surrender_progress > 0.30 }
+	#		}
+	#	}
+	#
+	#	complete_effect = {
+	#		log = "[GetDateText]: [Root.GetName]: Decision POL_join_internationale"
+	#		FROM = { country_event = poland.161 }
+	#	}
+	#}
+	#POL_join_austria = {
+	#	icon = generic_prepare_civil_war
+	#
+	#	available = {
+	#		at_peace_or_same_enemies_as_FROM = yes
+	#	}
+	#
+	#	visible = {
+	#		always = no
+	#		is_in_faction = no
+	#		FROM = {
+	#			is_faction_leader = yes
+	#			NOT = { has_war_with = ROOT }
+	#		}
+	#		has_completed_focus = POL_von_habsburg
+	#	}
+	#	
+	#	targets = { AUS }
+	#	target_root_trigger = {
+	#		has_completed_focus = POL_von_habsburg
+	#	}
+	#	target_trigger = {
+	#		FROM = { is_faction_leader = yes }
+	#	}
+	#
+	#	cost = 20
+	#	fire_only_once = yes
+	#
+	#	ai_will_do = {
+	#		factor = 100
+	#		modifier = {
+	#			factor = 0
+	#			OR = {
+	#				has_game_rule = {
+	#					rule = POL_foreign_policy
+	#					option = POL_FOREIGN_POLICY_NEUTRALITY
+	#				}
+	#				has_game_rule = {
+	#					rule = POL_foreign_policy
+	#					option = POL_FOREIGN_POLICY_REICHSPAKT
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			FROM = { surrender_progress > 0.30 }
+	#		}
+	#	}
+	#
+	#	complete_effect = {
+	#		log = "[GetDateText]: [Root.GetName]: Decision POL_join_austria"
+	#		FROM = { country_event = poland.129 }
+	#	}
+	#}
+	#POL_detente_with_germany = {
+	#	icon = generic_prepare_civil_war
+	#
+	#	available = {
+	#		at_peace_or_same_enemies_as_FROM = yes
+	#	}
+	#
+	#	visible = {
+	#		always = no
+	#		is_in_faction = no
+	#		FROM = {
+	#			is_faction_leader = yes
+	#			NOT = { has_war_with = ROOT }
+	#		}
+	#		has_completed_focus = POL_join_international_community
+	#	}
+	#	
+	#	targets = { GER }
+	#	target_root_trigger = {
+	#		has_completed_focus = POL_join_international_community
+	#	}
+	#	target_trigger = {
+	#		FROM = { is_faction_leader = yes }
+	#	}
+	#
+	#	cost = 20
+	#	fire_only_once = yes
+	#
+	#	ai_will_do = {
+	#		factor = 20
+	#		modifier = {
+	#			factor = 0
+	#			OR = {
+	#				has_game_rule = {
+	#					rule = POL_foreign_policy
+	#					option = POL_FOREIGN_POLICY_NEUTRALITY
+	#				}
+	#				has_game_rule = {
+	#					rule = POL_foreign_policy
+	#					option = POL_FOREIGN_POLICY_AUSTRIA
+	#				}
+	#				has_game_rule = {
+	#					rule = POL_foreign_policy
+	#					option = POL_FOREIGN_POLICY_RUSSIA
+	#				}
+	#				has_game_rule = {
+	#					rule = POL_foreign_policy
+	#					option = POL_FOREIGN_POLICY_ENTENTE
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			FROM = { surrender_progress > 0.30 }
+	#		}
+	#	}
+	#
+	#	complete_effect = {
+	#		log = "[GetDateText]: [Root.GetName]: Decision POL_detente_with_germany"
+	#		FROM = { country_event = poland.146 }
+	#	}
+	#}
+	#POL_look_to_russia = {
+	#	icon = generic_prepare_civil_war
+	#
+	#	available = {
+	#		at_peace_or_same_enemies_as_FROM = yes
+	#	}
+	#
+	#	visible = {
+	#		always = no
+	#		is_in_faction = no
+	#		FROM = {
+	#			is_faction_leader = yes
+	#			NOT = { has_war_with = ROOT }
+	#			has_socialist_government = no
+	#		}
+	#		has_completed_focus = POL_join_international_community
+	#	}
+	#	
+	#	targets = { RUS }
+	#	target_root_trigger = {
+	#		has_completed_focus = POL_join_international_community
+	#	}
+	#	target_trigger = {
+	#		FROM = { is_faction_leader = yes }
+	#	}
+	#
+	#	cost = 20
+	#	fire_only_once = yes
+	#
+	#	ai_will_do = {
+	#		factor = 20
+	#		modifier = {
+	#			factor = 0
+	#			OR = {
+	#				has_game_rule = {
+	#					rule = POL_foreign_policy
+	#					option = POL_FOREIGN_POLICY_NEUTRALITY
+	#				}
+	#				has_game_rule = {
+	#					rule = POL_foreign_policy
+	#					option = POL_FOREIGN_POLICY_REICHSPAKT
+	#				}
+	#				has_game_rule = {
+	#					rule = POL_foreign_policy
+	#					option = POL_FOREIGN_POLICY_AUSTRIA
+	#				}
+	#				has_game_rule = {
+	#					rule = POL_foreign_policy
+	#					option = POL_FOREIGN_POLICY_ENTENTE
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			FROM = { surrender_progress > 0.30 }
+	#		}
+	#	}
+	#
+	#	complete_effect = {
+	#		log = "[GetDateText]: [Root.GetName]: Decision POL_look_to_russia"
+	#		FROM = { country_event = poland.149 }
+	#	}
+	#}
+	#POL_join_entente = {
+	#	name = GRE_join_entente
+	#	icon = generic_agreement
+	#
+	#	available = {
+	#		any_neighbor_country = { is_in_faction_with = FROM }
+	#		OR = {
+	#			has_war = no
+	#			custom_trigger_tooltip = {
+	#				tooltip = GRE_same_wars_as_entente
+	#				has_war = yes
+	#				NOT = {
+	#					any_enemy_country = {
+	#						NOT = { has_war_with = FROM }
+	#					}
+	#				}
+	#			}
+	#		}
+	#	}
+	#
+	#	visible = {
+	#		always = no
+	#		NOT = { country_exists = GAL }
+	#		OR = {
+	#			is_in_faction = no
+	#			is_faction_leader = yes
+	#		}
+	#		has_socialist_government = no
+	#		FROM = {
+	#			is_faction_leader = yes
+	#			NOT = { has_war_with = ROOT }
+	#		}
+	#	}
+	#
+	#	targets = { ENT }
+	#	target_root_trigger = {
+	#		NOT = { country_exists = GAL }
+	#		is_in_faction = no
+	#		has_socialist_government = no
+	#	}
+	#	target_trigger = {
+	#		FROM = {
+	#			is_faction_leader = yes
+	#			NOT = { has_war_with = ROOT }
+	#		}
+	#	}
+	#
+	#	cost = 20
+	#	fire_only_once = yes
+	#
+	#	ai_will_do = {
+	#	modifier = {
+	#			factor = 0
+	#			OR = {
+	#				has_game_rule = {
+	#					rule = POL_foreign_policy
+	#					option = POL_FOREIGN_POLICY_NEUTRALITY
+	#				}
+	#				has_game_rule = {
+	#					rule = POL_foreign_policy
+	#					option = POL_FOREIGN_POLICY_REICHSPAKT
+	#				}
+	#				has_game_rule = {
+	#					rule = POL_foreign_policy
+	#					option = POL_FOREIGN_POLICY_AUSTRIA
+	#				}
+	#			}
+	#		}
+	#		factor = 5
+	#		modifier = {
+	#			factor = 0
+	#			FROM = { surrender_progress > 0.20 }
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			any_neighbor_country = { is_in_faction_with = GER }
+	#			FROM = { has_war_with = GER }
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			any_neighbor_country = { is_in_faction_with = AUS }
+	#			FROM = { has_war_with = AUS }
+	#		}
+	#	}
+	#
+	#	complete_effect = {
+	#		log = "[GetDateText]: [Root.GetName]: Decision POL_join_entente target: [From.GetName]"
+	#		FROM = { country_event = poland.64 }
+	#	}
+	#}
 
 	#POL_claim_east_lithuania = {
 	#	icon = generic_prepare_civil_war
@@ -986,176 +986,176 @@ POL_foreign_policy_decisions = {
 	}
 }
 
-PLC_intermarium = {
-	
-	PLC_form_intermarium = {
-		icon = GFX_decision_generic_nationalism
-		fire_only_once = yes
-		visible = {
-			always = no
-			tag = POL
-			#OR = {
-			#	has_completed_focus = PLC_old_poland
-			#	has_completed_focus = PLC_old_lithuania
-			#}
-			is_puppet = no
-		}
-		available = {
-			always = no
-			tag = POL
-			#has_completed_focus = PLC_assert_diplomatic_independence
-			is_puppet = no
-			
-			owns_state = 96
-			owns_state = 1091
-			owns_state = 776
-			owns_state = 91
-			owns_state = 206
-			owns_state = 202
-		}
-		complete_effect = {
-			set_cosmetic_tag = POL_intermarium
-			add_state_core = 776
-			add_state_core = 777
-			add_state_core = 5
-			add_state_core = 188
-			add_state_core = 1124
-			add_state_core = 88
-			add_state_core = 1125
-			add_state_core = 1127
-			add_state_core = 1126
-			add_state_core = 1140
-			add_state_core = 89
-			add_state_core = 91
-			add_state_core = 80
-			add_state_core = 713
-			add_state_core = 86
-			add_state_core = 93
-			add_state_core = 94
-			add_state_core = 95
-			add_state_core = 207
-			add_state_core = 206
-			add_state_core = 1087
-			add_state_core = 204
-			add_state_core = 194
-			add_state_core = 755
-			add_state_core = 1292
-			add_state_core = 1293
-			add_state_core = 1287
-			add_state_core = 243
-			add_state_core = 997
-			add_state_core = 792
-			add_state_core = 1228
-			add_state_core = 199
-			add_state_core = 201
-			add_state_core = 198
-			add_state_core = 199
-			add_state_core = 202
-			add_state_core = 203
-			add_state_core = 204
-			add_state_core = 791
-			add_state_core = 192
-			add_state_core = 197
-			add_state_core = 226
-			add_state_core = 1237
-			add_state_core = 1243
-			add_state_core = 1242
-			add_state_core = 1230
-			add_state_core = 221
-			add_state_core = 259
-			add_state_core = 193
-			add_state_core = 241
-			add_state_core = 225
-			add_state_core = 220
-			add_state_core = 224
-			add_state_core = 222
-			add_state_core = 205
-			add_state_core = 242
-			add_state_core = 67
-			add_state_core = 66
-			add_state_core = 68
-			add_state_core = 63
-			add_state_core = 1357
-			add_state_core = 880
-			add_state_core = 12
-			add_state_core = 1091
-			add_state_core = 190
-			add_state_core = 13
-			add_state_core = 191
-			add_state_core = 1295
-			add_state_core = 1294
-			add_state_core = 1245
-			add_state_core = 1241
-			add_state_core = 1240
-			add_state_core = 1244
-			add_state_core = 1233
-			add_state_core = 1232
-			add_state_core = 1238
-			set_country_flag = PLC_formed_intermarium
-		}
-		ai_will_do = {
-			factor = 3
-		}
-	}
-	
-	PLC_unify_finland = {
-		cost = 150
-		icon = GFX_decision_generic_nationalism
-		fire_only_once = yes
-		visible = {
-			tag = POL
-			has_country_flag = PLC_formed_intermarium
-			country_exists = FIN
-		}
-		available = {
-			tag = POL
-			has_country_flag = PLC_formed_intermarium
-			country_exists = FIN
-			FIN = {
-				is_puppet = no
-			}
-		}
-		complete_effect = {
-			FIN = {
-				country_event = {
-					id = kxplc.22
-					days = 3
-				}
-			}
-		}
-		ai_will_do = {
-			factor = 3
-		}
-	}
-	
-	PLC_unify_hungary = {
-		cost = 150
-		icon = GFX_decision_generic_nationalism
-		fire_only_once = yes
-		visible = {
-			tag = POL
-			has_country_flag = PLC_formed_intermarium
-			country_exists = HUN
-		}
-		available = {
-			tag = POL
-			has_country_flag = PLC_formed_intermarium
-			country_exists = HUN
-			HUN = {
-				is_puppet = no
-				is_in_faction = no
-			}
-		}
-		complete_effect = {
-			HUN = {
-				country_event = {
-					id = kxplc.22
-					days = 3
-				}
-			}
-		}
-		ai_will_do = {
-			factor = 3
-		}
-	}
-}
+#PLC_intermarium = {
+#	
+#	PLC_form_intermarium = {
+#		icon = GFX_decision_generic_nationalism
+#		fire_only_once = yes
+#		visible = {
+#			always = no
+#			tag = POL
+#			#OR = {
+#			#	has_completed_focus = PLC_old_poland
+#			#	has_completed_focus = PLC_old_lithuania
+#			#}
+#			is_puppet = no
+#		}
+#		available = {
+#			always = no
+#			tag = POL
+#			#has_completed_focus = PLC_assert_diplomatic_independence
+#			is_puppet = no
+#			
+#			owns_state = 96
+#			owns_state = 1091
+#			owns_state = 776
+#			owns_state = 91
+#			owns_state = 206
+#			owns_state = 202
+#		}
+#		complete_effect = {
+#			set_cosmetic_tag = POL_intermarium
+#			add_state_core = 776
+#			add_state_core = 777
+#			add_state_core = 5
+#			add_state_core = 188
+#			add_state_core = 1124
+#			add_state_core = 88
+#			add_state_core = 1125
+#			add_state_core = 1127
+#			add_state_core = 1126
+#			add_state_core = 1140
+#			add_state_core = 89
+#			add_state_core = 91
+#			add_state_core = 80
+#			add_state_core = 713
+#			add_state_core = 86
+#			add_state_core = 93
+#			add_state_core = 94
+#			add_state_core = 95
+#			add_state_core = 207
+#			add_state_core = 206
+#			add_state_core = 1087
+#			add_state_core = 204
+#			add_state_core = 194
+#			add_state_core = 755
+#			add_state_core = 1292
+#			add_state_core = 1293
+#			add_state_core = 1287
+#			add_state_core = 243
+#			add_state_core = 997
+#			add_state_core = 792
+#			add_state_core = 1228
+#			add_state_core = 199
+#			add_state_core = 201
+#			add_state_core = 198
+#			add_state_core = 199
+#			add_state_core = 202
+#			add_state_core = 203
+#			add_state_core = 204
+#			add_state_core = 791
+#			add_state_core = 192
+#			add_state_core = 197
+#			add_state_core = 226
+#			add_state_core = 1237
+#			add_state_core = 1243
+#			add_state_core = 1242
+#			add_state_core = 1230
+#			add_state_core = 221
+#			add_state_core = 259
+#			add_state_core = 193
+#			add_state_core = 241
+#			add_state_core = 225
+#			add_state_core = 220
+#			add_state_core = 224
+#			add_state_core = 222
+#			add_state_core = 205
+#			add_state_core = 242
+#			add_state_core = 67
+#			add_state_core = 66
+#			add_state_core = 68
+#			add_state_core = 63
+#			add_state_core = 1357
+#			add_state_core = 880
+#			add_state_core = 12
+#			add_state_core = 1091
+#			add_state_core = 190
+#			add_state_core = 13
+#			add_state_core = 191
+#			add_state_core = 1295
+#			add_state_core = 1294
+#			add_state_core = 1245
+#			add_state_core = 1241
+#			add_state_core = 1240
+#			add_state_core = 1244
+#			add_state_core = 1233
+#			add_state_core = 1232
+#			add_state_core = 1238
+#			set_country_flag = PLC_formed_intermarium
+#		}
+#		ai_will_do = {
+#			factor = 3
+#		}
+#	}
+#	
+#	PLC_unify_finland = {
+#		cost = 150
+#		icon = GFX_decision_generic_nationalism
+#		fire_only_once = yes
+#		visible = {
+#			tag = POL
+#			has_country_flag = PLC_formed_intermarium
+#			country_exists = FIN
+#		}
+#		available = {
+#			tag = POL
+#			has_country_flag = PLC_formed_intermarium
+#			country_exists = FIN
+#			FIN = {
+#				is_puppet = no
+#			}
+#		}
+#		complete_effect = {
+#			FIN = {
+#				country_event = {
+#					id = kxplc.22
+#					days = 3
+#				}
+#			}
+#		}
+#		ai_will_do = {
+#			factor = 3
+#		}
+#	}
+#	
+#	PLC_unify_hungary = {
+#		cost = 150
+#		icon = GFX_decision_generic_nationalism
+#		fire_only_once = yes
+#		visible = {
+#			tag = POL
+#			has_country_flag = PLC_formed_intermarium
+#			country_exists = HUN
+#		}
+#		available = {
+#			tag = POL
+#			has_country_flag = PLC_formed_intermarium
+#			country_exists = HUN
+#			HUN = {
+#				is_puppet = no
+#				is_in_faction = no
+#			}
+#		}
+#		complete_effect = {
+#			HUN = {
+#				country_event = {
+#					id = kxplc.22
+#					days = 3
+#				}
+#			}
+#		}
+#		ai_will_do = {
+#			factor = 3
+#		}
+#	}
+#}
