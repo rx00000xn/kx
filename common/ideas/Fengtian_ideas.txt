@@ -4,7 +4,29 @@
 
 ideas = {
 	country = {
-		FNG_doctrine_1_1 = { # snail war
+		
+		FNG_avenue_boost_armor = {
+			allowed = { always = no }
+			name = FNG_Northeast_Army
+			picture = generic_army
+			modifier = {
+				army_armor_speed_factor = 0.20
+				army_armor_attack_factor = 0.10
+				org_loss_when_moving = -0.2
+			}
+		}
+		
+		FNG_avenue_boost_air = {
+			allowed = { always = no }
+			name = FNG_Northeast_Army
+			picture = generic_army
+			modifier = {
+				ground_attack_factor = 0.25
+				air_cas_present_factor = 0.06
+			}
+		}
+		
+		FNG_doctrine_1_1 = { # planning
 			allowed = { always = no }
 			name = FNG_Northeast_Army
 			picture = generic_army
@@ -161,8 +183,7 @@ ideas = {
 			allowed = { always = no }
 			picture = UK_military_loyal_idea
 			modifier = {
-				army_org_factor = -0.2
-				army_attack_factor = -0.25
+				army_org_factor = -0.15
 				army_defence_factor = -0.25
 				land_reinforce_rate = -0.05
 				breakthrough_factor = -0.25
@@ -175,8 +196,8 @@ ideas = {
 				org_loss_when_moving = 0.25
 				no_supply_grace = 36
 				special_forces_cap = 0.05
-				special_forces_attack_factor = 0.20
-				special_forces_defence_factor = 0.20
+				special_forces_attack_factor = 0.05
+				special_forces_defence_factor = 0.25
 				war_support_factor = 0.15
 			}
 		}
@@ -206,8 +227,8 @@ ideas = {
 				org_loss_when_moving = 0.25
 				no_supply_grace = 36
 				special_forces_cap = 0.05
-				special_forces_attack_factor = 0.3
-				special_forces_defence_factor = 0.3
+				special_forces_attack_factor = 0.05
+				special_forces_defence_factor = 0.25
 				war_support_factor = 0.15
 			}
 		}
@@ -366,12 +387,20 @@ ideas = {
 			allowed = { always = no }
 			picture = warrior_traditions_idea
 			modifier = {
-				market_liberal_drift = 0.01
+				#market_liberal_drift = 0.01
 				stability_factor = -0.10
-				army_morale_factor = -0.05
-				army_org_factor = -0.05
-				max_planning = 0.05
-				planning_speed = 0.05
+				war_support_factor = 0.05
+				war_stability_factor = 0.10
+				#army_morale_factor = -0.05
+				#army_org_factor = -0.05
+				#max_planning = 0.05
+				planning_speed = -0.15
+				experience_gain_army = 0.05
+			}
+			targeted_modifier = {
+				tag = JAP
+				#attack_bonus_against = -0.20
+				defense_bonus_against = -0.20
 			}
 		}
 
@@ -442,11 +471,11 @@ ideas = {
 			allowed = { always = no }
 			picture = backward_industry
 			modifier = {
+				consumer_goods_factor = -0.20
+				political_power_factor = 0.20
 				war_support_factor = 0.20
-				production_factory_max_efficiency_factor = 0.10
-				industrial_capacity_factory = 0.10
-				political_power_factor = 0.15
-				max_planning = 0.15
+				industrial_capacity_factory = 0.20
+				mobilization_speed = 1
 			}
 		}
 
@@ -1042,11 +1071,11 @@ ideas = {
 			allowed = { always = no }
 			picture = FNG_expel_japanese_bandits
 			modifier = {
-				political_power_factor = 0.05
-				war_support_factor = 0.05
-				stability_factor = 0.05
+				war_stability_factor = 0.20
 				army_org_factor = 0.05
-				conscription = 0.005
+				resistance_target_on_our_occupied_states = 0.10
+				weekly_casualties_war_support = 0.001
+				#weekly_bombing_war_support = 0.001
 			}
 		}
 
@@ -1095,6 +1124,57 @@ ideas = {
 				production_speed_buildings_factor = -0.20
 				production_speed_infrastructure_factor = -0.40
 				industry_repair_factor = -0.10
+			}
+		}
+
+		FNG_horrible_legitimacy = { #You are not intended to tank legitimacy and coast by for ages barely scraping the bottom, balance to reflect this, maybe convert into a BOP?
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FNG_Legitimacy_1"}
+			allowed = { always = no }
+			picture = FNG_dominant_mantetsu
+			modifier = {
+				#political_power_factor = -0.15
+				stability_factor = -0.2
+				war_support_factor = -0.2
+				war_support_weekly = -0.05
+				resistance_target_on_our_occupied_states = -0.15
+			}
+		}
+		FNG_bad_legitimacy = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FNG_Legitimacy_1"}
+			allowed = { always = no }
+			picture = FNG_dominant_mantetsu
+			modifier = {
+				political_power_cost = 0.2
+				stability_factor = -0.2
+				war_support_factor = -0.2
+			}
+		}
+		FNG_okay_legitimacy = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FNG_Legitimacy_1"}
+			allowed = { always = no }
+			picture = FNG_mantetsu_influence
+			modifier = {
+				political_power_cost = 0.2
+				stability_factor = -0.2
+				war_support_factor = -0.2
+			}
+		}
+		FNG_good_legitimacy = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FNG_Legitimacy_1"}
+			allowed = { always = no }
+			picture = FNG_mantetsu_influence
+			modifier = {
+				political_power_gain = 0.2
+			}
+		}
+		FNG_great_legitimacy = { #Legitimacy should be a resource and the modifier should go away entirely once China is reunified and you issue the ultimatum, great legitimacy should be neat but not essential
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FNG_Legitimacy_1"}
+			allowed = { always = no }
+			picture = FNG_xinhai_order
+			modifier = {
+				political_power_gain = 0.2
+				compliance_growth = 0.1
+				resistance_target_on_our_occupied_states = 0.1
 			}
 		}
 
@@ -1245,6 +1325,32 @@ ideas = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FNG_mantetsu_profits"}
 			picture = mantetsu_industrial_subsidiaries
 		}
+		FNG_national_rail_system = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FNG_efficient_rail_system"}
+			picture = generic_build_infrastructure
+			modifier = {
+				supply_node_range = 0.15
+				local_resources_factor = 0.10
+				#legitimacy gain = 0.05
+			}
+		}
+		FNG_efficient_rail_system = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FNG_efficient_rail_system"}
+			picture = generic_build_infrastructure
+			modifier = {
+				supply_node_range = 0.15
+				production_speed_buildings_factor = 0.10
+			}
+		}
+		FNG_efficient_rail_system_2 = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FNG_efficient_rail_system"}
+			picture = generic_build_infrastructure
+			modifier = {
+				supply_node_range = 0.15
+				production_speed_buildings_factor = 0.10
+				local_resources_factor = 0.10
+			}
+		}
 		FNG_Intel_Leak = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FNG_Intel_Leak"}
 			allowed = { always = no }
@@ -1261,6 +1367,17 @@ ideas = {
 				consumer_goods_factor = 0.20
 				stability_factor = -0.10
 			}
+		}
+		
+		FNG_yan_xishan_thought = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea SHX_yan_xishan_thought_11"}
+			modifier = {
+				political_power_gain = 0.1
+				research_speed_factor = 0.05
+				production_factory_max_efficiency_factor = 0.05
+			}
+			name = SHX_yan_xishan_thought
+			picture = jap_supremacy_of_will
 		}
 		
 		#dynastic tree content
@@ -1329,22 +1446,6 @@ ideas = {
 				political_power_cost = 0.15
 				production_speed_buildings_factor = 0.25
 				production_factory_max_efficiency_factor = 0.25
-			}
-			targeted_modifier = {
-				tag = JAP
-				cic_to_target_factor = 0.34
-			}
-		}
-		
-		FNG_japan_personal_union_rails = {
-			picture = imperial_glory_idea
-			allowed = { always = no }
-			modifier = {
-				stability_factor = -0.33
-				political_power_cost = 0.10
-				production_speed_buildings_factor = 0.35
-				production_factory_max_efficiency_factor = 0.25
-				industrial_capacity_factory = 0.10
 			}
 			targeted_modifier = {
 				tag = JAP
@@ -1745,8 +1846,8 @@ ideas = {
 			}
 			traits = { mining_company }
 			modifier = {
-				production_speed_arms_factory_factor = 0.05
-				production_speed_industrial_complex_factor = 0.05
+				production_speed_arms_factory_factor = 0.10
+				production_speed_industrial_complex_factor = 0.10
 			}
 			research_bonus = {
 				industry = 0.1
@@ -1765,7 +1866,7 @@ ideas = {
 			available = {
 				if = {
 					limit = { tag = FNG }
-					has_completed_focus = FNG_Mantetsu_Collaboration
+					#has_completed_focus = FNG_Mantetsu_Collaboration #Mantetsu working with FNG should probably be a well established thing, not requiring a focus to unlock as a company
 					FNG_JAP_not_hostile = yes
 				}
 				if = {
@@ -1784,7 +1885,9 @@ ideas = {
 			modifier = {
 				local_resources_factor = 0.15
 				production_speed_infrastructure_factor = 0.10
+				production_speed_rail_way_factor = 0.10
 				trade_opinion_factor = 0.10
+				market_liberal_drift = 0.04
 			}
 			research_bonus = {
 				industry = 0.1
@@ -1803,12 +1906,54 @@ ideas = {
 			}
 			traits = { industrial_manufacturer }
 			modifier = {
-				production_speed_arms_factory_factor = 0.1
-				production_speed_industrial_complex_factor = 0.1
+				local_resources_factor = 0.10
+				production_speed_arms_factory_factor = 0.10
+				production_speed_industrial_complex_factor = 0.10
 				trade_opinion_factor = 0.10
 			}
 			research_bonus = {
 				industry = 0.1
+			}
+		}
+
+		three_eastern_provinces_transportiation_committee = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea three_eastern_provinces_transportiation_committee"}
+			allowed = { original_tag = FNG }
+			available = {
+				#has_completed_focus = FNG_Expand_the_Anshan_Mines
+				#has_country_flag = FNG_sold_anshan_mines
+				#FNG_JAP_not_hostile = yes
+			}
+			traits = { railroad_company }
+			modifier = {
+				consumer_goods_factor = -0.10
+				production_speed_infrastructure_factor = 0.10
+				production_speed_rail_way_factor = 0.10
+				market_liberal_drift = -0.03
+			}
+			research_bonus = {
+				industry = 0.1
+			}
+		}
+
+		three_eastern_provinces_transportiation_committee_upgraded = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea three_eastern_provinces_transportiation_committee_upgraded"}
+			allowed = { original_tag = FNG }
+			available = {
+				#has_completed_focus = FNG_Expand_the_Anshan_Mines
+				#has_country_flag = FNG_sold_anshan_mines
+				#FNG_JAP_not_hostile = yes
+			}
+			traits = { railroad_company }
+			modifier = {
+				consumer_goods_factor = -0.20
+				production_speed_infrastructure_factor = 0.10
+				production_speed_rail_way_factor = 0.25
+				market_liberal_drift = -0.06
+				stability_weekly = 0.005
+			}
+			research_bonus = {
+				industry = 0.15
 			}
 		}
 
@@ -1889,7 +2034,7 @@ ideas = {
 			visible = {
 				has_completed_focus = FNG_Incorporate_Local_Patronage_Networks
 			}
-			traits = { small_tank_producer_mass_0 }
+			traits = { small_tank_producer_mass_1 }
 			research_bonus = {
 				armor = 0.1
 			}
@@ -1935,7 +2080,15 @@ ideas = {
 				air_equipment = 0.1
 			}
 		}
-
+		dongbei_aircraft_manufacturing_company = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea dongbei_aircraft_manufacturing_company"}
+			allowed = { original_tag = FNG }
+			available = { has_completed_focus = FNG_Yamato_Hotel_Licenses }
+			traits = { fighter_producer_defense_1 }
+			research_bonus = {
+				air_equipment = 0.1
+			}
+		}
 		china_aviation_corporation_FNG = { #Unlocked through FNG_Incorporate_Local_Patronage_Networks focus
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea china_aviation_corporation_FNG"}
 			picture = china_aviation_corporation
@@ -1948,8 +2101,6 @@ ideas = {
 				air_equipment = 0.1
 			}
 		}
-
-
 	}
 
 	#### Naval Manufacturers ####
