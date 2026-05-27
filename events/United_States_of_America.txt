@@ -29645,7 +29645,7 @@ country_event = { #Sinking Admiral Leahy
 			}
 		remove_all_ministers = yes
 			add_ideas = USA_Charles_Willoughby_hog_pau
-			add_ideas = USA_John_William_Davis_for_pau
+			add_ideas = USA_Richard_Washburn_Child_for_pau
 			add_ideas = USA_William_Harrison_Standley_eco_pau
 			add_ideas = USA_John_Edgar_Hoover_sec_pau
 		clr_country_flag = USA_navy_flag
@@ -29915,6 +29915,10 @@ country_event = { # Revolt of the Admirals
 		name = ustates.3211.a
 		add_political_power = 50
 		add_stability = -0.005
+		swap_ruler_traits = {
+			remove = admiral_dictator
+			add = admiral_king_trait
+		}
 		complete_national_focus = USA_anchoring_our_rule
 		complete_national_focus = USA_admiral_of_navy
 	}
@@ -29926,20 +29930,20 @@ country_event = { # Revolt of the Admirals
 			picture = "gfx/leaders/USA/Portrait_USA_William_Halsey_Jr_KR.png"
 			expire = "1.1.1"
 			ideology = junta_subtype
-			traits = { admiral_dictator }
+			traits = { admiral_halsey_trait }
 		}
-		complete_national_focus = USA_anchoring_our_rule
 		complete_national_focus = USA_admiral_of_navy
+		complete_national_focus = USA_anchoring_our_rule
 	}
 	option = { #Spruance assumes control
 		name = ustates.3211.c
 		create_country_leader = { #Spruance
-			name = "Raymond Spruance"
+			name = "Raymond A. Spruance"
 			desc = "POLITICS_RAYMOND_SPRUANCE_DESC"
 			picture = "gfx/leaders/USA/Portrait_USA_Raymond_Spruance_KR.png"
 			expire = "1.1.1"
 			ideology = junta_subtype
-			traits = { admiral_dictator }
+			traits = { admiral_spruance_trait }
 		}
 		complete_national_focus = USA_admiral_of_navy
 		complete_national_focus = USA_anchoring_our_rule
@@ -29947,6 +29951,10 @@ country_event = { # Revolt of the Admirals
 	option = { #Triumvirate
 		name = ustates.3211.e
 		set_country_flag = USA_admiral_triumvirate
+		swap_ruler_traits = {
+			remove = admiral_dictator
+			add = admiral_king_trait
+		}
 		hidden_effect = {
 			if = {
 				limit = {
@@ -30197,6 +30205,96 @@ country_event = { # pacific fleet autonomy
 		name = ustates.3213.c
 		add_political_power = 50
 		navy_experience = -50
+	}
+}
+
+country_event = { # Operation Rainbow
+	id = ustates.3214
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ustates.3214"}
+	title = ustates.3214.t
+	desc = ustates.3214.d
+	picture = GFX_report_event_USA_uss_eldridge
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { 
+		name = ustates.3214.a
+		add_political_power = -50
+		random_list = {
+			70 = {
+				country_event = { #Failure
+					id = ustates.3215
+					days = 90
+				}
+			}
+			20 = {
+				country_event = { #Partial Success
+					id = ustates.3216
+					days = 90
+				}
+			}
+			10 = {
+				country_event = { #Complete Success
+					id = ustates.3217
+					days = 90
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Operation Rainbow: failure
+	id = ustates.3215
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ustates.3215"}
+	title = ustates.3215.t
+	desc = ustates.3215.d
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Darn
+		name = ustates.3215.a
+		add_political_power = -100
+		navy_experience = 50
+	}
+}
+
+country_event = { #Operation Rainbow: partial success
+	id = ustates.3216
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ustates.3216"}
+	title = ustates.3216.t
+	desc = ustates.3216.d
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #could be worse
+		name = ustates.3216.a
+		add_political_power = -50
+		navy_experience = 75
+		add_ideas = USA_rainbow_partial_success_idea
+	}
+}
+
+country_event = { #Operation Rainbow: partial success
+	id = ustates.3217
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ustates.3217"}
+	title = ustates.3217.t
+	desc = ustates.3217.d
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #could be worse
+		name = ustates.3217.a
+		add_political_power = -50
+		navy_experience = 100
+		add_ideas = USA_rainbow_total_success_idea
 	}
 }
 

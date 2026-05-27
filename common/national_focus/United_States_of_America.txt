@@ -7816,8 +7816,8 @@ focus_tree = {
 	}
 
 	focus = {# Pacific Reconciliation
-		id = USA_pacific_reconciliation
-		icon = GFX_USA_pacific_reconsiliation
+		id = USA_pacifican_reconciliation
+		icon = GFX_goal_USA_Pacifican_Peace
 		cost = 5.00
 		available = {
 			OR = {
@@ -7835,7 +7835,7 @@ focus_tree = {
 			factor = 50
 		}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_pacific_reconciliation"
+			log = "[GetDateText]: [Root.GetName]: Focus USA_pacifican_reconciliation"
 			country_event = ustates.3185
 			add_political_power  = 30
 		}
@@ -7843,7 +7843,7 @@ focus_tree = {
 
 	focus = {# Court the Rockies
 		id = USA_court_the_rockies
-		icon = GFX_goal_wcc_child_soldiers
+		icon = GFX_goal_USA_Rockies_Reconciliation
 		cost = 5.00
 		available = {
 			OR = {
@@ -7869,7 +7869,7 @@ focus_tree = {
 
 	focus = {# Supreme Court Trial
 		id = USA_supreme_court_trial
-		icon = GFX_USA_supreme_court_trial_icon
+		icon = GFX_goal_USA_Trial_Century
 		cost = 5.00
 		available = {
 			OR = {
@@ -7878,7 +7878,7 @@ focus_tree = {
 			}
 		}
 		prerequisite = {
-			focus = USA_pacific_reconciliation
+			focus = USA_pacifican_reconciliation
 		}
 		prerequisite = {
 			focus = USA_court_the_rockies
@@ -7898,7 +7898,7 @@ focus_tree = {
 
 	focus = {# Decision of Congress
 		id = USA_decision_of_congress
-		icon = GFX_USA_decision_congress
+		icon = GFX_goal_USA_Vae_Victis
 		cost = 5.00
 		available = {
 			OR = {
@@ -7924,7 +7924,7 @@ focus_tree = {
 
 	focus = {# Savior of Democracy
 		id = USA_savior_of_democracy
-		icon = GFX_USA_democracy_savior
+		icon = GFX_goal_USA_Leahy_Savior_Democracy
 		cost = 2.00
 		available = {
 			OR = {
@@ -7987,12 +7987,15 @@ focus_tree = {
 			add_popularity = { ideology = paternal_autocrat popularity = 0.05 }
 			add_political_power = 25
 			USA_kings_dictatorship = yes
+			hidden_effect = {
+				country_event = { id = ustates.3169 days = 20 }
+			}
 		}
 	}
 
 	focus = {# hands on deck
 		id = USA_all_hands_on_deck
-		icon = GFX_goal_USA_congress_subordination
+		icon = GFX_goal_USA_All_Hands_Deck
 		cost = 5.00
 		available = {
 			has_government = paternal_autocrat
@@ -8017,7 +8020,7 @@ focus_tree = {
 
 	focus = {# Subordination
 		id = USA_congressional_subordination
-		icon = GFX_goal_USA_congress_subordination
+		icon = GFX_goal_USA_Modern_Marshall_Court
 		cost = 5.00
 		available = {
 			has_government = paternal_autocrat
@@ -8043,7 +8046,7 @@ focus_tree = {
 
 	focus = {# P4P
 		id = USA_protection_for_payment
-		icon = GFX_USA_payment_protection
+		icon = GFX_goal_USA_Mandatory_Victory_Bonds
 		cost = 5.00
 		available = {
 			has_government = paternal_autocrat
@@ -8073,7 +8076,7 @@ focus_tree = {
 
 	focus = {# anchoring our rule
 		id = USA_anchoring_our_rule
-		icon = GFX_USA_payment_protection
+		icon = GFX_goal_USA_Anchoring_Our_Rule
 		cost = 5.00
 		available = {
 			has_government = paternal_autocrat
@@ -8095,7 +8098,37 @@ focus_tree = {
 
 	focus = {# Admiral of the Navy
 		id = USA_admiral_of_navy
-		icon = GFX_USA_kingnavy
+		icon = {
+			trigger = {
+				NOT = {
+					has_country_flag = USA_admiral_triumvirate
+					has_country_leader = { ruling_only = yes name = "William Halsey Jr." }
+					has_country_leader = { ruling_only = yes name = "Raymond A. Spruance" }
+				}
+			}
+			value = GFX_goal_USA_King_Arch_Admiral
+		}
+		icon = {
+			trigger = {
+				has_country_leader = { ruling_only = yes name = "William Halsey Jr." }
+			}
+			value = GFX_goal_USA_Bull_Halseys_Typhoon
+		}
+		icon = {
+			trigger = {
+				has_country_leader = { ruling_only = yes name = "Raymond A. Spruance" }
+			}
+			value = GFX_goal_USA_Quiet_Warrior_Wields_Trident
+		}
+		icon = {
+			trigger = {
+				AND = {
+					has_country_leader = { ruling_only = yes name = "Ernest J. King" }
+					has_country_flag = USA_admiral_triumvirate
+				}
+			}
+			value = GFX_goal_USA_Admiraltys_Triumvirate
+		}
 		cost = 5.00
 		prerequisite = {
 			focus = USA_anchoring_our_rule
@@ -8117,13 +8150,20 @@ focus_tree = {
 	}
 
 
-	focus = {# Navy First
+	focus = {# USNSPO
 		id = USA_navy_first
-		icon = GFX_USA_navy_top
+		icon = GFX_goal_USA_United_States_Navy_Special_Projects_Office
 		cost = 5.00
 		prerequisite = {
 			focus = USA_admiral_king
 			focus = USA_admiral_leahy
+		}
+		available = {
+			OR = {
+				has_government = paternal_autocrat
+				has_government = authoritarian_democrat
+				has_country_flag = USA_leahy_gave_up_power_flag
+			}
 		}
 		relative_position_id = USA_navy_in_command
 		x = 0
@@ -8133,97 +8173,133 @@ focus_tree = {
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus USA_navy_first"
+			custom_effect_tooltip = {
+				localization_key = available_scientist_one_line_tt
+				CHARACTER = USA_Arleigh_Burke_Scientist
+			}
+			hidden_effect = {
+				NSW = {
+					set_nationality = {
+						target_country = ROOT
+						character = USA_Arleigh_Burke_Scientist
+					}
+				}
+		    }
 		}
 	}
 
-	focus = {# Naval Investments
-		id = USA_naval_investments
-		icon = GFX_goal_NIC_buy_ship
-		cost = 5.00
+	focus = {# support ships
+		id = USA_support_ships
+		icon = GFX_goal_USA_Maintenance_High_Seas
+		cost = 6.00
+		prerequisite = {
+			focus = USA_navy_first
+		}
 		available = {
 			OR = {
-				has_completed_focus = USA_admiral_leahy
+				has_government = paternal_autocrat
+				has_government = authoritarian_democrat
+				has_country_flag = USA_leahy_gave_up_power_flag
 			}
 		}
-		prerequisite = {
-			focus = USA_navy_first
-		}
 		relative_position_id = USA_navy_in_command
-		x = -1
+		x = 0
 		y = 3
 		ai_will_do = {
 			factor = 50
 		}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_naval_investments"
-			random_owned_controlled_state = {
-				limit = {
-					is_core_of = USA
-					is_controlled_by = USA
-					industrial_complex > 0
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-						type = dockyard
-						level = 2
-						instant_build = yes
-					}
+			log = "[GetDateText]: [Root.GetName]: Focus USA_support_ships"
+			sp:sp_naval_support_ships = {
+				add_project_progress_ratio = 0.3
 			}
-			362 = {
-				if = {
-					limit = { is_owned_and_controlled_by = USA }
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = dockyard
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
-			361 = {
-				if = {
-					limit = { is_owned_and_controlled_by = USA }
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = dockyard
-						level = 2
-						instant_build = yes
-					}
-				}
+			add_breakthrough_points = {
+				specialization = specialization_naval
+				value = 1
 			}
 		}
 	}
 
-	focus = {# Blank Check
-		id = USA_the_blank_check
-		icon = GFX_USA_the_blank_check
-		cost = 5.00
+	focus = {# proxy fuse
+		id = USA_vt_shells
+		icon = GFX_goal_USA_Implement_Section_Ts_Proposal
+		cost = 6.00
+		prerequisite = {
+			focus = USA_navy_first
+		}
 		available = {
-			has_completed_focus = USA_admiral_king
-		}
-		prerequisite = {
-			focus = USA_navy_first
+			OR = {
+				has_government = paternal_autocrat
+				has_government = authoritarian_democrat
+				has_country_flag = USA_leahy_gave_up_power_flag
+			}
 		}
 		relative_position_id = USA_navy_in_command
-		x = 1
+		x = 2
 		y = 3
 		ai_will_do = {
 			factor = 50
 		}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_the_blank_check"
-			country_event = ustates.3169
-			add_command_power = 15
+			log = "[GetDateText]: [Root.GetName]: Focus USA_vt_shells"
+			sp:sp_naval_proximity_fuze = {
+				add_project_progress_ratio = 0.3
+			}
+			add_breakthrough_points = {
+				specialization = specialization_naval
+				value = 1
+			}
 		}
 	}
 
-	focus = {# Secure Coastline
-		id = USA_secure_the_coastline
-		icon = GFX_USA_secure_coastline
-		cost = 5.00
+	focus = {# underway replenishment
+		id = USA_underway_replenishment
+		icon = GFX_goal_USA_Refreshing_Replenishment
+		cost = 6.00
 		prerequisite = {
-			focus = USA_naval_investments
-			focus = USA_the_blank_check
+			focus = USA_navy_first
+		}
+		available = {
+			OR = {
+				has_government = paternal_autocrat
+				has_government = authoritarian_democrat
+				has_country_flag = USA_leahy_gave_up_power_flag
+			}
+		}
+		relative_position_id = USA_navy_in_command
+		x = -2
+		y = 3
+		ai_will_do = {
+			factor = 50
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus USA_underway_replenishment"
+			sp:sp_naval_underway_replenishment = {
+				add_project_progress_ratio = 0.3
+			}
+			add_breakthrough_points = {
+				specialization = specialization_naval
+				value = 1
+			}
+		}
+	}
+
+	focus = {# supercarriers
+		id = USA_supercarrier
+		icon = GFX_goal_USA_Super_Carriers_Superb_Navy
+		cost = 8.00
+		prerequisite = {
+			focus = USA_underway_replenishment
+			focus = USA_support_ships
+			focus = USA_vt_shells
+		}
+		available = {
+			has_completed_focus = USA_carrier_effort
+			OR = {
+				has_government = paternal_autocrat
+				has_government = authoritarian_democrat
+				has_country_flag = USA_leahy_gave_up_power_flag
+			}
 		}
 		relative_position_id = USA_navy_in_command
 		x = -1
@@ -8232,19 +8308,123 @@ focus_tree = {
 			factor = 50
 		}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_secure_the_coastline"
-			add_ideas = USA_secure_coastlines_idea
-			add_popularity = { ideology = paternal_autocrat popularity = 0.05 }
+			log = "[GetDateText]: [Root.GetName]: Focus USA_supercarrier"
+			if = {
+				limit = { is_special_project_completed = sp:sp_naval_modern_carrier }
+				create_equipment_variant = {
+					name = "United States Class"
+					type = ship_hull_carrier_modern
+					name_group = USA_CV_HISTORICAL
+					modules = {
+						fixed_ship_deck_slot_1 = ship_deck_space
+						fixed_ship_deck_slot_2 = ship_deck_space
+						fixed_ship_anti_air_slot = ship_anti_air_2
+						fixed_ship_radar_slot = empty
+						fixed_ship_engine_slot = carrier_ship_engine_4
+						fixed_ship_secondaries_slot = ship_secondaries_2
+						front_1_custom_slot = ship_deck_space
+						mid_1_custom_slot = ship_deck_space
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_carrier_modern
+						creator = "USA"
+						version_name = "United States Class"
+					}
+					requested_factories = 5
+					progress = 0.4
+					amount = 1
+				}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_carrier_modern
+						creator = "USA"
+						version_name = "United States Class"
+					}
+					requested_factories = 5
+					progress = 0.5
+					amount = 1
+				}
+			}
+			else_if = {
+				limit = { 
+					has_tech = advanced_ship_hull_carrier 
+					NOT = { is_special_project_completed = sp:sp_naval_modern_carrier }
+				}
+				create_equipment_variant = {
+					name = "Essex Class"
+					type = ship_hull_carrier_3
+					name_group = USA_CV_HISTORICAL
+					modules = {
+						fixed_ship_deck_slot_1 = ship_deck_space
+						fixed_ship_deck_slot_2 = ship_deck_space
+						fixed_ship_anti_air_slot = ship_anti_air_2
+						fixed_ship_radar_slot = empty
+						fixed_ship_engine_slot = carrier_ship_engine_3
+						fixed_ship_secondaries_slot = ship_secondaries_2
+						front_1_custom_slot = ship_deck_space
+						mid_1_custom_slot = ship_deck_space
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_carrier_3
+						creator = "USA"
+						version_name = "Essex Class"
+					}
+					requested_factories = 5
+					progress = 0.4
+					amount = 1
+				}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_carrier_3
+						creator = "USA"
+						version_name = "Essex Class"
+					}
+					requested_factories = 5
+					progress = 0.5
+					amount = 1
+				}
+				sp:sp_naval_modern_carrier = {
+					add_project_progress_ratio = 0.3
+				}
+			}
+			else = {
+				add_tech_bonus = {
+					name = USA_supercarrier
+					ahead_reduction = 2
+					uses = 2
+					technology = improved_small_airframe
+				}
+				sp:sp_naval_modern_carrier = {
+					add_project_progress_ratio = 0.5
+				}
+			}
+			add_breakthrough_points = {
+				specialization = specialization_naval
+				value = 2
+			}
+			add_ideas = USA_supercarrier_idea
 		}
 	}
 
-	focus = {# American Dockyards
-		id = USA_american_dockyards
-		icon = GFX_goal_USA_american_dockyards
-		cost = 5.00
+	focus = {# next gen fighters
+		id = USA_next_gen_fighters
+		icon = GFX_goal_USA_Next_Generation_Fighters_Next_Generation_Pilots
+		cost = 8.00
 		prerequisite = {
-			focus = USA_naval_investments
-			focus = USA_the_blank_check
+			focus = USA_underway_replenishment
+			focus = USA_support_ships
+			focus = USA_vt_shells
+		}
+		available = {
+			OR = {
+				has_government = paternal_autocrat
+				has_government = authoritarian_democrat
+				has_country_flag = USA_leahy_gave_up_power_flag
+			}
 		}
 		relative_position_id = USA_navy_in_command
 		x = 1
@@ -8253,41 +8433,168 @@ focus_tree = {
 			factor = 50
 		}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_american_dockyards"
-			362 = {
+			log = "[GetDateText]: [Root.GetName]: Focus USA_next_gen_fighters"
+			if = {
+				limit = { has_dlc_bba = yes }
 				if = {
-					limit = { is_owned_and_controlled_by = USA }
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = dockyard
-						level = 2
-						instant_build = yes
+					limit = { has_tech = advanced_small_airframe }
+					add_tech_bonus = {
+						name = USA_next_gen_fighters
+						bonus = 1
+						uses = 1
+						category = cat_air_engine
+					}
+					custom_effect_tooltip = tooltip_white_line
+					create_equipment_variant = {
+						name = "F7F-4N Tigercat"
+						type = cv_small_plane_airframe_3
+						modules = {
+							fixed_main_weapon_slot = aircraft_cannon_2_2x
+							fixed_auxiliary_weapon_slot_1 = heavy_mg_4x
+							fixed_auxiliary_weapon_slot_2 = bomb_locks
+							engine_type_slot = engine_3_2x
+							special_type_slot_1 = self_sealing_fuel_tanks_small
+							special_type_slot_2 = fuel_tanks_small
+						}
+					}
+					create_equipment_variant = {
+						name = "F8F Bearcat"
+						type = cv_small_plane_airframe_3
+						modules = {
+							fixed_main_weapon_slot = aircraft_cannon_2_2x
+							fixed_auxiliary_weapon_slot_1 = aircraft_cannon_2_2x
+							fixed_auxiliary_weapon_slot_2 = bomb_locks
+							engine_type_slot = engine_3_1x
+							special_type_slot_1 = self_sealing_fuel_tanks_small
+							special_type_slot_2 = fuel_tanks_small
+						}
+					}
+				}
+				else = {
+					add_tech_bonus = {
+						name = JAP_the_zero
+						ahead_reduction = 2
+						uses = 2
+						technology = improved_small_airframe
 					}
 				}
 			}
-			359 = {
-				if = {
-					limit = { is_owned_and_controlled_by = USA }
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = dockyard
-						level = 2
-						instant_build = yes
+			else_if = {
+				limit = { has_tech = cv_fighter3 }
+				create_equipment_variant = {
+					name = "F7F-4N Tigercat"
+					type = cv_fighter_equipment_3
+					parent_version = 0
+					upgrades = {
+						plane_reliability_upgrade = 3
+						plane_engine_upgrade = 5
+						plane_range_upgrade = 3
 					}
 				}
+				create_equipment_variant = {
+					name = "F8F Bearcat"
+					type = cv_fighter_equipment_3
+					parent_version = 0
+					upgrades = {
+						plane_reliability_upgrade = 4
+						plane_engine_upgrade = 3
+						plane_range_upgrade = 3
+					}
+				}
+			}
+			else = {
+				add_tech_bonus = {
+					name = USA_next_gen_fighters
+					ahead_reduction = 2
+					uses = 2
+					technology = fighter3
+					technology = cv_fighter3
+				}
+				custom_effect_tooltip = tooltip_white_line
+			}
+			add_breakthrough_points = {
+				specialization = specialization_naval
+				value = 2
 			}
 		}
 	}
 
-	focus = {# naval mobilization
-		id = USA_naval_mobilization
-		icon = GFX_goal_USA_panama_control
-		cost = 5.00
+	focus = {# nuclear_sub
+		id = USA_nuclear_submarine
+		icon = GFX_goal_USA_Nuclear_Nautilus
+		cost = 10.00
 		prerequisite = {
-			focus = USA_secure_the_coastline
+			focus = USA_supercarrier
+			focus = USA_next_gen_fighters
 		}
+		available = {
+			OR = {
+				has_government = paternal_autocrat
+				has_government = authoritarian_democrat
+				has_country_flag = USA_leahy_gave_up_power_flag
+			}
+		}
+		relative_position_id = USA_navy_in_command
+		x = -2
+		y = 5
+		ai_will_do = {
+			factor = 50
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus USA_nuclear_submarine"
+			if = { 
+				limit = { is_special_project_completed = sp:sp_naval_nuclear_submarine }
+				create_equipment_variant = {
+					name = "Nautilus Class"
+					type = ship_hull_nuclear_submarine
+					name_group = USA_FISH
+					parent_version = 0
+					modules = {
+						fixed_ship_torpedo_slot = ship_torpedo_sub_3
+						fixed_ship_engine_slot = sub_ship_engine_3
+						rear_1_custom_slot = ship_torpedo_sub_3
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_submarine_2
+						creator = "USA"
+						version_name = "Nautilus Class"
+					}
+					requested_factories = 5
+					progress = 0.54
+					amount = 1
+				}
+			}
+			else = {
+				sp:sp_naval_nuclear_submarine = {
+					add_project_progress_ratio = 0.4
+				}
+			}
+			add_breakthrough_points = {
+				specialization = specialization_naval
+				value = 3
+			}
+		}
+	}
+
+		focus = {# philadelphia experiment
+		id = USA_philadelphia_experiment
+		icon = GFX_goal_USA_Philadelphia_Experiment
+		cost = 10.00
 		prerequisite = {
-			focus = USA_american_dockyards
+			focus = USA_supercarrier
+			focus = USA_next_gen_fighters
+		}
+		available = {
+			360 = { is_owned_by_ROOT_or_ally = yes } #Philadelphia
+		}
+		available = {
+			OR = {
+				has_government = paternal_autocrat
+				has_government = authoritarian_democrat
+				has_country_flag = USA_leahy_gave_up_power_flag
+			}
 		}
 		relative_position_id = USA_navy_in_command
 		x = 0
@@ -8296,13 +8603,57 @@ focus_tree = {
 			factor = 50
 		}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_naval_mobilization"
+			log = "[GetDateText]: [Root.GetName]: Focus USA_philadelphia_experiment"
+			country_event = ustates.3215
+			add_breakthrough_points = {
+				specialization = specialization_naval
+				value = 3
+			}
+		}
+	}
+
+	focus = {# anti ship missiles
+		id = USA_poseidon_polaris
+		icon = GFX_goal_USA_Poseidon_Polaris
+		cost = 10.00
+		prerequisite = {
+			focus = USA_supercarrier
+			focus = USA_next_gen_fighters
+		}
+		available = {
+			OR = {
+				has_government = paternal_autocrat
+				has_government = authoritarian_democrat
+				has_country_flag = USA_leahy_gave_up_power_flag
+			}
+		}
+		relative_position_id = USA_navy_in_command
+		x = 2
+		y = 5
+		ai_will_do = {
+			factor = 50
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus USA_underway_replenishment"
+			add_ideas = USA_poseidon_polaris_idea
+			if = {
+				limit = {
+					NOT = { is_special_project_completed = sp:sp_naval_nuclear_missile_submarine }
+				}
+				sp:sp_naval_nuclear_missile_submarine = {
+					add_project_progress_ratio = 0.4
+				}
+			}
+			add_breakthrough_points = {
+				specialization = specialization_naval
+				value = 3
+			}
 		}
 	}
 
 	focus = {# The Canal We Built
 		id = USA_the_canal_we_built
-		icon = GFX_goal_USA_panama_control
+		icon = GFX_goal_USA_Beyond_Americas_Shores
 		cost = 5.00
 		available = {
 			has_global_flag = USA_civil_war_over_flag
@@ -8310,9 +8661,6 @@ focus_tree = {
 		prerequisite = {
 			focus = USA_savior_of_democracy
 			focus = USA_admiral_of_navy
-		}
-		prerequisite = {
-			focus = USA_naval_mobilization
 		}
 		relative_position_id = USA_navy_in_command
 		x = 0
@@ -8332,12 +8680,47 @@ focus_tree = {
 			country_event = ustates.3170
 			}
 			add_war_support = 0.05
+			custom_effect_tooltip = USA_montana_battleships
+			hidden_effect = {
+				create_equipment_variant = {
+					name = "Montana Class"
+					type = ship_hull_super_heavy_1
+					name_group = USA_STATES
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_super_heavy_battery_1
+						fixed_ship_anti_air_slot = ship_anti_air_2
+						fixed_ship_fire_control_system_slot = ship_fire_control_system_1
+						fixed_ship_radar_slot = empty
+						fixed_ship_engine_slot = heavy_ship_engine_2
+						fixed_ship_secondaries_slot = ship_secondaries_2
+						fixed_ship_armor_slot = ship_armor_shbb
+						front_1_custom_slot = ship_super_heavy_battery_1
+						front_2_custom_slot = ship_anti_air_2
+						mid_1_custom_slot = ship_anti_air_2
+						mid_2_custom_slot = ship_secondaries_2
+						mid_3_custom_slot = ship_secondaries_2
+						rear_1_custom_slot = ship_super_heavy_battery_1
+						rear_2_custom_slot = ship_super_heavy_battery_1
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_super_heavy_1
+						creator = "USA"
+						version_name = "Montana Class"
+					}
+					requested_factories = 5
+					progress = 0.6
+					amount = 1
+				}
+			}
 		}
 	}
 
 	focus = {# Ports of the Atlantic
 		id = USA_ports_of_the_atlantic
-		icon = GFX_USA_ports_atlantic
+		icon = GFX_goal_USA_Almighty_Atlantic
 		cost = 5.00
 		prerequisite = {
 			focus = USA_the_canal_we_built
@@ -8357,7 +8740,7 @@ focus_tree = {
 
 	focus = {# The Beautiful Pacific
 		id = USA_the_beautiful_pacific
-		icon = GFX_USA_beautiful_pacific
+		icon = GFX_goal_USA_Prodigal_Sons_Pacific
 		cost = 5.00
 		prerequisite = {
 			focus = USA_the_canal_we_built
@@ -8370,23 +8753,19 @@ focus_tree = {
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus USA_the_beautiful_pacific"
-			else = {
 			country_event = ustates.3182
-			}
-			add_political_power = 5
+			add_political_power = 50
 		}
 	}
 
 	focus = {# End the Anglo Empire
 		id = USA_end_the_anglo_empire
-		icon = GFX_goal_USA_break_windsor
+		icon = GFX_goal_USA_Destiny_For_Thalassocratic_America
 		cost = 5.00
 		available = {
 			has_completed_focus = USA_american_imperialism
 			has_government = paternal_autocrat
-			NOT = {
-			has_country_flag = USA_access_to_entente_ports
-			}
+			has_government = authoritarian_democrat
 			country_exists = CAN
 		}
 		prerequisite = {
@@ -8404,16 +8783,6 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus USA_end_the_anglo_empire"
 			if = {
-				limit = {
-					NOT = {
-						OR = {
-							has_completed_focus = USA_admiral_leahy
-							has_completed_focus = USA_admiral_king
-						}
-					}
-				}
-			}
-			else_if = {
 				limit = { 
 					has_completed_focus = USA_admiral_leahy
 				}
@@ -8421,7 +8790,7 @@ focus_tree = {
 					country_event = { id = ustates.3212 days = 30 }
 				}
 			}
-			else = {
+			else_if = {
 				limit = {
 					has_completed_focus = USA_admiral_king
 				}
@@ -14715,6 +15084,17 @@ focus_tree = {
 		prerequisite = {
 			focus = USA_grand_navy
 		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
+		}
 		relative_position_id = USA_navy
 		x = -5
 		y = 2
@@ -14740,6 +15120,17 @@ focus_tree = {
 		cost = 5.00
 		prerequisite = {
 			focus = USA_battleships
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = -8
@@ -14768,6 +15159,17 @@ focus_tree = {
 		cost = 5.00
 		prerequisite = {
 			focus = USA_naval_training
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = -8
@@ -14804,6 +15206,17 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = USA_expand_dockyards
 		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
+		}
 		relative_position_id = USA_navy
 		x = -9
 		y = 5
@@ -14835,6 +15248,17 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = USA_light_cruisers
 		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
+		}
 		relative_position_id = USA_navy
 		x = -7
 		y = 5
@@ -14862,6 +15286,17 @@ focus_tree = {
 		prerequisite = {
 			focus = USA_battleships
 		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
+		}
 		relative_position_id = USA_navy
 		x = -5
 		y = 3
@@ -14879,33 +15314,37 @@ focus_tree = {
 			}
 			custom_effect_tooltip = USA_naval_buildup_tooltip
 			hidden_effect = {
+				if = {
+					limit = { NOT = { has_tech = improved_ship_hull_heavy } }
+					set_technology = { improved_ship_hull_heavy = 1 }
+				}
 				create_equipment_variant = {
-					name = "Montana Class"
-					type = ship_hull_super_heavy_1
+					name = "Iowa Class"
+					type = ship_hull_heavy_3
 					name_group = USA_STATES
 					parent_version = 0
 					modules = {
-						fixed_ship_battery_slot = ship_super_heavy_battery_1
+						fixed_ship_battery_slot = ship_heavy_battery_3
 						fixed_ship_anti_air_slot = ship_anti_air_2
 						fixed_ship_fire_control_system_slot = ship_fire_control_system_1
 						fixed_ship_radar_slot = empty
-						fixed_ship_engine_slot = heavy_ship_engine_2
+						fixed_ship_engine_slot = heavy_ship_engine_3
 						fixed_ship_secondaries_slot = ship_secondaries_2
-						fixed_ship_armor_slot = ship_armor_shbb
-						front_1_custom_slot = ship_super_heavy_battery_1
+						fixed_ship_armor_slot = ship_armor_bb_3
+						front_1_custom_slot = ship_heavy_battery_3
 						front_2_custom_slot = ship_anti_air_2
 						mid_1_custom_slot = ship_anti_air_2
 						mid_2_custom_slot = ship_secondaries_2
 						mid_3_custom_slot = ship_secondaries_2
-						rear_1_custom_slot = ship_super_heavy_battery_1
-						rear_2_custom_slot = ship_super_heavy_battery_1
+						rear_1_custom_slot = ship_heavy_battery_3
+						rear_2_custom_slot = ship_anti_air_2
 					}
 				}
 				add_equipment_production = {
 					equipment = {
-						type = ship_hull_super_heavy_1
+						type = ship_hull_heavy_3
 						creator = "USA"
-						version_name = "Montana Class"
+						version_name = "Iowa Class"
 					}
 					requested_factories = 5
 					progress = 0.5
@@ -14914,9 +15353,9 @@ focus_tree = {
 
 				add_equipment_production = {
 					equipment = {
-						type = ship_hull_super_heavy_1
+						type = ship_hull_heavy_3
 						creator = "USA"
-						version_name = "Montana Class"
+						version_name = "Iowa Class"
 					}
 					requested_factories = 5
 					progress = 0.5
@@ -14932,6 +15371,17 @@ focus_tree = {
 		cost = 5.00
 		prerequisite = {
 			focus = USA_battle_cruisers
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = -5
@@ -14959,6 +15409,17 @@ focus_tree = {
 		cost = 5.00
 		prerequisite = {
 			focus = USA_naval_reach
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = -5
@@ -14991,6 +15452,17 @@ focus_tree = {
 		prerequisite = {
 			focus = USA_expand_dockyards
 			focus = USA_light_cruisers
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = -5
@@ -15086,6 +15558,17 @@ focus_tree = {
 		prerequisite = {
 			focus = USA_carriers
 		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
+		}
 		relative_position_id = USA_navy
 		x = 0
 		y = 2
@@ -15132,6 +15615,17 @@ focus_tree = {
 			modifier = {
 				factor = 1.5
 				has_war = yes
+			}
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
 			}
 		}
 		completion_reward = {
@@ -15192,6 +15686,17 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = USA_mass_squadron
 		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
+		}
 		relative_position_id = USA_navy
 		x = -1
 		y = 4
@@ -15221,6 +15726,17 @@ focus_tree = {
 		}
 		mutually_exclusive = {
 			focus = USA_air_traffic
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = -3
@@ -15252,6 +15768,17 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = USA_dive_bombers
 		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
+		}
 		relative_position_id = USA_navy
 		x = -3
 		y = 5
@@ -15282,6 +15809,17 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = USA_the_swarm
 		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
+		}
 		relative_position_id = USA_navy
 		x = -1
 		y = 5
@@ -15310,6 +15848,15 @@ focus_tree = {
 		}
 		available = {
 			393 = { is_owned_by_ROOT_or_ally = yes } #Michigan
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = 2
@@ -15340,6 +15887,17 @@ focus_tree = {
 		}
 		mutually_exclusive = {
 			focus = USA_coordinated_strike
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = 1
@@ -15372,6 +15930,17 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = USA_anvil_pattern
 		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
+		}
 		relative_position_id = USA_navy
 		x = 1
 		y = 5
@@ -15400,6 +15969,17 @@ focus_tree = {
 		}
 		mutually_exclusive = {
 			focus = USA_multiwave_attack
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = 3
@@ -15432,6 +16012,17 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = USA_airborne_artillery
 		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
+		}
 		relative_position_id = USA_navy
 		x = 3
 		y = 5
@@ -15463,6 +16054,17 @@ focus_tree = {
 		prerequisite = {
 			focus = USA_airborne_artillery
 			focus = USA_anvil_pattern
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = 0
@@ -15541,6 +16143,17 @@ focus_tree = {
 		prerequisite = { 
 			focus = USA_submarines
 		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
+		}
 		relative_position_id = USA_navy
 		x = 5
 		y = 2
@@ -15567,6 +16180,17 @@ focus_tree = {
 		cost = 5.00
 		prerequisite = { 
 			focus = USA_weltkrieg_lesson
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = 5
@@ -15595,6 +16219,17 @@ focus_tree = {
 		prerequisite = { 
 			focus = USA_better_torp
 		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
+		}
 		relative_position_id = USA_navy
 		x = 5
 		y = 4
@@ -15619,6 +16254,17 @@ focus_tree = {
 		cost = 5.00
 		prerequisite = { 
 			focus = USA_more_range
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = 5
@@ -15646,6 +16292,17 @@ focus_tree = {
 		cost = 5.00
 		prerequisite = { 
 			focus = USA_weltkrieg_lesson
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = 8
@@ -15705,6 +16362,17 @@ focus_tree = {
 		prerequisite = { 
 			focus = USA_utilize_wolfpacks
 		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
+		}
 		relative_position_id = USA_navy
 		x = 8
 		y = 4
@@ -15736,6 +16404,17 @@ focus_tree = {
 		mutually_exclusive = { 
 			focus = USA_economic_blockade
 		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
+		}
 		relative_position_id = USA_navy
 		x = 9
 		y = 5
@@ -15765,6 +16444,17 @@ focus_tree = {
 		}
 		mutually_exclusive = { 
 			focus = USA_capital_hunters 
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = 7
@@ -15796,6 +16486,17 @@ focus_tree = {
 		prerequisite = {
 			focus = USA_economic_blockade
 			focus = USA_capital_hunters
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = 5
@@ -15839,6 +16540,17 @@ focus_tree = {
 			focus = USA_carriers
 			focus = USA_submarines
 		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
+		}
 		relative_position_id = USA_navy
 		x = -10
 		y = 2
@@ -15861,6 +16573,17 @@ focus_tree = {
 		cost = 5.00
 		prerequisite = {
 			focus = USA_new_ship_buildings
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = -10
@@ -15886,6 +16609,17 @@ focus_tree = {
 			focus = USA_grand_navy
 			focus = USA_carriers 
 			focus = USA_submarines
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = -14
@@ -15921,6 +16655,17 @@ focus_tree = {
 		prerequisite = {
 			focus = USA_defend_our_trade
 		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
+		}
 		relative_position_id = USA_navy
 		x = -12
 		y = 3
@@ -15947,6 +16692,17 @@ focus_tree = {
 		cost = 5.00
 		prerequisite = {
 			focus = USA_coast_guard
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = -12
@@ -15975,6 +16731,17 @@ focus_tree = {
 		prerequisite = {
 			focus = USA_defend_our_trade
 		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
+		}
 		relative_position_id = USA_navy
 		x = -14
 		y = 3
@@ -16001,6 +16768,17 @@ focus_tree = {
 		cost = 5.00
 		prerequisite = {
 			focus = USA_merchant_marine
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = -14
@@ -16029,6 +16807,17 @@ focus_tree = {
 		prerequisite = {
 			focus = USA_defend_our_trade
 		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
+		}
 		relative_position_id = USA_navy
 		x = -16
 		y = 3
@@ -16055,6 +16844,17 @@ focus_tree = {
 		cost = 5.00
 		prerequisite = {
 			focus = USA_develop_loran
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = -16
@@ -16085,6 +16885,17 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = USA_convoy_runners
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = -15
@@ -16117,6 +16928,17 @@ focus_tree = {
 		prerequisite = {
 			focus = USA_coastal_patrol
 		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
+		}
 		x = -13
 		y = 5
 		ai_will_do = {
@@ -16145,6 +16967,17 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = USA_damage_control
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = -14
@@ -16177,6 +17010,17 @@ focus_tree = {
 			focus = USA_carriers
 			focus = USA_submarines
 		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
+		}
 		relative_position_id = USA_navy
 		x = 10
 		y = 2
@@ -16204,6 +17048,17 @@ focus_tree = {
 		prerequisite = {
 			focus = USA_kill_buord
 		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
+		}
 		relative_position_id = USA_navy
 		x = 10
 		y = 3
@@ -16229,6 +17084,17 @@ focus_tree = {
 			focus = USA_grand_navy
 			focus = USA_carriers
 			focus = USA_submarines
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = 14
@@ -16258,6 +17124,17 @@ focus_tree = {
 		prerequisite = {
 			focus = USA_marine_corps
 		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
+		}
 		relative_position_id = USA_navy
 		x = 12
 		y = 3
@@ -16285,6 +17162,17 @@ focus_tree = {
 		prerequisite = {
 			focus = USA_urban_warfare
 		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
+		}
 		relative_position_id = USA_navy
 		x = 12
 		y = 4
@@ -16310,6 +17198,17 @@ focus_tree = {
 		cost = 5.00
 		prerequisite = {
 			focus = USA_marine_corps
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = 14
@@ -16337,6 +17236,17 @@ focus_tree = {
 		prerequisite = {
 			focus = USA_marksman_marine
 		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
+		}
 		relative_position_id = USA_navy
 		x = 14
 		y = 4
@@ -16362,6 +17272,17 @@ focus_tree = {
 		cost = 5.00
 		prerequisite = {
 			focus = USA_marine_corps
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = 16
@@ -16389,6 +17310,17 @@ focus_tree = {
 		cost = 5.00
 		prerequisite = {
 			focus = USA_seabees
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = 16
@@ -16420,6 +17352,17 @@ focus_tree = {
 		prerequisite = {
 			focus = USA_marine_raider
 		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
+		}
 		relative_position_id = USA_navy
 		x = 13
 		y = 5
@@ -16448,6 +17391,17 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = USA_chemical_warfare_service
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = 15
@@ -16478,6 +17432,17 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = USA_usn_reserve
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = 14
@@ -16513,6 +17478,17 @@ focus_tree = {
 			focus = USA_sea_to_sea
 			focus = USA_shining_sea
 			focus = USA_silent_service
+		}
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			OR = {
+				has_global_flag = USA_civil_war_over_flag
+				has_global_flag = USA_civil_war_avoided_flag
+				has_country_flag = USA_navy_flag
+			}
 		}
 		relative_position_id = USA_navy
 		x = 0
