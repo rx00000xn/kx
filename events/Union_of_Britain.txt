@@ -5881,255 +5881,12 @@ country_event = { #Army turns against government
 	}
 }
 
-country_event = { # Wales Breaks Off Too!
-	id = uob.506
-	immediate = {log = "[GetDateText]: [Root.GetName]: event uob.506"}
-	title = uob.506.t
-	desc = uob.506.d
-	picture = GFX_report_event_journalists_speech
-
-	is_triggered_only = yes
-	fire_only_once = yes
-
-	option = {
-		name = uob.506.a
-		
-		country_event = uob.507
-		
-		add_stability = -0.10
-		WAL = {
-			transfer_state = 122
-			transfer_state = 1225
-		}
-		WAL = {
-			add_state_core = 122
-			add_state_core = 1225
-		}
-		
-		WAL = {
-			change_tag_from = ENG
-		}
-		
-		hidden_effect = {
-			ENG = {
-				WAL = {
-					transfer_technology = yes
-				}
-			}
-		}
-		
-		remove_state_core = 122
-		remove_state_core = 1225
-		
-		WAL = {
-			country_event = {
-				id = wales.1
-				days = 1
-			}
-		}
-	}
-	
-	option = {
-		name = uob.506.b
-		
-		add_stability = -0.10
-		WAL = {
-			transfer_state = 122
-			transfer_state = 1225
-		}
-		WAL = {
-			add_state_core = 122
-			add_state_core = 1225
-		}
-		country_event = uob.507
-		
-		hidden_effect = {
-			ENG = {
-				WAL = {
-					transfer_technology = yes
-				}
-			}
-		}
-		
-		remove_state_core = 122
-		remove_state_core = 1225
-		
-		WAL = {
-			country_event = {
-				id = wales.1
-				days = 1
-			}
-		}
-	}
-}
-
-country_event = { # The Refugee Crisis
-	id = uob.507
-	immediate = {log = "[GetDateText]: [Root.GetName]: event uob.507"}
-	title = uob.507.t
-	desc = uob.507.d
-	picture = GFX_report_event_journalists_speech
-	is_triggered_only = yes
-	fire_only_once = yes
-
-	option = {
-		name = uob.507.a
-		
-		add_timed_idea = {
-			idea = ENG_refugee_crisis
-			days = 200
-		}
-		
-		WAL = {
-			add_timed_idea = {
-				idea = WAL_refugee_crisis
-				days = 200
-			}
-		}
-		
-		SCT = {
-			add_timed_idea = {
-				idea = SCT_refugee_crisis
-				days = 200
-			}
-		}
-	}
-}
-
-country_event = { # Peace With Scotland
-	id = uob.508
-	immediate = {log = "[GetDateText]: [Root.GetName]: event uob.508"}
-	title = uob.508.t
-	desc = uob.508.d
-	picture = GFX_report_event_journalists_speech
-	
-	fire_only_once = yes
-	trigger = {
-		tag = ENG
-		ENG = { has_war_with = SCT }
-		SCT = {
-			controls_state = 120
-			controls_state = 121
-			controls_state = 133
-			controls_state = 136
-			is_subject = no
-			is_in_faction = no
-		}
-		OR = {
-			date > 1937.12.12
-			SCT = {
-				controls_state = 131
-				controls_state = 130
-			}
-			surrender_progress > 0.74
-			has_country_flag = wales_lost
-		}
-	}
-	
-	option = {
-		name = uob.508.a
-		
-		SCT = {
-			transfer_state = 120
-			transfer_state = 121
-			transfer_state = 133
-			transfer_state = 136
-			transfer_state = 938
-		}
-		add_stability = -0.30
-		
-		white_peace = {
-			tag = SCT
-			message = "Scotland has won its Independence"
-		}
-		hidden_effect = {
-			SCT = {
-				separate_peace_all_wars = yes
-			}
-		}
-		
-		
-		hidden_effect = {
-			set_country_flag = scotland_lost
-		}
-		
-		SCT = { 
-			hidden_effect = {
-				set_country_flag = free_caledonia
-				set_country_flag = uprising_over
-				clr_country_flag = rebellion_start
-				remove_ideas = SCT_revolt
-			}
-		}
-	}
-}
-
-country_event = { # Peace With Wales
-	id = uob.509
-	immediate = {log = "[GetDateText]: [Root.GetName]: event uob.509"}
-	title = uob.509.t
-	desc = uob.509.d
-	picture = GFX_report_event_journalists_speech
-	
-	fire_only_once = yes
-	trigger = {
-		tag = ENG
-		ENG = { has_war_with = WAL }
-		WAL = {
-			controls_state = 122
-			controls_state = 1225
-			is_subject = no
-			is_in_faction = no
-		}
-		OR = {
-			date > 1938.2.3
-			WAL = {
-				controls_state = 128
-			}
-			surrender_progress > 0.74
-			has_country_flag = scotland_lost
-		}
-	}
-
-	option = {
-		name = uob.509.a
-		
-		WAL = {
-			transfer_state = 122
-			transfer_state = 1225
-		}
-		add_stability = -0.30
-		
-		hidden_effect = {
-			set_country_flag = wales_lost
-		}
-		white_peace = {
-			tag = WAL
-			message = "Wales has won its Independence"
-		}
-		hidden_effect = {
-			WAL = {
-				separate_peace_all_wars = yes
-			}
-		}
-		
-		WAL = { 
-			hidden_effect = {
-				set_country_flag = WAL_rebellion_over
-				clr_country_flag = rebellion_start
-				remove_ideas = WAL_revolt
-				remove_ideas = WAL_disunited_command
-			}
-		}
-	}
-}
-
-country_event = {
-	id = uob.510
-	immediate = {log = "[GetDateText]: [Root.GetName]: event uob.510"}
-	title = uob.510.t
-	desc = uob.510.d
-	picture = GFX_report_event_election_vote
+country_event = { #Hobart coup
+	id = uob.130
+	immediate = {log = "[GetDateText]: [Root.GetName]: event uob.130"}
+	title = uob.130.t
+	desc = uob.130.d
+	picture = GFX_report_event_GBR_bombing
 	is_triggered_only = yes
 	
 	fire_only_once = yes
@@ -6483,7 +6240,8 @@ country_event = {#R U S S E L L
 		}
 	}
 }
-country_event = { in hot water
+
+country_event = { #in hot water
 	id = uob.305
 	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.305" }
 	title = uob.305.t
@@ -8353,7 +8111,7 @@ country_event = {#tom mann fucking dies
 	}
 }
 
-country_event = { what do with unions??
+country_event = { #what do with unions??
 	id = uob.513
 	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.513" }
 	title = uob.513.t
