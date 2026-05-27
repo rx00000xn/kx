@@ -67,6 +67,7 @@ focus_tree = {
 				ideology = social_democrat
 				popularity = 0.05
 			}
+			LIC_readiness_increase_2 = yes
 		}
 	}
 	
@@ -288,10 +289,10 @@ focus_tree = {
 					level = 1
 				}
 			}
-			random_owned_state = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
+			add_state_modifier = {
+				modifier = {
+					state_production_speed_infrastructure_factor = 0.075
+					state_production_speed_buildings_factor = 0.05
 				}
 			}
 			add_tech_bonus = {
@@ -370,6 +371,7 @@ focus_tree = {
 				ideology = market_liberal
 				popularity = 0.05
 			}
+			LIC_readiness_increase_2 = yes
 		}
 	}
 
@@ -696,6 +698,7 @@ focus_tree = {
 				ideology = social_conservative
 				popularity = 0.05
 			}
+			LIC_readiness_increase_2 = yes
 		}
 	}
 
@@ -761,6 +764,7 @@ focus_tree = {
 			}
 			add_stability = 0.1
 			add_political_power = 100
+			country_event = licflavor.84
 		}
 	}
 
@@ -1529,7 +1533,7 @@ focus_tree = {
 		id = LIC_one_thousand_radingers
 		icon = GFX_goal_LIC_thousand_radingers
 		relative_position_id = LIC_landezpolizei
-		x = -2
+		x = -3
 		y = 5
 		cost = 7.2
 		ai_will_do = {
@@ -1556,7 +1560,7 @@ focus_tree = {
 		id = LIC_armor_purchase
 		icon = GFX_goal_LIC_rollin
 		relative_position_id = LIC_landezpolizei
-		x = 0
+		x = 1
 		y = 5
 		cost = 7.2
 		ai_will_do = {
@@ -1565,6 +1569,12 @@ focus_tree = {
 		prerequisite = {
 			focus = LIC_restore_the_army
 			focus = LIC_maintain_the_police
+		}
+		available = {
+			has_tech = gwtank
+		}
+		mutually_exclusive = {
+			focus = LIC_armored_car
 		}
 		completion_reward = {
 			add_political_power = -75
@@ -1590,6 +1600,50 @@ focus_tree = {
 	}
 	
 	focus = {
+		id = LIC_armored_car
+		icon = GFX_goal_LIC_armored_cars
+		relative_position_id = LIC_landezpolizei
+		x = -1
+		y = 5
+		cost = 7.2
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = LIC_restore_the_army
+			focus = LIC_maintain_the_police
+		}
+		mutually_exclusive = {
+			focus = LIC_armor_purchase
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				uses = 1
+				bonus = 1
+				ahead_reduction = 1
+				category = cat_armored_cars
+			}
+			add_equipment_bonus = {
+				bonus = {
+					armored_car_equipment = { # Type of equipment
+						build_cost_ic = -0.1
+						soft_attack = 0.15
+						defense = 0.15
+						instant = yes
+					}
+				}
+			}
+			hidden_effect = {
+				country_event = {
+					id = licflavor.39
+					days = 50
+					random = 5000
+				}
+			}
+		}
+	}
+	
+	focus = {
 		id = LIC_raising_offense
 		icon = GFX_goal_LIC_wenzel
 		relative_position_id = LIC_landezpolizei
@@ -1601,6 +1655,7 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = LIC_armor_purchase
+			focus = LIC_armored_car
 		}
 		completion_reward = {
 			set_technology = { tech_mountain_artillery = 1 }
@@ -1657,7 +1712,7 @@ focus_tree = {
 		id = LIC_specialist_units
 		icon = GFX_goal_LIC_extra_circumcision
 		relative_position_id = LIC_landezpolizei
-		x = 2
+		x = 3
 		y = 5
 		cost = 7.2
 		ai_will_do = {
@@ -1731,7 +1786,18 @@ focus_tree = {
 				ideology = paternal_autocrat
 				popularity = 0.03
 			}
-			
+			if = {
+				limit = {
+					has_country_flag = LIC_red_cross_founded
+				}
+				add_ideas = LIC_red_cross
+			}
+			add_tech_bonus = {
+				category = support_tech
+				uses = 1
+				bonus = 1
+				ahead_reduction = 1
+			}
 		}
 	}
 	
@@ -2135,6 +2201,12 @@ focus_tree = {
 			add_political_power = 25
 			add_stability = 0.05
 			add_war_support = 0.05
+			add_tech_bonus = {
+				category = industry
+				uses = 1
+				bonus = 1
+				ahead_reduction = 1
+			}
 		}
 	}
 	
@@ -2294,6 +2366,12 @@ focus_tree = {
 				ideology = paternal_autocrat
 				popularity = 0.03
 			}
+			add_tech_bonus = {
+				category = cat_special_forces_generic
+				uses = 1
+				bonus = 1
+				ahead_reduction = 1
+			}
 			hidden_effect = {
 				country_event = {
 					id = licflavor.23
@@ -2383,6 +2461,11 @@ focus_tree = {
 			}
 			add_political_power = 30
 			add_ideas = LIC_der_umbruch_idea
+			country_event = {
+				id = lic.72
+				days = 180
+				random_days = 180
+			}
 		}
 	}
 	
@@ -2448,6 +2531,17 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_ideas = LIC_vril_cannon
+			mio:LIC_hilti_organisation = {
+				add_mio_funds = 750
+				add_mio_funds_gain_factor = 0.05
+				add_mio_research_bonus = 0.05
+			}
+			add_tech_bonus = {
+				category = electronics
+				uses = 1
+				bonus = 1
+				ahead_reduction = 1
+			}
 		}
 	}
 	
@@ -2545,6 +2639,20 @@ focus_tree = {
 					has_country_flag = LIC_hardmode
 				}
 				unlock_decision_tooltip = LIC_restore_the_aryans
+				unlock_decision_tooltip = LIC_attack_germany
+				unlock_decision_tooltip = LIC_attack_austria
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = AUS
+							is_core_of = GER
+						}
+					}
+					add_claim_by = ROOT
+				}
+				else = {
+					custom_effect_tooltip = LIC_special_expansion_ariosophy
+				}
 			}
 			unlock_decision_tooltip = LIC_emerge_from_isolation
 		}
@@ -2702,6 +2810,9 @@ focus_tree = {
 				id = LIC_austro_swiss
 				range = LIC_bop_austro_swiss_austria_3
 			}
+			NOT = {
+				has_country_flag = LIC_evil
+			}
 		}
 		prerequisite = {
 			focus = LIC_principal_policy
@@ -2769,7 +2880,13 @@ focus_tree = {
 			#Alternate decision to pressure Switzerland into Donau-Adriabund! This variant will allow Switzerland the option of joining against France and gaining Aosta/Savoy, but the AI will then have a rule set to help NOT stack the line.
 			unlock_decision_tooltip = LIC_unternehmen_marterl_decision
 			unlock_decision_tooltip = LIC_pressure_switzerland
-			
+			if = {
+				limit = {
+					has_country_flag = LIC_AUS_response_apology
+				}
+				custom_effect_tooltip = LIC_apology_confirmed
+				clr_country_flag = LIC_AUS_response_apology
+			}
 		}
 	}
 	
@@ -2802,6 +2919,7 @@ focus_tree = {
 			focus = LIC_russia
 		}
 		completion_reward = {
+			custom_effect_tooltip = LIC_immediate_austria_sus
 			GER = {
 				country_event = licfor.1
 			}
@@ -2851,6 +2969,9 @@ focus_tree = {
 			custom_effect_tooltip = LIC_schwesterstaat_legations
 			custom_effect_tooltip = LIC_legation_decision_if_tt
 			unlock_decision_tooltip = LIC_request_legation_entry
+			custom_effect_tooltip = LIC_if_red_cross
+			unlock_decision_tooltip = LIC_red_cross_2
+			
 		}
 	}
 	
@@ -2883,6 +3004,7 @@ focus_tree = {
 			focus = LIC_reichspakt
 		}
 		completion_reward = {
+			custom_effect_tooltip = LIC_immediate_austria_sus
 			RUS = {
 				country_event = licfor.1
 			}
@@ -3179,6 +3301,41 @@ focus_tree = {
 	}
 	
 	focus = {
+		id = LIC_church_crusade
+		icon = GFX_goal_LIC_reclaim_church
+		x = 13
+		y = 15
+		cost = 7.2
+		ai_will_do = {
+			factor = 100
+		}
+		allow_branch = {
+			has_country_flag = LIC_papal_house
+		}
+		available = {
+			NOT = {
+				owns_state = 2
+			}
+			has_country_flag = LIC_papal_house
+		}
+		prerequisite = {
+			focus = LIC_greater_rank
+		}
+		completion_reward = {
+			add_state_claim = 2
+			add_state_claim = 1149
+			add_war_support = 0.1
+			swap_ideas = {
+				remove_idea = LIC_holy_see
+				add_idea = LIC_holy_see_2
+			}
+			unlock_decision_tooltip = LIC_restore_pope
+			#Unlock decisions... restore pope, cores, etc
+			#Add idea for attack against SRI...
+		}
+	}
+	
+	focus = {
 		id = LIC_botde
 		icon = GFX_goal_FIU_death_of_habsburgs
 		x = 13
@@ -3188,7 +3345,16 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			
+			custom_trigger_tooltip = {
+				tooltip = LIC_apologies_in_place
+				NOT = {
+					OR = {
+						has_country_flag = LIC_AUS_response_holdings
+						has_country_flag = LIC_AUS_response_apology
+						has_country_flag = LIC_AUS_response_securities
+					}
+				}
+			}
 		}
 		bypass = {
 			OR = {
@@ -3410,6 +3576,38 @@ focus_tree = {
 			unlock_decision_tooltip = LIC_feed_AH
 		}
 	}
+	
+	focus = {
+		id = LIC_court_espionage
+		icon = GFX_goal_LIC_court_espionage
+		x = 17
+		y = 9
+		cost = 7.2
+		ai_will_do = {
+			factor = 100
+		}
+		available = {
+			has_intelligence_agency = yes
+		}
+		prerequisite = {
+			focus = LIC_principal_policy
+		}
+		completion_reward = {
+			country_event = licfor.84
+			custom_effect_tooltip = LIC_when_the_impostor_is_sus_lololololololol
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	focus = {
 		id = LIC_occupied

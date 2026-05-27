@@ -28,7 +28,7 @@ country_event = { #intro 0
 
 	option = { #k
 		name = bdeausdebug.0.a
-		AUS_debug_effect = yes
+		d_ausd1 = yes
 	}
 	
 	option = { #k
@@ -8560,10 +8560,14 @@ country_event = { #The Fifth Balkan War Begins
 			}
 		}
 	}
+
+	after = {
+		hidden_effect = { set_country_flag = balkan_war_participant }
+	}
 	
 	picture = GFX_event_AUS_you_aint_built_for_this_fifth_balkan_war_son
 	
-	option = { #Gott erhalte Karl den Kaiser...
+	option = { #Für das Vaterland!
 		name = bdeausfor.101.a
 		trigger = {
 			OR = {
@@ -8604,7 +8608,6 @@ country_event = { #The Fifth Balkan War Begins
 			add_war_support = 0.25
 			AUS_subtract_eight_collapse = yes
 			ALL_subtract_ten_collapse = yes
-			set_country_flag = balkan_war_participant
 			if = {
 				limit = { AUS = { NOT = { has_country_flag = AUS_resistance_networks_realized } } }
 				if = {
@@ -8638,6 +8641,20 @@ country_event = { #The Fifth Balkan War Begins
 					add_idea = CRO_ethnic_clashes_5bw
 				}
 			}
+			if = {
+				limit = { any_state = { has_dynamic_modifier = { modifier = CRO_bosnia_state_mod } } }
+				every_state = {
+					limit = { has_dynamic_modifier = { modifier = CRO_bosnia_state_mod } }
+					remove_dynamic_modifier = { modifier = CRO_bosnia_state_mod }
+				}
+			}
+			if = {
+				limit = { any_state = { has_dynamic_modifier = { modifier = CRO_dalmatia_state_mod } } }
+				every_state = {
+					limit = { has_dynamic_modifier = { modifier = CRO_dalmatia_state_mod } }
+					remove_dynamic_modifier = { modifier = CRO_dalmatia_state_mod }
+				}
+			}
 			add_war_support = 0.25
 		}
 		else = {
@@ -8657,15 +8674,18 @@ country_event = { #The Fifth Balkan War Begins
 			set_major = yes
 			if = {
 				limit = { is_faction_leader = yes }
-				add_faction_goal = faction_goal_win_fifth_balkan_war
-				add_faction_goal_slot = {
-					category = long_term
-					value = 1 
+				if = {
+					limit = { has_dlc_ncns = yes }
+					add_faction_goal = faction_goal_win_fifth_balkan_war
+					add_faction_goal_slot = {
+						category = long_term
+						value = 1 
+					}
 				}
 			}
+			hidden_effect = { country_event = worldtension.7 }
 		}
 		add_war_support = 0.25
-		set_country_flag = balkan_war_participant
 		if = {
 			limit = { NOT = { has_idea = BOTDE_delenda_est } }
 			hidden_effect = { add_timed_idea = { idea = BOTDE_delenda_est days = 240 } }
@@ -8689,7 +8709,6 @@ country_event = { #The Fifth Balkan War Begins
 			set_major = yes
 		}
 		add_war_support = 0.25
-		set_country_flag = balkan_war_participant
 		if = {
 			limit = { NOT = { has_idea = BOTDE_delenda_est } }
 			hidden_effect = { add_timed_idea = { idea = BOTDE_delenda_est days = 240 } }
@@ -8723,7 +8742,6 @@ country_event = { #The Fifth Balkan War Begins
 			set_major = yes
 		}
 		add_war_support = 0.1
-		set_country_flag = balkan_war_participant
 		if = {
 			limit = { NOT = { has_idea = BOTDE_delenda_est } }
 			hidden_effect = { add_timed_idea = { idea = BOTDE_delenda_est days = 240 } }
@@ -8741,15 +8759,16 @@ country_event = { #The Fifth Balkan War - Hidden event that does stuffs
 	
 	hidden = yes
 	
-	fire_only_once = no
-	
 	is_triggered_only = yes
 	
 	option = { #Gott erhalte Karl den Kaiser...
 		name = bdeausfor.102.a
 		if = {
 			limit = {
-				has_global_flag = balkan_war_ended
+				OR = {
+					has_global_flag = balkan_war_ended
+					has_global_flag = BUL_gave_into_BP_demands
+				}
 				AUS = { has_war_with = SER }
 				NOT = { has_global_flag = fifth_balkan_war_ended }
 			}
@@ -26592,10 +26611,8 @@ country_event = { # A Monarch's Role (for the republic)
 		set_country_flag = AUS_republic_kaiser_figurehead
 		drop_cosmetic_tag = yes
 		if = {
-			limit = {
-				AUS_habsburg_in_charge = no
-			}
-			AUS_create_karl_i_post_collapse = yes
+			limit = { AUS_habsburg_in_charge = no }
+			BOTDE_create_karl = yes
 		}
 	}
 	
@@ -29857,7 +29874,7 @@ country_event = { #The Return of the Kaiser to Vienna
 	
 	option = { #We shall lead a blessed Austria alone
 		name = bdeausint.136.a
-		AUS_karl_up = yes
+		BOTDE_create_karl = yes
 		remove_all_ministers = yes
 		set_country_flag = AUS_monarchy_alliance
 		add_ideas = {
@@ -29984,7 +30001,7 @@ country_event = { #The Pope Wishes us Well
 	
 	option = { #We shall lead a blessed Austria alone
 		name = bdeausint.138.a
-		AUS_karl_up = yes
+		BOTDE_create_karl = yes
 		remove_all_ministers = yes
 		set_country_flag = AUS_monarchy_alliance
 		add_ideas = {

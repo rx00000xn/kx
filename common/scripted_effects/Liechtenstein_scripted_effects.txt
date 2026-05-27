@@ -906,19 +906,15 @@ LIC_vibe_check_famine = {
 					has_country_flag = LIC_quotas_done
 				}
 			}
-			add_to_variable = { var = LIC.famine_tally_var value = 1 } #If it reaches 12, let the VDBL coup!
+			add_to_variable = { var = LIC.famine_tally_var value = 1 } #If it reaches 24, let the VDBL coup!
 			if = {
 				limit = {
 					check_variable = {
 						var = LIC.famine_tally_var
-						value = 6
-						compare = greater_than_or_equals
-					}
-					NOT = {
-						has_country_flag = no_templar
+						value = 8
+						compare = equals
 					}
 				}
-				set_country_flag = no_templar
 				country_event = licflavor.73
 			}
 			if = {
@@ -926,6 +922,36 @@ LIC_vibe_check_famine = {
 					check_variable = {
 						var = LIC.famine_tally_var
 						value = 12
+						compare = equals
+					}
+				}
+				country_event = licflavor.77
+			}
+			if = {
+				limit = {
+					check_variable = {
+						var = LIC.famine_tally_var
+						value = 16
+						compare = equals
+					}
+				}
+				country_event = licflavor.78
+			}
+			if = {
+				limit = {
+					check_variable = {
+						var = LIC.famine_tally_var
+						value = 20
+						compare = equals
+					}
+				}
+				country_event = licflavor.79
+			}
+			if = {
+				limit = {
+					check_variable = {
+						var = LIC.famine_tally_var
+						value = 24
 						compare = greater_than_or_equals
 					}
 				}
@@ -996,7 +1022,6 @@ LIC_famine_tally = {
 	set_variable = { var = LIC.famine_population value = LIC.famine_value }
 	set_variable = { var = LIC.famine_weekly_stab value = LIC.famine_value }
 	set_variable = { var = LIC.famine_weekly_ws value = LIC.famine_value }
-	set_variable = { var = LIC.famine_pp_cost value = LIC.famine_value }
 	set_variable = { var = LIC.famine_factory value = LIC.famine_value }
 	set_variable = { var = LIC.famine_construction value = LIC.famine_value }
 	
@@ -1006,7 +1031,6 @@ LIC_famine_tally = {
 	multiply_variable = { var = LIC.famine_population value = 4 }
 	multiply_variable = { var = LIC.famine_weekly_stab value = 0.1 }
 	multiply_variable = { var = LIC.famine_weekly_ws value = 0.1 }
-	multiply_variable = { var = LIC.famine_pp_cost value = -6 }
 	multiply_variable = { var = LIC.famine_factory value = 4 }
 	multiply_variable = { var = LIC.famine_construction value = 4 }
 	
@@ -1586,4 +1610,22 @@ LIC_picker_roll_num = {
 		max = 50
 		integer = yes
 	}
+}
+
+LIC_KPOP_MORE_LIKE_KPOOP =  {
+	if = {
+		limit = {
+			OR = {
+				has_cosmetic_tag = LIC_ALPINE
+				has_cosmetic_tag = LIC_ALPINE_CANTON
+			}
+		}
+		set_cosmetic_tag = LIC_papacy_alpine
+		else = {
+			set_cosmetic_tag = LIC_papacy
+		}
+	}
+	add_ideas = LIC_holy_see
+	set_country_flag = LIC_papal_house
+	#Leader GUI that boy in here
 }

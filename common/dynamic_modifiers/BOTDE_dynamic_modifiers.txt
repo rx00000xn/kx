@@ -1,10 +1,6 @@
 AUS_recently_federalized_state = {
 	enable = { always = yes }
-	remove_trigger = {
-		NOT = {
-			is_owned_by = AUS
-		}
-	}
+	remove_trigger = { NOT = { is_owned_by = AUS } }
 	icon = GFX_dynamic_mod_AUS_recently_federalized_state
 	local_building_slots_factor = AUS.recently_federalized_state_local_building_slots_factor
 	local_manpower = AUS.recently_federalized_state_local_manpower
@@ -335,7 +331,6 @@ LIC_famine = {
 	monthly_population = LIC.famine_population
 	stability_weekly = LIC.famine_weekly_stab
 	war_support_weekly = LIC.famine_weekly_ws
-	political_power_cost = LIC.famine_pp_cost
 	industrial_capacity_factory = LIC.famine_factory
 	production_speed_buildings_factor = LIC.famine_construction
 	
@@ -520,16 +515,14 @@ ROM_transylvanian_resistance = { #for HUN
 
 ROM_transylvanian_collaboration = { #for ROM
 	icon = "GFX_ROM_transylvanian_resistance"
-	enable = {
-		controller = { OR = { is_in_faction_with = ROM is_subject_of = ROM } }
-	}
+	enable = { controller = { OR = { is_in_faction_with = ROM is_subject_of = ROM } } }
 	
 	remove_trigger = {
 		ROM = { is_subject = yes }
 	}
 
-	resistance_target = -0.25
-	compliance_gain = 0.35
+	resistance_target = 0.25
+	compliance_gain = -0.35
 }
 
 AUS_federalizing_constituent = { #for constituents
@@ -537,12 +530,7 @@ AUS_federalizing_constituent = { #for constituents
 	enable = { always = yes }
 	remove_trigger = {
 		is_subject = no
-		NOT = {
-			is_in_faction_with = AUS
-		}
-	}
-	remove_trigger = {
-		always = no
+		NOT = { is_in_faction_with = AUS }
 	}
 
 	political_power_gain = -0.03
@@ -579,9 +567,6 @@ AUS_RUS_oil = { #for constituents
 			}
 		}
 	}
-	remove_trigger = {
-		always = no
-	}
 
 	base_fuel_gain = THIS.AUS_RUS_base_fuel_gain
 	production_oil_factor = THIS.AUS_RUS_production_oil_factor
@@ -601,4 +586,26 @@ AUS_revolution = { #Revolution idea. At the cost of PP and stability you can gai
 	attrition = THIS.AUS_revolution_attrition #DAP modifier
 	terrain_penalty_reduction = THIS.AUS_revolution_terrain #DAP modifier
 	local_supplies = THIS.AUS_revolution_supplies #DAP modifier
+}
+
+CRO_bosnia_state_mod = {
+	icon = GFX_dynamic_mod_CRO_bosnia
+	remove_trigger = { NOT = { owner = { tag = CRO } } }
+	resistance_target = -0.1
+	compliance_gain = 0.1
+	recruitable_population_factor = -0.05
+	local_building_slots_factor = 0.25
+	state_resources_factor = 0.25
+	local_intel_to_enemies = -0.05
+}
+
+CRO_dalmatia_state_mod = {
+	icon = GFX_dynamic_mod_CRO_dalmatia
+	remove_trigger = { NOT = { owner = { tag = CRO } } }
+	resistance_target = -0.1
+	compliance_gain = 0.1
+	recruitable_population_factor = -0.05
+	local_building_slots_factor = 0.25
+	state_resources_factor = 0.25
+	local_intel_to_enemies = -0.05
 }

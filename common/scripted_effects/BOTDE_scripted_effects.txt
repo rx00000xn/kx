@@ -6,18 +6,11 @@ d_botde_add_revolt_progress = {
 }
 
 d_ausd1 = {
-	every_country = {
-		limit = { has_active_mission = AUS_ROM_revolt_mission }
-		add_days_mission_timeout = {
-			mission = AUS_ROM_revolt_mission
-			days = -14
-		}
-	}
-	every_country = {
-		limit = { has_active_mission = ROM_revolt_mission }
-		add_days_mission_timeout = {
-			mission = ROM_revolt_mission
-			days = -14
+	SER = {
+		set_party_name = {
+			ideology = paternal_autocrat
+			name = SER_AUS_paternal_autocrat_party
+			long_name = SER_AUS_paternal_autocrat_party_long
 		}
 	}
 }
@@ -3439,8 +3432,10 @@ CZE_bohemian_revolution_effect = {
 		idea = CZE_czech_revolution
 		days = 365
 	}
+	remove_puppet_and_leave_faction = yes
 	separate_peace_all_wars = yes
-	leave_faction = yes
+	CZE_setup_republican_leaders = yes
+	CZE_setup_hogs = yes
 	hidden_effect = {
 		set_cosmetic_tag = CZE_free_czechia
 	}
@@ -3460,7 +3455,7 @@ CZE_bohemian_revolution_effect = {
 	#Put event here...
 	if = {
 		limit = {
-			has_global_flag = BOH_czechoslovakism_yes
+			CZE_czechoslovak_idea = yes
 		}
 		set_cosmetic_tag = CZE_czechoslovakia
 		transfer_state = 70
@@ -3519,44 +3514,35 @@ CZE_bohemian_revolution_effect = {
 	hidden_effect = {
 		if = {
 			limit = {
-				has_global_flag = BOH_czechoslovakism_yes
+				CZE_czechoslovak_idea = yes
 			}
 			country_event = {
 				id = bdeczeflavor.38
 				days = 8
 				random = 24
 			}
-		}
-		
+		}		
 		country_event = {
 			id = bdeczeflavor.113
 			days = 25
 			random = 72
-		}
-		
-		
+		}		
 		country_event = {
 			id = bdeczefor.4
 			days = 160
 			random = 480
-		}
-		
-		country_event = {
-			id = bdeczefor.5
-		}
-		
+		}		
+		country_event = bdeczefor.5		
 		country_event = {
 			id = bdecze.3
 			days = 50
 			random = 100
-		}
-		
+		}		
 		country_event = {
 			id = bdeczeflavor.126
 			days = 80
 			random = 100
-		}
-		
+		}		
 		if = {
 			limit = {
 				OR = {
@@ -3568,9 +3554,7 @@ CZE_bohemian_revolution_effect = {
 				id = bdeczeflavor.117
 				days = 41
 			}
-		}
-		
-		
+		}		
 		news_event = {
 			id = bdeczenews.1
 			days = 1
@@ -7333,6 +7317,7 @@ AUS_divide_hungary_effect = {
 				autonomous_state = botde_transleithania
 			}
 		}
+		BOTDE_create_austrian_emperor = yes
 		set_politics = {
 			ruling_party = social_conservative
 		}
@@ -10511,61 +10496,243 @@ AUS_fuck_this_ideology_they_unpopular_now_lmaofuckoff = {
 	}
 }
 
-AUS_karl_up = {
-	create_country_leader = {
-		name = "Karl I"
-		desc = "POLITICS_KARL_BOTDE_DESC"
-		picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I.png"
-		expire = "1965.1.1"
-		ideology = radsoc_austromarxism_subtype
+BOTDE_create_karl = {
+	if = {
+		limit = { has_country_flag = rad_socs_arent_syndie }
+		meta_effect = {
+			#debug = yes
+			text = {
+				create_country_leader = {
+					name = [BOTDE_GET_KARL_I_NAME]
+					desc = "POLITICS_KARL_BOTDE_DESC"
+					picture = [BOTDE_GET_KARL_I_PORTRAIT]
+					expire = "1.1.1"
+					ideology = [BOTDE_GET_KARL_I_SUBIDEO_RSO]
+				}
+			}
+			BOTDE_GET_KARL_I_NAME = "[BOTDE_get_karl_I_name_scripted_loc]"
+			BOTDE_GET_KARL_I_PORTRAIT = "[BOTDE_get_karl_I_portrait_scripted_loc]"
+			BOTDE_GET_KARL_I_SUBIDEO_RSO = "[BOTDE_get_karl_I_subideo_rso_scripted_loc]"
+		}
 	}
-
-	create_country_leader = {
-		name = "Karl I"
-		desc = "POLITICS_KARL_BOTDE_DESC"
-		picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I.png"
-		expire = "1965.1.1"
-		ideology = austromarxism_subtype
+	meta_effect = {
+		#debug = yes
+		text = {
+			create_country_leader = {
+				name = [BOTDE_GET_KARL_I_NAME]
+				desc = "POLITICS_KARL_BOTDE_DESC"
+				picture = [BOTDE_GET_KARL_I_PORTRAIT]
+				expire = "1.1.1"
+				ideology = [BOTDE_GET_KARL_I_SUBIDEO_SDE]
+			}
+			create_country_leader = {
+				name = [BOTDE_GET_KARL_I_NAME]
+				desc = "POLITICS_KARL_BOTDE_DESC"
+				picture = [BOTDE_GET_KARL_I_PORTRAIT]
+				expire = "1.1.1"
+				ideology = [BOTDE_GET_KARL_I_SUBIDEO_SLI]
+			}
+			create_country_leader = {
+				name = [BOTDE_GET_KARL_I_NAME]
+				desc = "POLITICS_KARL_BOTDE_DESC"
+				picture = [BOTDE_GET_KARL_I_PORTRAIT]
+				expire = "1.1.1"
+				ideology = [BOTDE_GET_KARL_I_SUBIDEO_MLI]
+			}
+			create_country_leader = {
+				name = [BOTDE_GET_KARL_I_NAME]
+				desc = "POLITICS_KARL_BOTDE_DESC"
+				picture = [BOTDE_GET_KARL_I_PORTRAIT]
+				expire = "1.1.1"
+				ideology = [BOTDE_GET_KARL_I_SUBIDEO_SCO]
+			}
+		}
+		BOTDE_GET_KARL_I_NAME = "[BOTDE_get_karl_I_name_scripted_loc]"
+		BOTDE_GET_KARL_I_PORTRAIT = "[BOTDE_get_karl_I_portrait_scripted_loc]"
+		BOTDE_GET_KARL_I_SUBIDEO_SDE = "[BOTDE_get_karl_I_subideo_sde_scripted_loc]"
+		BOTDE_GET_KARL_I_SUBIDEO_SLI = "[BOTDE_get_karl_I_subideo_sli_scripted_loc]"
+		BOTDE_GET_KARL_I_SUBIDEO_MLI = "[BOTDE_get_karl_I_subideo_mli_scripted_loc]"
+		BOTDE_GET_KARL_I_SUBIDEO_SCO = "[BOTDE_get_karl_I_subideo_sco_scripted_loc]"
 	}
-
-	create_country_leader = {
-		name = "Karl I"
-		desc = "POLITICS_KARL_BOTDE_DESC"
-		picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I.png"
-		expire = "1965.1.1"
-		ideology = paneuropeanism_subtype
+	if = {
+		limit = {
+			NOT = {
+				tag = GAL
+			}
+		}
+		meta_effect = {
+			#debug = yes
+			text = {
+				create_country_leader = {
+					name = [BOTDE_GET_KARL_I_NAME]
+					desc = "POLITICS_KARL_BOTDE_DESC"
+					picture = [BOTDE_GET_KARL_I_PORTRAIT]
+					expire = "1.1.1"
+					ideology = [BOTDE_GET_KARL_I_SUBIDEO_ADE]
+				}
+			}
+			BOTDE_GET_KARL_I_NAME = "[BOTDE_get_karl_I_name_scripted_loc]"
+			BOTDE_GET_KARL_I_PORTRAIT = "[BOTDE_get_karl_I_portrait_scripted_loc]"
+			BOTDE_GET_KARL_I_SUBIDEO_ADE = "[BOTDE_get_karl_I_subideo_ade_scripted_loc]"
+		}
 	}
-
-	create_country_leader = {
-		name = "Karl I"
-		desc = "POLITICS_KARL_DESC"
-		picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I.png"
-		expire = "1965.1.1"
-		ideology = marlib_agrarianism_subtype
+	if = {
+		limit = {
+			NOT = {
+				AND = {
+					tag = CZE
+					NOT = { has_cosmetic_tag = CZE_military_gov }
+				}
+				AND = {
+					tag = CRO
+					NOT = { has_cosmetic_tag = CRO_occupied }
+				}
+				AND = {
+					tag = GAL
+					NOT = { has_cosmetic_tag = GAL_military_gov }
+				}
+			}
+		}
+		meta_effect = {
+			#debug = yes
+			text = {
+				create_country_leader = {
+					name = [BOTDE_GET_KARL_I_NAME]
+					desc = "POLITICS_KARL_BOTDE_DESC"
+					picture = [BOTDE_GET_KARL_I_PORTRAIT]
+					expire = "1.1.1"
+					ideology = [BOTDE_GET_KARL_I_SUBIDEO_PAT]
+				}
+			}
+			BOTDE_GET_KARL_I_NAME = "[BOTDE_get_karl_I_name_scripted_loc]"
+			BOTDE_GET_KARL_I_PORTRAIT = "[BOTDE_get_karl_I_portrait_scripted_loc]"
+			BOTDE_GET_KARL_I_SUBIDEO_PAT = "[BOTDE_get_karl_I_subideo_pat_scripted_loc]"
+		}
 	}
+}
 
-	create_country_leader = {
-		name = "Karl I"
-		desc = "POLITICS_KARL_BOTDE_DESC"
-		picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I.png"
-		expire = "1965.1.1"
-		ideology = christian_democracy_subtype
+BOTDE_create_otto = {
+	if = {
+		limit = { has_country_flag = rad_socs_arent_syndie }
+		meta_effect = {
+			#debug = yes
+			text = {
+				create_country_leader = {
+					name = [BOTDE_GET_OTTO_NAME]
+					desc = "POLITICS_OTTO_BOTDE_DESC"
+					picture = [BOTDE_GET_OTTO_PORTRAIT]
+					expire = "1.1.1"
+					ideology = [BOTDE_GET_OTTO_SUBIDEO_RSO]
+				}
+			}
+			BOTDE_GET_OTTO_NAME = "[BOTDE_get_otto_name_scripted_loc]"
+			BOTDE_GET_OTTO_PORTRAIT = "[BOTDE_get_otto_portrait_scripted_loc]"
+			BOTDE_GET_OTTO_SUBIDEO_RSO = "[BOTDE_get_karl_I_subideo_rso_scripted_loc]"
+		}
 	}
-
-	create_country_leader = {
-		name = "Karl I"
-		desc = "POLITICS_KARL_BOTDE_DESC"
-		picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I.png"
-		expire = "1965.1.1"
-		ideology = autdem_christian_democracy_subtype
+	meta_effect = {
+		#debug = yes
+		text = {
+			create_country_leader = {
+				name = [BOTDE_GET_OTTO_NAME]
+				desc = "POLITICS_OTTO_BOTDE_DESC"
+				picture = [BOTDE_GET_OTTO_PORTRAIT]
+				expire = "1.1.1"
+				ideology = [BOTDE_GET_OTTO_SUBIDEO_SDE]
+			}
+			create_country_leader = {
+				name = [BOTDE_GET_OTTO_NAME]
+				desc = "POLITICS_OTTO_BOTDE_DESC"
+				picture = [BOTDE_GET_OTTO_PORTRAIT]
+				expire = "1.1.1"
+				ideology = [BOTDE_GET_OTTO_SUBIDEO_SLI]
+			}
+			create_country_leader = {
+				name = [BOTDE_GET_OTTO_NAME]
+				desc = "POLITICS_OTTO_BOTDE_DESC"
+				picture = [BOTDE_GET_OTTO_PORTRAIT]
+				expire = "1.1.1"
+				ideology = [BOTDE_GET_OTTO_SUBIDEO_MLI]
+			}
+			create_country_leader = {
+				name = [BOTDE_GET_OTTO_NAME]
+				desc = "POLITICS_OTTO_BOTDE_DESC"
+				picture = [BOTDE_GET_OTTO_PORTRAIT]
+				expire = "1.1.1"
+				ideology = [BOTDE_GET_OTTO_SUBIDEO_SCO]
+			}
+		}
+		BOTDE_GET_OTTO_NAME = "[BOTDE_get_otto_name_scripted_loc]"
+		BOTDE_GET_OTTO_PORTRAIT = "[BOTDE_get_otto_portrait_scripted_loc]"
+		BOTDE_GET_OTTO_SUBIDEO_SDE = "[BOTDE_get_karl_I_subideo_sde_scripted_loc]"
+		BOTDE_GET_OTTO_SUBIDEO_SLI = "[BOTDE_get_karl_I_subideo_sli_scripted_loc]"
+		BOTDE_GET_OTTO_SUBIDEO_MLI = "[BOTDE_get_karl_I_subideo_mli_scripted_loc]"
+		BOTDE_GET_OTTO_SUBIDEO_SCO = "[BOTDE_get_karl_I_subideo_sco_scripted_loc]"
 	}
+	if = {
+		limit = {
+			NOT = {
+				tag = GAL
+			}
+		}
+		meta_effect = {
+			#debug = yes
+			text = {
+				create_country_leader = {
+					name = [BOTDE_GET_OTTO_NAME]
+					desc = "POLITICS_OTTO_BOTDE_DESC"
+					picture = [BOTDE_GET_OTTO_PORTRAIT]
+					expire = "1.1.1"
+					ideology = [BOTDE_GET_OTTO_SUBIDEO_ADE]
+				}
+			}
+			BOTDE_GET_OTTO_NAME = "[BOTDE_get_otto_name_scripted_loc]"
+			BOTDE_GET_OTTO_PORTRAIT = "[BOTDE_get_otto_portrait_scripted_loc]"
+			BOTDE_GET_OTTO_SUBIDEO_ADE = "[BOTDE_get_karl_I_subideo_ade_scripted_loc]"
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				AND = {
+					tag = CZE
+					NOT = { has_cosmetic_tag = CZE_military_gov }
+				}
+				AND = {
+					tag = CRO
+					NOT = { has_cosmetic_tag = CRO_occupied }
+				}
+				AND = {
+					tag = GAL
+					NOT = { has_cosmetic_tag = GAL_military_gov }
+				}
+			}
+		}
+		meta_effect = {
+			#debug = yes
+			text = {
+				create_country_leader = {
+					name = [BOTDE_GET_OTTO_NAME]
+					desc = "POLITICS_OTTO_BOTDE_DESC"
+					picture = [BOTDE_GET_OTTO_PORTRAIT]
+					expire = "1.1.1"
+					ideology = [BOTDE_GET_OTTO_SUBIDEO_PAT]
+				}
+			}
+			BOTDE_GET_OTTO_NAME = "[BOTDE_get_otto_name_scripted_loc]"
+			BOTDE_GET_OTTO_PORTRAIT = "[BOTDE_get_otto_portrait_scripted_loc]"
+			BOTDE_GET_OTTO_SUBIDEO_PAT = "[BOTDE_get_karl_I_subideo_pat_scripted_loc]"
+		}
+	}
+}
 
-	create_country_leader = {
-		name = "Karl I"
-		desc = "POLITICS_KARL_BOTDE_DESC"
-		picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I.png"
-		expire = "1965.1.1"
-		ideology = austropopulism_subtype
+BOTDE_create_austrian_emperor = {
+	if = {
+		limit = { has_global_flag = AUS_Kaiser_Otto_I }
+		BOTDE_create_otto = yes
+	}
+	else = {
+		BOTDE_create_karl = yes
 	}
 }
 
@@ -10800,178 +10967,73 @@ AUS_habsburg_law_available = {
 	unlock_decision_tooltip = AUS_pass_habsburg_law
 }
 
-AUS_create_karl_i_post_collapse = {
-	create_country_leader = {
-		name = "Karl I"
-		desc = "POLITICS_KARL_BOTDE_DESC"
-		picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I.png"
-		expire = "1965.1.1"
-		ideology = radsoc_austromarxism_subtype
-	}
-	
-	create_country_leader = {
-		name = "Karl I"
-		desc = "POLITICS_KARL_BOTDE_DESC"
-		picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I.png"
-		expire = "1965.1.1"
-		ideology = austromarxism_subtype
-	}
-	
-	create_country_leader = {
-		name = "Karl I"
-		desc = "POLITICS_KARL_BOTDE_DESC"
-		picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I.png"
-		expire = "1965.1.1"
-		ideology = paneuropeanism_subtype
-	}
-	
-	create_country_leader = {
-		name = "Karl I"
-		desc = "POLITICS_KARL_BOTDE_DESC"
-		picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I.png"
-		expire = "1965.1.1"
-		ideology = marlib_agrarianism_subtype
-	}
-	
-	create_country_leader = {
-		name = "Karl I"
-		desc = "POLITICS_KARL_BOTDE_DESC"
-		picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I.png"
-		expire = "1965.1.1"
-		ideology = christian_democracy_subtype
-	}
-	
-	create_country_leader = {
-		name = "Karl I"
-		desc = "POLITICS_KARL_BOTDE_DESC"
-		picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I.png"
-		expire = "1965.1.1"
-		ideology = autdem_christian_democracy_subtype
-	}
-	
-	create_country_leader = {
-		name = "Karl I"
-		desc = "POLITICS_KARL_BOTDE_DESC"
-		picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I.png"
-		expire = "1965.1.1"
-		ideology = austropopulism_subtype
-	}
-}
-
 CONST_generic_peace_post = { #Expansion and some things for post-collapse countries after they are freed
 	if = {
-		limit = {
-			tag = CPU
-		}
+		limit = { tag = CPU }
 		add_state_claim = 1319
 		add_state_claim = 1314
 	}
 	if = {
-		limit = {
-			tag = BAN
-		}
+		limit = { tag = BAN }
 		add_state_claim = 45
 	}
 	if = {
-		limit = {
-			tag = HNZ
-		}
+		limit = { tag = HNZ }
 		add_state_claim = 1111
 	}
 	if = {
-		limit = {
-			has_war_with = CRO
-			owns_state = 1141
-			CRO = {
-				controls_state = 1141
+		limit = { has_war_with = CRO }
+		every_owned_state = {
+			limit = {
+				OR = {
+					state = 104
+					state = 794
+					state = 1099
+					state = 1128
+					state = 1141
+					state = 1142
+					state = 1143
+					state = 1145
+				}
+				is_fully_controlled_by = CRO
 			}
-		}
-		CRO = {
-			transfer_state = 1141
+			transfer_state_to = CRO
 		}
 	}
 	if = {
-		limit = {
-			has_war_with = CRO
-			owns_state = 1145
-			CRO = {
-				controls_state = 1145
+		limit = { has_war_with = HUN }
+		every_owned_state = {
+			limit = {
+				OR = {
+					state = 76
+					state = 789
+					state = 1112
+					state = 1117
+					state = 1118
+				}
+				is_fully_controlled_by = HUN
 			}
-		}
-		CRO = {
-			transfer_state = 1145
+			transfer_state_to = HUN
 		}
 	}
 	if = {
-		limit = {
-			has_war_with = CRO
-			owns_state = 1099
-			CRO = {
-				controls_state = 1099
+		limit = { has_war_with = BOS }
+		every_owned_state = {
+			limit = {
+				is_core_of = BOS
+				is_fully_controlled_by = BOS
 			}
-		}
-		CRO = {
-			transfer_state = 1099
+			transfer_state_to = BOS
 		}
 	}
 	if = {
-		limit = {
-			has_war_with = HUN
-			owns_state = 1118
-			HUN = {
-				controls_state = 1118
+		limit = { has_war_with = SKS }
+		every_owned_state = {
+			limit = {
+				is_core_of = SKS
+				is_fully_controlled_by = SKS
 			}
-		}
-		HUN = {
-			transfer_state = 1118
-		}
-	}
-	if = {
-		limit = {
-			has_war_with = HUN
-			owns_state = 1117
-			HUN = {
-				controls_state = 1117
-			}
-		}
-		HUN = {
-			transfer_state = 1117
-		}
-	}
-	if = {
-		limit = {
-			has_war_with = HUN
-			owns_state = 1112
-			HUN = {
-				controls_state = 1112
-			}
-		}
-		HUN = {
-			transfer_state = 1112
-		}
-	}
-	if = {
-		limit = {
-			has_war_with = HUN
-			owns_state = 76
-			HUN = {
-				controls_state = 76
-			}
-		}
-		HUN = {
-			transfer_state = 76
-		}
-	}
-	if = {
-		limit = {
-			has_war_with = HUN
-			owns_state = 789
-			HUN = {
-				controls_state = 789
-			}
-		}
-		HUN = {
-			transfer_state = 789
+			transfer_state_to = SKS
 		}
 	}
 	if = { #things
@@ -10994,6 +11056,8 @@ CONST_generic_peace_post = { #Expansion and some things for post-collapse countr
 				else = {
 					set_cosmetic_tag = CRO_republic
 				}
+				set_country_flag = CRO_won_independence
+				set_country_flag = CRO_federation_dead
 			}
 		}
 	}
@@ -11955,33 +12019,30 @@ AUS_restore_BOH_after_revolt_effect = {
 		}
 		set_autonomy = {
 			target = CZE
-			autonomy_state = botde_constituent_color_overload
+			autonomy_state = botde_constituent
 		}
 	}
 	CZE = {
 		set_cosmetic_tag = CZE_military_gov
+		BOTDE_create_austrian_emperor = yes
 		set_politics = {
 			ruling_party = paternal_autocrat
 			name = CZE_paternal_autocrat_party_military_gov
 			long_name = CZE_paternal_autocrat_party_military_gov_long
 		}
-		create_country_leader = {
-			name = "Alois Podhajsky"
-			desc = ""
-			picture = "gfx/leaders/CZE/Portrait_CZE_Alois_Podhajsky_leader.png"
-			expire = "1965.1.1"
-			ideology = junta_subtype
-		}
+		set_country_leader_ideology = junta_subtype
 		increase_ruling_party_popularity_by_50 = yes
 		uncomplete_national_focus = {
 			focus = BOH_assert_bohemian_self_determination
 			uncomplete_children = yes
 		}
+		remove_ideas_with_trait = head_of_government
 		remove_ideas = {
 			CZE_czech_revolution
 			BOH_legacy_of_coronation_2
 		}
 		add_ideas = {
+			CZE_Alois_Podhajsky_hog_pau
 			AUS_part_of_the_Empire
 			AUS_cisleithanian_sphere
 			BOH_legacy_of_coronation
@@ -12057,11 +12118,7 @@ AUS_restore_HUN_after_ausgleich_revolt_effect = {
 					clr_global_flag = HUN_boycotted_ausgleich
 				}
 				if = {
-					limit = {
-						NOT = {
-							is_in_array = { global.ausgleich_attendants = THIS.id }
-						}
-					}
+					limit = { NOT = { is_in_array = { global.ausgleich_attendants = THIS.id } } }
 					add_to_array = {
 						array = global.ausgleich_attendants
 						value = THIS.id
@@ -12069,26 +12126,16 @@ AUS_restore_HUN_after_ausgleich_revolt_effect = {
 					}
 				}
 				if = {
-					limit = {
-						NOT = { is_in_array = { global.constituents_array = HUN } }
-					}
-					add_to_array = { 
-						array = global.constituents_array
-						value = HUN
-						index = 1
-					}
+					limit = { NOT = { is_in_array = { global.constituents_array = HUN } } }
+					add_to_array = { global.constituents_array = HUN }
 				}
 			}
 			if = {
-				limit = {
-					AUS = { AUS_DWV_member = yes }
-				}
+				limit = { AUS = { AUS_DWV_member = yes } }
 				AUS_add_to_DWV = yes
 			}
 			if = {
-				limit = {
-					AUS = { is_in_tech_sharing_group = austrian_research }
-				}
+				limit = { AUS = { is_in_tech_sharing_group = austrian_research } }
 				add_to_tech_sharing_group = austrian_research
 			}
 			set_politics = {
@@ -12104,18 +12151,12 @@ AUS_restore_HUN_after_ausgleich_revolt_effect = {
 				HUN_Imre_Oltvanyi_eco_ade
 				HUN_Kalman_Daranyi_de_Pusztaszentgyoergyi_sec_pau
 			}
-			create_country_leader = {
-				name = "IV. Károly"
-				desc = "POLITICS_KARL_BOTDE_DESC"
-				picture = "gfx/leaders/HUN/Portrait_HUN_Blessed_Karl.png"
-				expire = "1.1.1"
-				ideology = pataut_christian_democracy_subtype
-				traits = {}
-			}
 			set_cosmetic_tag = HUN_military_gov
+			BOTDE_create_austrian_emperor = yes
 			increase_ruling_party_popularity_by_30 = yes
 			set_variable = { AUS_subject_status = 2 }
 			set_variable = { HUN.subject_revolt_progress = 0.45 }
+			set_variable = { Karl_Portrait_Var = 6 }
 			add_ideas = {
 				AUS_part_of_the_Empire
 				AUS_HUN_military_government_idea
@@ -12126,12 +12167,9 @@ AUS_restore_HUN_after_ausgleich_revolt_effect = {
 			set_global_flag = AUS_no_more_HUN_revolt
 			set_country_flag = CONST_proper
 			set_country_flag = no_minority_revolt
-			set_country_flag = AUS_Karl_Portrait_Karl_I6
 		}
 		if = {
-			limit = {
-				FIU = { has_country_flag = FIU_return_puppet_to_hungary_after_revolt }
-			}
+			limit = { FIU = { has_country_flag = FIU_return_puppet_to_hungary_after_revolt } }
 			FIU = { get_current_government_type = yes }
 			end_puppet = FIU
 			HUN = {
@@ -12167,26 +12205,21 @@ AUS_restore_CRO_after_revolt_effect = {
 	}
 	CRO = {
 		set_cosmetic_tag = CRO_occupied
-		create_country_leader = {
-			name = "Franz Böhme"
-			desc = "AUS_BOME_DESC"
-			picture = "gfx/leaders/AUS/Portrait_AUS_Franz_Bohme_KX.png"
-			expire = "1.1.1"
-			ideology = junta_subtype
-		}
+		BOTDE_create_austrian_emperor = yes
 		set_politics = {
 			ruling_party = paternal_autocrat
 			name = CRO_occupied_paternal_autocrat_party
 			long_name = CRO_occupied_paternal_autocrat_party_long
 		}
+		set_country_leader_ideology = junta_subtype
 		remove_all_ministers = yes
 		add_ideas = {
-			CRO_Milan_Sufflay_hog_pau
+			CRO_Stjepan_Sarkotic_hog_pau
 			CRO_Mladen_Lorkovic_for_pau
 			CRO_Jozo_Dumandzic_eco_pau
 			CRO_Edo_Bulat_sec_pau
 		}
-		increase_ruling_party_popularity_by_50 = yes
+		increase_ruling_party_popularity_by_10 = yes
 		remove_ideas = {
 			CRO_for_illyria
 			CRO_guerilla_war
@@ -12195,30 +12228,27 @@ AUS_restore_CRO_after_revolt_effect = {
 			AUS_part_of_the_Empire
 			AUS_cisleithanian_sphere
 		}
+		complete_national_focus = CRO_complete_loyalty_to_vienna
 		clr_country_flag = CRO_will_revolt
 		clr_country_flag = CONST_no_evidenzbureau
 		set_country_flag = CONST_proper
 		set_country_flag = no_minority_revolt
+		set_country_flag = CRO_is_occupied
 		set_global_flag = AUS_no_more_CRO_revolt
 		if = {
-			limit = {
-				NOT = { is_in_array = { global.constituents_array = CRO } }
-			}
-			add_to_array = {
-				array = global.constituents_array
-				value = CRO
-				index = 2
-			}
+			limit = { NOT = { is_in_array = { global.constituents_array = CRO } } }
+			add_to_array = { global.constituents_array = CRO }
 		}
 		if = {
-			limit = {
-				AUS = { AUS_DWV_member = yes }
-			}
+			limit = { AUS = { AUS_DWV_member = yes } }
 			AUS_add_to_DWV = yes
 		}
 		set_variable = { AUS_subject_status = 4 }
 		set_variable = { CRO.subject_revolt_progress = 0.1 }
-		set_variable = { CRO.extra_value = -0.015 }
+		if = {
+			limit = { has_country_flag = BOTDE_has_revolted_before }
+			set_variable = { CRO.extra_value = -0.015 }
+		}
 	}
 }
 AUS_restore_GAL_after_revolt_effect = {
@@ -12231,28 +12261,25 @@ AUS_restore_GAL_after_revolt_effect = {
 		}
 		set_autonomy = {
 			target = GAL
-			autonomy_state = botde_constituent_color_overload
+			autonomy_state = botde_constituent
 		}
 	}
 	GAL = {
 		set_cosmetic_tag = GAL_military_gov
+		BOTDE_create_austrian_emperor = yes
 		set_politics = {
 			ruling_party = paternal_autocrat
 			name = GAL_paternal_autocrat_party_military_gov
 			long_name = GAL_paternal_autocrat_party_military_gov_long
 		}
-		create_country_leader = {
-			name = "Eugeniusz Dąbrowiecki"
-			desc = ""
-			picture = "gfx/leaders/GAL/Portrait_GAL_Eugeniusz_Dabrowiecki.png"
-			expire = "1965.1.1"
-			ideology = junta_subtype
-		}
 		increase_ruling_party_popularity_by_50 = yes
+		set_country_leader_ideology = junta_subtype
+		remove_ideas_with_trait = head_of_government
 		remove_ideas = {
 			GAL_karol_olbracht
 		}
 		add_ideas = {
+			GAL_Eugeniusz_Dabrowiecki_hog_pau
 			AUS_part_of_the_Empire
 			AUS_cisleithanian_sphere
 		}
@@ -12262,15 +12289,11 @@ AUS_restore_GAL_after_revolt_effect = {
 		set_country_flag = no_minority_revolt
 		set_global_flag = AUS_no_more_GAL_revolt
 		if = {
-			limit = {
-				NOT = { is_in_array = { global.constituents_array = GAL } }
-			}
+			limit = { NOT = { is_in_array = { global.constituents_array = GAL } } }
 			add_to_array = { global.constituents_array = GAL }
 		}
 		if = {
-			limit = {
-				AUS = { AUS_DWV_member = yes }
-			}
+			limit = { AUS = { AUS_DWV_member = yes } }
 			AUS_add_to_DWV = yes
 		}
 		set_variable = { AUS_subject_status = 4 }
@@ -12420,7 +12443,10 @@ AUS_unoccupy_ROM_effect = {
 		else_if = {
 			limit = {
 				AUS = {
-					has_government = social_liberal
+					OR = {
+						has_government = social_liberal
+						has_government = market_liberal
+					}
 				}
 			}
 			set_country_flag = ROM_PNT_maniu
@@ -13917,73 +13943,6 @@ SER_MCD_revolt_mission_timeout_effect = {
 		restore_previous_government_type = yes
 	}
 }
-AUS_create_franz_joseph_ii_effect = {
-	create_country_leader = {
-		name = "Franz Joseph II"
-		desc = "POLITICS_FRANZ_JOSEPH_II"
-		picture = "gfx/leaders/AUS/Portrait_AUS_Otto_I.png"
-		expire = "1965.1.1"
-		ideology = radsoc_austromarxism_subtype
-	}
-	create_country_leader = {
-		name = "Franz Joseph II"
-		desc = "POLITICS_FRANZ_JOSEPH_II"
-		picture = "gfx/leaders/AUS/Portrait_AUS_Otto_I.png"
-		expire = "1965.1.1"
-		ideology = austromarxism_subtype
-	}
-	create_country_leader = {
-		name = "Franz Joseph II"
-		desc = "POLITICS_FRANZ_JOSEPH_II"
-		picture = "gfx/leaders/AUS/Portrait_AUS_Otto_I.png"
-		expire = "1965.1.1"
-		ideology = paneuropeanism_subtype
-	}
-	create_country_leader = {
-		name = "Franz Joseph II"
-		desc = "POLITICS_FRANZ_JOSEPH_II"
-		picture = "gfx/leaders/AUS/Portrait_AUS_Otto_I.png"
-		expire = "1965.1.1"
-		ideology = marlib_agrarianism_subtype
-	}
-	create_country_leader = {
-		name = "Franz Joseph II"
-		desc = "POLITICS_FRANZ_JOSEPH_II"
-		picture = "gfx/leaders/AUS/Portrait_AUS_Otto_I.png"
-		expire = "1965.1.1"
-		ideology = christian_democracy_subtype
-	}
-	create_country_leader = {
-		name = "Franz Joseph II"
-		desc = "POLITICS_FRANZ_JOSEPH_II"
-		picture = "gfx/leaders/AUS/Portrait_AUS_Otto_I.png"
-		expire = "1965.1.1"
-		ideology = autdem_christian_democracy_subtype
-	}
-	create_country_leader = {
-		name = "Franz Joseph II"
-		desc = "POLITICS_FRANZ_JOSEPH_II"
-		picture = "gfx/leaders/AUS/Portrait_AUS_Otto_I.png"
-		expire = "1965.1.1"
-		ideology = austropopulism_subtype
-	}
-}
-HUN_create_ferenc_jozsef_ii_effect = {
-	create_country_leader = {
-		name = "II. Ferenc József"
-		desc = "POLITICS_FRANZ_JOSEPH_II"
-		picture = "gfx/leaders/AUS/Portrait_AUS_Otto_I.png"
-		expire = "1965.1.1"
-		ideology = autdem_christian_democracy_subtype
-	}
-	create_country_leader = {
-		name = "II. Ferenc József"
-		desc = "POLITICS_FRANZ_JOSEPH_II"
-		picture = "gfx/leaders/AUS/Portrait_AUS_Otto_I.png"
-		expire = "1965.1.1"
-		ideology = pataut_christian_democracy_subtype
-	}
-}
 AUS_liebenfels_coup_effect = {
 	set_politics = {
 		ruling_party = national_populist
@@ -13994,35 +13953,7 @@ AUS_liebenfels_coup_effect = {
 		clr_country_flag = AUS_imminent_collapse
 		remove_ideas = AUS_big_crisis_idea
 		complete_national_focus = AUS_ariosophic_awakening
-		if = {
-			limit = { has_country_flag = AUS_Karl_Portrait_Karl_I }
-			clr_country_flag = AUS_Karl_Portrait_Karl_I
-		}
-		if = {
-			limit = { has_country_flag = AUS_Karl_Portrait_Karl_I3 }
-			clr_country_flag = AUS_Karl_Portrait_Karl_I3
-		}
-		if = {
-			limit = { has_country_flag = AUS_Karl_Portrait_Karl_I4 }
-			clr_country_flag = AUS_Karl_Portrait_Karl_I4
-		}
-		if = {
-			limit = { has_country_flag = AUS_Karl_Portrait_Karl_I5 }
-			clr_country_flag = AUS_Karl_Portrait_Karl_I5
-		}
-		if = {
-			limit = { has_country_flag = AUS_Karl_Portrait_Karl_I6 }
-			clr_country_flag = AUS_Karl_Portrait_Karl_I6
-		}
-		if = {
-			limit = { has_country_flag = AUS_Karl_Portrait_Karl_I7 }
-			clr_country_flag = AUS_Karl_Portrait_Karl_I7
-		}
-		if = {
-			limit = { has_country_flag = AUS_Karl_Portrait_Karl_I8 }
-			clr_country_flag = AUS_Karl_Portrait_Karl_I8
-		}
-		set_country_flag = AUS_Karl_Portrait_Karl_I2
+		set_variable = { Karl_Portrait_Var = 2 }
 		create_country_leader = {
 			name = "Karl I"
 			desc = "POLITICS_KARL_BOTDE_DESC"
@@ -15024,7 +14955,7 @@ AUS_display_weekly_minority_revolt_modifiers_effect = {
 			set_temp_variable = { modifier = 0 }
 			set_temp_variable = { do_not_apply_revolt_change = 1 }
 			CONST_do_additional_revolt_progress = yes
-			add_to_temp_variable = { modifier = additional_value }
+			add_to_temp_variable = { modifier = CONST_revolt_rate_rising }
 			custom_effect_tooltip = AUS_const_tooltip_modifier_total
 		}
 		add_to_temp_variable = { current_modifier = 1 }
@@ -15225,7 +15156,7 @@ AUS_federalize_italy_effects = {
 		custom_effect_tooltip = AUS_unlock_decision_federalize_LOM
 		LOM = { set_country_flag = AUS_federalize_flag }
 	}
-}
+} 
 
 AUS_austro_american_alliance_form_effect = {
 	every_faction_member = { add_to_temp_array = { temp_faction_members = THIS.id } }

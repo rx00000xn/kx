@@ -522,6 +522,110 @@ BOTDE_LIC_decisions = {
 		}
 	}
 	
+	LIC_undo_austrian_embargo = {
+		cost = 150
+		allowed = { tag = LIC }
+		fire_only_once = yes
+		visible = {
+			AUS = {
+				NOT = {
+					has_war_with = LIC
+				}
+				has_war = yes
+			}
+			OR = {
+				has_country_flag = LIC_AUS_response_holdings
+				has_country_flag = LIC_AUS_response_apology
+				has_country_flag = LIC_AUS_response_securities
+			}
+		}
+		icon = GFX_decision_oasis
+		available = {
+			AUS = {
+				NOT = {
+					has_war_with = LIC
+				}
+				has_war = yes
+			}
+			NOT = {
+				any_allied_country = {
+					has_war_with = AUS
+				}
+				has_war_together_with = AUS
+			}
+		}
+		cancel_trigger = {
+			NOT = {
+				OR = {
+					has_country_flag = LIC_AUS_response_holdings
+					has_country_flag = LIC_AUS_response_apology
+					has_country_flag = LIC_AUS_response_securities
+				}
+			}
+		}
+		days_remove = 30
+		remove_effect = {
+			if = {
+				limit = {
+					has_country_flag = LIC_AUS_response_holdings
+				}
+				LIC_restore_hh = yes
+			}
+			if = {
+				limit = {
+					has_country_flag = LIC_AUS_response_securities
+				}
+				LIC_restore_hh = yes
+			}
+			if = {
+				limit = {
+					has_country_flag = LIC_AUS_response_apology
+				}
+				uncomplete_national_focus = {
+					focus = LIC_keep_austrian
+					uncomplete_children = yes
+					refund_political_power = no
+				}
+				set_country_flag = LIC_evil
+			}
+		}
+	}
+	
+	LIC_red_cross_2 = {
+		cost = 150
+		allowed = { tag = LIC }
+		fire_only_once = yes
+		visible = {
+			has_country_flag = LIC_red_cross_founded
+			has_completed_focus = LIC_internationale_reconstruction
+		}
+		icon = GFX_decision_AUS_red_cross
+		modifier = {
+			civilian_factory_use = 6
+		}
+		available = {
+			num_of_civilian_factories_available_for_projects > 5
+			has_tech = tech_field_hospital3
+		}
+		days_remove = 180
+		remove_effect = {
+			add_unit_bonus = {
+				field_hospital = {
+					casualty_trickleback = 0.05
+					experience_loss_factor = -0.025
+				}
+				helicopter_field_hospital = {
+					casualty_trickleback = 0.05
+					experience_loss_factor = -0.025
+				}
+				motorbike_field_hospital = {
+					casualty_trickleback = 0.05
+					experience_loss_factor = -0.025
+				}
+			}
+		}
+	}
+	
 	LIC_bikes_decision = {
 		cost = 75
 		allowed = { tag = LIC }
@@ -1606,6 +1710,87 @@ BOTDE_LIC_decisions = {
 		}
 	}
 	
+	LIC_restore_pope = {
+		allowed = { tag = LIC }
+		fire_only_once = yes
+		visible = {
+			has_country_flag = LIC_papal_house
+			has_completed_focus = LIC_church_crusade
+		}
+		icon = GFX_decision_papacy
+		available = {
+			owns_state = 2
+			has_war = no
+		}
+		complete_effect = {
+			set_country_flag = LIC_papal_restoration
+			unlock_decision_tooltip = LIC_pope_capital_change
+			1235 = {
+				set_state_flag = LIC_pope_capital
+			}
+			country_event = licfor.89
+		}
+	}
+	
+	LIC_pope_capital_change = {
+		allowed = { tag = LIC }
+		fire_only_once = no
+		on_map_mode = map_only
+		state_target = yes
+		target_trigger = {
+			FROM = {
+				OR = {
+					state = 2
+					state = 1235
+				}
+				is_owned_by = ROOT
+				NOT = {
+					has_state_flag = LIC_pope_capital
+				}
+			}
+		}
+		visible = {
+			ROOT = {
+				has_country_flag = LIC_papal_restoration
+			}
+		}
+		icon = GFX_decision_papacy
+		available = {
+			FROM = {
+				is_controlled_by_ROOT = yes
+				is_owned_by = ROOT
+				NOT = {
+					has_state_flag = LIC_pope_capital
+				}
+			}
+		}
+		complete_effect = {
+			ROOT = {
+				set_capital = {
+					state = FROM
+				}
+			}
+			FROM = {
+				set_state_flag = LIC_pope_capital
+			}
+			if = {
+				limit = {
+					FROM = {
+						state = 2
+					}
+				}
+				1235 = {
+					clr_state_flag = LIC_pope_capital
+				}
+				else = {
+					2 = {
+						clr_state_flag = LIC_pope_capital
+					}
+				}
+			}
+		}
+	}
+	
 	LIC_alpine_fed = {
 		allowed = { tag = LIC }
 		fire_only_once = yes
@@ -1662,6 +1847,13 @@ BOTDE_LIC_decisions = {
 					set_cosmetic_tag = LIC_ALPINE
 				}
 			}
+			if = {
+				limit = {
+					has_cosmetic_tag = LIC_papacy
+				}
+				set_cosmetic_tag = LIC_papacy_alpine
+			}
+			set_country_flag = LIC_formed_alpine
 		}
 	}
 	
@@ -1706,6 +1898,10 @@ BOTDE_LIC_decisions = {
 					owns_state = 58
 				}
 			}
+			OR = {
+				has_idea = LIC_der_umbruch_idea_GER
+				has_country_flag = LIC_AUS_conquered
+			}
 		}
 		complete_effect = {
 			if = {
@@ -1724,10 +1920,94 @@ BOTDE_LIC_decisions = {
 			every_state = {
 				limit = {
 					is_core_of = GER
+					is_owned_by = LIC
 				}
 				add_core_of = ROOT
 			}
+			every_state = {
+				limit = {
+					is_core_of = GER
+					NOT = {
+						is_owned_by = LIC
+					}
+				}
+				add_claim_by = ROOT
+				set_state_flag = LIC_integrable_state
+			}
 			set_cosmetic_tag = LIC_GERM
+			set_country_flag = LIC_GERM_conquered
+			country_event = lic.59
+		}
+	}
+	
+	LIC_core_austria = {
+		allowed = { tag = LIC }
+		fire_only_once = yes
+		visible = {
+			has_completed_focus = LIC_all_in_the_name_of_divinity
+		}
+		icon = GFX_decision_generic_nationalism
+		available = {
+			OR = {
+				AND = {
+					owns_state = 942
+					owns_state = 153
+					owns_state = 835
+					owns_state = 1137
+					owns_state = 836
+					owns_state = 775
+					owns_state = 4
+					owns_state = 152
+				}
+				AUS = {
+					is_subject_of = ROOT
+					owns_state = 942
+					owns_state = 153
+					owns_state = 835
+					owns_state = 1137
+					owns_state = 836
+					owns_state = 775
+					owns_state = 4
+					owns_state = 152
+				}
+			}
+			OR = {
+				has_idea = LIC_der_umbruch_idea_AUS
+				has_country_flag = LIC_GERM_conquered
+			}
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					AUS = {
+						is_subject_of = ROOT
+					}
+				}
+				ROOT = {
+					annex_country = {
+						target = AUS
+						transfer_troops = yes
+					}
+				}
+			}
+			every_state = {
+				limit = {
+					is_core_of = AUS
+					is_owned_by = LIC
+				}
+				add_core_of = ROOT
+			}
+			every_state = {
+				limit = {
+					is_core_of = AUS
+					NOT = {
+						is_owned_by = LIC
+					}
+				}
+				add_claim_by = ROOT
+				set_state_flag = LIC_integrable_state
+			}
+			set_country_flag = LIC_AUS_conquered
 			country_event = lic.59
 		}
 	}
@@ -1759,6 +2039,7 @@ BOTDE_LIC_decisions = {
 				is_in_faction_with = RUS
 			}
 		}
+		war_with_on_remove = RUS
 		days_remove = 40
 		remove_effect = {
 			declare_war_on = {
@@ -1769,6 +2050,126 @@ BOTDE_LIC_decisions = {
 				id = licfor.65
 				days = 15
 				random_days = 15
+			}
+		}
+	}
+	
+	LIC_attack_germany = {
+		allowed = { tag = LIC }
+		fire_only_once = yes
+		visible = {
+			has_completed_focus = LIC_all_in_the_name_of_divinity
+		}
+		icon = GFX_decision_generic_pickelhaube
+		available = {
+			NOT = {
+				is_in_faction_with = GER
+				has_war_with = GER
+			}
+			is_neighbor_of = GER
+		}
+		days_remove = 40
+		war_with_on_remove = GER
+		remove_effect = {
+			declare_war_on = {
+				target = 64.owner
+				type = annex_everything
+			}
+			if = {
+				limit = {
+					country_exists = BAY
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = BAY
+				}
+			}
+			if = {
+				limit = {
+					country_exists = DDR
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = DDR
+				}
+			}
+			if = {
+				limit = {
+					country_exists = NGF
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = NGF
+				}
+			}
+			if = {
+				limit = {
+					country_exists = WGR
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = WGR
+				}
+			}
+			if = {
+				limit = {
+					country_exists = GRU
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = GRU
+				}
+			}
+		}
+	}
+	
+	LIC_attack_austria = {
+		allowed = { tag = LIC }
+		fire_only_once = yes
+		visible = {
+			has_completed_focus = LIC_all_in_the_name_of_divinity
+		}
+		icon = GFX_decision_generic_confiscation
+		available = {
+			NOT = {
+				is_in_faction_with = AUS
+				has_war_with = AUS
+			}
+			is_neighbor_of = AUS
+		}
+		days_remove = 40
+		war_with_on_remove = AUS
+		remove_effect = {
+			declare_war_on = {
+				target = 1137.owner
+				type = annex_everything
+			}
+			if = {
+				limit = {
+					country_exists = TYR
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = TYR
+				}
+			}
+			if = {
+				limit = {
+					country_exists = PGU
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = PGU
+				}
+			}
+			if = {
+				limit = {
+					country_exists = SLO
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = SLO
+				}
 			}
 		}
 	}
@@ -1956,6 +2357,7 @@ BOTDE_LIC_decisions = {
 					state = 153
 					state = 39
 					state = 783
+					has_state_flag = LIC_integrable_state
 				}
 			}
 		}
@@ -3019,7 +3421,7 @@ LIC_playing_60_seconds_speedrun = {
 		custom_cost_trigger = {
 			always = yes
 		}
-		custom_cost_text = LIC_15_stab
+		custom_cost_text = LIC_10_stab
 		icon = GFX_decision_generic_break_treaty
 		allowed = { tag = LIC }
 		fire_only_once = no
@@ -3037,10 +3439,10 @@ LIC_playing_60_seconds_speedrun = {
 		days_re_enable = 15
 		days_remove = 15
 		remove_effect = {
-			add_stability = -0.15
-			add_war_support = -0.15
+			add_stability = -0.1
+			add_war_support = -0.1
 			add_political_power = -30
-			decrease_ruling_party_popularity_by_10 = yes
+			decrease_ruling_party_popularity_by_5 = yes
 			LIC_famine_decrease_grovel = yes
 		}
 	}

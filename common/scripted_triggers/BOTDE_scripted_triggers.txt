@@ -23,16 +23,90 @@ AUS_has_minority_paramilitary_presence = {
 	}
 }
 
-AUS_habsburg_in_charge = { 
+AUS_is_unified = {
+	has_global_flag = AUS_federalized
+}
+
+has_Karl_Habsburg_as_leader = {
 	OR = {
 		has_country_leader = {
 			name = "Karl I"
 			ruling_only = yes
 		}
 		has_country_leader = {
+			name = "IV. Károly"
+			ruling_only = yes
+		}
+		has_country_leader = {
+			name = "Karel III."
+			ruling_only = yes
+		}
+		has_country_leader = {
+			name = "Karol I"
+			ruling_only = yes
+		}
+		has_country_leader = {
+			name = "Karlo I."
+			ruling_only = yes
+		}
+		has_country_leader = {
+			name = "Carlo I"
+			ruling_only = yes
+		}
+	}
+}
+
+has_Otto_Habsburg_as_leader = {
+	OR = {
+		has_country_leader = { #meant to be removed at some point but is still here to prevent shit from breaking
+			name = "Otto"
+			ruling_only = yes
+		}
+		has_country_leader = { #meant to be removed at some point but is still here to prevent shit from breaking
+			name = "Otto I"
+			ruling_only = yes
+		}
+		has_country_leader = {
 			name = "Franz Joseph II"
 			ruling_only = yes
 		}
+		has_country_leader = {
+			name = "II. Ferenc József"
+			ruling_only = yes
+		}
+		has_country_leader = {
+			name = "Franjo Josip II."
+			ruling_only = yes
+		}
+		has_country_leader = {
+			name = "František Josef II."
+			ruling_only = yes
+		}
+		has_country_leader = {
+			name = "Franciszek Józef II"
+			ruling_only = yes
+		}
+		has_country_leader = {
+			name = "Franz Iosif II"
+			ruling_only = yes
+		}
+		has_country_leader = {
+			name = "Frantz Yosif II"
+			ruling_only = yes
+		}
+	}
+}
+
+AUS_has_habsburgs = {
+	OR = {
+		has_Karl_Habsburg_as_leader = yes
+		has_Otto_Habsburg_as_leader = yes
+	}
+}
+
+AUS_habsburg_in_charge = { 
+	OR = {
+		AUS_has_habsburgs = yes
 		#has_country_leader = {
 		#	name = "Franz Conrad von Hötzendorf"
 		#	ruling_only = yes
@@ -99,16 +173,7 @@ AUS_habsburg_in_charge_junta = {
 }
 
 AUS_habsburg_in_charge_nonregent = { 
-	OR = {
-		has_country_leader = {
-			name = "Karl I"
-			ruling_only = yes
-		}
-		has_country_leader = {
-			name = "Franz Joseph II"
-			ruling_only = yes
-		}
-	}
+	AUS_has_habsburgs = yes
 }
 
 AUS_state_is_owned_by_aus_or_subjects = { 
@@ -126,25 +191,93 @@ AUS_state_is_owned_by_aus_or_subjects = {
 	}
 }
 
-AUS_is_constituent = { 
-	OR = {
-		is_in_array = { global.constituents_array = THIS }
-		has_idea = AUS_part_of_the_Empire
-	}
-	OR = {
-		has_country_flag = CONST_proper
-		AND = {
-			tag = AUS
-			NOT = { has_global_flag = AUS_collapsed }
+is_controlled_by_BP = {
+	controller = {
+		OR = {
+			tag = SER
+			tag = ROM
+			tag = POL
+			tag = ITA
+			tag = VNC
+			is_in_faction_with = SER
+		}
+		if = {
+			limit = { is_in_faction_with = SER }
+			SER = { is_valid_peace_target = yes }
+		}
+		else = {
+			is_valid_peace_target = yes
 		}
 	}
-	is_in_faction_with = AUS
+}
+is_controlled_by_AUS_or_ally = {
+	custom_trigger_tooltip = {
+		tooltip = is_controlled_by_AUS_or_ally_tt
+		controller = {
+			is_ally_with = AUS
+		}
+	}
+}
+owned_by_austria_or_puppet = {
+	OR = {
+		is_owned_by = AUS
+		owner = { is_subject_of = AUS }
+		hidden_trigger = {
+			owner = {
+				tag = HUN
+				has_war_with = AUS
+			}
+		}
+	}
+}
+is_owned_by_AUS_or_ally = {
+	custom_trigger_tooltip = {
+		tooltip = is_owned_by_AUS_or_ally_tt
+		owner = {
+			is_ally_with = AUS
+		}
+	}
+}
+is_owned_and_controlled_by_AUS_or_subject = {
+	custom_trigger_tooltip = {
+		tooltip = owned_and_controlled_by_AUS_or_subject
+		owner = {
+			controls_state = PREV
+			OR = {
+				tag = AUS
+				is_subject_of = AUS
+			}
+		}
+	}
+}
+
+AUS_is_constituent = {
+	custom_override_tooltip = {
+		tooltip = AUS_is_constituent_tt
+		not_tooltip = AUS_is_constituent_NOT_tt
+		OR = {
+			is_in_array = { global.constituents_array = THIS }
+			has_idea = AUS_part_of_the_Empire
+		}
+		OR = {
+			has_country_flag = CONST_proper
+			AND = {
+				tag = AUS
+				NOT = { has_global_flag = AUS_collapsed }
+			}
+		}
+		is_in_faction_with = AUS
+	}
 }
 
 AUS_is_minority = {
-	OR = {
-		is_in_array = { global.minorities_array = THIS.id }
-		has_country_flag = CONST_minor
+	custom_override_tooltip = {
+		tooltip = AUS_is_minority_tt
+		not_tooltip = AUS_is_minority_NOT_tt
+		OR = {
+			is_in_array = { global.minorities_array = THIS.id }
+			has_country_flag = CONST_minor
+		}
 	}
 }
 
@@ -153,6 +286,11 @@ AUS_can_collapse = {
 		has_global_flag = AUS_collapsed
 		has_global_flag = no_more_collapse
 	}
+}
+
+AUS_unstable_collapse = {
+	has_global_flag = AUS_collapsed
+	NOT = { has_global_flag = AUS_collapsed_stable }
 }
 
 AUS_is_constituent_or_minority = {
@@ -849,6 +987,17 @@ SER_austria_is_watching_trigger = {
 		OR = {
 			has_idea = SER_austrias_watchful_eye
 			has_idea = SER_austrias_watchful_eye_2
+		}
+	}
+}
+CRO_is_occupied_trigger = {
+	custom_override_tooltip = {
+		tooltip = CRO_is_occupied_trigger_tt
+		not_tooltip = CRO_is_occupied_trigger_tt_NOT
+		has_country_flag = CRO_is_occupied
+		OR = {
+			has_cosmetic_tag = CRO_occupied
+			has_cosmetic_tag = CRO_post_occupied
 		}
 	}
 }

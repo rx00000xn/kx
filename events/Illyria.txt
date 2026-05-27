@@ -587,7 +587,11 @@ country_event = { #Election results are in!
 		}
 	}
 	is_triggered_only = yes
-	trigger = { has_socialist_government = no }
+
+	trigger = {
+		has_socialist_government = no
+		NOT = { has_government = national_populist }
+	}
 	
 	option = { #The Social Democrats Win!
 		name = cro.11.a
@@ -633,8 +637,13 @@ country_event = { #Election results are in!
 			popularity = 0.2
 		}
 		if = {
-			limit = { NOT = { has_cosmetic_tag = ILL_south_slavic_union } }
-			set_cosmetic_tag = ILL_free_republic
+			limit = {
+				NOT = {
+					has_cosmetic_tag = ILL_south_slavic_union
+					has_cosmetic_tag = CRO_collapse
+				}
+			}
+			set_cosmetic_tag = ILL
 		}
 		set_country_flag = CRO_election
 	}
@@ -1091,7 +1100,6 @@ country_event = { #Tito's Decision
 
 	fire_only_once = yes
 	
-	
 	option = { #Take over the government as a Syndicalist dictatorship
 		name = cro.23.a
 		trigger = {
@@ -1145,6 +1153,12 @@ country_event = { #Tito's Decision
 		}
 		remove_ideas = {
 			CRO_popular_democracy
+		}
+		hidden_effect = {
+			country_event = {
+				id = bdecroint.1
+				days = 20
+			}
 		}
 	}
 	
@@ -1468,13 +1482,19 @@ country_event = { #Ante Pavelic Coup
 		set_country_flag = CRO_pavelic_is_here
 		hidden_effect = {
 			complete_national_focus = CRO_reign_begins
-			news_event =  { id = cro_news.2 days = 1 }
+			if = {
+				limit = { has_cosmetic_tag = CRO_republic }
+				drop_cosmetic_tag = yes
+			}
 			every_country = {
 				limit = {
 					OR = {
 						tag = SER
+						tag = SKS
+						tag = BOS
 						is_subject_of = SER
 					}
+					NOT = { is_ally_with = ROOT }
 				}
 				add_opinion_modifier = { target = PREV modifier = KR_hostile }
 				reverse_add_opinion_modifier = { target = PREV modifier = KR_hostile }
@@ -2194,6 +2214,10 @@ country_event = { #Ustaše Support Surges
 		name = bdecroint.1.a
 		ai_chance = {
 			base = 30
+			modifier = {
+				has_war = yes
+				factor = 2
+			}
 		}
 		add_stability = -0.1
 		add_popularity = {
@@ -2206,6 +2230,7 @@ country_event = { #Ustaše Support Surges
 					has_stability < 0
 					has_war = yes
 				}
+				is_subject = no
 			}
 			custom_override_tooltip = {
 				tooltip = CRO_pavelic_coup_is_gonna_happen_tt
@@ -2235,5 +2260,169 @@ country_event = { #Ustaše Support Surges
 			type = infantry_equipment
 			amount = -500
 		}
+	}
+}
+
+country_event = { #ITA/ROM - Croatia offers alliance
+	id = bdecroint.2
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdecroint.2" }
+	title = bdecroint.2.t
+	desc = bdecroint.2.d
+
+	picture = GFX_report_event_CRO_pavelic_coup
+	
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #sure
+		name = bdecroint.2.a
+		ai_chance = {
+			base = 70
+		}
+		add_opinion_modifier = { target = FROM modifier = KR_approves_of_govt }
+		reverse_add_opinion_modifier = { target = FROM modifier = KR_approves_of_govt }
+		give_guarantee = FROM
+		give_military_access = FROM
+		diplomatic_relation = {
+		    country = FROM
+		    relation = non_aggression_pact
+		    active = yes
+		}
+		FROM = {
+			give_guarantee = ROOT
+			give_military_access = ROOT
+			diplomatic_relation = {
+			    country = ROOT
+			    relation = non_aggression_pact
+			    active = yes
+			}
+		}
+	}
+
+	option = { #hell no
+		name = bdecroint.2.b
+		ai_chance = {
+			base = 30
+			modifier = {
+				FROM = { is_ai = no }
+				factor = 0
+			}
+		}
+	}
+}
+
+country_event = { #CRO - larp as goths or not
+	id = bdecroint.3
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdecroint.3" }
+	title = bdecroint.3.t
+	desc = bdecroint.3.d
+
+	picture = GFX_report_event_CRO_goth_larp
+	
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #sure
+		name = bdecroint.3.a
+		ai_chance = {
+			base = 20
+		}
+		every_state = {
+			limit = {
+				OR = {
+					is_core_of = SLO
+					region = 21
+					region = 23
+					region = 181
+					state = 21
+					state = 52
+					state = 53
+					state = 155
+					state = 735
+					state = 763
+					state = 784
+					state = 943
+					state = 1106
+					state = 1111
+				}
+				is_claim_or_core_of_ROOT = no
+			}
+			add_core_of = ROOT
+		}
+		every_country = {
+			limit = {
+				any_owned_state = {
+					OR = {
+						is_core_of = SLO
+						region = 21
+						region = 23
+						region = 181
+						state = 21
+						state = 32
+						state = 52
+						state = 53
+						state = 116
+						state = 155
+						state = 735
+						state = 762
+						state = 763
+						state = 784
+						state = 943
+						state = 1106
+						state = 1111
+					}
+				}
+				NOT = {
+					is_ally_with = ROOT
+					tag = ROOT
+				}
+			}
+			ROOT = {
+				create_wargoal = {
+					target = PREV
+					type = annex_everything
+				}
+			}
+		}
+		set_cosmetic_tag = CRO_Ostrogoth_Larp
+		set_country_flag = CRO_is_larping_as_goths
+	}
+
+	option = { #hell no
+		name = bdecroint.3.b
+		ai_chance = {
+			base = 80
+		}
+		add_stability = 0.05
+		add_politcal_power = 20
+	}
+}
+
+country_event = { #CRO - total gothic victory
+	id = bdecroint.4
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdecroint.4" }
+	title = bdecroint.4.t
+	desc = bdecroint.4.d
+
+	picture = GFX_report_event_CRO_goth_larp
+	
+	fire_only_once = yes
+
+	trigger = {
+		tag = CRO
+		has_country_flag = CRO_is_larping_as_goths
+		all_core_state = {
+			is_owned_by = ROOT
+		}
+	}
+
+	option = { #hooray
+		name = bdecroint.4.a
+		add_stability = 0.15
+		add_war_support = 0.15
+		add_political_power = 100
+		set_cosmetic_tag = CRO_Ostrogoth_Larp_2
 	}
 }

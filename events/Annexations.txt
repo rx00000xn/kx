@@ -3741,7 +3741,10 @@ country_event = { #Liberation of Croatia
 				remove_core_of = CRO
 				remove_claim_by = CRO
 			}
-			CRO = { remove_ideas = AUS_part_of_the_Empire }
+			CRO = {
+				remove_ideas = AUS_part_of_the_Empire
+				CRO_remove_karl = yes
+			}
 			every_state = {
 				limit = {
 					OR = {
@@ -9526,6 +9529,35 @@ country_event = { #Fate of Volhynia
 			add_state_core = 1228
 		}
 		recheck_annexations = yes
+	}
+
+	option = { #invent Volhynia
+		name = annex.46.c
+		trigger = {
+			tag = AUS
+			WSU = {
+				OR = {
+					exists = no
+					is_subject_of = ROOT
+				}
+			}
+		}
+		ai_chance = { base = 100 }
+		every_owned_state = {
+			limit = {
+				OR = {
+					state = 93
+					state = 199
+					state = 792
+					state = 997
+					state = 1088
+					state = 1228
+				}
+			}
+			add_core_of = WSU
+			transfer_state_to = WSU
+		}
+		WSU = { WSU_create_kronland = yes }
 	}
 
 	option = { #occupy
@@ -17973,27 +18005,21 @@ country_event = { #The Conquest of Bohemia
 	option = { #Keep the Sudetenland and liberate Bohemia
 		name = annex.122.b
 		trigger = {
-			tag = GER
 			OR = {
-				owns_state = 69
-				owns_state = 71
-				owns_state = 74
-				owns_state = 1133
-				owns_state = 1138
-				owns_state = 1139
-				owns_state = 786
+				tag = GER
+				tag = AUS
+			}
+			any_owned_state = {
+				limit = { is_core_of = PGU }
 			}
 		}
 		ai_chance = {
 			factor = 70
 		}
-		add_state_core = 69
-		add_state_core = 71
-		add_state_core = 74
-		add_state_core = 1133
-		add_state_core = 1138
-		add_state_core = 1139
-		add_state_core = 786
+		every_state = {
+			limit = { is_core_of = PGU }
+			add_core_of = ROOT
+		}
 		occupy_medium_country = yes
 		set_temp_variable = { tag_to_release = CZE }
 		release_targeted_tag = yes
@@ -18137,15 +18163,12 @@ country_event = { #The Conquest of Bohemia
 	option = { #Czechoslovakia, but annex Sudetenland
 		name = annex.122.e
 		trigger = {
-			tag = GER
 			OR = {
-				owns_state = 69
-				owns_state = 71
-				owns_state = 74
-				owns_state = 1133
-				owns_state = 1138
-				owns_state = 1139
-				owns_state = 786
+				tag = GER
+				tag = AUS
+			}
+			any_owned_state = {
+				limit = { is_core_of = PGU }
 			}
 			70 = {
 				is_owned_by = ROOT
@@ -18155,13 +18178,10 @@ country_event = { #The Conquest of Bohemia
 		ai_chance = {
 			factor = 30
 		}
-		add_state_core = 69
-		add_state_core = 71
-		add_state_core = 74
-		add_state_core = 1133
-		add_state_core = 1138
-		add_state_core = 1139
-		add_state_core = 786
+		every_state = {
+			limit = { is_core_of = PGU }
+			add_core_of = ROOT
+		}
 		occupy_medium_country = yes
 		if = {
 			limit = {
@@ -18255,7 +18275,10 @@ country_event = { #The Conquest of Bohemia
 		release_targeted_tag = yes
 		if = {
 			limit = { AUS_habsburg_in_charge = yes }
-			CZE = { set_cosmetic_tag = CZE_habsburg }
+			CZE = {
+				set_cosmetic_tag = CZE_habsburg
+				BOTDE_create_austrian_emperor = yes
+			}
 		}
 	}
 	option = { #integrate
@@ -21526,6 +21549,7 @@ country_event = { #Fate of Galicia
 			GAL = { 
 				remove_ideas = AUS_part_of_the_Empire
 				remove_ideas = GAL_karol_olbracht
+				GAL_remove_karl = yes
 			}
 			every_state = {
 				limit = {
