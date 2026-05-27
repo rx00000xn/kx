@@ -1819,7 +1819,8 @@ focus_tree = {
 		}
 		icon = { value = GFX_goal_NEP_study_indian_tactics }	
 		prerequisite = { 
-			focus = SWE_FOP_expand_trade_to_the_east					
+			focus = SWE_FOP_expand_trade_to_the_east
+			focus = SWE_FOP_Levant_treaty_return
 		}
 		x = 8
 		y = 4
@@ -2028,17 +2029,55 @@ focus_tree = {
 	}
 
 	focus = {
+		id = SWE_FOP_Levant_treaty_return
+		icon = { 
+			trigger = { SWE = { has_country_flag = SWE_flag_red_in_sweden } }
+			value = GFX_goal_BRG_Strike_Windsor_Traitors
+		}
+		icon = { value = GFX_goal_SWE_Reestablish_Ottoman_Swedish_Treaty }	
+		
+		prerequisite = { 		
+			focus = SWE_FOP_focus_foreign_powers
+		}
+		x = 9
+		y = 3
+		relative_position_id = SWE_FOP_tiger_place_in_world
+		cost = 7
+		ai_will_do = {
+			factor = 80
+		}
+		available = {
+			NOT = {
+				has_country_flag = SWE_flag_red_in_sweden
+			}
+		}
+		allow_branch = {
+			NOT = {
+				has_country_flag  = SWE_flag_red_in_sweden
+			}
+		}
+		completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SWE_FOP_Levant_treaty_return"
+		custom_effect_tooltip = SWE_ottoman_treaty_tt
+		custom_effect_tooltip = tooltip_white_line
+		TUR = { country_event = { id = swefop.101 } }
+		
+		}
+	}
+
+	focus = {
 		id = SWE_FOP_return_vinland
 		icon = { 
 			trigger = { SWE = { has_country_flag = SWE_flag_red_in_sweden } }
-			value = GFX_goal_NFL_political_reform
+			value = GFX_goal_BRG_Strike_Windsor_Traitors
 		}
 		icon = { value = GFX_goal_NOR_reclaim_vinland }
 		prerequisite = { 		
 			focus = SWE_FOP_to_colonise_the_new_world
+			focus = SWE_FOP_to_support_the_new_world	
 		}
 		x = 5
-		y = 5
+		y = 5		
 		relative_position_id = SWE_FOP_tiger_place_in_world
 		cost = 7
 		ai_will_do = {
