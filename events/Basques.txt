@@ -727,6 +727,7 @@ country_event = {
 	
 	option = {
 		name = BAS.24.a
+		set_country_flag = BAS_ELA_Victory
 		add_political_power = 35
 		increase_ruling_party_popularity_by_3 = yes
 		add_popularity = {
@@ -2074,6 +2075,131 @@ country_event = {
 		add_stability = 0.05
 	}
 }
+country_event = { 
+	id = BAS.90
+	title = BAS.90.t 
+	desc = BAS.90.d 
+	picture = GFX_report_event_BAS_mendigoxale_3
+	is_triggered_only = yes
+	fire_only_once = no
+	
+	option = {
+		name = BAS.90.a
+				division_template = {
+				name = "Gernika Battalion"
+				division_names_group = SPR_INF_01  
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 0 y = 2 }
+					infantry = { x = 1 y = 0 }
+					infantry = { x = 1 y = 1 }
+					infantry = { x = 1 y = 2 }
+					infantry = { x = 2 y = 0 }
+					infantry = { x = 2 y = 1 }
+					infantry = { x = 2 y = 2 }
+				}
+				support = {
+					signal_company = { x = 0 y = 0 }
+					field_hospital = { x = 0 y = 1 }
+					engineer = { x = 0 y = 2 }
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 172 }
+				create_unit = {
+					division = "division_template = \"Gernika Battalion\" start_experience_factor = 0.8"
+					owner = BAS
+					prioritize_location = 172
+				}
+			}
+		}
+	}
+country_event = { 
+	id = BAS.91
+	title = BAS.91.t 
+	desc = BAS.91.d 
+	picture = GFX_report_event_BAS_mendigoxale_3
+	is_triggered_only = yes
+	fire_only_once = no
+	
+	option = {
+		name = BAS.91.a
+				division_template = {
+				name = "Txapelgorri"
+				division_names_group = SPR_INF_01  
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 0 y = 2 }
+					infantry = { x = 1 y = 0 }
+					infantry = { x = 1 y = 1 }
+					infantry = { x = 1 y = 2 }
+					infantry = { x = 2 y = 0 }
+					infantry = { x = 2 y = 1 }
+					infantry = { x = 2 y = 2 }
+				}
+				support = {
+					recon = { x = 0 y = 0 }
+					assault_engineer = { x = 0 y = 1 }
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 172 }
+				create_unit = {
+					division = "division_template = \"Txapelgorri\" start_experience_factor = 0.4"
+					owner = BAS
+					prioritize_location = 172
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 172 }
+				create_unit = {
+					division = "division_template = \"Txapelgorri\" start_experience_factor = 0.4"
+					owner = BAS
+					prioritize_location = 172
+				}
+			}
+		}
+	}
+country_event = { 
+	id = BAS.92
+	title = BAS.92.t 
+	desc = BAS.92.d 
+	picture = GFX_report_event_BAS_mendigoxale_3
+	is_triggered_only = yes
+	fire_only_once = no
+	
+	option = {
+		name = BAS.92.a
+				division_template = {
+				name = "Lantzariak"
+				division_names_group = SPR_INF_01  
+				regiments = {
+					cavalry = { x = 0 y = 0 }
+					cavalry = { x = 0 y = 1 }
+					cavalry = { x = 0 y = 2 }
+					cavalry = { x = 1 y = 0 }
+					cavalry = { x = 1 y = 1 }
+					cavalry = { x = 1 y = 2 }
+					cavalry = { x = 2 y = 0 }
+					cavalry = { x = 2 y = 1 }
+					cavalry = { x = 2 y = 2 }
+				}
+				support = {
+					recon = { x = 0 y = 0 }
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 172 }
+				create_unit = {
+					division = "division_template = \"Lantzariak\" start_experience_factor = 0.4"
+					owner = BAS
+					prioritize_location = 172
+				}
+			}
+		}
+	}
 country_event = { 
 	id = BAS.94
 	title = BAS.94.t
@@ -5120,7 +5246,7 @@ country_event = {# Galicians
 		BAS = { country_event = { id = BAS.265 days = 1 }}
 	}
 	option = { #reject
-		name = CAT.1019.b
+		name = BAS.264.b
 		ai_chance = {
 			factor = 25
 		}
@@ -5468,10 +5594,10 @@ country_event = { #communist power struggle
 	is_triggered_only = yes
 	fire_only_once = yes
 	picture = GFX_report_event_BAS_eak5
+	
 	option = { #oh no
 		name = BAS.275.a
 		add_ideas = BAS_red_clergy
-		}
 	}
 	option = { #oh no
 		name = BAS.275.b
@@ -5480,6 +5606,7 @@ country_event = { #communist power struggle
 		add_popularity = {
 			ideology = totalist
 			popularity = 0.15	
+		}
 	}
 }
 country_event = { #unions
@@ -5570,6 +5697,9 @@ country_event = { #farmheads unite
 		name = BAS.280.a
 		add_stability = 0.05
 		add_political_power = 45
+		hidden_effect = {
+		BAS = { country_event = { id = BAS.540 days = 35 }}			
+		}
 	}
 }
 country_event = { #where were you when jacobin was kill
@@ -6936,6 +7066,114 @@ country_event = { #Balkanized Spain
 		}
 	}
 }
+	country_event = {#lux formables
+	id = BAS.444
+	immediate = {log = "[GetDateText]: [Root.GetName]: event BAS.263"}
+	title = BAS.444.t
+	desc = BAS.444.d
+	picture = GFX_report_event_generic_diplomacy3
+	is_triggered_only = yes
+
+	option = {
+		name = BAS.444.a
+		ai_chance = {
+			factor = 35
+		}
+		LUX = { country_event = { id = BAS.609 days = 1 }}
+		}
+	option = {
+		name = BAS.444.c
+		ai_chance = {
+			factor = 65
+		}
+		add_stability = 0.08
+	}
+}
+	country_event = {#pran formables
+	id = BAS.445
+	immediate = {log = "[GetDateText]: [Root.GetName]: event BAS.263"}
+	title = BAS.445.t
+	desc = BAS.445.d
+	picture = GFX_report_event_generic_diplomacy3
+	is_triggered_only = yes
+
+	option = {
+		name = BAS.445.a
+			set_cosmetic_tag = BAS_pran
+			every_state = {
+				limit = { is_spain = yes }
+				add_core_of = BAS
+			}
+		}	
+	option = {
+		name = BAS.445.b
+			set_cosmetic_tag = BAS_FRA
+			every_state = {
+				limit = {
+					is_core_of = FRA
+				}
+				add_core_of = BAS
+				}
+			}
+	option = {
+		name = BAS.445.c
+		add_stability = 0.08
+	}
+}
+	country_event = {#carlist formables
+	id = BAS.446
+	immediate = {log = "[GetDateText]: [Root.GetName]: event BAS.263"}
+	title = BAS.446.t
+	desc = BAS.446.d
+	picture = GFX_report_event_generic_diplomacy3
+	is_triggered_only = yes
+
+	option = {
+		name = BAS.446.a
+			set_cosmetic_tag = BAS_utter_woke_nonsense
+			every_state = {
+				limit = { is_spain = yes }
+				add_core_of = BAS
+			}
+		}	
+	option = {
+		name = BAS.446.b
+			set_cosmetic_tag = BAS_FRA_carlist
+			every_state = {
+				limit = {
+					is_core_of = FRA
+				}
+				add_core_of = BAS
+				}
+			}
+	option = {
+		name = BAS.446.c
+		add_stability = 0.08
+	}
+}
+	country_event = {#incinerate integrists
+	id = BAS.447
+	immediate = {log = "[GetDateText]: [Root.GetName]: event BAS.263"}
+	title = BAS.447.t
+	desc = BAS.447.d
+	picture = GFX_report_event_generic_diplomacy3
+	is_triggered_only = yes
+
+	option = {
+		name = BAS.447.a
+		add_stability = 0.03
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.01
+			}
+		}
+	option = {
+		name = BAS.447.b
+		decrease_ruling_party_popularity_by_3 = yes
+		set_country_leader_ideology = autdem_christian_democracy_subtype
+		custom_effect_tooltip = authdem_autdem_christian_democracy_subtype_swap_tt
+	}
+}
 	country_event = {#incinerate integrists
 	id = BAS.448
 	immediate = {log = "[GetDateText]: [Root.GetName]: event BAS.263"}
@@ -6957,7 +7195,6 @@ country_event = { #Balkanized Spain
 		decrease_ruling_party_popularity_by_3 = yes
 		set_country_leader_ideology = authdem_corporatocracy_subtype
 		custom_effect_tooltip = authdem_authdem_corporatocracy_subtype_swap_tt
-		}
 	}
 }
 	country_event = {#incinerate integrists
@@ -7008,6 +7245,7 @@ country_event = {#do we shit the bed and try to do a Basque monarchy or do we do
 		ai_chance = {
 			factor = 35
 		}
+		set_country_flag = BAS_carlist_republic
 		add_political_power = -100
 		decrease_ruling_party_popularity_by_10 = yes
 		add_stability = 0.15
@@ -7018,6 +7256,8 @@ country_event = {#do we shit the bed and try to do a Basque monarchy or do we do
 		ai_chance = {
 			factor = 35
 		}
+				set_country_flag = BAS_carlist_monarchy
+				set_country_flag = BAS_felix
 				add_stability = -0.35
 				add_political_power = -150
 				create_country_leader = {
@@ -7074,6 +7314,8 @@ country_event = {#do we shit the bed and try to do a Basque monarchy or do we do
 		ai_chance = {
 			factor = 35
 		}
+				set_country_flag = BAS_carlist_monarchy
+				set_country_flag = BAS_felix
 				add_stability = -0.35
 				add_political_power = -150
 				create_country_leader = {
@@ -7130,6 +7372,8 @@ country_event = {#do we shit the bed and try to do a Basque monarchy or do we do
 		ai_chance = {
 			factor = 35
 		}
+				set_country_flag = BAS_carlist_monarchy
+				set_country_flag = BAS_carlos
 				add_stability = -0.35
 				add_political_power = -150
 				create_country_leader = {
@@ -7259,8 +7503,6 @@ country_event = {#gang back together
 			BAS_Jesus_Maria_de_Leizaola_for_sco
 			BAS_Manu_Robles_Arangiz_eco_pau
 			BAS_Zeferino_Jemein_sec_pau
-				}
-			}
 		}
 	}
 }
@@ -7355,7 +7597,7 @@ country_event = {#celtobasque theoryheads vindicated
 		}
 		else_if = {
 			limit = { has_government = syndicalist } 
-			set_country_leader_ideology = synd_pan_celticism_subtype
+			set_country_leader_ideology = syn_pan_celticism_subtype
 		}
 		else_if = {
 			limit = { has_government = national_populist } 
@@ -7910,7 +8152,6 @@ country_event = {#bigass EAE coalition rraaah
 				prioritize = { 172 }
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = { type = arms_factory level = 2 instant_build = yes }
-			}
 		}
 	}
 	option = {
@@ -7925,7 +8166,6 @@ country_event = {#bigass EAE coalition rraaah
 				prioritize = { 172 }
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
-			}
 		}
 	}
 }
@@ -8207,6 +8447,31 @@ country_event = { #syndie yurop
 		create_wargoal = { type = annex_everything target = GER }
 	}
 }
+country_event = {# Galeusca Invitation
+	id = BAS.480
+	immediate = {log = "[GetDateText]: [Root.GetName]: event BAS.480"}
+	title = BAS.480.t
+	desc = BAS.480.d
+	picture = GFX_report_event_generic_diplomacy4
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {# accept
+		name = BAS.480.a
+		ai_chance = {
+			factor = 0
+		}
+		CHL = { country_event = { id = BAS.600 days = 1 }}
+		FOP = { country_event = { id = BAS.601 days = 1 }}
+	}
+	option = { #reject
+		name = BAS.480.c
+		ai_chance = {
+			factor = 75
+		}
+		add_stability = 0.07
+	}
+}
 	country_event = {#authdem-soccon coalition
 	id = BAS.481
 	immediate = {log = "[GetDateText]: [Root.GetName]: event BAS.263"}
@@ -8466,6 +8731,140 @@ country_event = {
 	}
 }
 country_event = { 
+	id = BAS.493
+	title = BAS.493.t 
+	desc = BAS.493.d 
+	picture = GFX_report_event_BAS_likinianos
+	is_triggered_only = yes
+	fire_only_once = yes
+
+
+	option = {
+		name = BAS.493.a
+		add_political_power = 15
+		add_synd_to_coalition = yes
+	}
+}
+country_event = { 
+	id = BAS.494
+	title = BAS.494.t 
+	desc = BAS.494.d 
+	picture = GFX_report_event_BAS_mendigoxale_8
+	is_triggered_only = yes
+	fire_only_once = yes
+
+
+	option = {
+		name = BAS.494.a
+		add_political_power = 15
+		add_stability = 0.01
+	}
+	option = {
+		name = BAS.494.a
+		add_command_power = 15
+		add_war_support = 0.01
+	}
+}
+country_event = { 
+	id = BAS.495
+	title = BAS.495.t 
+	desc = BAS.495.d 
+	picture = GFX_report_event_BAS_mendigoxale_5
+	is_triggered_only = yes
+	fire_only_once = yes
+
+
+	option = {
+		name = BAS.494.a
+		add_political_power = 25
+		add_stability = 0.02
+	}
+}
+country_event = { 
+	id = BAS.496
+	title = BAS.496.t 
+	desc = BAS.496.d 
+	picture = GFX_report_event_BAS_eak7
+	is_triggered_only = yes
+	fire_only_once = yes
+
+
+	option = {
+		name = BAS.496.a
+		add_political_power = 25
+		add_popularity = {
+			ideology = totalist
+			popularity = 0.02
+		}
+	}
+}
+country_event = { 
+	id = BAS.497
+	title = BAS.497.t 
+	desc = BAS.497.d 
+	picture = GFX_report_event_BAS_jesusman_1
+	is_triggered_only = yes
+	fire_only_once = yes
+
+
+	option = {
+		name = BAS.497.a
+		add_political_power = -25
+		add_tot_to_coalition = yes
+		add_popularity = {
+			ideology = totalist
+			popularity = 0.02
+		}
+	}
+	option = {
+		name = BAS.497.b
+		add_political_power = 25
+		add_popularity = {
+			ideology = totalist
+			popularity = -0.02
+		}
+	}
+}
+country_event = { 
+	id = BAS.498
+	title = BAS.498.t 
+	desc = BAS.498.d 
+	picture = GFX_report_event_BAS_socialist
+	is_triggered_only = yes
+	fire_only_once = yes
+
+
+	option = {
+		name = BAS.498.a
+		add_political_power = -25
+		add_popularity = {
+			ideology = radical_socialist
+			popularity = 0.02
+		}
+	}
+	option = {
+		name = BAS.498.b
+		add_war_support = 0.02
+	}
+}
+country_event = { 
+	id = BAS.499
+	title = BAS.499.t 
+	desc = BAS.499.d 
+	picture = GFX_report_event_BAS_epk1
+	is_triggered_only = yes
+	fire_only_once = yes
+
+
+	option = {
+		name = BAS.499.a
+		add_popularity = {
+			ideology = radical_socialist
+			popularity = 0.03
+		}
+	}
+}
+country_event = { 
 	id = BAS.500
 	title = BAS.500.t 
 	desc = BAS.500.d 
@@ -8477,10 +8876,11 @@ country_event = {
 	}
 	immediate = {
 		log = "[GetDateText]: [Root.GetName]: event BAS.20"
+		set_country_flag = BAS_second_election
 		remove_all_ministers = yes
 		hidden_effect = {
 			country_event = {
-				id = BAS.20
+				id = BAS.500
 				months = 48
 			}
 		}
@@ -8501,6 +8901,7 @@ country_event = {
 			}
 			CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 		}
+		complete_national_focus = BAS_EAS_victory_2
 		add_popularity = {
 			ideology = radical_socialist
 			popularity = 0.15
@@ -8529,6 +8930,7 @@ country_event = {
 			}
 			CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 		}
+		complete_national_focus = BAS_EAE_victory_2
 		add_popularity = {
 			ideology = social_democrat
 			popularity = 0.15
@@ -8559,6 +8961,7 @@ country_event = {
 			CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 		}
 		set_country_flag = BAS_soccons_elected
+		complete_national_focus = BAS_EAJ_victory_2
 		add_popularity = {
 			ideology = social_conservative
 			popularity = 0.15
@@ -8588,6 +8991,7 @@ country_event = {
 			}
 			CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 		}
+		complete_national_focus = BAS_EMB_victory_2
 		add_popularity = {
 			ideology = authoritarian_democrat
 			popularity = 0.15
@@ -8617,6 +9021,7 @@ country_event = {
 			}
 			CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 		}
+		complete_national_focus = BAS_EAA_victory
 		add_popularity = {
 			ideology = paternal_autocrat
 			popularity = 0.15
@@ -8646,6 +9051,7 @@ country_event = {
 			}
 			CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 		}
+		complete_national_focus = BAS_EMB_victory_2
 		add_popularity = {
 			ideology = syndicalist
 			popularity = 0.15
@@ -8675,6 +9081,7 @@ country_event = {
 			}
 			CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 		}
+		complete_national_focus = BAS_EMB_victory_2
 		add_popularity = {
 			ideology = national_populist
 			popularity = 0.15
@@ -8704,6 +9111,7 @@ country_event = {
 			}
 			CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 		}
+		complete_national_focus = BAS_EAKN_victory
 		add_popularity = {
 			ideology = authoritarian_democrat
 			popularity = 0.15
@@ -8733,6 +9141,7 @@ country_event = {
 			}
 			CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 		}
+		complete_national_focus = BAS_ELA_victory
 		add_popularity = {
 			ideology = syndicalist
 			popularity = 0.15
@@ -8761,6 +9170,7 @@ country_event = {
 			}
 			CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 		}
+		complete_national_focus = BAS_PRA_victory
 		add_popularity = {
 			ideology = social_liberal
 			popularity = 0.15
@@ -8789,6 +9199,9 @@ country_event = {
 			ideology = totalist
 			popularity = 0.03
 		}
+		hidden_effect = {
+		BAS = { country_event = { id = BAS.526 days = 75 }}			
+		}	
 	}
 }
 country_event = { 
@@ -8805,7 +9218,7 @@ country_event = {
 		add_popularity = {
 			ideology = totalist
 			popularity = 0.01
-		}
+		}	
 	}
 }
 country_event = { 
@@ -8824,6 +9237,9 @@ country_event = {
 			ideology = totalist
 			popularity = 0.03
 		}
+		hidden_effect = {
+		BAS = { country_event = { id = BAS.534 days = 22 }}			
+		}	
 	}
 	option = {
 		name = BAS.527.b
@@ -8833,6 +9249,9 @@ country_event = {
 			ideology = totalist
 			popularity = 0.01
 		}
+		hidden_effect = {
+		BAS = { country_event = { id = BAS.534 days = 22 }}			
+		}	
 	}
 }
 country_event = { 
@@ -8927,6 +9346,49 @@ country_event = {
 	}
 }
 country_event = { 
+	id = BAS.531
+	title = BAS.531.t 
+	desc = BAS.531.d 
+	picture = GFX_report_event_BAS_epk1
+	fire_only_once = yes
+	trigger = {
+		AND = {
+		tag = BAS
+		has_country_flag = BAS_jacobins
+		has_completed_focus = BAS_First_Jacobins_of_Iberia
+		GER = { exists = no }
+		FRA = { exists = yes }
+		}
+	}
+
+	option = {
+		name = BAS.531.a
+		trigger	= { NOT = { has_global_flag = jacobin_majority_1936 }}
+		ai_chance = { factor = 0 }
+		every_state = {
+			limit = {
+					is_core_of = FRA
+			}
+			BAS = { add_state_core = PREV }
+		}
+		create_wargoal = {
+			type = annex_everything
+			target = 16.owner	
+		}	
+	}	
+	option = {
+		name = BAS.531.b
+		trigger	= { has_global_flag = jacobin_majority_1936 }
+		ai_chance = { factor = 0 }
+		FRA = { country_event = { id = BAS.610 days = 5 }}	
+	}
+	option = {
+		name = BAS.531.c
+		ai_chance = { factor = 100 }
+		add_stability = 0.05	
+	}
+}
+country_event = { 
 	id = BAS.532
 	title = BAS.532.t 
 	desc = BAS.532.d 
@@ -8938,6 +9400,9 @@ country_event = {
 		name = BAS.532.a
 		add_political_power = 15
 		add_war_support = 0.03
+		hidden_effect = {
+		BAS = { country_event = { id = BAS.527 days = 42 }}			
+		}	
 	}
 }
 country_event = { 
@@ -8952,7 +9417,7 @@ country_event = {
 		name = BAS.533.a
 		add_command_power = 25
 		army_experience = 25
-		add_manpower = 5000
+		add_manpower = 15000
 		add_war_support = 0.05
 	create_corps_commander = {
 		name = "Enrique Líster Forján"
@@ -8984,6 +9449,9 @@ country_event = {
 		logistics_skill = 3
 		id = 5435
 		}
+		hidden_effect = {
+		BAS = { country_event = { id = BAS.536 days = 45 }}			
+		}	
 	}
 }
 country_event = { 
@@ -9001,11 +9469,17 @@ country_event = {
 			ideology = totalist
 			popularity = 0.01
 		}
+		hidden_effect = {
+		BAS = { country_event = { id = BAS.532 days = 49 }}			
+		}	
 	}
 	option = {
 		name = BAS.534.b
 		add_political_power = 20
 		add_stability = 0.03
+		hidden_effect = {
+		BAS = { country_event = { id = BAS.532 days = 49 }}			
+		}		
 	}
 }
 country_event = { 
@@ -9020,6 +9494,9 @@ country_event = {
 		name = BAS.535.a 
 		add_manpower = -3
 		add_political_power = -15
+		hidden_effect = {
+		BAS = { country_event = { id = BAS.528 days = 55 }}			
+		}	
 	}
 }
 country_event = { 
@@ -9035,10 +9512,16 @@ country_event = {
 		decrease_ruling_party_popularity_by_3 = yes
 		set_country_leader_ideology = militant_atheism_subtype
 		custom_effect_tooltip = tot_militant_atheism_subtype_swap_tt
+		hidden_effect = {
+		BAS = { country_event = { id = BAS.535 days = 45 }}			
+		}	
 	}
 	option = {
 		name = BAS.536.b
 		add_political_power = 15
+		hidden_effect = {
+		BAS = { country_event = { id = BAS.535 days = 45 }}			
+		}	
 	}
 }
 country_event = { 
@@ -9052,6 +9535,9 @@ country_event = {
 	option = {
 		name = BAS.540.a 
 		increase_ruling_party_popularity_by_1 = yes
+		hidden_effect = {
+		BAS = { country_event = { id = BAS.541 days = 35 }}			
+		}
 	}
 }
 country_event = { 
@@ -9066,6 +9552,9 @@ country_event = {
 		name = BAS.541.a 
 		increase_ruling_party_popularity_by_3 = yes
 		add_authdem_to_coalition = yes
+		hidden_effect = {
+		BAS = { country_event = { id = BAS.542 days = 75 }}			
+		}
 	}
 }
 country_event = { 
@@ -9080,6 +9569,9 @@ country_event = {
 		name = BAS.542.a 
 		increase_ruling_party_popularity_by_1 = yes
 		add_opinion_modifier = { target = FOP modifier = small_increase }
+		hidden_effect = {
+		BAS = { country_event = { id = BAS.543 days = 67 }}			
+		}
 	}
 }
 country_event = { 
@@ -9093,6 +9585,9 @@ country_event = {
 	option = {
 		name = BAS.543.a 
 		add_stability = 0.01
+		hidden_effect = {
+		BAS = { country_event = { id = BAS.544 days = 105 }}			
+		}
 	}
 }
 country_event = { 
@@ -9107,12 +9602,18 @@ country_event = {
 		name = BAS.544.a 
 		add_political_power = -25
 		add_stability = 0.05
+		hidden_effect = {
+		BAS = { country_event = { id = BAS.545 days = 35 }}			
+		}
 	}
 	option = {
 		name = BAS.544.b
 		add_political_power = 15
 		add_stability = -0.03
 		add_war_support = 0.03
+		hidden_effect = {
+		BAS = { country_event = { id = BAS.545 days = 35 }}			
+		}
 	}
 }
 country_event = { 
@@ -9124,8 +9625,11 @@ country_event = {
 	fire_only_once = yes
 
 	option = {
-		name = BAS.544.a
+		name = BAS.545.a
 		add_war_support = 0.03
+		hidden_effect = {
+		BAS = { country_event = { id = BAS.546 days = 85 }}			
+		}
 	}
 }
 country_event = { 
@@ -9143,6 +9647,9 @@ country_event = {
 	option = {
 		name = BAS.546.b
 		increase_ruling_party_popularity_by_1 = yes
+		hidden_effect = {
+		BAS = { country_event = { id = BAS.547 days = 42 }}			
+		}
 	}
 }
 country_event = { 
@@ -9202,5 +9709,342 @@ country_event = {
 		name = BAS.548.b
 		add_political_power = 20
 		add_stability = 0.03
+	}
+}
+country_event = { 
+	id = BAS.598
+	title = BAS.598.t 
+	desc = BAS.598.d 
+	picture = GFX_report_event_BAS_epk6
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		has_country_flag = BAS_ELA_victory
+		NOT = { has_country_flag = BAS_emb_synd }
+		}
+	}
+
+	option = {
+		name = BAS.598.a
+		create_country_leader = {
+			name = "Santiago Meabe Bilbao"
+			picture = "gfx/leaders/FRA/Portrait_BAS_Santiago_Meabe.png"
+			expire = "1.1.1"
+			ideology = christian_syndicalism_subtype 
+		}
+		set_party_name = { 
+			ideology = syndicalist
+			long_name = BAS_syndicalist_party_alt_long
+			name = BAS_syndicalist_party_alt
+		}
+	}
+}
+country_event = { 
+	id = BAS.599
+	title = BAS.599.t 
+	desc = BAS.599.d 
+	picture = GFX_report_event_BAS_epk6
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		AND = {
+		has_country_flag = BAS_carlist_moderation
+		has_country_flag = BAS_emb_swap
+		}
+	}
+
+	option = {
+		name = BAS.599.a
+		create_country_leader = {
+			name = "Marcelino Oreja Elósegui"
+			picture = "gfx/leaders/FRA/Portrait_BAS_Marcelino_Oreja_Elosegui.png"
+			expire = "1.1.1"
+			ideology = authdem_carlism_subtype 
+		}
+		set_party_name = { 
+			ideology = authoritarian_democrat
+			long_name = BAS_authoritarian_democrat_party_alt_2_long
+			name = BAS_authoritarian_democrat_party_alt_2
+			}
+	}
+}
+country_event = {# Basques
+	id = BAS.600
+	immediate = {log = "[GetDateText]: [Root.GetName]: event BAS.600"}
+	title = BAS.600.t
+	desc = BAS.600.d
+	picture = GFX_report_event_generic_diplomacy4
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {# accept
+		name = BAS.600.a
+		ai_chance = {
+			factor = 75
+		}
+		BAS = { country_event = { id = BAS.603 days = 1 }}
+	}
+	option = { #reject
+		name = BAS.600.b
+		ai_chance = {
+			factor = 25
+		}
+		BAS = { country_event = { id = BAS.604 days = 1 }}
+	}
+}
+country_event = {# 
+	id = BAS.603
+	immediate = {log = "[GetDateText]: [Root.GetName]: event BAS.603"}
+	title = BAS.603.t
+	desc = BAS.603.d
+	picture = GFX_report_event_generic_diplomacy3
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = BAS.603.a
+		add_political_power = 150
+		set_cosmetic_tag = BAS_america
+		CHL = {
+			every_unit_leader = {
+				set_nationality = BAS
+			}
+		}
+		BAS = {
+			annex_country = {
+				target = CHL
+				transfer_troops = yes
+			}
+			every_state = {
+				limit = { 
+					is_core_of = CHL 
+				}
+				add_core_of = BAS
+			}
+		}
+	}
+}
+country_event = {# Galicians
+	id = BAS.601
+	immediate = {log = "[GetDateText]: [Root.GetName]: event BAS.264"}
+	title = BAS.601.t
+	desc = BAS.601.d
+	picture = GFX_report_event_generic_diplomacy4
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {# accept
+		name = BAS.601.a
+		ai_chance = {
+			factor = 75
+		}
+		BAS = { country_event = { id = BAS.605 days = 1 }}
+	}
+	option = { #reject
+		name = BAS.601.b
+		ai_chance = {
+			factor = 25
+		}
+		BAS = { country_event = { id = BAS.604 days = 1 }}
+	}
+}
+country_event = {# 
+	id = BAS.605
+	immediate = {log = "[GetDateText]: [Root.GetName]: event BAS.605"}
+	title = BAS.605.t
+	desc = BAS.605.d
+	picture = GFX_report_event_generic_diplomacy3
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = BAS.605.a
+		add_political_power = 150
+		set_cosmetic_tag = BAS_america
+		FOP = {
+			every_unit_leader = {
+				set_nationality = BAS
+			}
+		}
+		BAS = {
+			annex_country = {
+				target = FOP
+				transfer_troops = yes
+			}
+			every_state = {
+				limit = { 
+					OR = { 
+						is_core_of = FOP 
+						is_claimed_by = FOP 
+					}
+				}
+				add_core_of = BAS
+			}
+		}
+	}
+}
+country_event = {# 
+	id = BAS.604
+	immediate = {log = "[GetDateText]: [Root.GetName]: event BAS.604"}
+	title = BAS.604.t
+	desc = BAS.604.d
+	picture = GFX_report_event_generic_diplomacy3
+	is_triggered_only = yes
+
+	option = {
+		name = BAS.604.a
+		add_political_power = -50
+	}
+}
+country_event = {# Basques
+	id = BAS.607
+	immediate = {log = "[GetDateText]: [Root.GetName]: event BAS.607"}
+	title = BAS.607.t
+	desc = BAS.607.d
+	picture = GFX_report_event_generic_diplomacy4
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {# accept
+		name = BAS.607.a
+		ai_chance = {
+			factor = 75
+		}
+		BAS = { country_event = { id = BAS.608 days = 1 }}
+	}
+	option = { #reject
+		name = BAS.607.b
+		ai_chance = {
+			factor = 25
+		}
+		BAS = { country_event = { id = BAS.609 days = 1 }}
+	}
+}
+country_event = {# 
+	id = BAS.608
+	immediate = {log = "[GetDateText]: [Root.GetName]: event BAS.603"}
+	title = BAS.608.t
+	desc = BAS.608.d
+	picture = GFX_report_event_generic_diplomacy3
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = BAS.608.a
+		add_political_power = 150
+		set_cosmetic_tag = BAS_LUX
+		LUX = {
+			every_unit_leader = {
+				set_nationality = BAS
+			}
+		}
+		BAS = {
+			annex_country = {
+				target = LUX
+				transfer_troops = yes
+			}
+			every_state = {
+				limit = { 
+					is_core_of = LUX 
+				}
+				add_core_of = BAS
+			}
+		}
+	}
+}
+country_event = {# 
+	id = BAS.609
+	immediate = {log = "[GetDateText]: [Root.GetName]: event BAS.609"}
+	title = BAS.609.t
+	desc = BAS.609.d
+	picture = GFX_report_event_generic_diplomacy3
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = BAS.609.a
+		add_political_power = -50
+	}
+}
+country_event = {# Basques
+	id = BAS.610
+	immediate = {log = "[GetDateText]: [Root.GetName]: event BAS.607"}
+	title = BAS.610.t
+	desc = BAS.610.d
+	picture = GFX_report_event_generic_diplomacy4
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {# accept
+		name = BAS.610.a
+		ai_chance = {
+			factor = 75
+		}
+		BAS = { country_event = { id = BAS.611 days = 1 }}
+	}
+	option = { #reject
+		name = BAS.610.b
+		ai_chance = {
+			factor = 25
+		}
+		BAS = { country_event = { id = BAS.612 days = 1 }}
+	}
+}
+country_event = {# Basques
+	id = BAS.611
+	immediate = {log = "[GetDateText]: [Root.GetName]: event BAS.607"}
+	title = BAS.611.t
+	desc = BAS.611.d
+	picture = GFX_report_event_generic_diplomacy4
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {# accept
+		name = BAS.611.a
+		ai_chance = {
+			factor = 0
+		}
+		set_cosmetic_tag = BAS_True_Jacobin_1
+		FRA = {
+			every_unit_leader = {
+				set_nationality = BAS
+			}
+		}
+		BAS = {
+			annex_country = {
+				target = FRA
+				transfer_troops = yes
+			}
+			every_state = {
+				limit = { 
+					is_core_of = FRA 
+				}
+				add_core_of = BAS
+				}
+			}
+		}
+	option = { #reject
+		name = BAS.611.b
+		ai_chance = {
+			factor = 25
+		}
+		FRA = { change_tag_from = BAS }
+		BAS = {
+			every_unit_leader = {
+				set_nationality = FRA
+			}
+		}
+		FRA = {
+			annex_country = {
+				target = BAS
+				transfer_troops = yes
+			}
+			every_state = {
+				limit = { 
+					is_core_of = BAS 
+				}
+				add_core_of = FRA
+			}
+		}
 	}
 }
