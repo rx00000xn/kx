@@ -685,10 +685,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus DKB_Motorisation_Of_The_Cavalry"
-			custom_effect_tooltip = tech_semi_motorised_cav_effect
-			hidden_effect = {
-				set_technology = { tech_semi_motorised_cav = 1 }
-			}
+			enable_tech_semi_motorised_cav = yes
 			add_tech_bonus = {
 				name = DKB_Motorisation_Of_The_Cavalry
 				bonus = 1
@@ -2607,13 +2604,6 @@ focus_tree = {
 		relative_position_id = DKB_ataman
 		x = 2
 		y = 4
-		prerequisite = {
-			focus = DKB_build_up_what_is_left
-			focus = DKB_make_administration
-		}
-		prerequisite = {
-			focus = DKB_ROA
-		}
 		mutually_exclusive ={
 			focus = DKB_Union_With_BRP
 			focus = DKB_the_dream_is_dead
@@ -2626,6 +2616,14 @@ focus_tree = {
 				OR = { 
 					has_socialist_government = yes
 					has_left_democratic_government = yes
+				}
+			}
+			if = {
+				limit = { russian_civil_war = no }
+				has_completed_focus = DKB_ROA
+				OR = {
+					has_completed_focus = DKB_make_administration
+					has_completed_focus = DKB_build_up_what_is_left
 				}
 			}
 		}
@@ -12432,12 +12430,7 @@ focus_tree = {
 					}
 				}
 			}
-			custom_effect_tooltip = tech_semi_motorised_cav_effect
-			hidden_effect= {
-				set_technology = {
-					tech_semi_motorised_cav = 1
-				}
-			}
+			enable_tech_semi_motorised_cav = yes
 			activate_targeted_decision = { target = GER decision = KUB_buy_motorized }
 		}
 	}

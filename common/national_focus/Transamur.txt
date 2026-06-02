@@ -1819,10 +1819,9 @@ focus_tree = {
 			}			
 			custom_effect_tooltip = forest_warfare_effect
 			custom_effect_tooltip = tech_long_range_patrol_support_effect
-			custom_effect_tooltip = mountain_training_tech_effect
+			enable_tech_mountain_warfare = yes
 			hidden_effect = {
 				set_technology = { forest_warfare = 1 popup = no }
-				set_technology = { mountain_training_tech = 1 popup = no }
 				set_technology = { tech_long_range_patrol_support = 1 popup = no }
 			}
 		}
@@ -1917,14 +1916,11 @@ focus_tree = {
 				add_idea = TRM_Siberian_Army_5
 			}
 			custom_effect_tooltip = tech_winter_logistics_support_effect
-			custom_effect_tooltip = tech_ski_infantry_effect
 			custom_effect_tooltip = tech_arctic_commando_effect
+			enable_tech_ski_infantry = yes
 			hidden_effect= {
 				set_technology = {
 					tech_winter_logistics_support = 1 popup = no
-				}
-				set_technology = {
-					tech_ski_infantry = 1 popup = no
 				}
 				set_technology = {
 					tech_arctic_commando = 1 popup = no
@@ -2097,8 +2093,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus TRM_Expand_OMON"
-			custom_effect_tooltip = tech_anti-partisan_effect
-			set_technology = { tech_anti-partisan = 1 popup = no }
+			enable_tech_anti_partisan = yes
 			division_template = {
 				name = "Sibirskiy OMON"
 				division_names_group = TRM_MIL_02
@@ -2318,10 +2313,9 @@ focus_tree = {
 			}
 			custom_effect_tooltip = forest_warfare_effect
 			custom_effect_tooltip = tech_long_range_patrol_support_effect
-			custom_effect_tooltip = mountain_training_tech_effect
+			enable_tech_mountain_warfare = yes
 			hidden_effect = {
 				set_technology = { forest_warfare = 1 popup = no }
-				set_technology = { mountain_training_tech = 1 popup = no }
 				set_technology = { tech_long_range_patrol_support = 1 popup = no }
 				country_event = { id = tram.77 days = 20 }
 			}
@@ -2372,8 +2366,7 @@ focus_tree = {
 				category = cat_light_armor
 				category = cat_mechanized_equipment
 			}			
-			custom_effect_tooltip = tech_semi_motorised_cav_effect
-			set_technology = { tech_semi_motorised_cav = 1 popup = no }
+			enable_tech_semi_motorised_cav = yes
 			division_template = {
 				name = "Motopekhotnaya Diviziya"
 				division_names_group = RUS_MOT_01
@@ -4263,7 +4256,8 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TRM_Convene_Peoples_Assembly"			
+			log = "[GetDateText]: [Root.GetName]: Focus TRM_Convene_Peoples_Assembly"
+			add_research_slot_until_five = yes			
 			country_event = tramsem.10
 			hidden_effect = {
 				if = {
@@ -4383,6 +4377,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus TRM_A_Cossacks_Life_For_Me"
+			add_research_slot_until_five = yes
 			if = {
 				limit = {
 					has_idea = TRM_raiding
@@ -9208,12 +9203,15 @@ focus_tree = {
 		}
 		available = {
 			NOT = { has_country_flag = TRM_become_russia }
-			RUS = {
-				OR = {
-					is_subject = yes
-					exists = no
+			OR = {
+				RUS = {
+					OR = {
+						is_subject = yes
+						exists = no
+					}
+					NOT = { has_war_with = ROOT }
 				}
-				NOT = { has_war_with = ROOT }
+				has_global_flag = RUS_ural_ceasefire
 			}
 			controls_all_owned_states = yes
 			NOT = { owns_state = 219 } #Moscow
@@ -9678,7 +9676,6 @@ focus_tree = {
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus TRM_Deal_With_Ukrainian_Navy"
-			custom_effect_tooltip = tooltip_white_line
 			activate_targeted_decision = { decision = RUS_rebuild_east_ukraine target = 221 }
 			activate_targeted_decision = { decision = RUS_rebuild_west_ukraine target = 202 }
 			activate_targeted_decision = { decision = RUS_rebuild_south_ukraine target = 197 }

@@ -1,0 +1,1368 @@
+# Altai events by soclib
+add_namespace = alt
+
+country_event = { 
+	id = alt.1
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.1" }
+	title = alt.1.t 
+	desc = alt.1.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.1.a
+		hidden_effect = {
+			country_event = { id = alt.27 days = 120 random_days = 30 }
+		}
+	}
+}
+country_event = { 
+	id = alt.2
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.2" }
+	title = alt.2.t 
+	desc = alt.2.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = { has_government = paternal_autocrat }
+	
+	option = {
+		name = alt.2.a
+	}
+}
+country_event = { 
+	id = alt.3
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event alt.3" 
+		hidden_effect = {
+			random_unit_leader = {
+				limit = { has_id = 11525 }
+				promote_to_marshal = yes
+				set_nationality = ALT
+			}
+			random_unit_leader = {
+				limit = { has_id = 1153 }
+				set_nationality = ALT
+			}
+			random_unit_leader = {
+				limit = { has_id = 21516 }
+				set_nationality = ALT
+			}
+		}
+	}
+	title = alt.3.t 
+	desc = alt.3.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.3.a
+		ALT_setup_altai = yes
+	}
+	option = {
+		name = alt.3.b
+		ai_chance = { base = 0 }		
+		ALT_setup_altai = yes		
+		ALT = { change_tag_from = ROOT }
+	}
+}
+country_event = { 
+	id = alt.4
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.4" }
+	title = alt.4.t 
+	desc = {
+		text = alt.4.d3
+		trigger = { 
+			OR = {
+				MON_ja_lama_in_power = yes
+				has_country_leader = {
+					name = "Gada Meiren"
+					ruling_only = yes
+				}
+				AND = {
+					MON_luvsansharav_coup = yes
+					RUS = {
+						NOT = { has_country_flag = soviet_russia_restored }
+					}
+				}
+			}
+		}
+	}
+	desc = {
+		text = alt.4.d2
+		trigger = { 
+			OR = {
+				MON_democracy_in_power_check = yes
+				MON_nobles_in_power_check = yes
+			}
+			ALT = {
+				has_socialist_government = no
+				NOT = { has_government = paternal_autocrat }
+			}
+		}
+	}
+	desc = {
+		text = alt.4.d
+		trigger = { 
+			NOT = {
+				MON_ja_lama_in_power = yes
+				has_country_leader = {
+					name = "Gada Meiren"
+					ruling_only = yes
+				}
+				AND = {
+					MON_luvsansharav_coup = yes
+					RUS = {
+						NOT = { has_country_flag = soviet_russia_restored }
+					}
+				}
+				AND = {
+					OR = {
+						MON_democracy_in_power_check = yes
+						MON_nobles_in_power_check = yes
+					}
+					ALT = {
+						has_socialist_government = no
+						NOT = { has_government = paternal_autocrat }
+					}
+				}
+			}
+		}
+	}
+		
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		NOT = { has_country_flag = mon_no_expansion }
+		country_exists = ALT
+	}
+	
+	option = {
+		name = alt.4.a	
+		ai_chance = { 
+			base = 100
+			modifier = {
+				factor = 0
+				OR = {
+					MON_democracy_in_power_check = yes
+					MON_nobles_in_power_check = yes
+				}
+				ALT = {
+					has_socialist_government = no
+					NOT = { has_government = paternal_autocrat }
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					MON_buddhists_in_power = yes
+					AND = {
+						MON_luvsansharav_coup = yes
+						RUS = { has_country_flag = soviet_russia_restored }
+					}
+				}
+			}
+		}
+		654 = { 
+			add_claim_by = ROOT 
+			enable_state_integration_50_compliance = yes
+		}
+		activate_targeted_decision = { target = ALT decision = MON_restore_control_over_altai }
+	}
+	option = {
+		name = alt.4.b	
+		ai_chance = { 
+			base = 100
+		}
+		trigger = {
+			OR = {
+				MON_democracy_in_power_check = yes
+				MON_nobles_in_power_check = yes
+			}
+			ALT = {
+				has_socialist_government = no
+				NOT = { has_government = paternal_autocrat }
+			}
+		}
+		ALT = { 
+			country_event = { id = alt.5 days = 2 }
+		}
+	}
+	option = {
+		name = alt.4.c	
+		ai_chance = { 
+			base = 0
+			modifier = {
+				add = 100
+				OR = {
+					MON_buddhists_in_power = yes
+					AND = {
+						MON_luvsansharav_coup = yes
+						RUS = { has_country_flag = soviet_russia_restored }
+					}
+				}
+			}
+		}
+	}
+}
+country_event = { 
+	id = alt.5
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.5" }
+	title = alt.5.t 
+	desc = alt.5.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.5.a
+		add_opinion_modifier = { target = FROM modifier = KR_close_allies }
+		reverse_add_opinion_modifier = { target = FROM modifier = KR_close_allies }
+		diplomatic_relation = {
+			country = FROM
+			relation = non_aggression_pact
+		}
+	}
+	option = {
+		name = alt.5.b
+		ai_chance = { base = 0 }
+		add_political_power = -20
+		FROM = { country_event = alt.6 }
+	}
+}
+country_event = { 
+	id = alt.6
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.6" }
+	title = alt.6.t 
+	desc = alt.6.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.6.a
+		add_opinion_modifier = { target = FROM modifier = KR_outraged }
+	}
+}
+country_event = { 
+	id = alt.7
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.7" }
+	title = alt.7.t 
+	desc = alt.7.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.7.a
+		ai_chance = { base = 50 }
+		add_political_power = 20
+		FROM = { country_event = alt.6 }
+	}
+	option = {
+		name = alt.7.b
+		ai_chance = { base = 50 }
+		every_core_state = {
+			add_core_of = FROM
+			transfer_state_to = FROM
+		}
+		FROM = {
+			annex_country = { target = ROOT }
+		}
+	}
+}
+country_event = { 
+	id = alt.9
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.9" }
+	title = alt.9.t 
+	desc = alt.9.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.9.a
+		ai_chance = { 
+			base = 50
+			modifier = {
+				factor = 0
+				OR = {
+					has_game_rule = { rule = ALT_path option = ALT_PATH_PATAUT }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_PATAUT_TRM }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_PATAUT_MON }
+				}
+			}
+		}
+		remove_ideas_with_trait = security_minister
+		add_ideas = ALT_Mikhail_Shatilov_sec_sde
+		add_popularity = { ideology = authoritarian_democrat popularity = 0.05 }
+		add_authdem_to_coalition = yes
+	}
+	option = {
+		name = alt.9.b
+		ai_chance = { 
+			base = 50 
+			modifier = {
+				factor = 0
+				has_game_rule = { rule = ALT_path option = ALT_PATH_SOCLIB }
+			}
+		}
+		set_country_flag = ALT_lose_to_satunin
+		add_popularity = { ideology = social_democrat popularity = 0.05 }
+		add_popularity = { ideology = paternal_autocrat popularity = -0.05 }		
+	}
+}
+country_event = { 
+	id = alt.11
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.11" }
+	title = alt.11.t 
+	desc = alt.11.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.11.a
+		add_stability = -0.05
+		add_popularity = { ideology = social_democrat popularity = -0.05 }	
+		add_popularity = { ideology = social_liberal popularity = -0.05 }	
+	}
+}
+country_event = { 
+	id = alt.12
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.12" }
+	title = alt.12.t 
+	desc = alt.12.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.12.a
+		add_stability = -0.05
+		country_event = { id = alt.13 days = 5 }
+	}
+}
+country_event = { 
+	id = alt.13
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.13" }
+	title = alt.13.t 
+	desc = alt.13.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.13.a
+		trigger = { NOT = { has_country_flag = ALT_lose_to_satunin } }
+		remove_ideas_with_trait = foreign_minister
+		add_ideas = ALT_Nikolay_Kazagrandi_for_pau
+		if = {
+			limit = { 
+				NOT = { has_completed_focus = ALT_Disperse_The_Mountainous_Duma }
+			}
+			country_event = { id = alt.14 days = 5 }
+		}
+		else = {
+			complete_national_focus = ALT_Challenge_Satunin
+		}
+		random_unit_leader = {
+			limit = { has_id = 5711 }
+			remove_unit_leader = yes
+		}
+	}
+	option = {
+		name = alt.13.b
+		trigger = { has_country_flag = ALT_lose_to_satunin }
+		retire_country_leader = yes
+		random_unit_leader = {
+			limit = { has_id = 11525 }
+			retire = yes
+		}
+		random_unit_leader = {
+			limit = { has_id = 5711 }
+			promote_to_marshal = yes
+		}
+		remove_ideas_with_trait = head_of_government
+		remove_ideas_with_trait = foreign_minister
+		add_ideas = ALT_Dmitry_Satunin_hog_pau
+		add_ideas = ALT_Nikolay_Kazagrandi_for_pau
+		if = {
+			limit = { 
+				NOT = { has_completed_focus = ALT_Disperse_The_Mountainous_Duma }
+			}
+			country_event = { id = alt.14 days = 5 }
+		}
+		else = {
+			complete_national_focus = ALT_Challenge_Satunin
+		}
+	}
+}
+country_event = { 
+	id = alt.14
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.14" }
+	title = alt.14.t 
+	desc = alt.14.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.14.a
+		ai_chance = {
+			base = 50
+		}
+		set_politics = { ruling_party = social_liberal }
+		add_socdem_to_coalition = yes
+		add_marlib_to_coalition = yes
+		add_soccon_to_coalition = yes
+		add_authdem_to_coalition = yes
+		remove_all_ministers = yes
+		add_ideas = {
+			ALT_Grigory_Gurkin_hog_ade
+			ALT_Vasiliy_Maneev_for_sde
+			ALT_Ivan_Alagyz_eco_sde
+			ALT_Mikhail_Shatilov_sec_sde
+		}
+	}
+	option = {
+		name = alt.14.b
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0
+				has_game_rule = { rule = ALT_path option = ALT_PATH_SOCLIB }
+			}
+		}
+		if = {
+			limit = { has_idea = ALT_Mikhail_Shatilov_sec_sde }
+			remove_ideas = ALT_Mikhail_Shatilov_sec_sde
+			add_ideas = ALT_Andrey_Bakich_sec_pau
+		}
+		if = {
+			limit = { is_in_coalition_with_authoritarian_democrat = yes }
+			remove_authdem_from_coalition = yes
+		}
+		add_ideas = ALT_you_are_a_failstate_bro
+	}
+}
+country_event = { 
+	id = alt.15
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.15" }
+	title = alt.15.t 
+	desc = alt.15.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.15.a
+		if = {
+			limit = { is_owner_neighbor_of = FROM }
+			annex_country = {
+				target = FROM
+				transfer_troops = yes
+			}
+			FROM = {
+				every_unit_leader = { set_nationality = ROOT }
+			}
+		}
+		else = {
+			FROM = { get_current_government_type = yes }
+			set_autonomy = {
+				target = FROM
+				autonomy_state = kr_autonomy_russian_general_governorate
+			}
+			FROM = { restore_previous_government_type = yes }
+		}
+	}
+	option = {
+		name = alt.15.b
+		ai_chance = { base = 0 }
+		FROM = { set_country_flag = MON_russian_rejected_TRM }
+		activate_targeted_decision = { target = FROM decision = TRM_attack }
+	}
+}
+country_event = { 
+	id = alt.16
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.16" }
+	title = alt.16.t 
+	desc = alt.16.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.16.a
+		decrease_ruling_party_popularity_by_10 = yes
+		add_popularity = { ideology = national_populist popularity = 0.10 }
+		country_event = { id = alt.17 days = 5 }
+	}
+}
+country_event = { 
+	id = alt.17
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.17" }
+	title = alt.17.t 
+	desc = alt.17.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.17.a
+		remove_puppet_and_leave_faction = yes
+		peace_out_non_neighbours_after_leaving_faction = yes
+		set_politics = { ruling_party = national_populist }
+		add_authdem_to_coalition = yes
+		remove_all_ministers = yes
+		add_ideas = {
+			ALT_Grigory_Gurkin_hog_ade
+			ALT_Vasiliy_Maneev_for_sde
+			ALT_Ivan_Alagyz_eco_sde
+			ALT_Mikhail_Shatilov_sec_sde
+		}
+		hidden_effect = {
+			every_state = {
+				limit = { 
+					is_core_of = MON 
+					is_claimed_by = ROOT
+					NOT = { is_owned_by = ROOT }
+				}
+				remove_claim_by = ROOT
+				disable_state_integration = yes
+			}
+			every_state = {
+				limit = {
+					OR = {
+						state = 1292
+						state = 40
+						state = 588
+						state = 583
+						state = 571
+					}
+					is_claimed_by = ROOT
+					NOT = { is_owned_by = ROOT }
+				}
+				remove_claim_by = ROOT
+				disable_state_integration = yes
+			}
+		}
+	}
+}
+country_event = { 
+	id = alt.18
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.18" }
+	title = alt.18.t 
+	desc = alt.18.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.18.a
+		ai_chance = { 
+			base = 100 
+		}
+		china_puppet_FROM_effect = yes
+	}
+	option = {
+		name = alt.18.b
+		ai_chance = { 
+			base = 0
+			modifier = {
+				factor = 0
+				has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_QIE }
+			}
+			modifier = {
+				add = 100
+				has_country_flag = Russia_Supports_Us
+			}
+		}
+		FROM = { 
+			country_event = { id = alt.19 days = 2 }
+		}
+	}
+}
+country_event = { 
+	id = alt.19
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.19" }
+	title = alt.19.t 
+	desc = alt.19.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.19.a
+		add_opinion_modifier = { target = FROM modifier = KR_hates_govt }
+		set_country_flag = ALT_QIE_refused
+		uncomplete_national_focus = { focus = ALT_Restore_Ties_To_Qing }
+	}
+}
+country_event = { 
+	id = alt.20
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.20" }
+	title = alt.20.t 
+	desc = alt.20.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.20.a
+		ai_chance = {
+			base = 100
+			modifier = {
+				add = -100
+				RUS_is_expansionist = yes
+				NOT = { 
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_CHUI }
+				}
+			}
+			modifier = {
+				factor = 0
+				CHN = {
+					both_socialist_or_both_not_socialist = yes
+					is_working_with_JAP = no
+					NOT = { has_war_with = ROOT }
+					NOT = { 
+						has_country_flag = CHN_refuse_war_over_manchuria 
+						has_country_flag = CHN_war_over_manchuria 
+					}
+				}
+				NOT = { 
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_CHUI }
+				}
+			}
+		}
+		CHN = { 
+			country_event = { id = alt.21 days = 2 }
+		}
+	}
+	option = {
+		name = alt.20.b
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = 100
+				RUS_is_expansionist = yes
+			}
+			modifier = {
+				factor = 0
+				has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_CHUI }
+			}
+		}
+		ALT = { 
+			country_event = { id = alt.22 days = 2 }
+		}
+	}
+}
+country_event = { 
+	id = alt.21
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.21" }
+	title = alt.20.t 
+	desc = alt.21.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.21.a
+		ai_chance = {
+			base = 100
+			modifier = {
+				factor = 0
+				OR = {
+					FROM = { both_socialist_or_both_not_socialist = no }
+					is_working_with_JAP = yes
+					has_war_with = FROM
+					has_country_flag = CHN_refuse_war_over_manchuria
+					has_country_flag = CHN_war_over_manchuria 
+				}
+				NOT = { 
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_CHUI }
+				}
+			}
+		}
+		ALT = { 
+			country_event = { id = alt.23 days = 2 }
+		}
+	}
+	option = {
+		name = alt.21.b
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = 100
+				OR = {
+					FROM = { both_socialist_or_both_not_socialist = no }
+					is_working_with_JAP = yes
+					has_war_with = FROM
+					has_country_flag = CHN_refuse_war_over_manchuria
+					has_country_flag = CHN_war_over_manchuria 
+				}
+				NOT = { 
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_CHUI }
+				}
+			}
+		}
+		ALT = { 
+			country_event = { id = alt.22 days = 2 }
+		}
+	}
+}
+country_event = { 
+	id = alt.22
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.22" }
+	title = alt.22.t 
+	desc = alt.22.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.22.a
+		add_opinion_modifier = { target = FROM modifier = KR_hates_govt }
+		set_country_flag = ALT_double_tribute_refused
+		uncomplete_national_focus = { focus = ALT_Restore_Double_Tributary_Regime }
+	}
+}
+country_event = { 
+	id = alt.23
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.23" }
+	title = alt.23.t 
+	desc = alt.23.d 
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = alt.23.a
+		if = {
+			limit = { tag = ALT }
+			set_cosmetic_tag = ALT_chui
+			add_ideas = ALT_double_tributary_regime
+			give_military_access = var:global.russia
+			give_military_access = CHN
+			effect_tooltip = {
+				var:global.russia = {
+					give_guarantee = ROOT
+				}
+				CHN = {
+					give_guarantee = ROOT
+				}
+			}
+			hidden_effect = {
+				var:global.russia = { country_event = alt.23 }
+				CHN = { country_event = alt.23 }
+			}
+		}
+		else_if = {
+			limit = { tag = CHN }
+			add_ideas = ALT_double_tributary_regime_CHN
+			give_guarantee = ALT
+		}
+		else_if = {
+			limit = { NOT = { tag = CHN } }
+			add_ideas = ALT_double_tributary_regime_RUS
+			give_guarantee = ALT
+		}
+	}
+}
+country_event = { 
+	id = alt.24
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.24" }
+	title = alt.24.t 
+	desc = alt.24.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.24.a
+		add_stability = 0.05
+		add_political_power = 50
+		set_party_name = {
+			ideology = social_democrat
+			name = ALT_oirot_party
+			long_name = ALT_oirot_party_long
+		}
+		set_party_name = {
+			ideology = social_liberal
+			name = ALT_oirot_party
+			long_name = ALT_oirot_party_long
+		}
+		set_party_name = {
+			ideology = market_liberal
+			name = ALT_oirot_party
+			long_name = ALT_oirot_party_long
+		}
+		set_party_name = {
+			ideology = social_conservative
+			name = ALT_oirot_party
+			long_name = ALT_oirot_party_long
+		}
+		set_party_name = {
+			ideology = authoritarian_democrat
+			name = ALT_oirot_party
+			long_name = ALT_oirot_party_long
+		}
+	}
+}
+country_event = { 
+	id = alt.25
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.25" }
+	title = alt.25.t 
+	desc = alt.25.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.25.a
+		ai_chance = {
+			base = 50
+		}
+		set_politics = { ruling_party = social_democrat }
+		add_popularity = { ideology = social_democrat popularity = 0.10 }
+		add_soclib_to_coalition = yes
+		add_marlib_to_coalition = yes
+		add_soccon_to_coalition = yes
+		add_authdem_to_coalition = yes
+		remove_all_ministers = yes
+		add_ideas = {
+			ALT_Vasiliy_Anuchin_hog_sli
+			ALT_Vasiliy_Maneev_for_sde
+			ALT_Sergey_Borisov_eco_sde
+			ALT_Mikhail_Shatilov_sec_sde
+		}
+		country_event = { id = alt.24 days = 5 }
+	}
+	option = {
+		name = alt.25.b
+		ai_chance = {
+			base = 50
+		}
+		add_popularity = { ideology = social_liberal popularity = 0.10 }
+		country_event = { id = alt.24 days = 5 }
+	}
+}
+country_event = { 
+	id = alt.27
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.27" }
+	title = alt.27.t 
+	desc = alt.27.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = { 
+		has_socialist_government = no
+	}
+	picture = GFX_report_event_ALT_museum
+	
+	option = {
+		name = alt.27.a
+		add_popularity = { ideology = social_democrat popularity = 0.02 }
+		add_popularity = { ideology = social_liberal popularity = 0.02 }
+		add_political_power = 25
+	}
+}
+country_event = { 
+	id = alt.30
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.30" }
+	title = alt.30.t 
+	desc = alt.30.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.30.a	
+		ai_chance = { 
+			base = 50 
+			modifier = {
+				factor = 0
+				OR = {
+					has_game_rule = { rule = ALT_path option = ALT_PATH_RADSOC }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_SYNDIE }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_RADSOC_UKR }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_RADSOC_TIB }
+				}
+			}
+		}
+		add_popularity = { ideology = radical_socialist popularity = -0.05 }
+		country_event = { id = alt.32 days = 7 }
+	}
+	option = {
+		name = alt.30.b
+		ai_chance = { 
+			base = 50 
+			modifier = {
+				factor = 0
+				NOT = { has_game_rule = { rule = ALT_path option = DEFAULT } }
+				NOT = { has_game_rule = { rule = ALT_path option = ALT_PATH_RADSOC } }
+				NOT = { has_game_rule = { rule = ALT_path option = ALT_PATH_SYNDIE } }
+				NOT = { has_game_rule = { rule = ALT_path option = ALT_PATH_RADSOC_UKR } }
+				NOT = { has_game_rule = { rule = ALT_path option = ALT_PATH_RADSOC_TIB } }
+			}
+		}
+		add_popularity = { ideology = radical_socialist popularity = -0.05 }
+		country_event = { id = alt.31 days = 7 }
+	}
+}
+country_event = { 
+	id = alt.31
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event alt.31" 
+		hidden_effect = {
+			XXA = {			
+				random_unit_leader = {
+					limit = { has_id = 5710 }
+					set_nationality = ROOT
+				}
+				random_unit_leader = {
+					limit = { has_id = 5712 }
+					set_nationality = ROOT
+				}
+				random_unit_leader = {
+					limit = { has_id = 5713 }
+					set_nationality = ROOT
+				}
+			}
+			ALT_remove_cossack_generals = yes
+			ALT_remove_oirot_claims = yes
+		}
+	}
+	title = alt.31.t 
+	desc = alt.31.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.31.a			
+		add_popularity = { ideology = radical_socialist popularity = 0.08 }
+		add_popularity = { ideology = totalist popularity = 0.05 }
+		add_popularity = { ideology = syndicalist popularity = 0.05 }
+		set_politics = { ruling_party = radical_socialist }
+		if = {
+			limit = { 1292 = { is_owned_by = RUS } }			
+			1292 = { 
+				owner = { 
+					country_event = { id = alt.34 days = 7 }
+				}
+				transfer_state_to = ROOT 
+				add_core_of = ROOT
+			}
+		}
+		else = {			
+			1292 = { 
+				owner = { 
+					country_event = { id = alt.34 days = 10 }
+				}
+				transfer_state_to = ROOT 
+				add_core_of = ROOT
+			}
+			RUS = { country_event = { id = alt.34 days = 7 } }
+			
+		}
+		country_event = { id = alt.33 days = 5 }
+		set_capital = { state = 1292 remember_old_capital = yes }
+	}
+}
+country_event = { 
+	id = alt.32
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.32" }
+	title = alt.31.t 
+	desc = alt.32.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.32.a
+		add_stability = 0.03
+		ALT_decrease_anarchist_resistance = yes
+	}
+}
+country_event = { 
+	id = alt.33
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.33" }
+	title = alt.33.t 
+	desc = alt.33.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.33.a
+		enable_irregular_infantry_tech = yes
+		if = {
+			limit = { 
+				NOT = { has_template = "Krasnaya Gvardiya" }
+			}
+			custom_override_tooltip = {
+				tooltip = {
+					localization_key = tooltip_create_division_template
+					NAME = "Krasnaya Gvardiya"
+					LINE_1 = { localization_key = line_battalion_tt NAME = irregular_infantry ICON = GFX_unit_irregular_infantry_icon_small COUNT = 6 }
+				}
+				division_template = {
+					name = "Krasnaya Gvardiya"
+					division_names_group = COS_CAV_01
+					regiments = {
+						irregular_infantry = { x = 0 y = 0 }
+						irregular_infantry = { x = 0 y = 1 }
+						irregular_infantry = { x = 0 y = 2 }
+						irregular_infantry = { x = 1 y = 0 }
+						irregular_infantry = { x = 1 y = 1 }
+						irregular_infantry = { x = 1 y = 2 }
+					}
+				}
+			}
+		}
+		random_owned_controlled_state = {
+			custom_override_tooltip = {
+				tooltip = {
+					localization_key = tooltip_spawn_units
+					COUNT = "3"
+					TYPE = "Krasnaya Gvardiya"
+				}
+				create_unit = {
+					division = "division_template = \"Krasnaya Gvardiya\" start_experience_factor = 0.1"
+					count = 2
+					owner = ROOT
+				}
+				create_unit = {
+					division = "division_template = \"Krasnaya Gvardiya\" start_experience_factor = 0.3"
+					count = 1
+					owner = ROOT
+				}
+			}
+		}
+	}
+}
+country_event = { 
+	id = alt.34
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.34" }
+	title = alt.34.t 
+	desc = {
+		text = alt.34.d 
+		trigger = { 
+			OR = {
+				has_country_flag = soviet_russia_restored
+				TRM_nra_in_power = yes
+			}
+		}
+	} 
+	desc = {
+		text = alt.34.d2 
+		trigger = { 
+			NOT = {
+				has_country_flag = soviet_russia_restored
+				TRM_nra_in_power = yes
+			}
+		}
+	}
+	
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_war_with = ALT
+			ALT = { is_ally_of_ROOT = yes }
+		}
+	}
+	
+	option = {
+		name = alt.34.a		
+		trigger = { 
+			OR = {
+				has_country_flag = soviet_russia_restored
+				TRM_nra_in_power = yes
+			}
+		}
+		ai_chance = {
+			base = 50
+		}
+		effect_tooltip = {
+			send_equipment = { target = ALT type = infantry_equipment amount = 2000 }
+			send_equipment = { target = ALT type = support_equipment amount = 250 }
+			send_equipment = { target = ALT type = artillery_equipment amount = 30 }
+		}
+		ALT = { country_event = alt.36 }
+	}
+	option = {
+		name = alt.34.b	
+		trigger = { 
+			OR = {
+				has_country_flag = soviet_russia_restored
+				TRM_nra_in_power = yes
+			}
+		}
+		ai_chance = {
+			base = 50
+		}
+		ALT = { country_event = alt.35 }
+	}
+	option = {
+		name = alt.34.c
+		trigger = { 
+			NOT = {
+				has_country_flag = soviet_russia_restored
+				TRM_nra_in_power = yes
+				original_tag = RUS
+			}
+		}
+		ai_chance = {
+			base = 50
+		}
+		if = {
+			limit = { tag = TRM }
+			activate_targeted_decision = { target = ALT decision = TRM_attack }
+		}
+	}
+	option = {
+		name = alt.34.e
+		trigger = { 
+			NOT = {
+				has_country_flag = soviet_russia_restored
+				TRM_nra_in_power = yes
+			}
+		}
+		ai_chance = {
+			base = 50
+		}
+		add_stability = 0.01
+	}
+}
+country_event = { 
+	id = alt.35
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.35" }
+	title = alt.35.t 
+	desc = alt.35.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.35.a
+		ai_chance = { base = 50 }
+		diplomatic_relation = {
+			country = FROM
+			relation = non_aggression_pact
+		}
+	}
+	option = {
+		name = alt.35.b
+		ai_chance = { base = 50 }
+		if = {
+			limit = {
+				FROM = { has_country_flag = soviet_russia_restored }
+			}
+			FROM = { SOV_puppet_ROOT_effect = yes }
+		}
+		else = {
+			if = {
+				limit = { is_owner_neighbor_of = FROM }
+				FROM = {
+					annex_country = {
+						target = ROOT
+						transfer_troops = yes
+					}
+				}
+				every_unit_leader = { set_nationality = FROM }
+			}
+			else = {
+				get_current_government_type = yes
+				FROM = {
+					set_autonomy = {
+						target = ROOT
+						autonomy_state = kr_autonomy_russian_general_governorate
+					}
+				}
+				restore_previous_government_type = yes
+			}
+		}
+	}
+}
+country_event = { 
+	id = alt.36
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.36" }
+	title = alt.36.t 
+	desc = alt.36.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.36.a
+		diplomatic_relation = {
+			country = FROM
+			relation = non_aggression_pact
+		}
+		give_military_access = FROM
+		FROM = {
+			send_equipment = { target = ROOT type = infantry_equipment amount = 2000 }
+			send_equipment = { target = ROOT type = support_equipment amount = 250 }
+			send_equipment = { target = ROOT type = artillery_equipment amount = 30 }
+		}
+	}
+}
+country_event = { 
+	id = alt.37
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.37" }
+	title = alt.37.t 
+	desc = alt.37.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.37.a
+		ai_chance = { 
+			base = 50
+			modifier = {
+				factor = 0
+				OR = {
+					RUS = { SOV_any_bolshevik_in_power = yes }
+					RUS = { SOV_anarchists_in_power = yes }
+				}
+			}
+		}
+		RUS = { country_event = { id = alt.38 days = 2 } }
+		remove_puppet_and_leave_faction = yes
+		peace_out_non_neighbours_after_leaving_faction = yes
+	}
+	option = {
+		name = alt.37.b
+		ai_chance = { 
+			base = 50
+			modifier = {
+				factor = 2
+				OR = {
+					RUS = { SOV_any_bolshevik_in_power = yes }
+					RUS = { SOV_anarchists_in_power = yes }
+				}
+			}
+		}
+		reverse_add_opinion_modifier = { target = RUS modifier = KR_pleased }
+	}
+}
+country_event = { 
+	id = alt.38
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.37" }
+	title = alt.37.t 
+	desc = alt.37.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.38.a
+		ai_chance = { 
+			base = 50
+			modifier = {
+				factor = 0
+				OR = {
+					RUS = { SOV_any_bolshevik_in_power = yes }
+					RUS = { SOV_anarchists_in_power = yes }
+				}
+			}
+		}
+		RUS = { country_event = { id = alt.38 days = 2 } }
+		remove_puppet_and_leave_faction = yes
+		peace_out_non_neighbours_after_leaving_faction = yes
+	}
+	option = {
+		name = alt.38.b
+		ai_chance = { 
+			base = 50
+			modifier = {
+				factor = 2
+				OR = {
+					RUS = { SOV_any_bolshevik_in_power = yes }
+					RUS = { SOV_anarchists_in_power = yes }
+				}
+			}
+		}
+		reverse_add_opinion_modifier = { target = RUS modifier = KR_pleased }
+	}
+}
+country_event = { 
+	id = alt.39
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.39" }
+	title = alt.39.t 
+	desc = alt.39.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.39.a
+		if = {
+			limit = { is_subject_of = RUS }
+			RUS = { country_event = { id = alt.38 days = 2 } }
+		}
+		remove_puppet_and_leave_faction = yes
+		peace_out_non_neighbours_after_leaving_faction = yes
+		create_country_leader = {
+			name = "Grigoriy Choros-Gurkin"
+			picture = "gfx/leaders/ALT/Portrait_ALT_Grigory_Gurkin.png"
+			expire = "1.1.1"
+			ideology = eco_anarchism_subtype
+		}
+		remove_synd_from_coalition = yes
+		remove_tot_from_coalition = yes
+		add_socdem_to_coalition = yes
+	}
+}
+country_event = { 
+	id = alt.40
+	immediate = { log = "[GetDateText]: [Root.GetName]: event alt.40" }
+	title = alt.40.t 
+	desc = alt.40.d 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = alt.40.a
+		set_cosmetic_tag = ALT_grey_ukraine
+		set_capital = { state = 588 remember_old_capital = yes }
+		every_owned_state = {
+			limit = {
+				is_claimed_by = ROOT
+				OR = {
+					state = 1292
+					state = 40
+					state = 588
+					state = 583
+					state = 571
+				}
+			}
+			remove_claim_by = ROOT
+			add_core_of = ROOT
+		}
+	}
+	option = {
+		name = alt.40.b
+		set_cosmetic_tag = ALT_free_steppes
+		every_owned_state = {
+			limit = {
+				is_claimed_by = ROOT
+				OR = {
+					state = 1292
+					state = 40
+					state = 588
+					state = 583
+					state = 571
+					is_core_of = ALO
+				}
+			}
+			remove_claim_by = ROOT
+			add_core_of = ROOT
+		}		
+	}
+}

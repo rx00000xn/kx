@@ -236,50 +236,187 @@ MON_country_formation_decisions = { ###This is completly fucking retarded
 
 MON_foreign_policy_decisions = {
 
-	MON_did_you_forget_about_me = { #finally Mongolia won't forget ETS exists
+	MON_restore_control_over_altai = {
 		icon = generic_prepare_civil_war
+		allowed = { always = no }
 
-		visible = {
-			ETS = {
-				exists = yes
-				NOT = { is_subject_of = MON }
-			}
+		available = {
+			has_capitulated = no
+			is_neighbor_of = FROM
 			NOT = {
-				is_in_faction_with = ETS
-				has_war_with = ETS
-				is_subject_of = ETS
-			}
-			has_completed_focus = MON_mongol_minority_in_xibei
-			custom_trigger_tooltip = {
-				tooltip = MON_sternberg_tooltip
-				MON_sternberg_in_power = yes
+				has_idea = MON_western_banditry_idea
+				has_idea = MON_western_rebellion_idea
+				has_idea = MON_recovering_from_turmoil
 			}
 		}
 
-		targets = { ETS }
-		target_root_trigger = { has_completed_focus = MON_mongol_minority_in_xibei }
+		cancel_trigger = {
+			OR = {
+				is_subject = yes
+				has_capitulated = yes
+				NOT = { can_declare_war_on = FROM }
+				NOT = { is_neighbor_of = FROM }
+				has_country_flag = mon_no_expansion
+				is_in_faction_with = RUS
+				is_in_faction_with = TRM
+			}
+		}
+		
+		visible = {
+			FROM = { exists = yes }
+			NOT = { has_country_flag = mon_no_expansion }
+		}
 		target_trigger = { can_declare_war_on = FROM }
 
 		fire_only_once = yes
-		cost = 5
-		days_remove = 14
+		cost = 0
+		days_remove = 20
 
 		ai_will_do = {
-			factor = 100
+			base = 0
 			modifier = {
 				factor = 0
-				has_war = yes
+				OR = {
+					ROOT_is_threatened_cautious = yes
+					FROM = { dont_start_major_faction_wars = yes }
+					FROM = { default_attack_AI_trigger = yes } #Ai will avoid striking opponent that is way stronger.
+				}
 			}
 			modifier = {
-				factor = 0
-				strength_ratio = {
-					tag = FROM
-					ratio < 0.7
+				add = 100
+				#Mongolia will attack if they outnumber their opponent by more than 2x
+				FROM = {
+					strength_ratio = {
+						tag = MON
+						ratio < 0.5
+					}
 				}
 			}
 		}
+		
+		war_with_target_on_remove = yes
 
-		remove_effect = { ETS = { country_event = mongolia.6 } }
+		cancel_effect = { 
+			log = "[GetDateText]: [Root.GetName]: Decision cancel MON_restore_control_over_altai target: [From.GetName]"
+			clear_decision_attack_AI = yes
+		}
+		complete_effect = { 
+			log = "[GetDateText]: [Root.GetName]: Decision MON_restore_control_over_altai target: [From.GetName]"
+			setup_decision_attack_AI = yes
+			FROM = { incoming_war_notification_effect = yes }
+		}
+		remove_effect = { 
+			log = "[GetDateText]: [Root.GetName]: Decision remove MON_restore_control_over_altai target: [From.GetName]"
+			declare_war_on = {
+				target = FROM
+				type = annex_everything
+			}
+		}
+	}
+	
+	MON_did_you_forget_about_me = { #finally Mongolia won't forget ETS exists
+		icon = generic_prepare_civil_war
+		name = MON_invade_china
+		allowed = { always = no }
+
+		available = {
+			has_capitulated = no
+			is_neighbor_of = FROM
+		}
+
+		cancel_trigger = {
+			OR = {
+				is_subject = yes
+				has_capitulated = yes
+				NOT = { can_declare_war_on = FROM }
+				NOT = { is_neighbor_of = FROM }
+			}
+		}
+		
+		visible = {
+			FROM = {
+				exists = yes
+				NOT = { is_subject_of = MON }
+				NOT = { is_subject_of = SIK }
+			}
+			MON_sternberg_in_power = yes
+		}
+		target_trigger = { can_declare_war_on = FROM }
+
+		fire_only_once = yes
+		cost = 0
+		days_remove = 40
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				factor = 0
+				OR = {
+					ROOT_is_threatened_cautious = yes
+					FROM = { dont_start_major_faction_wars = yes }
+					FROM = { default_attack_AI_trigger = yes } #Ai will avoid striking opponent that is way stronger.
+				}
+			}
+			modifier = {
+				add = 100
+				#Mongolia will attack if they outnumber their opponent by more than 2x
+				FROM = {
+					strength_ratio = {
+						tag = MON
+						ratio < 0.5
+					}
+				}
+			}
+			modifier = {
+				add = 100
+				#Mongolia strike if they have a slight advantage and their opponent is already being ganked
+				FROM = {
+					strength_ratio = {
+						tag = MON
+						ratio < 0.75
+					}
+					surrender_progress > 0.15
+				}
+			}
+			modifier = {
+				add = 100
+				#Mongolia will always strike if they meet the below checks and their opponent is down bad.
+				FROM = { surrender_progress > 0.65 }
+			}
+		}
+		
+		war_with_target_on_remove = yes
+
+		cancel_effect = { 
+			log = "[GetDateText]: [Root.GetName]: Decision cancel MON_did_you_forget_about_me target: [From.GetName]"
+			clear_decision_attack_AI = yes
+		}
+		complete_effect = { 
+			log = "[GetDateText]: [Root.GetName]: Decision MON_did_you_forget_about_me target: [From.GetName]"
+			setup_decision_attack_AI = yes
+			FROM = { incoming_war_notification_effect = yes }
+		}
+		remove_effect = { 
+			log = "[GetDateText]: [Root.GetName]: Decision remove MON_did_you_forget_about_me target: [From.GetName]"
+			clear_decision_attack_AI = yes
+			if = {
+				limit = { 
+					FROM = { 
+						OR = { 
+							tag = SIK
+							tag = ETS
+						}
+					}
+				}
+				FROM = { country_event = mongolia.6 }
+			}
+			else = {
+				declare_war_on = {
+					target = FROM
+					type = annex_everything
+				}
+			}
+		}
 	}
 	
 	MON_invade_china = { #catch all decision for invading China
@@ -410,8 +547,7 @@ MON_foreign_policy_decisions = {
 		}
 	}
 	
-	MON_Invite_Bhutan = {
-		name = MON_Invite_Country
+	MON_Invite_Country = {
 		icon = generic_agreement
 		available = {
 			OR = {
@@ -434,230 +570,75 @@ MON_foreign_policy_decisions = {
 			}
 		}
 
-		targets = { BHU }
+		targets = { BHU SKM TIB TRM SIA NEP BRM AFG PRF }
 		target_root_trigger = {
 			has_completed_focus = MON_brotherhood_alliance
+			if = {
+				limit = { 
+					FROM = { 
+						OR = {
+							tag = SIA 
+							tag = NEP 
+							tag = BRM 
+							tag = AFG 
+							tag = PRF 
+						}
+					}
+				}				
+				has_completed_focus = MON_ungern_alone
+			}
 			NOT = { has_country_flag = MON_invited_country }
 		}
 		
 		target_trigger = {
 			FROM = {
-				is_subject = no
-				OR = {
-					is_in_faction = no
-					is_faction_leader = yes
-				}
+				is_valid_peace_target = yes
 				has_socialist_government = no
-			}
-		}
-
-		cost = 25
-		days_remove = 20
-
-		ai_will_do = {
-			factor = 100
-			modifier = {
-				factor = 0
-				FROM = { has_country_flag = MON_already_invited }
-			}
-		}
-
-		complete_effect = {
-			set_country_flag = MON_invited_country
-			FROM = {
-				country_event = {
-					id = mon_khan.2
-					days = 3
+				if = {
+					limit = { tag = TRM }
+					OR = {
+						TRM_Mlad_in_power = yes
+						TRM_semyenov_in_power = yes
+					}
 				}
-			}
-		}
-		
-		remove_effect = {
-			clr_country_flag = MON_invited_country
-		}
-	}
-	
-	MON_Invite_Sikkim = {
-		name = MON_Invite_Country
-		icon = generic_agreement
-		available = {
-			OR = {
-				is_faction_leader = yes
-				AND = {
-					is_in_faction_with = JAP
-					JAP = { is_faction_leader = yes }
+				else_if = {
+					limit = { tag = TIB }
+					OR = {
+						has_government = paternal_autocrat
+						has_government = authoritarian_democrat
+					}
 				}
-			}
-		}
-		visible = {
-			has_completed_focus = MON_brotherhood_alliance
-			FROM = {
-				is_subject = no
-				exists = yes
-				OR = {
-					is_in_faction = no
-					is_faction_leader = yes
+				else_if = {
+					limit = { tag = SIA }
+					OR = {
+						has_global_flag = SIA_SARIT_RULES
+						has_global_flag = SIA_CONSTITUTION_GIVEN_BORIPATR
+						has_global_flag = SIA_PRAJADHIPOK_REFORM
+						has_completed_focus = SIA_halfleafdemocracy
+					}
 				}
-			}
-		}
-
-		targets = { SKM }
-		target_root_trigger = {
-			has_completed_focus = MON_brotherhood_alliance
-			NOT = { has_country_flag = MON_invited_country }
-		}
-		
-		target_trigger = {
-			FROM = {
-				is_subject = no
-				OR = {
-					is_in_faction = no
-					is_faction_leader = yes
+				else_if = {
+					limit = { tag = NEP }
+					has_country_leader = {
+						name = "Tribhuvan"
+						ruling_only = yes
+					}
 				}
-				OR = {
-					has_completed_focus = skm_red_chogyal
-					has_socialist_government = no
-				}
-			}
-		}
-		cost = 25
-		days_remove = 20
-		ai_will_do = {
-			factor = 100
-			modifier = {
-				factor = 0
-				FROM = { has_country_flag = MON_already_invited }
-			}
-		}
-		complete_effect = {
-			set_country_flag = MON_invited_country
-			FROM = {
-				country_event = {
-					id = mon_khan.2
-					days = 3
-				}
-			}
-		}
-		
-		remove_effect = { clr_country_flag = MON_invited_country }
-	}
-	
-	MON_Invite_Tibet = {
-		name = MON_Invite_Country
-		icon = generic_agreement
-		available = {
-			OR = {
-				is_faction_leader = yes
-				AND = {
-					is_in_faction_with = JAP
-					JAP = { is_faction_leader = yes }
-				}
-			}
-		}
-		visible = {
-			has_completed_focus = MON_brotherhood_alliance
-			always = no
-			FROM = {
-				is_subject = no
-				exists = yes
-				OR = {
-					is_in_faction = no
-					is_faction_leader = yes
-				}
-			}
-		}
-		targets = { TIB }
-		target_root_trigger = {
-			has_completed_focus = MON_brotherhood_alliance
-			NOT = { has_country_flag = MON_invited_country }
-		}
-		target_trigger = {
-			FROM = {
-				is_subject = no
-				OR = {
-					is_in_faction = no
-					is_faction_leader = yes
-				}
-				exists = yes
-				OR = {
-					has_government = paternal_autocrat
+				else_if = {
+					limit = { tag = BRM }
 					has_government = authoritarian_democrat
 				}
-			}
-		}
-		cost = 25
-		days_remove = 20
-		ai_will_do = {
-			factor = 100
-			modifier = {
-				factor = 0
-				FROM = {
-					has_country_flag = MON_already_invited
+				else_if = {
+					limit = { tag = AFG }
+					has_government = paternal_autocrat
 				}
-			}
-		}
-		complete_effect = {
-			set_country_flag = MON_invited_country
-			FROM = {
-				country_event = {
-					id = mon_khan.2
-					days = 3
-				}
-			}
-		}
-		remove_effect = { clr_country_flag = MON_invited_country }
-	}
-	
-	MON_Invite_Transamur = {
-		name = MON_Invite_Country
-		icon = generic_agreement
-		available = {
-			OR = {
-				is_faction_leader = yes
-				AND = {
-					is_in_faction_with = JAP
-					JAP = { is_faction_leader = yes }
-				}
-			}
-		}
-		visible = {
-			has_completed_focus = MON_brotherhood_alliance
-			OR = {
-				has_completed_focus = MON_ungern_alone
-				AND = {
-					is_in_faction_with = JAP
-					JAP = { is_faction_leader = yes }
-				}
-			}
-			FROM = {
-				is_subject = no
-				exists = yes
-				OR = {
-					is_in_faction = no
-					is_faction_leader = yes
-				}
-			}
-		}
-
-		targets = { TRM }
-		target_root_trigger = {
-			has_completed_focus = MON_brotherhood_alliance
-			NOT = { has_country_flag = MON_invited_country }
-		}
-		
-		target_trigger = {
-			FROM = {
-				is_subject = no
-				OR = {
-					is_in_faction = no
-					is_faction_leader = yes
-				}
-				OR = {
-					AND = {
-						has_government = totalist
-						has_country_flag = TRM_Mlad_in_power
+				else_if = {
+					limit = { tag = PRF }
+					has_idea = PRF_united_india
+					OR = {
+						has_completed_focus = PRF_rebuke_council
+						has_completed_focus = PRF_princes_united
 					}
-					has_country_flag = TRM_Semyonov_Coup
 				}
 			}
 		}
@@ -669,9 +650,7 @@ MON_foreign_policy_decisions = {
 			factor = 100
 			modifier = {
 				factor = 0
-				FROM = {
-					has_country_flag = MON_already_invited
-				}
+				FROM = { has_country_flag = MON_already_invited }
 			}
 		}
 
@@ -688,346 +667,10 @@ MON_foreign_policy_decisions = {
 		remove_effect = {
 			clr_country_flag = MON_invited_country
 		}
-	}
-	
-	MON_Invite_Siam = {
-		name = MON_Invite_Country
-		icon = generic_agreement
-		available = { is_faction_leader = yes }
-		visible = {
-			has_completed_focus = MON_brotherhood_alliance
-			has_completed_focus = MON_ungern_alone
-			FROM = {
-				is_subject = no
-				exists = yes
-				OR = {
-					is_in_faction = no
-					is_faction_leader = yes
-				}
-			}
-		}
-
-		targets = { SIA }
-		target_root_trigger = {
-			has_completed_focus = MON_brotherhood_alliance
-			NOT = { has_country_flag = MON_invited_country }
-		}
-		
-		target_trigger = {
-			FROM = {
-				is_subject = no
-				OR = {
-					is_in_faction = no
-					is_faction_leader = yes
-				}
-				OR = {
-					has_global_flag = SIA_SARIT_RULES
-					has_global_flag = SIA_CONSTITUTION_GIVEN_BORIPATR
-					has_global_flag = SIA_PRAJADHIPOK_REFORM
-					has_completed_focus = SIA_halfleafdemocracy
-				}
-			}
-		}
-
-		cost = 25
-		days_remove = 20
-
-		ai_will_do = {
-			factor = 100
-			modifier = {
-				factor = 0
-				FROM = {
-					has_country_flag = MON_already_invited
-				}
-			}
-		}
-
-		complete_effect = {
-			set_country_flag = MON_invited_country
-			FROM = {
-				country_event = {
-					id = mon_khan.2
-					days = 3
-				}
-			}
-		}
-		
-		remove_effect = {
+		cancel_effect = {
 			clr_country_flag = MON_invited_country
 		}
-	}
-	
-	
-	MON_Invite_Nepal = {
-		name = MON_Invite_Country
-		icon = generic_agreement
-		
-		available = {
-			is_faction_leader = yes
-		}
-
-		visible = {
-			has_completed_focus = MON_brotherhood_alliance
-			has_completed_focus = MON_ungern_alone
-			FROM = {
-				is_subject = no
-				exists = yes
-				OR = {
-					is_in_faction = no
-					is_faction_leader = yes
-				}
-			}
-		}
-
-		targets = { NEP }
-		target_root_trigger = {
-			has_completed_focus = MON_brotherhood_alliance
-			NOT = { has_country_flag = MON_invited_country }
-		}
-		
-		target_trigger = {
-			FROM = {
-				is_subject = no
-				OR = {
-					is_in_faction = no
-					is_faction_leader = yes
-				}
-				has_country_leader = {
-					name = "Tribhuvan"
-					ruling_only = yes
-				}
-			}
-		}
-
-		cost = 25
-		days_remove = 20
-
-		ai_will_do = {
-			factor = 100
-			modifier = {
-				factor = 0
-				FROM = {
-					has_country_flag = MON_already_invited
-				}
-			}
-		}
-
-		complete_effect = {
-			set_country_flag = MON_invited_country
-			FROM = {
-				country_event = {
-					id = mon_khan.2
-					days = 3
-				}
-			}
-		}
-		
-		remove_effect = {
-			clr_country_flag = MON_invited_country
-		}
-	}
-	
-	MON_Invite_Burma = {
-		name = MON_Invite_Country
-		icon = generic_agreement
-		
-		available = {
-			is_faction_leader = yes
-		}
-
-		visible = {
-			has_completed_focus = MON_brotherhood_alliance
-			has_completed_focus = MON_ungern_alone
-			FROM = {
-				is_subject = no
-				exists = yes
-				OR = {
-					is_in_faction = no
-					is_faction_leader = yes
-				}
-			}
-		}
-
-		targets = { BRM }
-		target_root_trigger = {
-			has_completed_focus = MON_brotherhood_alliance
-			NOT = { has_country_flag = MON_invited_country }
-		}
-		
-		target_trigger = {
-			FROM = {
-				is_subject = no
-				OR = {
-					is_in_faction = no
-					is_faction_leader = yes
-				}
-				has_government = authoritarian_democrat
-			}
-		}
-
-		cost = 25
-		days_remove = 20
-
-		ai_will_do = {
-			factor = 100
-			modifier = {
-				factor = 0
-				FROM = {
-					has_country_flag = MON_already_invited
-				}
-			}
-		}
-
-		complete_effect = {
-			set_country_flag = MON_invited_country
-			FROM = {
-				country_event = {
-					id = mon_khan.2
-					days = 3
-				}
-			}
-		}
-		
-		remove_effect = {
-			clr_country_flag = MON_invited_country
-		}
-	}
-	
-	MON_Invite_Afghanistan = {
-		name = MON_Invite_Country
-		icon = generic_agreement
-		
-		available = {
-			is_faction_leader = yes
-		}
-
-		visible = {
-			has_completed_focus = MON_brotherhood_alliance
-			has_completed_focus = MON_ungern_alone
-			FROM = {
-				is_subject = no
-				exists = yes
-				OR = {
-					is_in_faction = no
-					is_faction_leader = yes
-				}
-			}
-		}
-
-		targets = { AFG }
-		target_root_trigger = {
-			has_completed_focus = MON_brotherhood_alliance
-			NOT = { has_country_flag = MON_invited_country }
-		}
-		
-		target_trigger = {
-			FROM = {
-				is_subject = no
-				OR = {
-					is_in_faction = no
-					is_faction_leader = yes
-				}
-				has_government = paternal_autocrat
-			}
-		}
-
-		cost = 25
-		days_remove = 20
-
-		ai_will_do = {
-			factor = 100
-			modifier = {
-				factor = 0
-				FROM = {
-					has_country_flag = MON_already_invited
-				}
-			}
-		}
-
-		complete_effect = {
-			set_country_flag = MON_invited_country
-			FROM = {
-				country_event = {
-					id = mon_khan.2
-					days = 3
-				}
-			}
-		}
-		
-		remove_effect = {
-			clr_country_flag = MON_invited_country
-		}
-	}
-	
-	MON_Invite_Princely_Fed = {
-		name = MON_Invite_Country
-		icon = generic_agreement
-		
-		available = {
-			is_faction_leader = yes
-		}
-
-		visible = {
-			has_completed_focus = MON_brotherhood_alliance
-			has_completed_focus = MON_ungern_alone
-			FROM = {
-				is_subject = no
-				exists = yes
-				OR = {
-					is_in_faction = no
-					is_faction_leader = yes
-				}
-			}
-		}
-
-		targets = { PRF }
-		target_root_trigger = {
-			has_completed_focus = MON_brotherhood_alliance
-			NOT = { has_country_flag = MON_invited_country }
-		}
-		
-		target_trigger = {
-			FROM = {
-				is_subject = no
-				has_idea = PRF_united_india
-				OR = {
-					is_in_faction = no
-					is_faction_leader = yes
-				}
-				OR = {
-					has_completed_focus = PRF_rebuke_council
-					has_completed_focus = PRF_princes_united
-				}
-			}
-		}
-
-		cost = 25
-		days_remove = 20
-
-		ai_will_do = {
-			factor = 100
-			modifier = {
-				factor = 0
-				FROM = {
-					has_country_flag = MON_already_invited
-				}
-			}
-		}
-
-		complete_effect = {
-			set_country_flag = MON_invited_country
-			FROM = {
-				country_event = {
-					id = mon_khan.2
-					days = 3
-				}
-			}
-		}
-		
-		remove_effect = {
-			clr_country_flag = MON_invited_country
-		}
-	}
+	}	
 }
 
 MON_foreign_policy_decisions = {
@@ -1330,19 +973,10 @@ MON_foreign_policy_decisions = {
 		}
 	}
 	MON_stake_our_claim_to_russia = {
-
+		allowed = { always = no }
 		icon = generic_nationalism
-
-		allowed = {
-			original_tag = MON
-		}
-
-		available = {
-			is_subject = no
-		}
-
 		visible = {
-			has_completed_focus = MON_bow_to_none
+			is_subject = no
 		}
 
 		fire_only_once = yes
@@ -1354,21 +988,21 @@ MON_foreign_policy_decisions = {
 		}
 
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MON_pan_mongol_claims_decision"
+			log = "[GetDateText]: [Root.GetName]: Decision MON_stake_our_claim_to_russia"
 			every_state = {
-			limit = {
-				OR = {
-					is_core_of = RUS
-					is_core_of = TRM
-					is_core_of = DKB
-					is_core_of = KUB
-					is_russian_starting_claims = yes
-					is_russian_far_east = yes
-					is_alash = yes
+				limit = {
+					OR = {
+						is_core_of = RUS
+						is_core_of = TRM
+						is_core_of = DKB
+						is_core_of = KUB
+						is_russian_starting_claims = yes
+						is_russian_far_east = yes
+						is_alash = yes
+					}
+					is_claim_or_core_of_ROOT = no
 				}
-				NOT = { is_core_of = MON }
-			}
-			add_claim_by = MON
+				add_claim_by = MON
 			}
 			set_country_flag = MON_yellow_russia_russia_claims
 		}
@@ -2115,137 +1749,16 @@ MON_chaos_in_capital_decisions = {
 }
 
 MON_mongolian_highway_decisions = {
-	MON_main_mongolian_road_decision = {
-		icon = generic_construction
-
-		allowed = {
-			original_tag = MON
-		}
-
-		available = {
-			num_of_civilian_factories_available_for_projects > 1
-			controls_state = 330
-			controls_state = 1265
-		}
-
-		visible = {
-			owns_state = 330
-			owns_state = 1265
-		}
-
-		highlight_states = {
-			highlight_state_targets = {
-				state = 330
-				state = 1265
-			}
-		}
-
-		fire_only_once = yes
-
-		cost = 25
-
-		days_remove = 100
-
-		modifier = {
-			civilian_factory_use = 1
-		}
-
-		ai_will_do = {
-			factor = 15
-		}
-
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove MON_main_mongolian_road_decision target: [From.GetName]"
-			build_railway = {
-				start_province = 4801
-				target_province = 7717
-			}
-			build_railway = {
-				start_province = 4801
-				target_province = 10578
-			}
-			330 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-			1265 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-			set_country_flag = MON_main_railway_built_flag
-		}
-	}
-	MON_connect_to_the_west_decision = {
-		icon = generic_construction
-
-		allowed = {
-			original_tag = MON
-		}
-
-		available = {
-			num_of_civilian_factories_available_for_projects > 1
-			has_country_flag = MON_main_railway_built_flag
-			controls_state = 1084
-		}
-
-		visible = {
-			owns_state = 1084
-		}
-
-		highlight_states = {
-highlight_state_targets = {
-			state = 1084
-		}
-}
-
-		fire_only_once = yes
-
-		cost = 25
-
-		days_remove = 80
-
-		modifier = {
-			civilian_factory_use = 1
-		}
-
-		ai_will_do = {
-			factor = 15
-		}
-
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove MON_connect_to_the_west_decision target: [From.GetName]"
-			1084 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-		}
-	}
 	MON_connect_to_tuva_decision = {
 		icon = generic_construction
-
-		allowed = {
-			original_tag = MON
-		}
-
+		allowed = { always = no }
 		available = {
 			num_of_civilian_factories_available_for_projects > 1
-			has_country_flag = MON_main_railway_built_flag
 			controls_state = 329
 		}
-
 		visible = {
 			owns_state = 329
 		}
-
 		highlight_states = {
 			highlight_state_targets = {
 				state = 329
@@ -2253,15 +1766,13 @@ highlight_state_targets = {
 		}
 
 		fire_only_once = yes
+		state_target = yes
 
 		cost = 25
-
 		days_remove = 80
-
 		modifier = {
 			civilian_factory_use = 1
 		}
-
 		ai_will_do = {
 			factor = 15
 		}
@@ -2287,39 +1798,30 @@ highlight_state_targets = {
 	}
 	MON_connect_to_chahar_decision = {
 		icon = generic_construction
-
-		allowed = {
-			original_tag = MON
-		}
-
+		allowed = { always = no }
 		available = {
 			controls_state = 612
 			controls_state = 330
 			controls_state = 1265
 			num_of_civilian_factories_available_for_projects > 0
-			has_country_flag = MON_main_railway_built_flag
 		}
-
 		visible = {
 			owns_state = 612
 		}
-
 		highlight_states = {
-highlight_state_targets = {
-			state = 612
+			highlight_state_targets = {
+				state = 612
+			}
 		}
-}
 
 		fire_only_once = yes
+		state_target = yes
 
 		cost = 25
-
 		days_remove = 80
-
 		modifier = {
 			civilian_factory_use = 1
 		}
-
 		ai_will_do = {
 			factor = 15
 		}
@@ -2345,37 +1847,28 @@ highlight_state_targets = {
 	}
 	MON_connect_to_ulanqab_decision = {
 		icon = generic_construction
-
-		allowed = {
-			original_tag = MON
-		}
-
+		allowed = { always = no }
 		available = {
 			num_of_civilian_factories_available_for_projects > 0
-			has_country_flag = MON_main_railway_built_flag
 			controls_state = 621
 		}
-
 		visible = {
 			owns_state = 621
 		}
-
 		highlight_states = {
-highlight_state_targets = {
-			state = 621
+			highlight_state_targets = {
+				state = 621
+			}
 		}
-}
 
 		fire_only_once = yes
+		state_target = yes
 
 		cost = 25
-
 		days_remove = 80
-
 		modifier = {
 			civilian_factory_use = 1
 		}
-
 		ai_will_do = {
 			factor = 15
 		}
@@ -2397,38 +1890,29 @@ highlight_state_targets = {
 	}
 	MON_connect_to_ningxia_decision = {
 		icon = generic_construction
-
-		allowed = {
-			original_tag = MON
-		}
-
+		allowed = { always = no }
 		available = {
 			num_of_civilian_factories_available_for_projects > 1
-			has_country_flag = MON_main_railway_built_flag
 			controls_state = 348
 			controls_state = 330
 		}
-
 		visible = {
 			owns_state = 348
 		}
-
 		highlight_states = {
-highlight_state_targets = {
-			state = 348
+			highlight_state_targets = {
+				state = 348
+			}
 		}
-}
 
 		fire_only_once = yes
+		state_target = yes
 
 		cost = 25
-
 		days_remove = 80
-
 		modifier = {
 			civilian_factory_use = 1
 		}
-
 		ai_will_do = {
 			factor = 15
 		}
@@ -2451,37 +1935,28 @@ highlight_state_targets = {
 	}
 	MON_connect_to_ordos_decision = {
 		icon = generic_construction
-
-		allowed = {
-			original_tag = MON
-		}
-
+		allowed = { always = no }
 		available = {
 			num_of_civilian_factories_available_for_projects > 1
-			has_country_flag = MON_main_railway_built_flag
 			controls_state = 616
 		}
-
 		visible = {
 			owns_state = 616
 		}
-
 		highlight_states = {
-highlight_state_targets = {
-			state = 616
+			highlight_state_targets = {
+				state = 616
+			}
 		}
-}
-
+		
 		fire_only_once = yes
+		state_target = yes
 
 		cost = 25
-
 		days_remove = 80
-
 		modifier = {
 			civilian_factory_use = 1
 		}
-
 		ai_will_do = {
 			factor = 15
 		}
@@ -2513,10 +1988,10 @@ MON_dealing_with_the_leftover_bandits_decisions = {
 		}
 
 		highlight_states = {
-highlight_state_targets = {
-			state = 1084
+			highlight_state_targets = {
+				state = 1084
+			}
 		}
-}
 
 		cost = 0
 
@@ -2561,10 +2036,10 @@ highlight_state_targets = {
 		}
 
 		highlight_states = {
-highlight_state_targets = {
-			state = 1084
+			highlight_state_targets = {
+				state = 1084
+			}
 		}
-}
 
 		is_good = yes
 
@@ -2956,7 +2431,7 @@ MON_red_diplomacy = {
 		cost = 10
 		fire_only_once = yes
 		days_remove = 14
-		targets = { SIB TTR BKN }
+		targets = { SIB TTR BKN ALT KHA }
 		target_root_trigger = {
 			OR = {
 				has_completed_focus = MON_paradise_under_red_khan			

@@ -62324,6 +62324,8 @@ country_event = { #Demands to mongolia
 			}
 		}
 		set_country_flag = RUS_demanded_tuva
+		custom_effect_tooltip = if_they_accept_tt
+		event_option_tooltip = rusfor.1114.a
 		hidden_effect = {
 			MON = { country_event = { id = rusfor.1111 days = 4 } }
 		}
@@ -62343,6 +62345,8 @@ country_event = { #Demands to mongolia
 			}
 		}
 		set_country_flag = RUS_demanded_treaty_MON
+		custom_effect_tooltip = if_they_accept_tt
+		event_option_tooltip = rusfor.1112.b
 		hidden_effect = {
 			MON = { country_event = { id = rusfor.1111 days = 4 } }
 		}
@@ -62384,6 +62388,8 @@ country_event = { #Demands to mongolia
 			}
 		}
 		set_country_flag = RUS_demanded_alliance
+		custom_effect_tooltip = if_they_accept_tt
+		event_option_tooltip = rusfor.1113.b
 		hidden_effect = {
 			MON = { country_event = { id = rusfor.1111 days = 4 } }
 		}
@@ -62548,6 +62554,20 @@ country_event = { #Russia's Demands #for MON
 				}
 			}
 		}
+		effect_tooltip = { 
+			every_owned_state = {
+				limit = {
+					OR = {
+						is_core_of = RUS
+						state = 811
+						state = 1293			
+						state = 654
+					}
+					NOT = { state = 330 }
+				}
+				transfer_state_to = RUS
+			}
+		}
 		if = {
 			limit = { RUS = { has_country_flag = RUS_demanded_alliance } }
 			clear_all_relations_except_wars = yes		
@@ -62560,20 +62580,10 @@ country_event = { #Russia's Demands #for MON
 		}
 		else_if = {
 			limit = { RUS = { has_country_flag = RUS_demanded_tuva } }
-			decrease_ruling_party_popularity_by_10 = yes
 			effect_tooltip = { 
-				every_owned_state = {
-					limit = {
-						OR = {
-							state = 329
-							state = 811
-							state = 1293
-							state = 654
-						}
-					}
-					transfer_state_to = RUS
-				}
+				329 = { transfer_state_to = RUS }
 			}
+			decrease_ruling_party_popularity_by_10 = yes
 			RUS = { country_event = { id = rusfor.1114 days = 1 } }
 		}
 	}
@@ -62602,17 +62612,6 @@ country_event = { #Friendship treaty with Russia
 		set_global_flag = northwest_conflict_ended
 		set_country_flag = mon_no_expansion
 		effect_tooltip = {
-			every_owned_state = {
-				limit = {
-					OR = {
-						state = 329
-						state = 811
-						state = 1293
-						state = 654
-					}
-				}
-				transfer_state_to = RUS
-			}
 			RUS = { give_guarantee = MON }
 			give_military_access = ROOT			
 			if = {
@@ -62729,8 +62728,7 @@ country_event = { #Alliance with Russia
 						is_core_of = ROOT
 						state = 811
 						state = 1293			
-						state = 654			
-						state = 329			
+						state = 654	
 					}
 					NOT = { state = 330 }
 				}
@@ -62750,8 +62748,7 @@ country_event = { #Alliance with Russia
 					is_core_of = ROOT
 					state = 811
 					state = 1293			
-					state = 654			
-					state = 329			
+					state = 654
 				}
 				NOT = { state = 330 }
 			}
@@ -62788,8 +62785,11 @@ country_event = { #Mongolia caves to demands
 				NOT = { state = 330 }
 			}
 			transfer_state_to = ROOT
-			add_claim_by = ROOT
-			ROOT = { enable_state_integration_50_compliance = yes }
+			if = {
+				limit = { is_claim_or_core_of_ROOT = no }
+				add_claim_by = ROOT
+				enable_state_integration_50_compliance = yes
+			}
 		}
 	}
 }
@@ -87610,11 +87610,6 @@ country_event = {
 		set_country_flag = RUS_vladimir_manshteyn_available
 		custom_effect_tooltip = available_chief_of_staff
 		show_ideas_tooltip = RUS_Vladimir_Manshteyn_cos_npo
-		custom_effect_tooltip = tooltip_white_line
-		custom_effect_tooltip = tech_anti-partisan_effect
-		hidden_effect = {
-			set_technology = { tech_anti-partisan = 1 popup = no }
-		}
 	}
 }
 country_event = { 

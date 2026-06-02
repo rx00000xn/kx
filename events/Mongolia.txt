@@ -44,7 +44,6 @@ country_event = {
 
 	option = {
 		name = mongolia.1.a #Stake our claims on the recognised Mongol lands!
-
 		ai_chance = {
 			factor = 15
 			modifier = {
@@ -94,7 +93,6 @@ country_event = {
 				}
 			}
 		}
-
 		add_state_core = 616 #Ningxia
 		remove_ideas = MON_rus_help_less
 		hidden_effect = {
@@ -108,7 +106,6 @@ country_event = {
 
 	option = {
 		name = mongolia.1.b #The Chinese be Damned! Unification for ALL the Mongolians!
-
 		ai_chance = {
 			factor = 65
 			modifier = {
@@ -161,23 +158,34 @@ country_event = {
 				}
 			}
 		}
-
 		add_state_core = 616 #Ningxia
 		add_state_core = 617 #Urumqi
 		add_state_core = 618 #Dzungaria
+		add_state_core = 1083 #Kumul
+		add_state_core = 564 #Buryatia		
+		add_state_claim = 616
+		add_state_claim = 348
+		add_state_claim = 617
+		add_state_claim = 1083
+		add_state_claim = 618
+		add_state_claim = 604
+		add_state_claim = 283
+		add_state_claim = 774
+		add_state_claim = 287
+		add_state_claim = 619
+		add_state_claim = 1085
+		add_state_claim = 897			
 		remove_ideas = MON_rus_help_less
 		hidden_effect = {
 			country_event = { id = mongolia.110 days = 3 }
 		}
 		set_cosmetic_tag = MON_sternberg
-
 		reverse_add_opinion_modifier = { target = XSM modifier = mon_unification_XSM } # -10
 		reverse_add_opinion_modifier = { target = RUS modifier = mon_unification_RUS } # -10
 	}
 
 	option = {
 		name = mongolia.1.c #It's not worth the risk
-
 		ai_chance = {
 			factor = 20
 			modifier = {
@@ -321,6 +329,14 @@ country_event = { # Ethnic Skirmishes on the Frontier
 			}
 			hidden_effect = { SHX = { country_event = { id = mongolia.7 days = 1 } } }
 		}
+		hidden_effect = { #Give northwest war idea to MON
+			MON = { add_ideas = MON_northwest_war_idea }
+			if = {
+				limit = { TIB = { is_in_faction_with = MON } }
+				TIB = { add_ideas = TIB_northwest_war_idea }
+			}
+			add_ideas = XSM_northwest_war_idea
+		}
 	}
 
 	option = {
@@ -341,7 +357,7 @@ country_event = { # Ethnic Skirmishes on the Frontier
 				}
 			}
 		}
-		MON = { puppet = PREV }
+		MON = { china_puppet_ROOT_effect = yes }
 		every_owned_state = {
 			limit = {
 				OR = {
@@ -364,7 +380,10 @@ country_event = { # Ethnic Skirmishes on the Frontier
 				tag = SIK
 				TAN = { is_subject_of = SIK }
 			}
-			MON = { puppet = TAN }
+			MON = { 
+				set_temp_variable = { target = TAN }
+				china_puppet_TARGET_effect = yes
+			}
 		}
 		if = {
 			limit = {
@@ -372,8 +391,7 @@ country_event = { # Ethnic Skirmishes on the Frontier
 				owns_state = 353
 			}
 			TIB = { transfer_state = 353 }
-		}
-		
+		}		
 		hidden_effect = {
 			MON = { country_event = { id = mongolia.9 days = 1 } }
 			if = {
@@ -395,7 +413,7 @@ country_event = { # Ungern Khan Descends Upon Xinjiang
 
 	option = {
 		name = mongolia.7.a #Lanzhou shall be the western gate of the Millenarian state!
-		ai_chance = { factor = 30 }
+		ai_chance = { factor = 40 }
 		add_stability = -0.025
 		add_state_core = 283
 		XSM = { country_event = { id = mongolia.8 days = 1 } }
@@ -403,7 +421,7 @@ country_event = { # Ungern Khan Descends Upon Xinjiang
 
 	option = {
 		name = mongolia.7.b #The Pure Kingdom Upon the Heavens shall remain neutral
-		ai_chance = { factor = 70 }
+		ai_chance = { factor = 60 }
 		add_stability = -0.025
 		reverse_add_opinion_modifier = { target = MON modifier = SHX_neutral_vs_XSM_MON } # 20
 		reverse_add_opinion_modifier = { target = XSM modifier = SHX_neutral_vs_XSM } # 25
@@ -421,7 +439,7 @@ country_event = { # Vultures from Xa'an
 
 	option = {
 		name = mongolia.8.a #When the Mongol has been chastised, we shall level Mount Heng!
-		ai_chance = { factor = 5 }
+		ai_chance = { factor = 10 }
 		add_stability = 0.1
 		declare_war_on = {
 			target = SHX
@@ -431,9 +449,9 @@ country_event = { # Vultures from Xa'an
 
 	option = {
 		name = mongolia.8.b #Vermin, your time shall come... in due time!
-		ai_chance = { factor = 70 }
+		ai_chance = { factor = 90 }
 		add_stability = -0.05
-		SHX = { transfer_state = 283 }
+		283 = { transfer_state_to = SHX }
 		add_opinion_modifier = { target = SHX modifier = XSM_accept_state_transfer } # -50
 	}
 }
@@ -677,7 +695,6 @@ country_event = { # Independent Uighuria
 			picture = "gfx/leaders/TAN/Portrait_TAN_Hoja_Niyaz_Haji.png"
 			expire = "1.1.1"
 			ideology = junta_subtype
-			traits = {}
 		}
 
 		add_ideas = {
@@ -1419,8 +1436,7 @@ country_event = { # A New Mongolian Empire?
 		trigger = {
 			has_country_flag = MON_khan_larp
 		}
-		ai_chance = {
-			
+		ai_chance = {			
 			factor = 60
 			modifier = {
 				factor = 0
@@ -1468,90 +1484,63 @@ country_event = { # A New Mongolian Empire?
 					}	
 				}
 			}
+		}		
+		every_possible_country = {
+			limit = {
+				OR = {
+					tag = JAP
+					tag = RUS
+					tag = TRM
+					tag = MAN
+					tag = QIE
+					tag = SIB
+					tag = TIB
+					tag = CHI
+					tag = SQI
+				}
+			}
+			add_opinion_modifier = { target = ROOT modifier = Mongolian_Empire_Funded } # -50
 		}
-		
-		set_country_flag = MON_ungern_sternberg_is_in_power
-
-		reverse_add_opinion_modifier = { target = JAP modifier = Mongolian_Empire_Funded } # -50
-		reverse_add_opinion_modifier = { target = RUS modifier = Mongolian_Empire_Funded } # -50
-		reverse_add_opinion_modifier = { target = MAN modifier = Mongolian_Empire_Funded } # -50
-		reverse_add_opinion_modifier = { target = QIE modifier = Mongolian_Empire_Funded } # -50
-		reverse_add_opinion_modifier = { target = SIB modifier = Mongolian_Empire_Funded } # -50
-		reverse_add_opinion_modifier = { target = TRM modifier = Mongolian_Empire_Funded } # -50
-		reverse_add_opinion_modifier = { target = TIB modifier = Mongolian_Empire_Funded } # -50
-		reverse_add_opinion_modifier = { target = CHI modifier = Mongolian_Empire_Funded } # -50
-		reverse_add_opinion_modifier = { target = SQI modifier = Mongolian_Empire_Funded } # -50
-
 		add_manpower = 50000
-		remove_ideas = MON_jap_help
-
+		if = {
+			limit = { has_idea = MON_jap_help }
+			remove_ideas = MON_jap_help
+		}
 		add_ideas = MON_Mongolian_Empire_Founded
-
 		custom_effect_tooltip = MON_empire_cavalry_appears
 		hidden_effect = { load_oob = "MON_EMP" }
-
 		add_stability = 0.05
-
-		if = {
+		every_state = {
 			limit = {
-				621 = { NOT = { is_core_of = MON } }
+				OR = {
+					state = 621
+					state = 612
+					state = 616
+					state = 617
+					state = 618
+				}
+				NOT = { is_core_of = ROOT }
 			}
-			add_state_core = 621 #Suiyuan
+			add_core_of = ROOT
 		}
-		if = {
-			limit = {
-				612 = { NOT = { is_core_of = MON } }
-			}
-			add_state_core = 612 #Chahar
-		}
-		if = {
-			limit = {
-				616 = { NOT = { is_core_of = MON } }
-			}
-			add_state_core = 616 #Ningxia
-		}
-		if = {
-			limit = {
-				617 = { NOT = { is_core_of = MON } }
-			}
-			add_state_core = 617 #Urumqi
-		}
-		if = {
-			limit = {
-				618 = { NOT = { is_core_of = MON } }
-			}
-			add_state_core = 618 #Dzungaria
-		}
-
-
 		if = {
 			limit = {
 				TIB = {
 					is_in_faction_with = MON
-					NOT = { is_subject_of = MON }
-					NOT = { has_government = paternal_autocrat }
-					NOT = { has_government = authoritarian_democrat }
+					is_subject = no
+					has_dictatorship_government = no
 				}
 			}
 			remove_from_faction = TIB
 		}
-		
-		country_event = mon_khan.23
-		
+		custom_effect_tooltip = MON_empire_tooltip		
 		hidden_effect = {
-			every_country = {
-				if = { 
-					limit = { is_ai	= no }
-					country_event = { id = super_event.27 }
-				}
-			}
-			country_event = { id = mon_khan.23 days = 3}
+			country_event = { id = mon_khan.23 days = 3 }
 		}
 	}
 
 	option = {
 		name = mongolia.32.b
-
 		ai_chance = {
 			factor = 30
 			modifier = {
@@ -1614,44 +1603,20 @@ country_event = { # Ungern chooses a right hand
 	picture = GFX_report_event_spain_civil_war_soldiers
 
 	fire_only_once = yes
-
-	trigger = {
-		tag = MON
-		date > 1936.1.10
-		custom_trigger_tooltip = {
-			tooltip = MON_sternberg_tooltip
-			MON_sternberg_in_power = yes
-		}
-	}
+	is_triggered_only = yes
 
 	option = {
 		name = mongolia.35.a
-
 		ai_chance = { factor = 40 }
-
-		hidden_effect = {
-			remove_ideas_with_trait = head_of_government
-			remove_ideas_with_trait = foreign_minister
-		}
-
-		add_ideas = {
-			MON_Boris_Rezukhin_hog_pau
-			MON_Ivan_Serebrennikov_for_pau
-		}
-
+		add_popularity = { ideology = paternal_autocrat popularity = 0.03 }
 		add_stability = -0.04
 	}
 
 	option = {
 		name = mongolia.35.b
-
 		ai_chance = { factor = 20 }
-
-		hidden_effect = {
-			remove_ideas_with_trait = head_of_government
-			remove_ideas_with_trait = foreign_minister
-		}
-
+		remove_ideas_with_trait = head_of_government
+		remove_ideas_with_trait = foreign_minister
 		add_ideas = {
 			MON_Toegs_Ochiryn_Namnansueren_hog_pau
 			MON_Dogijavyn_Luvsanshara_for_pau
@@ -1660,19 +1625,13 @@ country_event = { # Ungern chooses a right hand
 
 	option = {
 		name = mongolia.35.c
-
 		ai_chance = { factor = 20 }
-
-		hidden_effect = {
-			remove_ideas_with_trait = head_of_government
-			remove_ideas_with_trait = foreign_minister
-		}
-
+		remove_ideas_with_trait = head_of_government
+		remove_ideas_with_trait = foreign_minister
 		add_ideas = {
 			MON_The_7th_Changkya_Khutukhtu_hog_pau
 			MON_Demcuydungrub_for_ade
 		}
-
 		add_stability = -0.04
 	}
 }
@@ -1690,7 +1649,7 @@ country_event = { # Annexation of Shangtian
 		tag = MON
 		owns_state = 799
 		owns_state = 622
-		has_country_flag = Gengis_Khan_II_HoS
+		MON_Gengis_Khan_II_HoS = yes
 		NOT = {
 			country_exists = SHX
 		}
@@ -1728,7 +1687,7 @@ country_event = { # Annexation of Tibet
 	trigger = {
 		tag = MON
 		owns_state = 322
-		has_country_flag = Gengis_Khan_II_HoS
+		MON_Gengis_Khan_II_HoS = yes
 		NOT = {
 			country_exists = TIB
 		}
@@ -1772,7 +1731,7 @@ country_event = { # Annexation of Tibet ?
 		# is_subject = no
 		# has_war = no
 		# TIB = { is_subject = no }
-		# has_country_flag = Gengis_Khan_II_HoS
+		# MON_Gengis_Khan_II_HoS = yes
 		# owns_state = 617
 		# country_exists = TIB
 		# NOT = { is_in_faction_with = TIB country_exists = XSM }
@@ -1868,12 +1827,7 @@ country_event = { # Death of Genghis Khan II
 			ideology = pataut_oligarchy_subtype
 		}
 
-		hidden_effect = {
-			remove_ideas_with_trait = head_of_government
-			remove_ideas_with_trait = foreign_minister
-			remove_ideas_with_trait = economy_minister
-			remove_ideas_with_trait = security_minister
-		}
+		remove_all_ministers = yes
 
 		add_ideas = {
 			MON_Toegs_Ochiryn_Namnansueren_hog_pau
@@ -2270,11 +2224,9 @@ country_event = { # Puppet Yunnan
 
 		create_country_leader = {
 			name = "Long Yun"
-			desc = ""
 			picture = "gfx/leaders/Yun/Portrait_Yunnan_Long_Yun.png"
 			expire = "1.1.1"
 			ideology = pataut_warlordism_subtype
-			traits = {}
 		}
 		
 	}
@@ -2584,59 +2536,20 @@ country_event = {
 	
 	option = {
 		name = mongolia.103.a
-
-		ai_chance = { factor = 50 }
-
-		create_field_marshal = {
-			name = "Ja Lama "
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Ja_Lama.png"
-			traits = { offensive_doctrine harsh_leader old_guard }
-			skill = 3
-			attack_skill = 3
-			defense_skill = 2
-			planning_skill = 2
-			logistics_skill = 2
-			id = 3423
-		}
-		create_corps_commander = {
-			name = "Khorloogiin Choibalsan"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Khorloogiin_Choibalsan.png"
-			traits = { trickster }
-			skill = 2
-			attack_skill = 2
-			defense_skill = 3
-			planning_skill = 3
-			logistics_skill = 2	
-		}
-		create_corps_commander = {
-			name = "Gonchigiin  Bumstend"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Gonchigiin_Bumtsend.png"
-			traits = { trickster }
-			skill = 3
-			attack_skill = 2
-			defense_skill = 3
-			planning_skill = 3
-			logistics_skill = 2	
-		}
-		create_corps_commander = {
-			name = "Yumjaagiin Tsedenbal"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Yumjaagiin_Tsedenbal.png"
-			traits = { }
-			skill = 1
-			attack_skill = 2
-			defense_skill = 1
-			planning_skill = 2
-			logistics_skill = 1
-		}					
-		create_corps_commander = {
-			name = "Jamiyangiin Lkhagvasuren"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Jamiyangiin_Lkhagvasuren.png"
-			traits = { fortress_buster }
-			skill = 1
-			attack_skill = 2
-			defense_skill = 1
-			planning_skill = 1
-			logistics_skill = 3		
+		ai_chance = { factor = 50 }		
+		XXA = {
+			every_unit_leader = {
+				limit = { 
+					OR = {
+						has_id = 3423
+						has_id = 34231
+						has_id = 34232
+						has_id = 34233
+						has_id = 34238
+					}
+				}
+				set_nationality = ROOT
+			}
 		}		
 		add_popularity = { ideology = national_populist popularity = 0.10 }	
 		add_stability = -0.1
@@ -2645,9 +2558,7 @@ country_event = {
 	}
 	option = {
 		name = mongolia.103.b
-
-		ai_chance = { factor = 50 }
-		
+		ai_chance = { factor = 50 }		
 		remove_ideas = MON_warlord
 		add_stability = 0.15
 	}
@@ -2677,7 +2588,6 @@ country_event = {
 	
 	option = {#Release Bogd Khanate
 		name = mongolia.104.a
-
 		ai_chance = {
 			factor = 98
 			modifier = {
@@ -2688,15 +2598,15 @@ country_event = {
 					YUN = { is_ai = no }
 				}
 			}
-		}
-		
+		}		
 		add_stability = 0.10
-		add_political_power = 100
-		
+		add_political_power = 100		
 		custom_effect_tooltip = MON_release_mongol_khanate_sternberg
 		set_country_flag = MON_released_puppet_mongolia
-
 		hidden_effect = {
+			remove_ideas = MON_jebtsundamba_khutuktu_idea
+			remove_ideas = MON_jebtsundamba_khutuktu_NS_idea
+			remove_ideas = MON_9_jebtsundamba_khutuktu_idea
 			every_owned_state = {
 				limit = {
 					OR = {
@@ -2708,164 +2618,14 @@ country_event = {
 				MON = {
 					remove_state_core = PREV
 				}
-			}
-			
-			create_dynamic_country = {	#Mongolia gang
-				original_tag = MON
-				copy_tag = MON
-
-				#State
-				every_state = {
-						limit = {
-							OR = {
-								state = 330
-								state = 1265
-								state = 612
-								state = 1084
-								state = 1293
-								state = 811
-								state = 329
-								state = 654
-							}
-							MON = { is_owned_by_ROOT_or_subject = yes }
-						}
-						MON = { 
-							remove_state_claim = PREV
-							remove_state_core = PREV
-						}
-						PREV = { 
-							add_state_core = PREV 
-							transfer_state = PREV
-						}
-				}
-				
-				if = {
-					limit = {
-						MON = { NOT = { has_country_flag = mon_no_expansion } }
-					}
-					every_state = {
-						limit = {
-							is_owned_by = MON
-							OR = {
-								is_core_of = TAN
-								is_core_of = XSM
-								is_core_of = SIK
-							}
-						}
-						PREV = {
-							transfer_state = PREV
-							add_state_core = PREV
-						}
-					}
-					if = {
-						limit = {
-							XSM = {
-								is_subject_of = MON 
-							}
-						}
-						annex_country = {
-							target = XSM
-							transfer_troops = yes
-						}
-					}
-					if = {
-						limit = {
-							SIK = {
-								is_subject_of = MON
-							}
-						}
-						annex_country = {
-							target = SIK
-							transfer_troops = yes
-						}
-					}
-					if = {
-						limit = {
-							TAN = {
-								is_subject_of = MON 
-							}
-						}
-						annex_country = {
-							target = TAN
-							transfer_troops = yes
-						}
-					}
-					if = {
-						limit = {
-							ETS = {
-								is_subject_of = MON
-							}
-						}
-						annex_country = {
-							target = ETS
-							transfer_troops = yes
-						}
-					}
-				}
-				
-				### Leader
-				create_country_leader = {
-					name = "Bogd Khan"
-					desc = "POLITICS_BOGD_KHAN_DESC"
-					picture = "gfx/leaders/MON/Portrait_MON_Bogd_Khan.png"
-					expire = "1.1.1"
-					ideology = absolute_monarchy_subtype
-					traits = {
-						MON_buddhist_figurehead
-					}
-				}
-				
-				add_ideas = MON_scourge_of_the_steppes_idea2
-
-				### Politics
-				set_popularities = {
-					totalist = 0
-					radical_socialist = 0
-					syndicalist = 0
-					social_democrat = 0
-					social_liberal = 0
-					market_liberal = 0
-					social_conservative = 20
-					authoritarian_democrat = 10
-					paternal_autocrat = 60
-					national_populist = 10
-				}
-				set_party_name = {
-					ideology = paternal_autocrat
-					long_name = MON_REL_party_long
-					name = MON_REL_party
-				}
-				set_politics = {
-					ruling_party = paternal_autocrat
-					elections_allowed = no
-				}
-				set_cosmetic_tag = MON_bhud
-				set_country_flag = MON_nobles_in_power_flag
-				set_country_flag = MON_focus_starts_flag
-
-				#Units
-				division_template = {
-					name = "Warrior Society"
-					division_names_group = MON_INF_01
-
-					regiments = {
-						infantry = { x = 0 y = 0 }
-						infantry = { x = 0 y = 1 }
-						infantry = { x = 0 y = 2 }
-						infantry = { x = 1 y = 0 }
-						infantry = { x = 1 y = 1 }
-						infantry = { x = 1 y = 2 }
-					}
-					priority = 0
-				}
-			}
+			}			
+			MON_create_puppet_mongolia_sternberg = yes
 			puppet = 612.owner
 		}
 	}
 	
 	option = {#release core mongolia, give rest to China ally
-		name = mongolia.104.b
-		
+		name = mongolia.104.b		
 		trigger = {
 			OR = {
 				YUN = {
@@ -2878,7 +2638,6 @@ country_event = {
 				}
 			}
 		}
-
 		ai_chance = {
 			factor = 1
 			modifier = {
@@ -2887,15 +2646,15 @@ country_event = {
 					is_ai = yes
 				}
 			}
-		}
-		
+		}		
 		add_stability = 0.10
-		add_political_power = 100
-		
+		add_political_power = 100		
 		custom_effect_tooltip = MON_release_mongol_khanate_sternberg_china
-		set_country_flag = MON_released_puppet_mongolia
-		
+		set_country_flag = MON_released_puppet_mongolia		
 		hidden_effect = {
+			remove_ideas = MON_jebtsundamba_khutuktu_idea
+			remove_ideas = MON_jebtsundamba_khutuktu_NS_idea
+			remove_ideas = MON_9_jebtsundamba_khutuktu_idea
 			every_owned_state = {
 				limit = {
 					OR = {
@@ -2932,7 +2691,6 @@ country_event = {
 					}
 				}
 			}
-			
 			QIE = {
 				if = {
 					limit = {
@@ -2978,8 +2736,7 @@ country_event = {
 						transfer_troops = yes
 					}
 				}
-			}
-			
+			}			
 			YUN = {
 				if = {
 					limit = {
@@ -3026,100 +2783,13 @@ country_event = {
 					}
 				}
 			}
-			
-			create_dynamic_country = {	#Mongolia gang
-				original_tag = MON
-				copy_tag = MON
-
-				#State
-				every_state = {
-						limit = {
-							OR = {
-								state = 330
-								state = 1265
-								state = 612
-								state = 1084
-								state = 1293
-								state = 811
-								state = 329
-								state = 654
-							}
-							MON = { is_owned_by_ROOT_or_subject = yes }
-						}
-						MON = { 
-							remove_state_claim = PREV
-							remove_state_core = PREV
-						}
-						PREV = { 
-							add_state_core = PREV 
-							transfer_state = PREV
-						}
-					}
-				
-				### Leader
-				create_country_leader = {
-					name = "Bogd Khan"
-					desc = "POLITICS_BOGD_KHAN_DESC"
-					picture = "gfx/leaders/MON/Portrait_MON_Bogd_Khan.png"
-					expire = "1.1.1"
-					ideology = absolute_monarchy_subtype
-					traits = {
-						MON_buddhist_figurehead
-					}
-				}
-				
-				add_ideas = MON_scourge_of_the_steppes_idea2
-
-				### Politics
-				set_popularities = {
-					totalist = 0
-					radical_socialist = 0
-					syndicalist = 0
-					social_democrat = 0
-					social_liberal = 0
-					market_liberal = 0
-					social_conservative = 20
-					authoritarian_democrat = 10
-					paternal_autocrat = 60
-					national_populist = 10
-				}
-				set_party_name = {
-					ideology = paternal_autocrat
-					long_name = MON_REL_party_long
-					name = MON_REL_party
-				}
-				set_politics = {
-					ruling_party = paternal_autocrat
-					elections_allowed = no
-				}
-				set_cosmetic_tag = MON_bhud
-				set_country_flag = MON_nobles_in_power_flag
-				set_country_flag = MON_focus_starts_flag
-
-				#Units
-				division_template = {
-					name = "Warrior Society"
-					division_names_group = CSA_INF_01
-
-					regiments = {
-						infantry = { x = 0 y = 0 }
-						infantry = { x = 0 y = 1 }
-						infantry = { x = 0 y = 2 }
-						infantry = { x = 1 y = 0 }
-						infantry = { x = 1 y = 1 }
-						infantry = { x = 1 y = 2 }
-					}
-					priority = 0
-				}
-			}
+			MON_create_puppet_mongolia_sternberg = yes
 			puppet = 612.owner	
-		}
-		
+		}		
 	}
 	
 	option = {#Release The Bogd Khanate, let Japan deal with the rest
 		name = mongolia.104.c
-
 		ai_chance = {
 			factor = 1
 			modifier = {
@@ -3133,23 +2803,22 @@ country_event = {
 					}
 				}
 			}
-		}
-		
+		}		
 		trigger = {
 			JAP = {
 				exists = yes
 				is_in_faction_with = MON
 			}
 			has_global_flag = MON_japan_brotherhood_flag
-		}
-		
+		}		
 		add_stability = 0.10
-		add_political_power = 100
-		
+		add_political_power = 100		
 		custom_effect_tooltip = MON_release_mongol_khanate_sternberg_japan
-		set_country_flag = MON_released_puppet_mongolia
-		
+		set_country_flag = MON_released_puppet_mongolia		
 		hidden_effect = {
+			remove_ideas = MON_jebtsundamba_khutuktu_idea
+			remove_ideas = MON_jebtsundamba_khutuktu_NS_idea
+			remove_ideas = MON_9_jebtsundamba_khutuktu_idea
 			every_owned_state = {
 				limit = {
 					OR = {
@@ -3165,165 +2834,27 @@ country_event = {
 					transfer_state = PREV
 				}
 			}
-			
-			create_dynamic_country = {	#Mongolia gang
-				original_tag = MON
-				copy_tag = MON
-				
-				if = {
-					limit = {
-						XSM = {
-							is_subject_of = MON 
-						}
-					}
-					annex_country = {
-						target = XSM
-						transfer_troops = yes
+			MON_create_puppet_mongolia_sternberg = yes
+			every_owned_state = {
+				limit = {
+					OR = {
+						is_core_of = TAN
+						is_core_of = XSM
+						is_core_of = SIK
 					}
 				}
-				if = {
-					limit = {
-						SIK = {
-							is_subject_of = MON
-						}
-					}
-					annex_country = {
-						target = SIK
-						transfer_troops = yes
-					}
-				}
-				if = {
-					limit = {
-						TAN = {
-							is_subject_of = MON 
-						}
-					}
-					annex_country = {
-						target = TAN
-						transfer_troops = yes
-					}
-				}
-				if = {
-					limit = {
-						ETS = {
-							is_subject_of = MON
-						}
-					}
-					annex_country = {
-						target = ETS
-						transfer_troops = yes
-					}
-				}
-
-				#State
-				every_state = {
-						limit = {
-							OR = {
-								state = 330
-								state = 1265
-								state = 612
-								state = 1084
-								state = 1293
-								state = 811
-								state = 329
-								state = 654
-							}
-							MON = { is_owned_by_ROOT_or_subject = yes }
-						}
-						MON = { 
-							remove_state_claim = PREV
-							remove_state_core = PREV
-						}
-						PREV = { 
-							add_state_core = PREV 
-							transfer_state = PREV
-						}
-					}
-				
-				### Leader
-				create_country_leader = {
-					name = "Bogd Khan"
-					desc = "POLITICS_BOGD_KHAN_DESC"
-					picture = "gfx/leaders/MON/Portrait_MON_Bogd_Khan.png"
-					expire = "1.1.1"
-					ideology = absolute_monarchy_subtype
-					traits = {
-						MON_buddhist_figurehead
-					}
-				}
-				
-				add_ideas = MON_scourge_of_the_steppes_idea2
-
-				### Politics
-				set_popularities = {
-					totalist = 0
-					radical_socialist = 0
-					syndicalist = 0
-					social_democrat = 0
-					social_liberal = 0
-					market_liberal = 0
-					social_conservative = 20
-					authoritarian_democrat = 10
-					paternal_autocrat = 60
-					national_populist = 10
-				}
-				set_party_name = {
-					ideology = paternal_autocrat
-					long_name = MON_REL_party_long
-					name = MON_REL_party
-				}
-				set_politics = {
-					ruling_party = paternal_autocrat
-					elections_allowed = no
-				}
-				set_cosmetic_tag = MON_bhud
-				set_country_flag = MON_nobles_in_power_flag
-				set_country_flag = MON_focus_starts_flag
-
-				#Units
-				division_template = {
-					name = "Warrior Society"
-					division_names_group = CSA_INF_01
-
-					regiments = {
-						infantry = { x = 0 y = 0 }
-						infantry = { x = 0 y = 1 }
-						infantry = { x = 0 y = 2 }
-						infantry = { x = 1 y = 0 }
-						infantry = { x = 1 y = 1 }
-						infantry = { x = 1 y = 2 }
-					}
-					priority = 0
-				}
-				every_owned_state = {
-					limit = {
-						OR = {
-							is_core_of = TAN
-							is_core_of = XSM
-							is_core_of = SIK
-						}
-					}
-					MON = {
-						remove_state_core = PREV
-					}
-					JAP = {
-						transfer_state = PREV
-					}
-				}
+				MON = { remove_state_core = PREV }
+				JAP = { transfer_state = PREV }
 			}
 			puppet = 612.owner	
-		}
-		
+		}		
 	}
 	
 	option = {#ZOG OFF, DIS IS OURS
-		name = mongolia.104.e
-		
-		ai_chance = { factor = 0 }
-		
+		name = mongolia.104.e		
+		ai_chance = { factor = 0 }		
 		custom_effect_tooltip = MON_release_mongol_khanate_sternberg_annexed
 		add_ideas = MON_jebtsundamba_khutuktu_idea
-
 		add_stability = -0.15
 		add_war_support = -0.10
 		add_political_power = -100
@@ -3345,50 +2876,20 @@ country_event = {
 	
 	option = {
 		name = mongolia.105.a
-
 		ai_chance = { factor = 50 }
-
-		create_field_marshal = {
-			name = "Ja Lama "
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Ja_Lama.png"
-			traits = { offensive_doctrine harsh_leader old_guard }
-			skill = 3
-			attack_skill = 3
-			defense_skill = 2
-			planning_skill = 2
-			logistics_skill = 2
-			id = 78347
-		}
-		create_corps_commander = {
-			name = "Khorloogiin Choibalsan"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Khorloogiin_Choibalsan.png"
-			traits = { trickster }
-			skill = 2
-			attack_skill = 2
-			defense_skill = 3
-			planning_skill = 3
-			logistics_skill = 2	
-		}
-		create_corps_commander = {
-			name = "Yumjaagiin Tsedenbal"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Yumjaagiin_Tsedenbal.png"
-			traits = { }
-			skill = 1
-			attack_skill = 2
-			defense_skill = 1
-			planning_skill = 2
-			logistics_skill = 1
-		}					
-		create_corps_commander = {
-			name = "Jamiyangiin Lkhagvasuren"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Jamiyangiin_Lkhagvasuren.png"
-			traits = { fortress_buster }
-			skill = 1
-			attack_skill = 2
-			defense_skill = 1
-			planning_skill = 1
-			logistics_skill = 3		
-		}		
+		XXA = {
+			every_unit_leader = {
+				limit = { 
+					OR = {
+						has_id = 3423
+						has_id = 34231
+						has_id = 34232
+						has_id = 34233
+					}
+				}
+				set_nationality = ROOT
+			}
+		}	
 		add_popularity = { ideology = national_populist popularity = 0.10 }	
 		add_stability = -0.1
 		remove_ideas = MON_warlord
@@ -3415,11 +2916,9 @@ country_event = {
 	
 	option = {
 		name = mongolia.106.a
-
-		ai_chance = { factor = 50 }
-	
+		ai_chance = { factor = 50 }	
 		330 = {
-				damage_building = {
+			damage_building = {
 				type = infrastructure
 				damage = 1.0
 			}
@@ -3431,10 +2930,9 @@ country_event = {
 	}
 	
 	option = {
-		name = mongolia.106.b
-		
+		name = mongolia.106.b		
 		ai_chance = { factor = 50 }
-		add_manpower= -10000
+		add_manpower = -10000
 		hidden_effect = {
 			country_event = mongolia.108
 		}
@@ -3482,10 +2980,8 @@ country_event = { #GIII wins
 	is_triggered_only = yes
 	
 	option = {
-		name = mongolia.109.a
-		
-		ai_chance = { factor = 30 }
-		
+		name = mongolia.109.a		
+		ai_chance = { factor = 30 }		
 		add_popularity = {
 			ideology = paternal_autocrat
 			popularity = 0.15
@@ -3494,36 +2990,20 @@ country_event = { #GIII wins
 			ideology = national_populist
 			popularity = -0.30
 		}
-
 		set_politics = { ruling_party = paternal_autocrat elections_allowed = no }
-
-
 		create_country_leader = {
 			name = "Regency Council"
-			desc = ""
 			picture = "gfx/leaders/MON/Portrait_MON_Regency_council_1.png"
 			expire = "1.1.1"
 			ideology = pataut_oligarchy_subtype
-			traits = {
-
-			}
 		}
-		
-		hidden_effect = {
-			remove_ideas_with_trait = head_of_government
-		}
-
-		add_ideas = {
-			MON_Princess_Zhulne_hog_ade
-		}
-		
+		remove_ideas_with_trait = head_of_government
+		add_ideas = MON_Princess_Zhulne_hog_ade
 	}
 	
 	option = {
-		name = mongolia.109.b
-		
-		ai_chance = { factor = 30 }
-		
+		name = mongolia.109.b		
+		ai_chance = { factor = 30 }		
 		add_popularity = {
 			ideology = paternal_autocrat
 			popularity = 0.15
@@ -3532,27 +3012,18 @@ country_event = { #GIII wins
 			ideology = national_populist
 			popularity = -0.10
 		}
-
 		set_politics = { ruling_party = paternal_autocrat elections_allowed = no }
-
-
 		create_country_leader = {
 			name = "Regency Council"
-			desc = ""
 			picture = "gfx/leaders/MON/Portrait_MON_Regency_council_2.png"
 			expire = "1.1.1"
 			ideology = pataut_oligarchy_subtype
-			traits = {
-
-			}
 		}
 	}
 	
 	option = {
-		name = mongolia.109.c
-		
-		ai_chance = { factor = 30 }
-		
+		name = mongolia.109.c		
+		ai_chance = { factor = 30 }		
 		add_popularity = {
 			ideology = paternal_autocrat
 			popularity = 0.02
@@ -3610,7 +3081,7 @@ country_event = { #ja lama dies
 		tag = MON
 		date > 1942.6.25
 		has_country_flag = blue_deal
-		MON = { NOT = {has_country_flag = Ja_Lama_control}}
+		MON = { NOT = {has_country_leader = { name = "Ja Lama" ruling_only = yes }}}
 	}
 	
 	option = {
@@ -3635,7 +3106,6 @@ country_event = { #ja lama dies
 			}
 			create_country_leader = {
 			name = "Amursana"
-			desc = ""
 			picture = "gfx/leaders/MON/Portrait_MON_Ja_Lama_II.png"
 			expire = "1.1.1"
 			ideology = burkhanism_subtype
@@ -3659,7 +3129,7 @@ country_event = { #ja lama dies
 		NOT = {
 			has_country_flag = blue_deal
 		}
-		MON = { NOT = {has_country_flag = Ja_Lama_control}}
+		MON = { NOT = {has_country_leader = { name = "Ja Lama" ruling_only = yes }}}
 	}
 	
 	option = {
@@ -3683,7 +3153,6 @@ country_event = { #ja lama dies
 			}
 			create_country_leader = {
 			name = "Amursana"
-			desc = ""
 			picture = "gfx/leaders/MON/Portrait_MON_Ja_Lama_II.png"
 			expire = "1.1.1"
 			ideology = burkhanism_subtype
@@ -3705,7 +3174,7 @@ country_event = { #ja lama dies
 	trigger = {
 		tag = MON
 		date > 1942.6.25
-		has_country_flag = Ja_Lama_control1
+		has_country_leader = { name = "Ja Lama" ruling_only = yes }
 	}
 	
 	option = {
@@ -3723,7 +3192,6 @@ country_event = { #ja lama dies
 
 		create_country_leader = {
 			name = "Amursana"
-			desc = ""
 			picture = "gfx/leaders/MON/Portrait_MON_Ja_Lama_II.png"
 			expire = "1.1.1"
 			ideology = burkhanism_subtype
@@ -3747,7 +3215,6 @@ country_event = { #ja lama dies
 
 		create_country_leader = {
 			name = "Khorloogiin Choibalsan"
-			desc = ""
 			picture = "gfx/leaders/MON/Portrait_MON_Khorloogiin_Choibalsan.png"
 			expire = "1.1.1"
 			ideology = militarism_subtype
@@ -3954,7 +3421,7 @@ country_event = { #china wall goes boom
 		owns_state = 621
 		owns_state = 616
 		owns_state = 283
-		has_country_flag = Ja_Lama_control
+		has_country_leader = { name = "Ja Lama" ruling_only = yes }
 	}
 	
 	option = {
@@ -3978,7 +3445,7 @@ country_event = { #worker camp #1
 	fire_only_once = yes
 	trigger = {
 		tag = MON
-		has_country_flag = Ja_Lama_control
+		has_country_leader = { name = "Ja Lama" ruling_only = yes }
 		date >1938.02.12
 		owns_state = 613
 		owns_state = 1048
@@ -4010,7 +3477,7 @@ country_event = { #mongolia np does the xorn
 	fire_only_once = yes
 	trigger = {
 		tag = MON
-		has_country_flag = Ja_Lama_control
+		has_country_leader = { name = "Ja Lama" ruling_only = yes }
 		date >1938.02.12
 		owns_state = 613
 		owns_state = 800
@@ -4050,7 +3517,7 @@ country_event = { #in the future there will be no chinamen natpop #1
 	fire_only_once = yes
 	trigger = {
 		tag = MON
-		has_country_flag = Ja_Lama_control
+		has_country_leader = { name = "Ja Lama" ruling_only = yes }
 		date >1938.02.12
 		owns_state = 613
 		owns_state = 800
@@ -4084,7 +3551,7 @@ country_event = { #in the future there will be no chinamen natpop #2
 	fire_only_once = yes
 	trigger = {
 		tag = MON
-		has_country_flag = Ja_Lama_control1
+		has_country_leader = { name = "Ja Lama" ruling_only = yes }
 		date >1938.02.12
 		owns_state = 613
 		owns_state = 800
@@ -4380,7 +3847,7 @@ country_event = { #worker camp #1
 	fire_only_once = yes
 	trigger = {
 		tag = MON
-		has_country_flag = Ja_Lama_control1
+		has_country_leader = { name = "Ja Lama" ruling_only = yes }
 		date >1938.02.12
 		owns_state = 613
 		owns_state = 1048
@@ -4412,7 +3879,7 @@ country_event = { #mongolia np does the xorn
 	fire_only_once = yes
 	trigger = {
 		tag = MON
-		has_country_flag = Ja_Lama_control1
+		has_country_leader = { name = "Ja Lama" ruling_only = yes }
 		date >1938.02.12
 		owns_state = 613
 		owns_state = 800
@@ -4613,15 +4080,11 @@ country_event = { #empire time
 			expire = "1.1.1"
 			ideology = absolute_monarchy_subtype
 		}
-		create_corps_commander = {
-			name = "Zhang Jingyao"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Zhang_Jingyao.png"
-			traits = { trait_reckless substance_abuser }
-			skill = 2
-			attack_skill = 2
-			defense_skill = 2
-			planning_skill = 1
-			logistics_skill = 2
+		SQI = {
+			random_unit_leader = { 
+				limit = { has_id = 1198 }
+				set_nationality = ROOT
+			}
 		}
 		set_cosmetic_tag = MON_CHINA_EMPIRE
 		set_country_flag = has_united_china
@@ -4771,29 +4234,31 @@ country_event = { #ungern is dead press f
 
 country_event = { #empire time?????
 	id = mongolia.157
-	immediate = {log = "[GetDateText]: [Root.GetName]: event mongolia.157"}
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event mongolia.157"
+		hidden_effect = {
+			XXA = {
+				random_unit_leader = {
+					limit = { has_id = 115701 }
+					set_nationality = ROOT
+				}
+			}
+		}
+	}
 	title = mongolia.157.t
 	desc = mongolia.157.d
 	picture = GFX_MON_funeral
 	
 	fire_only_once = yes
 	is_triggered_only = yes
+	
 	option = {
 		ai_chance = { factor = 20 }
 		name = mongolia.157.a
-		create_field_marshal = { 
-			name = "Constantin von Ungern-Sternberg "
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Constantin_von_Ungern_Sternberg.png"
-			traits = {
-				MON_rvk_member_trait 
-				politically_connected
+		effect_tooltip = {
+			create_field_marshal = { 
+				name = "Constantin von Ungern-Sternberg"
 			}
-			skill = 2
-			attack_skill = 2
-			defense_skill = 1
-			planning_skill = 3
-			logistics_skill = 2
-			id = 115701
 		}
 	}
 	option = {
@@ -4806,19 +4271,9 @@ country_event = { #empire time?????
 			expire = "1.1.1"
 			ideology = absolute_monarchy_subtype
 		}
-		create_field_marshal = { 
-			name = "Genghis Khan III "
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Constantin_von_Ungern_Sternberg.png"
-			traits = {
-				MON_rvk_member_trait 
-				politically_connected
-			}
-			skill = 2
-			attack_skill = 2
-			defense_skill = 1
-			planning_skill = 3
-			logistics_skill = 2
-			id = 115702
+		random_unit_leader = {
+			limit = { has_id = 115701 }
+			set_leader_name = "Genghis Khan III "
 		}
 		random_unit_leader = {
 			limit = { has_id = 1157 }			
@@ -4838,24 +4293,9 @@ country_event = { #empire time?????
 			ruling_party = paternal_autocrat
 			elections_allowed = no
 		}
-		if = {
-			limit = {
-				has_country_flag = MON_ungern_sternberg_is_in_power
-			}
-			clr_country_flag = MON_ungern_sternberg_is_in_power
-		}
-		if = {
-			limit = {
-				has_country_flag = MON_nobles_in_power_flag
-			}
-			clr_country_flag = MON_nobles_in_power_flag
-		}
-		if = {
-			limit = {
-				has_country_flag = MON_democracy_in_power_flag
-			}
-			clr_country_flag = MON_democracy_in_power_flag
-		}
+		clr_country_flag = MON_ungern_sternberg_is_in_power
+		clr_country_flag = MON_nobles_in_power_flag
+		clr_country_flag = MON_democracy_in_power_flag
 		create_country_leader = {
 			name = "7th Changkya Khutukhtu"
 			desc = "POLITICS_7TH_CHANGKYA_KHUTUKHTU_DESC"
@@ -4879,6 +4319,10 @@ country_event = { #empire time?????
 				MON_Rinchen_Sengge_eco_ade
 				MON_Sambadondogiin_Tserendorj_sec_npo
 			}
+			random_unit_leader = {
+				limit = { has_id = 115701 }
+				set_nationality = XXA
+			}
 		}
 		load_focus_tree = mongolia_non_sternberg
 	}
@@ -4893,28 +4337,19 @@ country_event = { #empire time?????
 			ideology = absolute_monarchy_subtype
 			female = yes
 		}
-		create_field_marshal = { 
-			name = "Constantin von Ungern-Sternberg "
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Constantin_von_Ungern_Sternberg.png"
-			traits = {
-				MON_rvk_member_trait 
-				politically_connected
+		effect_tooltip = {
+			create_field_marshal = { 
+				name = "Constantin von Ungern-Sternberg"
 			}
-			skill = 2
-			attack_skill = 2
-			defense_skill = 1
-			planning_skill = 3
-			logistics_skill = 2
-			id = 115701
 		}
 		random_unit_leader = {
-				limit = { has_id = 1157 }			
-				remove_unit_leader = yes
-			}
+			limit = { has_id = 1157 }			
+			remove_unit_leader = yes
+		}
 		random_unit_leader = {
-				limit = { has_id = 115700 }			
-				remove_unit_leader = yes
-			}
+			limit = { has_id = 115700 }			
+			remove_unit_leader = yes
+		}
 		hidden_effect = {
 			country_event = {
 				id = mongolia.109
@@ -4927,7 +4362,6 @@ country_event = { #empire time?????
 		name = mongolia.157.f
 		create_country_leader = {
 			name = "Tögs-Ochiryn Namnansüren"
-			desc = ""
 			picture = "gfx/leaders/MON/Portrait_MON_Togs_Ochiryn_Namnansüren.png"
 			expire = "1.1.1"
 			ideology = absolute_monarchy_subtype
@@ -4967,10 +4401,18 @@ country_event = { #bogd khan dies
 	
 	option = {
 		name = mongolia.158.a
-		hidden_effect = {
-			remove_ideas = MON_jebtsundamba_khutuktu_idea
-			remove_ideas = MON_jebtsundamba_khutuktu_NS_idea
-			add_ideas = MON_9_jebtsundamba_khutuktu_idea
+		if = {
+			limit = { has_idea = MON_jebtsundamba_khutuktu_NS_idea }
+			swap_ideas = {
+				remove_idea = MON_jebtsundamba_khutuktu_NS_idea
+				add_idea = MON_9_jebtsundamba_khutuktu_idea
+			}
+		}
+		else = {
+			swap_ideas = {
+				remove_idea = MON_jebtsundamba_khutuktu_idea
+				add_idea = MON_9_jebtsundamba_khutuktu_idea
+			}
 		}
 		if = {
 			limit = {
@@ -5564,6 +5006,7 @@ country_event = { #gurkin
 	
 	option = {
 		name = mongolia.170.b
+		trigger = { original_tag = MON }
 		decrease_ruling_party_popularity_by_2 = yes
 		add_political_power = 75
 	}
@@ -5579,9 +5022,13 @@ country_event = { #roerich
 	fire_only_once = yes
 
 	trigger = {
-		has_country_leader = {
-			name = "Ja Lama"
-			ruling_only = yes
+		OR = {
+			has_country_leader = { name = "Ja Lama" ruling_only = yes }
+			AND = {
+				tag = ALT
+				has_socialist_government = no
+				NOT = { has_government = paternal_autocrat }
+			}
 		}
 		TIB = {
 			has_country_leader = {
@@ -5622,15 +5069,19 @@ country_event = {#
 			ruling_party = national_populist
 			elections_allowed = no
 		}
+		random_unit_leader = {
+			limit = { has_id = 1157 }
+			set_leader_name = "Genghis Khan II"
+			set_leader_portrait = GFX_Portrait_MON_Genghis_Khan_II
+			remove_unit_leader_trait = wounded
+		}
 		create_country_leader = {
 			name = "Genghis Khan II"
 			desc = "POLITICS_KHAN_DESC"
 			picture = "gfx/leaders/MON/Portrait_MON_Genghis_Khan_II.png"
 			expire = "1.1.1"
 			ideology = occultism_subtype
-			traits = {
-				MON_spirit_of_genghis
-			}
+			traits = { MON_the_mad_baron MON_spirit_of_genghis }
 		}
 		add_popularity = {
 			ideology = national_populist
@@ -5643,6 +5094,9 @@ country_event = {#
 		}	
 		set_cosmetic_tag = MON_empire
 		set_country_flag = Gengis_Khan_II_HoS
+		remove_ideas = MON_jebtsundamba_khutuktu_idea
+		remove_ideas_with_trait = head_of_government
+		add_ideas = MON_Gengis_Khan_II_hog_npo
 		hidden_effect = {
 			if = {
 				limit = { has_idea = MON_Roman_von_Ungern_Sternberg_cos_sco }
@@ -5651,13 +5105,12 @@ country_event = {#
 					add_idea = MON_Roman_von_Ungern_Sternberg_khan_cos_sco
 				}
 			}
-			every_unit_leader = {
-				limit = { has_id = 1157 }
-				set_leader_portrait = GFX_Portrait_MON_Genghis_Khan_II
-			}
-			every_unit_leader = {
-				limit = { has_id = 1157 }
-				set_leader_name = "Genghis Khan II"
+			create_country_leader = {
+				name = "Boris Rezukhin"
+				desc = "POLITICS_REZUKHIN_LEADER_DESC"
+				picture = "gfx/leaders/MON/Portrait_MON_Boris_Rezukhin.png"
+				expire = "1.1.1"
+				ideology = junta_subtype
 			}
 		}
 	}
@@ -5715,7 +5168,7 @@ country_event = {# Faction Invite
 			}
 		}
 		MON = {
-			country_event = { id = mon_khan.4 }
+			country_event = mon_khan.4
 		}
 		add_political_power = 10
 	}
@@ -5908,7 +5361,7 @@ country_event = {
 			factor = 50
 		}
 		MON = {
-			country_event = { id = mon_khan.3 }
+			country_event = mon_khan.3
 		}
 		set_global_flag = MON_qing_gang
 		add_political_power = 10
@@ -5920,7 +5373,7 @@ country_event = {
 			factor = 50
 		}
 		MON = {
-			country_event = { id = mon_khan.7 }
+			country_event = mon_khan.7
 		}
 	}
 	# 'Ate Mongols, simple as
@@ -5930,7 +5383,7 @@ country_event = {
 			factor = 0
 		}
 		MON = {
-			country_event = { id = mon_khan.4 }
+			country_event = mon_khan.4
 			unlock_national_focus = MON_ungern_alone
 		set_country_flag = MON_solo_brotherhood
 		}
@@ -5953,7 +5406,7 @@ country_event = {
 			factor = 100
 		}
 		QIE = {
-			country_event = { id = mon_khan.8 }
+			country_event = mon_khan.8
 		}
 		Faction_mergable_invite = yes
 		set_global_flag = MON_qing_manchuria_agreement
@@ -5966,7 +5419,7 @@ country_event = {
 			factor = 0
 		}
 		MON = {
-			country_event = { id = mon_khan.4 }
+			country_event = mon_khan.4
 		}
 		clr_global_flag = MON_qing_gang
 		set_global_flag = MON_qing_rejection
@@ -7057,6 +6510,7 @@ country_event = {
 	option = {
 		name = mon_khan.23.a
 		add_political_power = 50
+		country_event = { id = mon_khan.1 days = 5 }
 	}
 }
 
@@ -8345,6 +7799,10 @@ country_event = { # Ungern Killed, what now?
 			id = mon.42
 			days = 1
 		}
+		hidden_effect = {
+			country_event = { id = alt.3 days = 5 }
+			country_event = { id = kha.2 days = 8 }
+		}
 	}
 
 	option = { # Authdems
@@ -8433,6 +7891,10 @@ country_event = { # Ungern Killed, what now?
 			id = mon.44
 			days = 1
 		}
+		hidden_effect = {
+			country_event = { id = alt.3 days = 5 }
+			country_event = { id = kha.2 days = 8 }
+		}
 	}
 	
 	option = { # Socdems
@@ -8480,6 +7942,10 @@ country_event = { # Ungern Killed, what now?
 		country_event = {
 			id = mon.45
 			days = 1
+		}
+		hidden_effect = {
+			country_event = { id = alt.3 days = 5 }
+			country_event = { id = kha.2 days = 8 }
 		}
 	}
 	
@@ -8570,6 +8036,10 @@ country_event = { # Ungern Killed, what now?
 			days = 1
 		}
 		set_country_flag = MON_not_firends_with_tang_gang
+		hidden_effect = {
+			country_event = { id = alt.3 days = 5 }
+			country_event = { id = kha.2 days = 8 }
+		}
 	}
 	
 	option = { # foreigners
@@ -8652,9 +8122,11 @@ country_event = { # Ungern Charges
 	title = mon.3.t
 	desc = mon.3.d
 	picture = GFX_report_event_CHI_warlord_battle
+	
 	fire_only_once = yes
 	is_triggered_only = yes
 	trigger = { NOT = { is_supposed_to_fire_for_tag = yes } }
+	
 	option = {
 		name = mon.3.b
 		ai_chance = {
@@ -8662,49 +8134,20 @@ country_event = { # Ungern Charges
 			modifier = {
 				factor = 0
 				OR = {
-					has_game_rule = {
-						rule = MON_path
-						option = MON_UNGERN_ALIVE
-					}
-					has_game_rule = {
-						rule = MON_path
-						option = MON_UNGERN_ISOLATION
-					}
-					has_game_rule = {
-						rule = MON_path
-						option = MON_UNGERN_PAN_MONGOL
-					}
-					has_game_rule = {
-						rule = MON_path
-						option = MON_UNGERN_QING
-					}
-					has_game_rule = {
-						rule = MON_path
-						option = MON_UNGERN_JAPAN
-					}
-					has_game_rule = {
-						rule = MON_path
-						option = MON_UNGERN_KHAN
-					}
-					has_game_rule = {
-						rule = MON_path
-						option = MON_UNGERN_KHAN_WARPATH
-					}
-					has_game_rule = {
-						rule = MON_path
-						option = MON_UNGERN_KHAN_SOLO
-					}
-					has_game_rule = {
-						rule = MON_path
-						option = MON_UNGERN_KHAN_QING
-					}
-					has_game_rule = {
-						rule = MON_path
-						option = MON_UNGERN_KHAN_JAPAN
-					}
+					has_game_rule = { rule = MON_path option = MON_UNGERN_ALIVE }
+					has_game_rule = { rule = MON_path option = MON_UNGERN_ISOLATION }
+					has_game_rule = { rule = MON_path option = MON_UNGERN_PAN_MONGOL }
+					has_game_rule = { rule = MON_path option = MON_UNGERN_QING }
+					has_game_rule = { rule = MON_path option = MON_UNGERN_JAPAN }
+					has_game_rule = { rule = MON_path option = MON_UNGERN_KHAN }
+					has_game_rule = { rule = MON_path option = MON_UNGERN_KHAN_WARPATH }
+					has_game_rule = { rule = MON_path option = MON_UNGERN_KHAN_SOLO }
+					has_game_rule = { rule = MON_path option = MON_UNGERN_KHAN_QING }
+					has_game_rule = { rule = MON_path option = MON_UNGERN_KHAN_JAPAN }
 				}
 			}
 		}
+		effect_tooltip = { kill_country_leader = yes }		
 		create_country_leader = {
 			name = "Tribal Council"
 			desc = "POLITICS_TRIBAL_COUNCIL_DESC"
@@ -8714,34 +8157,43 @@ country_event = { # Ungern Charges
 		}
 		hidden_effect = {
 			set_country_flag = Ungern_dead
-			remove_ideas_with_trait = head_of_government
-			remove_ideas_with_trait = foreign_minister
-			remove_ideas_with_trait = economy_minister
-			remove_ideas_with_trait = security_minister
-			remove_ideas = MON_rus_help
-			remove_ideas = MON_jap_help
-			remove_ideas = MON_rus_help_less
+			random_unit_leader = {
+				limit = { has_id = 1157 }			
+				remove_unit_leader = yes
+			}
+			load_focus_tree = { tree = mongolia_non_sternberg keep_completed = no }
+			remove_all_ministers = yes
 			set_party_name = {
 				ideology = paternal_autocrat
 				long_name = MON_REL_party_long
 				name = MON_REL_party
 			}
 		}
-		MON = { load_focus_tree = { tree = mongolia_non_sternberg keep_completed = no } }
 		country_event = {
 			id = mon.2
 			days = 3
 		}
-		remove_ideas = MON_claims_of_greatness
+		if = {
+			limit = { has_idea = MON_rus_help }
+			remove_ideas = MON_rus_help
+		}
+		if = {
+			limit = { has_idea = MON_rus_help_less }
+			remove_ideas = MON_rus_help_less
+		}
+		if = {
+			limit = { has_idea = MON_jap_help }
+			remove_ideas = MON_jap_help
+		}
+		if = {
+			limit = { has_idea = MON_claims_of_greatness }
+			remove_ideas = MON_claims_of_greatness
+		}
 		swap_ideas = {
-			add_idea = MON_jebtsundamba_khutuktu_NS_idea
 			remove_idea = MON_jebtsundamba_khutuktu_idea
+			add_idea = MON_jebtsundamba_khutuktu_NS_idea
 		}
 		add_ideas = MON_nomadic_society
-		random_unit_leader = {
-			limit = { has_id = 1157 }			
-			remove_unit_leader = yes
-		}
 	}
 	
 	option = {
@@ -9017,10 +8469,15 @@ country_event = { # Ungern goes Larp Mode
 	option = { # no
 		name = mon.300.a
 		set_country_flag = MON_khan_larp
+		random_unit_leader = {
+			limit = { has_id = 1157 }
+			set_leader_portrait = GFX_Portrait_MON_Sternberg_but_insane
+			add_unit_leader_trait = wounded
+		}
 		hidden_effect = {
 			set_country_leader_portrait = {
-			portrait = "gfx/leaders/MON/Portrait_MON_Sternberg_but_insane.png"
-		}
+				portrait = "gfx/leaders/MON/Portrait_MON_Sternberg_but_insane.png"
+			}
 		}
 	}
 }
@@ -9063,24 +8520,9 @@ country_event = { # natpops take power
 			ruling_party = paternal_autocrat
 			elections_allowed = no
 		}
-		if = {
-			limit = {
-				has_country_flag = MON_ungern_sternberg_is_in_power
-			}
-			clr_country_flag = MON_ungern_sternberg_is_in_power
-		}
-		if = {
-			limit = {
-				has_country_flag = MON_nobles_in_power_flag
-			}
-			clr_country_flag = MON_nobles_in_power_flag
-		}
-		if = {
-			limit = {
-				has_country_flag = MON_democracy_in_power_flag
-			}
-			clr_country_flag = MON_democracy_in_power_flag
-		}
+		clr_country_flag = MON_ungern_sternberg_is_in_power
+		clr_country_flag = MON_nobles_in_power_flag
+		clr_country_flag = MON_democracy_in_power_flag
 		create_country_leader = {
 			name = "7th Changkya Khutukhtu"
 			desc = "POLITICS_7TH_CHANGKYA_KHUTUKHTU_DESC"
@@ -9115,24 +8557,9 @@ country_event = { # natpops take power
 			ruling_party = paternal_autocrat
 			elections_allowed = no
 		}
-		if = {
-			limit = {
-				has_country_flag = MON_ungern_sternberg_is_in_power
-			}
-			clr_country_flag = MON_ungern_sternberg_is_in_power
-		}
-		if = {
-			limit = {
-				has_country_flag = MON_nobles_in_power_flag
-			}
-			clr_country_flag = MON_nobles_in_power_flag
-		}
-		if = {
-			limit = {
-				has_country_flag = MON_democracy_in_power_flag
-			}
-			clr_country_flag = MON_democracy_in_power_flag
-		}
+		clr_country_flag = MON_ungern_sternberg_is_in_power
+		clr_country_flag = MON_nobles_in_power_flag
+		clr_country_flag = MON_democracy_in_power_flag
 		create_country_leader = {
 			name = "Bogd Khan"
 			desc = "POLITICS_BOGD_KHAN_DESC"
@@ -9162,14 +8589,22 @@ country_event = { # natpops take power
 
 country_event = { # authdems take power
 	id = mon.44
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event mon.44"
+		hidden_effect = {
+			remove_all_ministers = yes
+			XXA = {
+				random_unit_leader = {
+					limit = { has_id = 34240 }
+					set_nationality = ROOT
+				}
+			}
+		}
+	}
 	title = mon.44.t
 	desc = mon.44.d
 	picture = GFX_report_event_DEH_royal
 	is_triggered_only = yes
-	immediate = {
-		log = "[GetDateText]: [Root.GetName]: event mon.44"
-		remove_all_ministers = yes
-	}
 	option = { #
 		name = mon.44.a
 		set_country_flag = MON_nobles_in_power_flag
@@ -9177,36 +8612,13 @@ country_event = { # authdems take power
 			ruling_party = authoritarian_democrat
 			elections_allowed = no
 		}
-		if = {
-			limit = {
-				has_country_flag = MON_buddhists_in_power_flag
+		clr_country_flag = MON_buddhists_in_power_flag
+		clr_country_flag = MON_ungern_sternberg_is_in_power
+		clr_country_flag = MON_democracy_in_power_flag
+		effect_tooltip = {
+			create_corps_commander = { #Auto-Generated
+				name = "Demchugdongrub "
 			}
-			clr_country_flag = MON_buddhists_in_power_flag
-		}
-		if = {
-			limit = {
-				has_country_flag = MON_ungern_sternberg_is_in_power
-			}
-			clr_country_flag = MON_ungern_sternberg_is_in_power
-		}
-		if = {
-			limit = {
-				has_country_flag = MON_democracy_in_power_flag
-			}
-			clr_country_flag = MON_democracy_in_power_flag
-		}
-		create_corps_commander = { #Auto-Generated
-			name = "Demchugdongrub "
-			desc = "POLITICS_DEMCHUGDONGRUB_ARMY_DESC"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Demchugdongrub_Army.png"
-			traits = {
-				politically_connected
-			}
-			skill = 2
-			attack_skill = 3
-			defense_skill = 1
-			planning_skill = 1
-			logistics_skill = 2
 		}
 		hidden_effect = {
 			add_ideas = {
@@ -9268,22 +8680,10 @@ country_event = { # socdems take power
 			ruling_party = social_democrat
 			elections_allowed = no
 		}
-		if = {
-			limit = { has_country_flag = MON_gada_meiren_victory_flag }
-			clr_country_flag = MON_gada_meiren_victory_flag
-		}
-		if = {
-			limit = { has_country_flag = MON_buddhists_in_power_flag }
-			clr_country_flag = MON_buddhists_in_power_flag
-		}
-		if = {
-			limit = { has_country_flag = MON_ungern_sternberg_is_in_power }
-			clr_country_flag = MON_ungern_sternberg_is_in_power
-		}
-		if = {
-			limit = { has_country_flag = MON_nobles_in_power_flag }
-			clr_country_flag = MON_nobles_in_power_flag
-		}
+		clr_country_flag = MON_gada_meiren_victory_flag
+		clr_country_flag = MON_buddhists_in_power_flag
+		clr_country_flag = MON_ungern_sternberg_is_in_power
+		clr_country_flag = MON_nobles_in_power_flag
 		hidden_effect = {
 			add_ideas = {
 				MON_Sollin_Danzan_hog_sde
@@ -9341,38 +8741,22 @@ country_event = { # socdems take power
 			ideology = radical_socialist
 			popularity = 0.20
 		}
-		if = {
-			limit = { has_country_flag = MON_gada_meiren_victory_flag }
-			clr_country_flag = MON_gada_meiren_victory_flag
-		}
-		if = {
-			limit = { has_country_flag = MON_democracy_in_power_flag }
-			clr_country_flag = MON_democracy_in_power_flag
-		}
-		if = {
-			limit = { has_country_flag = MON_buddhists_in_power_flag }
-			clr_country_flag = MON_buddhists_in_power_flag
-		}
-		if = {
-			limit = { has_country_flag = MON_ungern_sternberg_is_in_power }
-			clr_country_flag = MON_ungern_sternberg_is_in_power
-		}
-		if = {
-			limit = { has_country_flag = MON_nobles_in_power_flag }
-			clr_country_flag = MON_nobles_in_power_flag
-		}
+		clr_country_flag = MON_gada_meiren_victory_flag
+		clr_country_flag = MON_democracy_in_power_flag
+		clr_country_flag = MON_buddhists_in_power_flag
+		clr_country_flag = MON_ungern_sternberg_is_in_power
+		clr_country_flag = MON_nobles_in_power_flag
 		hidden_effect = {
 			country_event = {
 				id =  tot_mon_flavor.34
 				days = 35
 			}
 			create_country_leader = {
-			name = "Soliin Danzan"
-			picture = "gfx/leaders/MON/Portrait_MON_Soliin_Danzan.png"
-			expire = "1.1.1"
-			ideology = moderate_socialist_subtype
-			traits = {}
-		}
+				name = "Soliin Danzan"
+				picture = "gfx/leaders/MON/Portrait_MON_Soliin_Danzan.png"
+				expire = "1.1.1"
+				ideology = moderate_socialist_subtype
+			}
 			add_ideas = {
 				MON_Jambyn_Lkhuembe_hog_rso
 				MON_Sukhbaataryn_Yanjmaa_for_rso
@@ -9380,7 +8764,6 @@ country_event = { # socdems take power
 				MON_Bat_Ochiryn_Eldev_Ochir_sec_rso
 			}
 		}
-		clr_country_flag = Ungern_HoS
 		set_country_flag = Ungern_Dead
 		set_country_flag = MON_not_firends_with_tang_gang
 	}
@@ -9444,22 +8827,10 @@ country_event = { # socdems take power
 			ruling_party = radical_socialist
 			elections_allowed = no
 		}
-		if = {
-			limit = { has_country_flag = MON_democracy_in_power_flag }
-			clr_country_flag = MON_democracy_in_power_flag
-		}
-		if = {
-			limit = { has_country_flag = MON_buddhists_in_power_flag }
-			clr_country_flag = MON_buddhists_in_power_flag
-		}
-		if = {
-			limit = { has_country_flag = MON_ungern_sternberg_is_in_power }
-			clr_country_flag = MON_ungern_sternberg_is_in_power
-		}
-		if = {
-			limit = { has_country_flag = MON_nobles_in_power_flag }
-			clr_country_flag = MON_nobles_in_power_flag
-		}
+		clr_country_flag = MON_democracy_in_power_flag
+		clr_country_flag = MON_buddhists_in_power_flag
+		clr_country_flag = MON_ungern_sternberg_is_in_power
+		clr_country_flag = MON_nobles_in_power_flag
 		hidden_effect = {
 			add_ideas = {
 				MON_Jambyn_Lkhuembe_hog_rso
@@ -9469,50 +8840,36 @@ country_event = { # socdems take power
 			}
 			complete_national_focus = MON_democratic_mongolia
 			set_country_flag = MON_nation_is_stabilised_flag
+			if = {
+				limit = { country_exists = ALT }
+				country_event = { id = alt.4 days = 7 }
+			}
 		}
-		clr_country_flag = Ungern_HoS
 		set_country_flag = Ungern_Dead
 		set_country_flag = radsoc_control
 		set_country_flag = MON_not_firends_with_tang_gang
-		if = {
-			limit = { 
-				TRM = {
-				exists = yes	 
-				NOT = { has_government = social_democrat }
-				has_socialist_government = no 	
-				} 
-			}
-			TRM = { country_event = mon.80 }
-		}
-		else_if = {
-			limit = { 
-				RUS = {
-				exists = yes 
-				NOT = { has_government = social_democrat }
-				has_socialist_government = no 	
-				} 
-			}
-			RUS = { country_event = mon.80 }
-		}
-		else = {
-			every_unit_leader = {
-				limit = { has_trait = MON_rvk_member_trait }
-				retire = yes
-			}
-		}
+		MON_transfer_rvk_members = yes
 	}
 }
 
 country_event = { # natpops take power
 	id = mon.46
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event mon.46"
+		hidden_effect = {
+			remove_all_ministers = yes
+			XXA = {
+				every_unit_leader = {
+					limit = { has_unit_leader_flag = MON_ja_lama_loyalist }
+					set_nationality = ROOT
+				}
+			}
+		}
+	}
 	title = mon.46.t
 	desc = mon.46.d
 	picture = GFX_report_event_JAP_revolt
 	is_triggered_only = yes
-	immediate = {
-		log = "[GetDateText]: [Root.GetName]: event mon.46"
-		remove_all_ministers = yes
-	}
 	option = { #
 		name = mon.46.a
 		set_country_flag = MON_ja_lama_in_power_flag
@@ -9528,123 +8885,23 @@ country_event = { # natpops take power
 				MON_Montoiin_Ninjin_sec_npo
 			}
 		}
-		create_country_leader = {
-			name = "Ja Lama"
-			desc = "POLITICS_JA_LAMA_DESC"
-			picture = "gfx/leaders/MON/Portrait_MON_Ja_Lama.png"
-			expire = "1.1.1"
-			ideology = burkhanism_subtype
-			traits = {}
-		}
-		create_field_marshal = {
-			name = "Ja Lama "
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Ja_Lama.png"
-			traits = { offensive_doctrine harsh_leader old_guard }
-			skill = 3
-			attack_skill = 3
-			defense_skill = 2
-			planning_skill = 2
-			logistics_skill = 2
-			id = 3423
-		}
-		create_corps_commander = {
-			name = "Khorloogiin Choibalsan"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Khorloogiin_Choibalsan.png"
-			traits = { trickster }
-			skill = 2
-			attack_skill = 2
-			defense_skill = 3
-			planning_skill = 3
-			logistics_skill = 2	
-		}
-		create_corps_commander = {
-			name = "Yumjaagiin Tsedenbal"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Yumjaagiin_Tsedenbal.png"
-			traits = { }
-			skill = 1
-			attack_skill = 2
-			defense_skill = 1
-			planning_skill = 2
-			logistics_skill = 1
-		}					
-		create_corps_commander = {
-			name = "Jamiyangiin Lkhagvasuren"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Jamiyangiin_Lkhagvasuren.png"
-			traits = { fortress_buster }
-			skill = 1
-			attack_skill = 2
-			defense_skill = 1
-			planning_skill = 1
-			logistics_skill = 3		
+		if = {
+			limit = { 
+				NOT = { has_country_leader = { name = "Ja Lama" ruling_only = yes } }
+			}
+			create_country_leader = {
+				name = "Ja Lama"
+				desc = "POLITICS_JA_LAMA_DESC"
+				picture = "gfx/leaders/MON/Portrait_MON_Ja_Lama.png"
+				expire = "1.1.1"
+				ideology = natpop_warlordism_subtype
+			}
 		}		
-		create_corps_commander = {
-			name = "Batyn Dorzh"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Batyn_Dorzh.png"
-			traits = { trickster }
-			skill = 2
-			attack_skill = 2
-			defense_skill = 3
-			planning_skill = 3
-			logistics_skill = 2	
-		}
-		create_corps_commander = {
-			name = "Damdinkhuu Donrov"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Damdinkhuu_Donrov.png"
-			traits = { }
-			skill = 2
-			attack_skill = 2
-			defense_skill = 1
-			planning_skill = 2
-			logistics_skill = 1
-		}				
-	create_corps_commander = {
-			name = "Ravdan Sandiv"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Ravdan_Sandiv.png"
-			traits = { fortress_buster }
-			skill = 2
-			attack_skill = 2
-			defense_skill = 1
-			planning_skill = 1
-			logistics_skill = 3	
-		}
-		create_corps_commander = {
-			name = "Suuriin Baldan"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Suuriin_Baldan.png"
-			traits = { fortress_buster }
-			skill = 2
-			attack_skill = 2
-			defense_skill = 1
-			planning_skill = 1
-			logistics_skill = 3	
-		}
-		clr_country_flag = Ungern_HoS
 		set_country_flag = Ungern_Dead
-		set_country_flag = Ja_Lama_control
-		set_country_flag = Ja_Lama_control1
-		if = {
-			limit = {
-				has_country_flag = MON_gada_meiren_victory_flag
-			}
-			clr_country_flag = MON_gada_meiren_victory_flag
-		}
-		if = {
-			limit = {
-				has_country_flag = MON_buddhists_in_power_flag
-			}
-			clr_country_flag = MON_buddhists_in_power_flag
-		}
-		if = {
-			limit = {
-				has_country_flag = MON_ungern_sternberg_is_in_power
-			}
-			clr_country_flag = MON_ungern_sternberg_is_in_power
-		}
-		if = {
-			limit = {
-				has_country_flag = MON_nobles_in_power_flag
-			}
-			clr_country_flag = MON_nobles_in_power_flag
-		}
+		clr_country_flag = MON_gada_meiren_victory_flag
+		clr_country_flag = MON_buddhists_in_power_flag
+		clr_country_flag = MON_ungern_sternberg_is_in_power
+		clr_country_flag = MON_nobles_in_power_flag
 	}
 }
 
@@ -9700,35 +8957,11 @@ country_event = { # foreigners take power
 			add_claim_by = MON
 			set_state_flag = MON_china_claim_state_flag
 		}
-		create_field_marshal = {
-			name = "Xu Shuzheng "
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Xu_Shuzheng_General.png"
-			traits = { politically_connected career_officer }
-			skill = 2
-			attack_skill = 2
-			defense_skill = 3
-			planning_skill = 3
-			logistics_skill = 2	
-		}
-		create_corps_commander = {
-			name = "Wang Yitang"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Wang_Yitang.png"
-			traits = { politically_connected career_officer }
-			skill = 2
-			attack_skill = 2
-			defense_skill = 3
-			planning_skill = 3
-			logistics_skill = 2	
-		}
-		create_corps_commander = {
-			name = "Wu Guangxin"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Wu_Guangxin.png"
-			traits = { politically_connected harsh_leader }
-			skill = 2
-			attack_skill = 3
-			defense_skill = 2
-			planning_skill = 3
-			logistics_skill = 2	
+		XXA = {
+			every_unit_leader = {
+				limit = { has_unit_leader_flag = MON_anhui_clique }
+				set_nationality = ROOT
+			}
 		}
 		remove_all_ministers = yes
 		hidden_effect = {
@@ -9738,6 +8971,8 @@ country_event = { # foreigners take power
 				MON_Gombozhavyn_Luvsantseveen_eco_pau
 				MON_Bashluugin_Zhamsranzhav_sec_pau
 			}
+			country_event = { id = alt.3 days = 5 }
+			country_event = { id = kha.2 days = 8 }
 		}
 	}
 	
@@ -9942,18 +9177,11 @@ country_event = { # MON_status_of_prince_de event
 				MON_the_popular_prince_trait
 			}
 		}
-		create_corps_commander = { #Auto-Generated
-			name = "Demchugdongrub "
-			desc = "POLITICS_DEMCHUGDONGRUB_ARMY_DESC"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Demchugdongrub_Army.png"
-			traits = {
-				politically_connected
+		XXA = {
+			random_unit_leader = { 
+				limit = { has_id = 34240 }
+				set_nationality = ROOT
 			}
-			skill = 2
-			attack_skill = 3
-			defense_skill = 1
-			planning_skill = 1
-			logistics_skill = 2
 		}
 	}
 
@@ -10039,7 +9267,7 @@ country_event = { # EVENT FOR RUSSIA MONGOLIA ASKS FOR ARMS
 		}
 		country_event = { id = mon.56 days = 365 }
 		MON = {
-			country_event = { id = mon.57 }
+			country_event = mon.57
 		}
 		add_opinion_modifier = { target = MON modifier = KR_approves_of_govt }
 		ai_chance = {
@@ -10050,7 +9278,7 @@ country_event = { # EVENT FOR RUSSIA MONGOLIA ASKS FOR ARMS
 	option = { # no
 		name = mon.56.b
 		MON = {
-			country_event = { id = mon.58 }
+			country_event = mon.58
 		}
 		ai_chance = {
 			factor = 20
@@ -10284,7 +9512,7 @@ country_event = { # EVENT FOR RUSSIA MONGOLIA WANTS GUARENTEEZ
 		give_military_access = MON
 		MON = {
 			give_military_access = RUS
-			country_event = { id = mon.64 }
+			country_event = mon.64
 		}
 		ai_chance = {
 			factor = 100
@@ -10294,7 +9522,7 @@ country_event = { # EVENT FOR RUSSIA MONGOLIA WANTS GUARENTEEZ
 	option = { # no
 		name = mon.63.b
 		MON = {
-			country_event = { id = mon.65 }
+			country_event = mon.65
 		}
 		ai_chance = {
 			factor = 0
@@ -10676,22 +9904,40 @@ country_event = { # event for Transamaur
 		hidden_effect = {
 			if = {
 				limit = { 
-					tag = TRM 
-					RUS = {
-					exists = yes	 
-					NOT = { has_government = social_democrat }
-					has_socialist_government = no 	
+					tag = RUS
+					ALT = { 
+						exists = yes
+						has_government = paternal_autocrat 
+						is_subject = no
 					}
+				}
+				ALT = { country_event = mon.80 }
+			}
+			else_if = {
+				limit = { 
+					tag = TRM
+					RUS = { 
+						exists = yes
+						has_socialist_government = no
+						NOT = { has_government = social_democrat }
+						is_subject = no
+					} 
 				}
 				RUS = { country_event = mon.80 }
 			}
 			else = {
-				MON = {
-				every_unit_leader = {
-					limit = { has_trait = MON_rvk_member_trait }
-					retire = yes
+				effect_tooltip = {
+					every_unit_leader = {
+						limit = { has_trait = MON_rvk_member_trait }
+						retire = yes
+					}
 				}
-			    }
+				hidden_effect = {
+					every_unit_leader = {
+						limit = { has_trait = MON_rvk_member_trait }
+						set_nationality = XXA
+					}
+				}
 			}
 		}
 	}
@@ -10800,6 +10046,9 @@ country_event = { # sure enough, economic assistance from russia has been "tempo
 		}
 		add_popularity = {
 			ideology = social_democrat popularity = 0.05
+		}
+		hidden_effect = {
+			country_event = { id = mongolia.35 days = 5 }
 		}
 	}
 }
@@ -11412,21 +10661,20 @@ country_event = { # Sternberg purge
 	option = { # lets purge some fools
 		name = mon.171.a
 		hidden_effect = {
-			country_event = { id = mon.172 days = 3 }
-			set_country_flag = {
-				flag = MON_sternberg_purged_someone
-				value = 0
+			random_unit_leader = {
+				limit = { has_id = 1154 }
+				unit_leader_event = { id = mon.172 days = 3 }
 			}
+			set_variable = { MON_sternberg_purged_someone = 0 }
 		}
 	}
 }
 
-country_event = { # Manlaibaatar Damdinsüren, time to kill him?
+unit_leader_event = { # Manlaibaatar Damdinsüren, time to kill him?
 	id = mon.172
 	immediate = { log = "[GetDateText]: [Root.GetName]: event mon.172" }
 	title = mon.172.t
 	desc = mon.172.d
-	picture = GFX_report_event_FIN_purges
 	is_triggered_only = yes
 
 	fire_only_once = yes
@@ -11435,24 +10683,31 @@ country_event = { # Manlaibaatar Damdinsüren, time to kill him?
 		name = mon.172.a
 		add_stability = -0.02
 		add_political_power = -10
-		hidden_effect = { country_event = { id = mon.173 days = 5 } }
+		hidden_effect = { 
+			random_unit_leader = {
+				limit = { has_id = 1153 }
+				unit_leader_event = { id = mon.173 days = 5 }
+			}
+		}
 	}
 
 	option = { # kill
 		name = mon.172.b
 		random_unit_leader = {
-			limit = { has_id = 1154 }			
+			limit = { has_id = 1154 }
 			remove_unit_leader = yes
 		}
-		modify_country_flag = {
-			flag = MON_sternberg_purged_someone
-			value = 1
+		add_to_variable = { MON_sternberg_purged_someone = 1 }
+		hidden_effect = { 
+			random_unit_leader = {
+				limit = { has_id = 1153 }
+				unit_leader_event = { id = mon.173 days = 5 }
+			}
 		}
-		hidden_effect = { country_event = { id = mon.173 days = 5 } }
 	}
 }
 
-country_event = { # Kazagrandi, time to kill him?
+unit_leader_event = { # Kazagrandi, time to kill him?
 	id = mon.173
 	immediate = { log = "[GetDateText]: [Root.GetName]: event mon.173" }
 	title = mon.173.t
@@ -11466,24 +10721,31 @@ country_event = { # Kazagrandi, time to kill him?
 		name = mon.173.a
 		add_stability = -0.02
 		add_political_power = -10
-		hidden_effect = { country_event = { id = mon.174 days = 5 } }
+		hidden_effect = { 
+			random_unit_leader = {
+				limit = { has_id = 1156 }
+				unit_leader_event = { id = mon.174 days = 5 }
+			}
+		}
 	}
 
 	option = { # kill
 		name = mon.173.b
 		random_unit_leader = {
-			limit = { has_id = 1153 }			
+			limit = { has_id = 1153 }
 			remove_unit_leader = yes
 		}
-		modify_country_flag = {
-			flag = MON_sternberg_purged_someone
-			value = 1
+		add_to_variable = { MON_sternberg_purged_someone = 1 }
+		hidden_effect = { 
+			random_unit_leader = {
+				limit = { has_id = 1156 }
+				unit_leader_event = { id = mon.174 days = 5 }
+			}
 		}
-		hidden_effect = { country_event = { id = mon.174 days = 5 } }
 	}
 }
 
-country_event = { # Togtokh gun, time to kill him?
+unit_leader_event = { # Togtokh gun, time to kill him?
 	id = mon.174
 	immediate = { log = "[GetDateText]: [Root.GetName]: event mon.174" }
 	title = mon.174.t
@@ -11505,10 +10767,7 @@ country_event = { # Togtokh gun, time to kill him?
 			limit = { has_id = 1156 }			
 			remove_unit_leader = yes
 		}
-		modify_country_flag = {
-			flag = MON_sternberg_purged_someone
-			value = 1
-		}
+		add_to_variable = { MON_sternberg_purged_someone = 1 }
 		hidden_effect = { country_event = { id = mon.175 days = 5 } }
 	}
 }
@@ -11527,21 +10786,28 @@ country_event = { # Purge the officers?
 		name = mon.175.a
 		add_stability = -0.02
 		add_political_power = -10
-		hidden_effect = { country_event = { id = mon.176 days = 5 } }
+		hidden_effect = { 
+			random_unit_leader = {
+				limit = { has_id = 1155 }
+				unit_leader_event = { id = mon.176 days = 5 }
+			}
+		}
 	}
 
 	option = { # kill
 		name = mon.175.b
 		add_war_support = -0.1
-		modify_country_flag = {
-			flag = MON_sternberg_purged_someone
-			value = 1
+		add_to_variable = { MON_sternberg_purged_someone = 1 }
+		hidden_effect = { 
+			random_unit_leader = {
+				limit = { has_id = 1155 }
+				unit_leader_event = { id = mon.176 days = 5 }
+			}
 		}
-		hidden_effect = { country_event = { id = mon.176 days = 5 } }
 	}
 }
 
-country_event = { # Altanochir, time to kill him?
+unit_leader_event = { # Altanochir, time to kill him?
 	id = mon.176
 	immediate = { log = "[GetDateText]: [Root.GetName]: event mon.176" }
 	title = mon.176.t
@@ -11564,10 +10830,7 @@ country_event = { # Altanochir, time to kill him?
 			limit = { has_id = 1155 }			
 			remove_unit_leader = yes
 		}
-		modify_country_flag = {
-			flag = MON_sternberg_purged_someone
-			value = 1
-		}
+		add_to_variable = { MON_sternberg_purged_someone = 1 }
 		hidden_effect = { country_event = { id = mon.177 days = 5 } }
 	}
 }
@@ -11580,34 +10843,22 @@ country_event = { # Purge done
 	desc = {
 		text = mon.177.d_small
 		trigger = {
-			has_country_flag = {
-				flag = MON_sternberg_purged_someone
-				value < 2
-			}
+			check_variable = { MON_sternberg_purged_someone < 2 }
 		}
 	}
 	desc = {
 		text = mon.177.d_medium
 		trigger = {
 			OR = {
-				has_country_flag = {
-					flag = MON_sternberg_purged_someone
-					value = 2
-				}
-				has_country_flag = {
-					flag = MON_sternberg_purged_someone
-					value = 3
-				}
+				check_variable = { MON_sternberg_purged_someone = 2 }
+				check_variable = { MON_sternberg_purged_someone = 3 }
 			}
 		}
 	}
 	desc = {
 		text = mon.177.d_big
 		trigger = {
-			has_country_flag = {
-				flag = MON_sternberg_purged_someone
-				value > 3
-			}
+			check_variable = { MON_sternberg_purged_someone > 3 }
 		}
 	}
 
@@ -11619,45 +10870,30 @@ country_event = { # Purge done
 		name = mon.177.a
 		if = {
 			limit = {
-				has_country_flag = {
-					flag = MON_sternberg_purged_someone
-					value < 2
-				}
+				check_variable = { MON_sternberg_purged_someone < 2 }
 			}
 			add_war_support = -0.1
-			add_political_power = 100
+			add_political_power = 50
 		}
-		if = {
+		else_if = {
 			limit = {
 				OR = {
-					has_country_flag = {
-						flag = MON_sternberg_purged_someone
-						value = 2
-					}
-					has_country_flag = {
-						flag = MON_sternberg_purged_someone
-						value = 3
-					}
+					check_variable = { MON_sternberg_purged_someone = 2 }
+					check_variable = { MON_sternberg_purged_someone = 3 }
 				}
 			}
 			add_timed_idea = {
 				idea = MON_sternberg_purge_medium_idea
 				days = 150
 			}
-			add_political_power = 150
+			add_political_power = 75
 		}
-		if = {
-			limit = {
-				has_country_flag = {
-					flag = MON_sternberg_purged_someone
-					value > 3
-				}
-			}
+		else = {
 			add_timed_idea = {
 				idea = MON_sternberg_purge_big_idea
 				days = 250
 			}
-			add_political_power = 200
+			add_political_power = 100
 		}
 	}
 }
@@ -13260,6 +12496,152 @@ country_event = { # shared orthodox event
 	}
 }
 
+country_event = { # shared orthodox event
+	id = mon.659
+	immediate = { log = "[GetDateText]: [Root.GetName]: event mon.659" }
+	title = mon.659.t
+	desc = mon.659.d
+	
+	is_triggered_only = yes
+
+	option = {
+		name = mon.659.a
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = -25
+				OR = {
+					RUS_russian_monarch = yes
+					TRM_do_rovs_in_power = yes
+				}
+			}
+		}
+		FROM = {
+			every_owned_state = {
+				limit = {
+					OR = {
+						is_claim_or_core_of_ROOT = yes
+						state = 811
+						state = 654
+						state = 1293
+						state = 329
+					}
+				}
+				transfer_state_to = ROOT
+				if = {
+					limit = { is_claim_or_core_of_ROOT = no }
+					add_claim_by = ROOT
+				}
+			}
+			get_current_government_type = yes
+		}
+		set_autonomy = {
+			target = FROM
+			autonomy_state = kr_autonomy_russian_general_governorate
+		}
+		FROM = { restore_previous_government_type = yes }
+	}
+	option = {
+		name = mon.659.b
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0
+				tag = TRM
+				has_game_rule = {
+					rule = MON_path
+					option = MON_UNGERN_DIES_SOYOMBO_TRM
+				}
+			}
+			modifier = {
+				factor = 0
+				NOT = { tag = TRM }
+				has_game_rule = {
+					rule = MON_path
+					option = MON_UNGERN_DIES_SOYOMBO
+				}
+			}
+			modifier = {
+				add = 25
+				OR = {
+					RUS_russian_monarch = yes
+					TRM_do_rovs_in_power = yes
+				}
+			}		
+		}
+		FROM = { 
+			country_event = {
+				id = mon.660 
+				days = 2
+			}
+		}
+	}
+}
+country_event = { # shared orthodox event
+	id = mon.660
+	immediate = { log = "[GetDateText]: [Root.GetName]: event mon.660" }
+	title = mon.660.t
+	desc = mon.660.d
+	
+	is_triggered_only = yes
+
+	option = {
+		name = mon.660.a
+		ai_chance = { base = 0 }
+		set_country_flag = MON_russian_rejected_@FROM
+		add_opinion_modifier = { target = FROM modifier = KR_hates_govt }
+	}
+	option = {
+		name = mon.660.b
+		set_cosmetic_tag = MON_bogdkhan
+		create_country_leader = {
+			name = "Bogd Khan"
+			desc = "POLITICS_BOGD_KHAN_DESC"
+			picture = "gfx/leaders/MON/Portrait_MON_Bogd_Khan.png"
+			expire = "1.1.1"
+			ideology = junta_subtype
+			traits = { MON_buddhist_figurehead }
+		}
+		FROM = { country_event = mon.661 }
+	}
+}
+country_event = { # shared orthodox event
+	id = mon.661
+	immediate = { log = "[GetDateText]: [Root.GetName]: event mon.661" }
+	title = mon.661.t
+	desc = mon.661.d
+	
+	is_triggered_only = yes
+
+	option = {
+		name = mon.661.a		
+		FROM = {
+			every_owned_state = {
+				limit = {
+					OR = {
+						is_claim_or_core_of_ROOT = yes
+						state = 811
+						state = 654
+						state = 1293
+						state = 329
+					}
+				}
+				transfer_state_to = ROOT
+				if = {
+					limit = { is_claim_or_core_of_ROOT = no }
+					add_claim_by = ROOT
+				}
+			}
+			get_current_government_type = yes
+		}
+		set_autonomy = {
+			target = FROM
+			autonomy_state = kr_autonomy_russian_general_governorate
+		}
+		FROM = { restore_previous_government_type = yes }
+	}
+}
+
 country_event = { # Mongolia Chinese Puppet Unfuck
 	id = mon.750
 	immediate = { log = "[GetDateText]: [Root.GetName]: event mon.750" }
@@ -13810,7 +13192,7 @@ country_event = { #Yellow Russia Russia
 				}
 				NOT = { is_core_of = MON }
 			}
-		add_core_of = MON
+			add_core_of = MON
 		}
 		set_country_leader_portrait = {
 			portrait = "gfx/leaders/RUS/Portrait_RUS_Konstantin_Nechaev.png"
@@ -13836,20 +13218,20 @@ country_event = { #Yellow Russia Russia
 			}
 			remove_claim_by = MON
 			RPG = {
-			create_country_leader = {
-				name = "Vladimir Kappel"
-				picture = "gfx/leaders/RUS/Portrait_RUS_Vladimir_Kappel.png"
-				expire = "1.1.1"
-				ideology = junta_subtype
-				traits = { TRM_voievode }
-			}
-			set_party_name = {
-				ideology = paternal_autocrat
-				long_name = RUS_vps_party_long
-				name = RUS_vps_party
-			}
-			add_state_core = PREV
-			transfer_state = PREV
+				create_country_leader = {
+					name = "Vladimir Kappel"
+					picture = "gfx/leaders/RUS/Portrait_RUS_Vladimir_Kappel.png"
+					expire = "1.1.1"
+					ideology = junta_subtype
+					traits = { TRM_voievode }
+				}
+				set_party_name = {
+					ideology = paternal_autocrat
+					long_name = RUS_vps_party_long
+					name = RUS_vps_party
+				}
+				add_state_core = PREV
+				transfer_state = PREV
 			}
 		}
 		puppet = RPG
@@ -13858,7 +13240,7 @@ country_event = { #Yellow Russia Russia
 				is_china_claim_area = yes
 				NOT = { is_core_of = MON }
 			}
-		add_claim_by = MON
+			add_claim_by = MON
 		}
 		every_country = {
 			limit = {
@@ -13887,7 +13269,7 @@ country_event = { #Yellow Russia Russia
 				}
 				NOT = { is_core_of = MON }
 			}
-		add_core_of = MON
+			add_core_of = MON
 		}
 		every_country = {
 			limit = {
@@ -14074,6 +13456,7 @@ country_event = { #Exiles Coup
 		}
 		set_province_name = { id = 4801 name = "Ulaanbaatar" }
 		set_country_flag = MON_luvsansharav_coup
+		clr_country_flag = mon_no_expansion
 		add_popularity = {
 			ideology = radical_socialist
 			popularity = 0.05
@@ -14149,7 +13532,7 @@ country_event = { #Foreign Policy Arguments
 			}
 		}
 		set_cosmetic_tag = MON_PEOPLES
-			hidden_effect = {
+		hidden_effect = {
 			set_country_flag = MON_kmt_bros
 			remove_all_ministers = yes
 			add_ideas = {
@@ -14160,7 +13543,6 @@ country_event = { #Foreign Policy Arguments
 			}
 			create_country_leader = {
 				name = "Ulanhu"
-				desc = ""
 				picture = "gfx/leaders/MON/Portrait_MON_Ulanhu.png"
 				expire = "1.1.1"
 				ideology = authcom_subtype
@@ -14303,7 +13685,6 @@ country_event = { #Syndies Coup
 				picture = "gfx/leaders/MON/Portrait_MON_Gada_Meiren.png"
 				expire = "1.1.1"
 				ideology = tot_developing_leftism_subtype
-				traits = {}
 			} 
 			set_party_name = {
 				name = MON_radical_socialist_party
@@ -14328,11 +13709,9 @@ country_event = { #Libsynd or Ecosynd for Syndies
 		name = tot_mon.6.a
 		create_country_leader = {
 			name = "Peljidiin Genden"
-			desc = ""
 			picture = "gfx/leaders/MON/Portrait_MON_Peljidiin_Genden.png"
 			expire = "1.1.1"
 			ideology = liberalized_syndicalism_subtype
-			traits = {}
 		}
 		custom_effect_tooltip = syn_liberalized_syndicalism_subtype_swap_tt				
 	}
@@ -14380,7 +13759,6 @@ country_event = { #Work with MAN or Nah
 				picture = "gfx/leaders/MON/Portrait_MON_Gada_Meiren.png"
 				expire = "1.1.1"
 				ideology = radsoc_indigenous_communitarianism_subtype
-				traits = {}
 			}  
 		}
 		if = {
@@ -14422,7 +13800,6 @@ country_event = { #Work with MAN or Nah
 				picture = "gfx/leaders/MON/Portrait_MON_Gada_Meiren.png"
 				expire = "1.1.1"
 				ideology = anarcho_pastoralism_subtype
-				traits = {}
 			} 
 		}
 		if = {
@@ -14607,15 +13984,11 @@ country_event = { #Reconciliation
 
 	option = { #Wholesome
 		name = tot_mon_flavor.18.a
-		create_corps_commander = {
-			name = "Gonchigiin Bumstend"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Gonchigiin_Bumtsend.png"
-			traits = { trickster }
-			skill = 3
-			attack_skill = 2
-			defense_skill = 3
-			planning_skill = 3
-			logistics_skill = 2	
+		XXA = {
+			random_unit_leader = {
+				limit = { has_id = 34238 }
+				set_nationality = ROOT
+			}
 		}
 	}
 }
@@ -14663,7 +14036,6 @@ country_event = { #Roerich Mongolia
 				picture = "gfx/leaders/MON/Portrait_MON_Gada_Meiren.png"
 				expire = "1.1.1"
 				ideology = esoteric_leninism_subtype
-				traits = {}
 			}  
 		}
 		if = {
@@ -14787,17 +14159,13 @@ country_event = { #Interacting with Chiang if he ever gets in power (never)
 
 	option = { #Wholesome
 		name = tot_mon_flavor.12.a
-		hidden_effect = {
-			remove_ideas_with_trait = head_of_government
-			add_ideas = MON_Deng_Xiaoping_hog_tot
-		}
+		remove_ideas_with_trait = head_of_government
+		add_ideas = MON_Deng_Xiaoping_hog_tot
 		create_country_leader = {
 			name = "Chiang Ching-kuo"
-			desc = ""
 			picture = "gfx/leaders/MON/Portrait_MON_Chiang_Ching_kuo.png"
 			expire = "1.1.1"
 			ideology = tot_tridemism_subtype
-			traits = {}
 		}  
 	}
 	option = { #Wholesome
@@ -14815,10 +14183,12 @@ country_event = { #Woman Moment
 	is_triggered_only = yes
 	fire_only_once = yes
 
-	option = { name = tot_mon_flavor.17.a }
+	option = { 
+		name = tot_mon_flavor.17.a 
+	}
 	option = {
 		name = tot_mon_flavor.17.b
-			hidden_effect = {
+		hidden_effect = {
 			remove_all_ministers = yes
 			add_ideas = {
 				MON_Peljidiin_Genden_hog_syn
@@ -14833,7 +14203,6 @@ country_event = { #Woman Moment
 			expire = "1.1.1"
 			ideology = feminist_syndicalist_subtype
 			female = yes
-			traits = {}
 		}
 		create_country_leader = {
 			name = "Sükhbaataryn Yanjmaa"
@@ -14841,7 +14210,6 @@ country_event = { #Woman Moment
 			expire = "1.1.1"
 			ideology = socialist_feminism_subtype
 			female = yes
-			traits = {}
 		}
 	}
 }
@@ -14870,7 +14238,6 @@ country_event = { #I LOVE ESPERANTO
 			picture = "gfx/leaders/MON/Portrait_MON_Namzhilyn_Khayankhirvaa.png"
 			expire = "1.1.1"
 			ideology = esperanto_syndicalism_subtype
-			traits = {}
 		}
 	}
 }
@@ -15086,13 +14453,9 @@ country_event = { #Leaders
 
 	option = {
 		name = tot_mon_flavor.24.a
-		create_country_leader = {
+		set_country_leader_name = {
+			ideology = totalist
 			name = "Yun Ze"
-			desc = ""
-			picture = "gfx/leaders/MON/Portrait_MON_Ulanhu.png"
-			expire = "1.1.1"
-			ideology = authcom_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = tot_authcom_subtype_swap_tt
 	}
@@ -15108,7 +14471,6 @@ country_event = { #Leaders
 			picture = "gfx/leaders/CHI/Portrait_CHI_Wang_Jingwei_KX.png"
 			expire = "1.1.1"
 			ideology = radsoc_tridemism_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = radsoc_radsoc_tridemism_subtype_swap_tt
 	}
@@ -15124,7 +14486,6 @@ country_event = { #Leaders
 			picture = "gfx/leaders/CHI/Portrait_CHI_Song_Qingling.png"
 			expire = "1.1.1"
 			ideology = moderate_socialist_subtype
-			traits = {}
 			female = yes
 		}
 		custom_effect_tooltip  = radsoc_moderate_socialist_subtype_swap_tt
@@ -15137,11 +14498,9 @@ country_event = { #Leaders
 		} 
 		create_country_leader = {
 			name = "Chen Jiongming"
-			desc = ""
 			picture = "gfx/leaders/GXC/Portrait_GXC_Chen_Jiongming.png"
 			expire = "1.1.1"
 			ideology = anarchism_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = radsoc_anarchism_subtype_swap_tt
 	}
@@ -15149,11 +14508,9 @@ country_event = { #Leaders
 		name = tot_mon_flavor.24.f
 		create_country_leader = {
 			name = "Darijaya"
-			desc = ""
 			picture = "gfx/leaders/MON/Portrait_MON_Darijaya.png"
 			expire = "1.1.1"
 			ideology = technocratic_socialism_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = tot_technocratic_socialism_subtype_swap_tt
 	}
@@ -15161,11 +14518,9 @@ country_event = { #Leaders
 		name = tot_mon_flavor.24.g
 		create_country_leader = {
 			name = "Khatanbaatar Magsarjav"
-			desc = ""
 			picture = "gfx/leaders/MON/Portrait_MON_Khatanbaatar_Magsarjav.png"
 			expire = "1.1.1"
 			ideology = red_junta_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = tot_red_junta_subtype_swap_tt
 	}
@@ -15301,7 +14656,6 @@ country_event = { #Leaders
 			picture = "gfx/leaders/MON/Portrait_MON_Deng_Xiaoping.png"
 			expire = "1.1.1"
 			ideology = market_socialist_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = radsoc_market_socialist_subtype_swap_tt
 	}
@@ -15330,7 +14684,6 @@ country_event = { #Leaders
 			expire = "1.1.1"
 			ideology = caponism_subtype
 			female = yes
-			traits = {}
 		}
 		custom_effect_tooltip  = tot_caponism_subtype_swap_tt
 	}
@@ -15345,7 +14698,6 @@ country_event = { #Leaders
 			picture = "gfx/leaders/TIB/Portrait_TIB_Nicholas_Roerich.png"
 			expire = "1.1.1"
 			ideology = esoteric_leninism_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = tot_esoteric_leninism_subtype_swap_tt
 	}
@@ -15364,7 +14716,6 @@ country_event = { #Leaders
 			picture = "gfx/leaders/SKM/Portrait_SKM_Jerman_Lepcha.png"
 			expire = "1.1.1"
 			ideology = jermanism_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = radsoc_jermanism_subtype_swap_tt
 	}
@@ -15394,12 +14745,19 @@ country_event = { #Leaders
 
 	option = {
 		name = tot_mon_flavor.27.a
-		create_country_leader = {
-			name = "Dorjjavyn Luvsansharav"
-			picture = "gfx/leaders/MON/Portrait_MON_Dorjjavyn_Luvsansharav.png"
-			expire = "1.1.1"
-			ideology = militant_atheism_subtype
-			traits = {}
+		if = {
+			limit = {
+				NOT = { has_country_leader = { name = "Dorjjavyn Luvsansharav" ruling_only = yes } }
+			}
+			create_country_leader = {
+				name = "Dorjjavyn Luvsansharav"
+				picture = "gfx/leaders/MON/Portrait_MON_Dorjjavyn_Luvsansharav.png"
+				expire = "1.1.1"
+				ideology = militant_atheism_subtype
+			}
+		}
+		else = {
+			set_country_leader_ideology = militant_atheism_subtype
 		}
 		custom_effect_tooltip  = tot_militant_atheism_subtype_swap_tt
 	}
@@ -15414,7 +14772,6 @@ country_event = { #Leaders
 			picture = "gfx/leaders/MON/Portrait_Anandyn_Amar.png"
 			expire = "1.1.1"
 			ideology = moderate_socialist_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = radsoc_moderate_socialist_subtype_swap_tt
 	}
@@ -15425,7 +14782,6 @@ country_event = { #Leaders
 			picture = "gfx/leaders/MON/Portrait_MON_Soliin_Danzan.png"
 			expire = "1.1.1"
 			ideology = national_communism_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = tot_national_communism_subtype_swap_tt
 	}
@@ -15440,7 +14796,6 @@ country_event = { #Leaders
 			picture = "gfx/leaders/MON/Portrait_MON_Dogsomyn_Bodoo.png"
 			expire = "1.1.1"
 			ideology = moderate_socialist_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = radsoc_moderate_socialist_subtype_swap_tt
 	}
@@ -15451,7 +14806,6 @@ country_event = { #Leaders
 			picture = "gfx/leaders/MON/Portrait_MON_Yumjaagiin_Tsedenbal.png"
 			expire = "1.1.1"
 			ideology = authcom_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = tot_authcom_subtype_swap_tt
 	}
@@ -15463,7 +14817,6 @@ country_event = { #Leaders
 			expire = "1.1.1"
 			ideology = popcom_subtype
 			female = yes
-			traits = {}
 		}
 		custom_effect_tooltip  = tot_popcom_subtype_swap_tt
 	}
@@ -15487,7 +14840,6 @@ country_event = { #Leaders
 			picture = "gfx/leaders/MON/Portrait_MON_Z_Lhagvasuren.png"
 			expire = "1.1.1"
 			ideology = national_communism_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = tot_national_communism_subtype_swap_tt
 	}
@@ -15502,7 +14854,6 @@ country_event = { #Leaders
 			picture = "gfx/leaders/MON/Portrait_MON_Tseren_Ochiryn_Dambadorj.png"
 			expire = "1.1.1"
 			ideology = bukharinist_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = radsoc_bukharinist_subtype_swap_tt
 	}
@@ -15513,7 +14864,6 @@ country_event = { #Leaders
 			picture = "gfx/leaders/MON/Portrait_MON_Peljidiin_Genden.png"
 			expire = "1.1.1"
 			ideology = tot_reformed_natsynd_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = tot_tot_reformed_natsynd_subtype_swap_tt
 	}
@@ -15524,7 +14874,6 @@ country_event = { #Leaders
 			picture = "gfx/leaders/MON/Portrait_MON_Suuriin_Baldan.png"
 			expire = "1.1.1"
 			ideology = autocratic_socialist_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = tot_autocratic_socialist_subtype_swap_tt
 	}
@@ -15535,7 +14884,6 @@ country_event = { #Leaders
 			picture = "gfx/leaders/MON/Portrait_MON_Dashdorjiin_Natsagdorj.png"
 			expire = "1.1.1"
 			ideology = social_futurism_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = tot_social_futurism_subtype_swap_tt
 	}
@@ -15550,7 +14898,6 @@ country_event = { #Leaders
 			picture = "gfx/leaders/MON/Portrait_MON_Namzhilyn_Khayankhirvaa.png"
 			expire = "1.1.1"
 			ideology = esperanto_syndicalism_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = syn_esperanto_syndicalism_subtype_swap_tt
 	}
@@ -15580,7 +14927,6 @@ country_event = { #Leaders
 			picture = "gfx/leaders/MON/Portrait_MON_Olziin_Badrakh.png"
 			expire = "1.1.1"
 			ideology = agrarian_socialism_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = radsoc_agrarian_socialism_subtype_swap_tt
 	}
@@ -15591,7 +14937,6 @@ country_event = { #Leaders
 			picture = "gfx/leaders/MON/Portrait_MON_Khatanbaatar_Magsarjav.png"
 			expire = "1.1.1"
 			ideology = red_junta_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = tot_red_junta_subtype_swap_tt
 	}
@@ -15606,7 +14951,6 @@ country_event = { #Leaders
 			picture = "gfx/leaders/MON/Portrait_MON_Ard_Ayush.png"
 			expire = "1.1.1"
 			ideology = radsoc_indigenous_communitarianism_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = radsoc_radsoc_indigenous_communitarianism_subtype_swap_tt
 	}
@@ -15617,7 +14961,6 @@ country_event = { #Leaders
 			picture = "gfx/leaders/MON/Portrait_MON_Gonchigiin_Bumtsend.png"
 			expire = "1.1.1"
 			ideology = red_junta_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = tot_red_junta_subtype_swap_tt
 	}
@@ -15629,7 +14972,6 @@ country_event = { #Leaders
 			expire = "1.1.1"
 			ideology = autocratic_socialist_subtype
 			female = yes
-			traits = {}
 		}
 		custom_effect_tooltip  = tot_autocratic_socialist_subtype_swap_tt
 	}
@@ -15640,7 +14982,6 @@ country_event = { #Leaders
 			picture = "gfx/leaders/MON/Portrait_MON_Zolbingiin_Shijee.png"
 			expire = "1.1.1"
 			ideology = hardliner_bolshevism_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = tot_hardliner_bolshevism_subtype_swap_tt
 	}
@@ -15668,7 +15009,6 @@ country_event = { #Leaders
 			picture = "gfx/leaders/BRY/Portrait_BRY_Baradiyn.png"
 			expire = "1.1.1"
 			ideology = buddhist_socialism_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = radsoc_buddhist_socialism_subtype_swap_tt
 	}
@@ -15680,7 +15020,6 @@ country_event = { #Leaders
 			expire = "1.1.1"
 			ideology = hardliner_bolshevism_subtype
 			female = yes
-			traits = {}
 		}
 		custom_effect_tooltip  = tot_hardliner_bolshevism_subtype_swap_tt
 	}
@@ -15742,7 +15081,6 @@ country_event = { #fate of the red khan
 				picture = "gfx/leaders/MON/Portrait_MON_Soliin_Danzan.png"
 				expire = "1.1.1"
 				ideology = moderate_socialist_subtype
-				traits = {}
 			}
 			set_party_name = {
 				ideology = radical_socialist
@@ -15762,7 +15100,6 @@ country_event = { #fate of the red khan
 				picture = "gfx/leaders/MON/Portrait_MON_Soliin_Danzan.png"
 				expire = "1.1.1"
 				ideology = moderate_socialist_subtype
-				traits = {}
 			}
 			set_party_name = {
 				ideology = radical_socialist
@@ -15782,7 +15119,6 @@ country_event = { #fate of the red khan
 				picture = "gfx/leaders/MON/Portrait_MON_Soliin_Danzan.png"
 				expire = "1.1.1"
 				ideology = moderate_socialist_subtype
-				traits = {}
 			}
 			set_party_name = {
 				ideology = radical_socialist
@@ -15799,11 +15135,9 @@ country_event = { #fate of the red khan
 		hidden_effect = {
 			create_country_leader = {
 				name = "Soliin Danzan"
-				desc = ""
 				picture = "gfx/leaders/MON/Portrait_MON_Soliin_Danzan.png"
 				expire = "1.1.1"
 				ideology = moderate_socialist_subtype
-				traits = {}
 			}
 			set_party_name = {
 				ideology = radical_socialist
@@ -15838,7 +15172,6 @@ country_event = { #rigged MAN leader
 			picture = "gfx/leaders/MON/Portrait_Anandyn_Amar.png"
 			expire = "1.1.1"
 			ideology = moderate_socialist_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = radsoc_moderate_socialist_subtype_swap_tt
 	}
@@ -15849,7 +15182,6 @@ country_event = { #rigged MAN leader
 			picture = "gfx/leaders/MON/Portrait_MON_Olziin_Badrakh.png"
 			expire = "1.1.1"
 			ideology = agrarian_socialism_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = radsoc_agrarian_socialism_subtype_swap_tt
 	}
@@ -15861,7 +15193,6 @@ country_event = { #rigged MAN leader
 			picture = "gfx/leaders/MON/Portrait_MON_Jamsrangiin_Tseveen.png"
 			expire = "1.1.1"
 			ideology = radical_progressivism_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = radsoc_radical_progressivism_subtype_swap_tt
 	}
@@ -15872,7 +15203,6 @@ country_event = { #rigged MAN leader
 			picture = "gfx/leaders/MON/Portrait_MON_Dogsomyn_Bodoo.png"
 			expire = "1.1.1"
 			ideology = radsoc_communism_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = radsoc_radsoc_communism_subtype_swap_tt
 	}
@@ -15883,7 +15213,6 @@ country_event = { #rigged MAN leader
 			picture = "gfx/leaders/MON/Portrait_MON_Peljidiin_Genden.png"
 			expire = "1.1.1"
 			ideology = buddhist_socialism_subtype
-			traits = {}
 		}	
 		custom_effect_tooltip  = radsoc_buddhist_socialism_subtype_swap_tt
 	}
@@ -15895,7 +15224,6 @@ country_event = { #rigged MAN leader
 			expire = "1.1.1"
 			ideology = radsoc_communism_subtype
 			female = yes
-			traits = {}
 		}
 		custom_effect_tooltip  = radsoc_radsoc_communism_subtype_swap_tt
 	}
@@ -15915,7 +15243,6 @@ country_event = { #democratic MAN leader
 			picture = "gfx/leaders/MON/Portrait_MON_Soliin_Danzan.png"
 			expire = "1.1.1"
 			ideology = socdem_left_nationalism_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = socdem_socdem_left_nationalism_subtype_swap_tt
 	}
@@ -15926,7 +15253,6 @@ country_event = { #democratic MAN leader
 			picture = "gfx/leaders/MON/Portrait_Anandyn_Amar.png"
 			expire = "1.1.1"
 			ideology = socdem_democratic_socialism_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = socdem_socdem_democratic_socialism_subtype_swap_tt
 	}
@@ -15937,7 +15263,6 @@ country_event = { #democratic MAN leader
 			picture = "gfx/leaders/MON/Portrait_MON_Olziin_Badrakh.png"
 			expire = "1.1.1"
 			ideology = socdem_agrarianism_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = socdem_socdem_agrarianism_subtype_swap_tt
 	}
@@ -15949,7 +15274,6 @@ country_event = { #democratic MAN leader
 			picture = "gfx/leaders/MON/Portrait_MON_Jamsrangiin_Tseveen.png"
 			expire = "1.1.1"
 			ideology = socdem_radical_progressivism_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = socdem_socdem_radical_progressivism_subtype_swap_tt
 	}
@@ -15960,7 +15284,6 @@ country_event = { #democratic MAN leader
 			picture = "gfx/leaders/MON/Portrait_MON_Dogsomyn_Bodoo.png"
 			expire = "1.1.1"
 			ideology = socdem_developing_leftism_subtype
-			traits = {}
 		}
 		custom_effect_tooltip  = socdem_socdem_developing_leftism_subtype_swap_tt
 	}
@@ -15971,7 +15294,6 @@ country_event = { #democratic MAN leader
 			picture = "gfx/leaders/MON/Portrait_MON_Peljidiin_Genden.png"
 			expire = "1.1.1"
 			ideology = liberal_socialism_subtype
-			traits = {}
 		}	
 		custom_effect_tooltip  = socdem_liberal_socialism_subtype_swap_tt
 	}
@@ -15983,14 +15305,43 @@ country_event = { #democratic MAN leader
 			expire = "1.1.1"
 			ideology = socdem_developing_leftism_subtype
 			female = yes
-			traits = {}
 		}
 		custom_effect_tooltip  = socdem_socdem_developing_leftism_subtype_swap_tt
 	}
 }
 country_event = { #rise of the mongolian people's army
 	id = tot_mon_flavor.36
-	immediate = {log = "[GetDateText]: [Root.GetName]: event mongolia.10"}
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event mongolia.10"
+		hidden_effect = {
+			XXA = {
+				random_unit_leader = {
+					limit = { has_id = 34250 }
+					set_nationality = ROOT
+				}
+				random_unit_leader = {
+					limit = { has_id = 34251 }
+					set_nationality = ROOT
+				}
+				random_unit_leader = {
+					limit = { has_id = 34252 }
+					set_nationality = ROOT
+				}
+				random_unit_leader = {
+					limit = { has_id = 34253 }
+					set_nationality = ROOT
+				}
+				random_unit_leader = {
+					limit = { has_id = 34254 }
+					set_nationality = ROOT
+				}
+				random_unit_leader = {
+					limit = { has_id = 34232 }
+					set_nationality = ROOT
+				}
+			}
+		}
+	}
 	title = tot_mon_flavor.36.t
 	desc = tot_mon_flavor.36.d
 	picture = GFX_report_event_MON_red_army
@@ -16021,66 +15372,6 @@ country_event = { #rise of the mongolian people's army
 				}			
 				set_nationality = NSW
 			}
-		}
-		create_corps_commander = {
-			name = "Dashdorjiin Natsagdorj"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Dashdorjiin_Natsagdorj.png"
-			traits = { trickster }
-			skill = 2
-			attack_skill = 2
-			defense_skill = 3
-			planning_skill = 3
-			logistics_skill = 2	
-		}
-		create_corps_commander = {
-			name = "Ölziitiin Badrakh"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Olziin_Badrakh.png"
-			traits = { trickster }
-			skill = 3
-			attack_skill = 2
-			defense_skill = 3
-			planning_skill = 3
-			logistics_skill = 2	
-		}
-		create_corps_commander = {
-			name = "Zolbingiin Shijee"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Zolbingiin_Shijee.png"
-			traits = { commando harsh_leader }
-			skill = 2
-			attack_skill = 2
-			defense_skill = 2
-			planning_skill = 2
-			logistics_skill = 2
-		}
-		create_corps_commander = {
-			name = "Khatanbaatar Magsarjav"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Khatanbaatar_Magsarjav.png"
-			traits = { }
-			skill = 1
-			attack_skill = 2
-			defense_skill = 1
-			planning_skill = 2
-			logistics_skill = 1
-		}					
-		create_corps_commander = {
-			name = "Ard Ayush"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Ard_Ayush.png"
-			traits = { fortress_buster }
-			skill = 1
-			attack_skill = 2
-			defense_skill = 1
-			planning_skill = 1
-			logistics_skill = 3		
-		}	
-		create_corps_commander = {
-			name = "Yumjaagiin Tsedenbal"
-			portrait_path = "gfx/leaders/MON/Portrait_MON_Yumjaagiin_Tsedenbal.png"
-			traits = { }
-			skill = 1
-			attack_skill = 2
-			defense_skill = 1
-			planning_skill = 2
-			logistics_skill = 1
 		}
 	}
 }

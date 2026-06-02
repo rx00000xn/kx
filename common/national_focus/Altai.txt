@@ -1,0 +1,2895 @@
+focus_tree = {
+	id = altai_focus
+	country = {
+		base = 0
+		modifier = {
+			add = 10
+			tag = ALT
+		}
+	}
+	default = no
+	continuous_focus_position = { x = 100 y = 950 }
+	
+	
+	focus = {
+		id = ALT_Protect_Altai
+		icon = GFX_goal_ALT_To_Protect_Altai
+		cost = 1
+		x = 3
+		y = 0
+		ai_will_do = {
+			base = 100
+		}
+		available = {
+			has_government = paternal_autocrat
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Protect_Altai"
+			add_manpower = 7500
+			654 = {
+				add_building_construction = {
+					type = bunker
+					level = 1
+					instant_build = yes
+					province = {
+						all_provinces = yes
+						limit_to_victory_point > 0
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = ALT_Cossack_Administration
+		icon = GFX_RUS_Cossack_Bedrock
+		cost = 2
+		relative_position_id = ALT_Protect_Altai
+		x = -3
+		y = 1
+		prerequisite = {
+			focus = ALT_Protect_Altai
+		}
+		ai_will_do = {
+			base = 100
+		}
+		available = {
+			has_government = paternal_autocrat
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Cossack_Administration"
+			add_political_power = 35
+			army_experience = 25
+			swap_ideas = {
+				remove_idea = ALT_cossack_administration
+				add_idea = ALT_cossack_administration_1
+			}
+		}
+	}
+	focus = {
+		id = ALT_Agreement_With_Gurkin
+		icon = GFX_goal_ALT_Agreement_Choros_Gurkin
+		cost = 1
+		relative_position_id = ALT_Protect_Altai
+		x = -1
+		y = 1
+		prerequisite = {
+			focus = ALT_Protect_Altai
+		}
+		ai_will_do = {
+			base = 100
+			modifier = {
+				factor = 0
+				OR = {
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_CHUI }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_QIE }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_PATAUT_COS }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_PATAUT_SIB_COS }
+				}
+			}
+		}
+		available = {
+			has_government = paternal_autocrat
+		}
+		mutually_exclusive = { focus = ALT_Disperse_The_Mountainous_Duma }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Agreement_With_Gurkin"
+			country_event = alt.9
+		}
+	}
+	focus = {
+		id = ALT_Disperse_The_Mountainous_Duma
+		icon = GFX_goal_IRE_dissolve_dail
+		cost = 2
+		relative_position_id = ALT_Protect_Altai
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = ALT_Protect_Altai
+		}
+		ai_will_do = {
+			base = 100
+			modifier = {
+				factor = 0
+				has_game_rule = { rule = ALT_path option = ALT_PATH_SOCLIB }
+			}
+		}
+		available = {
+			has_government = paternal_autocrat
+		}
+		mutually_exclusive = { focus = ALT_Agreement_With_Gurkin }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Disperse_The_Mountainous_Duma"
+			country_event = alt.11
+		}
+	}
+	focus = {
+		id = ALT_Revitalize_Local_Workshops
+		icon = GFX_RUS_The_Industry_Needs_Men
+		cost = 2
+		relative_position_id = ALT_Protect_Altai
+		x = 3
+		y = 1
+		prerequisite = {
+			focus = ALT_Protect_Altai
+		}
+		ai_will_do = {
+			base = 100
+		}
+		available = {
+			has_government = paternal_autocrat
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Revitalize_Local_Workshops"
+			add_one_random_military_factory = yes
+		}
+	}
+	focus = {
+		id = ALT_Challenge_Satunin
+		icon = GFX_goal_ALT_Challenge_Satunin
+		cost = 3
+		relative_position_id = ALT_Protect_Altai
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = ALT_Disperse_The_Mountainous_Duma
+			focus = ALT_Agreement_With_Gurkin
+		}
+		prerequisite = {
+			focus = ALT_Cossack_Administration
+		}
+		prerequisite = {
+			focus = ALT_Revitalize_Local_Workshops
+		}
+		select_effect = {
+			country_event = { id = alt.12 days = 7 }
+		}
+		ai_will_do = {
+			base = 100
+		}
+		available = {
+			has_government = paternal_autocrat
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Challenge_Satunin"
+			custom_effect_tooltip = upon_selecting_focus
+			effect_tooltip = {
+				country_event = alt.12
+			}
+		}
+	}
+	focus = {
+		id = ALT_Altai_Sech
+		icon = GFX_DKB_cossack_partliament
+		cost = 5
+		relative_position_id = ALT_Challenge_Satunin
+		x = -3
+		y = 1
+		prerequisite = {
+			focus = ALT_Challenge_Satunin
+		}
+		available = {
+			has_country_leader = { name = "Aleksandr Kaygorodov" ruling_only = yes }
+		}
+		mutually_exclusive = { focus = ALT_Military_Administration }
+		ai_will_do = {
+			base = 100
+			modifier = {
+				factor = 0
+				OR = {
+					has_game_rule = { rule = ALT_path option = ALT_PATH_PATAUT }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_PATAUT_TRM }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_PATAUT_MON }
+				}
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Altai_Sech"
+			add_war_support = 0.1
+			swap_ideas = {
+				remove_idea = ALT_cossack_administration_1
+				add_idea = ALT_cossack_sich
+			}
+			custom_effect_tooltip = pataut_pataut_cossack_subtype_swap_tt
+			set_country_leader_ideology = pataut_cossack_subtype
+		}
+	}
+	focus = {
+		id = ALT_Form_Cossack_Regiments
+		icon = GFX_focus_rus_cossack
+		cost = 5
+		relative_position_id = ALT_Altai_Sech
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = ALT_Altai_Sech
+		}
+		ai_will_do = {
+			base = 80
+		}
+		available = {
+			has_country_leader = { name = "Aleksandr Kaygorodov" ruling_only = yes }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Form_Cossack_Regiments"
+			add_manpower = 10000
+			enable_tech_cossack_corps = yes
+			if = {
+				limit = { 
+					NOT = { has_template = "Kazachya Diviziya" }
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = tooltip_create_division_template
+						NAME = "Kazachya Diviziya"
+						LINE_1 = { localization_key = line_battalion_tt NAME = irregular_cavalry ICON = GFX_unit_irregular_cavalry_icon_small COUNT = 5 }
+						SUPPORT_1 = { localization_key = support_battalion_tt NAME = recon ICON = GFX_unit_recon_icon_small }
+					}
+					division_template = {
+						name = "Kazachya Diviziya"
+						division_names_group = COS_CAV_01
+						regiments = {
+							irregular_cavalry = { x = 0 y = 0 }
+							irregular_cavalry = { x = 0 y = 1 }
+							irregular_cavalry = { x = 0 y = 2 }
+							irregular_cavalry = { x = 1 y = 0 }
+							irregular_cavalry = { x = 1 y = 1 }
+						}
+						support = {
+							recon = { x = 0 y = 0 }
+						}
+					}
+				}
+			}
+			random_owned_controlled_state = {
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = tooltip_spawn_units
+						COUNT = "2"
+						TYPE = "Kazachya Diviziya"
+					}
+					create_unit = {
+						division = "division_template = \"Kazachya Diviziya\" start_experience_factor = 0.3"
+						count = 2
+						owner = ROOT
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = ALT_Restore_The_Siberian_Host
+		icon = GFX_BRY_Buryat_Cossack_Republic
+		cost = 5
+		relative_position_id = ALT_Altai_Sech
+		x = 1
+		y = 2
+		prerequisite = {
+			focus = ALT_Form_Cossack_Regiments
+		}
+		mutually_exclusive = { focus = ALT_Altai_For_Altaians }
+		ai_will_do = {
+			base = 100
+			modifier = {
+				factor = 0
+				OR = {
+					has_game_rule = { rule = ALT_path option = ALT_PATH_PATAUT_COS }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_QIE }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_CHUI }
+				}
+			}
+		}
+		available = {
+			has_country_leader = { name = "Aleksandr Kaygorodov" ruling_only = yes }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Restore_The_Siberian_Host"
+			swap_ideas = {
+				remove_idea = ALT_cossack_sich
+				add_idea = ALT_cossack_sich_2
+			}
+			custom_effect_tooltip = tooltip_white_line
+			activate_targeted_decision = { target = ROOT decision = ALT_siberian_cossack_host }
+			every_state = {
+				limit = {
+					OR = {
+						state = 1292
+						state = 40
+						state = 588
+						state = 583
+						state = 571
+					}
+				}
+				add_claim_by = ROOT
+				enable_state_integration_50_compliance = yes
+			}
+			hidden_effect = {
+				if = {
+					limit = { country_exists = UCH }
+					UCH = { country_event = uch.210 }
+					custom_effect_tooltip = if_they_accept_tt
+					effect_tooltip = {
+						UCH_add_to_uch = yes
+					}
+				}
+				else = {
+					activate_targeted_decision = { target = UCH decision = KHA_join_cossacks }
+					activate_targeted_decision = { target = TRM decision = KHA_join_cossacks }
+					activate_targeted_decision = { target = ALT decision = KHA_join_cossacks }
+				}
+			}
+		}
+	}
+	focus = {
+		id = ALT_Altai_For_Altaians
+		icon = GFX_goal_ALT_Altai_Altaians
+		cost = 5
+		relative_position_id = ALT_Altai_Sech
+		x = -1
+		y = 2
+		prerequisite = {
+			focus = ALT_Form_Cossack_Regiments
+		}
+		mutually_exclusive = { focus = ALT_Restore_The_Siberian_Host }
+		ai_will_do = {
+			base = 100
+			modifier = {
+				factor = 0
+				OR = {
+					has_game_rule = { rule = ALT_path option = ALT_PATH_PATAUT_SIB_COS }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_QIE }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_CHUI }
+				}
+			}
+		}
+		available = {
+			has_country_leader = { name = "Aleksandr Kaygorodov" ruling_only = yes }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Altai_For_Altaians"
+			swap_ideas = {
+				remove_idea = ALT_cossack_sich
+				add_idea = ALT_cossack_sich_1
+			}
+		}
+	}
+	focus = {
+		id = ALT_Fighting_Anarchist_Rebels
+		icon = GFX_goal_RUS_Eliminate_Sabotage_Among_Soldiers
+		cost = 5
+		relative_position_id = ALT_Challenge_Satunin
+		x = -1
+		y = 2
+		prerequisite = {
+			focus = ALT_Altai_Sech
+			focus = ALT_Military_Administration
+		}
+		ai_will_do = {
+			base = 80
+			modifier = {
+				factor = 0
+				russian_civil_war = yes
+				OR = {
+					has_game_rule = { rule = ALT_path option = ALT_PATH_RADSOC }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_SYNDIE }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_RADSOC_TIB }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_RADSOC_UKR }
+				}
+			}
+		}
+		available = {
+			has_government = paternal_autocrat
+		}
+		bypass = {
+			hidden_trigger = {
+				NOT = {
+					has_idea = ALT_anarchist_resistance_1
+					has_idea = ALT_anarchist_resistance_2
+				}
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Fighting_Anarchist_Rebels"
+			add_popularity = { ideology = radical_socialist popularity = -0.10 }
+			add_popularity = { ideology = syndicalist popularity = -0.10 }
+			ALT_decrease_anarchist_resistance = yes
+		}
+	}
+	focus = {
+		id = ALT_Cult_Of_Mad_Baron
+		icon = GFX_goal_MON_empire
+		cost = 5
+		relative_position_id = ALT_Challenge_Satunin
+		x = 0
+		y = 3
+		prerequisite = {
+			focus = ALT_Altai_Sech
+			focus = ALT_Military_Administration
+		}
+		ai_will_do = {
+			base = 80
+			modifier = {
+				factor = 10
+				OR = {
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_QIE }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_CHUI }
+				}
+			}
+		}
+		available = {
+			has_government = paternal_autocrat
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Cult_Of_Mad_Baron"
+			add_two_random_military_factories = yes
+			increase_ruling_party_popularity_by_10 = yes
+		}
+	}
+	focus = {
+		id = ALT_Intensify_Altai_Spiritual_Mission
+		icon = GFX_RUS_Church_Saber
+		cost = 5
+		relative_position_id = ALT_Challenge_Satunin
+		x = 1
+		y = 4
+		prerequisite = {
+			focus = ALT_Cult_Of_Mad_Baron
+		}
+		ai_will_do = {
+			base = 80
+			modifier = {
+				factor = 10
+				OR = {
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_QIE }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_CHUI }
+				}
+			}
+		}
+		mutually_exclusive = { focus = ALT_Burkhanist_Indoctrination }
+		available = {
+			has_government = paternal_autocrat
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Intensify_Altai_Spiritual_Mission"
+			add_research_slot_until_four = yes
+			swap_ideas = {
+				remove_idea = ALT_complex_interfaith_relations
+				add_idea = ALT_complex_interfaith_relations_3
+			}
+			if = {
+				limit = { 
+					is_subject = no
+					has_completed_focus = ALT_Expand_Russian_Settlements 
+				}
+				country_event = alt.16
+			}
+		}
+	}
+	focus = {
+		id = ALT_Burkhanist_Indoctrination
+		icon = GFX_goal_FSA_control_education
+		cost = 5
+		relative_position_id = ALT_Challenge_Satunin
+		x = 3
+		y = 4
+		prerequisite = {
+			focus = ALT_Cult_Of_Mad_Baron
+		}
+		mutually_exclusive = { focus = ALT_Intensify_Altai_Spiritual_Mission }
+		ai_will_do = {
+			base = 80
+			modifier = {
+				factor = 0
+				OR = {
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_QIE }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_CHUI }
+				}
+			}
+		}
+		available = {
+			has_country_leader = { name = "Aleksandr Kaygorodov" ruling_only = yes }
+			NOT = { has_idea = ALT_you_are_a_failstate_bro }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Burkhanist_Indoctrination"
+			add_research_slot_until_four = yes
+			add_timed_idea = {
+				idea = ALT_complex_interfaith_relations_2
+				days = 95
+			}
+			swap_ideas = {
+				remove_idea = ALT_complex_interfaith_relations
+				add_idea = ALT_complex_interfaith_relations_4
+			}
+		}
+	}
+	focus = {
+		id = ALT_Expand_Russian_Settlements
+		icon = GFX_RUS_russian_supremacy
+		cost = 5
+		relative_position_id = ALT_Challenge_Satunin
+		x = -1
+		y = 4
+		prerequisite = {
+			focus = ALT_Cult_Of_Mad_Baron
+		}
+		ai_will_do = {
+			base = 80
+			modifier = {
+				factor = 10
+				OR = {
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_QIE }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_CHUI }
+				}
+			}
+		}
+		available = {
+			has_government = paternal_autocrat
+		}
+		mutually_exclusive = { focus = ALT_Military_Land_Fund }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Expand_Russian_Settlements"
+			654 = { prioritize_state = yes }
+			add_one_random_civilian_factory_with_extra_slot = yes
+			custom_effect_tooltip = tooltip_white_line
+			add_ideas = MON_russian_colonization_idea
+			if = {
+				limit = { 
+					is_subject = no
+					has_completed_focus = ALT_Intensify_Altai_Spiritual_Mission 
+				}
+				country_event = alt.16
+			}
+		}
+	}
+	focus = {
+		id = ALT_Military_Land_Fund
+		icon = GFX_DKB_Land_For_Peasants
+		cost = 5
+		relative_position_id = ALT_Challenge_Satunin
+		x = -3
+		y = 4
+		prerequisite = {
+			focus = ALT_Cult_Of_Mad_Baron
+		}
+		mutually_exclusive = { focus = ALT_Expand_Russian_Settlements }
+		ai_will_do = {
+			base = 80
+			modifier = {
+				factor = 0
+				OR = {
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_QIE }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_CHUI }
+				}
+			}
+		}
+		available = {
+			has_government = paternal_autocrat
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Military_Land_Fund"
+			654 = { prioritize_state = yes }
+			add_one_random_civilian_factory_with_extra_slot = yes
+			custom_effect_tooltip = tooltip_white_line
+			add_ideas = ALT_military_cossack_land
+		}
+	}
+	focus = {
+		id = ALT_Military_Administration
+		icon = GFX_ORE_Army
+		cost = 5
+		relative_position_id = ALT_Challenge_Satunin
+		x = 2
+		y = 1
+		prerequisite = {
+			focus = ALT_Challenge_Satunin
+		}
+		ai_will_do = {
+			base = 100
+			modifier = {
+				factor = 0
+				OR = {
+					has_game_rule = { rule = ALT_path option = ALT_PATH_PATAUT_COS }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_PATAUT_SIB_COS }
+				}
+			}
+		}
+		available = {
+			has_government = paternal_autocrat
+		}
+		mutually_exclusive = { focus = ALT_Altai_Sech }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Military_Administration"
+			swap_ideas = {
+				remove_idea = ALT_cossack_administration_1
+				add_idea = ALT_cossack_administration_2
+			}
+			custom_effect_tooltip = pataut_junta_subtype_swap_tt
+			set_country_leader_ideology = junta_subtype
+		}
+	}
+	focus = {
+		id = ALT_Support_Kolchaks_Claims
+		icon = GFX_focus_rus_transamur
+		cost = 5
+		relative_position_id = ALT_Military_Administration
+		x = -1
+		y = 1
+		prerequisite = {
+			focus = ALT_Military_Administration
+		}
+		ai_will_do = {
+			base = 100
+			modifier = {
+				factor = 0
+				OR = {
+					has_game_rule = { rule = ALT_path option = ALT_PATH_PATAUT_MON }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_QIE }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_CHUI }
+				}
+			}
+		}
+		available = {
+			has_government = paternal_autocrat
+			country_exists = TRM
+			TRM = {
+				is_subject = no
+				OR = {
+					TRM_smolin_in_power = yes
+					TRM_kolchak_in_power = yes
+					TRM_semyenov_in_power = yes
+					TRM_do_rovs_in_power = yes
+					TRM_Pepelyaev_coup = yes
+				}
+				OR = {
+					has_idea = TRM_dream
+					has_country_flag = TRM_become_russia
+				}
+			}
+		}
+		mutually_exclusive = { focus = ALT_Revive_The_Soyombo }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Support_Kolchaks_Claims"
+			TRM = { country_event = alt.15 }
+			custom_effect_tooltip = if_they_accept_tt
+			effect_tooltip = {
+				if = {
+					limit = { is_owner_neighbor_of = TRM }
+					TRM = { annex_country = { target = ROOT } }
+					every_unit_leader = { set_nationality = TRM }
+				}
+				else = {
+					TRM = { puppet = ROOT }
+				}
+			}
+		}
+	}
+	focus = {
+		id = ALT_Revive_The_Soyombo
+		icon = GFX_goal_MON_soyombo_revival_society
+		cost = 5
+		relative_position_id = ALT_Military_Administration
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = ALT_Military_Administration
+		}
+		ai_will_do = {
+			base = 100
+			modifier = {
+				factor = 0
+				OR = {
+					has_game_rule = { rule = ALT_path option = ALT_PATH_PATAUT_TRM }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_QIE }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_CHUI }
+				}
+			}
+		}
+		available = {
+			has_government = paternal_autocrat
+		}
+		mutually_exclusive = { focus = ALT_Support_Kolchaks_Claims }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Revive_The_Soyombo"
+			set_party_name = {
+				ideology = paternal_autocrat
+				name = MON_RUS_party
+				long_name = MON_RUS_party_long
+			}
+			MON = {
+				every_unit_leader = {
+					limit = { has_trait = MON_rvk_member_trait }
+					set_nationality = ROOT
+				}
+			}
+			every_state = {
+				limit = { is_core_of = MON }
+				add_claim_by = ROOT
+			}
+			activate_targeted_decision = { target = MON decision = ALT_soyombo_conquer_mongolia }
+			unlock_decision_tooltip = ALT_join_russia
+		}
+	}
+
+	focus = {
+		id = ALT_The_Milk_Faith
+		icon = GFX_goal_ALT_Milk_Faith
+		cost = 4
+		x = 17
+		y = 0
+		ai_will_do = {
+			base = 100
+		}
+		available = {
+			has_socialist_government = no
+			NOT = { has_government = paternal_autocrat }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_The_Milk_Faith"
+			add_ideas = ALT_national_movement_1
+			country_event = mongolia.167
+		}
+	}
+	focus = {
+		id = ALT_New_Yarlikchi_Of_Altai
+		icon = GFX_goal_ALT_New_Yarlikchi_Altai
+		cost = 2
+		relative_position_id = ALT_The_Milk_Faith
+		x = 0
+		y = 1
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_The_Milk_Faith }
+		available = {
+			has_socialist_government = no
+			NOT = { has_government = paternal_autocrat }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_New_Yarlikchi_Of_Altai"
+			add_stability = 0.1
+			add_war_support = 0.05
+			add_research_slot_until_four = yes
+		}
+	}
+	focus = {
+		id = ALT_Fighting_Chichke_Put
+		icon = GFX_goal_MON_we_dont_need_russia
+		cost = 2
+		relative_position_id = ALT_The_Milk_Faith
+		x = -2
+		y = 1
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_The_Milk_Faith }
+		available = {
+			has_socialist_government = no
+			NOT = { has_government = paternal_autocrat }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Fighting_Chichke_Put"
+			add_timed_idea = {
+				idea = ALT_complex_interfaith_relations_1
+				days = 100
+			}
+			custom_effect_tooltip = tooltip_white_line
+			ALT_decrease_anarchist_resistance = yes
+		}
+	}
+	focus = {
+		id = ALT_Finish_Off_Black_Faith
+		icon = GFX_goal_MON_promote_black_faith
+		cost = 2
+		relative_position_id = ALT_The_Milk_Faith
+		x = 2
+		y = 1
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_The_Milk_Faith }
+		available = {
+			has_socialist_government = no
+			NOT = { has_government = paternal_autocrat }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Finish_Off_Black_Faith"
+			country_event = mongolia.168	
+			add_timed_idea = {
+				idea = ALT_complex_interfaith_relations_2
+				days = 75
+			}
+		}
+	}
+	focus = {
+		id = ALT_Patriotism_Altai
+		icon = GFX_goal_ALT_Altaian_Patriotism
+		cost = 2
+		relative_position_id = ALT_The_Milk_Faith
+		x = 0
+		y = 2
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_Fighting_Chichke_Put }
+		prerequisite = { focus = ALT_New_Yarlikchi_Of_Altai }
+		prerequisite = { focus = ALT_Finish_Off_Black_Faith }
+		available = {
+			has_socialist_government = no
+			NOT = { has_government = paternal_autocrat }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Patriotism_Altai"
+			add_war_support = 0.1
+			add_one_random_military_factory = yes
+			swap_ideas = {
+				remove_idea = ALT_national_movement_1
+				add_idea = ALT_national_movement_2
+			}
+			custom_effect_tooltip = tooltip_white_line
+			if = {
+				limit = { 
+					NOT = { has_template = "Tuzemnaya Diviziya" }
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = tooltip_create_division_template
+						NAME = "Tuzemnaya Diviziya"
+						LINE_1 = { localization_key = line_battalion_tt NAME = cavalry ICON = GFX_unit_cavalry_icon_small COUNT = 3 }
+					}
+					division_template = {
+						name = "Tuzemnaya Diviziya"
+						division_names_group = COS_CAV_01
+						regiments = {
+							cavalry = { x = 0 y = 0 }
+							cavalry = { x = 0 y = 1 }
+							cavalry = { x = 0 y = 2 }
+						}
+					}
+				}
+			}
+			random_owned_controlled_state = {
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = tooltip_spawn_units
+						COUNT = "2"
+						TYPE = "Tuzemnaya Diviziya"
+					}
+					create_unit = {
+						division = "division_template = \"Tuzemnaya Diviziya\" start_experience_factor = 0.2"
+						count = 2 
+						owner = ROOT
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = ALT_Qurultai_Power
+		icon = GFX_goal_ALT_Convene_State_Qurultai
+		cost = 1
+		relative_position_id = ALT_The_Milk_Faith
+		x = 0
+		y = 3
+		ai_will_do = {
+			base = 80
+		}
+		prerequisite = { focus = ALT_Patriotism_Altai }
+		available = {
+			has_socialist_government = no
+			NOT = { has_government = paternal_autocrat }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Qurultai_Power"
+			country_event = alt.25
+		}
+	}
+	focus = {
+		id = ALT_Inspiration_By_Amursana
+		icon = GFX_goal_MON_heirs_to_amursana
+		cost = 3
+		relative_position_id = ALT_The_Milk_Faith
+		x = -2
+		y = 5
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_Qurultai_Power }
+		available = {
+			has_socialist_government = no
+			NOT = { has_government = paternal_autocrat }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Inspiration_By_Amursana"
+			add_war_support = 0.1
+			if = {
+				limit = { has_idea = ALT_national_movement_10 } #triune
+				swap_ideas = {
+					remove_idea = ALT_national_movement_10
+					add_idea = ALT_national_movement_11
+				}
+			}
+			else_if = {
+				limit = { has_idea = ALT_national_movement_5 } #glorify martyrs
+				swap_ideas = {
+					remove_idea = ALT_national_movement_5
+					add_idea = ALT_national_movement_8
+				}
+			}
+			else_if = {
+				limit = { has_idea = ALT_national_movement_6 } #glorify martyrs + prayers
+				swap_ideas = {
+					remove_idea = ALT_national_movement_6
+					add_idea = ALT_national_movement_9
+				}
+			}
+			else_if = {
+				limit = { has_idea = ALT_national_movement_3 } #prayers
+				swap_ideas = {
+					remove_idea = ALT_national_movement_3
+					add_idea = ALT_national_movement_7
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = ALT_national_movement_2
+					add_idea = ALT_national_movement_4
+				}
+			}
+			custom_effect_tooltip = tooltip_white_line
+			if = {
+				limit = { 
+					NOT = { has_template = "Tuzemnaya Diviziya" }
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = tooltip_create_division_template
+						NAME = "Tuzemnaya Diviziya"
+						LINE_1 = { localization_key = line_battalion_tt NAME = cavalry ICON = GFX_unit_cavalry_icon_small COUNT = 3 }
+					}
+					division_template = {
+						name = "Tuzemnaya Diviziya"
+						division_names_group = COS_CAV_01
+						regiments = {
+							cavalry = { x = 0 y = 0 }
+							cavalry = { x = 0 y = 1 }
+							cavalry = { x = 0 y = 2 }
+						}
+					}
+				}
+			}
+			random_owned_controlled_state = {
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = tooltip_spawn_units
+						COUNT = "2"
+						TYPE = "Tuzemnaya Diviziya"
+					}
+					create_unit = {
+						division = "division_template = \"Tuzemnaya Diviziya\" start_experience_factor = 0.2"
+						count = 2 
+						owner = ROOT
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = ALT_Institutionalize_Burkhanist_Prayers
+		icon = GFX_goal_ALT_Institutionalize_Burkhanist_Prayers
+		cost = 3
+		relative_position_id = ALT_The_Milk_Faith
+		x = -1
+		y = 4
+		ai_will_do = {
+			base = 80
+		}
+		prerequisite = { focus = ALT_Qurultai_Power }
+		available = {
+			has_socialist_government = no
+			NOT = { has_government = paternal_autocrat }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Institutionalize_Burkhanist_Prayers"
+			if = {
+				limit = { has_idea = ALT_national_movement_5 } #glorify martyrs
+				swap_ideas = {
+					remove_idea = ALT_national_movement_5
+					add_idea = ALT_national_movement_6
+				}
+			}
+			else_if = {
+				limit = { has_idea = ALT_national_movement_8 } #glorify martyrs + amursana
+				swap_ideas = {
+					remove_idea = ALT_national_movement_8
+					add_idea = ALT_national_movement_9
+				}
+			}
+			else_if = {
+				limit = { has_idea = ALT_national_movement_4 } #inspiration by amursana
+				swap_ideas = {
+					remove_idea = ALT_national_movement_4
+					add_idea = ALT_national_movement_7
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = ALT_national_movement_2
+					add_idea = ALT_national_movement_3
+				}
+			}
+		}
+	}
+	focus = {
+		id = ALT_Restore_The_Oirot_Khanate
+		icon = GFX_goal_MON_Organize_Warhost
+		cost = 2
+		relative_position_id = ALT_The_Milk_Faith
+		x = -3
+		y = 6
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_Inspiration_By_Amursana }
+		available = {
+			has_socialist_government = no
+			NOT = { has_government = paternal_autocrat }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Restore_The_Oirot_Khanate"
+			#event with small oirotia or big oirotia
+			every_state = {
+				limit = {
+					OR = {
+						state = 1292
+						state = 569
+						state = 1293
+						state = 575
+						state = 811
+						state = 329
+						state = 1084
+						state = 404
+						state = 618
+					}
+				}
+				add_claim_by = ROOT
+				enable_state_integration_50_compliance = yes
+			}
+		}
+	}
+	focus = {
+		id = ALT_Ban_Alcohol_Tobacco
+		icon = GFX_goal_BAN_country_smoking
+		cost = 3
+		relative_position_id = ALT_The_Milk_Faith
+		x = 1
+		y = 4
+		ai_will_do = {
+			base = 80
+		}
+		prerequisite = { focus = ALT_Qurultai_Power }
+		available = {
+			has_socialist_government = no
+			NOT = { has_government = paternal_autocrat }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Ban_Alcohol_Tobacco"
+			if = {
+				limit = { has_idea = ALT_national_movement_4 } #amursana
+				swap_ideas = {
+					remove_idea = ALT_national_movement_4
+					add_idea = ALT_national_movement_8
+				}
+			}
+			else_if = {
+				limit = { has_idea = ALT_national_movement_7 } #amursana + prayers
+			}
+			else_if = {
+				limit = { has_idea = ALT_national_movement_3 } #prayers
+				swap_ideas = {
+					remove_idea = ALT_national_movement_3
+					add_idea = ALT_national_movement_6
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = ALT_national_movement_2
+					add_idea = ALT_national_movement_5
+				}
+			}
+		}
+	}
+	focus = {
+		id = ALT_Searching_For_Messenger_Of_White_Faith
+		icon = GFX_goal_ALT_Searching_Messenger_White_Faith
+		cost = 2
+		relative_position_id = ALT_The_Milk_Faith
+		x = 3
+		y = 6
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_Support_Gadalov_Merchants }
+		available = {
+			has_socialist_government = no
+			NOT = { has_government = paternal_autocrat }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Searching_For_Messenger_Of_White_Faith"
+			add_political_power = 50
+			add_stability = 0.1
+		}
+	}
+	focus = {
+		id = ALT_New_Golden_Age
+		icon = GFX_Goal_YUN_The_Mountain_Economy
+		cost = 4
+		relative_position_id = ALT_The_Milk_Faith
+		x = 0
+		y = 7
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_Lake_Of_Mountain_Sprits }
+		prerequisite = { focus = ALT_Offerings_To_Taika_Eezi_Arzhans }
+		prerequisite = { focus = ALT_Restore_The_Oirot_Khanate }
+		prerequisite = { focus = ALT_Searching_For_Messenger_Of_White_Faith }
+		available = {
+			has_socialist_government = no
+			NOT = { has_government = paternal_autocrat }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_New_Golden_Age"
+			add_research_slot_until_four = yes
+			add_political_power = 100
+			add_stability = 0.15
+			add_war_support = 0.15
+		}
+	}
+	focus = {
+		id = ALT_Faith_in_Triune_Uch_Kurbustan
+		icon = GFX_goal_ALT_Faith_Triune_Ak_Burkhan
+		cost = 3
+		relative_position_id = ALT_The_Milk_Faith
+		x = 0
+		y = 5
+		ai_will_do = {
+			base = 80
+		}
+		prerequisite = { focus = ALT_Institutionalize_Burkhanist_Prayers }
+		prerequisite = { focus = ALT_Ban_Alcohol_Tobacco }
+		available = {
+			has_socialist_government = no
+			NOT = { has_government = paternal_autocrat }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Faith_in_Triune_Uch_Kurbustan"
+			if = {
+				limit = { has_idea = ALT_national_movement_9 } #inspiration by amursana
+				swap_ideas = {
+					remove_idea = ALT_national_movement_9
+					add_idea = ALT_national_movement_11
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = ALT_national_movement_6
+					add_idea = ALT_national_movement_10
+				}
+			}
+		}
+	}
+	focus = {
+		id = ALT_Offerings_To_Taika_Eezi_Arzhans
+		icon = GFX_goal_ALT_Offerings_Taikaeezi_Arjans
+		cost = 3
+		relative_position_id = ALT_The_Milk_Faith
+		x = 1
+		y = 6
+		ai_will_do = {
+			base = 80
+		}
+		prerequisite = { focus = ALT_Faith_in_Triune_Uch_Kurbustan }
+		available = {
+			has_socialist_government = no
+			NOT = { has_government = paternal_autocrat }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Offerings_To_Taika_Eezi_Arzhans"
+			add_one_random_civilian_factory = yes
+			add_one_random_military_factory = yes
+		}
+	}
+	focus = {
+		id = ALT_Lake_Of_Mountain_Sprits
+		icon = GFX_goal_ALT_Lake_Mountain_Spirits
+		cost = 3
+		relative_position_id = ALT_The_Milk_Faith
+		x = -1
+		y = 6
+		ai_will_do = {
+			base = 80
+		}
+		prerequisite = { focus = ALT_Faith_in_Triune_Uch_Kurbustan }
+		available = {
+			has_socialist_government = no
+			NOT = { has_government = paternal_autocrat }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Lake_Of_Mountain_Sprits"
+			if = {
+				limit = { has_idea = ALT_national_movement_11 } #inspiration by amursana
+				swap_ideas = {
+					remove_idea = ALT_national_movement_11
+					add_idea = ALT_national_movement_13
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = ALT_national_movement_10
+					add_idea = ALT_national_movement_12
+				}
+			}
+			add_resource = {
+				type = aluminium
+				amount = 8
+				state = 654
+			}
+			add_resource = {
+				type = chromium
+				amount = 8
+				state = 654
+			}
+		}
+	}
+	focus = {
+		id = ALT_Support_Gadalov_Merchants
+		icon = GFX_goal_ALT_Support_Gadalov_Merchants
+		cost = 4
+		relative_position_id = ALT_The_Milk_Faith
+		x = 2
+		y = 5
+		ai_will_do = {
+			base = 80
+		}
+		prerequisite = { focus = ALT_Qurultai_Power }
+		available = {
+			has_socialist_government = no
+			NOT = { has_government = paternal_autocrat }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Support_Gadalov_Merchants"
+			add_political_power = 50
+			add_one_random_civilian_factory = yes
+			add_one_random_infrastructure = yes
+		}
+	}
+	focus = {
+		id = ALT_Great_Oirotia
+		icon = GFX_goal_ALT_Great_Oirotia
+		cost = 4
+		relative_position_id = ALT_The_Milk_Faith
+		x = 0
+		y = 8
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_New_Golden_Age }
+		available = {
+			has_socialist_government = no
+			NOT = { has_government = paternal_autocrat }
+			any_claim = no
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Great_Oirotia"
+			activate_targeted_decision = { target = ROOT decision = ALT_great_oirotia }
+		}
+	}
+
+	focus = {
+		id = ALT_Second_Second_Chui_Volost
+		icon = GFX_goal_ALT_New_Incarnation_Second_Chui_Volost
+		cost = 4
+		relative_position_id = ALT_Protect_Altai
+		x = 0
+		y = 10
+		ai_will_do = {
+			base = 100
+		}
+		available = {
+			has_government = national_populist
+		}
+		bypass = {
+			has_government = national_populist
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Second_Second_Chui_Volost"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = ALT_Heritage_Of_Hongorai
+		icon = GFX_goal_ALT_Heritage_Hongorai
+		cost = 5
+		relative_position_id = ALT_Second_Second_Chui_Volost
+		x = 1
+		y = 1
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_Second_Second_Chui_Volost }
+		available = {
+			has_government = national_populist
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Heritage_Of_Hongorai"
+			add_research_slot_until_four = yes				
+			if = {
+				limit = { 
+					country_exists = KHA
+					KHA = {
+						has_authoritarian_government = no
+						NOT = { has_completed_focus = KHA_Join_Free_Siberia }
+					}
+				}
+				KHA = { country_event = kha.14 }
+				custom_effect_tooltip = if_they_accept_tt
+				effect_tooltip = {
+					KHA = {
+						every_owned_state = {
+							limit = { is_claimed_by = ROOT }
+							remove_claim_by = ROOT
+						}
+						every_owned_state = {
+							limit = { is_core_of = KHA }
+							add_core_of = ROOT
+						}
+						every_unit_leader = { set_nationality = ROOT }
+					}
+					annex_country = {
+						target = KHA
+						transfer_troops = yes
+					}	
+				}
+			}
+		}
+	}
+	focus = {
+		id = ALT_Buddhist_Altai
+		icon = GFX_goal_MON_Follow_Buddhist_Principles
+		cost = 5
+		relative_position_id = ALT_Second_Second_Chui_Volost
+		x = -1
+		y = 1
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_Second_Second_Chui_Volost }
+		available = {
+			has_government = national_populist
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Buddhist_Altai"
+			add_timed_idea = { 
+				idea = ALT_you_are_a_failstate_bro
+				days = 70
+			}
+			add_ideas = ALT_buddhisation_of_altai
+		}
+	}
+	focus = {
+		id = ALT_Absolute_Power_Of_Dynasty
+		icon = GFX_goal_ALT_Absolute_Power_Aq_Qobok
+		cost = 5
+		relative_position_id = ALT_Second_Second_Chui_Volost
+		x = 0
+		y = 2
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_Buddhist_Altai }
+		prerequisite = { focus = ALT_Heritage_Of_Hongorai }
+		available = {
+			has_government = national_populist
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Absolute_Power_Of_Dynasty"
+			add_political_power = 100
+			add_stability = 0.10
+			add_popularity = { ideology = national_populist popularity = 0.10 }
+		}
+	}
+	focus = {
+		id = ALT_Restore_Ties_To_Qing
+		icon = GFX_goal_Generic_China_Terror_Qing
+		cost = 5
+		relative_position_id = ALT_Second_Second_Chui_Volost
+		x = 2
+		y = 3
+		ai_will_do = {
+			base = 100
+			modifier = {
+				factor = 0
+				OR = {
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_CHUI }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP }
+				}
+			}
+		}
+		prerequisite = { focus = ALT_Absolute_Power_Of_Dynasty }
+		mutually_exclusive = { 
+			focus = ALT_Restore_Double_Tributary_Regime 
+			focus = ALT_The_New_Khaganate
+		}
+		available = {
+			has_government = national_populist
+			country_exists = QIE
+			QIE = {
+				is_subject = no
+				has_capitulated = no
+				NOT = { has_war_with = QIE }
+				has_country_leader = {
+					name = "Puyi"
+					ruling_only = yes
+				}
+				OR = {
+					is_owner_neighbor_of = ALT
+					any_allied_country = { is_owner_neighbor_of = ALT }
+				}
+			}
+			NOT = { has_country_flag = ALT_QIE_refused }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Restore_Ties_To_Qing"
+			QIE = { country_event = alt.18 }
+			custom_effect_tooltip = if_they_accept_tt
+			effect_tooltip = {
+				QIE = { china_puppet_ROOT_effect = yes }
+			}
+		}
+	}
+	focus = {
+		id = ALT_Restore_Double_Tributary_Regime
+		icon = GFX_goal_ALT_Restore_Dual_Tributary_System
+		cost = 5
+		relative_position_id = ALT_Second_Second_Chui_Volost
+		x = -2
+		y = 3
+		ai_will_do = {
+			base = 100
+			modifier = {
+				factor = 0
+				OR = {
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_QIE }
+				}
+			}
+		}
+		prerequisite = { focus = ALT_Absolute_Power_Of_Dynasty }
+		mutually_exclusive = { 
+			focus = ALT_Restore_Ties_To_Qing 
+			focus = ALT_The_New_Khaganate
+		}
+		available = {
+			has_government = national_populist
+			country_exists = RUS
+			country_exists = CHN
+			var:global.russia = {
+				is_subject = no
+				has_capitulated = no
+				has_socialist_government = no
+				NOT = { has_government = social_democrat }
+				NOT = { 
+					has_war_with = ROOT
+					has_war_with = QIE
+				}
+			}
+			CHN = {
+				is_subject = no
+				has_capitulated = no
+				NOT = { 
+					has_war_with = ROOT
+					has_war_with = global.russia
+				}
+			}
+			NOT = { has_country_flag = ALT_double_tribute_refused }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Restore_Double_Tributary_Regime"
+			RUS = { country_event = alt.20 }
+			effect_tooltip = { CHN = { country_event = alt.20 } }
+			custom_effect_tooltip = ALT_if_both_accept
+			effect_tooltip = {
+				set_cosmetic_tag = ALT_chui
+				add_ideas = ALT_double_tributary_regime
+				var:global.russia = { give_guarantee = ALT }	
+				CHN = { give_guarantee = ALT }			
+			}
+		}
+	}
+	focus = {
+		id = ALT_The_New_Khaganate
+		icon = GFX_goal_MON_True_Khanate
+		cost = 5
+		relative_position_id = ALT_Second_Second_Chui_Volost
+		x = 0
+		y = 3
+		ai_will_do = {
+			base = 100
+			modifier = {
+				factor = 0
+				OR = {
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_CHUI }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_NATPOP_QIE }
+				}
+			}
+		}
+		prerequisite = { focus = ALT_Absolute_Power_Of_Dynasty }
+		mutually_exclusive = { 
+			focus = ALT_Restore_Ties_To_Qing 
+			focus = ALT_Restore_Double_Tributary_Regime
+		}
+		available = {
+			has_government = national_populist
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_The_New_Khaganate"
+			every_state = {
+				limit = {
+					is_claim_or_core_of_ROOT = no
+					OR = {
+						state = 1292
+						state = 569
+						state = 1293
+						state = 575
+						state = 811
+						state = 329
+						state = 1084
+						state = 404
+						state = 618
+					}
+				}
+				add_claim_by = ROOT
+			}
+			every_state = {
+				limit = {
+					OR = {
+						state = 1292
+						state = 569
+						state = 1293
+						state = 575
+						state = 811
+						state = 329
+						state = 1084
+						state = 404
+						state = 618
+					}
+				}
+				enable_state_integration_50_compliance = yes
+			}
+			set_cosmetic_tag = ALT_chui2
+			activate_targeted_decision = { target = ROOT decision = ALT_great_oirotia }
+		}
+	}
+
+
+
+	### Army Tree ###
+	
+	focus = {
+		id = ALT_Smuggle_Equipment
+		icon = GFX_focus_AUS_raid_military_storages
+		cost = 1
+		relative_position_id = ALT_Protect_Altai
+		x = 6
+		y = 0
+		ai_will_do = {
+			base = 100
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Smuggle_Equipment"
+			add_tech_bonus = {
+				name = ALT_Smuggle_Equipment
+				bonus = 1
+				uses = 1
+				category = infantry_weapons
+			}
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 2000
+				producer = MON
+			}
+		}
+	}
+	focus = {
+		id = ALT_Artillery_Shipments
+		icon = GFX_goal_generic_mountain_artillery
+		cost = 1
+		relative_position_id = ALT_Protect_Altai
+		x = 8
+		y = 0
+		ai_will_do = {
+			base = 100
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Artillery_Shipments"
+			add_tech_bonus = {
+				name = ALT_Artillery_Shipments
+				bonus = 0.75
+				uses = 2
+				category = artillery
+			}
+			add_ideas = ALT_artillery_positions
+			add_equipment_to_stockpile = {
+				type = artillery_equipment_1
+				amount = 48
+				producer = RUS
+			}
+		}
+	}
+	focus = {
+		id = ALT_Recruit_Seoks
+		icon = GFX_goal_ALT_Recruit_Seoks
+		cost = 4
+		relative_position_id = ALT_Smuggle_Equipment
+		x = 1
+		y = 1
+		prerequisite = { focus = ALT_Smuggle_Equipment }
+		prerequisite = { focus = ALT_Artillery_Shipments }
+		available = {
+			OR = {
+				is_subject = yes
+				has_completed_focus = ALT_Challenge_Satunin
+				has_completed_focus = ALT_Patriotism_Altai
+			}
+			has_socialist_government = no
+		}
+		ai_will_do = {
+			base = 80
+			modifier = {
+				factor = 2
+				has_war = yes
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Recruit_Seoks"
+			add_manpower = 5000
+			swap_ideas = {
+				remove_idea = ALT_artillery_positions
+				add_idea = ALT_conscripted_tribes
+			}
+			custom_effect_tooltip = tooltip_white_line
+			set_country_flag = enable_peoples_war_doctrine
+			custom_effect_tooltip = enable_peoples_war_doctrine_tt
+			custom_effect_tooltip = tooltip_white_line
+			if = {
+				limit = { 
+					NOT = { has_template = "Tuzemnaya Diviziya" }
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = tooltip_create_division_template
+						NAME = "Tuzemnaya Diviziya"
+						LINE_1 = { localization_key = line_battalion_tt NAME = cavalry ICON = GFX_unit_cavalry_icon_small COUNT = 3 }
+					}
+					division_template = {
+						name = "Tuzemnaya Diviziya"
+						division_names_group = COS_CAV_01
+						regiments = {
+							cavalry = { x = 0 y = 0 }
+							cavalry = { x = 0 y = 1 }
+							cavalry = { x = 0 y = 2 }
+						}
+					}
+				}
+			}
+			random_owned_controlled_state = {
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = tooltip_spawn_units
+						COUNT = "3"
+						TYPE = "Tuzemnaya Diviziya"
+					}
+					create_unit = {
+						division = "division_template = \"Tuzemnaya Diviziya\" start_experience_factor = 0.3"
+						count = 3 
+						owner = ROOT
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = ALT_Master_Khan_Altai
+		icon = GFX_goal_ALT_Master_Khan_Altai
+		cost = 4
+		relative_position_id = ALT_Smuggle_Equipment
+		x = -1
+		y = 2
+		prerequisite = { focus = ALT_Recruit_Seoks }
+		available = {			
+			has_socialist_government = no
+		}
+		ai_will_do = {
+			base = 80
+			modifier = {
+				factor = 2
+				has_war = yes
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Master_Khan_Altai"
+			enable_tech_mountain_warfare = yes
+			enable_tech_ski_infantry = yes
+			custom_effect_tooltip = tooltip_white_line
+			add_tech_bonus = {
+				name = ALT_Master_Khan_Altai
+				bonus = 0.75
+				uses = 2
+				category = support_tech
+			}
+		}
+	}
+	focus = {
+		id = ALT_Fighting_In_Taiga
+		icon = GFX_focus_SWE_beneath_sticks_and_stone
+		cost = 4
+		relative_position_id = ALT_Smuggle_Equipment
+		x = 3
+		y = 2
+		prerequisite = { focus = ALT_Recruit_Seoks }
+		available = {			
+			has_socialist_government = no
+		}
+		ai_will_do = {
+			base = 80
+			modifier = {
+				factor = 2
+				has_war = yes
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Fighting_In_Taiga"
+			enable_tech_taiga_warfare = yes
+			custom_effect_tooltip = tooltip_white_line
+			if = {
+				limit = { has_dlc_ncns = yes }
+				add_tech_bonus = {
+					name = ALT_Fighting_In_Taiga
+					bonus = 1
+					uses = 1
+					category = rangers_tech_cat
+				}				
+			}
+			else = {
+				add_tech_bonus = {
+					name = ALT_Fighting_In_Taiga
+					bonus = 1
+					uses = 1
+					category = recon_tech
+				}
+			}
+		}
+	}
+	focus = {
+		id = ALT_Towards_Modern_Army
+		icon = GFX_goal_ALT_Army
+		cost = 5
+		relative_position_id = ALT_Smuggle_Equipment
+		x = 1
+		y = 2
+		prerequisite = { focus = ALT_Recruit_Seoks }
+		available = {			
+			has_socialist_government = no
+		}
+		ai_will_do = {
+			base = 80
+			modifier = {
+				factor = 2
+				has_war = yes
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Towards_Modern_Army"
+			army_experience = 35
+			swap_ideas = {
+				remove_idea = ALT_conscripted_tribes
+				add_idea = ALT_modern_army
+			}
+			custom_effect_tooltip = tooltip_white_line
+			add_doctrine_cost_reduction = {
+				name = ALT_Towards_Modern_Army
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+		}
+	}
+	focus = {
+		id = ALT_Build_Runway_In_Ulala
+		icon = GFX_goal_ALT_Grass_Air_Strip_Ulala
+		cost = 3
+		relative_position_id = ALT_Smuggle_Equipment
+		x = 2
+		y = 3
+		prerequisite = { focus = ALT_Recruit_Seoks }
+		available = {			
+			has_socialist_government = no
+		}
+		ai_will_do = {
+			base = 10
+			modifier = {
+				factor = 10
+				has_war = yes
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Build_Runway_In_Ulala"
+			air_experience = 25
+			654 = {
+				add_building_construction = {
+					type = air_base
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = ALT_Motorized_Cavalry
+		icon = GFX_goal_ATH_modern_cataphracts
+		cost = 5
+		relative_position_id = ALT_Smuggle_Equipment
+		x = 0
+		y = 3
+		prerequisite = { focus = ALT_Recruit_Seoks }
+		available = {			
+			has_socialist_government = no
+		}
+		ai_will_do = {
+			base = 80
+			modifier = {
+				factor = 2
+				has_war = yes
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Motorized_Cavalry"
+			enable_tech_semi_motorised_cav = yes
+			add_tech_bonus = {
+				name = ALT_Motorized_Cavalry
+				bonus = 1
+				uses = 1
+				category = motorized_equipment
+			}
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				amount = 50
+				producer = RUS
+			}
+		}
+	}
+
+	focus = {
+		id = ALT_Yaks_Breeding
+		icon = GFX_goal_ALT_Yak_Breeding
+		cost = 2
+		relative_position_id = ALT_Protect_Altai
+		x = 7
+		y = 4
+		ai_will_do = {
+			base = 80
+		}
+		available = {
+			OR = {
+				is_subject = yes
+				has_completed_focus = ALT_Challenge_Satunin
+				has_completed_focus = ALT_Patriotism_Altai
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Yaks_Breeding"
+			add_ideas = ALT_yak_breeding
+		}
+	}
+	focus = {
+		id = ALT_Develop_Light_Industry
+		icon = GFX_goal_generic_forestry
+		cost = 3
+		relative_position_id = ALT_Yaks_Breeding
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = ALT_Yaks_Breeding
+		}
+		ai_will_do = {
+			base = 80
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Develop_Light_Industry"			
+			654 = { prioritize_state = yes }
+			add_one_random_civilian_factory = yes
+			add_resource = {
+				type = coal
+				amount = 6
+				state = 654
+			}
+		}
+	}
+	focus = {
+		id = ALT_Export_Honey_Herbs
+		icon = GFX_goal_BBR_new_land_of_milk
+		cost = 3
+		relative_position_id = ALT_Yaks_Breeding
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = ALT_Yaks_Breeding
+		}
+		available = { has_socialist_government = no }
+		ai_will_do = {
+			base = 80
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Export_Honey_Herbs"
+			654 = { prioritize_state = yes }
+			add_one_random_infrastructure = yes			
+			custom_effect_tooltip = tooltip_white_line
+			add_ideas = ALT_export_trade
+			custom_effect_tooltip = ALT_export_for_guns
+			custom_effect_tooltip = tooltip_white_line
+			every_other_country = {
+				limit = {
+					OR = {
+						tag = ALO
+						tag = SHX
+						tag = XSM
+						tag = ETS
+						tag = TAN
+						tag = SIK
+						tag = QIE
+						tag = FNG
+						tag = LEC
+						tag = MON
+					}
+					NOT = { has_war_with = ROOT }
+				}
+				display_individual_scopes = yes
+				add_opinion_modifier = { target = PREV modifier = KR_trade_agreement }
+				hidden_effect = {
+					add_ideas = ALT_export_trade_CHN
+					reverse_add_opinion_modifier = { target = PREV modifier = KR_trade_agreement }
+				}
+			}
+		}
+	}
+	focus = {
+		id = ALT_Mechanization_Of_Agriculture
+		icon = GFX_ARZ_TRAKTOP
+		cost = 4
+		relative_position_id = ALT_Yaks_Breeding
+		x = -1
+		y = 1
+		prerequisite = {
+			focus = ALT_Yaks_Breeding
+		}
+		available = { has_socialist_government = no }
+		ai_will_do = {
+			base = 80
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Mechanization_Of_Agriculture"
+			swap_ideas = {
+				remove_idea = ALT_land_crisis
+				add_idea = ALT_agriculture_mechanization
+			}
+			custom_effect_tooltip = tooltip_white_line
+			654 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = industrial_complex level = 1 }
+				add_victory_points = { province = 4800 value = 2 }
+				add_resource = {
+					type = steel
+					amount = 24
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = ALT_Revolution_In_Altai
+		icon = GFX_goal_ALT_Altai_Revolution
+		cost = 4
+		relative_position_id = ALT_Protect_Altai
+		x = 10
+		y = 9
+		ai_will_do = {
+			base = 100
+		}
+		available = {
+			has_socialist_government = yes
+		}
+		bypass = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Revolution_In_Altai"
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = ALT_Full_Autonomy
+		icon = GFX_goal_autonomism
+		cost = 3
+		relative_position_id = ALT_Revolution_In_Altai
+		x = -1
+		y = 1
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_Revolution_In_Altai }
+		available = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Full_Autonomy"
+			add_ideas = ALT_anarchist_society_1
+		}
+	}
+	focus = {
+		id = ALT_Soviets_Without_Bolsheviks
+		icon = GFX_goal_generic_democratic_socialism
+		cost = 3
+		relative_position_id = ALT_Revolution_In_Altai
+		x = 1
+		y = 1
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_Revolution_In_Altai }
+		available = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Soviets_Without_Bolsheviks"
+			add_popularity = { ideology = syndicalist popularity = 0.05 }
+			add_popularity = { ideology = radical_socialist popularity = 0.10 }
+			custom_effect_tooltip = tooltip_white_line
+			custom_effect_tooltip = radsoc_anarcho_communism_subtype_swap_tt
+			set_country_leader_ideology = anarcho_communism_subtype
+		}
+	}
+	focus = {
+		id = ALT_Liberate_Altai_Poor
+		icon = GFX_goal_ALT_Liberate_Altai_Bais_Nagaikas
+		cost = 3
+		relative_position_id = ALT_Revolution_In_Altai
+		x = 0
+		y = 2
+		ai_will_do = {
+			base = 90
+		}
+		prerequisite = { focus = ALT_Soviets_Without_Bolsheviks }
+		prerequisite = { focus = ALT_Full_Autonomy }
+		available = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Liberate_Altai_Poor"
+			add_popularity = { ideology = paternal_autocrat popularity = -0.10 }
+			add_popularity = { ideology = authoritarian_democrat popularity = -0.10 }
+			swap_ideas = {
+				remove_idea = ALT_anarchist_society_1
+				add_idea = ALT_anarchist_society_2
+			}
+		}
+	}
+	focus = {
+		id = ALT_Policy_Of_Natonal_Aymaqs
+		icon = GFX_ALO_Propaganda_Internationalism
+		cost = 2
+		relative_position_id = ALT_Revolution_In_Altai
+		x = 0
+		y = 4
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_Liberate_Altai_Poor }
+		available = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Policy_Of_Natonal_Aymaqs"
+			if = {
+				limit = { has_idea = ALT_complex_interfaith_relations }
+				swap_ideas = {
+					remove_idea = ALT_complex_interfaith_relations
+					add_idea = ALT_national_aymaqs
+				}
+			}
+			else = {
+				add_ideas = ALT_national_aymaqs
+			}
+			add_popularity = { ideology = social_democrat popularity = 0.05 } 
+		}
+	}
+	focus = {
+		id = ALT_Restart_Artisanal_Industry
+		icon = GFX_goal_ALT_Restart_Artisanal_Industry_Biysk
+		cost = 4
+		relative_position_id = ALT_Revolution_In_Altai
+		x = -3
+		y = 1
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_Revolution_In_Altai }
+		available = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Restart_Artisanal_Industry"
+			1292 = { prioritize_state = yes }
+			add_one_random_civilian_factory = yes
+		}
+	}
+	focus = {
+		id = ALT_Factory_Plant_Committees
+		icon = GFX_goal_ALT_Nationalize_Sawmills_Metalworking_Plants
+		cost = 3
+		relative_position_id = ALT_Restart_Artisanal_Industry
+		x = 1
+		y = 1
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_Restart_Artisanal_Industry }
+		available = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Factory_Plant_Committees"
+			add_one_random_civilian_factory = yes
+		}
+	}
+	focus = {
+		id = ALT_Peasant_Syndicalism
+		icon = GFX_goal_FRA_farm_outreach
+		cost = 3
+		relative_position_id = ALT_Restart_Artisanal_Industry
+		x = -1
+		y = 1
+		ai_will_do = {
+			base = 90
+		}
+		prerequisite = { focus = ALT_Restart_Artisanal_Industry }
+		available = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Peasant_Syndicalism"
+			if = {
+				limit = { has_idea = ALT_land_crisis }
+				swap_ideas = {
+					remove_idea = ALT_land_crisis
+					add_idea = ALT_peasant_syndicalism
+				}
+			}
+			else_if = {
+				limit = { has_idea = ALT_agriculture_mechanization }
+				swap_ideas = {
+					remove_idea = ALT_agriculture_mechanization
+					add_idea = ALT_peasant_syndicalism
+				}
+			}	
+			else = {
+				add_ideas = ALT_peasant_syndicalism
+			}
+		}
+	}
+	focus = {
+		id = ALT_Voluntary_Cooperation
+		icon = GFX_goal_FRA_worker_peasant_collab
+		cost = 3
+		relative_position_id = ALT_Restart_Artisanal_Industry
+		x = 0
+		y = 2
+		ai_will_do = {
+			base = 90
+		}
+		prerequisite = { focus = ALT_Peasant_Syndicalism }
+		available = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Voluntary_Cooperation"
+			add_stability = 0.05
+			add_political_power = -75
+			every_owned_state = { add_extra_state_shared_building_slots = 1 }
+		}
+	}
+	focus = {
+		id = ALT_Nomadic_Cooperatives
+		icon = GFX_goal_ALT_Nomadic_Cattle_Cooperatives
+		cost = 3
+		relative_position_id = ALT_Restart_Artisanal_Industry
+		x = -2
+		y = 2
+		ai_will_do = {
+			base = 90
+		}
+		prerequisite = { focus = ALT_Peasant_Syndicalism }
+		available = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Nomadic_Cooperatives"
+			swap_ideas = {
+				remove_idea = ALT_peasant_syndicalism
+				add_idea = ALT_peasant_syndicalism_1
+			}
+		}
+	}
+	focus = {
+		id = ALT_Bread_Meat_Nails_Ploughs
+		icon = GFX_goal_ALT_Bread_Meat_Ploughs_Nails
+		cost = 3
+		relative_position_id = ALT_Restart_Artisanal_Industry
+		x = 2
+		y = 2
+		ai_will_do = {
+			base = 90
+		}
+		prerequisite = { focus = ALT_Factory_Plant_Committees }
+		available = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Bread_Meat_Nails_Ploughs"
+			add_political_power = 100
+			if = {
+				limit = { 
+					NOT = { has_completed_focus = ALT_Mechanization_Of_Agriculture }
+				}
+				654 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = { type = industrial_complex level = 1 }
+					add_victory_points = { province = 4800 value = 2 }
+					add_resource = {
+						type = steel
+						amount = 24
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = ALT_Abolish_Money
+		icon = GFX_goal_ALT_Introduce_Worker_Talons_Over_Money
+		cost = 4
+		relative_position_id = ALT_Restart_Artisanal_Industry
+		x = 0
+		y = 3
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_Nomadic_Cooperatives }
+		prerequisite = { focus = ALT_Voluntary_Cooperation }
+		prerequisite = { focus = ALT_Bread_Meat_Nails_Ploughs }
+		available = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Abolish_Money"
+			swap_ideas = {
+				remove_idea = ALT_peasant_syndicalism_1
+				add_idea = ALT_no_money
+			}	
+		}
+	}
+	focus = {
+		id = ALT_Red_Eagles
+		icon = GFX_goal_ALT_Red_Mountain_Eagles
+		cost = 4
+		relative_position_id = ALT_Revolution_In_Altai
+		x = 3
+		y = 1
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_Revolution_In_Altai }
+		available = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Red_Eagles"
+			add_ideas = ALT_red_eagles_1
+		}
+	}
+	focus = {
+		id = ALT_Mobile_Cavalry
+		icon = GFX_UKR_Work_With_Makhnovtsy
+		cost = 3
+		relative_position_id = ALT_Red_Eagles
+		x = -1
+		y = 1
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_Red_Eagles }
+		available = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Mobile_Cavalry"
+			enable_tech_semi_motorised_cav = yes
+			enable_tech_at_cavalry = yes
+			custom_effect_tooltip = tooltip_white_line
+			if = {
+				limit = { 
+					NOT = { has_tech = tech_logistics_company }
+				}
+				set_technology = { tech_logistics_company = 1 }
+			}
+			if = {
+				limit = { 
+					NOT = { has_template = "Konnaya Brigada" }
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = tooltip_create_division_template
+						NAME = "Konnaya Brigada"
+						LINE_1 = { localization_key = line_battalion_tt NAME = irregular_cavalry ICON = GFX_unit_irregular_cavalry_icon_small COUNT = 4 }
+						SUPPORT_1 = { localization_key = support_battalion_tt NAME = logistics_company ICON = GFX_unit_logistics_company_icon_small }
+					}
+					division_template = {
+						name = "Konnaya Brigada"
+						division_names_group = COS_CAV_01
+						regiments = {
+							irregular_cavalry = { x = 0 y = 0 }
+							irregular_cavalry = { x = 0 y = 1 }
+							irregular_cavalry = { x = 0 y = 2 }
+							irregular_cavalry = { x = 0 y = 3 }
+						}
+						support = {
+							logistics_company = { x = 0 y = 0 }
+						}
+					}
+				}
+			}
+			random_owned_controlled_state = {
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = tooltip_spawn_units
+						COUNT = "2"
+						TYPE = "Konnaya Brigada"
+					}
+					create_unit = {
+						division = "division_template = \"Konnaya Brigada\" start_experience_factor = 0.3"
+						count = 2
+						owner = ROOT
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = ALT_Light_Infantry
+		icon = GFX_goal_ALT_Mobilize_Light_Infantry_Partisans
+		cost = 3
+		relative_position_id = ALT_Red_Eagles
+		x = 1
+		y = 1
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_Red_Eagles }
+		available = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Light_Infantry"
+			enable_irregular_infantry_tech = yes
+			if = {
+				limit = { 
+					NOT = { has_template = "Povstancheskaya Diviziya" }
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = tooltip_create_division_template
+						NAME = "Povstancheskaya Diviziya"
+						LINE_1 = { localization_key = line_battalion_tt NAME = irregular_infantry ICON = GFX_unit_irregular_infantry_icon_small COUNT = 6 }
+					}
+					division_template = {
+						name = "Povstancheskaya Diviziya"
+						division_names_group = TRM_MIL_01
+						regiments = {
+							irregular_infantry = { x = 0 y = 0 }
+							irregular_infantry = { x = 0 y = 1 }
+							irregular_infantry = { x = 1 y = 0 }
+							irregular_infantry = { x = 1 y = 1 }
+							irregular_infantry = { x = 2 y = 0 }
+							irregular_infantry = { x = 2 y = 1 }
+						}
+					}
+				}
+			}
+			random_owned_controlled_state = {
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = tooltip_spawn_units
+						COUNT = "4"
+						TYPE = "Povstancheskaya Diviziya"
+					}
+					create_unit = {
+						division = "division_template = \"Povstancheskaya Diviziya\" start_experience_factor = 0.3"
+						count = 4
+						owner = ROOT
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = ALT_Scavenge_Equipment
+		icon = GFX_goal_generic_basic_weapons
+		cost = 4
+		relative_position_id = ALT_Red_Eagles
+		x = 0
+		y = 2
+		ai_will_do = {
+			base = 80
+		}
+		prerequisite = { focus = ALT_Red_Eagles }
+		available = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Scavenge_Equipment"
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 2500
+				producer = RUS
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = 250
+				producer = RUS
+			}
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				amount = 100
+				producer = RUS
+			}
+		}
+	}
+	focus = {
+		id = ALT_Volunteer_Militia_Of_Public_SelfDefense
+		icon = GFX_BBR_red_militia_justice
+		cost = 2
+		relative_position_id = ALT_Red_Eagles
+		x = 2
+		y = 2
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_Light_Infantry }
+		available = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Volunteer_Militia_Of_Public_SelfDefense"
+			enable_asymmetrical_warfare = yes
+			if = {
+				limit = { has_tech = tech_military_police }
+				add_tech_bonus = {
+					name = ALT_Volunteer_Militia_Of_Public_SelfDefense
+					bonus = 1
+					uses = 1
+					category = military_police_tech
+				}
+			}
+			else = {
+				set_technology = { tech_military_police = 1 }
+			}
+		}
+	}
+	focus = {
+		id = ALT_Black_Guard_Of_Biysk
+		icon = GFX_goal_ALT_Flying_Black_Guard
+		cost = 4
+		relative_position_id = ALT_Red_Eagles
+		x = -2
+		y = 2
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_Mobile_Cavalry }
+		available = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Black_Guard_Of_Biysk"
+			swap_ideas = {
+				remove_idea = ALT_red_eagles_1
+				add_idea = ALT_red_eagles_2
+			}
+		}
+	}
+	focus = {
+		id = ALT_Master_Partisan_Warfare
+		icon = GFX_goal_WHR_Groups_Revolutionary_Actives
+		cost = 4
+		relative_position_id = ALT_Red_Eagles
+		x = 0
+		y = 3
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_Black_Guard_Of_Biysk }
+		prerequisite = { focus = ALT_Volunteer_Militia_Of_Public_SelfDefense }
+		available = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Master_Partisan_Warfare"			
+			swap_ideas = {
+				remove_idea = ALT_red_eagles_2
+				add_idea = ALT_red_eagles_3
+			}		
+		}
+	}
+	focus = {
+		id = ALT_White_Burkhan_Without_Masters
+		icon = GFX_goal_ALT_Coming_White_Burkhan
+		cost = 4
+		relative_position_id = ALT_Revolution_In_Altai
+		x = -4
+		y = 5
+		ai_will_do = {
+			base = 100
+			modifier = {
+				factor = 0
+				OR = {
+					has_game_rule = { rule = ALT_path option = ALT_PATH_RADSOC_UKR }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_SYNDIE }
+				}
+			}
+		}
+		prerequisite = { focus = ALT_Policy_Of_Natonal_Aymaqs }
+		mutually_exclusive = {
+			focus = ALT_Grey_Klyn
+			focus = ALT_Militarized_Anarchism
+		}
+		available = {
+			has_socialist_government = yes
+		}
+		will_lead_to_war_with = RUS
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_White_Burkhan_Without_Masters"
+			country_event = alt.39
+		}
+	}
+	focus = {
+		id = ALT_Soviets_Of_Elders
+		icon = GFX_goal_ALT_Soviets_Elders
+		cost = 4
+		relative_position_id = ALT_White_Burkhan_Without_Masters
+		x = 1
+		y = 1
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_White_Burkhan_Without_Masters }
+		available = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Soviets_Of_Elders"
+			swap_ideas = {
+				remove_idea = ALT_anarchist_society_2
+				add_idea = ALT_anarchist_society_5
+			}
+		}
+	}
+	focus = {
+		id = ALT_Anarcho_Communist_Shambala
+		icon = GFX_goal_ALT_Anarcho_Communist_Shambhala
+		cost = 4
+		relative_position_id = ALT_White_Burkhan_Without_Masters
+		x = -1
+		y = 1
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_White_Burkhan_Without_Masters }
+		available = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Anarcho_Communist_Shambala"
+			every_state = {
+				limit = {
+					OR = {
+						is_core_of = MON
+						is_core_of = SIK
+						is_core_of = ETS
+						is_core_of = TAN
+						is_core_of = XSM
+						is_core_of = TIB
+						is_core_of = SKM
+						is_core_of = BHU
+						is_core_of = NEP
+						is_central_asia = yes
+					}
+				}
+				add_claim_by = ROOT
+				enable_state_integration_50_compliance = yes
+			}
+			activate_targeted_decision = { target = ROOT decision = ALT_proclaim_shambhala }
+		}
+	}
+	focus = {
+		id = ALT_Militarized_Anarchism
+		icon = GFX_goal_ALT_Militarize_Anarchist_Communes
+		cost = 4
+		relative_position_id = ALT_Revolution_In_Altai
+		x = 4
+		y = 5
+		ai_will_do = {
+			base = 100
+			modifier = {
+				factor = 0
+				OR = {
+					has_game_rule = { rule = ALT_path option = ALT_PATH_RADSOC_UKR }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_RADSOC_TIB }
+				}
+			}
+		}
+		prerequisite = { focus = ALT_Policy_Of_Natonal_Aymaqs }
+		mutually_exclusive = {
+			focus = ALT_Grey_Klyn
+			focus = ALT_White_Burkhan_Without_Masters
+		}
+		available = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Militarized_Anarchism"
+			set_politics = { ruling_party = totalist }
+			add_popularity = { ideology = totalist popularity = 0.10 }
+			add_synd_to_coalition = yes
+			add_radsoc_to_coalition = yes
+			create_country_leader = {
+				name = "Mikhail Prudnikov"
+				picture = "gfx/leaders/ALT/Portrait_ALT_Mikhail_Prudnikov.png"
+				expire = "1.1.1"
+				ideology = anarcho_bolshevism_subtype
+			}
+			if = {
+				limit = { is_subject_of = RUS }
+				country_event = alt.37
+			}
+			else_if = {
+				limit = { is_subject = yes }
+				remove_puppet_and_leave_faction = yes
+				peace_out_non_neighbours_after_leaving_faction = yes
+			}
+		}
+	}
+	focus = {
+		id = ALT_Altaian_Erzats_Equipment
+		icon = GFX_goal_ALT_Produce_Altaian_Ersatz_Equipment
+		cost = 4
+		relative_position_id = ALT_Militarized_Anarchism
+		x = 1
+		y = 1
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_Militarized_Anarchism }
+		available = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Altaian_Erzats_Equipment"
+			add_two_random_military_factories = yes
+			add_ideas = ALT_erzats_equipment
+			custom_effect_tooltip = tooltip_white_line
+			set_technology = { bicycle_infantry = 1 popup = no }
+			enable_tech_strengthened_support_companies = yes
+			add_tech_bonus = {
+				name = ALT_Altaian_Erzats_Equipment
+				bonus = 0.75
+				uses = 4
+				category = artillery
+				category = infantry_weapons
+				category = support_tech
+			}
+		}
+	}
+	focus = {
+		id = ALT_Spartan_Syndicalism
+		icon = GFX_goal_ALT_Introduce_Spartan_Syndical_Defense
+		cost = 4
+		relative_position_id = ALT_Militarized_Anarchism
+		x = -1
+		y = 1
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_Militarized_Anarchism }
+		available = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Spartan_Syndicalism"
+			swap_ideas = {
+				remove_idea = ALT_anarchist_society_2
+				add_idea = ALT_anarchist_society_3
+			}
+		}
+	}
+	focus = {
+		id = ALT_Grey_Klyn
+		icon = GFX_goal_ALT_Anarchist_Grey_Ukraine
+		cost = 4
+		relative_position_id = ALT_Revolution_In_Altai
+		x = 0
+		y = 5
+		ai_will_do = {
+			base = 100
+			modifier = {
+				factor = 0
+				OR = {
+					has_game_rule = { rule = ALT_path option = ALT_PATH_SYNDIE }
+					has_game_rule = { rule = ALT_path option = ALT_PATH_RADSOC_TIB }
+				}
+			}
+		}
+		prerequisite = { focus = ALT_Policy_Of_Natonal_Aymaqs }
+		mutually_exclusive = {
+			focus = ALT_Militarized_Anarchism
+			focus = ALT_White_Burkhan_Without_Masters
+		}
+		available = {
+			has_socialist_government = yes
+		}
+		will_lead_to_war_with = RUS
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Grey_Klyn"
+			if = {
+				limit = { is_subject_of = RUS }				
+				RUS = { country_event = alt.38 }
+			}
+			remove_puppet_and_leave_faction = yes
+			peace_out_non_neighbours_after_leaving_faction = yes
+			create_country_leader = {
+				name = "Feodosiy Kozyr"
+				picture = "gfx/leaders/ALT/Portrait_ALT_Feodosiy_Kozyr.png"
+				expire = "1.1.1"
+				ideology = platformism_subtype
+			}
+			set_party_name = {
+				ideology = radical_socialist
+				name = ALT_radical_socialist_party
+				long_name = ALT_ukrainian_anarcho_party_long
+			}
+			custom_effect_tooltip = tooltip_white_line
+			activate_targeted_decision = { target = ROOT decision = ALT_free_steppes }
+			every_state = {
+				limit = {
+					OR = {
+						state = 1292
+						state = 40
+						state = 588
+						state = 583
+						state = 571
+						is_core_of = ALO
+					}
+				}
+				add_claim_by = ROOT
+				enable_state_integration_50_compliance = yes
+			}
+		}
+	}
+	focus = {
+		id = ALT_Liberate_Khliborobs_Cossacks
+		icon = GFX_goal_ALT_Liberate_Grain_Growers_Cossacks
+		cost = 4
+		relative_position_id = ALT_Grey_Klyn
+		x = 1
+		y = 1
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_Grey_Klyn }
+		available = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Liberate_Khliborobs_Cossacks"
+			swap_ideas = {
+				remove_idea = ALT_anarchist_society_2
+				add_idea = ALT_anarchist_society_4
+			}
+		}
+	}
+	focus = {
+		id = ALT_Attract_Kazakh_Tribes
+		icon = GFX_goal_ALT_Attract_Nomadic_Tribes
+		cost = 4
+		relative_position_id = ALT_Grey_Klyn
+		x = -1
+		y = 1
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = { focus = ALT_Grey_Klyn }
+		available = {
+			has_socialist_government = yes
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Attract_Kazakh_Tribes"
+			add_manpower = 20000
+			add_collaboration = { target = KHA value = 0.3 }
+			add_collaboration = { target = ALO value = 0.25 }
+			add_collaboration = { target = TRK value = 0.2 }
+			add_collaboration = { target = UZB value = 0.2 }
+			add_collaboration = { target = KHI value = 0.2 }
+			add_collaboration = { target = KYR value = 0.2 }
+			add_collaboration = { target = TAJ value = 0.2 }
+			add_collaboration = { target = ETS value = 0.2 }
+			add_collaboration = { target = MON value = 0.2 }
+		}
+	}
+	focus = {
+		id = ALT_Transsiberian_Anarchist_Corridor
+		icon = GFX_goal_ALT_Trans_Siberian_Anarchist_Corridor
+		cost = 4
+		relative_position_id = ALT_Grey_Klyn
+		x = 0
+		y = 2
+		ai_will_do = {
+			base = 90
+		}
+		prerequisite = { focus = ALT_Grey_Klyn }
+		available = {
+			has_socialist_government = yes
+			owns_state = 571
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ALT_Transsiberian_Anarchist_Corridor"
+			
+		}
+	}
+}
