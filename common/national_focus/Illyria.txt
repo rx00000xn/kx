@@ -2677,12 +2677,17 @@ focus_tree = {
 		relative_position_id = CRO_new_illyrian_economy
 		x = -3
 		y = 1
-		cost = 0
+		cost = 3
 		ai_will_do = {
 			base = 100
+			modifier = {
+				has_variable = CRO.subject_revolt_progress
+				factor = CRO.subject_revolt_progress
+			}
 		}
 		available = {
 			AUS_ausgleich_ongoing_trigger = no
+			NOT = { has_country_flag = no_minority_revolt }
 		}
 		prerequisite = {
 			focus = CRO_new_illyrian_economy
@@ -2692,13 +2697,11 @@ focus_tree = {
 		}
 		bypass = { AUS_is_constituent = no }
 		completion_reward = {
-			custom_effect_tooltip = unlock_focuses
-			hidden_effect = {
-				AUS = {
-					country_event = {
-						id = cro.0
-						days = 1
-					}
+			CRO_add_ten_collapse = yes
+			AUS = {
+				country_event = {
+					id = cro.0
+					days = 1
 				}
 			}
 		}
@@ -2752,10 +2755,8 @@ focus_tree = {
 			}
 			AUS_raise_slovenes = yes
 			SLO = {
-				custom_override_tooltip = {
-					tooltip = increase_revolt_rate_tt
-					add_to_variable = { SLO.extra_value = 0.075 }
-				}
+				set_temp_variable = { revolt_rate_change = 0.025 }
+				BOTDE_add_revolt_rate = yes
 			}
 			add_manpower = 10000
 		}
@@ -2834,13 +2835,6 @@ focus_tree = {
 		bypass = { AUS_is_constituent = no }
 		ai_will_do = { 
 			factor = 100
-			modifier = {
-				factor = 0
-				has_game_rule = {
-					rule = CRO_election
-					option = CRO_ELECTION_PATAUT
-				}
-			}
 		}
 		completion_reward = {
 			add_popularity = {
@@ -2924,7 +2918,6 @@ focus_tree = {
 		y = 4
 		cost = 2.3
 		available = {
-			has_country_flag = cro_slovenia_failure
 			custom_override_tooltip = {
 				tooltip = CONST_80_plus_collapse
 				check_variable = { CRO.subject_revolt_progress > 0.79 }
@@ -2956,7 +2949,6 @@ focus_tree = {
 		y = 5
 		cost = 1
 		available = {
-			has_country_flag = cro_slovenia_failure
 			has_country_flag = cro_revolt_in_progress
 			has_war_with = AUS
 			SLO = {
@@ -2999,7 +2991,7 @@ focus_tree = {
 		relative_position_id = CRO_stir_the_spirits
 		x = 6
 		y = 0
-		cost = 0
+		cost = 3
 		available = {
 			AUS_ausgleich_ongoing_trigger = no
 			AUS_is_constituent = yes
@@ -3010,10 +3002,22 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = CRO_stir_the_spirits
 		}
-		completion_reward = {
-			custom_effect_tooltip = unlock_focuses
+		bypass = { has_country_flag = no_minority_revolt }
+		ai_will_do = { 
+			base = 100
+			modifier = {
+				has_variable = CRO.subject_revolt_progress
+				set_temp_variable = { temp_factor = 1 }
+				subtract_from_temp_variable = { temp_factor = CRO.subject_revolt_progress }
+				factor = temp_factor
+			}
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			set_country_flag = no_minority_revolt
+			CRO_subtract_ten_collapse = yes
+			AUS = { AUS_fed_speed_1_add = yes }
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_AUS_FEDERALIZATION }
 	}
 	
 	focus = {
@@ -3023,27 +3027,17 @@ focus_tree = {
 		x = -1
 		y = 1
 		cost = 5
-		mutually_exclusive = {
-			focus = CRO_distance
-		}
 		prerequisite = {
 			focus = CRO_loyalty_remains
 		}
 		available = { AUS_is_constituent = yes }
 		ai_will_do = { 
 			factor = 100
-			modifier = {
-				factor = 0
-				has_game_rule = {
-					rule = ILL_slovenia_crisis
-					option = CRO_SLOVENIA_CRISIS_RESOLVED_INDEPENDENCE
-				}
-			}
 		}
 		completion_reward = {
-			
+			add_ideas = CRO_austroslavism
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_AUS_FEDERALIZATION }
 	}
 	focus = {
 		id = CRO_empower_nobility
@@ -3062,15 +3056,16 @@ focus_tree = {
 		completion_reward = {
 			add_popularity = {
 				ideology = authoritarian_democrat
-				popularity = 0.25
+				popularity = 0.15
 			}
 			set_party_name = { 
 				ideology = authoritarian_democrat
-				long_name = CRO_nobles_authdem_long
 				name = CRO_nobles_authdem
+				long_name = CRO_nobles_authdem_long
 			}
+			add_ideas = CRO_nobles_idea
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_AUS_FEDERALIZATION }
 	}
 	focus = {
 		id = CRO_enabling_act
@@ -3089,7 +3084,7 @@ focus_tree = {
 		completion_reward = {
 			country_event = cro.41
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_AUS_FEDERALIZATION }
 	}
 	focus = {
 		id = CRO_distance
@@ -3098,31 +3093,26 @@ focus_tree = {
 		x = 1
 		y = 1
 		cost = 5
-		mutually_exclusive = {
-			focus = CRO_draw_closer
-		}
 		prerequisite = {
 			focus = CRO_loyalty_remains
 		}
 		available = { AUS_is_constituent = yes }
 		ai_will_do = { 
 			factor = 100
-			modifier = {
-				factor = 0
-				has_game_rule = {
-					rule = ILL_slovenia_crisis
-					option = CRO_SLOVENIA_CRISIS_RESOLVED_LOYALTY
-				}
-			}
 		}
 		completion_reward = {
-			add_political_power = 10
+			add_political_power = 50
+			add_stability = 0.05
+			custom_override_tooltip = {
+				tooltip = CRO_prepare_for_the_worst_tt
+				set_country_flag = CRO_prepared_for_worst_flag
+			}
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_AUS_FEDERALIZATION }
 	}
 	focus = {
 		id = CRO_increase_autonomy
-		icon = GFX_goal_CZE_autonomy_bills
+		icon = GFX_goal_CRO_increase_autonomy
 		relative_position_id = CRO_loyalty_remains
 		x = 2
 		y = 2
@@ -3135,9 +3125,22 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-			add_political_power = 10
+			SLO = { 
+				set_temp_variable = { revolt_progress_change = -0.1 }
+				BOTDE_add_collapse = yes
+			}
+			every_state = {
+				limit = {
+					is_core_of = SLO
+					OR = {
+						is_owned_by = AUS
+						is_owned_by = CRO
+					}
+				}
+				add_dynamic_modifier = { modifier = CRO_slovenia_state_mod }
+			}
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_AUS_FEDERALIZATION }
 	}
 	focus = {
 		id = CRO_self_rule
@@ -3154,19 +3157,39 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-			add_political_power = 10
+			add_political_power = 50
+			add_stability = 0.05
+			increase_ruling_party_popularity_by_8 = yes
+			BOS = {
+				set_temp_variable = { revolt_progress_change = -0.1 }
+				BOTDE_add_collapse = yes
+			}
+			BOS = { #seperated because tooltip jank
+				set_temp_variable = { revolt_rate_change = -0.002 }
+				BOTDE_add_revolt_rate = yes
+			}
+			SKS = {
+				set_temp_variable = { revolt_progress_change = -0.1 }
+				BOTDE_add_collapse = yes
+			}
+			SKS = {
+				set_temp_variable = { revolt_rate_change = -0.002 }
+				BOTDE_add_revolt_rate = yes
+			}
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_AUS_FEDERALIZATION }
 	}
 	focus = {
 		id = CRO_joint_training
-		icon = GFX_goal_generic_army_training
+		icon = GFX_goal_CRO_joint_training
 		relative_position_id = CRO_loyalty_remains
 		x = 0
 		y = 2
 		cost = 5
 		prerequisite = {
 			focus = CRO_distance
+		}
+		prerequisite = {
 			focus = CRO_draw_closer
 		}
 		available = { AUS_is_constituent = yes }
@@ -3174,13 +3197,35 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-			army_experience = 50
+			every_country = {
+				limit = {
+					OR = {
+						tag = AUS
+						tag = CRO
+					}
+				}
+				army_experience = 50
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 1000
+				}
+				add_equipment_to_stockpile = {
+					type = artillery_equipment
+					amount = 200
+				}
+				add_mastery_bonus = {
+					bonus = 0.25
+					days = 240
+					name = CRO_AUS_croatian_military_mastery_bonus
+					folder = land
+				}
+			}
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_AUS_FEDERALIZATION }
 	}
 	focus = {
 		id = CRO_austrian_aid
-		icon = GFX_HUN_austrian_subsidies
+		icon = GFX_goal_AUS_bau_program
 		relative_position_id = CRO_loyalty_remains
 		x = 0
 		y = 3
@@ -3193,15 +3238,45 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
+			every_owned_state = {
+				limit = { infrastructure < 5 }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			every_owned_state = {
+				limit = { infrastructure > 4 }
+				increase_state_category = yes
+			}
 			random_owned_state = {
 				add_building_construction = {
 					type = industrial_complex
 					level = 1
 					instant_build = yes
 				}
+				add_extra_state_shared_building_slots = 1
+			}
+			random_owned_state = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			random_owned_state = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 1
 			}
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_AUS_FEDERALIZATION }
 	}
 	focus = {
 		id = CRO_meet_with_the_kaiser
@@ -3215,6 +3290,8 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = CRO_enabling_act
+		}
+		prerequisite = {
 			focus = CRO_self_rule	
 		}
 		available = { AUS_is_constituent = yes }
@@ -3222,10 +3299,10 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-			AUS = { add_political_power = 50 }
 			add_political_power = 50
+			AUS = { AUS_fed_speed_3_add = yes }
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_AUS_FEDERALIZATION }
 	}
 
 	focus = {
@@ -3243,9 +3320,10 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-			country_event = cro.42
+			CRO_subtract_ten_collapse = yes
+			AUS = { AUS_fed_speed_1_add = yes }
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_AUS_FEDERALIZATION }
 	}
 	
 	###Austrian Occupation Tree###
@@ -4926,73 +5004,6 @@ focus_tree = {
 		id = CRO_we_love_god
 		icon = GFX_goal_CRO_we_love_god
 		relative_position_id = CRO_reign_begins
-		cost = 2.9
-		
-		available = {
-			has_country_flag = CRO_military_takeover
-			has_war_with = BOS
-		}
-
-		bypass = {
-			BOS = { exists = no }
-			SLO = { exists = no }
-			CRR = { exists = no }
-		}
-		
-		prerequisite = { focus = CRO_state_enemies }
-		
-		mutually_exclusive = { focus = CRO_slovene_enemy focus = CRO_republican_enemy }
-		
-		ai_will_do = { 
-			factor = 20
-		}
-
-		completion_reward = {
-			add_stability = 0.05
-			hidden_effect = {
-				country_event = { id = reign.3 days = 3 }
-			}
-		}
-	}
-	
-	focus = {
-		id = CRO_slovene_enemy
-		icon = GFX_goal_CRO_slovene_enemy
-		x = -2
-		y = 2
-		relative_position_id = CRO_reign_begins
-		cost = 2.9
-		
-		available = {
-			has_country_flag = CRO_military_takeover
-			has_war_with = SLO
-		}
-
-		bypass = {
-			BOS = { exists = no }
-			SLO = { exists = no }
-			CRR = { exists = no }
-		}
-		
-		prerequisite = { focus = CRO_state_enemies }
-		
-		mutually_exclusive = { focus = CRO_bosnian_enemy focus = CRO_republican_enemy }
-		
-		ai_will_do = { 
-			factor = 20
-		}
-
-		completion_reward = {
-			add_stability = 0.05
-			hidden_effect = {
-				country_event = { id = reign.4 days = 3 }
-			}
-		}
-	}
-	
-	focus = {
-		id = CRO_republican_enemy
-		icon = GFX_goal_CRO_republican_terrorists
 		x = 2
 		y = 1
 		cost = 4
@@ -5020,17 +5031,6 @@ focus_tree = {
 		available = {
 			has_country_flag = CRO_pavelic_is_here
 		}
-
-		bypass = {
-			BOS = { exists = no }
-			SLO = { exists = no }
-			CRR = { exists = no }
-		}
-		
-		prerequisite = { focus = CRO_state_enemies }
-		
-		mutually_exclusive = { focus = CRO_slovene_enemy focus = CRO_bosnian_enemy }
-		
 		ai_will_do = { 
 			factor = 20
 		}

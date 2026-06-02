@@ -17,7 +17,7 @@ country_event = { #debug
 
 	option = { #Egads!
 		name = licdebug.0.a
-		LIC_readiness_increase_4 = yes
+		set_variable = { LIC.famine_value = 0 }
 	}
 }
 
@@ -34,7 +34,7 @@ country_event = { #debug
 
 	option = { #Egads!
 		name = licdebug.1.a
-		LIC_famine_decrease_grovel = yes
+		set_variable = { LIC.govt_readiness = 0 }
 	}
 }
 
@@ -590,6 +590,19 @@ country_event = { #The VDBL Mounts a Coup!
 		}
 		set_country_flag = LIC_couped
 		remove_dynamic_modifier = { modifier = LIC_shadow_empire_dynmod }
+		if = {
+			limit = {
+				has_dynamic_modifier = {
+					modifier = LIC_shadow_empire_dynmod
+				}
+			}
+			remove_dynamic_modifier = {
+				modifier = LIC_shadow_empire_dynmod
+			}
+			add_dynamic_modifier = {
+				modifier = LIC_shadow_empire_ariosophy
+			}
+		}
 		remove_dynamic_modifier = { modifier = LIC_princely_holdings_idea }
 		country_event = {
 			id = lic.10
@@ -675,7 +688,7 @@ country_event = { #Election of 1939
 	id = lic.16
 	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.16" }
 	title = lic.16.t
-	desc = lic.16.d
+	desc = lic.16.d	
 	
 	picture = GFX_event_LIC_landtag
 
@@ -926,6 +939,7 @@ country_event = { #The Currency Act!
 			focus = LIC_swiss_compact
 			cost = 5
 		}
+		unlock_decision_tooltip = LIC_foreign_currency
 	}
 	
 	option = { #We should experiment with our own currency!
@@ -934,18 +948,31 @@ country_event = { #The Currency Act!
 		add_stability = -0.1
 		if = {
 			limit = {
-				has_completed_focus = LIC_swiss_compact
+				power_balance_value = {
+					id = LIC_austro_swiss
+					value < 0.1
+				}
 			}
 			add_power_balance_value = {
 				id = LIC_austro_swiss
-				value = -0.15
-				tooltip_side = LIC_austro_swiss_swiss
+				value = 0.15
+				tooltip_side = LIC_austro_swiss_austria
 			}
-			else = {
+			else_if = {
+				limit = {
+					power_balance_value = {
+						id = LIC_austro_swiss
+						value > -0.1
+					}
+				}
 				add_power_balance_value = {
 					id = LIC_austro_swiss
-					value = 0.15
-					tooltip_side = LIC_austro_swiss_austria
+					value = -0.15
+					tooltip_side = LIC_austro_swiss_swiss
+				}
+				else = {
+					add_political_power = 50
+					increase_ruling_party_popularity_by_3 = yes
 				}
 			}
 		}
@@ -953,6 +980,7 @@ country_event = { #The Currency Act!
 			focus = LIC_foreign_suspicion
 			cost = 15
 		}
+		unlock_decision_tooltip = LIC_foreign_currency
 	}
 	
 	option = { #The Krone still has value.
@@ -967,6 +995,7 @@ country_event = { #The Currency Act!
 			focus = LIC_continue_customs_union
 			cost = 5
 		}
+		unlock_decision_tooltip = LIC_foreign_currency
 	}
 }
 
@@ -2368,7 +2397,15 @@ country_event = { #End the BOP
 
 	option = { #We are decided.
 		name = lic.54.a
-		remove_power_balance = LIC_austro_swiss
+		remove_power_balance = {
+			id = LIC_austro_swiss
+		}
+		if = {
+			limit = {
+				has_stability < 0
+			}
+			set_stability = 0
+		}
 		add_stability = 0.1
 	}
 }
@@ -2496,6 +2533,9 @@ country_event = { #Aryans Restored to Their Natural Home (capital)
 	
 	option = { #Berlin is the ancient capital anyhow.
 		name = lic.59.b
+		trigger = {
+			owns_state = 64
+		}
 		set_capital = { state = 64 }
 	}
 	
@@ -2681,7 +2721,7 @@ country_event = { #Ariosophic Realities
 	}
 	
 	option = { #Mellow out; restore the Prince!
-		name = lic.63.b
+		name = lic.63.c
 		add_stability = -0.15
 		add_war_support = -0.15
 		add_political_power = -100
@@ -3033,6 +3073,130 @@ country_event = { #Liechtenstein's Place in the Volk
 			remove_idea = LIC_der_umbruch_idea
 		}
 	}
+}
+
+country_event = { #Fifth Balkan War Causes Market Uncertainty
+	id = lic.73
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.70" }
+	title = lic.73.t
+	desc = lic.73.d
+	
+	picture = GFX_event_LIC_kieber
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Follow the Little German, kleindeutscher, idea.
+		name = lic.73.a
+		LIC_readiness_weekly_decrease_025 = yes
+		LIC_readiness_take_10 = yes
+		add_political_power = -25
+	}
+}
+
+country_event = { #The Third Vector
+	id = lic.74
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.70" }
+	title = lic.74.t
+	desc = lic.74.d
+	
+	picture = GFX_event_LIC_kieber
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #We shouldn't be mistaken; keep the lights on and protect our country.
+		name = lic.74.a
+		add_ideas = LIC_less_vulnerable_idea
+	}
+	
+	option = { #Let's prepare for eventualities.
+		name = lic.74.b
+		activate_mission = LIC_anti_air_mission
+	}
+	
+}
+
+country_event = { #Ending the Spartacists
+	id = lic.75
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.70" }
+	title = lic.75.t
+	desc = lic.75.d
+	
+	picture = GFX_event_LIC_kieber
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Allow workers' councils!
+		name = lic.75.a
+		add_political_power = 25
+	}
+}
+
+country_event = { #PAP- Liechtenstein requests its own archdiocese
+	id = lic.76
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.70" }
+	title = lic.76.t
+	desc = lic.76.d
+	
+	picture = GFX_event_LIC_kieber
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Form the Archdiocese of Vaduz!
+		name = lic.76.a
+		add_political_power = 25
+		FROM = {
+			country_event = lic.77
+		}
+	}
+	
+	option = { #No need
+		name = lic.76.b
+		FROM = {
+			country_event = lic.78
+		}
+		ai_chance = { factor = 0 }
+	}
+	
+}
+
+country_event = { #PAP accepts
+	id = lic.77
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.70" }
+	title = lic.77.t
+	desc = lic.77.d
+	
+	picture = GFX_event_LIC_kieber
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Form the Archdiocese of Vaduz!
+		name = lic.77.a
+		add_political_power = 150
+	}
+	
+}
+
+country_event = { #PAP rejects
+	id = lic.78
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.70" }
+	title = lic.78.t
+	desc = lic.78.d
+	
+	picture = GFX_event_LIC_kieber
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Form the Archdiocese of Vaduz!
+		name = lic.78.a
+		add_political_power = 150
+	}
+	
 }
 
 
@@ -4205,7 +4369,7 @@ country_event = { #Twin Towns; Sister Settlements!
 
 	option = { #Darn
 		name = licflavor.43.a
-		add_political_power = -20
+		add_political_power = 20
 	}
 }
 
@@ -4223,7 +4387,7 @@ country_event = { #The Liechtensteiner Grenzwache
 
 	option = { #Darn
 		name = licflavor.44.a
-		add_political_power = -20
+		add_political_power = 20
 	}
 }
 
@@ -4241,7 +4405,7 @@ country_event = { #Austria's Grenzwache Become Streifkorps Again
 
 	option = { #Too soon... Reminds us of the Trans-Alpine Strikes!
 		name = licflavor.45.a
-		add_political_power = -20
+		add_political_power = 20
 	}
 }
 
@@ -4302,6 +4466,12 @@ country_event = { #Commission to Study the Weltkrieg! (Army path)
 		set_technology = {
 			mountain_training_tech = 1
 		}
+		add_mastery = {
+			amount = 150
+			folder = land
+			track = infantry
+			index = 1
+		}
 	}
 	
 	### Police path
@@ -4320,6 +4490,20 @@ country_event = { #Commission to Study the Weltkrieg! (Army path)
 				}
 			}
 		}
+		add_unit_bonus = {
+			field_hospital = {
+				casualty_trickleback = 0.03
+				experience_loss_factor = -0.015
+			}
+			helicopter_field_hospital = {
+				casualty_trickleback = 0.03
+				experience_loss_factor = -0.015
+			}
+			motorbike_field_hospital = {
+				casualty_trickleback = 0.03
+				experience_loss_factor = -0.015
+			}
+		}
 	}
 	
 	option = { #They needed better command.
@@ -4327,6 +4511,7 @@ country_event = { #Commission to Study the Weltkrieg! (Army path)
 		trigger = {
 			has_completed_focus = LIC_maintain_the_police
 		}
+		army_experience = 100
 		add_political_power = -20
 		random_unit_leader = {
 			add_unit_leader_trait = militias_officer
@@ -4347,6 +4532,12 @@ country_event = { #Commission to Study the Weltkrieg! (Army path)
 		name = licflavor.46.g
 		trigger = {
 			has_completed_focus = LIC_maintain_the_police
+		}
+		add_mastery = {
+			amount = 150
+			folder = land
+			track = infantry
+			index = 1
 		}
 		swap_ideas = {
 			add_idea = LIC_military_police_idea_2
@@ -4902,9 +5093,17 @@ country_event = { #Hilti's Foray into Power Tools
 	picture = GFX_event_LIC_lawenatwerk
 	
 	trigger = {
-		LIC = {
-			mio:LIC_hilti_organisation = {
-				has_mio_size > 3
+		if = {
+			limit = {
+				has_dlc = "Arms Against Tyranny"
+			}
+			LIC = {
+				mio:LIC_hilti_organisation = {
+					has_mio_size > 3
+				}
+			}
+			else = {
+				always = no
 			}
 		}
 	}
@@ -7826,6 +8025,15 @@ country_event = { #Buying Guns
 		}
 	}
 	
+	option = { #Ask Hilti
+		name = licfor.57.c
+		mio:LIC_hilti_organisation = {
+			add_mio_funds = 800
+			add_mio_funds_gain_factor = 0.05
+			add_mio_research_bonus = 0.03
+		}
+	}
+	
 }
 
 country_event = { #Buying Planes
@@ -8378,6 +8586,10 @@ country_event = { #AUS- Liechtenstein Diplomatically Shifting
 					has_completed_focus = LIC_court_espionage
 				}
 			}
+			modifier = {
+				factor = 0
+				has_war = yes
+			}
 		}
 	}
 	
@@ -8561,7 +8773,7 @@ country_event = { #LIC- Austria/Switzerland Demands Territory Return
 					is_capital = yes
 				}
 			}
-			transfer_state = FROM
+			transfer_state_to = FROM
 		}
 		FROM = {
 			country_event = licfor.82 #Liechtenstein Gives In; Returns Territory
@@ -8591,7 +8803,7 @@ country_event = { #LIC- Austria/Switzerland Demands Territory Return
 	}
 	
 	option = { #GO FUCK YOURSELF
-		name = licfor.75.b
+		name = licfor.75.c
 		FROM = {
 			country_event =  licfor.78 #Liechtenstein Denies!
 		}

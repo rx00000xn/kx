@@ -241,10 +241,13 @@ BOTDE_LIC_decisions = {
 				if = {
 					limit = {
 						NOT = {
-							state = 1206
-							state = 116
-							state = 1091
-							state = 1124
+							OR = {
+								state = 1206
+								state = 116
+								state = 1091
+								state = 1124
+								state = 762
+							}
 						}
 					}
 					save_event_target_as = LIC_microstate_state
@@ -306,6 +309,22 @@ BOTDE_LIC_decisions = {
 							BAT_becomes_Riga = yes
 						}
 					}
+					else_if = {
+						limit = {
+							state = 762
+						}
+						BAT = {
+							transfer_state = FROM
+							LIC = {
+								set_autonomy = {
+									target = BAT
+									autonomous_state = LIC_sister_state
+								}
+							}
+							BAT_becomes_Riga = yes
+						}
+					}
+					
 				}
 			}
 		}
@@ -639,7 +658,12 @@ BOTDE_LIC_decisions = {
 		}
 		available = {
 			num_of_civilian_factories_available_for_projects > 3
-			is_special_project_completed = sp:sp_land_military_engineering_vehicles
+			if = {
+				limit = {
+					has_dlc = "Götterdämmerung"
+				}
+				is_special_project_completed = sp:sp_land_military_engineering_vehicles
+			}
 		}
 		days_remove = 180
 		remove_effect = {
@@ -678,6 +702,61 @@ BOTDE_LIC_decisions = {
 		}
 	}
 	
+	LIC_anti_air_mission = {
+		allowed = { tag = LIC }
+		fire_only_once = yes
+		activation = {
+			always = no
+		}
+		icon = GFX_decision_SWE_set_air_budget
+		available = {
+			1235 = {
+				anti_air_building > 4
+			}
+		}
+		is_good = no
+		days_mission_timeout = 240
+		complete_effect = {
+			set_variable = {
+				var = LIC.AA_mission_value
+				value = 1235.building_level@anti_air_building
+			}
+			divide_variable = {
+				var = LIC.AA_mission_value
+				value = 100
+			}
+			multiply_variable = {
+				var = LIC.AA_mission_value
+				value = 3
+			}
+			add_dynamic_modifier = {
+				modifier = LIC_anti_air_idea_you_win
+			}
+			add_tech_bonus = {
+				uses = 1
+				bonus = 1
+				category = cat_anti_air
+			}
+		}
+		timeout_effect = {
+			set_variable = {
+				var = LIC.AA_mission_value
+				value = 1235.building_level@anti_air_building
+			}
+			divide_variable = {
+				var = LIC.AA_mission_value
+				value = 100
+			}
+			multiply_variable = {
+				var = LIC.AA_mission_value
+				value = 2.5
+			}
+			add_dynamic_modifier = {
+				modifier = LIC_anti_air_idea
+			}
+		}
+	}
+	
 	LIC_bunker_mission = {
 		allowed = { tag = LIC }
 		fire_only_once = yes
@@ -709,8 +788,13 @@ BOTDE_LIC_decisions = {
 					}
 				}
 			}
-			sp:sp_land_stronghold_network = {
-				add_project_progress_ratio = 0.65
+			if = {
+				limit = {
+					has_dlc = "Götterdämmerung"
+				}
+				sp:sp_land_stronghold_network = {
+					add_project_progress_ratio = 0.65
+				}
 			}
 			hidden_effect = {
 				remove_ideas = LIC_bunker_recipient
@@ -721,8 +805,13 @@ BOTDE_LIC_decisions = {
 			}
 		}
 		timeout_effect = {
-			custom_effect_tooltip = LIC_stronghold_breakthrough
-			LIC_do_stronghold_breakthrough = yes
+			if = {
+				limit = {
+					has_dlc = "Götterdämmerung"
+				}
+				custom_effect_tooltip = LIC_stronghold_breakthrough
+				LIC_do_stronghold_breakthrough = yes
+			}
 			hidden_effect = {
 				remove_ideas = LIC_bunker_recipient
 				event_target:LIC_allied_nation = {
@@ -1634,6 +1723,7 @@ BOTDE_LIC_decisions = {
 			}
 		}
 		available = {
+			is_in_faction_with = INT
 			FROM = {
 				is_claimed_by = LIC
 				owner = {
@@ -1673,6 +1763,9 @@ BOTDE_LIC_decisions = {
 					compare = greater_than_or_equals
 				}
 			}
+			NOT = {
+				has_government = national_populist
+			}
 		}
 		complete_effect = {
 			set_cosmetic_tag = LIC_duchy
@@ -1701,6 +1794,9 @@ BOTDE_LIC_decisions = {
 					value = 6
 					compare = greater_than_or_equals
 				}
+			}
+			NOT = {
+				has_government = national_populist
 			}
 		}
 		complete_effect = {
@@ -2066,9 +2162,9 @@ BOTDE_LIC_decisions = {
 				is_in_faction_with = GER
 				has_war_with = GER
 			}
-			is_neighbor_of = GER
+			#is_neighbor_of = GER
 		}
-		days_remove = 40
+		days_remove = 20
 		war_with_on_remove = GER
 		remove_effect = {
 			declare_war_on = {
@@ -2135,9 +2231,9 @@ BOTDE_LIC_decisions = {
 				is_in_faction_with = AUS
 				has_war_with = AUS
 			}
-			is_neighbor_of = AUS
+			#is_neighbor_of = AUS
 		}
-		days_remove = 40
+		days_remove = 20
 		war_with_on_remove = AUS
 		remove_effect = {
 			declare_war_on = {
@@ -3117,7 +3213,6 @@ LIC_playing_60_seconds_speedrun = {
 		}
 	}
 	LIC_foreign_currency = {
-		cost = 35
 		icon = GFX_decision_global_trade
 		allowed = { tag = LIC }
 		state_target = yes
@@ -3174,7 +3269,12 @@ LIC_playing_60_seconds_speedrun = {
 				has_country_flag = LIC_quotas_done
 			}
 		}
+		custom_cost_trigger = {
+			LIC_no_negs_HH = yes
+		}
+		custom_cost_text = LIC_HH_cost_tt
 		available = {
+			LIC_no_negs_HH = yes
 			NOT = {
 				has_war_with = FROM.owner
 				has_country_flag = LIC_quotas_done
@@ -3187,33 +3287,121 @@ LIC_playing_60_seconds_speedrun = {
 		}
 		modifier = {
 			stability_weekly = -0.01
+			political_power_gain = -0.1
 		}
 		fire_only_once = no
 		days_remove = 30
-		days_re_enable = 10
+		days_re_enable = 30
+		complete_effect = {
+			LIC_nerf_hh = yes
+		}
 		remove_effect = {
+			LIC_restore_hh = yes
 			if = {
 				limit = {
-					has_completed_focus = LIC_coin_SWI
-				}
-				add_power_balance_value = {
-					id = LIC_austro_swiss
-					value = -0.15
-					tooltip_side = LIC_austro_swiss_swiss
-				}
-				LIC_readiness_increase_2 = yes
-				else_if = {
-					limit = {
-						has_completed_focus = LIC_coin_AUS
+					FROM = {
+						state = 3
 					}
+				}
+				if = {
+					limit = {
+						has_country_flag = LIC_coin_AUS
+					}
+					LIC_readiness_increase_1 = yes
 					add_power_balance_value = {
 						id = LIC_austro_swiss
-						value = 0.15
-						tooltip_side = LIC_austro_swiss_austria
+						value = -0.05
+						tooltip_side = LIC_austro_swiss_swiss
+					}
+					LIC_readiness_increase_2 = yes
+				}
+				if = {
+					limit = {
+						has_country_flag = LIC_coin_SWI
+					}
+					LIC_readiness_increase_2 = yes
+					add_power_balance_value = {
+						id = LIC_austro_swiss
+						value = -0.1
+						tooltip_side = LIC_austro_swiss_swiss
+					}
+					LIC_readiness_increase_2 = yes
+				}
+				if = {
+					limit = {
+						has_country_flag = LIC_coin_LIC
+						LIC_neutral_position = yes
+					}
+					LIC_readiness_increase_3 = yes
+				}
+				if = {
+					limit = {
+						has_country_flag = LIC_coin_LIC
+						NOT = {
+							LIC_neutral_position = yes
+						}
+						power_balance_value = {
+							id = LIC_austro_swiss
+							value < -0.1
+						}
 					}
 					LIC_readiness_increase_2 = yes
 					else = {
-						LIC_readiness_increase_3 = yes
+						LIC_readiness_increase_1 = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					FROM = {
+						state = 1137
+					}
+				}
+				if = {
+					limit = {
+						has_country_flag = LIC_coin_AUS
+					}
+					LIC_readiness_increase_2 = yes
+					add_power_balance_value = {
+						id = LIC_austro_swiss
+						value = 0.1
+						tooltip_side = LIC_austro_swiss_austria
+					}
+					LIC_readiness_increase_2 = yes
+				}
+				if = {
+					limit = {
+						has_country_flag = LIC_coin_SWI
+					}
+					LIC_readiness_increase_2 = yes
+					add_power_balance_value = {
+						id = LIC_austro_swiss
+						value = 0.05
+						tooltip_side = LIC_austro_swiss_austria
+					}
+					LIC_readiness_increase_1 = yes
+				}
+				if = {
+					limit = {
+						has_country_flag = LIC_coin_LIC
+						LIC_neutral_position = yes
+					}
+					LIC_readiness_increase_3 = yes
+				}
+				if = {
+					limit = {
+						has_country_flag = LIC_coin_LIC
+						NOT = {
+							LIC_neutral_position = yes
+						}
+						power_balance_value = {
+							id = LIC_austro_swiss
+							value > 0.1
+						}
+					}
+					LIC_readiness_increase_2 = yes
+					else = {
+						LIC_readiness_increase_1 = yes
 					}
 				}
 			}

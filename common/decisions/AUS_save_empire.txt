@@ -4631,64 +4631,11 @@ EUU_paneuropean_council = {
 			EUU_sufficient_economic_integration = yes
 			EUU_sufficient_military_integration = yes
 			#EUU_sufficient_extra_pressure = yes
-			NOT = {
-				has_global_flag = EUU_federalized
-			}
+			NOT = { has_global_flag = EUU_federalized }
 		}
 		fire_only_once = yes
 		complete_effect = {
-			if = {
-				limit = {
-					is_faction_leader = yes
-				}
-				set_faction_name = "Pan-European Union"
-				else = {
-					create_faction = "Pan-European Union"
-					every_country = {
-						limit = {
-							EUU_EU_member = yes
-						}
-						add_to_faction = PREV
-					}
-				}
-			}
-			every_country = {
-				limit = {
-					EUU_EU_member = yes
-				}
-				every_owned_state = {
-					limit = {
-						is_on_continent = europe
-					}
-					add_core_of = EUU
-				}
-				every_subject_country = {
-					EUU = {
-						puppet = PREV
-					}
-				}
-				every_unit_leader = {
-					set_nationality = AUS
-				}
-				EUU = {
-					annex_country = {
-						target = PREV
-						transfer_troops = yes
-					}
-					set_cosmetic_tag = AUS_EU
-				}
-			}
-			set_global_flag = EUU_federalized
-			hidden_effect = {
-				set_variable = {
-					var = global.EU_economic_integration_flat
-					value = 0
-				}
-				set_variable = {
-					var = global.EU_army_xp_pool
-					value = 0
-				}
-			}
+			EUU_unite_europe_effect = yes
 		}
 		ai_will_do = {
 			factor = 100
@@ -4717,10 +4664,9 @@ EUU_paneuropean_council = {
 	
 	EU_questions = {
 		cost = 75
-		icon = GFX_decision_scales
+		icon = GFX_decision_generic_focus
 		visible = {
 			tag = EUU
-			
 		}
 		state_target = yes
 		target_trigger = {
@@ -4751,24 +4697,19 @@ EUU_paneuropean_council = {
 		fire_only_once = yes
 		complete_effect = {
 			if = {
-				limit =	{
-					FROM = {
-						owner = {
-							tag = RUS
-						}
-					}
-				}
+				limit =	{ FROM = { owner = { tag = RUS } } }
 				country_event = {
 					id = bdeeu.4
 					days = 5
 					random = 48
 				}
-				else = {
-					country_event = {
-						id = bdeeu.5
-						days = 5
-						random = 48
-					}
+			}
+			else_if = {
+				limit =	{ FROM = { owner = { tag = TUR } } }
+				country_event = {
+					id = bdeeu.5
+					days = 5
+					random = 48
 				}
 			}
 		}
@@ -4776,7 +4717,6 @@ EUU_paneuropean_council = {
 			factor = 100
 		}
 	}
-	
 }   
 
 

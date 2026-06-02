@@ -255,8 +255,8 @@ LIC_shadow_empire_dynmod = {
 	remove_trigger = {
 		always = no
 	}
-	industrial_factory_donations = LIC.shadow_empire_civs
-	military_factory_donations = LIC.shadow_empire_mils
+	industrial_factory_donations = LIC.shadow_empire_civs_percent
+	military_factory_donations = LIC.shadow_empire_mils_percent
 	consumer_goods_expected_value = -0.05
 }
 
@@ -266,9 +266,43 @@ LIC_shadow_empire_occupied = {
 	remove_trigger = {
 		always = no
 	}
-	production_speed_buildings_factor = LIC.shadow_empire_civs
-	industrial_capacity_factory = LIC.shadow_empire_mils
+	production_speed_buildings_factor = LIC.shadow_empire_civs_percent
+	industrial_capacity_factory = LIC.shadow_empire_mils_percent
 	consumer_goods_expected_value = -0.05
+}
+
+LIC_shadow_empire_ariosophy = {
+	icon = GFX_dynamic_mod_LIC_shadow_empire_occupied
+	enable = { always = yes }
+	remove_trigger = {
+		always = no
+	}
+	equipment_capture_factor = LIC.shadow_empire_mils_VDBL
+	weekly_manpower = LIC.shadow_empire_mils_VDBL_manpower
+	production_lack_of_resource_penalty_factor = LIC.shadow_empire_civs_VDBL
+	consumer_goods_expected_value = -0.05
+}
+
+LIC_anti_air_idea = {
+	icon = GFX_dynamic_mod_LIC_shadow_empire_occupied
+	enable = { always = yes }
+	remove_trigger = {
+		always = no
+	}
+	static_anti_air_damage_factor = LIC.AA_mission_value
+	static_anti_air_hit_chance_factor = LIC.AA_mission_value
+}
+
+LIC_anti_air_idea_you_win = {
+	icon = GFX_dynamic_mod_LIC_shadow_empire_occupied
+	enable = { always = yes }
+	remove_trigger = {
+		always = no
+	}
+	static_anti_air_damage_factor = LIC.AA_mission_value
+	static_anti_air_hit_chance_factor = LIC.AA_mission_value
+	repair_speed_anti_air_building_factor = 0.1
+	production_speed_anti_air_building_factor = 0.1
 }
 
 LIC_holding_jagerndorf = {
@@ -602,6 +636,24 @@ CRO_bosnia_state_mod = {
 CRO_dalmatia_state_mod = {
 	icon = GFX_dynamic_mod_CRO_dalmatia
 	remove_trigger = { NOT = { owner = { tag = CRO } } }
+	resistance_target = -0.1
+	compliance_gain = 0.1
+	recruitable_population_factor = -0.05
+	local_building_slots_factor = 0.25
+	state_resources_factor = 0.25
+	local_intel_to_enemies = -0.05
+}
+
+CRO_slovenia_state_mod = {
+	icon = GFX_dynamic_mod_CRO_slovenia
+	remove_trigger = {
+		owner = {
+			NOT = {
+				tag = CRO
+				tag = AUS
+			}
+		}
+	}
 	resistance_target = -0.1
 	compliance_gain = 0.1
 	recruitable_population_factor = -0.05

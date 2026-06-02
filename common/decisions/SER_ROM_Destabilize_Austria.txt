@@ -237,6 +237,7 @@ SER_serb_uprising = {
 					amount = -500
 				}
 			}
+			set_country_flag = SER_decision_seppies_activated
 			if = {
 				limit = { is_ai = yes }
 				every_possible_country = {
@@ -264,6 +265,7 @@ SER_serb_uprising = {
 					ROM = {
 						is_ai = yes
 						NOT = {
+							has_country_flag = ROM_decision_seppies_activated
 							has_country_flag = ROM_funded_seppies
 						}
 					}
@@ -531,12 +533,17 @@ SER_serb_uprising = {
 				for_each_scope_loop = {
 					array = global.SER_srpska_states
 					tooltip = SER_srpska_resistance_effect_tooltip
-					add_to_variable = {
-						SER_target_lands_resistance_activity = 0.05
-						tooltip = SER_srpska_resistance_activity_tooltip_5
+					if = {
+						limit = {
+							has_resistance = yes
+						}
+						add_to_variable = {
+							SER_target_lands_resistance_activity = 0.05
+							tooltip = SER_srpska_resistance_activity_tooltip_5
+						}
+						add_compliance = -3
+						add_resistance = 3
 					}
-					add_compliance = -3
-					add_resistance = 3
 				}
 			}
 			if = {
@@ -544,12 +551,17 @@ SER_serb_uprising = {
 				for_each_scope_loop = {
 					array = global.SER_bosnia_states
 					tooltip = SER_bosnia_resistance_effect_tooltip
-					add_to_variable = {
-						SER_target_lands_resistance_activity = 0.03
-						tooltip = SER_bosnia_resistance_activity_tooltip_3
+					if = {
+						limit = {
+							has_resistance = yes
+						}
+						add_to_variable = {
+							SER_target_lands_resistance_activity = 0.03
+							tooltip = SER_bosnia_resistance_activity_tooltip_3
+						}
+						add_compliance = -3
+						add_resistance = 3
 					}
-					add_compliance = -3
-					add_resistance = 3
 				}
 			}
 			if = {
@@ -557,12 +569,17 @@ SER_serb_uprising = {
 				for_each_scope_loop = {
 					array = global.SER_slovenia_states
 					tooltip = SER_slovenia_resistance_effect_tooltip
-					add_to_variable = {
-						SER_target_lands_resistance_activity = 0.03
-						tooltip = SER_bosnia_resistance_activity_tooltip_3
+					if = {
+						limit = {
+							has_resistance = yes
+						}
+						add_to_variable = {
+							SER_target_lands_resistance_activity = 0.03
+							tooltip = SER_bosnia_resistance_activity_tooltip_3
+						}
+						add_compliance = -3
+						add_resistance = 3
 					}
-					add_compliance = -3
-					add_resistance = 3
 				}
 			}
 		}
@@ -1404,6 +1421,7 @@ ROM_romanian_uprising = {
 					amount = -800
 				}
 			}
+			set_country_flag = ROM_decision_seppies_activated
 			if = {
 				limit = { is_ai = yes }
 				every_possible_country = {
@@ -1430,7 +1448,7 @@ ROM_romanian_uprising = {
 				limit = {
 					SER = {
 						is_ai = yes
-						NOT = { has_country_flag = SER_funded_seppies }
+						NOT = { has_country_flag = SER_funded_seppies has_country_flag = SER_decision_seppies_activated }
 					}
 				}
 				SER = {
@@ -2934,7 +2952,7 @@ foreign_politics = {
 				tag = SER
 				tag = ROM
 			}
-			#is_ai = yes
+			is_ai = yes
 			OR = {
 				has_completed_focus = SER_congress_of_belgrade
 				has_completed_focus = ROM_across_the_carpathians
@@ -2955,21 +2973,38 @@ foreign_politics = {
 			}
 		}
 		available = {
-			always = yes
+			NOT = {
+				has_global_flag = SER_ROM_evil_ass_rape_decision_flag_2
+			}
+		}
+		complete_effect = {
+			set_global_flag = SER_ROM_evil_ass_rape_decision_flag_2
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SER_ROM_evil_ass_rape_decision"
 			if = {
 				limit = {
-					tag = SER
+					NOT = {
+						SER = {
+							has_country_flag = SER_decision_seppies_activated
+						}
+					}
 				}
-				activate_decision = SER_seek_chetnik_ties
+				SER = {
+					activate_decision = SER_seek_chetnik_ties
+				}
 			}
 			if = {
 				limit = {
-					tag = ROM
+					NOT = {
+						ROM = {
+							has_country_flag = ROM_decision_seppies_activated
+						}
+					}
 				}
-				activate_decision = ROM_seek_transylvanian_ties
+				ROM = {
+					activate_decision = ROM_seek_transylvanian_ties
+				}
 			}
 			set_global_flag = SER_ROM_evil_ass_rape_decision_flag
 		}
