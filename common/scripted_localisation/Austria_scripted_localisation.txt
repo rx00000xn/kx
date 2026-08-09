@@ -1,106 +1,4 @@
 defined_text = {
-	name = AUS_ausgleich_delegation
-	text = {
-		trigger = {
-			has_global_flag = AUS_ausgleich_kingdoms
-		}
-		localization_key = AUS_ausgleich_delegation_kingdom
-	}
-	text = {
-		trigger = {
-			has_global_flag = AUS_ausgleich_peoples
-			tag = CZE
-		}
-		localization_key = AUS_ausgleich_delegation_CZE
-	}
-	text = {
-		trigger = {
-			has_global_flag = AUS_ausgleich_peoples
-			tag = GAL
-		}
-		localization_key = AUS_ausgleich_delegation_GAL
-	}
-	text = {
-		trigger = {
-			has_global_flag = AUS_ausgleich_peoples
-			tag = CRO
-		}
-		localization_key = AUS_ausgleich_delegation_CRO
-	}
-}
-
-defined_text = {
-	name = AUS_ausgleich_dominated_delegation
-	text = {
-		trigger = {
-			tag = CZE
-		}
-		localization_key = AUS_ausgleich_dominated_delegation_CZE
-	}
-	text = {
-		trigger = {
-			tag = GAL
-		}
-		localization_key = AUS_ausgleich_dominated_delegation_GAL
-	}
-	text = {
-		trigger = {
-			tag = CRO
-		}
-		localization_key = AUS_ausgleich_dominated_delegation_CRO
-	}
-}
-
-defined_text = {
-	name = AUS_ausgleich_demonstrations
-	text = {
-		trigger = {
-			has_global_flag = AUS_ausgleich_slovakia
-			has_global_flag = AUS_ausgleich_transylvania
-		}
-		localization_key = AUS_ausgleich_demonstrations_SVK_ROM
-	}
-	text = {
-		trigger = {
-			has_global_flag = AUS_ausgleich_slovakia
-			NOT = { has_global_flag = AUS_ausgleich_transylvania }
-		}
-		localization_key = AUS_ausgleich_demonstrations_SVK
-	}
-	text = {
-		trigger = {
-			NOT = { has_global_flag = AUS_ausgleich_slovakia }
-			has_global_flag = AUS_ausgleich_transylvania
-		}
-		localization_key = AUS_ausgleich_demonstrations_ROM
-	}
-}
-defined_text = {
-	name = AUS_ausgleich_demonstrations_cities
-	text = {
-		trigger = {
-			has_global_flag = AUS_ausgleich_slovakia
-			has_global_flag = AUS_ausgleich_transylvania
-		}
-		localization_key = AUS_ausgleich_demonstrations_cities_SVK_ROM
-	}
-	text = {
-		trigger = {
-			has_global_flag = AUS_ausgleich_slovakia
-			NOT = { has_global_flag = AUS_ausgleich_transylvania }
-		}
-		localization_key = AUS_ausgleich_demonstrations_cities_SVK
-	}
-	text = {
-		trigger = {
-			NOT = { has_global_flag = AUS_ausgleich_slovakia }
-			has_global_flag = AUS_ausgleich_transylvania
-		}
-		localization_key = AUS_ausgleich_demonstrations_cities_ROM
-	}
-}
-
-defined_text = {
 	name = print_attendants
 	text = {
 		trigger = {
@@ -1393,8 +1291,22 @@ defined_text = {
 defined_text = {
 	name = AUS_demand_gibraltar_loc
 	text = {
-		trigger = { has_global_flag = AUS_austro_american_alliance_flag }
+		trigger = {
+			has_global_flag = AUS_austro_american_alliance_flag
+			spanish_civil_war = no
+		}
 		localization_key = AUS_demand_gibraltar_usa
+	}
+	text = {
+		trigger = {
+			has_global_flag = AUS_austro_american_alliance_flag
+			spanish_civil_war = yes
+		}
+		localization_key = AUS_demand_gibraltar_scw_usa
+	}
+	text = {
+		trigger = { spanish_civil_war = yes }
+		localization_key = AUS_demand_gibraltar_scw
 	}
 	text = {
 		localization_key = AUS_demand_gibraltar_ger
@@ -1403,8 +1315,22 @@ defined_text = {
 defined_text = {
 	name = AUS_demand_gibraltar_desc_loc
 	text = {
-		trigger = { has_global_flag = AUS_austro_american_alliance_flag }
+		trigger = {
+			has_global_flag = AUS_austro_american_alliance_flag
+			spanish_civil_war = no
+		}
 		localization_key = AUS_demand_gibraltar_usa_desc
+	}
+	text = {
+		trigger = {
+			has_global_flag = AUS_austro_american_alliance_flag
+			spanish_civil_war = yes
+		}
+		localization_key = AUS_demand_gibraltar_scw_usa_desc
+	}
+	text = {
+		trigger = { spanish_civil_war = yes }
+		localization_key = AUS_demand_gibraltar_scw_desc
 	}
 	text = {
 		localization_key = AUS_demand_gibraltar_ger_desc
@@ -1488,6 +1414,48 @@ defined_text = {
 	}
 	text = {
 		localization_key = GAL_trust_market_normal_desc
+	}
+}
+defined_text = {
+	name = AUS_free_bulgaria_loc
+	text = {
+		trigger = {
+			BUL = {
+				OR = {
+					AND = {
+						has_capitulated = yes
+						has_war_with = SER
+					}
+					is_ally_with = SER
+					exists = no
+				}
+			}
+		}
+		localization_key = AUS_free_bulgaria_macedonia
+	}
+	text = {
+		localization_key = AUS_free_bulgaria_normal
+	}
+}
+defined_text = {
+	name = AUS_free_bulgaria_desc_loc
+	text = {
+		trigger = {
+			BUL = {
+				OR = {
+					AND = {
+						has_capitulated = yes
+						has_war_with = SER
+					}
+					is_ally_with = SER
+					exists = no
+				}
+			}
+		}
+		localization_key = AUS_free_bulgaria_macedonia_desc
+	}
+	text = {
+		localization_key = AUS_free_bulgaria_normal_desc
 	}
 }
 defined_text = {
@@ -2027,5 +1995,238 @@ defined_text = {
 	}
 	text = {
 		localization_key = BOTDE_SIXBW_LOC
+	}
+}
+defined_text = {
+	name = BOTDE_delenda_est_desc_loc
+	text = {
+		trigger = {
+			NOT = {
+				tag = SER
+				tag = ROM
+				tag = SKS
+				tag = BOS
+				tag = SLO
+				tag = TRS
+				tag = BAN
+				tag = BUK
+				tag = ITA
+				tag = GRE
+			}
+		}
+		localization_key = BOTDE_delenda_est_desc_normal
+	}
+	text = {
+		localization_key = BOTDE_delenda_est_desc_alt
+	}
+}
+defined_text = {
+	name = AUS_get_sdapo_candidate_name
+	text = {
+		trigger = { has_country_flag = AUS_broz_1940 }
+		localization_key = "Josip Broz"
+	}
+	text = {
+		trigger = { has_country_flag = AUS_hampl_1940 }
+		localization_key = "Antonín Hampl"
+	}
+	text = {
+		trigger = { has_country_flag = AUS_scharf_1940 }
+		localization_key = "Adolf Scharf"
+	}
+	text = {
+		trigger = { has_country_flag = AUS_seitz_1940 }
+		localization_key = "Karl Seitz"
+	}
+	text = {
+		trigger = { has_country_flag = AUS_bauer_1940 }
+		localization_key = "Otto Bauer"
+	}
+	text = {
+		localization_key = "Karl Renner"
+	}
+}
+defined_text = {
+	name = AUS_get_sdapo_news_image
+	text = {
+		trigger = { has_country_flag = AUS_otto_bauer_36 }
+		localization_key = GFX_news_event_AUS_otto_bauer
+	}
+	text = {
+		localization_key = GFX_news_event_AUS_sdapo_elected_36
+	}
+}
+defined_text = {
+	name = AUS_get_sdapo_news_image_1940
+	text = {
+		trigger = { has_country_flag = AUS_broz_1940 }
+		localization_key = GFX_news_event_AUS_tito
+	}
+	text = {
+		trigger = { has_country_flag = AUS_hampl_1940 }
+		localization_key = GFX_news_event_AUS_hampl
+	}
+	text = {
+		trigger = { has_country_flag = AUS_scharf_1940 }
+		localization_key = GFX_news_event_AUS_scharf
+	}
+	text = {
+		trigger = { has_country_flag = AUS_seitz_1940 }
+		localization_key = GFX_news_event_AUS_seitz
+	}
+	text = {
+		trigger = { has_country_flag = AUS_bauer_1940 }
+		localization_key = GFX_news_event_AUS_otto_bauer
+	}
+	text = {
+		localization_key = GFX_news_event_AUS_sdapo_elected_36
+	}
+}
+defined_text = {
+	name = AUS_get_dbp_candidate_name
+	text = {
+		trigger = { has_country_flag = AUS_krzyzanowski_1940 }
+		localization_key = "Adam Krzyżanowski"
+	}
+	text = {
+		trigger = { has_country_flag = AUS_masaryk_1940 }
+		localization_key = "Jan Masaryk"
+	}
+	text = {
+		trigger = { has_country_flag = AUS_einstein_1940 }
+		localization_key = "Albert Einstein"
+	}
+	text = {
+		localization_key = "Coudenhove-Kalergi"
+	}
+}
+defined_text = {
+	name = AUS_get_dbp_news_image_1940
+	text = {
+		trigger = { has_country_flag = AUS_krzyzanowski_1940 }
+		localization_key = GFX_news_event_AUS_krzyzanowski
+	}
+	text = {
+		trigger = { has_country_flag = AUS_masaryk_1940 }
+		localization_key = GFX_news_event_AUS_masaryk
+	}
+	text = {
+		trigger = { has_country_flag = AUS_einstein_1940 }
+		localization_key = GFX_news_event_AUS_einstein
+	}
+	text = {
+		localization_key = GFX_news_event_AUS_kalergi_1940
+	}
+}
+defined_text = {
+	name = AUS_get_cs_candidate_name
+	text = {
+		trigger = { has_country_flag = AUS_buresch_1940 }
+		localization_key = "Karl Buresch"
+	}
+	text = {
+		trigger = { has_country_flag = AUS_miklas_1940 }
+		localization_key = "Wilhelm Miklas"
+	}
+	text = {
+		trigger = { has_country_flag = AUS_bethlen_1940 }
+		localization_key = "István Bethlen"
+	}
+	text = {
+		trigger = { has_country_flag = AUS_macek_1940 }
+		localization_key = "Vladko Maček"
+	}
+	text = {
+		trigger = { has_country_flag = AUS_dollfuss_1940_CS }
+		localization_key = "Engelbert Dollfuß"
+	}
+	text = {
+		trigger = { has_country_flag = AUS_figl_1940_CS }
+		localization_key = "Leopold Figl"
+	}
+	text = {
+		trigger = { has_country_flag = AUS_raab_1940_CS }
+		localization_key = "Julius Raab"
+	}
+	text = {
+		localization_key = "Otto Ender"
+	}
+}
+defined_text = {
+	name = AUS_get_cs_news_image_1940
+	text = {
+		trigger = { has_country_flag = AUS_buresch_1940 }
+		localization_key = GFX_news_event_AUS_buresch
+	}
+	text = {
+		trigger = { has_country_flag = AUS_miklas_1940 }
+		localization_key = GFX_news_event_AUS_miklas
+	}
+	text = {
+		trigger = { has_country_flag = AUS_bethlen_1940 }
+		localization_key = GFX_news_event_AUS_bethlen
+	}
+	text = {
+		trigger = { has_country_flag = AUS_macek_1940 }
+		localization_key = GFX_news_event_AUS_macek
+	}
+	text = {
+		trigger = { has_country_flag = AUS_dollfuss_1940_CS }
+		localization_key = GFX_news_event_AUS_dollfuss_cs
+	}
+	text = {
+		trigger = { has_country_flag = AUS_figl_1940_CS }
+		localization_key = GFX_news_event_AUS_figl_cs
+	}
+	text = {
+		trigger = { has_country_flag = AUS_raab_1940_CS }
+		localization_key = GFX_news_event_AUS_raab_cs
+	}
+	text = {
+		localization_key = GFX_news_event_AUS_ender
+	}
+}
+defined_text = {
+	name = AUS_get_vf_candidate_name
+	text = {
+		trigger = { has_country_flag = AUS_figl_1940 }
+		localization_key = "Leopold Figl"
+	}
+	text = {
+		trigger = { has_country_flag = AUS_raab_1940 }
+		localization_key = "Julius Raab"
+	}
+	text = {
+		trigger = { has_country_flag = AUS_tildy_1940 }
+		localization_key = "Zoltán Tildy"
+	}
+	text = {
+		trigger = { has_country_flag = AUS_tarnowski_1940 }
+		localization_key = "Hieronim Tarnowski"
+	}
+	text = {
+		localization_key = "Engelbert Dollfuß"
+	}
+}
+defined_text = {
+	name = AUS_get_vf_news_image_1940
+	text = {
+		trigger = { has_country_flag = AUS_figl_1940 }
+		localization_key = GFX_news_event_AUS_figl
+	}
+	text = {
+		trigger = { has_country_flag = AUS_raab_1940 }
+		localization_key = GFX_news_event_AUS_raab
+	}
+	text = {
+		trigger = { has_country_flag = AUS_tildy_1940 }
+		localization_key = GFX_news_event_AUS_tildy
+	}
+	text = {
+		trigger = { has_country_flag = AUS_tarnowski_1940 }
+		localization_key = GFX_news_event_AUS_tarnowski
+	}
+	text = {
+		localization_key = GFX_news_event_AUS_dollfuss
 	}
 }

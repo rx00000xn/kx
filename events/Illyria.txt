@@ -5,13 +5,19 @@ add_namespace = ill
 add_namespace = reign
 
 add_namespace = illyria
+add_namespace = bdecroint
+add_namespace = bdecrofor
 
 #### ILLYRIAN EVENTS ####
+
 country_event = { #Black Monday hits Illyria!
 	id = ill.1
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ill.1" }
 	title = ill.1.t
 	desc = ill.1.d
+
 	picture = GFX_report_event_NOR_black_monday
+
 	is_triggered_only = yes
 	
 	fire_only_once = yes
@@ -24,142 +30,57 @@ country_event = { #Black Monday hits Illyria!
 
 country_event = { #Austria - Illyria ushering out our companies
 	id = ill.2
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ill.2" }
 	title = ill.2.t
 	desc = ill.2.d
 	picture = GFX_report_event_NOR_economic_recovery
 
 	is_triggered_only = yes
 
-
 	fire_only_once = yes
 	
 	option = { #How rude!
 		name = ill.2.a
-		ai_chance = { factor = 150 }
-		add_political_power = -80
+		add_timed_idea = {
+			idea = AUS_CRO_pushing_out_austrian_industries
+			days = 90
+		}
+		CRO = {
+			add_timed_idea = {
+				idea = CRO_pushing_out_austrian_industries
+				days = 90
+			}
+		}
+		CRO_add_three_collapse = yes
 	}
-	
 }
 
 country_event = { #Economic ties with Illyria?
 	id = ill.3
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ill.3" }
 	title = ill.3.t
 	desc = ill.3.d
-	picture = GFX_report_event_generic_workers
+	picture = GFX_report_event_CRO_raising_illyria_flag
 
 	is_triggered_only = yes
-
 
 	fire_only_once = yes
 	
 	option = { #Of course
 		name = ill.3.a
-		ai_chance = { factor = 150 }
-		
-		if = {
-			limit = { tag = GER }
-			CRO = {
-				country_event = ill.4
-			}
-			
-			add_political_power = 50
-			add_timed_idea = {
-				idea = CRO_berlin_ties
-				days = 365
-			}
-			add_offsite_building = {
-				type = industrial_complex
-				level = 1
-			}
-			add_offsite_building = {
-				type = arms_factory
-				level = 1
-			}
-			add_offsite_building = {
-				type = arms_factory
-				level = 1
-			}
-			add_offsite_building = {
-				type = arms_factory
-				level = 1
-			}
-			add_offsite_building = {
-				type = dockyard
-				level = 1
+		ai_chance = { base = 100 }
+		FROM = {
+			country_event = ill.4
+			effect_tooltip = {
+				add_timed_idea = {
+					idea = CRO_berlin_ties
+					days = 240
+				}
 			}
 		}
-		
-		if = {
-			limit = { tag = AUS }
-			CRO = {
-				country_event = ill.4
-			}
-			
-			add_political_power = 50
-			add_timed_idea = {
-				idea = CRO_berlin_ties
-				days = 365
-			}
-			add_offsite_building = {
-				type = industrial_complex
-				level = 1
-			}
-			add_offsite_building = {
-				type = industrial_complex
-				level = 1
-			}
-			add_offsite_building = {
-				type = industrial_complex
-				level = 1
-			}
-			add_offsite_building = {
-				type = arms_factory
-				level = 1
-			}
-			add_offsite_building = {
-				type = dockyard
-				level = 1
-			}
-		}
-	}
-	
-	option = { #No thanks
-		name = ill.3.b
-		ai_chance = { factor = 0 }
-		add_political_power = -50
-		CRO = {
-			country_event = ill.5
-		}
-	}
-	
-}
-
-country_event = { #Germany/Austria accepts!
-	id = ill.4
-	title = ill.4.t
-	desc = ill.4.d
-	picture = GFX_report_event_generic_workers
-
-	is_triggered_only = yes
-
-
-	fire_only_once = yes
-	
-	option = { #Wonderful!
-		name = ill.4.a
-		ai_chance = { factor = 150 }
-		add_political_power = 50
 		add_timed_idea = {
 			idea = CRO_berlin_ties
-			days = 365
-		}
-		add_offsite_building = {
-			type = industrial_complex
-			level = 1
-		}
-		add_offsite_building = {
-			type = industrial_complex
-			level = 1
+			days = 240
 		}
 		add_offsite_building = {
 			type = industrial_complex
@@ -170,15 +91,68 @@ country_event = { #Germany/Austria accepts!
 			level = 1
 		}
 		add_offsite_building = {
+			type = arms_factory
+			level = 1
+		}
+		add_offsite_building = {
+			type = arms_factory
+			level = 1
+		}
+		add_offsite_building = {
 			type = dockyard
 			level = 1
 		}
+		if = {
+			limit = { tag = AUS }
+			AUS_subtract_five_collapse = yes
+			CRO_subtract_ten_collapse = yes
+			HUN_add_five_collapse = yes
+			CZE_add_five_collapse = yes
+			GAL_add_five_collapse = yes
+		}
+		else_if = {
+			limit = { tag = GER }
+			add_political_power = 50
+		}
 	}
 	
+	option = { #No thanks
+		name = ill.3.b
+		ai_chance = { base = 0 }
+		add_political_power = -50
+		FROM = {
+			country_event = ill.5
+		}
+	}
+}
+
+country_event = { #Germany/Austria accepts!
+	id = ill.4
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ill.4" }
+	title = ill.4.t
+	desc = ill.4.d
+	picture = GFX_report_event_CRO_raising_illyria_flag
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	
+	option = { #Wonderful!
+		name = ill.4.a
+		if = {
+			limit = { FROM = { tag = GER } }
+			add_political_power = 50
+		}
+		add_timed_idea = {
+			idea = CRO_berlin_ties
+			days = 240
+		}
+	}
 }
 
 country_event = { #Germany/Austria declines
 	id = ill.5
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ill.5" }
 	title = ill.5.t
 	desc = ill.5.d
 	picture = GFX_report_event_generic_workers
@@ -189,44 +163,57 @@ country_event = { #Germany/Austria declines
 	
 	option = { #Disappointing
 		name = ill.5.a
-		ai_chance = { factor = 150 }
 		add_political_power = -80
 		add_stability = -0.05
 	}
 }
-country_event = { #Slovenia Crisis Resolved
-	id = ill.6
-	title = ill.6.t
-	desc = ill.6.d
-	picture = GFX_report_event_CRO_Slovenia
 
+country_event = { #Event that informs austria that they still suck at managing the balkans
+	id = cro.0
+	immediate = { log = "[GetDateText]: [Root.GetName]: event cro.0" }
+	title = cro.0.t
+	desc = cro.0.d
+	picture = GFX_report_event_generic_towar
+	
 	is_triggered_only = yes
 
 	fire_only_once = yes
 	
-	option = { #Finally
-		name = ill.6.a
-		set_country_flag = aus_slovenia_crisis_resolved
+	option = { #Here we go again...
+		name = cro.0.a
+		CRO_add_ten_collapse = yes
+		ALL_add_three_collapse = yes
+		custom_override_tooltip = {
+			tooltip = cro.0.a_tt
+			CRO = {
+				set_country_flag = CRO_will_revolt
+				add_to_variable = { CRO.extra_value = 0.075 }
+				if = {
+					limit = {
+						has_country_flag = AUS_evidenzbureau_focus
+					}
+					AUS = {
+						country_event = {
+							id = bdeausconst.7
+							days = 7
+							random_days = 7
+						}
+					}
+				}
+				else = {
+					set_country_flag = CONST_no_evidenzbureau
+				}
+			}
+			AUS = {
+				end_puppet = CRO
+			}
+		}
 	}
 }
-country_event = { #Slovenia Crisis Spirals out of Control
-	id = ill.7
-	title = ill.7.t
-	desc = ill.7.d
-	picture = GFX_report_event_CRO_Slovenia
 
-	is_triggered_only = yes
-
-	fire_only_once = yes
-	
-	option = { #Finally
-		name = ill.7.a
-		set_country_flag = cro_slovenia_failure
-	}
-}
-#### ILLYRIAN EVENTS ####
 country_event = { #The War of Independence
 	id = cro.1
+	immediate = { log = "[GetDateText]: [Root.GetName]: event cro.1" }
 	title = cro.1.t
 	desc = cro.1.d
 	picture = GFX_report_event_generic_towar
@@ -259,6 +246,7 @@ country_event = { #The War of Independence
 
 country_event = { #The War of Independence Ends
 	id = cro.2
+	immediate = { log = "[GetDateText]: [Root.GetName]: event cro.2" }
 	title = cro.2.t
 	desc = cro.2.d
 	picture = GFX_report_event_generic_happy_crowd
@@ -303,6 +291,7 @@ country_event = { #The War of Independence Ends
 
 country_event = { #Bombing in Zagreb
 	id = cro.3
+	immediate = { log = "[GetDateText]: [Root.GetName]: event cro.3" }
 	title = cro.3.t
 	desc = cro.3.d
 	picture = GFX_report_event_IRE_bombing
@@ -311,8 +300,6 @@ country_event = { #Bombing in Zagreb
 		has_war_with = AUS
 		tag = CRO
 	}
-	
-	mean_time_to_happen = { days = 30 }
 
 	fire_only_once = yes
 	
@@ -325,6 +312,7 @@ country_event = { #Bombing in Zagreb
 
 country_event = { #The Bosnian Guerillas
 	id = cro.4
+	immediate = { log = "[GetDateText]: [Root.GetName]: event cro.4" }
 	title = cro.4.t
 	desc = cro.4.d
 	picture = GFX_report_event_IRE_deadbody
@@ -333,8 +321,6 @@ country_event = { #The Bosnian Guerillas
 		has_war_with = AUS
 		tag = CRO
 	}
-	
-	mean_time_to_happen = { days = 20 }
 
 	fire_only_once = yes
 	
@@ -356,6 +342,7 @@ country_event = { #The Bosnian Guerillas
 
 country_event = { #The Future of the Interim Republic
 	id = cro.5
+	immediate = { log = "[GetDateText]: [Root.GetName]: event cro.5" }
 	title = cro.5.t
 	desc = cro.5.d
 	picture = GFX_report_event_IRE_victory_rally
@@ -417,6 +404,7 @@ country_event = { #The Future of the Interim Republic
 
 country_event = { #Bosnians raid Mostar
 	id = cro.6
+	immediate = { log = "[GetDateText]: [Root.GetName]: event cro.6" }
 	title = cro.6.t
 	desc = cro.6.d
 	picture = GFX_report_event_IRE_civil_war2
@@ -455,6 +443,7 @@ country_event = { #Bosnians raid Mostar
 
 country_event = { #The Lesson
 	id = cro.7
+	immediate = { log = "[GetDateText]: [Root.GetName]: event cro.7" }
 	title = cro.7.t
 	desc = cro.7.d
 	picture = GFX_report_event_IRE_reprisals
@@ -477,6 +466,7 @@ country_event = { #The Lesson
 
 country_event = { #Elections Begin!
 	id = cro.10
+	immediate = { log = "[GetDateText]: [Root.GetName]: event cro.10" }
 	title = cro.10.t
 	desc = cro.10.d
 	picture = GFX_report_event_generic_strike
@@ -521,6 +511,7 @@ country_event = { #Elections Begin!
 
 country_event = { #Election results are in!
 	id = cro.11
+	immediate = { log = "[GetDateText]: [Root.GetName]: event cro.11" }
 	title = cro.11.t
 	desc = cro.11.d
 	picture = GFX_report_event_generic_strike
@@ -707,22 +698,24 @@ country_event = { #Election results are in!
 
 country_event = { #Austria - Illyria wants to buy our fleet
 	id = cro.12
+	immediate = { log = "[GetDateText]: [Root.GetName]: event cro.12" }
 	title = cro.12.t
 	desc = cro.12.d
-	picture = GFX_report_event_GER_ship
+	picture = GFX_event_AUS_ship_launch
 
 	is_triggered_only = yes
 
 	fire_only_once = yes
 	
-	
 	option = { #Allow them to...
 		name = cro.12.a
-		ai_chance = { factor = 100 }
-		transfer_navy = {
-			target = CRO
+		ai_chance = {
+			base = 70
 		}
-		CRO = {
+		transfer_navy = {
+			target = FROM
+		}
+		FROM = {
 			add_timed_idea = {
 				idea = CRO_repaying_fleet
 				days = 180
@@ -732,18 +725,23 @@ country_event = { #Austria - Illyria wants to buy our fleet
 			idea = CRO_payments
 			days = 180
 		}
-		
 	}
 	
 	option = { #I can't trust them yet
 		name = cro.12.b	
-		ai_chance = { factor = 30 }
-		
+		ai_chance = {
+			base = 30
+			modifier = {
+				FROM = { is_ai = no }
+				factor = 0
+			}
+		}
 	}
 }
 
 country_event = { #Illyria wants to implement economic ties
 	id = cro.13
+	immediate = { log = "[GetDateText]: [Root.GetName]: event cro.13" }
 	title = cro.13.t
 	desc = cro.13.d
 	picture = GFX_report_event_generic_economy_growth
@@ -751,7 +749,6 @@ country_event = { #Illyria wants to implement economic ties
 	is_triggered_only = yes
 
 	fire_only_once = yes
-	
 	
 	option = { #Allow them to...
 		name = cro.13.a
@@ -765,9 +762,7 @@ country_event = { #Illyria wants to implement economic ties
 	option = { #No.
 		name = cro.13.b
 		ai_chance = { factor = 20 }
-		
 	}
-
 }
 
 country_event = { #Illyria develops our capital
@@ -1795,36 +1790,25 @@ country_event = { #The Enabling Act
 	
 	option = { #For Austria!
 		name = cro.41.a
-		ai_chance = { factor = 100 }
-		set_politics = {
-			ruling_party = authoritarian_democrat
-		}
-		hidden_effect = {
-			remove_all_ministers = yes
-			add_ideas = {
-				CRO_Vinko_Kriskovic_hog_ade
-				CRO_Ivan_Skrlec_Lomnicki_for_ade
-				CRO_Ivica_Frkovic_eco_ade
-				CRO_Vilim_Begic_sec_ade
-			}
-		}
-		hidden_effect = {
-			create_country_leader = {
-				name = "Vladko Maček"
-				desc = "CRO_VLADKO_MACEK_DESC"
-				picture = "gfx/leaders/CRO/CRO_vladko_macek_KX.png"
-				expire = "1.1.1"
-				ideology = oligarchy_subtype
-			}
+		increase_ruling_party_popularrity_by_10 = yes
+		add_political_power = 50
+		add_stability = 0.075
+		AUS_subtract_five_collapse = yes
+		ALL_subtract_five_collapse = yes
+		every_owned_state = {
+			limit = { has_resistance = yes }
+			add_resistance = -10
+			add_compliance = 10
 		}
 	}
 }
 
-country_event = { #New Arrangement
+country_event = { #Vorwärts Illyria!
 	id = cro.42
+	immediate = { log = "[GetDateText]: [Root.GetName]: event cro.42" }
 	title = cro.42.t
 	desc = cro.42.d
-	picture = GFX_report_event_generic_diplomacy2
+	picture = GFX_event_AUS_double_headed_eagle_statue
 	
 	is_triggered_only = yes
 
@@ -1834,6 +1818,8 @@ country_event = { #New Arrangement
 		name = cro.42.a
 		ai_chance = { factor = 100 }
 		add_political_power = 30
+		CRO_subtract_ten_collapse = yes
+		AUS = { AUS_fed_speed_1_add = yes }
 	}
 }
 
@@ -2503,13 +2489,10 @@ country_event = { #Kingdom of Illyria
 	immediate = { log = "[GetDateText]: [Root.GetName]: event illyria.1" }
 	title = illyria.1.t
 	desc = illyria.1.d
+
 	picture = GFX_report_event_CRO_Event_1
 	
 	fire_only_once = yes
-	trigger = {
-		tag = CRO
-		date > 1936.1.5
-	}
 
 	option = {
 		name = illyria.1.a
@@ -2649,20 +2632,22 @@ country_event = {
 				is_subject_of = AUS
 				is_in_faction_with = AUS
 			}
-			has_country_leader = {
-				name = "Karel III."
-				ruling_only = yes
-			}
 		}
 	}
 
-	fire_only_once = yes
-	
-	immediate = {
-		CZE = {
-			remove_ideas = AUS_part_of_the_Empire
-			CZE_setup_republican_leaders = yes
-			drop_cosmetic_tag = yes
+	option = {
+		name = bdecroint.1.b
+		ai_chance = {
+			base = 70
+		}
+		add_stability = 0.05
+		add_popularity = {
+			ideology = national_populist
+			popularity = 0.05
+		}
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = -500
 		}
 	}
 }
@@ -2754,4 +2739,134 @@ country_event = {
 	}
 }
 
+country_event = { #CRO - status of muslims or something
+	id = bdecroint.5
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdecroint.5" }
+	title = bdecroint.5.t
+	desc = bdecroint.5.d
 
+	picture = GFX_report_event_CRO_croatians_map
+	
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #they're cool
+		name = bdecroint.5.a
+		ai_chance = { base = 50 }
+		add_stability = 0.05
+		increase_ruling_party_popularity_by_5 = yes
+		add_ideas = CRO_we_like_islam
+	}
+
+	option = { #get them outta here
+		name = bdecroint.5.b
+		ai_chance = { base = 50 }
+		add_stability = -0.05
+		decrease_ruling_party_popularity_by_5 = yes
+		add_ideas = CRO_antemurale_christianitatis
+	}
+}
+
+country_event = { #Illyria wants our naval designers
+	id = bdecrofor.1
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdecrofor.1" }
+	title = bdecrofor.1.t
+	desc = bdecrofor.1.d
+
+	picture = GFX_report_event_CRO_raising_illyria_flag
+	
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #sure
+		name = bdecrofor.1.a
+		ai_chance = { base = 100 }
+		FROM = {
+			country_event = {
+				id = bdecrofor.2
+				days = 1
+			}
+		}
+		effect_tooltip = {
+			every_country = {
+				limit = {
+					OR = {
+						tag = FROM
+						tag = ROOT
+					}
+				}
+				add_timed_idea = {
+					idea = CRO_naval_desinger_bonus
+					days = 365
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = AUS
+				CRO = { AUS_is_constituent = yes }
+			}
+			AUS_subtract_five_collapse = yes
+			CRO_subtract_five_collapse = yes
+		}
+	}
+
+	option = { #no
+		name = bdecrofor.1.b
+		ai_chance = { base = 0 }
+		FROM = {
+			country_event = {
+				id = bdecrofor.3
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = { #FROM agrees to naval designer deal
+	id = bdecrofor.2
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdecrofor.2" }
+	title = bdecrofor.2.t
+	desc = bdecrofor.2.d
+
+	picture = GFX_report_event_CRO_raising_illyria_flag
+	
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #hooray
+		name = bdecrofor.2.a
+		every_country = {
+			limit = {
+				OR = {
+					tag = FROM
+					tag = ROOT
+				}
+			}
+			add_timed_idea = {
+				idea = CRO_naval_desinger_bonus
+				days = 365
+			}
+		}
+	}
+}
+
+country_event = { #FROM rejects to naval designer deal
+	id = bdecrofor.3
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdecrofor.3" }
+	title = bdecrofor.3.t
+	desc = bdecrofor.3.d
+
+	picture = GFX_report_event_CRO_raising_illyria_flag
+	
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #damn
+		name = bdecrofor.3.a
+	}
+}

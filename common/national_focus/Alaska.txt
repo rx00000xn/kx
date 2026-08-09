@@ -61,14 +61,7 @@ focus_tree = {
 		available_if_capitulated = yes
 		
 		completion_reward = {
-			
 			country_event = Alaska.1
-			hidden_effect = {
-				country_event = {
-					id = Alaska.110
-					days = 13
-				}
-			}
 		}
 	}
 	
@@ -3892,13 +3885,10 @@ focus_tree = {
 	focus = {
 		id = ALA_japan_construction
 		icon = {
-			trigger = {
+			GFX_goal_AUS_kriegsmarine_goal = {
 				has_country_flag = ALA_AUS_SHIP
 			}
-			value = GFX_goal_AUS_kriegsmarine_goal
-		}
-		icon = {
-			value = GFX_goal_japan
+			GFX_goal_japan = yes
 		}
 		cost = 5
 		dynamic = yes
@@ -3959,13 +3949,10 @@ focus_tree = {
 	focus = {
 		id = ALA_canada_construction
 		icon = {
-			trigger = {
+			GFX_goal_AUS_thoughts_lissa = {
 				has_country_flag = ALA_AUS_SHIP
 			}
-			value = GFX_goal_AUS_thoughts_lissa
-		}
-		icon = {
-			value = GFX_goal_canada
+			GFX_goal_canada = yes
 		}
 		cost = 5
 		dynamic = yes
@@ -4914,11 +4901,12 @@ focus_tree = {
 		completion_reward = {
 			if = {
 				limit = { has_country_flag = ALA_purchase_liechtenstein }
-				AUS = {
-					add_ideas = ALA_Lichtenstein_Concessions_ALA
+				if = {
+					limit = { is_subject = yes }
+					var:ROOT.overlord = { add_ideas = ALA_Lichtenstein_Concessions_AUS }
 				}
 			}
-			add_ideas = ALA_Lichtenstein_Concessions_AUS
+			add_ideas = ALA_Lichtenstein_Concessions_ALA
 		}
 	}
 	focus = {
@@ -4968,6 +4956,8 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
+			add_political_power = 50
+			add_stability = 0.05
 			add_ideas = ALA_jesuit_gang
 			country_event = {
 				id = Alaska.149

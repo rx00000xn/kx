@@ -17,6 +17,7 @@ willing_to_send_volunteers_to_FROM = {
 		fourth_balkan_war_volunteers = yes
 		fifth_balkan_war_volunteers = yes
 		austrian_collapse_volunteers = yes
+		austrian_civil_war_volunteers = yes
 		second_weltkrieg_volunteers = yes
 		chilean_argentinian_war_volunteers = yes
 		south_african_civil_war_volunteers = yes
@@ -154,6 +155,13 @@ american_civil_war_volunteers = {
 		AND = {
 			FROM = { tag = COR }
 			has_country_flag = sent_volunteers_COR
+		}
+		AND = {
+			FROM = { has_event_target = AUS_USA_ALLY }
+			OR = {
+				tag = AUS
+				is_subject_of = AUS
+			}
 		}
 	}
 }
@@ -398,16 +406,6 @@ fifth_balkan_war_volunteers = {
 						}
 						has_government = national_populist
 					}
-					AND = {
-						NOT = {
-							AUS = {
-								has_government = radical_socialist
-								has_government = social_democrat
-							}
-						}
-						has_socialist_government = yes
-						num_of_military_factories > 8
-					}
 				}
 				NOT = { is_ally_with = AUS }
 			}
@@ -512,6 +510,30 @@ austrian_collapse_volunteers = {
 			AND = {
 				is_arab_tag = yes
 				is_subject = no
+			}
+		}
+	}
+}
+
+austrian_civil_war_volunteers = {
+	has_global_flag = AUS_civil_war
+	OR = {
+		AND = {
+			FROM = { tag = AUS }
+			AND = {
+				OR = {
+					tag = GER
+					tag = ENT
+					is_ally_with = GER
+					is_ally_with = ENT
+				}
+			}
+		}
+		AND = {
+			FROM = { tag = AWR }
+			AND = {
+				has_socialist_government = yes
+				num_of_military_factories > 8
 			}
 		}
 	}
@@ -1070,7 +1092,7 @@ has_unattained_important_goals = {
 				is_faction_leader = yes
 			}
 		}
-		# Balkans need to reclaim their core states
+		# Balkans need to reclaim their core states / murder austria
 		AND = {
 			OR = {
 				tag = SER
@@ -1079,11 +1101,28 @@ has_unattained_important_goals = {
 				tag = BUL
 			}
 			is_subject = no
-			any_of = {
-				array = ROOT.core_states
-				var:v = {
-					NOT = { is_owned_by = ROOT }
+			OR = {
+				AND = {
+					any_of = {
+						array = ROOT.core_states
+						var:v = {
+							NOT = { is_owned_by = ROOT }
+						}
+					}
 				}
+				AND = {
+					is_faction_leader = yes
+					SER_ROM_destablize_austria_trigger = yes
+				}
+				fifth_balkan_war = yes
+			}
+		}
+		# Austria needs to prepare for 5BW
+		AND = {
+			AUS_is_constituent = yes
+			OR = {
+				SER_ROM_destablize_austria_trigger = yes
+				fifth_balkan_war = yes
 			}
 		}
 		# America only demobilizes once the war is done
@@ -1201,6 +1240,7 @@ ai_is_naval_invader_trigger = {
 		tag = GBR
 		tag = ENG
 		tag = SRD
+		tag = FIU
 	}
 }
 

@@ -5,6 +5,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		modifier = {
 			add = 1000
 			tag = AUS
+			NOT = { has_global_flag = AUS_collapsed }
 		}
 	}
 	default = no
@@ -100,13 +101,10 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	focus = {
 		id = AUS_sdapo_moment
 		icon = {
-			trigger = {
+			GFX_goal_AUS_bauer = {
 				has_country_flag = AUS_otto_bauer_36
 			}
-			value = GFX_goal_AUS_bauer
-		}
-		icon = {
-			value = GFX_goal_AUS_renner_goal
+			GFX_goal_AUS_renner_goal = yes
 		}
 		dynamic = yes
 		relative_position_id = AUS_berlin_stock_market_crash
@@ -247,7 +245,10 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		completion_reward = {
 			add_stability = 0.1
 			AUS_subtract_five_collapse = yes
+			ALL_subtract_three_collapse = yes
 			add_one_random_military_factory = yes
+			add_one_random_civilian_factory = yes
+			add_one_random_civilian_factory = yes
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY }
 	}
@@ -270,18 +271,30 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		completion_reward = {
 			random_owned_controlled_state = {
+				increase_state_category = yes
 				add_extra_state_shared_building_slots = 1
 			}
 			random_owned_controlled_state = {
+				increase_state_category = yes
 				add_extra_state_shared_building_slots = 1
 			}
 			random_owned_controlled_state = {
+				increase_state_category = yes
 				add_extra_state_shared_building_slots = 1
 			}
 			add_tech_bonus = {
-				category = electronics
+				category = industry
 				bonus = 1
 				uses = 1
+			}
+			add_tech_bonus = {
+				category = electronics
+				bonus = 0.5
+				uses = 1
+			}
+			add_timed_idea = {
+				idea = AUS_public_works_idea
+				days = 365
 			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
@@ -336,7 +349,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		completion_reward = {
 			random_owned_controlled_state = {
-				prioritze = { 775 }
+				prioritize = { 775 }
 				add_resource = {
 					type = steel
 					amount = 30
@@ -365,12 +378,24 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		completion_reward = {
 			random_owned_controlled_state = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				increase_state_category = yes
 				add_resource = {
 					type = aluminium
 					amount = 16
 				}
 			}
 			random_owned_controlled_state = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				increase_state_category = yes
 				add_resource = {
 					type = tungsten
 					amount = 16
@@ -863,10 +888,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_vienna_education_expansion
 		}
 		completion_reward = {
-			add_popularity = {
-				ideology = social_democrat
-				popularity = 0.03
-			}
+			increase_ruling_party_popularity_by_3 = yes
 			random_owned_controlled_state = {
 				add_extra_state_shared_building_slots = 1
 			}
@@ -929,10 +951,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		completion_reward = {
 			add_political_power = 50
-			add_popularity = {
-				ideology = social_democrat
-				popularity = 0.05
-			}
+			increase_ruling_party_popularity_by_5 = yes
 			AUS_add_three_collapse = yes
 			ALL_subtract_three_collapse = yes
 		}
@@ -1089,10 +1108,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_vf_usurpation
 		}
 		completion_reward = {
-			add_popularity = {
-				ideology = social_liberal
-				popularity = 0.05
-			}
+			increase_ruling_party_popularity_by_5 = yes
 			AUS_subtract_three_collapse = yes
 			custom_effect_tooltip = unlock_focuses
 		}
@@ -1118,10 +1134,9 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		completion_reward = {
 			add_one_random_civilian_factory = yes
 			add_one_random_military_factory = yes
-			add_popularity = {
-				ideology = social_liberal
-				popularity = 0.035
-			}
+			AUS_subtract_three_collapse = yes
+			ALL_subtract_three_collapse = yes
+			increase_ruling_party_popularity_by_5 = yes
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
 	}
@@ -1172,10 +1187,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		completion_reward = {
 			add_ideas = AUS_sudbahn_gesellschaft
 			add_political_power = 50
-			add_popularity = {
-				ideology = social_liberal
-				popularity = 0.05
-			}
+			increase_ruling_party_popularity_by_5 = yes
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY }
 	}
@@ -1192,13 +1204,6 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		available = {
 			AUS_dbp_trigger = yes
-		}
-		bypass = {
-			CZE = {
-				NOT = {
-					is_in_faction_with = AUS
-				}
-			}
 		}
 		prerequisite = {
 			focus = AUS_subsidize_sudbahn_gesellschaft
@@ -1274,7 +1279,8 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_imperial_symbiosis
 		}
 		completion_reward = {
-			153 = {
+			random_owned_controlled_state = {
+				prioritize = { 153 }
 				add_building_construction = {
 					type = industrial_complex
 					level = 1
@@ -1330,10 +1336,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		completion_reward = {
 			AUS_meta_BM_reduce = yes
 			add_political_power = 20
-			add_popularity = {
-				ideology = social_liberal
-				popularity = 0.05
-			}
+			increase_ruling_party_popularity_by_5 = yes
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY }
 	}
@@ -1449,10 +1452,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		completion_reward = {
 			AUS_subtract_five_collapse = yes
-			add_popularity = {
-				ideology = social_liberal
-				popularity = 0.05
-			}
+			increase_ruling_party_popularity_by_5 = yes
 			add_political_power = 60
 			add_offsite_building = { type = industrial_complex level = 1 instant_build = yes }
 		}
@@ -1678,22 +1678,16 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			ALL_subtract_five_collapse = yes
 			add_stability = 0.1
 			if = {
-				limit = {
-					has_idea = AUS_german_debts_2
-				}
+				limit = { has_idea = AUS_german_debts_2 }
 				remove_ideas = AUS_german_debts_2
-				else_if = {
-					limit = {
-						has_idea = AUS_german_debts_2_alt
-					}
-					remove_ideas = AUS_german_debts_2_alt
-					else_if = {
-						limit = {
-							has_idea = AUS_german_debts
-						}
-						remove_ideas = AUS_german_debts
-					}
-				}
+			}
+			else_if = {
+				limit = { has_idea = AUS_german_debts_2_alt }
+				remove_ideas = AUS_german_debts_2_alt
+			}
+			else_if = {
+				limit = { has_idea = AUS_german_debts }
+				remove_ideas = AUS_german_debts
 			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY }
@@ -1716,10 +1710,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_rise_of_bdp
 		}
 		completion_reward = {
-			add_popularity = {
-				ideology = social_liberal
-				popularity = 0.05
-			}
+			increase_ruling_party_popularity_by_5 = yes
 			AUS_subtract_three_collapse = yes
 			add_political_power = 50
 			add_war_support = 0.075
@@ -1796,21 +1787,22 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		completion_reward = {
 			add_one_random_civilian_factory = yes
+			increase_ruling_party_popularity_by_5 = yes
 			add_popularity = {
 				ideology = totalist
-				popularity = -0.03
+				popularity = -0.05
 			}
 			add_popularity = {
 				ideology = syndicalist
-				popularity = -0.03
+				popularity = -0.05
 			}
 			add_popularity = {
 				ideology = radical_socialist
-				popularity = -0.03
+				popularity = -0.05
 			}
 			add_popularity = {
 				ideology = social_democrat
-				popularity = -0.03
+				popularity = -0.05
 			}
 			AUS_subtract_five_collapse = yes
 		}
@@ -1835,10 +1827,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		completion_reward = {
 			add_political_power = 50
-			add_popularity = {
-				ideology = social_liberal
-				popularity = 0.05
-			}
+			increase_ruling_party_popularity_by_5 = yes
 			random_owned_controlled_state = {
 				add_extra_state_shared_building_slots = 1
 			}
@@ -1950,10 +1939,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_cultural_conservatism
 		}
 		completion_reward = {
-			add_popularity = {
-				ideology = social_liberal
-				popularity = 0.04
-			}
+			increase_ruling_party_popularity_by_5 = yes
 			add_political_power = 50
 			AUS_fed_speed_2_add = yes
 			add_one_random_dockyard = yes
@@ -2009,10 +1995,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_start_donaukonferenzen
 		}
 		completion_reward = {
-			add_popularity = {
-				ideology = social_liberal
-				popularity = 0.025
-			}
+			increase_ruling_party_popularity_by_3 = yes
 			add_political_power = 45
 			add_war_support = 0.075
 			swap_ideas = {
@@ -2085,19 +2068,13 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	focus = {
 		id = AUS_cs_reign_continues
 		icon = {
-			trigger = {
+			GFX_goal_AUS_miklas = {
 				has_country_flag = AUS_1936_miklas
 			}
-			value = GFX_goal_AUS_miklas
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_buresch = {
 				has_global_flag = AUS_BURESCH
 			}
-			value = GFX_goal_AUS_buresch
-		}
-		icon = {
-			value = GFX_goal_AUS_ender_goal
+			GFX_goal_AUS_ender_goal = yes
 		}
 		dynamic = yes
 		x = 20
@@ -2118,10 +2095,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_vf_usurpation
 		}
 		completion_reward = {
-			add_popularity = {
-				ideology = social_conservative
-				popularity = 0.05
-			}
+			increase_ruling_party_popularity_by_5 = yes
 			AUS_subtract_three_collapse = yes
 			custom_effect_tooltip = unlock_focuses
 		}
@@ -2295,7 +2269,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		completion_reward = {
 			random_owned_controlled_state = {
-				prioritze = { 1137 }
+				prioritize = { 1137 }
 				add_resource = {
 					type = steel
 					amount = 20
@@ -2335,10 +2309,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				bonus = 1
 			}
 			ALL_subtract_three_collapse = yes
-			add_popularity = {
-				ideology = social_conservative
-				popularity = 0.05
-			}
+			increase_ruling_party_popularity_by_5 = yes
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY }
 	}
@@ -2390,7 +2361,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		completion_reward = {
 			random_owned_controlled_state = {
-				prioritze = { 152 }
+				prioritize = { 152 }
 				add_resource = {
 					type = aluminium
 					amount = 48
@@ -2463,10 +2434,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		completion_reward = {
 			add_political_power = 20
-			add_popularity = {
-				ideology = social_conservative
-				popularity = 0.03
-			}
+			increase_ruling_party_popularity_by_3 = yes
 			add_one_random_military_factory = yes
 			swap_ideas = {
 				add_idea = AUS_mittelstand
@@ -2501,10 +2469,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			}
 			add_one_random_civilian_factory = yes
 			AUS_subtract_five_collapse = yes
-			add_popularity = {
-				ideology = social_conservative
-				popularity = 0.03
-			}
+			increase_ruling_party_popularity_by_3 = yes
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY }
 	}
@@ -2532,10 +2497,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				bonus = 1
 			}
 			AUS_subtract_five_collapse = yes
-			add_popularity = {
-				ideology = social_conservative
-				popularity = 0.03
-			}
+			increase_ruling_party_popularity_by_3 = yes
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY }
 	}
@@ -2564,7 +2526,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			}
 			AUS_subtract_two_collapse = yes
 			random_owned_controlled_state = {
-				prioritze = { 4 }
+				prioritize = { 4 }
 				add_building_construction = {
 					type = arms_factory
 					level = 1
@@ -2596,10 +2558,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			AUS_meta_BM_reduce = yes
 			add_stability = 0.05
 			add_political_power = 30
-			add_popularity = {
-				ideology = social_conservative
-				popularity = 0.05
-			}
+			increase_ruling_party_popularity_by_5 = yes
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY }
 	}
@@ -2632,22 +2591,16 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			ALL_subtract_five_collapse = yes
 			add_stability = 0.1
 			if = {
-				limit = {
-					has_idea = AUS_german_debts_2
-				}
+				limit = { has_idea = AUS_german_debts_2 }
 				remove_ideas = AUS_german_debts_2
-				else_if = {
-					limit = {
-						has_idea = AUS_german_debts_2_alt
-					}
-					remove_ideas = AUS_german_debts_2_alt
-					else_if = {
-						limit = {
-							has_idea = AUS_german_debts
-						}
-						remove_ideas = AUS_german_debts
-					}
-				}
+			}
+			else_if = {
+				limit = { has_idea = AUS_german_debts_2_alt }
+				remove_ideas = AUS_german_debts_2_alt
+			}
+			else_if = {
+				limit = { has_idea = AUS_german_debts }
+				remove_ideas = AUS_german_debts
 			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY }
@@ -2670,10 +2623,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_cs_reign_continues
 		}
 		completion_reward = {
-			add_popularity = {
-				ideology = social_conservative
-				popularity = 0.05
-			}
+			increase_ruling_party_popularity_by_5 = yes
 			AUS_subtract_three_collapse = yes
 			add_political_power = 50
 		}
@@ -2976,11 +2926,11 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			add_war_support = 0.05
 			add_stability = 0.03
 			random_owned_controlled_state = {
-				prioritze = { 43 }
+				prioritize = { 43 }
 				add_extra_state_shared_building_slots = 2
 			}
 			random_owned_controlled_state = {
-				prioritze = { 1137 }
+				prioritize = { 1137 }
 				add_extra_state_shared_building_slots = 2
 			}
 		}
@@ -3093,6 +3043,9 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_vf_usurpation
 		}
 		completion_reward = {
+			add_political_power = 20
+			AUS_subtract_three_collapse = yes
+			ALL_subtract_three_collapse = yes
 			random_owned_controlled_state = {
 				add_building_construction = {
 					type = industrial_complex
@@ -3545,22 +3498,16 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			ALL_subtract_five_collapse = yes
 			add_stability = 0.1
 			if = {
-				limit = {
-					has_idea = AUS_german_debts_2
-				}
+				limit = { has_idea = AUS_german_debts_2 }
 				remove_ideas = AUS_german_debts_2
-				else_if = {
-					limit = {
-						has_idea = AUS_german_debts_2_alt
-					}
-					remove_ideas = AUS_german_debts_2_alt
-					else_if = {
-						limit = {
-							has_idea = AUS_german_debts
-						}
-						remove_ideas = AUS_german_debts
-					}
-				}
+			}
+			else_if = {
+				limit = { has_idea = AUS_german_debts_2_alt }
+				remove_ideas = AUS_german_debts_2_alt
+			}
+			else_if = {
+				limit = { has_idea = AUS_german_debts }
+				remove_ideas = AUS_german_debts
 			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY }
@@ -3608,9 +3555,8 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_empower_peasantry
 		}
 		completion_reward = {
-			AUS_subtract_three_collapse = yes
-			CZE_subtract_three_collapse = yes
-			CRO_add_three_collapse = yes
+			AUS_subtract_five_collapse = yes
+			ALL_subtract_three_collapse = yes
 			add_political_power = 30
 			add_stability = 0.05
 		}
@@ -3636,6 +3582,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		completion_reward = {
 			add_ideas = AUS_quadragesimo_anno_idea
 			AUS_subtract_two_collapse = yes
+			ALL_subtract_one_collapse = yes
 			increase_ruling_party_popularity_by_5 = yes
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
@@ -3658,6 +3605,10 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_quadragesimo_anno
 		}
 		completion_reward = {
+			AUS_subtract_five_collapse = yes
+			HUN_subtract_three_collapse = yes
+			CZE_subtract_three_collapse = yes
+			CRO_add_three_collapse = yes
 			add_research_slot_until_six = yes
 			add_stability = 0.05
 			increase_ruling_party_popularity_by_5 = yes
@@ -3687,6 +3638,8 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_religion_over_nation
 		}
 		completion_reward = {
+			AUS_subtract_three_collapse = yes
+			ALL_subtract_five_collapse = yes
 			add_one_random_infrastructure = yes
 			add_one_random_infrastructure = yes
 			add_one_random_infrastructure = yes
@@ -3744,6 +3697,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		completion_reward = {
 			add_research_slot_until_six = yes
+			add_stability = 0.075
 			add_political_power = 40
 			swap_ideas = {
 				add_idea = AUS_imperial_peasantry_2
@@ -3782,6 +3736,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			}
 			add_political_power = 35
 			increase_ruling_party_popularity_by_3 = yes
+			ALL_subtract_three_collapse = yes
 			AUS_lower_all_minorities = yes
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY }
@@ -3829,6 +3784,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_what_others_can_do
 		}
 		completion_reward = {
+			ALL_subtract_five_collapse = yes
 			swap_ideas = {
 				add_idea = AUS_others_idea_2
 				remove_idea = AUS_others_idea
@@ -4067,11 +4023,10 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	focus = {
 		id = AUS_encourage_einstein
 		icon = {
-			trigger = { has_country_flag = AUS_einstein_1940 }
-			value = GFX_goal_AUS_encourage_einstein_einstein
-		}
-		icon = {
-			value = GFX_goal_AUS_einstein
+			GFX_goal_AUS_encourage_einstein_einstein = {
+				has_country_flag = AUS_einstein_1940
+			}
+			GFX_goal_AUS_einstein = yes
 		}
 		relative_position_id = AUS_from_pandanubia
 		dynamic = yes
@@ -4942,13 +4897,8 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_new_liberalism
 		}
 		completion_reward = {
-			set_global_flag = no_more_collapse
-			custom_effect_tooltip = AUS_no_collapse
-			AUS_subtract_ten_collapse = yes
-			add_popularity = {
-				ideology = social_liberal
-				popularity = 0.05
-			}
+			BOTDE_disable_collapse_system = yes
+			increase_ruling_party_popularity_by_5 = yes
 			hidden_effect = {
 				if = {
 					limit = { has_global_flag = ausgleich_eu_illyria }
@@ -5773,10 +5723,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		completion_reward = {
 			AUS_subtract_ten_collapse = yes
 			add_political_power = 40
-			add_popularity = {
-				ideology = social_democrat
-				popularity = 0.03
-			}
+			increase_ruling_party_popularity_by_3 = yes
 			random_owned_controlled_state = {
 				limit = {
 					is_coastal = yes
@@ -6088,9 +6035,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_unbiased_judgements
 		}
 		completion_reward = {
-			set_global_flag = no_more_collapse
-			custom_effect_tooltip = AUS_no_collapse
-			AUS_subtract_ten_collapse = yes
+			BOTDE_disable_collapse_system = yes
 			increase_ruling_party_popularity_by_5 = yes
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_AUS_FEDERALIZATION }
@@ -6514,7 +6459,10 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		available = {
 			has_country_flag = AUS_macek_1940
-			has_government = social_conservative
+			OR = {
+				has_government = social_conservative
+				has_government = authoritarian_democrat
+			}
 		}
 		prerequisite = {
 			focus = AUS_1940_elections
@@ -6540,7 +6488,10 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		available = {
 			has_country_flag = AUS_macek_1940
-			has_government = social_conservative
+			OR = {
+				has_government = social_conservative
+				has_government = authoritarian_democrat
+			}
 		}
 		prerequisite = {
 			focus = AUS_ministerprasident_macek
@@ -6572,7 +6523,10 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		available = {
 			has_country_flag = AUS_macek_1940
-			has_government = social_conservative
+			OR = {
+				has_government = social_conservative
+				has_government = authoritarian_democrat
+			}
 		}
 		prerequisite = {
 			focus = AUS_ministerprasident_macek
@@ -6596,7 +6550,10 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		available = {
 			has_country_flag = AUS_macek_1940
-			has_government = social_conservative
+			OR = {
+				has_government = social_conservative
+				has_government = authoritarian_democrat
+			}
 		}
 		prerequisite = {
 			focus = AUS_ministerprasident_macek
@@ -6604,10 +6561,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		completion_reward = {
 			ALL_subtract_five_collapse = yes
 			AUS_subtract_ten_collapse = yes
-			add_popularity = {
-				ideology = social_conservative
-				popularity = 0.05
-			}
+			increase_ruling_party_popularity_by_5 = yes
 			add_war_support = 0.1
 			add_stability = 0.05
 		}
@@ -6626,7 +6580,10 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		available = {
 			has_country_flag = AUS_macek_1940
-			has_government = social_conservative
+			OR = {
+				has_government = social_conservative
+				has_government = authoritarian_democrat
+			}
 		}
 		prerequisite = {
 			focus = AUS_volksmilizen
@@ -6652,7 +6609,10 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		available = {
 			has_country_flag = AUS_macek_1940
-			has_government = social_conservative
+			OR = {
+				has_government = social_conservative
+				has_government = authoritarian_democrat
+			}
 		}
 		prerequisite = {
 			focus = AUS_volksmilizen
@@ -6695,7 +6655,10 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		available = {
 			has_country_flag = AUS_macek_1940
-			has_government = social_conservative
+			OR = {
+				has_government = social_conservative
+				has_government = authoritarian_democrat
+			}
 		}
 		prerequisite = {
 			focus = AUS_herzegovina_aluminium
@@ -6737,7 +6700,10 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		available = {
 			has_country_flag = AUS_macek_1940
-			has_government = social_conservative
+			OR = {
+				has_government = social_conservative
+				has_government = authoritarian_democrat
+			}
 		}
 		prerequisite = {
 			focus = AUS_herzegovina_aluminium
@@ -6786,7 +6752,10 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		available = {
 			has_country_flag = AUS_macek_1940
-			has_government = social_conservative
+			OR = {
+				has_government = social_conservative
+				has_government = authoritarian_democrat
+			}
 		}
 		prerequisite = {
 			focus = AUS_expand_prijedor
@@ -6817,7 +6786,10 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		available = {
 			has_country_flag = AUS_bethlen_1940
-			has_government = social_conservative
+			OR = {
+				has_government = social_conservative
+				has_government = authoritarian_democrat
+			}
 		}
 		prerequisite = {
 			focus = AUS_1940_elections
@@ -6826,10 +6798,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			HUN_subtract_ten_collapse = yes
 			AUS_subtract_three_collapse = yes
 			add_political_power = 40
-			add_popularity = {
-				ideology = social_conservative
-				popularity = 0.03
-			}
+			increase_ruling_party_popularity_by_3 = yes
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -6846,7 +6815,10 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		available = {
 			has_country_flag = AUS_bethlen_1940
-			has_government = social_conservative
+			OR = {
+				has_government = social_conservative
+				has_government = authoritarian_democrat
+			}
 		}
 		prerequisite = {
 			focus = AUS_ministerprasident_bethlen
@@ -6855,12 +6827,9 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			AUS_subtract_five_collapse = yes
 			add_popularity = {
 				ideology = market_liberal
-				popularity = 0.025
+				popularity = 0.03
 			}
-			add_popularity = {
-				ideology = social_conservative
-				popularity = 0.025
-			}
+			increase_ruling_party_popularity_by_3 = yes
 			add_one_random_civilian_factory = yes
 			add_one_random_dockyard = yes
 		}
@@ -6879,7 +6848,10 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		available = {
 			has_country_flag = AUS_bethlen_1940
-			has_government = social_conservative
+			OR = {
+				has_government = social_conservative
+				has_government = authoritarian_democrat
+			}
 		}
 		prerequisite = {
 			focus = AUS_ministerprasident_bethlen
@@ -6908,7 +6880,10 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		available = {
 			has_country_flag = AUS_bethlen_1940
-			has_government = social_conservative
+			OR = {
+				has_government = social_conservative
+				has_government = authoritarian_democrat
+			}
 		}
 		prerequisite = {
 			focus = AUS_legacy_of_istvan_tisza
@@ -6934,7 +6909,10 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		available = {
 			has_country_flag = AUS_bethlen_1940
-			has_government = social_conservative
+			OR = {
+				has_government = social_conservative
+				has_government = authoritarian_democrat
+			}
 		}
 		prerequisite = {
 			focus = AUS_legacy_of_istvan_tisza
@@ -6961,7 +6939,10 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		available = {
 			has_country_flag = AUS_bethlen_1940
-			has_government = social_conservative
+			OR = {
+				has_government = social_conservative
+				has_government = authoritarian_democrat
+			}
 		}
 		prerequisite = {
 			focus = AUS_expand_lang_machines
@@ -6992,7 +6973,10 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		available = {
 			has_country_flag = AUS_bethlen_1940
-			has_government = social_conservative
+			OR = {
+				has_government = social_conservative
+				has_government = authoritarian_democrat
+			}
 		}
 		prerequisite = {
 			focus = AUS_four_points
@@ -7001,7 +6985,6 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_danubian_basis
 			focus = AUS_expand_ganz_danubius_facilities
 		}
-		
 		completion_reward = {
 			add_political_power = 60
 			add_manpower = 75000
@@ -7021,13 +7004,10 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	focus = {
 		id = AUS_VF_rapprochement
 		icon = {
-			trigger = {
+			GFX_goal_AUS_Reverence_Empress_Zita = {
 				NOT = { has_global_flag = AUS_VF_SPLIT }
 			}
-			value = GFX_goal_AUS_Reverence_Empress_Zita
-		}
-		icon = {
-			value = GFX_goal_AUS_vf_agreement
+			GFX_goal_AUS_vf_agreement = yes
 		}
 		dynamic = yes
 		relative_position_id = AUS_ministerprasident_bethlen
@@ -7039,12 +7019,14 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		available = {
 			has_country_flag = AUS_bethlen_1940
-			has_government = social_conservative
+			OR = {
+				has_government = social_conservative
+				has_government = authoritarian_democrat
+			}
 		}
 		prerequisite = {
 			focus = AUS_face_of_magyar_christian_socialism
 		}
-		
 		completion_reward = {
 			if = {
 				limit = { NOT = { has_global_flag = AUS_VF_SPLIT } }
@@ -7095,12 +7077,14 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		available = {
 			has_country_flag = AUS_bethlen_1940
-			has_government = social_conservative
+			OR = {
+				has_government = social_conservative
+				has_government = authoritarian_democrat
+			}
 		}
 		prerequisite = {
 			focus = AUS_face_of_magyar_christian_socialism
 		}
-		
 		completion_reward = {
 			add_stability = 0.03
 			add_war_support = 0.05
@@ -7145,9 +7129,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_hail_1937
 		}
 		completion_reward = {
-			set_global_flag = no_more_collapse
-			custom_effect_tooltip = AUS_no_collapse
-			AUS_subtract_ten_collapse = yes
+			BOTDE_disable_collapse_system = yes
 			increase_ruling_party_popularity_by_5 = yes
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_AUS_FEDERALIZATION }
@@ -8169,9 +8151,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_chairman_of_charisma
 		}
 		completion_reward = {
-			set_global_flag = no_more_collapse
-			custom_effect_tooltip = AUS_no_collapse
-			AUS_subtract_ten_collapse = yes
+			BOTDE_disable_collapse_system = yes
 			increase_ruling_party_popularity_by_5 = yes
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_AUS_FEDERALIZATION }
@@ -8320,19 +8300,13 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	focus = {
 		id = AUS_kings_gambit
 		icon = {
-			trigger = {
+			GFX_goal_AUS_FJ2_tragedy = {
 				has_country_flag = AUS_otto_successor
 			}
-			value = GFX_goal_AUS_FJ2_tragedy 
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_gemeinsame_coup = {
 				has_country_flag = AUS_military_coup_flag
 			}
-			value = GFX_goal_AUS_gemeinsame_coup 
-		}
-		icon = {
-			value = GFX_goal_AUS_emperor_who_loves
+			GFX_goal_AUS_emperor_who_loves = yes
 		}
 		relative_position_id = AUS_der_letzte_atemzug
 		prerequisite = {
@@ -8361,19 +8335,13 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	focus = {
 		id = AUS_looking_inwards
 		icon = {
-			trigger = {
+			GFX_goal_AUS_karl_der_grose = {
 				has_country_flag = AUS_otto_successor
 			}
-			value = GFX_goal_AUS_karl_der_grose 
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_danubian_shield = {
 				has_country_flag = AUS_military_coup_flag
 			}
-			value = GFX_goal_AUS_danubian_shield 
-		}
-		icon = {
-			value = GFX_goal_AUS_Heavy_Head_That_Bears_Crown
+			GFX_goal_AUS_Heavy_Head_That_Bears_Crown = yes
 		}
 		relative_position_id = AUS_kings_gambit
 		prerequisite = {
@@ -8425,19 +8393,13 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	focus = {
 		id = AUS_looking_outwards
 		icon = {
-			trigger = {
+			GFX_goal_AUS_heil_europa = {
 				has_country_flag = AUS_otto_successor
 			}
-			value = GFX_goal_AUS_heil_europa 
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_consult_bro = {
 				has_country_flag = AUS_military_coup_flag
 			}
-			value = GFX_goal_AUS_consult_bro 
-		}
-		icon = {
-			value = GFX_goal_AUS_Mistakes_Father_Mistakes_Son
+			GFX_goal_AUS_Mistakes_Father_Mistakes_Son = yes
 		}
 		relative_position_id = AUS_kings_gambit
 		prerequisite = {
@@ -8518,19 +8480,13 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	focus = {
 		id = AUS_live_and_let_live
 		icon = {
-			trigger = {
+			GFX_goal_AUS_champion_paneuropa = {
 				has_country_flag = AUS_otto_successor
 			}
-			value = GFX_goal_AUS_champion_paneuropa 
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_guns_benevolence = {
 				has_country_flag = AUS_military_coup_flag
 			}
-			value = GFX_goal_AUS_guns_benevolence 
-		}
-		icon = {
-			value = GFX_goal_AUS_Live_Let_Live
+			GFX_goal_AUS_Live_Let_Live = yes
 		}
 		relative_position_id = AUS_kings_gambit
 		prerequisite = {
@@ -8557,19 +8513,13 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	focus = {
 		id = AUS_mistakes_of_franz_ferdinand
 		icon = {
-			trigger = {
+			GFX_goal_AUS_Revisit_sarajevo = {
 				has_country_flag = AUS_otto_successor
 			}
-			value = GFX_goal_AUS_Revisit_sarajevo 
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_to_drain_powederkeg = {
 				has_country_flag = AUS_military_coup_flag
 			}
-			value = GFX_goal_AUS_to_drain_powederkeg 
-		}
-		icon = {
-			value = GFX_goal_AUS_Renew_Wide_Popular_Reforms
+			GFX_goal_AUS_Renew_Wide_Popular_Reforms = yes
 		}
 		relative_position_id = AUS_kings_gambit
 		prerequisite = {
@@ -8601,19 +8551,13 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	focus = {
 		id = AUS_legacy_of_1848
 		icon = {
-			trigger = {
+			GFX_goal_AUS_transleithanian_heart = {
 				has_country_flag = AUS_otto_successor
 			}
-			value = GFX_goal_AUS_transleithanian_heart 
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_st_stephen_abso = {
 				has_country_flag = AUS_military_coup_flag
 			}
-			value = GFX_goal_AUS_st_stephen_abso 
-		}
-		icon = {
-			value = GFX_goal_AUS_Dismantle_Hungarian_Exceptionalism
+			GFX_goal_AUS_Dismantle_Hungarian_Exceptionalism = yes
 		}
 		relative_position_id = AUS_kings_gambit
 		prerequisite = {
@@ -8660,19 +8604,13 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	focus = {
 		id = AUS_austroslavism_again
 		icon = {
-			trigger = {
+			GFX_goal_AUS_very_european_experiment = {
 				has_country_flag = AUS_otto_successor
 			}
-			value = GFX_goal_AUS_very_european_experiment 
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_bosnia_legacy = {
 				has_country_flag = AUS_military_coup_flag
 			}
-			value = GFX_goal_AUS_bosnia_legacy 
-		}
-		icon = {
-			value = GFX_goal_AUS_Revisit_Austroslavism
+			GFX_goal_AUS_Revisit_Austroslavism = yes
 		}
 		relative_position_id = AUS_kings_gambit
 		prerequisite = {
@@ -8722,19 +8660,13 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	focus = {
 		id = AUS_looking_back_on_the_pardoners_agreement
 		icon = {
-			trigger = {
+			GFX_goal_AUS_talks_with_dbh = {
 				has_country_flag = AUS_otto_successor
 			}
-			value = GFX_goal_AUS_talks_with_dbh 
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_ironbacked_twintails = {
 				has_country_flag = AUS_military_coup_flag
 			}
-			value = GFX_goal_AUS_ironbacked_twintails 
-		}
-		icon = {
-			value = GFX_goal_AUS_Lessons_Pardoners_Agreement
+			GFX_goal_AUS_Lessons_Pardoners_Agreement = yes
 		}
 		relative_position_id = AUS_kings_gambit
 		prerequisite = {
@@ -8812,19 +8744,13 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	focus = {
 		id = AUS_hear_karol_habsburgs_calls
 		icon = {
-			trigger = {
+			GFX_goal_AUS_danubia_breadbasket = {
 				has_country_flag = AUS_otto_successor
 			}
-			value = GFX_goal_AUS_danubia_breadbasket 
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_ivanov_nightmare = {
 				has_country_flag = AUS_military_coup_flag
 			}
-			value = GFX_goal_AUS_ivanov_nightmare 
-		}
-		icon = {
-			value = GFX_goal_AUS_Answer_Karol_Olbracht_Habsburgs_Calls
+			GFX_goal_AUS_Answer_Karol_Olbracht_Habsburgs_Calls = yes
 		}
 		relative_position_id = AUS_kings_gambit
 		prerequisite = {
@@ -8958,19 +8884,13 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	focus = {
 		id = AUS_fate_of_the_reichsrat
 		icon = {
-			trigger = {
+			GFX_goal_AUS_hobbes_nightmare = {
 				has_country_flag = AUS_otto_successor
 			}
-			value = GFX_goal_AUS_hobbes_nightmare 
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_fate_of_the_reichsrat_junta = {
 				has_country_flag = AUS_military_coup_flag
 			}
-			value = GFX_goal_AUS_fate_of_the_reichsrat_junta 
-		}
-		icon = {
-			value = GFX_goal_AUS_Fate_Reichsrat
+			GFX_goal_AUS_Fate_Reichsrat = yes
 		}
 		relative_position_id = AUS_emergency_ausgleich
 		prerequisite = {
@@ -9019,63 +8939,39 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	focus = {
 		id = AUS_absolutist_election_result
 		icon = {
-			trigger = {
+			GFX_goal_AUS_kingly_gambit = {
 				has_country_flag = AUS_otto_successor
 				has_country_flag = AUS_didnt_restore_democracy_after_absolutist_crisis
 			}
-			value = GFX_goal_AUS_kingly_gambit 
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_absolutist_election_result_junta = {
 				has_country_flag = AUS_military_coup_flag
 				has_country_flag = AUS_didnt_restore_democracy_after_absolutist_crisis
 			}
-			value = GFX_goal_AUS_absolutist_election_result_junta 
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_Failures_1927 = {
 				has_country_flag = AUS_didnt_restore_democracy_after_absolutist_crisis
 			}
-			value = GFX_goal_AUS_Failures_1927
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_austromarxism_shaken = {
 				has_country_flag = AUS_democracy_after_absolutist_crisis
 				has_country_flag = AUS_sdapo_elected_absolutist_election
 			}
-			value = GFX_goal_AUS_austromarxism_shaken
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_Shining_City_Hill = {
 				has_country_flag = AUS_democracy_after_absolutist_crisis
 				has_country_flag = AUS_cs_elected_absolutist_election
 			}
-			value = GFX_goal_AUS_Shining_City_Hill
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_karl_der_grose = {
 				has_country_flag = AUS_democracy_after_absolutist_crisis
 				has_country_flag = AUS_otto_successor
 				has_country_flag = AUS_dbp_elected_absolutist_election
 			}
-			value = GFX_goal_AUS_karl_der_grose
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_federalist_case = {
 				has_country_flag = AUS_democracy_after_absolutist_crisis
 				has_country_flag = AUS_dbp_elected_absolutist_election
 			}
-			value = GFX_goal_AUS_federalist_case
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_kruckenkreuz_stand = {
 				has_country_flag = AUS_democracy_after_absolutist_crisis
 				has_country_flag = AUS_vf_elected_absolutist_election
 			}
-			value = GFX_goal_AUS_kruckenkreuz_stand
-		}
-		icon = {
-			value = GFX_goal_AUS_Danubias_Future
+			GFX_goal_AUS_Danubias_Future = yes
 		}
 		relative_position_id = AUS_emergency_ausgleich
 		prerequisite = {
@@ -9100,55 +8996,34 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	focus = {
 		id = AUS_absolutist_election_result_focus_1
 		icon = {
-			trigger = {
+			GFX_goal_AUS_kalergi_plan_trolololol = {
 				has_country_flag = AUS_otto_successor
 				has_country_flag = AUS_didnt_restore_democracy_after_absolutist_crisis
 			}
-			value = GFX_goal_AUS_kalergi_plan_trolololol 
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_absolutist_election_result_focus_1_junta = {
 				has_country_flag = AUS_military_coup_flag
 				has_country_flag = AUS_didnt_restore_democracy_after_absolutist_crisis
 			}
-			value = GFX_goal_AUS_absolutist_election_result_focus_1_junta 
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_To_Heal_Shaken_Empire = {
 				has_country_flag = AUS_didnt_restore_democracy_after_absolutist_crisis
 			}
-			value = GFX_goal_AUS_To_Heal_Shaken_Empire
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_wounds_healed = {
 				has_country_flag = AUS_democracy_after_absolutist_crisis
 				has_country_flag = AUS_sdapo_elected_absolutist_election
 			}
-			value = GFX_goal_AUS_wounds_healed
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_Defense_Against_Radicalism = {
 				has_country_flag = AUS_democracy_after_absolutist_crisis
 				has_country_flag = AUS_cs_elected_absolutist_election
 			}
-			value = GFX_goal_AUS_Defense_Against_Radicalism
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_fed_empire = {
 				has_country_flag = AUS_democracy_after_absolutist_crisis
 				has_country_flag = AUS_dbp_elected_absolutist_election
 			}
-			value = GFX_goal_AUS_fed_empire
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_agrarian_populist_catholic = {
 				has_country_flag = AUS_democracy_after_absolutist_crisis
 				has_country_flag = AUS_vf_elected_absolutist_election
 			}
-			value = GFX_goal_AUS_agrarian_populist_catholic
-		}
-		icon = {
-			value = GFX_goal_AUS_New_Status_Quo
+			GFX_goal_AUS_New_Status_Quo = yes
 		}
 		relative_position_id = AUS_absolutist_election_result
 		prerequisite = {
@@ -9190,55 +9065,34 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	focus = {
 		id = AUS_absolutist_election_result_focus_2
 		icon = {
-			trigger = {
+			GFX_goal_AUS_pappa_proud = {
 				has_country_flag = AUS_otto_successor
 				has_country_flag = AUS_didnt_restore_democracy_after_absolutist_crisis
 			}
-			value = GFX_goal_AUS_pappa_proud 
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_absolutist_election_result_focus_2_junta = {
 				has_country_flag = AUS_military_coup_flag
 				has_country_flag = AUS_didnt_restore_democracy_after_absolutist_crisis
 			}
-			value = GFX_goal_AUS_absolutist_election_result_focus_2_junta 
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_Calm_Flows_Danube = {
 				has_country_flag = AUS_didnt_restore_democracy_after_absolutist_crisis
 			}
-			value = GFX_goal_AUS_Calm_Flows_Danube
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_internationale_resistance = {
 				has_country_flag = AUS_democracy_after_absolutist_crisis
 				has_country_flag = AUS_sdapo_elected_absolutist_election
 			}
-			value = GFX_goal_AUS_internationale_resistance
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_Issue_Dollfuss = {
 				has_country_flag = AUS_democracy_after_absolutist_crisis
 				has_country_flag = AUS_cs_elected_absolutist_election
 			}
-			value = GFX_goal_AUS_Issue_Dollfuss
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_in_veriatate_concordia = {
 				has_country_flag = AUS_democracy_after_absolutist_crisis
 				has_country_flag = AUS_dbp_elected_absolutist_election
 			}
-			value = GFX_goal_AUS_in_veriatate_concordia
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_modest_honest_pious = {
 				has_country_flag = AUS_democracy_after_absolutist_crisis
 				has_country_flag = AUS_vf_elected_absolutist_election
 			}
-			value = GFX_goal_AUS_modest_honest_pious
-		}
-		icon = {
-			value = GFX_goal_AUS_Heal_Social_Fabric
+			GFX_goal_AUS_Heal_Social_Fabric = yes
 		}
 		relative_position_id = AUS_absolutist_election_result
 		prerequisite = {
@@ -9269,55 +9123,34 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	focus = {
 		id = AUS_absolutist_election_result_focus_3
 		icon = {
-			trigger = {
+			GFX_goal_AUS_freude_schonen_gotterfunken = {
 				has_country_flag = AUS_otto_successor
 				has_country_flag = AUS_didnt_restore_democracy_after_absolutist_crisis
 			}
-			value = GFX_goal_AUS_freude_schonen_gotterfunken 
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_absolutist_election_result_focus_3_junta = {
 				has_country_flag = AUS_military_coup_flag
 				has_country_flag = AUS_didnt_restore_democracy_after_absolutist_crisis
 			}
-			value = GFX_goal_AUS_absolutist_election_result_focus_3_junta 
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_Dream_Fulfilled = {
 				has_country_flag = AUS_didnt_restore_democracy_after_absolutist_crisis
 			}
-			value = GFX_goal_AUS_Dream_Fulfilled
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_to_federation = {
 				has_country_flag = AUS_democracy_after_absolutist_crisis
 				has_country_flag = AUS_sdapo_elected_absolutist_election
 			}
-			value = GFX_goal_AUS_to_federation
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_Dualism_Reformed_Reinforced = {
 				has_country_flag = AUS_democracy_after_absolutist_crisis
 				has_country_flag = AUS_cs_elected_absolutist_election
 			}
-			value = GFX_goal_AUS_Dualism_Reformed_Reinforced
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_USGA_focus = {
 				has_country_flag = AUS_democracy_after_absolutist_crisis
 				has_country_flag = AUS_dbp_elected_absolutist_election
 			}
-			value = GFX_goal_AUS_USGA_focus
-		}
-		icon = {
-			trigger = {
+			GFX_goal_AUS_birth_of_standestaat = {
 				has_country_flag = AUS_democracy_after_absolutist_crisis
 				has_country_flag = AUS_vf_elected_absolutist_election
 			}
-			value = GFX_goal_AUS_birth_of_standestaat
-		}
-		icon = {
-			value = GFX_goal_AUS_Foderalismusplan_Realized
+			GFX_goal_AUS_Foderalismusplan_Realized = yes
 		}
 		relative_position_id = AUS_absolutist_election_result
 		prerequisite = {
@@ -9658,9 +9491,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_praxeologist_thought
 		}
 		completion_reward = {
-			set_global_flag = no_more_collapse
-			custom_effect_tooltip = AUS_no_collapse
-			AUS_subtract_ten_collapse = yes
+			BOTDE_disable_collapse_system = yes
 			increase_ruling_party_popularity_by_5 = yes
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_AUS_FEDERALIZATION }
@@ -10009,9 +9840,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_dollfussian_ideologues
 		}
 		completion_reward = {
-			set_global_flag = no_more_collapse
-			custom_effect_tooltip = AUS_no_collapse
-			AUS_subtract_ten_collapse = yes
+			BOTDE_disable_collapse_system = yes
 			increase_ruling_party_popularity_by_5 = yes
 			#Event here to restore democracy or continue authoritarianism. Restoring democracy gives normie 1944 folks, not doing so unlocks annexing Venice for free if Schuschnigg is there, and a Schuschnigg path
 		}
@@ -10334,9 +10163,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_syndicalist_ambivalence
 		}
 		completion_reward = {
-			set_global_flag = no_more_collapse
-			custom_effect_tooltip = AUS_no_collapse
-			AUS_subtract_ten_collapse = yes
+			BOTDE_disable_collapse_system = yes
 			increase_ruling_party_popularity_by_5 = yes
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_AUS_FEDERALIZATION }
@@ -11433,6 +11260,18 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		icon = GFX_goal_AUS_Ariosophic_Awakening
 		x = -32
 		y = 8
+		offset = {
+			x = -2
+			trigger = {
+				OR = {
+					AND = {
+						is_faction_leader = yes
+						has_government = radical_socialist
+					}
+					has_global_flag = FRA_AUS_sixtus_pakt
+				}
+			}
+		}
 		cost = 0
 		ai_will_do = {
 			factor = 100
@@ -11787,6 +11626,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				days = 2
 				random_hours = 24
 			}
+			country_event = bdeaus.35
 			hidden_effect = {
 				set_global_flag = AUS_hold_for_pneo_coup_flag
 			}
@@ -12005,9 +11845,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_reawakening_aryan_powers
 		}
 		completion_reward = {
-			set_global_flag = no_more_collapse
-			custom_effect_tooltip = AUS_no_collapse
-			AUS_subtract_ten_collapse = yes
+			BOTDE_disable_collapse_system = yes
 			increase_ruling_party_popularity_by_10 = yes
 			custom_effect_tooltip = AUS_liebenfels_kill_free_consts_unlock_tt
 		}
@@ -12486,7 +12324,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		icon = GFX_goal_AUS_common_army
 		x = 64
 		y = 11
-		cost = 5
+		cost = 4
 		ai_will_do = {
 			factor = 100
 		}
@@ -12591,7 +12429,12 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				limit = { has_dlc_aat = yes }
 				unlock_military_industrial_organization_tooltip = mio:austro_daimler_mio
 			}
-			else = { custom_effect_tooltip = AUS_unlock_austro_daimler_not_mio_tt }
+			else = {
+				custom_effect_tooltip = {
+					localization_key = generic_unlock_industrial_concern_tt
+					INDUSTRIAL_CONCERN = austro_daimler
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_WAR_SUPPORT }
 	}
@@ -13040,7 +12883,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		completion_reward = {
 			add_ideas = AUS_bohme_idea
-			set_grand_doctrine = grand_battleplan
+			army_experience = 50
 			add_mastery_bonus = {
 			    bonus = 0.5
 			    days = 90
@@ -13052,7 +12895,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			    index = 1
 			}
 		}
-		search_filters = { FOCUS_FILTER_ARMY_BONUS }
+		search_filters = { FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_ARMY_XP }
 	}
 	
 	focus = {
@@ -13314,7 +13157,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		completion_reward = {
 			add_ideas = AUS_hotzendorf_idea
-			set_grand_doctrine = mass_assault
+			army_experience = 50
 			add_mastery_bonus = {
 			    bonus = 0.5
 			    days = 90
@@ -13324,7 +13167,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			    grand_doctrine = mass_assault
 			}
 		}
-		search_filters = { FOCUS_FILTER_ARMY_BONUS }
+		search_filters = { FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_ARMY_XP }
 	}
 	
 	focus = {
@@ -13549,7 +13392,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 					promote_leader = yes
 				}
 			}
-			set_grand_doctrine = superior_firepower
+			army_experience = 50
 			add_mastery_bonus = {
 			    bonus = 0.5
 			    days = 90
@@ -13559,7 +13402,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			    grand_doctrine = superior_firepower
 			}
 		}
-		search_filters = { FOCUS_FILTER_ARMY_BONUS }
+		search_filters = { FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_ARMY_XP }
 	}
 	
 	focus = {
@@ -13784,7 +13627,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		completion_reward = {
 			add_ideas = AUS_raus_idea
-			set_grand_doctrine = new_mobile_warfare
+			army_experience = 50
 			add_mastery_bonus = {
 			    bonus = 0.5
 			    days = 90
@@ -13794,7 +13637,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			    grand_doctrine = new_mobile_warfare
 			}
 		}
-		search_filters = { FOCUS_FILTER_ARMY_BONUS }
+		search_filters = { FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_ARMY_XP }
 	}
 	
 	focus = {
@@ -14000,7 +13843,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		icon = GFX_goal_AUS_kriegsmarine
 		x = 48
 		y = 21
-		cost = 2
+		cost = 4
 		ai_will_do = {
 			factor = 100
 		}
@@ -14016,7 +13859,10 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				uses = 1
 				bonus = 1
 			}
-			country_event = { id = bdeausflavor.59 days = 1 }
+			country_event = {
+				id = bdeausflavor.59
+				days = 1
+			}
 			if = {
 				limit = {
 					has_completed_focus = AUS_k_k_landwehr
@@ -14027,13 +13873,6 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 					id = bdeaus.5
 					days = 30
 					random_hours = 600
-				}
-			}
-			hidden_effect = {
-				country_event = {
-					id = bdeausflavor.57
-					days = 60
-					random_hours = 1200
 				}
 			}
 		}
@@ -14158,7 +13997,8 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus AUS_deal_with_CNT"
 			add_ideas = AUS_CNT
-			1100 = {
+			random_owned_state = {
+				prioritize = { 1100 }
 				construct_building_in_random_province = {
 					naval_facility = 1
 				}
@@ -14277,7 +14117,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_wolves_of_the_mediterranean
 		}
 		completion_reward = {
-			set_grand_doctrine = new_fleet_in_being
+			navy_experience = 50
 			add_mastery_bonus = {
 			    bonus = 0.5
 			    days = 90
@@ -14288,7 +14128,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			}
 			add_ideas = AUS_horthy_navy_plan
 		}
-		search_filters = { FOCUS_FILTER_NAVY_BONUS }
+		search_filters = { FOCUS_FILTER_NAVY_BONUS FOCUS_FILTER_NAVY_XP }
 	}
 	
 	focus = {
@@ -14380,8 +14220,8 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_legacy_of_horthy
 		}
 		completion_reward = {
-			#Delete a fleet
-			navy_experience = -25
+			unlock_decision_tooltip = AUS_scrap_ship
+			unlock_decision_tooltip = AUS_finish_scrapping_program
 			add_ideas = AUS_decommissioned_wk_ships
 		}
 		search_filters = { FOCUS_FILTER_NAVY_BONUS }
@@ -14578,7 +14418,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_eagles_of_the_sea
 		}
 		completion_reward = {
-			set_grand_doctrine = new_convoy_raiding
+			navy_experience = 50
 			add_mastery_bonus = {
 			    bonus = 0.5
 			    days = 90
@@ -14589,7 +14429,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			}
 			add_ideas = AUS_trapp_navy_plan
 		}
-		search_filters = { FOCUS_FILTER_NAVY_BONUS }
+		search_filters = { FOCUS_FILTER_NAVY_BONUS FOCUS_FILTER_NAVY_XP }
 	}
 	
 	focus = {
@@ -14872,7 +14712,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_wolves_of_the_mediterranean
 		}
 		completion_reward = {
-			set_grand_doctrine = new_base_strike
+			navy_experience = 50
 			add_mastery_bonus = {
 			    bonus = 0.5
 			    days = 90
@@ -14883,7 +14723,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			}
 			add_ideas = AUS_banfield_navy_plan
 		}
-		search_filters = { FOCUS_FILTER_NAVY_BONUS }
+		search_filters = { FOCUS_FILTER_NAVY_BONUS FOCUS_FILTER_NAVY_XP }
 	}
 	
 	focus = {
@@ -15193,7 +15033,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		icon = GFX_goal_AUS_airforce
 		x = 48
 		y = 9
-		cost = 5
+		cost = 4
 		ai_will_do = {
 			factor = 100
 		}
@@ -15205,7 +15045,10 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				uses = 1
 				category = air_doctrine
 			}
-			country_event = { id = bdeausflavor.60 days = 1 }
+			country_event = {
+				id = bdeausflavor.60
+				days = 1
+			}
 			if = {
 				limit = {
 					has_completed_focus = AUS_k_u_k_kriegsmarine
@@ -15334,7 +15177,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_seebauers_operational_integrity
 		}
 		completion_reward = {
-			set_grand_doctrine = new_strategic_destruction
+			air_experience = 50
 			add_mastery_bonus = {
 			    bonus = 0.5
 			    days = 90
@@ -15344,7 +15187,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			    grand_doctrine = new_strategic_destruction
 			}
 		}
-		search_filters = { FOCUS_FILTER_AIRFORCE_BONUS }
+		search_filters = { FOCUS_FILTER_AIRFORCE_BONUS FOCUS_FILTER_AIR_XP }
 	}
 	
 	focus = {
@@ -15488,7 +15331,12 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				limit = { has_dlc_aat = yes }
 				unlock_military_industrial_organization_tooltip = mio:phonix_mio
 			}
-			else = { custom_effect_tooltip = AUS_unlock_phonix_not_mio_tt }
+			else = {
+				custom_effect_tooltip = {
+					localization_key = generic_unlock_industrial_concern_tt
+					INDUSTRIAL_CONCERN = phoenix
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_AIRFORCE_BONUS }
 	}
@@ -15514,7 +15362,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_seebauers_operational_integrity
 		}
 		completion_reward = {
-			set_grand_doctrine = new_battlefield_support
+			air_experience = 50
 			add_mastery_bonus = {
 			    bonus = 0.5
 			    days = 90
@@ -15524,7 +15372,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			    grand_doctrine = new_battlefield_support
 			}
 		}
-		search_filters = { FOCUS_FILTER_AIRFORCE_BONUS }
+		search_filters = { FOCUS_FILTER_AIRFORCE_BONUS FOCUS_FILTER_AIR_XP }
 	}
 	
 	focus = {
@@ -15676,7 +15524,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_lohrs_steel_wings
 		}
 		completion_reward = {
-			set_grand_doctrine = new_operational_integrity
+			air_experience = 50
 			add_mastery_bonus = {
 			    bonus = 0.5
 			    days = 90
@@ -15686,7 +15534,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			    grand_doctrine = new_operational_integrity
 			}
 		}
-		search_filters = { FOCUS_FILTER_AIRFORCE_BONUS }
+		search_filters = { FOCUS_FILTER_AIRFORCE_BONUS FOCUS_FILTER_AIR_XP }
 	}
 	
 	focus = {
@@ -16507,6 +16355,10 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		completion_reward = {
 			#Event for GER. if AUS has completed the malta deal focus, give Malta extra building slots and dockyards
+			if = {
+				limit = { is_ally_with = var:182.owner }
+				unlock_decision_tooltip = AUS_crete_proposal
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_NAVY_BONUS FOCUS_FILTER_ANNEXATION }
 	}
@@ -16529,7 +16381,19 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			is_in_faction_with = GER
 		}
 		completion_reward = {
-			#Event for GER. Add idea AUS_tro_german_eco_deal
+			GER = {
+				country_event = {
+					id = bdeausfor.239
+					days = 1
+					random_hours = 48
+				}
+			}
+			effect_tooltip = {
+				custom_effect_tooltip = AUS_if_germany_agrees_tt
+				add_ideas = AUS_tro_german_eco_deal
+				add_offsite_building = { type = arms_factory level = 1 }
+				add_offsite_building = { type = industrial_complex level = 1 }
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
 	}
@@ -16537,13 +16401,18 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	focus = {
 		id = AUS_demand_gibraltar
 		icon = {
-			trigger = {
+			GFX_goal_AUS_tread_on_the_rock = {
 				has_global_flag = AUS_austro_american_alliance_flag
+				spanish_civil_war = no
 			}
-			value = GFX_goal_AUS_tread_on_the_rock
-		}
-		icon = {
-			value = GFX_goal_AUS_Demand_Gibraltar
+			GFX_goal_AUS_Demand_Gibraltar_SCW_USA = {
+				has_global_flag = AUS_austro_american_alliance_flag
+				spanish_civil_war = yes
+			}
+			GFX_goal_AUS_Demand_Gibraltar_SCW = {
+				spanish_civil_war = yes
+			}
+			GFX_goal_AUS_Demand_Gibraltar = yes
 		}
 		relative_position_id = AUS_reichspakt_faction
 		dynamic = yes
@@ -16566,18 +16435,52 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			else = {
 				GER = { is_faction_leader = yes }
 				is_in_faction_with = GER
-				var:118.owner = {
-					NOT = { is_in_faction_with = AUS }
+				if = {
+					limit = { spanish_civil_war = no }
+					var:118.owner = {
+						NOT = { is_in_faction_with = AUS }
+					}
 				}
 			}
 		}
 		completion_reward = {
 			if = {
 				limit = { has_global_flag = AUS_austro_american_alliance_flag }
-				custom_effect_tooltip = AUS_unlock_decision_spain
-				var:41.owner = { set_country_flag = AUS_faction_invitee }
+				if = {
+					limit = {
+						spanish_civil_war = yes
+					}
+					custom_effect_tooltip = AUS_unlock_decision_intervene_in_spain
+					set_country_flag = AUS_can_intervene_in_SCW_flag
+					if = {
+						limit = {
+							RIF = {
+								is_in_faction = no
+								NOT = { has_war_with = AUS }
+								exists = yes
+							}
+						}
+						custom_effect_tooltip = AUS_unlock_decision_rif
+						RIF = { set_country_flag = AUS_faction_invitee }
+					}
+				}
+				else = {
+					custom_effect_tooltip = AUS_unlock_decision_spain
+					var:41.owner = { set_country_flag = AUS_faction_invitee }
+				}
 			}
-			else = { var:118.owner = { country_event = bdeausfor.205 } }
+			else = {
+				if = {
+					limit = {
+						spanish_civil_war = yes
+					}
+					custom_effect_tooltip = AUS_unlock_decision_intervene_in_spain
+					set_country_flag = AUS_can_intervene_in_SCW_flag_not_faction_leader
+				}
+				else = {
+					var:118.owner = { country_event = bdeausfor.205 }
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -16665,12 +16568,15 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			GER_is_in_mitteleuropa = yes
 		}
 		completion_reward = {
-			navy_experience = 10
 			GER = {
-				navy_experience = 20
+				country_event = {
+					id = bdeausfor.238
+					days = 1
+					random_hours = 48
+				}
 			}
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_NAVY_BONUS FOCUS_FILTER_NAVY_XP }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
 	}
 	
 	focus = {
@@ -16689,9 +16595,12 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		available = {
 			GER = { is_faction_leader = yes }
 			is_in_faction_with = GER
+			GER_is_in_mitteleuropa = yes
 		}
 		completion_reward = {
-			52 = {
+			random_state = {
+				limit = { is_owned_by = GER }
+				prioritize = { 52 }
 				add_resource = {
 					type = steel
 					amount = 32
@@ -16708,7 +16617,8 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				}
 				add_extra_state_shared_building_slots = 4
 			}
-			1137 = {
+			random_owned_state = {
+				prioritize = { 1137 }
 				add_resource = {
 					type = steel
 					amount = 32
@@ -16726,8 +16636,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				add_extra_state_shared_building_slots = 4
 			}
 			country_event = bdeausflavor.90
-			#Event to build a railroad
-			#When railroad is complete, unlock German companies for Austrian use!
+			unlock_decision_tooltip = AUS_autobahn_connect_to_germany
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
 	}
@@ -17469,13 +17378,10 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	focus = {
 		id = AUS_finish_off_serbia
 		icon = {
-			trigger = {
+			GFX_goal_AUS_finish_off_serbia_kill_everyone = {
 				has_global_flag = FIVEBW_BP_VICTORY
 			}
-			value = GFX_goal_AUS_finish_off_serbia_kill_everyone
-		}
-		icon = {
-			value = GFX_goal_AUS_i_forgor
+			GFX_goal_AUS_i_forgor = yes
 		}
 		dynamic = yes
 		relative_position_id = AUS_foreign_policy
@@ -17695,7 +17601,22 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 	
 	focus = {
 		id = AUS_free_bulgaria
-		icon = GFX_goal_AUS_free_bulgaria
+		icon = {
+			GFX_goal_AUS_free_bulgaria_macedonia = {
+				BUL = {
+					OR = {
+						AND = {
+							has_capitulated = yes
+							has_war_with = SER
+						}
+						is_ally_with = SER
+						exists = no
+					}
+				}
+			}
+			GFX_goal_AUS_free_bulgaria = yes
+		}
+		dynamic = yes
 		relative_position_id = AUS_foreign_policy
 		x = -6
 		y = 6
@@ -17716,6 +17637,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 					has_socialist_government = yes
 					has_government = national_populist
 					has_completed_focus = BUL_ideals_of_bulgarism
+					is_ally_with = SER
 					ROOT = {
 						is_in_faction_with = RUS
 					}
@@ -17754,16 +17676,8 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_claws_on_eastasia
 		}
 		completion_reward = {
-			activate_targeted_decision = { decision = AUS_attack_nation target = BUL }
-			if = {
-				limit = { is_in_faction_with = RUS }
-				custom_effect_tooltip = AUS_unlock_decision_ally_bulgaria
-				BUL = { set_country_flag = AUS_faction_invitee_otherfaction }
-			}
-			else = { custom_effect_tooltip = ally_bulgaria_if_with_russia }
 			if = {
 				limit = {
-					fifth_balkan_war = yes
 					BUL = {
 						OR = {
 							AND = {
@@ -17776,6 +17690,15 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 					}
 				}
 				unlock_decision_tooltip = AUS_blow_up_macedonia_decision
+			}
+			else = {
+				activate_targeted_decision = { decision = AUS_attack_nation target = BUL }
+				if = {
+					limit = { is_in_faction_with = RUS }
+					custom_effect_tooltip = AUS_unlock_decision_ally_bulgaria
+					BUL = { set_country_flag = AUS_faction_invitee_otherfaction }
+				}
+				else = { custom_effect_tooltip = ally_bulgaria_if_with_russia }
 			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
@@ -17815,9 +17738,11 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 				}
 			}
 			AUS_ausgleich_over_trigger = yes
+			NOT = { has_global_flag = FRA_AUS_sixtus_pakt }
 		}
 		mutually_exclusive = {
 			focus = AUS_bide_our_time
+			focus = AUS_legacy_of_the_sixtus_affair
 		}
 		will_lead_to_war_with = INT
 		prerequisite = {
@@ -17930,6 +17855,7 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		mutually_exclusive = {
 			focus = AUS_weltkrieg_intervention
+			focus = AUS_legacy_of_the_sixtus_affair
 		}
 		completion_reward = {
 			add_stability = 0.25
@@ -17991,6 +17917,79 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			add_state_claim = 733
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
+	}
+
+	focus = {
+		id = AUS_legacy_of_the_sixtus_affair
+		icon = GFX_goal_AUS_legacy_of_the_sixtus_affair
+		relative_position_id = AUS_foreign_policy
+		x = -14
+		y = 2
+		cost = 4.4
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = AUS_russia_faction
+			focus = AUS_entente_faction
+			focus = AUS_donau_adriabund
+			focus = AUS_reichspakt_faction
+			focus = AUS_austro_american_alliance
+		}
+		mutually_exclusive = {
+			focus = AUS_bide_our_time
+			focus = AUS_weltkrieg_intervention
+		}
+		allow_branch = {
+			OR = {
+				AND = {
+					is_faction_leader = yes
+					has_government = radical_socialist
+				}
+				has_global_flag = FRA_AUS_sixtus_pakt
+			}
+		}
+		available = {
+			is_faction_leader = yes
+			has_government = radical_socialist
+			FRA = {
+				exists = yes
+				is_faction_leader = yes
+				NOT = {
+					has_government = totalist
+					has_war_with = ROOT
+				}
+			}
+			NOT = { has_global_flag = FRA_AUS_sixtus_pakt_declined }
+		}
+		completion_reward = {
+			AUS_raise_austro_german_tensions = yes
+			unlock_decision_tooltip = AUS_bauer_FRA_pact
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	focus = {
+		id = AUS_red_black_and_yellow
+		icon = GFX_goal_AUS_red_black_and_yellow
+		relative_position_id = AUS_legacy_of_the_sixtus_affair
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = AUS_legacy_of_the_sixtus_affair
+		}
+		available = {
+			has_global_flag = FRA_AUS_sixtus_pakt
+		}
+		completion_reward = {
+			AUS_raise_austro_german_tensions = yes
+			increase_ruling_party_popularity_by_5 = yes
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -18122,8 +18121,6 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		#	has_global_flag = AUS_austro_american_alliance_flag
 		#}
 		available = {
-			AUS_has_any_bm_idea = no
-			AUS_has_any_sickman_idea = no
 			has_global_flag = AUS_austro_american_alliance_flag
 		}
 		prerequisite = {
@@ -18135,7 +18132,11 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_entente_faction
 			focus = AUS_russia_faction
 		}
-		bypass = { has_global_flag = AUS_austro_american_alliance_flag }
+		bypass = {
+			hidden_trigger = {
+				has_global_flag = AUS_austro_american_alliance_flag
+			}
+		}
 		completion_reward = {
 			custom_effect_tooltip = unlock_focuses
 		}
@@ -18193,7 +18194,17 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		completion_reward = {
 			add_ideas = AUS_multicultural_memoes_idea
-			custom_effect_tooltip = AUS_unlock_decision_brazil
+			if = {
+				limit = {
+					var:500.owner = {
+						exists = yes
+						is_in_faction = no
+						is_subject = no
+						at_peace_or_same_enemies_as_ROOT = yes
+					}
+				}
+				custom_effect_tooltip = AUS_unlock_decision_brazil
+			}
 			var:500.owner = { set_country_flag = AUS_faction_invitee }
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -18217,7 +18228,87 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_austro_american_alliance
 		}
 		completion_reward = {
-			
+			if = {
+				limit = {
+					DEA = {
+						exists = yes
+						is_in_faction = no
+						is_subject = yes
+						at_peace_or_same_enemies_as_ROOT = yes
+					}
+					HOL = {
+						exists = yes
+						is_in_faction = no
+						is_subject = no
+						at_peace_or_same_enemies_as_ROOT = yes
+					}
+					INS = { exists = no }
+				}
+				custom_effect_tooltip = AUS_unlock_decision_netherlands
+				hidden_effect = { HOL = { set_country_flag = AUS_faction_invitee } }
+			}
+			if = {
+				limit = {
+					INS = {
+						exists = yes
+						is_in_faction = no
+						is_subject = no
+						at_peace_or_same_enemies_as_ROOT = yes
+					}
+				}
+				custom_effect_tooltip = AUS_unlock_decision_indonesia
+			}
+			if = {
+				limit = {
+					BOR = {
+						exists = yes
+						is_in_faction = no
+						is_subject = no
+						at_peace_or_same_enemies_as_ROOT = yes
+					}
+				}
+				custom_effect_tooltip = AUS_unlock_decision_borneo
+			}
+			if = {
+				limit = {
+					SAR = {
+						exists = yes
+						is_in_faction = no
+						is_subject = no
+						at_peace_or_same_enemies_as_ROOT = yes
+					}
+				}
+				custom_effect_tooltip = AUS_unlock_decision_sarawak
+			}
+			else_if = {
+				limit = {
+					var:828.owner = {
+						NOT = { is_ally_with = GER }
+					}
+				}
+				add_state_claim = 828
+				create_wargoal = {
+					target = 828.owner
+					type = annex_everything
+				}
+			}
+			else_if = {
+				limit = { var:828.owner = { is_ally_with = GER } }
+				add_state_claim = 828
+				AUS_raise_austro_german_tensions = yes
+			}
+			hidden_effect = {
+				every_country = {
+					limit = {
+						OR = {
+							tag = INS
+							tag = BOR
+							tag = SAR
+						}
+					}
+					set_country_flag = AUS_faction_invitee
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
 	}
@@ -18241,12 +18332,51 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		}
 		completion_reward = {
 			#Event to help reconstruct nations fighting civil wars, and invite them if sufficiently democratic/ideologically aligned
-			custom_effect_tooltip = AUS_unlock_decision_poland
-			POL = { set_country_flag = AUS_faction_invitee }
-			custom_effect_tooltip = AUS_unlock_decision_greece
-			GRE = { set_country_flag = AUS_faction_invitee }
-			custom_effect_tooltip = AUS_unlock_decision_albania
-			ALB = { set_country_flag = AUS_faction_invitee }
+			if = {
+				limit = {
+					POL = {
+						exists = yes
+						is_in_faction = no
+						is_subject = no
+						at_peace_or_same_enemies_as_ROOT = yes
+					}
+				}
+				custom_effect_tooltip = AUS_unlock_decision_poland
+			}
+			if = {
+				limit = {
+					GRE = {
+						exists = yes
+						is_in_faction = no
+						is_subject = no
+						at_peace_or_same_enemies_as_ROOT = yes
+					}
+				}
+				custom_effect_tooltip = AUS_unlock_decision_greece
+			}
+			if = {
+				limit = {
+					ALB = {
+						exists = yes
+						is_in_faction = no
+						is_subject = no
+						at_peace_or_same_enemies_as_ROOT = yes
+					}
+				}
+				custom_effect_tooltip = AUS_unlock_decision_albania
+			}
+			hidden_effect = {
+				every_country = {
+					limit = {
+						OR = {
+							tag = POL
+							tag = GRE
+							tag = ALB
+						}
+					}
+					set_country_flag = AUS_faction_invitee
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -18269,13 +18399,33 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_multicultural_memoes
 		}
 		completion_reward = {
-			custom_effect_tooltip = AUS_unlock_decision_morocco
-			MOR = { set_country_flag = AUS_faction_invitee }
-			custom_effect_tooltip = AUS_unlock_decision_liberia
+			if = {
+				limit = {
+					MOR = {
+						exists = yes
+						is_in_faction = no
+						is_subject = no
+						at_peace_or_same_enemies_as_ROOT = yes
+					}
+				}
+				custom_effect_tooltip = AUS_unlock_decision_morocco
+			}
+			if = {
+				limit = {
+					LIB = {
+						exists = yes
+						is_in_faction = no
+						is_subject = no
+						at_peace_or_same_enemies_as_ROOT = yes
+					}
+				}
+				custom_effect_tooltip = AUS_unlock_decision_liberia
+			}
 			hidden_effect = {
 				every_country = {
 					limit = {
 						OR = {
+							tag = MOR
 							tag = LIB
 							tag = TOG
 							tag = CIV
@@ -18311,9 +18461,6 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		ai_will_do = {
 			factor = 100
 		}
-		bypass = {
-			owns_state = 753
-		}
 		available = {
 			AUS_has_any_bm_idea = no
 			AUS_has_any_sickman_idea = no
@@ -18340,12 +18487,24 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 					add_state_claim = 685
 				}
 			}
-			custom_effect_tooltip = AUS_unlock_decision_panama
-			PAN = { set_country_flag = AUS_faction_invitee }
+			if = {
+				limit = {
+					PAN = {
+						exists = yes
+						is_in_faction = no
+						is_subject = no
+						at_peace_or_same_enemies_as_ROOT = yes
+					}
+				}
+				custom_effect_tooltip = AUS_unlock_decision_panama
+			}
+			hidden_effect = {
+				PAN = { set_country_flag = AUS_faction_invitee }
+			}
 			custom_effect_tooltip = AUS_america_accord
-			#Unlock decisions to demand canals
+			custom_effect_tooltip = AUS_unlock_decision_canal
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
 	}
 	
 	focus = {
@@ -18358,9 +18517,6 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		ai_will_do = {
 			factor = 100
 		}
-		bypass = {
-			owns_state = 753
-		}
 		available = {
 			AUS_has_any_bm_idea = no
 			AUS_has_any_sickman_idea = no
@@ -18371,18 +18527,50 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		completion_reward = {
 			if = {
 				limit = {
-					is_in_faction_with = BBR
-					BBR = { set_country_flag = AUS_faction_invitee }
+					TUR = {
+						exists = yes
+						is_in_faction = no
+						is_subject = no
+						at_peace_or_same_enemies_as_ROOT = yes
+					}
 				}
 				custom_effect_tooltip = AUS_unlock_decision_turkey
-				TUR = { set_country_flag = AUS_faction_invitee }
-				else = {
-					custom_effect_tooltip = AUS_unlock_decision_bulgaria
-					BUL = { set_country_flag = AUS_faction_invitee }
+			}
+			if = {
+				limit = {
+					BUL = {
+						exists = yes
+						is_in_faction = no
+						is_subject = no
+						at_peace_or_same_enemies_as_ROOT = yes
+					}
+				}
+				custom_effect_tooltip = AUS_unlock_decision_bulgaria
+			}
+			if = {
+				limit = {
+					MEX = {
+						exists = yes
+						is_in_faction = no
+						is_subject = no
+						at_peace_or_same_enemies_as_ROOT = yes
+					}
+				}
+				custom_effect_tooltip = AUS_unlock_decision_mexico
+			}
+			hidden_effect = {
+				every_country = {
+					limit = {
+						OR = {
+							tag = BBR
+							tag = BUL
+							tag = TUR
+							tag = MEX
+						}
+					}
+					set_country_flag = AUS_faction_invitee
 				}
 			}
-			custom_effect_tooltip = AUS_unlock_decision_mexico
-			MEX = { set_country_flag = AUS_faction_invitee }
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -18397,9 +18585,6 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		ai_will_do = {
 			factor = 100
 		}
-		bypass = {
-			owns_state = 753
-		}
 		available = {
 			AUS_has_any_bm_idea = no
 			AUS_has_any_sickman_idea = no
@@ -18408,12 +18593,39 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 			focus = AUS_canal_for_me_and_thee
 		}
 		completion_reward = {
-			custom_effect_tooltip = AUS_unlock_decision_albania
-			ALB = { set_country_flag = AUS_faction_invitee }
-			custom_effect_tooltip = AUS_unlock_decision_cuba
-			CUB = { set_country_flag = AUS_faction_invitee }
-			custom_effect_tooltip = AUS_unlock_decision_philippines
-			PHI = { set_country_flag = AUS_faction_invitee }
+			if = {
+				limit = {
+					CUB = {
+						exists = yes
+						is_in_faction = no
+						is_subject = no
+						at_peace_or_same_enemies_as_ROOT = yes
+					}
+				}
+				custom_effect_tooltip = AUS_unlock_decision_cuba
+			}
+			if = {
+				limit = {
+					PHI = {
+						exists = yes
+						is_in_faction = no
+						is_subject = no
+						at_peace_or_same_enemies_as_ROOT = yes
+					}
+				}
+				custom_effect_tooltip = AUS_unlock_decision_philippines
+			}
+			hidden_effect = {
+				every_country = {
+					limit = {
+						OR = {
+							tag = CUB
+							tag = PHI
+						}
+					}
+					set_country_flag = AUS_faction_invitee
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -18427,9 +18639,6 @@ focus_tree = { #Reminder to add some extra stuff making Austria really seem like
 		cost = 4.4
 		ai_will_do = {
 			factor = 100
-		}
-		bypass = {
-			owns_state = 753
 		}
 		available = {
 			AUS_has_any_bm_idea = no

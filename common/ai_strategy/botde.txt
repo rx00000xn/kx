@@ -546,9 +546,9 @@ ITAUKRPOL_BP_support_SER = {
 ITAUKRPOL_BP_support_ROM = {
 	allowed = {
 		OR = {
-			tag = UKR
-			tag = POL
-			tag = GRE
+			original_tag = UKR
+			original_tag = POL
+			original_tag = GRE
 		}
 	}
 	enable = {
@@ -595,7 +595,7 @@ ITAUKRPOL_BP_support_ROM = {
 }
 SER_SUPPORT_SKS_POST_COLLAPSE = {
 	allowed = {
-		tag = SER
+		original_tag = SER
 	}
 	enable = {
 		NOT = { has_global_flag = AUS_collapsed_stable }
@@ -621,7 +621,7 @@ SER_SUPPORT_SKS_POST_COLLAPSE = {
 }
 SER_KILL_SPLINTERS_POST_COLLAPSE = {
 	allowed = {
-		tag = SER
+		original_tag = SER
 	}
 	enable = {
 		has_global_flag = AUS_collapsed_stable
@@ -630,6 +630,7 @@ SER_KILL_SPLINTERS_POST_COLLAPSE = {
 				target = SKS
 				type = annex_everything
 			}
+			has_war_with = SKS
 		}
 	}
 	
@@ -643,7 +644,7 @@ SER_KILL_SPLINTERS_POST_COLLAPSE = {
 }
 ROM_SUPPORT_TRS_POST_COLLAPSE = {
 	allowed = {
-		tag = ROM
+		original_tag = ROM
 	}
 	enable = {
 		NOT = { has_global_flag = AUS_collapsed_stable }
@@ -669,7 +670,7 @@ ROM_SUPPORT_TRS_POST_COLLAPSE = {
 }
 ROM_SUPPORT_BUK_POST_COLLAPSE = {
 	allowed = {
-		tag = ROM
+		original_tag = ROM
 	}
 	enable = {
 		NOT = { has_global_flag = AUS_collapsed_stable }
@@ -695,7 +696,7 @@ ROM_SUPPORT_BUK_POST_COLLAPSE = {
 }
 ROM_KILL_SPLINTERS_POST_COLLAPSE = {
 	allowed = {
-		tag = ROM
+		original_tag = ROM
 	}
 	enable = {
 		has_global_flag = AUS_collapsed_stable
@@ -726,63 +727,429 @@ ROM_KILL_SPLINTERS_POST_COLLAPSE = {
 		value = 1000
 	}
 }
-HUN_CALL_IN_FIU = {
+ROM_SER_PREPARE_FOR_5BW = {
 	allowed = {
-		tag = HUN
+		OR = {
+			original_tag = ROM
+			original_tag = SER
+			original_tag = GRE
+			original_tag = BUL
+			original_tag = ITA
+			original_tag = SKS
+			original_tag = BOS
+			original_tag = SLO
+			original_tag = TRS
+			original_tag = BUK
+			original_tag = BAN
+		}
 	}
 	enable = {
-		has_subject = FIU
-		has_war = yes
-		FIU = { has_war = no }
+		OR = {
+			original_tag = SER
+			original_tag = ROM
+			is_ally_with = SER
+			is_ally_with = ROM
+		}
+		is_subject = no
+		has_global_flag = balkan_war_ended
+		NOT = { has_global_flag = AUS_collapsed }
 	}
-	
+
 	abort_when_not_enabled = yes
-	
+
 	ai_strategy = {
-		type = diplo_action_desire
-		id = "FIU"
-		value = 1000
-		target = call_allies
+	    type = pp_spend_amount
+	    id = decision
+	    value = 100
+	}
+	ai_strategy = {
+	    type = pp_spend_priority
+	    id = relation
+	    value = -100
+	}
+	ai_strategy = {
+	    type = pp_spend_priority
+	    id = guarantee
+	    value = -100
+	}
+	ai_strategy = {
+	    type = pp_spend_priority
+	    id = admiral
+	    value = -100
+	}
+	ai_strategy = {
+	    type = naval_avoid_region
+	    id = 168
+	    value = 100
+	}
+	ai_strategy = {
+	    type = garrison
+	    value = 10
+	}
+	ai_strategy = {
+	    type = ignore_army_incompetence
+	    value = 100
+	}
+	ai_strategy = {
+	    type = build_army
+	    id = infantry
+	    value = 20
+	}
+	ai_strategy = {
+		type = template_prio
+		id = infantry
+		value = 30
+	}
+	ai_strategy = {
+		type = template_prio
+		id = artillery
+		value = 20
+	}
+	ai_strategy = {
+		type = template_prio
+		id = mountaineers
+		value = 5
+	}
+	ai_strategy = {
+		type = template_prio
+		id = paratrooper
+		value = -100
+	}
+	ai_strategy = {
+		type = template_prio
+		id = cavalry
+		value = -100
+	}
+	ai_strategy = {
+	    type = min_wanted_supply_trains
+	    value = 50
+	}
+	ai_strategy = {
+	    type = min_wanted_supply_trucks
+	    value = 50
 	}
 }
-FIU_PICK_UP_THE_PHONE = {
+ROM_SER_PREPARE_FOR_5BW_REVOLT_MISSION = {
 	allowed = {
-		tag = FIU
+		OR = {
+			original_tag = ROM
+			original_tag = SER
+			original_tag = GRE
+			original_tag = BUL
+			original_tag = ITA
+		}
 	}
 	enable = {
-		is_subject = yes
+		OR = {
+			original_tag = SER
+			original_tag = ROM
+			is_ally_with = ROM
+			is_ally_with = SER
+		}
+		any_country = {
+			OR = {
+				has_active_mission = SER_revolt_mission
+				has_active_mission = ROM_revolt_mission
+			}
+		}
+		is_subject = no
+		has_global_flag = balkan_war_ended
+		NOT = { has_global_flag = AUS_collapsed }
 	}
-	
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "AUS"
+		value = 1000
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = "HUN"
+		value = 1000
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = "GAL"
+		value = 1000
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = "CRO"
+		value = 1000
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = "CZE"
+		value = 1000
+	}
+}
+ROM_SER_trains = {
+	allowed = {
+		OR = {
+			original_tag = SER
+			original_tag = ROM
+		}
+	}
+
+	enable = {
+		OR = {
+			date > 1937.1.1
+			has_global_flag = balkan_war_ended
+		}
+	}
+
 	abort_when_not_enabled = yes
 	
 	ai_strategy = {
-		type = diplo_action_acceptance
-		id = "AUS"
-		value = 1000
-		target = join_allies
+		type = equipment_production_min_factories
+		id = train
+		value = 1
+	}
+}
+ROM_SER_mobilize_everyone = {
+	allowed = {
+		OR = {
+			original_tag = ROM
+			original_tag = SER
+			original_tag = GRE
+			original_tag = BUL
+			original_tag = ITA
+			original_tag = SKS
+			original_tag = BOS
+			original_tag = SLO
+			original_tag = TRS
+			original_tag = BAN
+			original_tag = BUK
+			original_tag = MNT
+		}
+	}
+	enable = {
+		OR = {
+			original_tag = SER
+			original_tag = ROM
+			is_ally_with = SER
+			is_ally_with = ROM
+		}
+		OR = {
+			AND = {
+				has_global_flag = balkan_war_ended
+				NOT = { has_global_flag = AUS_collapsed }
+			}
+			has_war = yes
+		}
+		has_manpower > 100000
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+	    type = equipment_stockpile_surplus_ratio
+	    value = 30
 	}
 	ai_strategy = {
-		type = diplo_action_acceptance
-		id = "HUN"
-		value = 1000
-		target = join_allies
+	    type = build_army
+	    id = infantry
+	    value = 2000
 	}
 	ai_strategy = {
-		type = diplo_action_acceptance
-		id = "CZE"
-		value = 1000
-		target = join_allies
+		type = force_build_armies
+	    value = 100
 	}
 	ai_strategy = {
-		type = diplo_action_acceptance
-		id = "CRO"
-		value = 1000
-		target = join_allies
+	    type = build_army
+	    id = mountaineer
+	    value = 2000
 	}
 	ai_strategy = {
-		type = diplo_action_acceptance
-		id = "GAL"
-		value = 1000
-		target = join_allies
+	    type = build_army
+	    id = hq_role
+	    value = 2000
+	}
+	ai_strategy = {
+	    type = build_army
+	    id = armor_role
+	    value = 2000
+	}
+	ai_strategy = {
+	    type = build_army
+	    id = suppression
+	    value = 2000
+	}
+}
+SER_5bw_defend_subjects_area = {
+	allowed = {
+		OR = {
+			tag = SER
+			tag = BOS
+			tag = SKS
+			tag = SLO
+			tag = BUL
+		}
+	}
+	enable = {
+		is_ally_with = SER
+		fifth_balkan_war = yes
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+	    type = garrison_reinforcement_priority
+	    value = 100
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 24 
+		value = 100
+	}
+	ai_strategy = {
+	    type = area_priority
+	    id = ser_subject
+	    value = 50
+	}
+	ai_strategy = {
+	    type = front_unit_request
+	    state_trigger = {
+			is_capital = yes
+			owner = {
+				OR = {
+					tag = SER
+					is_subject_of = SER
+				}
+			}
+		}
+	    value = 50
+	}
+	ai_strategy = {
+		type = force_concentration_front_factor
+		country_trigger = {
+			AUS_is_constituent = yes
+		}
+		value = 100
+	}
+	ai_strategy = {
+		type = force_concentration_target_weight
+		state = 107
+		state = 108
+		state = 767
+		value = 100
+	}
+}
+ROM_5bw_defend_subjects_area = {
+	allowed = {
+		OR = {
+			tag = ROM
+			tag = TRS
+			tag = BAN
+			tag = BUK
+			tag = BUL
+		}
+	}
+	enable = {
+		is_ally_with = ROM
+		fifth_balkan_war = yes
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+	    type = garrison_reinforcement_priority
+	    value = 100
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 15 
+		value = 100
+	}
+	ai_strategy = {
+	    type = area_priority
+	    id = rom_subject
+	    value = 50
+	}
+	ai_strategy = {
+	    type = front_unit_request
+	    state_trigger = {
+			is_capital = yes
+			owner = {
+				OR = {
+					tag = ROM
+					is_subject_of = ROM
+				}
+			}
+		}
+	    value = 50
+	}
+	ai_strategy = {
+		type = force_concentration_front_factor
+		country_trigger = {
+			AUS_is_constituent = yes
+		}
+		value = 100
+	}
+	ai_strategy = {
+		type = force_concentration_target_weight
+		state = 46
+		state = 79
+		state = 81
+		state = 1320
+		value = 100
+	}
+}
+AUS_CONSTS_do_not_defend_against_GER = {
+	allowed = {
+		OR = {
+			tag = AUS
+			tag = HUN
+			tag = CZE
+			tag = CRO
+			tag = GAL
+			tag = FIU
+			tag = LIC
+		}
+	}
+	enable = {
+		AUS_is_constituent = yes
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+	    type = front_unit_request
+	    country_trigger = {
+			OR = {
+				tag = GER
+				is_ally_with = GER
+			}
+			NOT = { has_war_with = AUS }
+    	}
+	    value = -1000
+	}
+}
+AUS_CONSTS_do_not_take_belgrade_instantly = {
+	allowed = {
+		OR = {
+			tag = AUS
+			tag = HUN
+			tag = CZE
+			tag = CRO
+			tag = GAL
+			tag = LIC
+			tag = BUL
+		}
+	}
+	enable = {
+		is_ally_with = AUS
+		fifth_balkan_war = yes
+		any_country = {
+			has_idea = BOTDE_delenda_est
+		}
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+	    type = front_unit_request
+	    state_trigger = {
+			owner = {
+				OR = {
+					is_ally_with = SER
+					is_ally_with = ROM
+				}
+			}
+			is_capital = yes
+		}
+	    value = -100
 	}
 }

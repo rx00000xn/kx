@@ -6,11 +6,12 @@ focus_tree = {
 	country = {
 		factor = 0
 		modifier = {
-			add = 000000
+			add = 1000
 			tag = AUS
+			has_global_flag = AUS_collapsed
 		}
 		modifier = {
-			add = 1000000
+			add = 1000
 			tag = AWR
 		}
 	}
@@ -18,25 +19,6 @@ focus_tree = {
 	continuous_focus_position = { x = 4220 y = 1250 }
 	
 	#### Fall of the Empire ####
-	
-	
-	
-	#focus = {
-	#	id = AUS_the_state_no_one_wanted
-	#	icon = GFX_goal_government_icon
-	#	x = 12
-	#	y = 0
-	#	cost = 5
-	#	ai_will_do = {
-	#		factor = 100
-	#	}
-	#	available = {
-	#		always = no
-	#	}
-	#	completion_reward = {
-	#		custom_effect_tooltip = unlock_focuses
-	#	}
-	#}
 	
 	focus = {
 		id = AUS_deutschnationale_victory
@@ -60,7 +42,8 @@ focus_tree = {
 		}
 		completion_reward = {
 			custom_effect_tooltip = unlock_focuses
-		}		
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -88,7 +71,8 @@ focus_tree = {
 		}
 		completion_reward = {
 			custom_effect_tooltip = unlock_focuses
-		}		
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
 		id = AUS_coalition_splits
@@ -116,10 +100,9 @@ focus_tree = {
 		}
 		completion_reward = {
 			custom_effect_tooltip = unlock_focuses
-		}		
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
-	
-	
 	
 	#### OG nazis ####
 	
@@ -150,6 +133,7 @@ focus_tree = {
 			}
 			add_war_support = 0.1
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -176,6 +160,7 @@ focus_tree = {
 			}
 			add_political_power = 20
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	#We are a liberal, national party, which fiercely opposes reactionary aspirations, feudal, clerical and capitalist prerogatives, as well as any foreign ethnic influence.
 	#
@@ -224,6 +209,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -248,6 +234,7 @@ focus_tree = {
 			add_stability = 0.04
 			add_ideas = AUS_volksbanken_idea
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -285,6 +272,7 @@ focus_tree = {
 			}
 			unlock_decision_tooltip = AUS_demand_silesia_DAP
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -331,6 +319,7 @@ focus_tree = {
 			set_country_flag = AUS_annex_BAY
 			unlock_decision_tooltip = AUS_south_german_bund
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -357,6 +346,7 @@ focus_tree = {
 			}
 			add_political_power = 20
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -383,6 +373,7 @@ focus_tree = {
 			}
 			add_political_power = 20
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -409,6 +400,7 @@ focus_tree = {
 			}
 			add_political_power = 20
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -444,8 +436,8 @@ focus_tree = {
 			random_owned_state = {
 				add_extra_state_shared_building_slots = 1
 			}
-			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -471,6 +463,7 @@ focus_tree = {
 			add_political_power = -50
 			AUS_reduce_collapse_idea = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -510,6 +503,7 @@ focus_tree = {
 			}
 			unlock_decision_tooltip = AUS_demand_silesia_DAP
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -542,6 +536,7 @@ focus_tree = {
 			set_country_flag = AUS_annex_BAY
 			unlock_decision_tooltip = AUS_south_german_bund
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -558,19 +553,28 @@ focus_tree = {
 			focus = AUS_walter_riehl
 		}
 		completion_reward = {
-			add_state_claim = 786
-			add_state_claim = 557
-			add_state_claim = 1139
-			add_state_claim = 1133
-			add_state_claim = 69
-			add_state_claim = 1138
-			add_state_claim = 74
+			every_state = {
+				limit = {
+					OR = {
+						state = 69
+						state = 74
+						state = 557
+						state = 786
+						state = 1133
+						state = 1138
+						state = 1139
+					}
+					NOT = { is_claimed_by = ROOT }
+				}
+				add_claim_by = ROOT
+			}
 			army_experience = 15
 			air_experience = 15
 			add_political_power = 75
 			unlock_decision_tooltip = AUS_german_bohemia_annexation
 			set_country_flag = AUS_annex_PGU
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -590,6 +594,7 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = AUS_vienna_commission
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -613,6 +618,7 @@ focus_tree = {
 			set_country_flag = AUS_annex_HNZ
 			unlock_decision_tooltip = AUS_heizenland_annexation
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -658,6 +664,7 @@ focus_tree = {
 			unlock_decision_tooltip = AUS_tyrol_reunification
 			set_country_flag = AUS_annex_TYR
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -685,6 +692,7 @@ focus_tree = {
 				popularity = 0.03
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -705,6 +713,7 @@ focus_tree = {
 			add_ideas = AUS_cornflowers
 			unlock_decision_tooltip = AUS_demand_silesia_DAP
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -738,6 +747,7 @@ focus_tree = {
 				}
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -780,6 +790,7 @@ focus_tree = {
 			unlock_decision_tooltip = AUS_restore_monarchy_decision
 			set_country_flag = AUS_restore_monarchy_decision_flag
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -804,6 +815,7 @@ focus_tree = {
 			unlock_decision_tooltip = AUS_provoke_czech_retaliation
 			add_research_slot_until_six = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -832,6 +844,7 @@ focus_tree = {
 			set_country_flag = AUS_annex_BAY
 			unlock_decision_tooltip = AUS_south_german_bund
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -861,6 +874,7 @@ focus_tree = {
 			set_country_flag = AUS_annex_HNZ
 			unlock_decision_tooltip = AUS_heizenland_annexation
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -885,6 +899,7 @@ focus_tree = {
 			unlock_decision_tooltip = AUS_german_bohemia_annexation
 			set_country_flag = AUS_annex_PGU
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -928,6 +943,7 @@ focus_tree = {
 			}
 			add_research_slot_until_six = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -962,6 +978,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 2
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -984,6 +1001,7 @@ focus_tree = {
 			}
 			add_stability = 0.1
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -1004,6 +1022,7 @@ focus_tree = {
 			add_war_support = 0.025
 			unlock_decision_tooltip = AUS_demand_silesia_DAP
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -1044,6 +1063,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -1072,6 +1092,7 @@ focus_tree = {
 			set_country_flag = AUS_annex_BAY
 			unlock_decision_tooltip = AUS_south_german_bund
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	
@@ -1561,31 +1582,14 @@ focus_tree = {
 	#	}
 	#}
 	
-	
-	
-	
-	
-	
-	
 	#### KPO
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	focus = {
 		id = AUS_the_danube_runs_red
 		icon = GFX_goal_AUS_crimson_danube
 		x = 4
 		y = 0
-		cost = 5
+		cost = 0
 		ai_will_do = {
 			factor = 100
 		}
@@ -1595,11 +1599,21 @@ focus_tree = {
 				has_government = syndicalist
 				has_government = radical_socialist
 			}
-			always = no
+			hidden_trigger = { always = no }
+		}
+		bypass = {
+			hidden_trigger = {
+				OR = {
+					has_government = totalist
+					has_government = syndicalist
+					has_government = radical_socialist
+				}
+			}
 		}
 		completion_reward = {
 			custom_effect_tooltip = unlock_focuses
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	#True Communists
@@ -1610,7 +1624,7 @@ focus_tree = {
 		relative_position_id = AUS_the_danube_runs_red
 		x = -6
 		y = 1
-		cost = 5
+		cost = 0
 		ai_will_do = {
 			factor = 100
 		}
@@ -1624,7 +1638,20 @@ focus_tree = {
 				has_country_flag = AUS_klahr
 				has_country_flag = AUS_koritschoner
 			}
-			always = no
+			hidden_trigger = { always = no }
+		}
+		bypass = {
+			hidden_trigger = {
+				OR = {
+					has_government = totalist
+					has_government = syndicalist
+					has_government = radical_socialist
+				}
+				OR = {
+					has_country_flag = AUS_klahr
+					has_country_flag = AUS_koritschoner
+				}
+			}
 		}
 		prerequisite = {
 			focus = AUS_the_danube_runs_red
@@ -1632,6 +1659,7 @@ focus_tree = {
 		completion_reward = {
 			custom_effect_tooltip = unlock_focuses
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -1654,6 +1682,7 @@ focus_tree = {
 		completion_reward = {
 			custom_effect_tooltip = unlock_focuses
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -1680,6 +1709,7 @@ focus_tree = {
 				popularity = 0.05
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -2462,9 +2492,11 @@ focus_tree = {
 		available = {
 			has_country_flag = AUS_democracy_survives_flag
 		}
+		bypass = { hidden_trigger = { has_country_flag = AUS_democracy_survives_flag } }
 		completion_reward = {
 			custom_effect_tooltip = unlock_focuses
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -2480,12 +2512,14 @@ focus_tree = {
 		available = {
 			AUS_small_sdapo_trigger = yes
 		}
+		bypass = { hidden_trigger = { AUS_small_sdapo_trigger = yes } }
 		prerequisite = {
 			focus = AUS_democracy_survives
 		}
 		completion_reward = {
 			custom_effect_tooltip = unlock_focuses
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -2527,6 +2561,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 2
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -2552,6 +2587,7 @@ focus_tree = {
 			add_ideas = AUS_wehrsport_idea
 			add_war_support = 0.1
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -2606,6 +2642,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -2648,6 +2685,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -2688,6 +2726,7 @@ focus_tree = {
 			set_country_flag = AUS_cs_coalition
 			#Event here...
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -2715,6 +2754,7 @@ focus_tree = {
 				popularity = 0.05
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -2729,6 +2769,7 @@ focus_tree = {
 		}
 		available = {
 			AUS_small_sdapo_trigger = yes
+			AUS_habsburg_in_charge = no
 		}
 		prerequisite = {
 			focus = AUS_legitimize_the_erste_republik
@@ -2753,8 +2794,9 @@ focus_tree = {
 			}
 			set_country_flag = soc_dems_are_socialists
 			clr_country_flag = rad_socs_arent_syndie
-			custom_effect_tooltip = AUS_soc_dems_become_syndies
+			custom_effect_tooltip = soc_dems_become_syndies
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -2782,7 +2824,6 @@ focus_tree = {
 				}
 				add_extra_state_shared_building_slots = 1
 			}
-			
 			random_owned_state = {
 				add_building_construction = {
 					type = arms_factory
@@ -2791,9 +2832,9 @@ focus_tree = {
 				}
 				add_extra_state_shared_building_slots = 1
 			}
-			
 			AUS_reduce_collapse_idea = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -2826,7 +2867,6 @@ focus_tree = {
 				}
 				add_extra_state_shared_building_slots = 2
 			}
-			
 			random_owned_state = {
 				add_building_construction = {
 					type = arms_factory
@@ -2835,7 +2875,6 @@ focus_tree = {
 				}
 				add_extra_state_shared_building_slots = 2
 			}
-			
 			random_owned_state = {
 				add_building_construction = {
 					type = synthetic_refinery
@@ -2845,6 +2884,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 2
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -2870,14 +2910,13 @@ focus_tree = {
 		}
 		completion_reward = {
 			if = {
-				limit = {
-					has_completed_focus = AUS_wehrsport
-				}
+				limit = { has_completed_focus = AUS_wehrsport }
 				AUS_reduce_collapse_idea = yes
 			}
 			increase_ruling_party_popularity_by_3 = yes
 			add_ideas = AUS_third_way
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -2901,6 +2940,7 @@ focus_tree = {
 			increase_ruling_party_popularity_by_5 = yes
 			add_stability = 0.05
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -2923,6 +2963,7 @@ focus_tree = {
 			add_ideas = AUS_free_trade_unions
 			increase_ruling_party_popularity_by_3 = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -2942,11 +2983,9 @@ focus_tree = {
 			focus = AUS_festkultur_of_a_new_austria
 		}
 		completion_reward = {
-			swap_ideas = {
-				add_idea = AUS_legacy_of_collapse_2
-				remove_idea = AUS_legacy_of_collapse
-			}
+			AUS_reduce_collapse_idea = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -2982,8 +3021,9 @@ focus_tree = {
 					instant_build = yes
 				}
 				add_extra_state_shared_building_slots = 1
-			} 
+			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3013,6 +3053,7 @@ focus_tree = {
 			add_ideas = AUS_habsburg_law_idea
 			set_country_flag = AUS_habsburg_law
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3037,15 +3078,8 @@ focus_tree = {
 		}
 		completion_reward = {
 			if = {
-				limit = {
-					NOT = {
-						has_global_flag = AUS_collapse_kaiser_stays
-					}
-				}
-				add_to_variable = {
-					var = AUS.red_duchess_count
-					value = 1
-				}
+				limit = { NOT = { has_global_flag = AUS_collapse_kaiser_stays } }
+				add_to_variable = { AUS.red_duchess_count = 1 }
 			}
 			add_ideas = AUS_red_duchess_support
 			add_stability = 0.05
@@ -3058,6 +3092,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			} 
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3073,6 +3108,7 @@ focus_tree = {
 		available = {
 			AUS_small_sdapo_trigger = yes
 			NOT = { has_global_flag = AUS_collapse_kaiser_stays }
+			1137 = { is_fully_controlled_by  = ROOT }
 		}
 		prerequisite = {
 			focus = AUS_reform_the_wienerkommission
@@ -3080,12 +3116,11 @@ focus_tree = {
 		completion_reward = {
 			1137 = {
 				add_extra_state_shared_building_slots = 4
-				add_dynamic_modifier = {
-					modifier = AUS_red_vienna
-				}
+				add_dynamic_modifier = { modifier = AUS_red_vienna }
 			}
-			custom_effect_tooltip = AUS_red_vienna
+			custom_effect_tooltip = AUS_red_vienna_unlock_tt
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3108,6 +3143,7 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = AUS_superpolitical_work_idea
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	#Otto Bauer
@@ -3145,6 +3181,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			} 
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3176,6 +3213,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			} 
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3211,6 +3249,7 @@ focus_tree = {
 				bonus = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3251,6 +3290,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			} 
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3291,6 +3331,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			} 
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3315,6 +3356,7 @@ focus_tree = {
 		completion_reward = {
 			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	#Max Adler
@@ -3352,6 +3394,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			} 
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3383,6 +3426,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			} 
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3414,6 +3458,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			} 
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	#Friedrich Adler
@@ -3451,6 +3496,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			} 
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3474,6 +3520,7 @@ focus_tree = {
 			add_research_slot_until_six = yes
 			add_ideas = AUS_free_student_associations #Free Association of Socialist Students and Academics. Founded by Max Adler, 1893.
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3502,6 +3549,7 @@ focus_tree = {
 				bonus = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	#Adolf Scharf
@@ -3539,6 +3587,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			} 
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3570,6 +3619,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			} 
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3601,6 +3651,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			} 
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	#Karl Seitz
@@ -3638,6 +3689,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			} 
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3669,6 +3721,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			} 
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3700,6 +3753,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			} 
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	#Karl Renner
@@ -3737,6 +3791,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			} 
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3760,7 +3815,10 @@ focus_tree = {
 			#Event for GER
 			add_political_power = 10
 			add_stability = 0.03
+			country_event = germit.6
+			add_ideas = AUS_mitteleuropa_idea
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3810,6 +3868,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3834,6 +3893,7 @@ focus_tree = {
 			AUS_reduce_collapse_idea = yes
 			add_political_power = 20
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3859,6 +3919,7 @@ focus_tree = {
 			add_stability = 0.03
 			add_ideas = AUS_new_austrian_warmongering
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
 		id = AUS_cosmopolitan_international_german_austria
@@ -3880,8 +3941,22 @@ focus_tree = {
 			focus = AUS_cling_to_danubian_resuscitation
 		}
 		completion_reward = {
-			
+			if = {
+				limit = { has_Karl_Habsburg_as_leader = no }
+				set_cosmetic_tag = AUS_german_austria_sdapo
+			}
+			every_state = {
+				limit = {
+					OR = {
+						is_core_of = PGU
+						is_claimed_by = PGU
+					}
+					NOT = { is_core_of = ROOT }
+				}
+				add_core_of = ROOT
+			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	#SDAPO Syndicalists
@@ -4379,6 +4454,7 @@ focus_tree = {
 		completion_reward = {
 			
 		}
+		
 	}
 	
 	focus = {
@@ -4536,20 +4612,6 @@ focus_tree = {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	#### DBP Republic: Kalergi, Redlich, Otto
 	
 	focus = {
@@ -4562,8 +4624,10 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_government = social_liberal
+			AUS_small_dbp_trigger = yes
+		}
+		bypass = {
+			AUS_small_dbp_trigger = yes
 		}
 		prerequisite = {
 			focus = AUS_democracy_survives
@@ -4571,6 +4635,7 @@ focus_tree = {
 		completion_reward = {
 			custom_effect_tooltip = unlock_focuses
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4584,12 +4649,17 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_country_leader = {
-				name = "Richard von Coudenhove-Kalergi"
-				ruling_only = yes
+			AUS_small_dbp_trigger = yes
+			custom_override_tooltip = {
+				tooltip = AUS_kalergi_small_flag
+				OR = {
+					has_idea = AUS_Richard_von_Coudenhove-Kalergi_hog_sli
+					has_country_leader = {
+						name = "Richard von Coudenhove-Kalergi"
+						ruling_only = yes
+					}
+				}
 			}
-			has_government = social_liberal
 		}
 		prerequisite = {
 			focus = AUS_DBP_victory_small
@@ -4597,6 +4667,7 @@ focus_tree = {
 		completion_reward = {
 			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4610,12 +4681,17 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_country_leader = {
-				name = "Richard von Coudenhove-Kalergi"
-				ruling_only = yes
+			AUS_small_dbp_trigger = yes
+			custom_override_tooltip = {
+				tooltip = AUS_kalergi_small_flag
+				OR = {
+					has_idea = AUS_Richard_von_Coudenhove-Kalergi_hog_sli
+					has_country_leader = {
+						name = "Richard von Coudenhove-Kalergi"
+						ruling_only = yes
+					}
+				}
 			}
-			has_government = social_liberal
 		}
 		prerequisite = {
 			focus = AUS_kalergi_small
@@ -4623,6 +4699,7 @@ focus_tree = {
 		completion_reward = {
 			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4636,12 +4713,17 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_country_leader = {
-				name = "Richard von Coudenhove-Kalergi"
-				ruling_only = yes
+			AUS_small_dbp_trigger = yes
+			custom_override_tooltip = {
+				tooltip = AUS_kalergi_small_flag
+				OR = {
+					has_idea = AUS_Richard_von_Coudenhove-Kalergi_hog_sli
+					has_country_leader = {
+						name = "Richard von Coudenhove-Kalergi"
+						ruling_only = yes
+					}
+				}
 			}
-			has_government = social_liberal
 		}
 		prerequisite = {
 			focus = AUS_disempower_the_iron_and_steel_cartel
@@ -4649,6 +4731,7 @@ focus_tree = {
 		completion_reward = {
 			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4662,12 +4745,17 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_country_leader = {
-				name = "Richard von Coudenhove-Kalergi"
-				ruling_only = yes
+			AUS_small_dbp_trigger = yes
+			custom_override_tooltip = {
+				tooltip = AUS_kalergi_small_flag
+				OR = {
+					has_idea = AUS_Richard_von_Coudenhove-Kalergi_hog_sli
+					has_country_leader = {
+						name = "Richard von Coudenhove-Kalergi"
+						ruling_only = yes
+					}
+				}
 			}
-			has_government = social_liberal
 		}
 		prerequisite = {
 			focus = AUS_disempower_the_iron_and_steel_cartel
@@ -4678,6 +4766,7 @@ focus_tree = {
 		completion_reward = {
 			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4691,12 +4780,17 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_country_leader = {
-				name = "Richard von Coudenhove-Kalergi"
-				ruling_only = yes
+			AUS_small_dbp_trigger = yes
+			custom_override_tooltip = {
+				tooltip = AUS_kalergi_small_flag
+				OR = {
+					has_idea = AUS_Richard_von_Coudenhove-Kalergi_hog_sli
+					has_country_leader = {
+						name = "Richard von Coudenhove-Kalergi"
+						ruling_only = yes
+					}
+				}
 			}
-			has_government = social_liberal
 		}
 		prerequisite = {
 			focus = AUS_disempower_the_iron_and_steel_cartel
@@ -4705,8 +4799,9 @@ focus_tree = {
 			focus = AUS_universal_rights_of_man_and_the_citizen
 		}
 		completion_reward = {
-			
+			AUS_reduce_collapse_idea = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4720,12 +4815,17 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_country_leader = {
-				name = "Richard von Coudenhove-Kalergi"
-				ruling_only = yes
+			AUS_small_dbp_trigger = yes
+			custom_override_tooltip = {
+				tooltip = AUS_kalergi_small_flag
+				OR = {
+					has_idea = AUS_Richard_von_Coudenhove-Kalergi_hog_sli
+					has_country_leader = {
+						name = "Richard von Coudenhove-Kalergi"
+						ruling_only = yes
+					}
+				}
 			}
-			has_government = social_liberal
 		}
 		prerequisite = {
 			focus = AUS_kalergi_small
@@ -4733,6 +4833,7 @@ focus_tree = {
 		completion_reward = {
 			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4746,12 +4847,17 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_country_leader = {
-				name = "Richard von Coudenhove-Kalergi"
-				ruling_only = yes
+			AUS_small_dbp_trigger = yes
+			custom_override_tooltip = {
+				tooltip = AUS_kalergi_small_flag
+				OR = {
+					has_idea = AUS_Richard_von_Coudenhove-Kalergi_hog_sli
+					has_country_leader = {
+						name = "Richard von Coudenhove-Kalergi"
+						ruling_only = yes
+					}
+				}
 			}
-			has_government = social_liberal
 		}
 		prerequisite = {
 			focus = AUS_kalergi_small
@@ -4759,6 +4865,7 @@ focus_tree = {
 		completion_reward = {
 			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4772,19 +4879,26 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_country_leader = {
-				name = "Josef Redlich"
-				ruling_only = yes
+			AUS_small_dbp_trigger = yes
+			custom_override_tooltip = {
+				tooltip = AUS_redlich_small_flag
+				OR = {
+					has_idea = AUS_Josef_Redlich_hog_sli
+					has_country_leader = {
+						name = "Josef Redlich"
+						ruling_only = yes
+					}
+				}
 			}
-			has_government = social_liberal
 		}
 		prerequisite = {
 			focus = AUS_DBP_victory_small
 		}
 		completion_reward = {
-			
+			add_political_power = 50
+			add_ideas = AUS_redlich_german_austria_divide_idea
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4798,19 +4912,41 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_country_leader = {
-				name = "Josef Redlich"
-				ruling_only = yes
+			AUS_small_dbp_trigger = yes
+			custom_override_tooltip = {
+				tooltip = AUS_redlich_small_flag
+				OR = {
+					has_idea = AUS_Josef_Redlich_hog_sli
+					has_country_leader = {
+						name = "Josef Redlich"
+						ruling_only = yes
+					}
+				}
 			}
-			has_government = social_liberal
 		}
 		prerequisite = {
 			focus = AUS_redlich_small
 		}
 		completion_reward = {
-			
+			if = {
+				limit = { has_idea = AUS_redlich_german_austria_divide_idea_3 }
+				remove_ideas = AUS_redlich_german_austria_divide_idea_3
+			}
+			else_if = {
+				limit = { has_idea = AUS_redlich_german_austria_divide_idea_2 }
+				swap_ideas = {
+					add_idea = AUS_redlich_german_austria_divide_idea_3
+					remove_idea = AUS_redlich_german_austria_divide_idea_2
+				}
+			}
+			else = {
+				swap_ideas = {
+					add_idea = AUS_redlich_german_austria_divide_idea_2
+					remove_idea = AUS_redlich_german_austria_divide_idea
+				}
+			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4824,19 +4960,27 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_country_leader = {
-				name = "Josef Redlich"
-				ruling_only = yes
+			AUS_small_dbp_trigger = yes
+			custom_override_tooltip = {
+				tooltip = AUS_redlich_small_flag
+				OR = {
+					has_idea = AUS_Josef_Redlich_hog_sli
+					has_country_leader = {
+						name = "Josef Redlich"
+						ruling_only = yes
+					}
+				}
 			}
-			has_government = social_liberal
 		}
 		prerequisite = {
 			focus = AUS_legacy_of_the_fabier_kreis
 		}
 		completion_reward = {
-			
+			increase_ruling_party_popularity_by_5 = yes
+			add_ideas = AUS_redlich_reform_gov
+			add_stability = -0.05
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4850,12 +4994,17 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_country_leader = {
-				name = "Josef Redlich"
-				ruling_only = yes
+			AUS_small_dbp_trigger = yes
+			custom_override_tooltip = {
+				tooltip = AUS_redlich_small_flag
+				OR = {
+					has_idea = AUS_Josef_Redlich_hog_sli
+					has_country_leader = {
+						name = "Josef Redlich"
+						ruling_only = yes
+					}
+				}
 			}
-			has_government = social_liberal
 		}
 		prerequisite = {
 			focus = AUS_retry_the_emperors_constitution
@@ -4864,8 +5013,45 @@ focus_tree = {
 			focus = AUS_venerate_english_parliamentarianism_and_local_govt
 		}
 		completion_reward = {
-			
+			every_owned_state = {
+				limit = { infrastructure < 5 }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			every_owned_state = {
+				limit = { infrastructure > 4 }
+				increase_state_category = yes
+			}
+			random_owned_state = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 2
+			}
+			random_owned_state = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 2
+			}
+			random_owned_state = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 1
+			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4879,19 +5065,41 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_country_leader = {
-				name = "Josef Redlich"
-				ruling_only = yes
+			AUS_small_dbp_trigger = yes
+			custom_override_tooltip = {
+				tooltip = AUS_redlich_small_flag
+				OR = {
+					has_idea = AUS_Josef_Redlich_hog_sli
+					has_country_leader = {
+						name = "Josef Redlich"
+						ruling_only = yes
+					}
+				}
 			}
-			has_government = social_liberal
 		}
 		prerequisite = {
 			focus = AUS_alleviate_collapse_hampered_industries
 		}
 		completion_reward = {
-			
+			if = {
+				limit = { has_idea = AUS_redlich_german_austria_divide_idea_3 }
+				remove_ideas = AUS_redlich_german_austria_divide_idea_3
+			}
+			else_if = {
+				limit = { has_idea = AUS_redlich_german_austria_divide_idea_2 }
+				swap_ideas = {
+					add_idea = AUS_redlich_german_austria_divide_idea_3
+					remove_idea = AUS_redlich_german_austria_divide_idea_2
+				}
+			}
+			else = {
+				swap_ideas = {
+					add_idea = AUS_redlich_german_austria_divide_idea_2
+					remove_idea = AUS_redlich_german_austria_divide_idea
+				}
+			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4905,19 +5113,44 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_country_leader = {
-				name = "Josef Redlich"
-				ruling_only = yes
+			AUS_small_dbp_trigger = yes
+			custom_override_tooltip = {
+				tooltip = AUS_redlich_small_flag
+				OR = {
+					has_idea = AUS_Josef_Redlich_hog_sli
+					has_country_leader = {
+						name = "Josef Redlich"
+						ruling_only = yes
+					}
+				}
 			}
-			has_government = social_liberal
 		}
 		prerequisite = {
 			focus = AUS_redlich_small
 		}
 		completion_reward = {
-			
+			if = {
+				limit = { has_idea = AUS_redlich_german_austria_divide_idea_3 }
+				remove_ideas = AUS_redlich_german_austria_divide_idea_3
+			}
+			else_if = {
+				limit = { has_idea = AUS_redlich_german_austria_divide_idea_2 }
+				swap_ideas = {
+					add_idea = AUS_redlich_german_austria_divide_idea_3
+					remove_idea = AUS_redlich_german_austria_divide_idea_2
+				}
+			}
+			else = {
+				swap_ideas = {
+					add_idea = AUS_redlich_german_austria_divide_idea_2
+					remove_idea = AUS_redlich_german_austria_divide_idea
+				}
+			}
+			every_owned_state = {
+				add_dynamic_modifier = { modifier = AUS_lander_autonomy }
+			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4931,19 +5164,25 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_country_leader = {
-				name = "Josef Redlich"
-				ruling_only = yes
+			AUS_small_dbp_trigger = yes
+			custom_override_tooltip = {
+				tooltip = AUS_redlich_small_flag
+				OR = {
+					has_idea = AUS_Josef_Redlich_hog_sli
+					has_country_leader = {
+						name = "Josef Redlich"
+						ruling_only = yes
+					}
+				}
 			}
-			has_government = social_liberal
 		}
 		prerequisite = {
 			focus = AUS_local_autonomy
 		}
 		completion_reward = {
-			
+			AUS_reduce_collapse_idea = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4957,16 +5196,16 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_government = social_liberal
+			AUS_small_dbp_trigger = yes
 		}
 		prerequisite = {
 			focus = AUS_local_autonomy
 			focus = AUS_convivial_cosmopolitanism
 		}
 		completion_reward = {
-			
+			AUS_reduce_collapse_idea = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4980,12 +5219,17 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_country_leader = {
-				name = "Josef Redlich"
-				ruling_only = yes
+			AUS_small_dbp_trigger = yes
+			custom_override_tooltip = {
+				tooltip = AUS_redlich_small_flag
+				OR = {
+					has_idea = AUS_Josef_Redlich_hog_sli
+					has_country_leader = {
+						name = "Josef Redlich"
+						ruling_only = yes
+					}
+				}
 			}
-			has_government = social_liberal
 		}
 		prerequisite = {
 			focus = AUS_universal_rights_of_man_and_the_citizen
@@ -4993,6 +5237,7 @@ focus_tree = {
 		completion_reward = {
 			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -5006,9 +5251,8 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
+			AUS_small_dbp_trigger = yes
 			has_country_flag = AUS_small_otto_DBP
-			has_government = social_liberal
 		}
 		prerequisite = {
 			focus = AUS_DBP_victory_small
@@ -5016,6 +5260,7 @@ focus_tree = {
 		completion_reward = {
 			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -5029,16 +5274,20 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
+			AUS_small_dbp_trigger = yes
 			has_country_flag = AUS_small_otto_DBP
-			has_government = social_liberal
 		}
 		prerequisite = {
 			focus = AUS_otto_small
 		}
 		completion_reward = {
-			#Event regarding the throne and Karl if he lives
+			increase_ruling_party_popularity_by_5 = yes
+			country_event = {
+				id = bdeausint.170
+				days = 1
+			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -5052,9 +5301,8 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
+			AUS_small_dbp_trigger = yes
 			has_country_flag = AUS_small_otto_DBP
-			has_government = social_liberal
 		}
 		prerequisite = {
 			focus = AUS_imperial_restoration_procedures
@@ -5062,6 +5310,7 @@ focus_tree = {
 		completion_reward = {
 			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -5075,16 +5324,16 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
+			AUS_small_dbp_trigger = yes
 			has_country_flag = AUS_small_otto_DBP
-			has_government = social_liberal
 		}
 		prerequisite = {
 			focus = AUS_otto_small
 		}
 		completion_reward = {
-			
+			AUS_reduce_collapse_idea = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -5098,17 +5347,16 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			#has_country_flag = AUS_small_otto_DBP
-			has_government = social_liberal
+			AUS_small_dbp_trigger = yes
 		}
 		prerequisite = {
 			focus = AUS_imperial_paneuropeanism
 			focus = AUS_humanist_infrastructure_overhaul
 		}
 		completion_reward = {
-			
+			AUS_reduce_collapse_idea = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -5122,9 +5370,8 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
+			AUS_small_dbp_trigger = yes
 			has_country_flag = AUS_small_otto_DBP
-			has_government = social_liberal
 		}
 		prerequisite = {
 			focus = AUS_redefine_the_reich
@@ -5132,6 +5379,7 @@ focus_tree = {
 		completion_reward = {
 			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -5145,9 +5393,8 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
+			AUS_small_dbp_trigger = yes
 			has_country_flag = AUS_small_otto_DBP
-			has_government = social_liberal
 		}
 		prerequisite = {
 			focus = AUS_imperial_paneuropeanism
@@ -5155,6 +5402,7 @@ focus_tree = {
 		completion_reward = {
 			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -5168,9 +5416,8 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
+			AUS_small_dbp_trigger = yes
 			has_country_flag = AUS_small_otto_DBP
-			has_government = social_liberal
 		}
 		prerequisite = {
 			focus = AUS_mittelstandsordnung
@@ -5181,6 +5428,7 @@ focus_tree = {
 		completion_reward = {
 			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -5194,16 +5442,16 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
+			AUS_small_dbp_trigger = yes
 			has_country_flag = AUS_small_otto_DBP
-			has_government = social_liberal
 		}
 		prerequisite = {
 			focus = AUS_humanist_liberation
 		}
 		completion_reward = {
-			
+			add_research_slot_until_six = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -5217,8 +5465,7 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_government = social_liberal
+			AUS_small_dbp_trigger = yes
 			OR = {
 				has_completed_focus = AUS_kelsen_theory
 				has_completed_focus = AUS_unite_not_separate
@@ -5235,8 +5482,10 @@ focus_tree = {
 			focus = AUS_great_peace_and_great_empire
 		}
 		completion_reward = {
-			
+			unlock_decision_tooltip = AUS_form_USGA_small
+			AUS_reduce_collapse_idea = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -5250,8 +5499,7 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_government = social_liberal
+			AUS_small_dbp_trigger = yes
 		}
 		prerequisite = {
 			focus = AUS_a_united_states_of_austria
@@ -5259,6 +5507,7 @@ focus_tree = {
 		completion_reward = {
 			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -5272,8 +5521,7 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_government = social_liberal
+			AUS_small_dbp_trigger = yes
 		}
 		prerequisite = {
 			focus = AUS_a_united_states_of_austria
@@ -5281,6 +5529,7 @@ focus_tree = {
 		completion_reward = {
 			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -5294,8 +5543,7 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_government = social_liberal
+			AUS_small_dbp_trigger = yes
 		}
 		prerequisite = {
 			focus = AUS_american_organs
@@ -5303,6 +5551,7 @@ focus_tree = {
 		completion_reward = {
 			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -5316,8 +5565,7 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_government = social_liberal
+			AUS_small_dbp_trigger = yes
 		}
 		prerequisite = {
 			focus = AUS_american_organs
@@ -5325,6 +5573,7 @@ focus_tree = {
 		completion_reward = {
 			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -5338,8 +5587,7 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_government = social_liberal
+			AUS_small_dbp_trigger = yes
 		}
 		prerequisite = {
 			focus = AUS_european_heart
@@ -5347,6 +5595,7 @@ focus_tree = {
 		completion_reward = {
 			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -5360,8 +5609,7 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_government = social_liberal
+			AUS_small_dbp_trigger = yes
 		}
 		prerequisite = {
 			focus = AUS_european_heart
@@ -5369,6 +5617,7 @@ focus_tree = {
 		completion_reward = {
 			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -5382,19 +5631,25 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_government = social_liberal
-			has_country_leader = {
-				name = "Josef Redlich"
-				ruling_only = yes
+			AUS_small_dbp_trigger = yes
+			custom_override_tooltip = {
+				tooltip = AUS_redlich_small_flag
+				OR = {
+					has_idea = AUS_Josef_Redlich_hog_sli
+					has_country_leader = {
+						name = "Josef Redlich"
+						ruling_only = yes
+					}
+				}
 			}
 		}
 		prerequisite = {
 			focus = AUS_ecclesiastical_buttresses
 		}
 		completion_reward = {
-			
+			AUS_reduce_collapse_idea = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -5408,11 +5663,16 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_government = social_liberal
-			has_country_leader = {
-				name = "Richard von Coudenhove-Kalergi"
-				ruling_only = yes
+			AUS_small_dbp_trigger = yes
+			custom_override_tooltip = {
+				tooltip = AUS_kalergi_small_flag
+				OR = {
+					has_idea = AUS_Richard_von_Coudenhove-Kalergi_hog_sli
+					has_country_leader = {
+						name = "Richard von Coudenhove-Kalergi"
+						ruling_only = yes
+					}
+				}
 			}
 		}
 		prerequisite = {
@@ -5420,8 +5680,9 @@ focus_tree = {
 			focus = AUS_celebrate_the_great_europeans
 		}
 		completion_reward = {
-			
+			AUS_reduce_collapse_idea = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -5435,16 +5696,16 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_small_DBP_victory
-			has_government = social_liberal
+			AUS_small_dbp_trigger = yes
 			has_country_flag = AUS_small_otto_DBP
 		}
 		prerequisite = {
 			focus = AUS_moral_renaissance
 		}
 		completion_reward = {
-			
+			AUS_reduce_collapse_idea = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	#### CS: Ender, Miklas, Rudolf Ramek, Vaugoin
@@ -8722,19 +8983,24 @@ focus_tree = {
 		icon = GFX_goal_AUS_Red_Archduchess
 		x = 38
 		y = 0
-		cost = 5
+		cost = 0
 		ai_will_do = {
 			factor = 100
 		}
 		available = {
 			has_country_leader = { name = "Elisabeth I" ruling_only = yes }
 			has_country_flag = AUS_red_duchess
-			
-			always = no
+		}
+		bypass = {
+			hidden_trigger = {
+				has_country_leader = { name = "Elisabeth I" ruling_only = yes }
+				has_country_flag = AUS_red_duchess
+			}
 		}
 		completion_reward = {
 			custom_effect_tooltip = unlock_focuses
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -8757,11 +9023,9 @@ focus_tree = {
 		completion_reward = {
 			add_stability = 0.05
 			add_political_power = 30
-			swap_ideas = {
-				add_idea = AUS_legacy_of_collapse_2
-				remove_idea = AUS_legacy_of_collapse
-			}
+			AUS_reduce_collapse_idea = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -8783,10 +9047,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_stability = 0.1
-			add_popularity = {
-				ideology = syndicalist
-				popularity = 0.03
-			}
+			increase_ruling_party_popularity_by_3 = yes
 			random_owned_state = {
 				add_building_construction = {
 					type = arms_factory
@@ -8804,6 +9065,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 2
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -8824,10 +9086,7 @@ focus_tree = {
 			focus = AUS_nothing_counts_but_love
 		}
 		completion_reward = {
-			add_popularity = {
-				ideology = syndicalist
-				popularity = 0.05
-			}
+			increase_ruling_party_popularity_by_5 = yes
 			random_owned_state = {
 				add_extra_state_shared_building_slots = 1
 			}
@@ -8839,6 +9098,7 @@ focus_tree = {
 			}
 			add_ideas = AUS_red_crown
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -8887,6 +9147,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 2
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -8911,6 +9172,7 @@ focus_tree = {
 			add_political_power = -50
 			add_stability = 0.1
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -8950,6 +9212,7 @@ focus_tree = {
 				uses = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -8971,10 +9234,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_stability = 0.1
-			add_popularity = {
-				ideology = syndicalist
-				popularity = 0.035
-			}
+			increase_ruling_party_popularity_by_5 = yes
 			random_owned_state = {
 				add_resource = {
 					type = steel
@@ -8982,6 +9242,7 @@ focus_tree = {
 				}
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9029,6 +9290,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9055,6 +9317,7 @@ focus_tree = {
 			add_political_power = 100
 			add_ideas = AUS_red_counts
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9085,6 +9348,7 @@ focus_tree = {
 			air_experience = 10
 			add_research_slot_until_six = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9109,14 +9373,12 @@ focus_tree = {
 			focus = AUS_women_equality
 		}
 		completion_reward = {
-			add_popularity = {
-				ideology = syndicalist
-				popularity = 0.03
-			}
+			increase_ruling_party_popularity_by_3 = yes
 			add_offsite_building = { type = arms_factory level = 1 }
 			add_offsite_building = { type = industrial_complex level = 1 }
 			remove_ideas = AUS_ariosophist_resistance
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9140,10 +9402,7 @@ focus_tree = {
 			focus = AUS_red_countess
 		}
 		completion_reward = {
-			add_popularity = {
-				ideology = syndicalist
-				popularity = 0.03
-			}
+			increase_ruling_party_popularity_by_3 = yes
 			add_offsite_building = { type = arms_factory level = 1 }
 			add_offsite_building = { type = industrial_complex level = 1 }
 			random_owned_state = {
@@ -9153,6 +9412,7 @@ focus_tree = {
 				}
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9176,11 +9436,9 @@ focus_tree = {
 			focus = AUS_charities
 		}
 		completion_reward = {
-			swap_ideas = {
-				add_idea = AUS_legacy_of_collapse_3
-				remove_idea = AUS_legacy_of_collapse_2
-			}
+			AUS_reduce_collapse_idea = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9204,17 +9462,13 @@ focus_tree = {
 			focus = AUS_a_modest_house_of_habsburg
 		}
 		completion_reward = {
-			swap_ideas = {
-				add_idea = AUS_legacy_of_collapse_4
-				remove_idea = AUS_legacy_of_collapse_3
-			}
+			AUS_reduce_collapse_idea = yes
 			add_stability = 0.1
-			add_popularity = {
-				ideology = syndicalist
-				popularity = 0.05
-			}
+			increase_ruling_party_popularity_by_5 = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
+
 	#Federal State
 	
 	focus = {
@@ -9229,9 +9483,11 @@ focus_tree = {
 		available = {
 			AUS_small_standestaat_trigger = yes
 		}
+		bypass = { hidden_trigger = { AUS_small_standestaat_trigger = yes } }
 		completion_reward = {
 			custom_effect_tooltip = unlock_focuses
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
 		id = AUS_who_need_their_dolbussy_ate
@@ -9258,6 +9514,7 @@ focus_tree = {
 			add_political_power = 30
 			add_stability = 0.035
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9289,6 +9546,7 @@ focus_tree = {
 			}
 			add_ideas = AUS_food_program
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9321,6 +9579,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9360,6 +9619,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9389,6 +9649,7 @@ focus_tree = {
 			navy_experience = 20
 			air_experience = 20
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9427,6 +9688,7 @@ focus_tree = {
 				}
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9474,6 +9736,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9500,6 +9763,7 @@ focus_tree = {
 			add_political_power = 30
 			add_ideas = AUS_fatherland_cult
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 		
 	focus = {
@@ -9543,6 +9807,7 @@ focus_tree = {
 			}
 			add_research_slot_until_six = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9585,6 +9850,7 @@ focus_tree = {
 			}
 			increase_ruling_party_popularity_by_3 = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9611,6 +9877,7 @@ focus_tree = {
 			add_stability = 0.01
 			increase_ruling_party_popularity_by_3 = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9663,6 +9930,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9706,6 +9974,7 @@ focus_tree = {
 				}
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9743,6 +10012,7 @@ focus_tree = {
 			}
 			AUS_reduce_collapse_idea = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9780,6 +10050,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9816,6 +10087,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 2
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9839,6 +10111,7 @@ focus_tree = {
 			add_political_power = 30
 			increase_ruling_party_popularity_by_5 = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9869,6 +10142,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 2
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9886,10 +10160,7 @@ focus_tree = {
 		}
 		available = {
 			AUS_small_standestaat_trigger = yes
-			has_country_leader = {
-				name = "Emil Fey"
-				ruling_only = yes
-			}
+			has_country_flag = AUS_federal_state_fey
 		}
 		completion_reward = {
 			add_popularity = {
@@ -9899,6 +10170,7 @@ focus_tree = {
 			add_political_power = 30
 			add_stability = 0.035
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9916,10 +10188,7 @@ focus_tree = {
 		}
 		available = {
 			AUS_small_standestaat_trigger = yes
-			has_country_leader = {
-				name = "Emil Fey"
-				ruling_only = yes
-			}
+			has_country_flag = AUS_federal_state_fey
 		}
 		completion_reward = {
 			add_stability = 0.03
@@ -9932,6 +10201,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9949,10 +10219,7 @@ focus_tree = {
 		}
 		available = {
 			AUS_small_standestaat_trigger = yes
-			has_country_leader = {
-				name = "Emil Fey"
-				ruling_only = yes
-			}
+			has_country_flag = AUS_federal_state_fey
 		}
 		completion_reward = {
 			add_stability = 0.03
@@ -9966,6 +10233,7 @@ focus_tree = {
 			}
 			add_ideas = AUS_schutzkorps
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -9983,16 +10251,14 @@ focus_tree = {
 		}
 		available = {
 			AUS_small_standestaat_trigger = yes
-			has_country_leader = {
-				name = "Emil Fey"
-				ruling_only = yes
-			}
+			has_country_flag = AUS_federal_state_fey
 		}
 		completion_reward = {
 			AUS_reduce_collapse_idea = yes
 			add_political_power = 20
 			increase_ruling_party_popularity_by_5 = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10014,10 +10280,7 @@ focus_tree = {
 		}
 		available = {
 			AUS_small_standestaat_trigger = yes
-			has_country_leader = {
-				name = "Emil Fey"
-				ruling_only = yes
-			}
+			has_country_flag = AUS_federal_state_fey
 		}
 		completion_reward = {
 			random_owned_state = {
@@ -10041,6 +10304,7 @@ focus_tree = {
 				}
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10062,10 +10326,7 @@ focus_tree = {
 		}
 		available = {
 			AUS_small_standestaat_trigger = yes
-			has_country_leader = {
-				name = "Emil Fey"
-				ruling_only = yes
-			}
+			has_country_flag = AUS_federal_state_fey
 		}
 		completion_reward = {
 			add_political_power = 100
@@ -10076,6 +10337,7 @@ focus_tree = {
 			}
 			increase_ruling_party_popularity_by_3 = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10096,10 +10358,7 @@ focus_tree = {
 		}
 		available = {
 			AUS_small_standestaat_trigger = yes
-			has_country_leader = {
-				name = "Emil Fey"
-				ruling_only = yes
-			}
+			has_country_flag = AUS_federal_state_fey
 		}
 		completion_reward = {
 			increase_ruling_party_popularity_by_5 = yes
@@ -10112,6 +10371,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10137,10 +10397,7 @@ focus_tree = {
 		}
 		available = {
 			AUS_small_standestaat_trigger = yes
-			has_country_leader = {
-				name = "Emil Fey"
-				ruling_only = yes
-			}
+			has_country_flag = AUS_federal_state_fey
 		}
 		completion_reward = {
 			add_political_power = 20
@@ -10164,6 +10421,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10189,10 +10447,7 @@ focus_tree = {
 		}
 		available = {
 			AUS_small_standestaat_trigger = yes
-			has_country_leader = {
-				name = "Emil Fey"
-				ruling_only = yes
-			}
+			has_country_flag = AUS_federal_state_fey
 		}
 		completion_reward = {
 			AUS_reduce_collapse_idea = yes
@@ -10208,6 +10463,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10228,16 +10484,16 @@ focus_tree = {
 		}
 		available = {
 			AUS_small_standestaat_trigger = yes
-			has_country_leader = {
-				name = "Emil Fey"
-				ruling_only = yes
-			}
+			has_country_flag = AUS_federal_state_fey
 		}
 		completion_reward = {
 			AUS_reduce_collapse_idea = yes
 			add_ideas = AUS_kanzler_and_kaiser_idea
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
+
+	# Figl
 	
 	focus = {
 		id = AUS_standestaat_figl
@@ -10254,10 +10510,7 @@ focus_tree = {
 		}
 		available = {
 			AUS_small_standestaat_trigger = yes
-			has_country_leader = {
-				name = "Leopold Figl"
-				ruling_only = yes
-			}
+			has_country_flag = AUS_federal_state_figl
 		}
 		completion_reward = {
 			add_popularity = {
@@ -10267,9 +10520,8 @@ focus_tree = {
 			add_political_power = 30
 			add_stability = 0.035
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
-	
-	
 	
 	focus = {
 		id = AUS_dollfussian_farmer_leagues
@@ -10286,11 +10538,7 @@ focus_tree = {
 		}
 		available = {
 			AUS_small_standestaat_trigger = yes
-			has_country_leader = {
-				name = "Leopold Figl"
-				ruling_only = yes
-			}
-			
+			has_country_flag = AUS_federal_state_figl
 		}
 		completion_reward = {
 			random_owned_state = {
@@ -10303,6 +10551,7 @@ focus_tree = {
 			}
 			AUS_reduce_collapse_idea = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10325,10 +10574,7 @@ focus_tree = {
 		}
 		available = {
 			AUS_small_standestaat_trigger = yes
-			has_country_leader = {
-				name = "Leopold Figl"
-				ruling_only = yes
-			}
+			has_country_flag = AUS_federal_state_figl
 		}
 		completion_reward = {
 			random_owned_state = {
@@ -10341,6 +10587,7 @@ focus_tree = {
 			}
 			AUS_reduce_collapse_idea = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10368,10 +10615,7 @@ focus_tree = {
 		}
 		available = {
 			AUS_small_standestaat_trigger = yes
-			has_country_leader = {
-				name = "Leopold Figl"
-				ruling_only = yes
-			}
+			has_country_flag = AUS_federal_state_figl
 		}
 		completion_reward = {
 			random_owned_state = {
@@ -10392,6 +10636,7 @@ focus_tree = {
 			}
 			AUS_reduce_collapse_idea = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10409,10 +10654,7 @@ focus_tree = {
 		}
 		available = {
 			AUS_small_standestaat_trigger = yes
-			has_country_leader = {
-				name = "Julius Raab"
-				ruling_only = yes
-			}
+			has_country_flag = AUS_federal_state_raab
 		}
 		completion_reward = {
 			add_popularity = {
@@ -10422,6 +10664,7 @@ focus_tree = {
 			add_political_power = 30
 			add_stability = 0.035
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10452,6 +10695,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10487,6 +10731,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10514,16 +10759,14 @@ focus_tree = {
 		}
 		available = {
 			AUS_small_standestaat_trigger = yes
-			has_country_leader = {
-				name = "Julius Raab"
-				ruling_only = yes
-			}
+			has_country_flag = AUS_federal_state_raab
 		}
 		completion_reward = {
 			AUS_reduce_collapse_idea = yes
 			add_stability = 0.05
 			increase_ruling_party_popularity_by_5 = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10557,6 +10800,7 @@ focus_tree = {
 			add_war_support = 0.05
 			add_soclib_to_coalition = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10578,6 +10822,7 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = AUS_freemarket_idea
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10614,6 +10859,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 2
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10640,8 +10886,18 @@ focus_tree = {
 		completion_reward = {
 			add_political_power = -60
 			add_stability = 0.1
+			add_popularity = {
+				ideology = social_democrat
+				popularity = 0.075
+			}
+			add_popularity = {
+				ideology = radical_socialist
+				popularity = 0.05
+			}
 			add_socdem_to_coalition = yes
+			add_radsoc_to_coalition = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10675,6 +10931,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10706,6 +10963,7 @@ focus_tree = {
 			add_stability = 0.03
 			add_war_support = 0.03
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10732,8 +10990,21 @@ focus_tree = {
 		completion_reward = {
 			add_political_power = -60
 			add_stability = 0.1
+			add_popularity = {
+				ideology = social_conservative
+				popularity = 0.075
+			}
 			add_soccon_to_coalition = yes
+			if = {
+				limit = { NOT = { has_government = authoritarian_democrat } }
+				add_popularity = {
+					ideology = authoritarian_democrat
+					popularity = 0.05
+				}
+				add_authdem_to_coalition = yes
+			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10770,7 +11041,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
-		
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10794,7 +11065,7 @@ focus_tree = {
 			add_political_power = 100
 			add_ideas = AUS_mass_politics
 		}
-		
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10826,7 +11097,7 @@ focus_tree = {
 			}
 			AUS_reduce_collapse_idea = yes
 		}
-		
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10851,7 +11122,7 @@ focus_tree = {
 			add_political_power = 50
 			add_ideas = AUS_dollfuss_legacy
 		}
-		
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10883,7 +11154,7 @@ focus_tree = {
 				remove_idea = AUS_dollfuss_legacy
 			}
 		}
-		
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10906,7 +11177,7 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = AUS_new_habsburg_monarchy
 		}
-		
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10946,6 +11217,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -10982,7 +11254,7 @@ focus_tree = {
 				bonus = 1
 			}
 		}
-		
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -11027,7 +11299,7 @@ focus_tree = {
 				}
 			}
 		}
-		
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -11058,7 +11330,7 @@ focus_tree = {
 			}
 			add_ideas = AUS_middle_ages
 		}
-		
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -11112,7 +11384,7 @@ focus_tree = {
 				add_research_slot_until_six = yes
 			}
 		}
-		
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -11137,7 +11409,7 @@ focus_tree = {
 			add_ideas = AUS_foderalismusplan_small_troll
 			add_political_power = 100
 		}
-		
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -11160,7 +11432,7 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = AUS_new_evidenzbureau
 		}
-		
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -11202,7 +11474,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 2
 			}
 		}
-		
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -11242,7 +11514,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 2
 			}
 		}
-		
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -11267,7 +11539,7 @@ focus_tree = {
 			add_political_power = 80
 			add_ideas = AUS_women_reconstruction
 		}
-		
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -11307,7 +11579,7 @@ focus_tree = {
 				bonus = 1
 			}
 		}
-		
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -11359,7 +11631,7 @@ focus_tree = {
 				}
 			}
 		}
-		
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -11386,7 +11658,7 @@ focus_tree = {
 			AUS_reduce_collapse_idea = yes
 			add_ideas = AUS_external_idea
 		}
-		
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -11426,7 +11698,7 @@ focus_tree = {
 			air_experience = 20
 			navy_experience = 20
 		}
-		
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -11462,7 +11734,7 @@ focus_tree = {
 			}
 			add_ideas = AUS_no_party
 		}
-		
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -11490,7 +11762,7 @@ focus_tree = {
 			increase_ruling_party_popularity_by_3 = yes
 			add_ideas = AUS_oath
 		}
-		
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -11536,7 +11808,7 @@ focus_tree = {
 			increase_ruling_party_popularity_by_3 = yes
 			add_manpower = 20000
 		}
-		
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -11570,7 +11842,7 @@ focus_tree = {
 			add_stability = 0.05
 			add_war_support = 0.05
 		}
-		
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -16623,18 +16895,23 @@ focus_tree = {
 		icon = GFX_goal_AUS_gott_erhalte
 		x = -57
 		y = 20
-		cost = 5
+		cost = 0
 		ai_will_do = {
 			factor = 100
 		}
 		available = {
 			has_country_flag = AUS_habsburg_restoration
-			always = no
+			hidden_trigger = { always = no }
 		}
-		
+		bypass = {
+			hidden_trigger = {
+				has_country_flag = AUS_habsburg_restoration
+			}
+		}
 		completion_reward = {
 			custom_effect_tooltip = unlock_focuses
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -16643,14 +16920,20 @@ focus_tree = {
 		relative_position_id = AUS_imperial_resurgence
 		x = -5
 		y = 1
-		cost = 5
+		cost = 0
 		ai_will_do = {
 			factor = 100
 		}
 		available = {
 			has_country_flag = AUS_habsburg_restoration
 			has_country_flag = AUS_karl
-			always = no
+			hidden_trigger = { always = no }
+		}
+		bypass = {
+			hidden_trigger = {
+				has_country_flag = AUS_habsburg_restoration
+				has_country_flag = AUS_karl
+			}
 		}
 		prerequisite = {
 			focus = AUS_imperial_resurgence
@@ -16658,6 +16941,7 @@ focus_tree = {
 		completion_reward = {
 			custom_effect_tooltip = unlock_focuses
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -16695,6 +16979,7 @@ focus_tree = {
 				}
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -16723,6 +17008,7 @@ focus_tree = {
 			add_stability = 0.03
 			increase_ruling_party_popularity_by_3 = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -16746,6 +17032,7 @@ focus_tree = {
 			add_ideas = AUS_collapse_god
 			remove_ideas = AUS_right_resistance
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -16777,6 +17064,7 @@ focus_tree = {
 			add_ideas = AUS_patriotic_internationalism_idea
 			add_war_support = 0.05
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -16807,6 +17095,7 @@ focus_tree = {
 			add_political_power = 45
 			add_stability = 0.025
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -16837,6 +17126,7 @@ focus_tree = {
 			add_ideas = AUS_aeiou_idea
 			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -16893,24 +17183,10 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	# Shared Monarchy Tree
 	
 	focus = {
 		id = AUS_viribus_unitis
@@ -16938,26 +17214,13 @@ focus_tree = {
 			focus = AUS_military_coup_focus	
 		}
 		completion_reward = {
-			random_unit_leader = {
-				add_max_trait = 1
-				add_skill_level = 1
-				add_logistics = 1
-				add_planning = 1
-				add_defense = 1
-				add_attack = 1
-			}
-			random_unit_leader = {
-				add_max_trait = 1
-				add_skill_level = 1
-				add_logistics = 1
-				add_planning = 1
-				add_defense = 1
-				add_attack = 1
-			}
+			set_temp_variable = { temp_num = 2 }
+			AUS_upgrade_amount_of_guys_effect = yes
 			add_manpower = 25000
 			add_stability = 0.05
 			army_experience = 10
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -16999,6 +17262,7 @@ focus_tree = {
 				bonus = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17031,6 +17295,7 @@ focus_tree = {
 			}
 			add_political_power = 40
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17071,6 +17336,7 @@ focus_tree = {
 			}
 			add_ideas = AUS_nostalgia
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17098,6 +17364,7 @@ focus_tree = {
 				days = 180
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17122,6 +17389,7 @@ focus_tree = {
 			add_political_power = -30
 			add_stability = 0.03
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17145,9 +17413,8 @@ focus_tree = {
 			AUS_reduce_collapse_idea = yes
 			add_political_power = 40
 			add_stability = 0.1
-			
-			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17173,6 +17440,7 @@ focus_tree = {
 			add_political_power = 30
 			add_ideas = AUS_restored_bureaucracy
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17199,8 +17467,8 @@ focus_tree = {
 				days = 720
 			}
 			remove_ideas = AUS_ariosophist_resistance
-			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17228,6 +17496,7 @@ focus_tree = {
 			navy_experience = 10
 			air_experience = 10
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17274,7 +17543,10 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 2
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
+
+	# Franz Joseph II
 	
 	focus = {
 		id = AUS_franz_josef_ii
@@ -17282,14 +17554,20 @@ focus_tree = {
 		relative_position_id = AUS_imperial_resurgence
 		x = 5
 		y = 1
-		cost = 5
+		cost = 0
 		ai_will_do = {
 			factor = 100
 		}
 		available = {
 			has_country_flag = AUS_habsburg_restoration
 			has_country_flag = AUS_franzjosefii_small
-			always = no
+			hidden_trigger = { always = no }
+		}
+		bypass = {
+			hidden_trigger = {
+				has_country_flag = AUS_habsburg_restoration
+				has_country_flag = AUS_franzjosefii_small
+			}
 		}
 		prerequisite = {
 			focus = AUS_imperial_resurgence
@@ -17297,6 +17575,7 @@ focus_tree = {
 		completion_reward = {
 			custom_effect_tooltip = unlock_focuses
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17312,7 +17591,6 @@ focus_tree = {
 		available = {
 			has_country_flag = AUS_habsburg_restoration
 			has_country_flag = AUS_franzjosefii_small
-			always = no
 		}
 		prerequisite = {
 			focus = AUS_franz_josef_ii
@@ -17320,6 +17598,7 @@ focus_tree = {
 		completion_reward = {
 			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17335,14 +17614,15 @@ focus_tree = {
 		available = {
 			has_country_flag = AUS_habsburg_restoration
 			has_country_flag = AUS_franzjosefii_small
-			always = no
 		}
 		prerequisite = {
 			focus = AUS_franz_josef_ii
 		}
 		completion_reward = {
-			
+			set_country_flag = AUS_join_reichspakt_flag
+			unlock_decision_tooltip = AUS_join_reichspakt
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 		
 	focus = {
@@ -17358,7 +17638,6 @@ focus_tree = {
 		available = {
 			has_country_flag = AUS_habsburg_restoration
 			has_country_flag = AUS_franzjosefii_small
-			always = no
 		}
 		prerequisite = {
 			focus = AUS_franz_josef_ii
@@ -17366,6 +17645,7 @@ focus_tree = {
 		completion_reward = {
 			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 		
 	focus = {
@@ -17381,7 +17661,6 @@ focus_tree = {
 		available = {
 			has_country_flag = AUS_habsburg_restoration
 			has_country_flag = AUS_franzjosefii_small
-			always = no
 		}
 		prerequisite = {
 			focus = AUS_review_the_austrian_position_on_european_stage
@@ -17389,29 +17668,7 @@ focus_tree = {
 		completion_reward = {
 			
 		}
-	}
-	
-	focus = {
-		id = AUS_ascend_the_role_of_the_habsburgs_in_europe
-		icon = GFX_goal_AUS_evolving_meaning
-		relative_position_id = AUS_franz_josef_ii
-		x = -2
-		y = 4
-		cost = 5
-		ai_will_do = {
-			factor = 100
-		}
-		available = {
-			has_country_flag = AUS_habsburg_restoration
-			has_country_flag = AUS_franzjosefii_small
-			always = no
-		}
-		prerequisite = {
-			focus = AUS_marriage_of_monarchy_aristocracy_democracy
-		}
-		completion_reward = {
-			
-		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17427,7 +17684,6 @@ focus_tree = {
 		available = {
 			has_country_flag = AUS_habsburg_restoration
 			has_country_flag = AUS_franzjosefii_small
-			always = no
 		}
 		prerequisite = {
 			focus = AUS_to_attention_and_defense_of_our_plight
@@ -17436,8 +17692,33 @@ focus_tree = {
 			focus = AUS_decrees_of_the_golden_fleece
 		}
 		completion_reward = {
-			
+			every_owned_state = {
+				limit = { infrastructure < 5 }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			every_owned_state = {
+				limit = { infrastructure > 4 }
+				increase_state_category = yes
+			}
+			random_owned_state = {
+				limit = { is_coastal = yes }
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 2
+			}
+			add_one_random_civilian_factory = yes
+			add_one_random_civilian_factory = yes
+			add_one_random_civilian_factory = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17453,7 +17734,6 @@ focus_tree = {
 		available = {
 			has_country_flag = AUS_habsburg_restoration
 			has_country_flag = AUS_franzjosefii_small
-			always = no
 		}
 		prerequisite = {
 			focus = AUS_stately_modesty
@@ -17464,12 +17744,46 @@ focus_tree = {
 		completion_reward = {
 			
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	focus = {
+		id = AUS_ascend_the_role_of_the_habsburgs_in_europe
+		icon = GFX_goal_AUS_evolving_meaning
+		relative_position_id = AUS_franz_josef_ii
+		x = -2
+		y = 4
+		cost = 5
+		ai_will_do = {
+			factor = 100
+		}
+		available = {
+			has_country_flag = AUS_habsburg_restoration
+			has_country_flag = AUS_franzjosefii_small
+		}
+		prerequisite = {
+			focus = AUS_marriage_of_monarchy_aristocracy_democracy
+		}
+		completion_reward = {
+			add_country_leader_trait = AUS_european_habsburg
+			add_political_power = 20
+			add_stability = 0.05
+			add_popularity = {
+				ideology = social_liberal
+				popularity = 0.05
+			}
+			hidden_effect = {
+				country_event = {
+					id = bdeausint.1232
+					days = 14
+					random_hours = 72
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
-	
-	
-	
-	
+	# Regency
 	
 	focus = {
 		id = AUS_regency_focus
@@ -17477,18 +17791,25 @@ focus_tree = {
 		relative_position_id = AUS_imperial_resurgence
 		x = -13
 		y = 0
-		cost = 5
+		cost = 0
 		ai_will_do = {
 			factor = 100
 		}
 		available = {
 			has_country_flag = AUS_habsburg_restoration
 			has_country_flag = AUS_regency
-			always = no
+			hidden_trigger = { always = no }
+		}
+		bypass = {
+			hidden_trigger = {
+				has_country_flag = AUS_habsburg_restoration
+				has_country_flag = AUS_regency
+			}
 		}
 		completion_reward = {
 			custom_effect_tooltip = unlock_focuses
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17497,14 +17818,20 @@ focus_tree = {
 		relative_position_id = AUS_regency_focus
 		x = -3
 		y = 1
-		cost = 5
+		cost = 0
 		ai_will_do = {
 			factor = 100
 		}
 		available = {
 			has_country_flag = AUS_habsburg_restoration
 			has_country_flag = AUS_maximilian_eugen_flag
-			always = no
+			hidden_trigger = { always = no }
+		}
+		bypass = {
+			hidden_trigger = {
+				has_country_flag = AUS_habsburg_restoration
+				has_country_flag = AUS_maximilian_eugen_flag
+			}
 		}
 		prerequisite = {
 			focus = AUS_regency_focus
@@ -17516,6 +17843,7 @@ focus_tree = {
 		completion_reward = {
 			custom_effect_tooltip = unlock_focuses
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17540,6 +17868,7 @@ focus_tree = {
 			add_stability = 0.05
 			remove_ideas = AUS_right_resistance
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17564,6 +17893,7 @@ focus_tree = {
 			AUS_reduce_collapse_idea = yes
 			add_ideas = AUS_program_of_peace
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17608,6 +17938,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 2
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17635,6 +17966,7 @@ focus_tree = {
 			add_political_power = 30
 			add_ideas = AUS_old_olympianism
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17673,6 +18005,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 2
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17708,6 +18041,7 @@ focus_tree = {
 				days = 5
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17738,18 +18072,8 @@ focus_tree = {
 			increase_ruling_party_popularity_by_10 = yes
 			activate_mission = AUS_lift_the_regency
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	focus = {
 		id = AUS_karl_pius_of_tuscany
@@ -17757,14 +18081,20 @@ focus_tree = {
 		relative_position_id = AUS_regency_focus
 		x = 0
 		y = 1
-		cost = 5
+		cost = 0
 		ai_will_do = {
 			factor = 100
 		}
 		available = {
 			has_country_flag = AUS_habsburg_restoration
 			has_country_flag = AUS_karl_pius
-			always = no
+			hidden_trigger = { always = no }
+		}
+		bypass = {
+			hidden_trigger = {
+				has_country_flag = AUS_habsburg_restoration
+				has_country_flag = AUS_karl_pius
+			}
 		}
 		prerequisite = {
 			focus = AUS_regency_focus
@@ -17776,6 +18106,7 @@ focus_tree = {
 		completion_reward = {
 			custom_effect_tooltip = unlock_focuses
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17806,8 +18137,10 @@ focus_tree = {
 				amount = 30
 				producer = AUS
 			}
+			add_ideas = AUS_emv_idea
 			add_political_power = 40
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17832,6 +18165,7 @@ focus_tree = {
 			increase_ruling_party_popularity_by_3 = yes
 			AUS_reduce_collapse_idea = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17874,6 +18208,7 @@ focus_tree = {
 			}
 			add_stability = 0.06
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17916,6 +18251,7 @@ focus_tree = {
 			}
 			add_war_support = 0.06
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17940,6 +18276,7 @@ focus_tree = {
 			add_ideas = AUS_carlist_corpus
 			increase_ruling_party_popularity_by_3 = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -17964,26 +18301,23 @@ focus_tree = {
 		}
 		completion_reward = {
 			if = {
-				limit = {
-					has_government = paternal_autocrat
-				}
-				set_temp_variable = { coalition_partner_var = token:authoritarian_democrat}
-				add_to_coalition = yes
+				limit = { has_government = paternal_autocrat }
+				add_authdem_to_coalition = yes
 				add_popularity = {
 					ideology = authoritarian_democrat
 					popularity = 0.1
 				}
-				else = {
-					set_temp_variable = { coalition_partner_var = token:paternal_autocrat}
-					add_to_coalition = yes
-					add_popularity = {
-						ideology = paternal_autocrat
-						popularity = 0.1
-					}
+			}
+			else = {
+				add_pataut_to_coalition = yes
+				add_popularity = {
+					ideology = paternal_autocrat
+					popularity = 0.1
 				}
 			}
 			AUS_reduce_collapse_idea = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -18007,14 +18341,14 @@ focus_tree = {
 			focus = AUS_political_alliance_VF
 		}
 		completion_reward = {
-			set_temp_variable = { coalition_partner_var = token:social_liberal}
-			add_to_coalition = yes
+			add_soclib_to_coalition = yes
 			add_popularity = {
 				ideology = social_liberal
 				popularity = 0.1
 			}
 			AUS_reduce_collapse_idea = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -18043,15 +18377,14 @@ focus_tree = {
 				uses = 1
 				bonus = 1
 			}
-			
 			add_tech_bonus = {
 				category = industry
 				uses = 1
 				bonus = 1
 			}
-			
 			add_ideas = AUS_karloktavismus
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -18091,6 +18424,7 @@ focus_tree = {
 			AUS_reduce_collapse_idea = yes
 			activate_mission = AUS_lift_the_regency
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -18139,6 +18473,7 @@ focus_tree = {
 			AUS_reduce_collapse_idea = yes
 			activate_mission = AUS_lift_the_regency
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -18147,15 +18482,20 @@ focus_tree = {
 		relative_position_id = AUS_regency_focus
 		x = 3
 		y = 1
-		cost = 5
+		cost = 0
 		ai_will_do = {
 			factor = 100
 		}
 		available = {
 			has_country_flag = AUS_habsburg_restoration
-			has_country_flag = AUS_regency
 			has_country_flag = AUS_teuton_regent
-			always = no
+			hidden_trigger = { always = no }
+		}
+		bypass = {
+			hidden_trigger = {
+				has_country_flag = AUS_habsburg_restoration
+				has_country_flag = AUS_teuton_regent
+			}
 		}
 		prerequisite = {
 			focus = AUS_regency_focus	
@@ -18167,6 +18507,7 @@ focus_tree = {
 		completion_reward = {
 			custom_effect_tooltip = unlock_focuses
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -18181,7 +18522,6 @@ focus_tree = {
 		}
 		available = {
 			has_country_flag = AUS_habsburg_restoration
-			has_country_flag = AUS_regency
 			has_country_flag = AUS_teuton_regent
 		}
 		prerequisite = {
@@ -18190,7 +18530,6 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = AUS_hoch_und_deutschmeister
 			army_experience = 50
-			
 			add_tech_bonus = {
 				bonus = 1
 				uses = 1
@@ -18210,6 +18549,7 @@ focus_tree = {
 				}
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -18224,7 +18564,6 @@ focus_tree = {
 		}
 		available = {
 			has_country_flag = AUS_habsburg_restoration
-			has_country_flag = AUS_regency
 			has_country_flag = AUS_teuton_regent
 		}
 		prerequisite = {
@@ -18247,6 +18586,7 @@ focus_tree = {
 			}
 			add_research_slot_until_six = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -18261,7 +18601,6 @@ focus_tree = {
 		}
 		available = {
 			has_country_flag = AUS_habsburg_restoration
-			has_country_flag = AUS_regency
 			has_country_flag = AUS_teuton_regent
 		}
 		prerequisite = {
@@ -18288,6 +18627,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -18302,7 +18642,6 @@ focus_tree = {
 		}
 		available = {
 			has_country_flag = AUS_habsburg_restoration
-			has_country_flag = AUS_regency
 			has_country_flag = AUS_teuton_regent
 		}
 		prerequisite = {
@@ -18319,6 +18658,7 @@ focus_tree = {
 			navy_experience = 20
 			air_experience = 20
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -18333,7 +18673,6 @@ focus_tree = {
 		}
 		available = {
 			has_country_flag = AUS_habsburg_restoration
-			has_country_flag = AUS_regency
 			has_country_flag = AUS_teuton_regent
 		}
 		prerequisite = {
@@ -18346,6 +18685,7 @@ focus_tree = {
 			add_ideas = AUS_marianer
 			AUS_reduce_collapse_idea = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -18360,7 +18700,6 @@ focus_tree = {
 		}
 		available = {
 			has_country_flag = AUS_habsburg_restoration
-			has_country_flag = AUS_regency
 			has_country_flag = AUS_teuton_regent
 		}
 		prerequisite = {
@@ -18402,6 +18741,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -18416,7 +18756,6 @@ focus_tree = {
 		}
 		available = {
 			has_country_flag = AUS_habsburg_restoration
-			has_country_flag = AUS_regency
 			has_country_flag = AUS_teuton_regent
 		}
 		prerequisite = {
@@ -18427,7 +18766,6 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_ideas = AUS_chivalry_idea
-			
 			random_owned_state = {
 				add_building_construction = {
 					type = arms_factory
@@ -18436,7 +18774,6 @@ focus_tree = {
 				}
 				add_extra_state_shared_building_slots = 2
 			}
-			
 			random_owned_state = {
 				add_building_construction = {
 					type = arms_factory
@@ -18446,6 +18783,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 2
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -18460,7 +18798,6 @@ focus_tree = {
 		}
 		available = {
 			has_country_flag = AUS_habsburg_restoration
-			has_country_flag = AUS_regency
 			has_country_flag = AUS_teuton_regent
 		}
 		prerequisite = {
@@ -18473,6 +18810,7 @@ focus_tree = {
 		completion_reward = {
 			activate_mission = AUS_lift_the_regency
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -18489,18 +18827,13 @@ focus_tree = {
 			AUS_small_junta_trigger = yes
 			hidden_trigger = { always = no }
 		}
+		bypass = {
+			hidden_trigger = { AUS_small_junta_trigger = yes }
+		}
 		completion_reward = {
 			custom_effect_tooltip = unlock_focuses
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	focus = {
 		id = AUS_dynastic_junta
@@ -19398,39 +19731,33 @@ focus_tree = {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	# Ariospohs
 	
 	focus = {
 		id = AUS_the_templar_is_dead
 		icon = GFX_goal_AUS_Templar_Has_Fallen
 		x = 12
 		y = 20
-		cost = 5.8
+		cost = 0
 		ai_will_do = {
 			factor = 100
 		}
 		available = {
-			always = no
+			custom_override_tooltip = {
+				tooltip = AUS_fallen_master_tt
+				always = no
+			}
 		}
 		completion_reward = {
 			custom_effect_tooltip = unlock_focuses
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_the_veteran #Wiligut
 		icon = GFX_goal_AUS_Ancestor_Ice_Kings
+		text_icon = botde_aus_wiligut_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = -4
 		y = 1
@@ -19447,11 +19774,13 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = AUS_wiligut_idea
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_rediscover_irminic_thought
 		icon = GFX_goal_AUS_Wisdom_Irminism
+		text_icon = botde_aus_wiligut_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = -3
 		y = 2
@@ -19472,11 +19801,13 @@ focus_tree = {
 			air_experience = 15
 			add_stability = 0.1
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_schizo_strength
 		icon = GFX_goal_AUS_Schizo
+		text_icon = botde_aus_wiligut_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = -5
 		y = 2
@@ -19510,11 +19841,13 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 2
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_restore_the_irminic_bible
 		icon = GFX_goal_AUS_Cleanse_Wotanism
+		text_icon = botde_aus_wiligut_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = -4
 		y = 3
@@ -19536,7 +19869,6 @@ focus_tree = {
 					amount = 16
 				}
 			}
-			
 			random_owned_state = {
 				add_resource = {
 					type = oil
@@ -19545,11 +19877,13 @@ focus_tree = {
 			}
 			add_ideas = AUS_redone_bible
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_second_coming_of_krist
 		icon = GFX_goal_AUS_Krist_Domain
+		text_icon = botde_aus_wiligut_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = -2
 		y = 3
@@ -19569,11 +19903,13 @@ focus_tree = {
 				remove_idea = AUS_wiligut_idea
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_friends_in_germany
 		icon = GFX_goal_AUS_Network_In_Germany
+		text_icon = botde_aus_wiligut_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = -5
 		y = 4
@@ -19604,11 +19940,13 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_channel_the_energy_of_santur
 		icon = GFX_goal_AUS_Santur_Power
+		text_icon = botde_aus_wiligut_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = -3
 		y = 5
@@ -19646,11 +19984,13 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 2
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_privileges_to_the_ordo_novi_templi
 		icon = GFX_goal_AUS_Priveleges_Ordo_Novi_Templi
+		text_icon = botde_aus_wiligut_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = -4
 		y = 6
@@ -19677,11 +20017,13 @@ focus_tree = {
 				remove_idea = AUS_wiligut_idea_2
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_our_life_passes_away_like_idle_chatter
 		icon = GFX_goal_AUS_Geschwatz
+		text_icon = botde_aus_wiligut_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = -2
 		y = 7
@@ -19708,7 +20050,6 @@ focus_tree = {
 					amount = 12
 				}
 			}
-			
 			random_owned_state = {
 				add_resource = {
 					type = tungsten
@@ -19716,11 +20057,13 @@ focus_tree = {
 				}
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_providences_representative #Trebitsch
 		icon = GFX_goal_AUS_Saviour_Nordic_Aryans
+		text_icon = botde_aus_trebitsch_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = 0
 		y = 1
@@ -19740,11 +20083,13 @@ focus_tree = {
 			increase_ruling_party_popularity_by_5 = yes
 			add_ideas = AUS_trebitsch_idea
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_Arische_Wirtschaftsordnung #Aryan Economic Order
 		icon = GFX_goal_AUS_Arische_Wirtschaftsordnung
+		text_icon = botde_aus_trebitsch_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = -1
 		y = 2
@@ -19784,11 +20129,13 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 2
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_geist_und_ariosophie
 		icon = GFX_goal_AUS_Geist_Ariosophie
+		text_icon = botde_aus_trebitsch_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = 1
 		y = 2
@@ -19819,11 +20166,13 @@ focus_tree = {
 			add_stability = 0.05
 			add_war_support = 0.05
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_like_trebitsch_like_christ
 		icon = GFX_goal_AUS_Christ_Trebitsch
+		text_icon = botde_aus_trebitsch_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = 0
 		y = 3
@@ -19847,11 +20196,13 @@ focus_tree = {
 				remove_idea = AUS_trebitsch_idea
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_contact_frauenfeld
 		icon = GFX_goal_AUS_Business_With_Frauenfeld
+		text_icon = botde_aus_trebitsch_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = -1
 		y = 4
@@ -19890,11 +20241,13 @@ focus_tree = {
 			}
 			add_political_power = 25
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_knight_the_holy_order_of_the_sepulchre_of_liebenfels
 		icon = GFX_goal_AUS_Sepulchre_Knights
+		text_icon = botde_aus_trebitsch_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = 1
 		y = 4
@@ -19927,11 +20280,13 @@ focus_tree = {
 			}
 			add_ideas = AUS_holy_order
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_poisoned_electric_rays_vs_aryan
 		icon = GFX_goal_AUS_Poisoned_Electric_Rays
+		text_icon = botde_aus_trebitsch_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = 0
 		y = 5
@@ -19957,11 +20312,13 @@ focus_tree = {
 				remove_idea = AUS_trebitsch_idea_2
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_providences_strongest_soldier
 		icon = GFX_goal_AUS_Providence_Strongest_Soldier
+		text_icon = botde_aus_trebitsch_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = 1
 		y = 6
@@ -19996,11 +20353,13 @@ focus_tree = {
 				}
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_allay_ashkenazis
 		icon = GFX_goal_AUS_Allay_Ashkenazi_Antagonist
+		text_icon = botde_aus_trebitsch_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = -1
 		y = 6
@@ -20038,6 +20397,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -20051,7 +20411,11 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_flag = AUS_trebitsch
+			OR = {
+				has_country_flag = AUS_wiligut
+				has_country_flag = AUS_trebitsch
+				has_country_flag = AUS_vestenbrugg
+			}
 		}
 		prerequisite = {
 			focus = AUS_providences_strongest_soldier
@@ -20078,11 +20442,13 @@ focus_tree = {
 				bonus = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_the_associate #Rudolf Elmayer von Vestenbrugg
 		icon = GFX_goal_AUS_Engineer_Todays_Tomorrows
+		text_icon = botde_aus_vestenbrugg_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = 4
 		y = 1
@@ -20099,11 +20465,13 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = AUS_vestenbrugg_idea
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_interventions_from_the_cosmos
 		icon = GFX_goal_AUS_Intervention_From_Cosmos
+		text_icon = botde_aus_vestenbrugg_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = 3
 		y = 2
@@ -20141,11 +20509,13 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_vestenbrugg_and_the_lost_gold_of_troy
 		icon = GFX_goal_AUS_Lost_Gold_Troy
+		text_icon = botde_aus_vestenbrugg_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = 5
 		y = 2
@@ -20183,11 +20553,13 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_synthesize_cosmic_vril_ice #Glazial-Kosmogonie
 		icon = GFX_goal_AUS_Synthesize_Ice_Vril
+		text_icon = botde_aus_vestenbrugg_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = 2
 		y = 3
@@ -20224,11 +20596,13 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_the_trail_leads_to_tiahuanaco
 		icon = GFX_goal_AUS_Study_Stars_Tiahuanaco
+		text_icon = botde_aus_vestenbrugg_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = 4
 		y = 3
@@ -20262,11 +20636,13 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 2
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_NOLB_super_transportation_experiment #(NÖLB)
 		icon = GFX_goal_AUS_NOLB_Super_Transport_Experiment
+		text_icon = botde_aus_vestenbrugg_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = 5
 		y = 4
@@ -20324,11 +20700,13 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_santur_and_the_four_great_moons
 		icon = GFX_goal_AUS_Four_Great_Moons
+		text_icon = botde_aus_vestenbrugg_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = 3
 		y = 5
@@ -20349,11 +20727,13 @@ focus_tree = {
 				remove_idea = AUS_vestenbrugg_idea
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_industrial_society_and_its_past
 		icon = GFX_goal_AUS_Industrialisms_Past_Present_Future
+		text_icon = botde_aus_vestenbrugg_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = 4
 		y = 6
@@ -20411,11 +20791,13 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = AUS_technicality_and_theozoology
 		icon = GFX_goal_AUS_Technicality_Theozoology
+		text_icon = botde_aus_vestenbrugg_titlebar
 		relative_position_id = AUS_the_templar_is_dead
 		x = 2
 		y = 7
@@ -20436,64 +20818,10 @@ focus_tree = {
 			add_war_support = 0.1
 			add_ideas = AUS_technical_theozoology
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	#### FOREIGN POLICY ####
-	
 	
 	focus = {
 		id = AUS_foreign_policy_small

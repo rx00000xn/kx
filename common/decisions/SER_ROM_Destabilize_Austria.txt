@@ -3,9 +3,7 @@ SER_serb_uprising = {
 	SER_fund_paramilitaries = {
 		custom_cost_trigger = {
 			command_power > 10
-			has_equipment = {
-				infantry_equipment > 399
-			}
+			has_equipment = { infantry_equipment > 399 }
 		}
 		custom_cost_text = SKS_agitate_paramilitary
 		icon = GFX_decision_generic_prepare_civil_war
@@ -94,7 +92,7 @@ SER_serb_uprising = {
 		ai_will_do = {
 			factor = 3
 			modifier = {
-				SER_ROM_do_not_do_minority_minigame_trigger = yes
+				SER_ROM_destablize_austria_trigger = no
 				factor = 0
 			}
 		}
@@ -146,7 +144,7 @@ SER_serb_uprising = {
 		ai_will_do = {
 			factor = 3
 			modifier = {
-				SER_ROM_do_not_do_minority_minigame_trigger = yes
+				SER_ROM_destablize_austria_trigger = no
 				factor = 0
 			}
 		}
@@ -166,9 +164,7 @@ SER_serb_uprising = {
 					is_in_faction_with = AUS
 				}
 				is_core_of = SKS
-				has_dynamic_modifier = {
-					modifier = CRO_chetnik_presence
-				}
+				has_dynamic_modifier = { modifier = CRO_chetnik_presence }
 				check_variable = {
 					var = FROM.success_value_supp
 					value = 1
@@ -198,7 +194,7 @@ SER_serb_uprising = {
 		ai_will_do = {
 			factor = 3
 			modifier = {
-				SER_ROM_do_not_do_minority_minigame_trigger = yes
+				SER_ROM_destablize_austria_trigger = no
 				factor = 0
 			}
 		}
@@ -211,21 +207,19 @@ SER_serb_uprising = {
 			has_political_power > 49.99
 			has_equipment = { infantry_equipment > 499 }
 		}
-		
-		icon = GFX_decision_generic_flags
+		icon = GFX_decision_generic_nationalism
 		fire_only_once = yes
-		days_remove = 25
+		days_remove = 45
 		visible = {
 			tag = SER
+			is_subject = no
+			has_capitulated = no
 			NOT = {
-				is_in_faction_with = AUS
+				is_ally_with = AUS
 				has_country_flag = SER_funded_seppies
 				has_idea = SER_reparation_payments
+				has_global_flag = no_backers_allowed
 			}
-		}
-		available = {
-			has_capitulated = no
-			NOT = { has_global_flag = no_backers_allowed }
 		}
 		cancel_if_not_visible = yes
 		complete_effect = {
@@ -262,6 +256,7 @@ SER_serb_uprising = {
 			}
 			if = { #Romania will complete their decision
 				limit = {
+					NOT = { has_global_flag = SER_ROM_evil_ass_rape_decision_flag_2 }
 					ROM = {
 						is_ai = yes
 						NOT = {
@@ -270,15 +265,13 @@ SER_serb_uprising = {
 						}
 					}
 				}
-				ROM = {
-					activate_decision = ROM_seek_transylvanian_ties
-				}
+				ROM = { activate_decision = ROM_seek_transylvanian_ties }
 			}
 		}
 		ai_will_do = {
 			factor = 5000
 			modifier = {
-				SER_ROM_do_not_do_minority_minigame_trigger = yes
+				SER_ROM_destablize_austria_trigger = no
 				factor = 0
 			}
 		}
@@ -323,7 +316,7 @@ SER_serb_uprising = {
 		ai_will_do = {
 			factor = 3
 			modifier = {
-				SER_ROM_do_not_do_minority_minigame_trigger = yes
+				SER_ROM_destablize_austria_trigger = no
 				factor = 0
 			}
 		}
@@ -368,7 +361,7 @@ SER_serb_uprising = {
 			base = 5
 			modifier = {
 				OR = {
-					SER_ROM_do_not_do_minority_minigame_trigger = yes
+					SER_ROM_destablize_austria_trigger = no
 					AND = {
 						AUS = { is_ai = yes }
 						NOT = { ITA = { has_war_with = AUS } }
@@ -416,7 +409,7 @@ SER_serb_uprising = {
 		ai_will_do = {
 			factor = 50
 			modifier = {
-				SER_ROM_do_not_do_minority_minigame_trigger = yes
+				SER_ROM_destablize_austria_trigger = no
 				factor = 0
 			}
 		}
@@ -485,7 +478,7 @@ SER_serb_uprising = {
 		ai_will_do = {
 			factor = 50
 			modifier = {
-				SER_ROM_do_not_do_minority_minigame_trigger = yes
+				SER_ROM_destablize_austria_trigger = no
 				factor = 0
 			}
 		}
@@ -593,7 +586,7 @@ SER_serb_uprising = {
 				}
 			}
 			modifier = {
-				SER_ROM_do_not_do_minority_minigame_trigger = yes
+				SER_ROM_destablize_austria_trigger = no
 				factor = 0
 			}
 		}
@@ -682,7 +675,7 @@ SER_serb_uprising = {
 		ai_will_do = {
 			factor = 3
 			modifier = {
-				SER_ROM_do_not_do_minority_minigame_trigger = yes
+				SER_ROM_destablize_austria_trigger = no
 				factor = 0
 			}
 		}
@@ -805,7 +798,7 @@ SER_serb_uprising = {
 		ai_will_do = {
 			factor = 3
 			modifier = {
-				SER_ROM_do_not_do_minority_minigame_trigger = yes
+				SER_ROM_destablize_austria_trigger = no
 				factor = 0
 			}
 		}
@@ -850,7 +843,7 @@ SER_serb_uprising = {
 		ai_will_do = {
 			base = 300
 			modifier = {
-				SER_ROM_do_not_do_minority_minigame_trigger = yes
+				SER_ROM_destablize_austria_trigger = no
 				factor = 0
 			}
 		}
@@ -895,7 +888,7 @@ SER_serb_uprising = {
 		ai_will_do = {
 			base = 300
 			modifier = {
-				SER_ROM_do_not_do_minority_minigame_trigger = yes
+				SER_ROM_destablize_austria_trigger = no
 				factor = 0
 			}
 		}
@@ -935,7 +928,7 @@ SER_serb_uprising = {
 		ai_will_do = {
 			base = 300
 			modifier = {
-				SER_ROM_do_not_do_minority_minigame_trigger = yes
+				SER_ROM_destablize_austria_trigger = no
 				factor = 0
 			}
 		}
@@ -982,7 +975,7 @@ SER_serb_uprising = {
 		ai_will_do = {
 			base = 300
 			modifier = {
-				SER_ROM_do_not_do_minority_minigame_trigger = yes
+				SER_ROM_destablize_austria_trigger = no
 				factor = 0
 			}
 		}
@@ -1080,7 +1073,7 @@ SER_serb_uprising = {
 		ai_will_do = {
 			factor = 3
 			modifier = {
-				SER_ROM_do_not_do_minority_minigame_trigger = yes
+				SER_ROM_destablize_austria_trigger = no
 				factor = 0
 			}
 		}
@@ -1144,7 +1137,7 @@ SER_serb_uprising = {
 		ai_will_do = {
 			base = 3000
 			modifier = {
-				SER_ROM_do_not_do_minority_minigame_trigger = yes
+				SER_ROM_destablize_austria_trigger = no
 				factor = 0
 			}
 		}
@@ -1152,21 +1145,20 @@ SER_serb_uprising = {
 	
 	SER_revolt_mission = {
 		days_mission_timeout = 60
-		activation = {
-			always = no
-		}
-		icon = GFX_decision_generic_ignite_civil_war
+		activation = { always = no }
+		icon = GFX_decision_revolt
 		war_with_on_timeout = AUS
 		war_with_on_timeout = CRO
-		available = {
-			always = no
-		}
+		available = { always = no }
 		cancel_trigger = {
 			OR = {
 				AND = {
 					if = {
 						limit = { any_possible_country = { has_event_target = BOTDE_backer_revolt_tag } }
-						SER = { owns_state = event_target:BOTDE_backer_revolt_tag.capital_scope }
+						OR = {
+							SER = { owns_state = event_target:BOTDE_backer_revolt_tag.capital_scope }
+							NOT = { is_in_array = { global.bp_occupied_tag_array_SER = event_target:BOTDE_backer_revolt_tag } }
+						}
 					}
 					else = { always = no }
 				}
@@ -1182,7 +1174,7 @@ SER_serb_uprising = {
 		ai_will_do = {
 			factor = 3
 			modifier = {
-				SER_ROM_do_not_do_minority_minigame_trigger = yes
+				SER_ROM_destablize_austria_trigger = no
 				factor = 0
 			}
 		}
@@ -1312,7 +1304,7 @@ SER_serb_uprising = {
 		ai_will_do = {
 			factor = 10000
 			modifier = {
-				SER_ROM_do_not_do_minority_minigame_trigger = yes
+				SER_ROM_destablize_austria_trigger = no
 				factor = 0
 			}
 		}
@@ -1373,11 +1365,45 @@ SER_serb_uprising = {
 			log = "[GetDateText]: [Root.GetName]: Mission timeout SER_MCD_revolt"
 			SER_MCD_revolt_mission_timeout_effect = yes
 		}
+	}
+
+	SER_hellfire = {
+		icon = GFX_decision_SER_serbian_cross
+		available = {
+			OR = {
+				any_subject_country = { has_capitulated = yes }
+				surrender_progress > 0.1
+			}
+		}
+
+		visible = {
+			tag = SER
+			fifth_balkan_war = yes
+			has_war_with = AUS
+		}
+
+		cost = 0
+		days_remove = 20
+		fire_only_once = yes
+
 		ai_will_do = {
-			factor = 3
-			modifier = {
-				SER_ROM_do_not_do_minority_minigame_trigger = yes
-				factor = 0
+			base = 100
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove SER_hellfire"
+			add_timed_idea = {
+				idea = SER_burning_hell
+				days = 120
+			}
+			if = {
+				limit = { num_subjects > 0 }
+				every_subject_country = {
+					add_timed_idea = {
+						idea = SER_burning_hell
+						days = 120
+					}
+				}
 			}
 		}
 	}
@@ -1386,32 +1412,28 @@ SER_serb_uprising = {
 ROM_romanian_uprising = {
 	
 	ROM_seek_transylvanian_ties = {
-		ai_hint_pp_cost = 50
 		custom_cost_text = 4k_manpower_gun
 		custom_cost_trigger = {
 			has_manpower > 3999
 			has_equipment = { infantry_equipment > 799 }
 		}
-		
 		icon = GFX_decision_generic_nationalism
 		fire_only_once = yes
 		days_remove = 45
 		visible = {
 			tag = ROM
-			NOT = { is_ally_with = AUS }
-			OR = {
-				owns_state = 772
-				owns_state = 77
-			}
-		}
-		available = {
 			is_subject = no
-			NOT = { has_global_flag = no_backers_allowed }
+			has_capitulated = no
+			NOT = {
+				is_ally_with = AUS
+				has_global_flag = no_backers_allowed
+			}
 			OR = {
 				owns_state = 772
 				owns_state = 77
 			}
 		}
+		cancel_if_not_visible = yes
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision ROM_seek_transylvanian_ties"
 			hidden_effect = {
@@ -1446,18 +1468,24 @@ ROM_romanian_uprising = {
 			}
 			if = { #Serbia will complete their decision
 				limit = {
+					NOT = { has_global_flag = SER_ROM_evil_ass_rape_decision_flag_2 }
 					SER = {
 						is_ai = yes
-						NOT = { has_country_flag = SER_funded_seppies has_country_flag = SER_decision_seppies_activated }
+						NOT = {
+							has_country_flag = SER_funded_seppies
+							has_country_flag = SER_decision_seppies_activated
+						}
 					}
 				}
-				SER = {
-					activate_decision = SER_seek_chetnik_ties
-				}
+				SER = { activate_decision = SER_seek_chetnik_ties }
 			}
 		}
 		ai_will_do = {
-			factor = 500
+			factor = 5000
+			modifier = {
+				SER_ROM_destablize_austria_trigger = no
+				factor = 0
+			}
 		}
 	}
 	
@@ -1867,22 +1895,21 @@ ROM_romanian_uprising = {
 	
 	ROM_revolt_mission = {
 		days_mission_timeout = 60
-		activation = {
-			always = no
-		}
+		activation = { always = no }
 		icon = GFX_decision_revolt
 		war_with_on_timeout = AUS
 		war_with_on_timeout = HUN
 		war_with_on_timeout = GAL
-		available = {
-			always = no
-		}
+		available = { always = no }
 		cancel_trigger = {
 			OR = {
 				AND = {
 					if = {
 						limit = { any_possible_country = { has_event_target = BOTDE_backer_revolt_tag } }
-						ROM = { owns_state = event_target:BOTDE_backer_revolt_tag.capital_scope }
+						OR = {
+							ROM = { owns_state = event_target:BOTDE_backer_revolt_tag.capital_scope }
+							NOT = { is_in_array = { global.bp_occupied_tag_array_ROM = event_target:BOTDE_backer_revolt_tag } }
+						}
 					}
 					else = { always = no }
 				}
@@ -2953,6 +2980,7 @@ foreign_politics = {
 				tag = ROM
 			}
 			is_ai = yes
+			is_subject = no
 			OR = {
 				has_completed_focus = SER_congress_of_belgrade
 				has_completed_focus = ROM_across_the_carpathians
@@ -2965,51 +2993,60 @@ foreign_politics = {
 			}
 			has_global_flag = balkan_war_ended
 		}
-		cancel_trigger = {
-			OR = {
-				has_global_flag = SER_ROM_evil_ass_rape_decision_flag
-				has_country_flag = SER_funded_seppies
-				has_country_flag = ROM_funded_seppies
-			}
-		}
 		available = {
 			NOT = {
 				has_global_flag = SER_ROM_evil_ass_rape_decision_flag_2
 			}
 		}
+		cancel_if_not_visible = yes
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SER_ROM_evil_ass_rape_decision"
 			set_global_flag = SER_ROM_evil_ass_rape_decision_flag_2
 		}
 		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SER_ROM_evil_ass_rape_decision"
+			log = "[GetDateText]: [Root.GetName]: Decision remove SER_ROM_evil_ass_rape_decision"
 			if = {
 				limit = {
-					NOT = {
-						SER = {
+					SER = {
+						NOT = {
 							has_country_flag = SER_decision_seppies_activated
+							is_ally_with = AUS
 						}
+						is_ai = yes
+						is_subject = no
 					}
 				}
 				SER = {
-					activate_decision = SER_seek_chetnik_ties
+					country_event = botdepact.100
 				}
 			}
 			if = {
 				limit = {
-					NOT = {
-						ROM = {
+					ROM = {
+						NOT = {
 							has_country_flag = ROM_decision_seppies_activated
+							is_ally_with = AUS
+						}
+						is_ai = yes
+						is_subject = no
+						OR = {
+							owns_state = 772
+							owns_state = 77
 						}
 					}
 				}
 				ROM = {
-					activate_decision = ROM_seek_transylvanian_ties
+					country_event = botdepact.101
 				}
 			}
 			set_global_flag = SER_ROM_evil_ass_rape_decision_flag
 		}
 		ai_will_do = {
-			factor = 999
+			base = 0
+			modifier = {
+				add = 1000
+				SER_ROM_destablize_austria_trigger = yes
+			}
 		}
 	}
 	
@@ -3022,11 +3059,14 @@ foreign_politics = {
 			has_global_flag = AUS_collapsed
 		}
 		available = {
-			OR = {
-				45 = { NOT = { is_core_of = SER } }
-				794 = { NOT = { is_core_of = SER } }
-				875 = { NOT = { is_core_of = SER } }
-				1128 = { NOT = { is_core_of = SER } }
+			any_state = {
+				OR = {
+					state = 45
+					state = 794
+					state = 875
+					state = 1128
+				}
+				NOT = { is_core_of = SER }
 			}
 		}
 		remove_effect = {

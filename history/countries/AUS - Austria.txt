@@ -88,6 +88,7 @@ if = {
 }
 
 set_technology = {
+	mtg_transport = 1
 	early_ship_hull_light = 1
 	basic_ship_hull_light = 1
 	early_ship_hull_cruiser = 1
@@ -103,6 +104,13 @@ set_technology = {
 	pre_dreadnoughts = 1
 	
 	basic_naval_mines = 1
+	basic_battery = 1
+	basic_light_battery = 1
+	basic_heavy_battery = 1
+	basic_torpedo = 1
+	improved_ship_torpedo_launcher = 1
+	basic_cruiser_armor_scheme = 1
+	basic_heavy_armor_scheme = 1
 }
 
 
@@ -133,7 +141,6 @@ diplomatic_relation = { country = GER relation = non_aggression_pact }
 set_country_flag = legation_council_vote
 set_country_flag = rad_socs_arent_syndie
 #activate_mission = AUS_payment_mission
-add_dynamic_modifier = { modifier = AUS_kraut_debts }
 add_dynamic_modifier = { modifier = AUS_constituent_allocations }
 
 
@@ -164,8 +171,11 @@ country_event = { id = bdeausflavor.88 days = 322 } #Death of Karl Kraus
 country_event = { id = bdeausflavor.56 days = 832 } #Death of Wilhelm Zehner
 country_event = { id = bdeausflavor.89 days = 2249 } #Bambi put to the Big Screens
 country_event = { id = bdeausflavor.17 days = 309 } #Weltkrieg Day
-
+country_event = { id = bdeausflavor.27 days = 110 random_hours = 12 } #The Death of Wladimir Freiherr Giesl von Gieslingen
 country_event = { id = bdeausflavor.121 days = 1825 random_days = 300 } #Glaise-Horstenau Finishes his Twelve Volumes on the Austrian Experience of the Weltkrieg
+country_event = { id = bdeausflavor.38 days = 365 random_days = 365 random_hours = 720 } #The World Fair at Vienna
+country_event = { id = bdeausflavor.100 days = 1070 random_hours = 12 } #The Execution of Martha Marek
+country_event = { id = bdeausgleichflavor.15 days = 366 random_hours = 240 } #Ausgleich at Horizon's Break
 
 set_war_support = 0.1
 #VNC = {
@@ -308,8 +318,12 @@ FIU = {
 }
 
 add_to_tech_sharing_group = austrian_research
-add_faction_goal = faction_goal_federalize_empire
-add_faction_goal = faction_goal_good_ausgleich
+
+if = {
+	limit = { has_dlc_ncns = yes }
+	add_faction_goal = faction_goal_federalize_empire
+	add_faction_goal = faction_goal_good_ausgleich
+}
 
 add_ideas = {
 	AUS_vienna_circle
@@ -341,7 +355,7 @@ create_country_leader = {
     name = "Alfred Klahr"
 	desc = "POLITICS_KLAHR_BOTDE_DESC"
     picture = "gfx/leaders/AUS/Portrait_AUS_Alfred_Klahr.png"
-    expire = "1965.1.1"
+    expire = "1.1.1"
     ideology = national_communism_subtype
 }
 
@@ -349,7 +363,7 @@ create_country_leader = {
     name = "Karl Steinhardt"
 	desc = "POLITICS_STEINHARDT_BOTDE_DESC"
     picture = "gfx/leaders/AUS/AUS_Karl_Steinhardt.png"
-    expire = "1965.1.1"
+    expire = "1.1.1"
     ideology = centralized_syndicalism_subtype
 }
 
@@ -357,7 +371,7 @@ create_country_leader = {
 	name = "Karl I"
 	desc = "POLITICS_KARL_BOTDE_DESC"
 	picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I.png"
-	expire = "1965.1.1"
+	expire = "1.1.1"
 	ideology = radsoc_austromarxism_subtype
 }
 
@@ -365,7 +379,7 @@ create_country_leader = {
 	name = "Karl I"
 	desc = "POLITICS_KARL_BOTDE_DESC"
 	picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I.png"
-	expire = "1965.1.1"
+	expire = "1.1.1"
 	ideology = austromarxism_subtype
 }
 
@@ -373,7 +387,7 @@ create_country_leader = {
 	name = "Karl I"
 	desc = "POLITICS_KARL_BOTDE_DESC"
 	picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I.png"
-	expire = "1965.1.1"
+	expire = "1.1.1"
 	ideology = paneuropeanism_subtype
 }
 
@@ -381,7 +395,7 @@ create_country_leader = {
 	name = "Karl I"
 	desc = "POLITICS_KARL_BOTDE_DESC"
 	picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I.png"
-	expire = "1965.1.1"
+	expire = "1.1.1"
 	ideology = marlib_agrarianism_subtype
 }
 
@@ -389,15 +403,7 @@ create_country_leader = {
 	name = "Karl I"
 	desc = "POLITICS_KARL_BOTDE_DESC"
 	picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I.png"
-	expire = "1965.1.1"
-	ideology = aulic_liberalism_subtype 
-}
-
-create_country_leader = {
-	name = "Karl I"
-	desc = "POLITICS_KARL_DESC"
-	picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I.png"
-	expire = "1965.1.1"
+	expire = "1.1.1"
 	ideology = christian_democracy_subtype
 }
 
@@ -405,7 +411,7 @@ create_country_leader = {
 	name = "Karl I"
 	desc = "POLITICS_KARL_BOTDE_DESC"
 	picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I.png"
-	expire = "1965.1.1"
+	expire = "1.1.1"
 	ideology = autdem_christian_democracy_subtype
 }
 
@@ -413,7 +419,7 @@ create_country_leader = {
 	name = "Karl I"
 	desc = "POLITICS_KARL_BOTDE_DESC"
 	picture = "gfx/leaders/AUS/Portrait_AUS_Karl_I.png"
-	expire = "1965.1.1"
+	expire = "1.1.1"
 	ideology = austropopulism_subtype
 }
 
@@ -421,7 +427,7 @@ create_country_leader = {
 	name = "Jörg Lanz von Liebenfels"
 	desc = "POLITICS_LIEBENFELS_DESC"
 	picture = "gfx/leaders/AUS/Portrait_AUS_Liebenfels.png"
-	expire = "1965.1.1"
+	expire = "1.1.1"
 	ideology = ariosophy_subtype
 }
 
@@ -556,6 +562,7 @@ create_corps_commander = {
 	defense_skill = 4
 	planning_skill = 3
 	logistics_skill = 3
+	id = 400010
 }
 
 create_corps_commander = {
@@ -572,6 +579,7 @@ create_corps_commander = {
 	defense_skill = 3
 	planning_skill = 3
 	logistics_skill = 4
+	id = 400015
 }
 
 create_corps_commander = {
@@ -588,6 +596,7 @@ create_corps_commander = {
 	defense_skill = 3
 	planning_skill = 3
 	logistics_skill = 2
+	id = 400014
 }
 
 create_corps_commander = {
@@ -604,6 +613,7 @@ create_corps_commander = {
 	defense_skill = 3
 	planning_skill = 3
 	logistics_skill = 2
+	id = 400013
 }
 
 create_corps_commander = {
@@ -622,6 +632,7 @@ create_corps_commander = {
 	defense_skill = 2
 	planning_skill = 2
 	logistics_skill = 3
+	id = 400011
 }
 
 create_corps_commander = {
@@ -685,6 +696,7 @@ create_corps_commander = {
 	defense_skill = 2
 	planning_skill = 2
 	logistics_skill = 2
+	id = 400012
 }
 
 
@@ -721,6 +733,7 @@ create_corps_commander = {
 	defense_skill = 2
 	planning_skill = 4
 	logistics_skill = 4
+	id = 400016
 }
 
 create_corps_commander = {
@@ -781,6 +794,21 @@ create_corps_commander = {
 	logistics_skill = 3
 }
 
+create_corps_commander = {
+	name = "Otto Skorzeny"
+	portrait_path = "gfx/leaders/AUS/Portrait_AUS_Otto_Skorzeny.png"
+	traits = {
+		air_commander
+		commando
+	}
+	skill = 1
+	attack_skill = 2
+	defense_skill = 1
+	planning_skill = 2
+	logistics_skill = 1
+	id = 400017
+}
+
 ### Navy Leader
 create_navy_leader = {
 	name = "Georg von Trapp"
@@ -825,18 +853,6 @@ create_navy_leader = {
 	coordination_skill = 2
 }
 
-create_navy_leader = {
-	name = "Janko Vuković"
-	portrait_path = "gfx/leaders/AUS/Portrait_AUS_Janko_Vukovic.png"
-	traits = {
-		superior_tactician
-	}
-	skill = 1
-	attack_skill = 1
-	defense_skill = 1
-	maneuvering_skill = 1
-	coordination_skill = 1
-}
 create_navy_leader = {
 	name = "Maximilian Eugen von Habsburg-Lothringen"
 	desc = "AUS_ARCHDUKE_MAX_EUGEN_NAVY_DESC"
@@ -951,6 +967,8 @@ recruit_character = AUS_Eugen_Sanger
 recruit_character = AUS_Herbert_Wagner
 recruit_character = AUS_Igo_Etrich
 recruit_character = AUS_Max_Valier
+recruit_character = AUS_Friedrich_Schmiedl
+recruit_character = AUS_Richard_von_Mises_Scientist
 
 ## NAVY
 
