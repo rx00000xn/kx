@@ -1106,7 +1106,7 @@ country_event = { #End of the TUC - Hardliners/BSP
 		complete_national_focus = ENG_1936_Hardliner_Victory
 		create_country_leader = {
 			name = "R. Palme Dutt"
-			desc = "POLITICS_TE_LAWRENCE_DESC"
+			desc = "POLITICS_PALME_DUTT_DESC"
 			picture = "gfx/leaders/ENG/Portrait_ENG_Palme_Dutt.png"
 			expire = "1.1.1"
 			ideology = hardliner_bolshevism_subtype
@@ -6055,17 +6055,23 @@ country_event = { #Weltkreig over
 	trigger = {
 		tag = ENG
 		has_global_flag = second_weltkrieg_has_started #set in the world news event
-		OR = {
-			NOT = {
-				country_exists = GER
-			}
-			is_in_faction_with = GRU
-			GER = {
+		AND = {
+			OR = {
+				is_in_faction_with = GRU
 				NOT = {
-					controls_state = 64
+					country_exists = GER
 				}
+			}
+			OR = {
+				is_in_faction_with = CAN
 				NOT = {
-					controls_state = 55
+					country_exists = CAN
+				}
+			}
+			OR = {
+				is_in_faction_with = NFA
+				NOT = {
+					country_exists = NFA
 				}
 			}
 		}
@@ -6280,6 +6286,28 @@ country_event = { #in hot water
 			ideology = radsoc_anarcho_syndicalist_subtype
 		}
 		custom_effect_tooltip = radsoc_radsoc_anarcho_syndicalist_subtype_swap_tt
+	}
+	option = {
+		name = uob.305.c
+		ai_chance = {
+			base = 50
+		}
+		trigger = {
+			has_completed_focus = ENG_ANA_individual_first
+		}
+		add_popularity = {
+			ideology = radical_socialist
+			popularity = 0.02
+		}
+		add_stability = 0.05
+		create_country_leader = {
+			name = "Richard Aldington"
+			desc = "POLITICS_TE_LAWRENCE_DESC"
+			picture = "gfx/leaders/ENG/Portrait_ENG_Richard_Aldington.png"
+			expire = "1.1.1"
+			ideology = egoism_subtype
+		}
+		custom_effect_tooltip = radsoc_egoism_subtype_swap_tt
 	}
 }
 country_event = {#russells influence...dare i say...he...rises?
@@ -6741,10 +6769,10 @@ country_event = { #christian anarchists
 	}
 	option = {
 		name = uob.319.c
-		#trigger = {
-		#	has_country_flag = ENG_ANA_WSPU_rejected
-		#	has_country_leader = { name = "Guy Aldred" ruling_only = yes }
-		#}
+		trigger = {
+			has_country_flag = ENG_ANA_WSPU_rejected
+			has_country_leader = { name = "Guy Aldred" ruling_only = yes }
+		}
 		ai_chance = {
 			base = 50
 		}
@@ -7646,6 +7674,34 @@ country_event = {#commonwealth party
 		add_stability = 0.04
 	}
 }
+
+country_event = {#Lumpen
+	id = uob.426
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.426" }
+	title = uob.426.t
+	desc = uob.426.d
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = uob.426.a
+		add_political_power = 25
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.03
+		}
+	}
+	option = {
+		name = uob.426.b
+		add_stability = 0.06
+		add_political_power = -20
+	}
+}
+
 # Federationist events # 
 country_event = {#WSPU Discussion
 	id = uob.500
@@ -8243,7 +8299,7 @@ country_event = {#pacifism is on the way out
 		}
 	}
 }
-country_event = {#integrate with france?
+country_event = {#integrate with france? (federationst version)
 	id = uob.517
 	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.517" }
 	title = uob.517.t
@@ -8253,6 +8309,13 @@ country_event = {#integrate with france?
 	fire_only_once = yes
 	option = { #send offer
 		name = uob.517.a
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0
+				FRA = { is_ai = no }
+			}
+		}
 		add_political_power = -100
 		FRA = {
 			country_event = {
@@ -8263,6 +8326,9 @@ country_event = {#integrate with france?
 	}
 	option = {
 		name = uob.517.b
+		ai_chance = {
+			base = 50
+		}
 		add_political_power = 100
 	}
 
@@ -8279,9 +8345,9 @@ country_event = {#unite with england?
 	option = {
 		name = uob.518.a
 		ai_chance = {
-			base = 60
+			base = 50
 			modifier = {
-				add = 35
+				add = 20
 				ENG = { has_same_government_as_ROOT = yes }
 			}
 		}
@@ -8294,7 +8360,7 @@ country_event = {#unite with england?
 	}
 	option = {
 		ai_chance = {
-			base = 40
+			base = 50
 			modifier = {
 				add = 40
 				FRA = { has_government = totalist }
@@ -8358,7 +8424,14 @@ country_event = {#france accepts
 				remove_core_of = FRA
 				remove_claim_by = FRA
 			}
-
+			if = {
+				limit = {
+					ENG = {
+						is_ai = yes
+					}
+				}
+				add_ideas = ENG_split_governance_idea
+			}
 		}
 		annex_country = {
 			target = FRA
@@ -11149,13 +11222,10 @@ country_event = { #tell adela to fuck off
 	trigger = {
 		AST = {
 			is_in_faction_with = ENG
+			has_socialist_government = no
 			has_country_leader = {
 				ruling_only = yes
 				name = "Adela Pankhurst"
-			}
-			OR = {
-				has_government = national_populist
-				has_government = paternal_autocrat
 			}
 		}
 	}
@@ -13831,27 +13901,11 @@ country_event = {#Harold Gillies plastic surgery
 	}
 }
 
-country_event = { # Dr Syn smuggling
+country_event = { # Victory gardens
 	id = uobflavour.42
 	immediate = { log = "[GetDateText]: [Root.GetName]: event uobflavour.42" }
 	title = uobflavour.42.t
 	desc = uobflavour.42.d
-	picture = GFX_ENG_Dr_syn
-	is_triggered_only = yes
-	trigger = {
-		has_socialist_government = yes
-	}
-	fire_only_once = yes
-	option = {
-		name = uobflavour.42.a
-	}
-}
-
-country_event = { # Victory gardens
-	id = uobflavour.43
-	immediate = { log = "[GetDateText]: [Root.GetName]: event uobflavour.43" }
-	title = uobflavour.43.t
-	desc = uobflavour.43.d
 	picture = GFX_report_event_communists_cheer
 	trigger = {
 		has_socialist_government = yes
@@ -13862,28 +13916,37 @@ country_event = { # Victory gardens
 	}
 	fire_only_once = yes
 	option = {
-		name = uobflavour.43.a
+		name = uobflavour.42.a
 		add_stability = 0.04
 	}
 	option = {
-		trigger = { ENG_Anarchists_lead = yes}
-		name = uobflavour.43.b
-		add_political_power = -10
-		hidden_effect = {
-			country_event = {
-				id = uob.318
-				days = 150
+		
+		name = uobflavour.42.b
+		add_political_power = -15
+		add_war_support = 0.04
+		add_stability = 0.05
+		if = {
+			limit = {
+				ENG_Anarchists_lead = yes
+			}
+			hidden_effect = {
+				country_event = {
+					id = uob.318
+					days = 150
+				}
 			}
 		}
+
 	}
 }
+
 # Military tree events # 
 country_event = { # mot or mech inf
 	id = uobmil.1
 	immediate = { log = "[GetDateText]: [Root.GetName]: event uobmil.1" }
 	title = uobmil.1.t
 	desc = uobmil.1.d
-	picture = GFX_ENG_Dr_syn
+	picture = GFX_ENG_random_tanks
 	is_triggered_only = yes
 	fire_only_once = yes
 	option = {
@@ -13921,9 +13984,6 @@ country_event = { # martel bridge
 		random_unit_leader = {
 			limit = { has_id = 2671 }
 			add_trait = {
-				trait = engineer_officer
-			}
-			add_trait = {
 				trait = expert_improviser
 			}
 		}
@@ -13955,7 +14015,7 @@ country_event = { #Morris-Martel/Carden Loyd tankette
 	immediate = { log = "[GetDateText]: [Root.GetName]: event uobmil.4" }
 	title = uobmil.4.t
 	desc = uobmil.4.d
-	picture = GFX_ENG_Dr_syn
+	picture = GFX_ENG_tankette
 	is_triggered_only = yes
 	fire_only_once = yes
 	option = {
@@ -13981,7 +14041,6 @@ country_event = { #Liddell-Hart strategy
 			limit = { has_id = 2500 }
 			gain_xp = 150
 		}
-		
 	}
 }
 country_event = { #Billingham Manufacturing Plant
@@ -14010,6 +14069,75 @@ country_event = { #hobart funnies
 		#reward for tanks or something
 	}
 }
+country_event = { #lee enfield
+	id = uobmil.8
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobmil.8" }
+	title = uobmil.8.t
+	desc = uobmil.8.d
+	picture = GFX_report_event_generic_economy_growth
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = uobmil.8.a #
+		add_political_power = -25
+		add_tech_bonus = {
+			name = uob.8.t
+			bonus = 0.5
+			uses = 1
+			category = infantry_weapons
+		}
+		if = {
+			limit = { has_dlc_aat = no }
+			add_ideas = rsaf
+		}
+		else = {
+			mio:ENG_republican_arsenal_organisation = { add_mio_size = 1 }
+		}
+	}
+
+	option = {
+		name = uobmil.8.b #
+		add_political_power = -25
+		add_tech_bonus = {
+			name = uob.8.t
+			bonus = 0.5
+			uses = 1
+			category = infantry_weapons
+		}
+		if = {
+			limit = { has_dlc_aat = no }
+			add_ideas = bsa
+		}
+		else = {
+			mio:ENG_bsa_organisation = { add_mio_size = 1 }
+		}
+	}
+
+	option = {
+		name = uobmil.8.c
+		add_tech_bonus = {
+			name = uob.8.t
+			bonus = 1
+			uses = 1
+			category = infantry_weapons
+		}
+	}
+}
+country_event = { #dads army
+	id = uobmil.9
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobmil.9" }
+	title = uobmil.9.t
+	desc = uobmil.9.d
+	picture = GFX_ENG_Dads_Army
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = uobmil.9.a
+		add_manpower = 2000
+	}
+}
+
+
 # Flag pickers # 
 country_event = { #WSPU Flag picker
 	id = uobflag.1
