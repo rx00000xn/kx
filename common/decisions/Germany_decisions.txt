@@ -23,7 +23,7 @@ political_actions = {
 		fire_only_once = no
 		days_re_enable = 1
 		ai_will_do = {
-			factor = 100
+			factor = 0
 		}
 
 		complete_effect = {
@@ -104,7 +104,7 @@ political_actions = {
 		days_remove = 45
 		
 		ai_will_do = {
-			factor = 2000
+			factor = 1000
 			modifier = {
 				factor = 0
 				OR = {
@@ -277,7 +277,7 @@ political_actions = {
 		cost = 0
 
 		ai_will_do = {
-			factor = 100
+			factor = 60
 		}
 
 		complete_effect = {
@@ -332,7 +332,7 @@ political_actions = {
 		}
 
 		ai_will_do = {
-			factor = 15
+			factor = 30
 			modifier = { # This is to prevent the AI from spamming it which could annoy a player.
 				factor = 0
 				has_country_flag = GER_Sent_Support
@@ -536,42 +536,6 @@ political_actions = {
 			factor = 50
 		}
     }
-	
-	GER_Sicilian_Economic_Aid = {
-		icon = generic_construction
-		allowed = { always = no } # Fired in event
-		
-		days_remove = 180
-		fire_only_once = yes
-		
-		modifier = {
-			civilian_factory_use = 8
-		}
-	}
-	
-	GER_Dutch_Economic_Aid = {
-		icon = generic_construction
-		allowed = { always = no } # Fired in event
-		
-		days_remove = 180
-		fire_only_once = yes
-		
-		modifier = {
-			civilian_factory_use = 8
-		}
-	}
-	
-	GER_Don_Economic_Aid = {
-		icon = generic_construction
-		allowed = { always = no } # Fired in event
-		
-		days_remove = 180
-		fire_only_once = yes
-		
-		modifier = {
-			civilian_factory_use = 8
-		}
-	}
 }
 
 GER_halifax_category = {
@@ -592,6 +556,7 @@ GER_halifax_category = {
 				original_tag = CAN
 				original_tag = NFA
 			}
+			NOT = { has_global_flag = GER_Halifax_Alsace_Lorraine_Clicked }
 		}
 		available = {
 			NOT = { has_global_flag = GER_Halifax_Negotiating }
@@ -607,6 +572,7 @@ GER_halifax_category = {
 		
 		complete_effect = {
 			set_global_flag = GER_Halifax_Negotiating
+			set_global_flag = GER_Halifax_Alsace_Lorraine_Clicked
 			if = {
 				limit = {
 					tag = GER
@@ -657,6 +623,7 @@ GER_halifax_category = {
 				original_tag = CAN
 				original_tag = NFA
 			}
+			NOT = { has_global_flag = GER_Halifax_Colonial_Claims_Clicked }
 		}
 		available = {
 			NOT = { has_global_flag = GER_Halifax_Negotiating }
@@ -672,6 +639,7 @@ GER_halifax_category = {
 		
 		complete_effect = {
 			set_global_flag = GER_Halifax_Negotiating
+			set_global_flag = GER_Halifax_Colonial_Claims_Clicked
 			if = {
 				limit = {
 					tag = GER
@@ -711,6 +679,7 @@ GER_halifax_category = {
 				original_tag = CAN
 				original_tag = NFA
 			}
+			NOT = { has_global_flag = GER_Halifax_Mitteleuropa_Clicked }
 		}
 		available = {
 			NOT = { has_global_flag = GER_Halifax_Negotiating }
@@ -726,6 +695,7 @@ GER_halifax_category = {
 	
 		complete_effect = {
 			set_global_flag = GER_Halifax_Negotiating
+			set_global_flag = GER_Halifax_Mitteleuropa_Clicked
 			if = {
 				limit = {
 					tag = GER
@@ -820,7 +790,13 @@ GER_desperate_struggle_category = {
 		allowed = { original_tag = GER }
 		
 		available = {
-			surrender_progress > 0.40
+			OR = {
+				surrender_progress > 0.40
+				AND = {
+					NOT = { controls_state = 5 }
+					NOT = { controls_state = 776 }
+				}
+			}
 		}
 		visible = {
 			has_defensive_war = yes
@@ -851,7 +827,18 @@ GER_desperate_struggle_category = {
 		allowed = { original_tag = GER }
 		
 		available = {
-			surrender_progress > 0.60
+			OR = {
+				surrender_progress > 0.60
+				AND = {
+					NOT = { controls_state = 86 }
+					NOT = { controls_state = 67 }
+					NOT = { controls_state = 66 }
+				}
+				AND = {
+					NOT = { controls_state = 68 }
+					NOT = { controls_state = 63 }
+				}
+			}
 		}
 		visible = {
 			has_defensive_war = yes
@@ -882,7 +869,13 @@ GER_desperate_struggle_category = {
 		allowed = { original_tag = GER }
 		
 		available = {
-			surrender_progress > 0.80
+			OR = {
+				surrender_progress > 0.80
+				AND = {
+					NOT = { controls_state = 68 }
+					NOT = { controls_state = 63 }
+				}
+			}
 		}
 		visible = {
 			has_defensive_war = yes
@@ -1371,7 +1364,7 @@ GER_militarism_category = {
 			}
 		}
 		
-		cost = 25
+		cost = 15
 		
 		days_remove = 50
 
@@ -1380,6 +1373,14 @@ GER_militarism_category = {
 		}
 		
 		complete_effect = {
+			if = {
+				limit = { is_ai = yes }
+				add_to_variable = {
+					var = GER.GER_mitteleuropa_strength_var
+					value = 2
+					tooltip = add_2_to_mitteleuropastrength_tt
+				}
+			}
 			subtract_from_variable = {
 				var = GER.GER_mitteleuropa_strength_var
 				value = 2
@@ -1417,7 +1418,7 @@ GER_militarism_category = {
 			}
 		}
 		
-		cost = 50
+		cost = 25
 		
 		days_remove = 50
 
@@ -1483,7 +1484,7 @@ GER_mitteleuropa_category = {
 	GER_mitteleuropa_tutorial_decision = {
 		allowed = { original_tag = GER }
 		available = {
-			has_country_flag = GER_blank_flag
+			hidden_trigger = { has_country_flag = GER_blank_flag }
 		}
 	}
 	
@@ -1496,6 +1497,24 @@ GER_mitteleuropa_category = {
 					var = GER_mitteleuropa_investment_count
 					value = 2
 					compare = greater_than_or_equals
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = GER_Mittel_Max_Possible_Buff_tt
+				any_country = {
+					GER_is_in_mitteleuropa = yes
+					NOT = { original_tag = GER }
+					OR = {
+						has_idea = GER_mitteleuropa_9
+						has_idea = GER_mitteleuropa_8
+						has_idea = GER_mitteleuropa_7
+						has_idea = GER_mitteleuropa_6
+						has_idea = GER_mitteleuropa_5
+						has_idea = GER_mitteleuropa_4
+						has_idea = GER_mitteleuropa_3
+						has_idea = GER_mitteleuropa_2
+						has_idea = GER_mitteleuropa_1
+					}
 				}
 			}
 		}
@@ -1516,7 +1535,27 @@ GER_mitteleuropa_category = {
 		}
 		
 		ai_will_do = {
-			factor = 1000
+			factor = 200
+			modifier = {
+				add = 500
+				has_idea = GER_mitteleuropa_empire_1
+			}
+			modifier = {
+				add = 300
+				has_idea = GER_mitteleuropa_empire_2
+			}
+			modifier = {
+				add = 200
+				has_idea = GER_mitteleuropa_empire_3
+			}
+			modifier = {
+				add = 150
+				has_idea = GER_mitteleuropa_empire_4
+			}
+			modifier = {
+				add = 100
+				has_idea = GER_mitteleuropa_empire_5
+			}
 		}
 	}
 	
@@ -1552,7 +1591,19 @@ GER_mitteleuropa_category = {
 		}
 		
 		ai_will_do = {
-			factor = 1000
+			factor = 400
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 300
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 200
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
 		}
 	}
 	
@@ -1573,7 +1624,7 @@ GER_mitteleuropa_category = {
 			}
 		}
 
-		targets = { DEN SWE FIN ICE NOR SCA }
+		targets = { DEN SWE FIN ICE NOR SCA SAM }
 		target_trigger = {
 			FROM = {
 				GER_is_in_mitteleuropa = yes
@@ -1588,11 +1639,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 25
 		days_remove = 50
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			FROM = {
@@ -1606,6 +1673,11 @@ GER_mitteleuropa_category = {
 			FROM = {
 				country_event = germit.30
 				add_ideas = GER_Bismarckian_Paternalism_idea
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
 			}
 		}
 	}
@@ -1625,7 +1697,7 @@ GER_mitteleuropa_category = {
 			}
 		}
 
-		targets = { DEN SWE FIN ICE NOR SCA }
+		targets = { DEN SWE FIN ICE NOR SCA SAM }
 		target_trigger = {
 			FROM = {
 				GER_is_in_mitteleuropa = yes
@@ -1640,7 +1712,7 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 25
 		days_remove = 50
 		fire_only_once = yes
 		ai_will_do = {
@@ -1658,6 +1730,11 @@ GER_mitteleuropa_category = {
 			FROM = {
 				country_event = germit.29
 				add_ideas = GER_KWS_Investments_idea
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
 			}
 		}
 	}
@@ -1677,11 +1754,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 50
+		cost = 30
 		days_remove = 90
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			AND = {
@@ -1737,11 +1830,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 15
+		cost = 10
 		days_remove = 120
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			AND = {
@@ -1817,11 +1926,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 25
 		days_remove = 50
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			FROM = {
@@ -1835,6 +1960,11 @@ GER_mitteleuropa_category = {
 			FROM = {
 				country_event = germit.30
 				add_ideas = GER_Bismarckian_Paternalism_idea
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
 			}
 		}
 	}
@@ -1869,11 +1999,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 25
 		days_remove = 50
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			FROM = {
@@ -1887,6 +2033,11 @@ GER_mitteleuropa_category = {
 			FROM = {
 				country_event = germit.29
 				add_ideas = GER_KWS_Investments_idea
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
 			}
 		}
 	}
@@ -1906,11 +2057,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 75
+		cost = 45
 		days_remove = 100
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			AND = {
@@ -1981,11 +2148,27 @@ GER_mitteleuropa_category = {
 			var:837.owner = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 65
+		cost = 30
 		days_remove = 55
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			var:837.owner = {
@@ -2039,11 +2222,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 25
 		days_remove = 50
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			FROM = {
@@ -2057,6 +2256,11 @@ GER_mitteleuropa_category = {
 			FROM = {
 				country_event = germit.30
 				add_ideas = GER_Bismarckian_Paternalism_idea
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
 			}
 		}
 	}
@@ -2091,11 +2295,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 25
 		days_remove = 50
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			FROM = {
@@ -2110,6 +2330,11 @@ GER_mitteleuropa_category = {
 				country_event = germit.29
 				add_ideas = GER_KWS_Investments_idea
 			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
 		}
 	}
 	
@@ -2123,11 +2348,27 @@ GER_mitteleuropa_category = {
 			FRP = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 60
+		cost = 30
 		days_remove = 75
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			FRP = {
@@ -2162,11 +2403,27 @@ GER_mitteleuropa_category = {
 			FRP = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 65
+		cost = 35
 		days_remove = 80
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			FRP = {
@@ -2219,11 +2476,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 25
 		days_remove = 50
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			FROM = {
@@ -2237,6 +2510,11 @@ GER_mitteleuropa_category = {
 			FROM = {
 				country_event = germit.30
 				add_ideas = GER_Bismarckian_Paternalism_idea
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
 			}
 		}
 	}
@@ -2271,11 +2549,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 25
 		days_remove = 50
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			FROM = {
@@ -2290,6 +2584,11 @@ GER_mitteleuropa_category = {
 				country_event = germit.29
 				add_ideas = GER_KWS_Investments_idea
 			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
 		}
 	}
 	
@@ -2303,11 +2602,27 @@ GER_mitteleuropa_category = {
 			IRE = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 45
+		cost = 20
 		days_remove = 90
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			IRE = {
@@ -2352,11 +2667,27 @@ GER_mitteleuropa_category = {
 			IRE = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 50
+		cost = 25
 		days_remove = 70
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			IRE = {
@@ -2392,11 +2723,27 @@ GER_mitteleuropa_category = {
 			GBP = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 120
+		cost = 60
 		days_remove = 135
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			GBP = {
@@ -2438,11 +2785,27 @@ GER_mitteleuropa_category = {
 			GBP = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 50
+		cost = 25
 		days_remove = 45
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			GBP = {
@@ -2498,11 +2861,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 25
 		days_remove = 50
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			FROM = {
@@ -2516,6 +2895,11 @@ GER_mitteleuropa_category = {
 			FROM = {
 				country_event = germit.30
 				add_ideas = GER_Bismarckian_Paternalism_idea
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
 			}
 		}
 	}
@@ -2550,11 +2934,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 25
 		days_remove = 50
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			FROM = {
@@ -2569,6 +2969,11 @@ GER_mitteleuropa_category = {
 				country_event = germit.29
 				add_ideas = GER_KWS_Investments_idea
 			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
 		}
 	}
 	
@@ -2582,11 +2987,27 @@ GER_mitteleuropa_category = {
 			SPR = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 65
+		cost = 35
 		days_remove = 70
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			SPR = {
@@ -2624,11 +3045,27 @@ GER_mitteleuropa_category = {
 			SPR = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 50
+		cost = 25
 		days_remove = 70
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			SPR = {
@@ -2692,11 +3129,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 25
 		days_remove = 50
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			FROM = {
@@ -2710,6 +3163,11 @@ GER_mitteleuropa_category = {
 			FROM = {
 				country_event = germit.30
 				add_ideas = GER_Bismarckian_Paternalism_idea
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
 			}
 		}
 	}
@@ -2744,11 +3202,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 25
 		days_remove = 50
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			FROM = {
@@ -2762,6 +3236,11 @@ GER_mitteleuropa_category = {
 			FROM = {
 				country_event = germit.29
 				add_ideas = GER_KWS_Investments_idea
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
 			}
 		}
 	}
@@ -2784,6 +3263,22 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			BEL = {
@@ -2818,11 +3313,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 65
+		cost = 5
 		days_remove = 180
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			BEL = {
@@ -2833,10 +3344,11 @@ GER_mitteleuropa_category = {
 			}
 		}
 		remove_effect = {
-			country_event = gerdom.3735
+			#country_event = gerdom.3734
 			BEL = {
-				country_event = gerdom.3735
+				country_event = gerdom.3734
 			}
+			add_political_power = 50
 		}
 	}
 	
@@ -2850,11 +3362,27 @@ GER_mitteleuropa_category = {
 			var:6.owner = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 55
+		cost = 30
 		days_remove = 90
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			var:6.owner = {
@@ -2904,11 +3432,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 25
+		cost = 15
 		days_remove = 45
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			AND = {
@@ -2967,11 +3511,27 @@ GER_mitteleuropa_category = {
 			HOL = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 75
+		cost = 40
 		days_remove = 80
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			HOL = {
@@ -3015,11 +3575,27 @@ GER_mitteleuropa_category = {
 			HOL = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 30
+		cost = 15
 		days_remove = 55
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			HOL = {
@@ -3042,7 +3618,7 @@ GER_mitteleuropa_category = {
 	
 	### Subregion Germany
 	
-	GER_generic_build_factory_heimat = { # Debug Event.
+	GER_generic_build_factory_heimat = { # Debug Event. Also here to give the AI an easier time with the deccat.
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -3050,8 +3626,15 @@ GER_mitteleuropa_category = {
 				is_ai = yes
 			}
 		}
-		cost = 120
-		days_remove = 180
+		cost = 5
+		days_remove = 90
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				factor = 450
+				check_variable = { GER_mitteleuropa_strength_var < 60 }
+			}
+		}
 		remove_effect = {
 			random_owned_state = {
 				limit = {
@@ -3084,12 +3667,9 @@ GER_mitteleuropa_category = {
 				}
 			}
 			add_to_variable = {
-				var = GER.GER_mitteleuropa_strength_var
-				value = 2
-				tooltip = add_2_to_mitteleuropastrength_tt
-			}
-			hidden_effect = {
-				GER_recalculate_mitteleuropa_effects = yes
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
 			}
 		}
 	}
@@ -3103,11 +3683,27 @@ GER_mitteleuropa_category = {
 			}
 			has_country_flag = GER_Electrification_Program
 		}
-		cost = 250
+		cost = 150
 		days_remove = 240
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		remove_effect = {
 			country_event = gerdom.717
@@ -3142,9 +3738,25 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		remove_effect = {
-			country_event = gerdom.724
+			#country_event = gerdom.724
 			add_ideas = GER_Wardenclyffe_Tower_idea
 			add_to_variable = {
 				var = GER.GER_mitteleuropa_strength_var
@@ -3168,10 +3780,11 @@ GER_mitteleuropa_category = {
 		days_remove = 100
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 50
 		}
 		remove_effect = {
 			country_event = gerdom.702
+			add_stability = 0.01
 			64 = {
 				add_building_construction = {
 					type = infrastructure
@@ -3197,13 +3810,14 @@ GER_mitteleuropa_category = {
 			has_country_flag = GER_Reichsautobahn_Project
 		}
 	
-		cost = 35
+		cost = 20
 		days_remove = 100
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 50
 		}
 		remove_effect = {
+			add_stability = 0.01
 			59 = {
 				add_building_construction = {
 					type = infrastructure
@@ -3229,13 +3843,14 @@ GER_mitteleuropa_category = {
 			has_country_flag = GER_Reichsautobahn_Project
 		}
 	
-		cost = 55
+		cost = 30
 		days_remove = 160
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 50
 		}
 		remove_effect = {
+			add_stability = 0.01
 			52 = {
 				add_building_construction = {
 					type = infrastructure
@@ -3273,13 +3888,14 @@ GER_mitteleuropa_category = {
 			has_country_flag = GER_Reichsautobahn_Project
 		}
 	
-		cost = 75
+		cost = 45
 		days_remove = 160
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 50
 		}
 		remove_effect = {
+			add_stability = 0.01
 			51 = {
 				add_building_construction = {
 					type = infrastructure
@@ -3317,11 +3933,11 @@ GER_mitteleuropa_category = {
 			has_country_flag = GER_Reichsautobahn_Project
 		}
 	
-		cost = 100
+		cost = 50
 		days_remove = 160
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 50
 		}
 		remove_effect = {
 			776 = {
@@ -3363,6 +3979,32 @@ GER_mitteleuropa_category = {
 		}
 	}
 	
+	GER_europas_palast = {
+		allowed = { original_tag = GER }
+		visible = {
+			has_country_flag = GER_building_palast_europas
+		}
+	
+		days_remove = 730
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 25
+		}
+		remove_effect = {
+			custom_effect_tooltip = GER_increase_mittel_buff_tt
+			add_to_variable = {
+				var = GER.GER_mitteleuropa_strength_var
+				value = 2
+				tooltip = add_2_to_mitteleuropastrength_tt
+			}
+			hidden_effect = {
+				GER_increase_mitteleuropa_buff = yes
+				GER_recalculate_mitteleuropa_effects = yes
+			}
+			add_ideas = GER_neoromanesque_palast_idea
+		}
+	}
+	
 	GER_neobaroque_palast = {
 		allowed = { original_tag = GER }
 		visible = {
@@ -3373,7 +4015,7 @@ GER_mitteleuropa_category = {
 		days_remove = 730
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 25
 		}
 		remove_effect = {
 			country_event = germit.26
@@ -3395,7 +4037,7 @@ GER_mitteleuropa_category = {
 		days_remove = 730
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 25
 		}
 		remove_effect = {
 			country_event = germit.27
@@ -3417,7 +4059,7 @@ GER_mitteleuropa_category = {
 		days_remove = 730
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 25
 		}
 		remove_effect = {
 			country_event = germit.28
@@ -3461,11 +4103,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 25
 		days_remove = 50
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			FROM = {
@@ -3479,6 +4137,11 @@ GER_mitteleuropa_category = {
 			FROM = {
 				country_event = germit.30
 				add_ideas = GER_Bismarckian_Paternalism_idea
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
 			}
 		}
 	}
@@ -3513,11 +4176,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 25
 		days_remove = 50
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			FROM = {
@@ -3531,6 +4210,11 @@ GER_mitteleuropa_category = {
 			FROM = {
 				country_event = germit.29
 				add_ideas = GER_KWS_Investments_idea
+			}
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
 			}
 		}
 	}
@@ -3559,7 +4243,7 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 9
 		}
 	
-		cost = 120
+		cost = 60
 		days_remove = 180
 		modifier = {
 			civilian_factory_use = 10
@@ -3567,6 +4251,22 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			AND = {
@@ -3645,7 +4345,7 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 9
 		}
 	
-		cost = 60
+		cost = 30
 		days_remove = 75
 		modifier = {
 			civilian_factory_use = 10
@@ -3653,6 +4353,22 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			AND = {
@@ -3745,11 +4461,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 65
+		cost = 5
 		days_remove = 180
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			BAT = {
@@ -3760,10 +4492,11 @@ GER_mitteleuropa_category = {
 			}
 		}
 		remove_effect = {
-			country_event = gerdom.3739
+			#country_event = gerdom.3734
 			BAT = {
-				country_event = gerdom.3739
+				country_event = gerdom.3734
 			}
+			add_political_power = 50
 		}
 	}
 	
@@ -3784,7 +4517,7 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 7
 		}
 	
-		cost = 80
+		cost = 40
 		days_remove = 160
 		modifier = {
 			civilian_factory_use = 8
@@ -3792,6 +4525,22 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			BAT = {
@@ -3835,7 +4584,7 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 5
 		}
 	
-		cost = 65
+		cost = 35
 		days_remove = 90
 		modifier = {
 			civilian_factory_use = 6
@@ -3843,6 +4592,22 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			BAT = {
@@ -3885,7 +4650,7 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 5
 		}
 	
-		cost = 45
+		cost = 25
 		days_remove = 100
 		modifier = {
 			civilian_factory_use = 6
@@ -3893,6 +4658,22 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			BAT = {
@@ -3931,7 +4712,7 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 7
 		}
 	
-		cost = 70
+		cost = 35
 		days_remove = 90
 		modifier = {
 			civilian_factory_use = 8
@@ -3939,6 +4720,22 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			BAT = {
@@ -3982,7 +4779,7 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 4
 		}
 	
-		cost = 75
+		cost = 40
 		days_remove = 80
 		modifier = {
 			civilian_factory_use = 5
@@ -3990,6 +4787,22 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			BAT = {
@@ -4032,7 +4845,7 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 7
 		}
 	
-		cost = 80
+		cost = 40
 		days_remove = 120
 		modifier = {
 			civilian_factory_use = 8
@@ -4040,6 +4853,22 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			BAT = {
@@ -4086,11 +4915,11 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 65
+		cost = 5
 		days_remove = 180
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 25
 		}
 		cancel_trigger = {
 			WHR = {
@@ -4101,10 +4930,11 @@ GER_mitteleuropa_category = {
 			}
 		}
 		remove_effect = {
-			country_event = gerdom.3738
+			#country_event = gerdom.3734
 			WHR = {
-				country_event = gerdom.3738
+				country_event = gerdom.3734
 			}
+			add_political_power = 50
 		}
 	}
 	
@@ -4126,6 +4956,22 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			LIT = {
@@ -4157,11 +5003,11 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 65
+		cost = 5
 		days_remove = 180
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 25
 		}
 		cancel_trigger = {
 			LIT = {
@@ -4172,10 +5018,11 @@ GER_mitteleuropa_category = {
 			}
 		}
 		remove_effect = {
-			country_event = gerdom.3737
+			#country_event = gerdom.3734
 			LIT = {
-				country_event = gerdom.3737
+				country_event = gerdom.3734
 			}
+			add_political_power = 50
 		}
 	}
 	
@@ -4197,11 +5044,11 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 65
+		cost = 5
 		days_remove = 180
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 25
 		}
 		cancel_trigger = {
 			POL = {
@@ -4212,10 +5059,11 @@ GER_mitteleuropa_category = {
 			}
 		}
 		remove_effect = {
-			country_event = gerdom.3736
+			#country_event = gerdom.3734
 			POL = {
-				country_event = gerdom.3736
+				country_event = gerdom.3734
 			}
+			add_political_power = 50
 		}
 	}
 	
@@ -4253,11 +5101,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 25
 		days_remove = 50
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			FROM = {
@@ -4305,11 +5169,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 25
 		days_remove = 50
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			FROM = {
@@ -4343,11 +5223,11 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 65
+		cost = 5
 		days_remove = 180
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 25
 		}
 		cancel_trigger = {
 			UKR = {
@@ -4358,10 +5238,11 @@ GER_mitteleuropa_category = {
 			}
 		}
 		remove_effect = {
-			country_event = gerdom.3740
+			#country_event = gerdom.3734
 			UKR = {
-				country_event = gerdom.3740
+				country_event = gerdom.3734
 			}
+			add_political_power = 50
 		}
 	}
 	
@@ -4381,7 +5262,7 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 2
 		}
 	
-		cost = 40
+		cost = 20
 		days_remove = 120
 		modifier = {
 			civilian_factory_use = 3
@@ -4389,6 +5270,22 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			UKR = {
@@ -4437,7 +5334,7 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 3
 		}
 	
-		cost = 50
+		cost = 25
 		days_remove = 80
 		modifier = {
 			civilian_factory_use = 4
@@ -4445,6 +5342,22 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			UKR = {
@@ -4495,7 +5408,7 @@ GER_mitteleuropa_category = {
 			}
 		}
 
-		targets = { RPG TRM KAR }
+		targets = { RUS RPG TRM KAR BKN TTR }
 		target_trigger = {
 			FROM = {
 				GER_is_in_mitteleuropa = yes
@@ -4510,11 +5423,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 25
 		days_remove = 50
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			FROM = {
@@ -4547,7 +5476,7 @@ GER_mitteleuropa_category = {
 			}
 		}
 
-		targets = { RPG TRM KAR }
+		targets = { RUS RPG TRM KAR BKN TTR }
 		target_trigger = {
 			FROM = {
 				GER_is_in_mitteleuropa = yes
@@ -4562,11 +5491,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 25
 		days_remove = 50
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			FROM = {
@@ -4591,17 +5536,33 @@ GER_mitteleuropa_category = {
 				has_country_flag = GER_Mitteleuropa_OpenSubregion_Russia
 				is_ai = yes
 			}
-			RPG = { GER_is_in_mitteleuropa = yes }
+			var:195.owner = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 140
+		cost = 70
 		days_remove = 180
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
-			RPG = {
+			var:195.owner = {
 				OR = {
 					GER_is_in_mitteleuropa = no
 					exists = no
@@ -4648,17 +5609,33 @@ GER_mitteleuropa_category = {
 				is_ai = yes
 			}
 			has_country_flag = GER_European_Tourism_Flag
-			RPG = { GER_is_in_mitteleuropa = yes }
+			var:195.owner = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 40
+		cost = 20
 		days_remove = 65
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
-			RPG = {
+			var:195.owner = {
 				OR = {
 					GER_is_in_mitteleuropa = no
 					exists = no
@@ -4666,7 +5643,7 @@ GER_mitteleuropa_category = {
 			}
 		}
 		remove_effect = {
-			RUS = { add_stability = 0.01 }
+			var:195.owner = { add_stability = 0.01 }
 			add_to_variable = {
 				var = GER_mitteleuropa_investment_count
 				value = 1
@@ -4707,11 +5684,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 25
 		days_remove = 50
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			FROM = {
@@ -4759,11 +5752,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 25
 		days_remove = 50
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			FROM = {
@@ -4795,7 +5804,7 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 5
 		}
 	
-		cost = 60
+		cost = 30
 		days_remove = 100
 		modifier = {
 			civilian_factory_use = 6
@@ -4803,6 +5812,22 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			AZE = {
@@ -4851,7 +5876,7 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 5
 		}
 	
-		cost = 60
+		cost = 30
 		days_remove = 100
 		modifier = {
 			civilian_factory_use = 6
@@ -4859,6 +5884,22 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			GEO = {
@@ -4909,7 +5950,7 @@ GER_mitteleuropa_category = {
 			}
 		}
 
-		targets = { AUS HUN CZE CRO GAL WSU KRK SVK SLO BOS MNT TRS BUK }
+		targets = { AUS HUN CZE CRO GAL WSU KRK SVK PGU SLO BOS MNT TRS BUK BAN FIU }
 		target_trigger = {
 			FROM = {
 				GER_is_in_mitteleuropa = yes
@@ -4924,11 +5965,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 25
 		days_remove = 50
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			FROM = {
@@ -4961,7 +6018,7 @@ GER_mitteleuropa_category = {
 			}
 		}
 
-		targets = { AUS HUN CZE CRO GAL WSU KRK SVK SLO BOS MNT TRS BUK }
+		targets = { AUS HUN CZE CRO GAL WSU KRK SVK PGU SLO BOS MNT TRS BUK BAN FIU }
 		target_trigger = {
 			FROM = {
 				GER_is_in_mitteleuropa = yes
@@ -4976,11 +6033,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 25
 		days_remove = 50
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			FROM = {
@@ -5008,11 +6081,27 @@ GER_mitteleuropa_category = {
 			AUS = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 120
+		cost = 60
 		days_remove = 80
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			AUS = {
@@ -5047,11 +6136,27 @@ GER_mitteleuropa_category = {
 			AUS = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 65
+		cost = 35
 		days_remove = 80
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			AUS = {
@@ -5104,11 +6209,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 25
 		days_remove = 50
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			FROM = {
@@ -5156,11 +6277,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 25
 		days_remove = 50
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			FROM = {
@@ -5188,11 +6325,27 @@ GER_mitteleuropa_category = {
 			BUL = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 90
+		cost = 45
 		days_remove = 70
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			BUL = {
@@ -5231,11 +6384,27 @@ GER_mitteleuropa_category = {
 			BUL = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 55
+		cost = 30
 		days_remove = 70
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			BUL = {
@@ -5278,11 +6447,27 @@ GER_mitteleuropa_category = {
 			ROM = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 80
+		cost = 40
 		days_remove = 30
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			ROM = {
@@ -5313,11 +6498,27 @@ GER_mitteleuropa_category = {
 			ROM = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 60
+		cost = 30
 		days_remove = 40
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			ROM = {
@@ -5355,11 +6556,27 @@ GER_mitteleuropa_category = {
 			GRE = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 100
+		cost = 50
 		days_remove = 140
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			GRE = {
@@ -5401,11 +6618,27 @@ GER_mitteleuropa_category = {
 			GRE = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 50
+		cost = 25
 		days_remove = 80
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			GRE = {
@@ -5449,11 +6682,27 @@ GER_mitteleuropa_category = {
 			TUR = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 50
+		cost = 25
 		days_remove = 75
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			TUR = {
@@ -5497,11 +6746,27 @@ GER_mitteleuropa_category = {
 			TUR = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 50
+		cost = 25
 		days_remove = 60
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			TUR = {
@@ -5544,11 +6809,27 @@ GER_mitteleuropa_category = {
 			ETH = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 65
+		cost = 35
 		days_remove = 140
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			ETH = {
@@ -5587,11 +6868,27 @@ GER_mitteleuropa_category = {
 			ETH = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 50
+		cost = 25
 		days_remove = 75
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			ETH = {
@@ -5629,11 +6926,27 @@ GER_mitteleuropa_category = {
 			SAF = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 60
+		cost = 30
 		days_remove = 40
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			SAF = {
@@ -5664,11 +6977,27 @@ GER_mitteleuropa_category = {
 			SAF = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 75
+		cost = 35
 		days_remove = 60
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			SAF = {
@@ -5703,11 +7032,27 @@ GER_mitteleuropa_category = {
 			SAU = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 75
+		cost = 35
 		days_remove = 100
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			SAU = {
@@ -5747,11 +7092,27 @@ GER_mitteleuropa_category = {
 			var:454.owner = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 75
+		cost = 35
 		days_remove = 90
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			var:454.owner = {
@@ -5808,11 +7169,11 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 65
+		cost = 5
 		days_remove = 180
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 25
 		}
 		cancel_trigger = {
 			MAF = {
@@ -5823,12 +7184,13 @@ GER_mitteleuropa_category = {
 			}
 		}
 		remove_effect = {
-			country_event = gerdom.3741
+			#country_event = gerdom.3734
 			custom_effect_tooltip = MAF_decrease_collapse_1_tt
 			MAF = {
-				country_event = gerdom.3741
+				country_event = gerdom.3734
 				subtract_from_variable = { MAF_collapse_var = 1 }
 			}
+			add_political_power = 50
 		}
 	}
 	
@@ -5849,14 +7211,30 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 5
 		}
 	
-		cost = 80
+		cost = 40
 		days_remove = 100
 		modifier = {
 			civilian_factory_use = 6
 		}
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 200
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			MAF = {
@@ -5905,14 +7283,30 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 4
 		}
 	
-		cost = 60
+		cost = 30
 		days_remove = 75
 		modifier = {
 			civilian_factory_use = 5
 		}
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 200
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			MAF = {
@@ -5987,7 +7381,23 @@ GER_mitteleuropa_category = {
 		}
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 200
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			MAF = {
@@ -6026,11 +7436,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 30
+		cost = 15
 		days_remove = 80
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 200
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			MAF = {
@@ -6077,14 +7503,30 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 6
 		}
 	
-		cost = 75
+		cost = 40
 		days_remove = 130
 		modifier = {
 			civilian_factory_use = 7
 		}
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 200
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			MAF = {
@@ -6157,14 +7599,30 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 4
 		}
 	
-		cost = 80
+		cost = 40
 		days_remove = 100
 		modifier = {
 			civilian_factory_use = 5
 		}
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 200
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			MAF = {
@@ -6218,14 +7676,30 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 5
 		}
 	
-		cost = 50
+		cost = 25
 		days_remove = 75
 		modifier = {
 			civilian_factory_use = 6
 		}
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 200
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			MAF = {
@@ -6282,7 +7756,23 @@ GER_mitteleuropa_category = {
 		}
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 200
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			MAF = {
@@ -6336,11 +7826,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 50
+		cost = 30
 		days_remove = 120
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 200
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			MAF = {
@@ -6385,11 +7891,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 55
+		cost = 40
 		days_remove = 100
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 200
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			MAF = {
@@ -6430,11 +7952,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 30
 		days_remove = 65
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 200
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			MAF = {
@@ -6483,7 +8021,23 @@ GER_mitteleuropa_category = {
 		days_remove = 70
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 200
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			MAF = {
@@ -6519,11 +8073,27 @@ GER_mitteleuropa_category = {
 			MOR = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 65
+		cost = 35
 		days_remove = 90
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			MOR = {
@@ -6569,11 +8139,27 @@ GER_mitteleuropa_category = {
 			MOR = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 25
+		cost = 20
 		days_remove = 70
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			MOR = {
@@ -6616,7 +8202,7 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 7
 		}
 	
-		cost = 90
+		cost = 40
 		days_remove = 160
 		modifier = {
 			civilian_factory_use = 8
@@ -6624,6 +8210,22 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			EGY = {
@@ -6661,11 +8263,27 @@ GER_mitteleuropa_category = {
 			EGY = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 40
+		cost = 20
 		days_remove = 70
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			EGY = {
@@ -6710,11 +8328,27 @@ GER_mitteleuropa_category = {
 			AST = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 55
+		cost = 40
 		days_remove = 75
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			AST = {
@@ -6771,6 +8405,22 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			AST = {
@@ -6815,11 +8465,11 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 65
+		cost = 5
 		days_remove = 180
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 25
 		}
 		cancel_trigger = {
 			GEA = {
@@ -6830,11 +8480,12 @@ GER_mitteleuropa_category = {
 			}
 		}
 		remove_effect = {
-			country_event = gerdom.3742
+			#country_event = gerdom.3734
 			GEA = {
-				country_event = gerdom.3742
+				country_event = gerdom.3734
 				add_to_variable = { GEA_Indochinese_Anger = -1 }
 			}
+			add_political_power = 50
 		}
 	}
 	
@@ -6855,7 +8506,7 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 2
 		}
 	
-		cost = 65
+		cost = 30
 		days_remove = 100
 		modifier = {
 			civilian_factory_use = 3
@@ -6913,14 +8564,30 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 3
 		}
 	
-		cost = 50
+		cost = 25
 		days_remove = 90
 		modifier = {
 			civilian_factory_use = 4
 		}
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 200
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			GEA = {
@@ -6966,14 +8633,30 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 3
 		}
 	
-		cost = 80
+		cost = 40
 		days_remove = 140
 		modifier = {
 			civilian_factory_use = 4
 		}
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 200
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			GEA = {
@@ -7020,14 +8703,30 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 1
 		}
 	
-		cost = 30
+		cost = 15
 		days_remove = 70
 		modifier = {
 			civilian_factory_use = 2
 		}
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 200
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			GEA = {
@@ -7090,11 +8789,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 30
+		cost = 15
 		days_remove = 100
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 200
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			GEA = {
@@ -7134,14 +8849,30 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 4
 		}
 	
-		cost = 75
+		cost = 40
 		days_remove = 50
 		modifier = {
 			civilian_factory_use = 5
 		}
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 200
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			GEA = {
@@ -7232,14 +8963,30 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 2
 		}
 	
-		cost = 70
+		cost = 35
 		days_remove = 80
 		modifier = {
 			civilian_factory_use = 3
 		}
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 200
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			GEA = {
@@ -7280,11 +9027,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 60
+		cost = 30
 		days_remove = 30
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 200
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			GEA = {
@@ -7323,14 +9086,30 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 5
 		}
 	
-		cost = 70
-		days_remove = 100
+		cost = 40
+		days_remove = 120
 		modifier = {
 			civilian_factory_use = 6
 		}
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 200
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			GEA = {
@@ -7397,14 +9176,30 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 5
 		}
 	
-		cost = 100
+		cost = 50
 		days_remove = 130
 		modifier = {
 			civilian_factory_use = 6
 		}
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 200
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			GEA = {
@@ -7451,14 +9246,30 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 2
 		}
 	
-		cost = 15
+		cost = 10
 		days_remove = 50
 		modifier = {
 			civilian_factory_use = 3
 		}
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 200
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			GEA = {
@@ -7493,11 +9304,27 @@ GER_mitteleuropa_category = {
 			GEA = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 55
+		cost = 30
 		days_remove = 70
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 200
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			GEA = {
@@ -7536,11 +9363,27 @@ GER_mitteleuropa_category = {
 			var:1020.owner = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 20
+		cost = 10
 		days_remove = 90
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 200
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			var:1020.owner = {
@@ -7577,14 +9420,30 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 2
 		}
 	
-		cost = 30
+		cost = 15
 		days_remove = 75
 		modifier = {
 			civilian_factory_use = 3
 		}
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 200
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			var:1020.owner = {
@@ -7625,11 +9484,27 @@ GER_mitteleuropa_category = {
 			PER = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 15
+		cost = 10
 		days_remove = 40
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			PER = {
@@ -7661,11 +9536,27 @@ GER_mitteleuropa_category = {
 			PER = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 30
+		cost = 15
 		days_remove = 60
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			PER = {
@@ -7721,7 +9612,7 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 4
 		}
 	
-		cost = 40
+		cost = 20
 		days_remove = 70
 		modifier = {
 			civilian_factory_use = 5
@@ -7729,6 +9620,22 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			AND = {
@@ -7790,11 +9697,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 20
+		cost = 10
 		days_remove = 55
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			AND = {
@@ -7842,11 +9765,27 @@ GER_mitteleuropa_category = {
 			JAP = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 60
+		cost = 30
 		days_remove = 90
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			JAP = {
@@ -7893,11 +9832,27 @@ GER_mitteleuropa_category = {
 			JAP = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 25
+		cost = 20
 		days_remove = 60
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			JAP = {
@@ -7944,7 +9899,7 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 5
 		}
 	
-		cost = 50
+		cost = 25
 		days_remove = 100
 		modifier = {
 			civilian_factory_use = 6
@@ -7952,6 +9907,22 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			LEP = { exists = no }
@@ -8008,7 +9979,7 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 4
 		}
 	
-		cost = 35
+		cost = 30
 		days_remove = 100
 		modifier = {
 			civilian_factory_use = 5
@@ -8016,6 +9987,22 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			LEP = { exists = no }
@@ -8042,11 +10029,27 @@ GER_mitteleuropa_category = {
 			country_exists = LEP
 		}
 	
-		cost = 65
+		cost = 30
 		days_remove = 50
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			LEP = { exists = no }
@@ -8090,7 +10093,7 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 5
 		}
 	
-		cost = 65
+		cost = 25
 		days_remove = 100
 		modifier = {
 			civilian_factory_use = 6
@@ -8098,6 +10101,22 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			LEP = { exists = no }
@@ -8145,11 +10164,27 @@ GER_mitteleuropa_category = {
 			country_exists = LEP
 		}
 	
-		cost = 80
+		cost = 60
 		days_remove = 20
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			LEP = { exists = no }
@@ -8187,6 +10222,22 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			var:608.owner = {
@@ -8233,7 +10284,7 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 3
 		}
 	
-		cost = 40
+		cost = 20
 		days_remove = 75
 		modifier = {
 			civilian_factory_use = 4
@@ -8241,6 +10292,22 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			AND = {
@@ -8300,11 +10367,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 15
+		cost = 10
 		days_remove = 80
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			AND = {
@@ -8349,11 +10432,27 @@ GER_mitteleuropa_category = {
 			BRM = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 60
+		cost = 30
 		days_remove = 120
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			BRM = {
@@ -8396,11 +10495,27 @@ GER_mitteleuropa_category = {
 			BRM = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 40
+		cost = 20
 		days_remove = 65
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			BRM = {
@@ -8435,7 +10550,7 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 4
 		}
 	
-		cost = 70
+		cost = 35
 		days_remove = 90
 		modifier = {
 			civilian_factory_use = 5
@@ -8443,6 +10558,22 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			AFG = {
@@ -8481,11 +10612,27 @@ GER_mitteleuropa_category = {
 			AFG = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 50
+		cost = 25
 		days_remove = 160
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			AFG = {
@@ -8529,7 +10676,7 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 3
 		}
 	
-		cost = 30
+		cost = 15
 		days_remove = 65
 		modifier = {
 			civilian_factory_use = 4
@@ -8537,6 +10684,22 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			BRA = {
@@ -8573,11 +10736,27 @@ GER_mitteleuropa_category = {
 			BRA = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 15
+		cost = 10
 		days_remove = 100
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			BRA = {
@@ -8624,11 +10803,27 @@ GER_mitteleuropa_category = {
 			ARG = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 50
+		cost = 25
 		days_remove = 90
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			ARG = {
@@ -8669,11 +10864,27 @@ GER_mitteleuropa_category = {
 			CHL = { GER_is_in_mitteleuropa = yes }
 		}
 	
-		cost = 30
+		cost = 15
 		days_remove = 90
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			CHL = {
@@ -8715,11 +10926,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 50
+		cost = 25
 		days_remove = 75
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			AND = {
@@ -8769,11 +10996,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 20
+		cost = 15
 		days_remove = 80
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			AND = {
@@ -8823,11 +11066,27 @@ GER_mitteleuropa_category = {
 			}
 		}
 	
-		cost = 40
+		cost = 20
 		days_remove = 85
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			AND = {
@@ -8883,7 +11142,7 @@ GER_mitteleuropa_category = {
 			num_of_civilian_factories_available_for_projects > 4
 		}
 	
-		cost = 15
+		cost = 10
 		days_remove = 120
 		modifier = {
 			civilian_factory_use = 5
@@ -8891,6 +11150,22 @@ GER_mitteleuropa_category = {
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 40 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 50 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 60 }
+				add = 100
+			}
+			modifier = {
+				check_variable = { GER.GER_mitteleuropa_strength_var < 70 }
+				add = 50
+			}
 		}
 		cancel_trigger = {
 			AND = {
@@ -8972,7 +11247,7 @@ french_occupation_decisions = {
 		cost = 25
 
 		ai_will_do = {
-			factor = 200
+			factor = 1000
 		}
 
 		complete_effect = {
@@ -10192,46 +12467,46 @@ GER_helgoland_category = {
 }
 
 operations = {
-	GER_desperate_struggle_init = {
-		icon = generic_ignite_civil_war
-		
-		allowed = { tag = GER }
-		
-		activation = {
-			OR = {
-				has_war_with = FRA
-				has_war_with = ENG
-				has_war_with = RUS
-			}
-			has_capitulated = no
-			surrender_progress > 0.20
-			NOT = { has_country_flag = GER_Desperate_Struggle_Flag }
-		}
-		
-		available = {
-			has_capitulated = yes
-		}
-		
-		cancel_trigger = {
-			OR = {
-				surrender_progress < 0.15
-				NOT = {
-					has_war_with = FRA
-					has_war_with = ENG
-					has_war_with = RUS
-				}
-			}
-		}
-		
-		days_mission_timeout = 10
-		
-		timeout_effect = {
-			log = "[GetLogRoot][GetLogFrom]: Decision timeout GER_desperate_struggle_init"
-			effect_tooltip = {
-				country_event = gerdom.510
-			}
-		}
-	}
+	#GER_desperate_struggle_init = {
+	#	icon = generic_ignite_civil_war
+	#	
+	#	allowed = { tag = GER }
+	#	
+	#	activation = {
+	#		OR = {
+	#			has_war_with = FRA
+	#			has_war_with = ENG
+	#			has_war_with = RUS
+	#		}
+	#		has_capitulated = no
+	#		surrender_progress > 0.20
+	#		NOT = { has_country_flag = GER_Desperate_Struggle_Flag }
+	#	}
+	#	
+	#	available = {
+	#		has_capitulated = yes
+	#	}
+	#	
+	#	cancel_trigger = {
+	#		OR = {
+	#			surrender_progress < 0.15
+	#			NOT = {
+	#				has_war_with = FRA
+	#				has_war_with = ENG
+	#				has_war_with = RUS
+	#			}
+	#		}
+	#	}
+	#	
+	#	days_mission_timeout = 10
+	#	
+	#	timeout_effect = {
+	#		log = "[GetLogRoot][GetLogFrom]: Decision timeout GER_desperate_struggle_init"
+	#		effect_tooltip = {
+	#			country_event = gerdom.510
+	#		}
+	#	}
+	#}
 	
 	GER_desperate_struggle_dec1 = {
 		icon = generic_ignite_civil_war

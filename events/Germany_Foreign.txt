@@ -254,9 +254,6 @@ country_event = { # The brits pull out
 	}
 }
 
-### Italian Federation
-### Removed. Completely unfitting for new Italian content and was causing problems with the game. - TornadoWatch
-
 ### French Invasion of Spain
 
 country_event = { # The Syndicalists invade Spain
@@ -715,191 +712,6 @@ country_event = { # German Empire occupies Spanish Morocco
 	}
 }
 
-### Madagascar
-
-country_event = { # Logging in Madagascar
-	id = gerfor.28
-	immediate = { log = "[GetDateText]: [Root.GetName]: event gerfor.28" }
-	title = gerfor.28.t
-	desc = gerfor.28.d
-
-	trigger = {
-		tag = GER
-		543 = { is_owned_and_controlled_by = GER }
-		NOT = {
-			has_war_with = FRA
-			has_war_with = RUS
-			has_war_with = SOV
-			country_exists = MAG
-		}
-		date > 1942.1.1
-	}
-
-	mean_time_to_happen = {
-		days = 50
-	}
-
-	fire_only_once = yes
-
-	option = { # Yes
-		name = gerfor.28.a
-		ai_chance = {
-			factor = 80
-		}
-		add_political_power = -40
-		add_equipment_to_stockpile = {
-			type = support_equipment_1
-			amount = -300
-		}
-		set_country_flag = madagascar_logging
-	}
-
-	option = { # No
-		name = gerfor.28.b
-		ai_chance = {
-			factor = 20
-		}
-		add_political_power = -20
-	}
-}
-
-country_event = { # Logging in Madagascar has been expanded!
-	id = gerfor.29
-	immediate = { log = "[GetDateText]: [Root.GetName]: event gerfor.29" }
-	title = gerfor.29.t
-	desc = gerfor.29.d
-
-	trigger = {
-		tag = GER
-		has_country_flag = madagascar_logging
-		543 = { is_owned_and_controlled_by = GER }
-	}
-
-	mean_time_to_happen = {
-		days = 105
-	}
-
-	fire_only_once = yes
-
-	option = { # Yes
-		name = gerfor.29.a
-		ai_chance = {
-			factor = 80
-		}
-		clr_country_flag = madagascar_logging
-		add_equipment_to_stockpile = {
-			type = support_equipment_1
-			amount = -500
-		}
-		543 = {
-			add_extra_state_shared_building_slots = 1
-			add_building_construction = {
-				type = industrial_complex
-				level = 1
-				instant_build = yes
-			}
-		}
-		set_country_flag = madagascar_factory
-	}
-
-	option = { # No
-		name = gerfor.29.b
-		ai_chance = {
-			factor = 20
-		}
-		clr_country_flag = madagascar_logging
-		add_political_power = -20
-		543 = {
-			add_extra_state_shared_building_slots = 1
-			add_building_construction = {
-				type = industrial_complex
-				level = 1
-				instant_build = yes
-			}
-		}
-		set_country_flag = madagascar_unemployment
-	}
-}
-
-country_event = { # The processing complex has opened
-	id = gerfor.30
-	immediate = { log = "[GetDateText]: [Root.GetName]: event gerfor.30" }
-	title = gerfor.30.t
-	desc = gerfor.30.d
-
-	trigger = {
-		tag = GER
-		has_country_flag = madagascar_factory
-		543 = { is_owned_and_controlled_by = GER }
-	}
-
-	mean_time_to_happen = {
-		days = 105
-	}
-
-	fire_only_once = yes
-
-	option = {
-		name = gerfor.30.a
-		clr_country_flag = madagascar_factory
-		add_political_power = 20
-		543 = {
-			add_extra_state_shared_building_slots = 3
-			add_building_construction = {
-				type = industrial_complex
-				level = 3
-				instant_build = yes
-			}
-		}
-		543 = {
-			add_building_construction = {
-				type = infrastructure
-				level = 1
-				instant_build = yes
-			}
-		}
-	}
-}
-
-country_event = { # Colonial revolt in Madagascar
-	id = gerfor.31
-	immediate = { log = "[GetDateText]: [Root.GetName]: event gerfor.31" }
-	title = gerfor.31.t
-	desc = gerfor.31.d
-
-	trigger = {
-		tag = GER
-		has_country_flag = madagascar_unemployment
-		543 = { is_owned_and_controlled_by = GER }
-	}
-
-	mean_time_to_happen = {
-		days = 50
-	}
-
-	fire_only_once = yes
-
-	option = {
-		name = gerfor.31.a
-		clr_country_flag = madagascar_unemployment
-		add_political_power = -40
-		MAG = {
-			transfer_state = 543
-			set_politics = {
-				ruling_party = social_democrat
-				elections_allowed = no
-			}
-		}
-		if = {
-			limit = { can_declare_war_on = MAG }
-			create_wargoal = {
-				type = annex_everything
-				target = MAG
-			}
-		}
-	}
-}
-
 ### The Second Peace with Honour
 
 country_event = { # Peace with Honour
@@ -1138,30 +950,6 @@ country_event = { # Britain refuses
 	}
 }
 
-country_event = { # Ethnic conflicts in Sri Lanka
-	id = gerfor.36
-	immediate = { log = "[GetDateText]: [Root.GetName]: event gerfor.36" }
-	title = gerfor.36.t
-	desc = gerfor.36.d
-
-	trigger = {
-		date > 1936.7.1
-		OR = {
-			controls_state = 422
-			CEY = {
-				controls_state = 422
-			}
-		}
-	}
-
-	fire_only_once = yes
-
-	option = {
-		name = gerfor.36.a
-		add_political_power = -40
-	}
-}
-
 ### British invasion in Norway
 
 country_event = { # The Union of Britain invades Norway
@@ -1386,286 +1174,6 @@ country_event = { # The Brits pull out
 		}
 	}
 }
-### Treaty with Ireland
-
-country_event = { # Treaty with Ireland
-	id = gerfor.43
-	immediate = { log = "[GetDateText]: [Root.GetName]: event gerfor.43" }
-	title = gerfor.43.t
-	desc = gerfor.43.d
-
-	is_triggered_only = yes
-
-	option = { # military aid
-		name = gerfor.43.a
-		IRE = {
-			country_event = {
-				id = gerfor.44
-				days = 1
-			}
-		}
-	}
-}
-
-country_event = { # Offer from Germany
-	id = gerfor.44
-	immediate = { log = "[GetDateText]: [Root.GetName]: event gerfor.44" }
-	title = gerfor.44.t
-	desc = gerfor.44.d
-
-	is_triggered_only = yes
-
-	option = { # yes
-		name = gerfor.44.a
-		trigger = {
-			NOT = {
-				is_in_faction_with = GER
-			}
-		}
-		ai_chance = {
-			factor = 80
-		}
-		GER = {
-			country_event = {
-				id = gerfor.45
-				days = 1
-			}
-		}
-	}
-
-	option = { # yes
-		name = gerfor.44.a
-		trigger = {
-			is_in_faction_with = GER
-		}
-		ai_chance = {
-			factor = 100
-		}
-		GER = {
-			country_event = {
-				id = gerfor.45
-				days = 1
-			}
-		}
-	}
-
-	option = { # no
-		name = gerfor.44.b
-		trigger = {
-			NOT = {
-				is_in_faction_with = GER
-			}
-		}
-		ai_chance = {
-			factor = 20
-		}
-		GER = {
-			country_event = {
-				id = gerfor.46
-				days = 1
-			}
-		}
-	}
-
-	option = { # no
-		name = gerfor.44.b
-		trigger = {
-			is_in_faction_with = GER
-		}
-		ai_chance = {
-			factor = 0
-		}
-		GER = {
-			country_event = {
-				id = gerfor.46
-				days = 1
-			}
-		}
-	}
-}
-
-country_event = { # The Irish accept!
-	id = gerfor.45
-	immediate = { log = "[GetDateText]: [Root.GetName]: event gerfor.45" }
-	title = gerfor.45.t
-	desc = gerfor.45.d
-
-	is_triggered_only = yes
-
-	option = {
-		name = gerfor.45.a
-		add_equipment_to_stockpile = {
-			type = support_equipment_1
-			amount = -3000
-		}
-		set_country_flag = GER_IRE_buildup
-		add_to_faction = IRE
-	}
-}
-
-country_event = { # The Irish refuses
-	id = gerfor.46
-	immediate = { log = "[GetDateText]: [Root.GetName]: event gerfor.46" }
-	title = gerfor.46.t
-	desc = gerfor.46.d
-
-	is_triggered_only = yes
-
-	option = {
-		name = gerfor.46.a
-		add_political_power = -20
-	}
-}
-
-country_event = { # Delivery to ireland is ready
-	id = gerfor.47
-	immediate = { log = "[GetDateText]: [Root.GetName]: event gerfor.47" }
-	title = gerfor.47.t
-	desc = gerfor.47.d
-
-	trigger = {
-		tag = GER
-		has_country_flag = GER_IRE_buildup
-	}
-
-	mean_time_to_happen = {
-		days = 150
-	}
-
-	fire_only_once = yes
-
-	option = {
-		name = gerfor.47.a
-		IRE = {
-			country_event = {
-				id = gerfor.48
-				days = 1
-			}
-		}
-	}
-}
-
-country_event = { # Delivery arrives
-	id = gerfor.48
-	immediate = { log = "[GetDateText]: [Root.GetName]: event gerfor.48" }
-	title = gerfor.48.t
-	desc = gerfor.48.d
-
-	is_triggered_only = yes
-
-	option = {
-		name = gerfor.48.a
-		random_owned_state = {
-			add_extra_state_shared_building_slots = 3
-			add_building_construction = {
-				type = industrial_complex
-				level = 3
-				instant_build = yes
-			}
-		}
-		add_equipment_to_stockpile = {
-			type = infantry_equipment_2
-			amount = 6000
-			producer = GER
-		}
-		add_equipment_to_stockpile = {
-			type = artillery_equipment_2
-			amount = 400
-			producer = GER
-		}
-		add_equipment_to_stockpile = {
-			type = light_tank_equipment_2
-			amount = 250
-			producer = GER
-		}
-		add_equipment_to_stockpile = {
-			type = small_plane_airframe
-			amount = 100
-			producer = GER
-		}
-		add_equipment_to_stockpile = {
-			type = tac_bomber_equipment_2
-			amount = 50
-			producer = GER
-		}
-	}
-}
-
-country_event = { # Delivery not possible
-	id = gerfor.49
-	immediate = { log = "[GetDateText]: [Root.GetName]: event gerfor.49" }
-	title = gerfor.49.t
-	desc = gerfor.49.d
-
-	trigger = {
-		tag = GER
-		has_country_flag = GER_IRE_buildup
-		OR = {
-			IRE = {
-				exists = no
-			}
-			IRE = {
-				is_in_faction_with = ENG
-			}
-			IRE = {
-				is_in_faction_with = FRA
-			}
-			IRE = {
-				is_in_faction_with = CSA
-			}
-			IRE = {
-				is_in_faction_with = CAN
-			}
-			IRE = {
-				has_war_with = GER
-			}
-		}
-	}
-
-	mean_time_to_happen = {
-		days = 10
-	}
-
-	fire_only_once = yes
-
-	option = {
-		name = gerfor.49.a
-		clr_country_flag = GER_IRE_buildup
-		random_owned_state = {
-			add_extra_state_shared_building_slots = 3
-			add_building_construction = {
-				type = industrial_complex
-				level = 3
-				instant_build = yes
-			}
-		}
-		add_equipment_to_stockpile = {
-			type = infantry_equipment_2
-			amount = 6000
-			producer = GER
-		}
-		add_equipment_to_stockpile = {
-			type = artillery_equipment_2
-			amount = 400
-			producer = GER
-		}
-		add_equipment_to_stockpile = {
-			type = light_tank_equipment_2
-			amount = 250
-			producer = GER
-		}
-		add_equipment_to_stockpile = {
-			type = small_plane_airframe
-			amount = 100
-			producer = GER
-		}
-		add_equipment_to_stockpile = {
-			type = tac_bomber_equipment_2
-			amount = 50
-			producer = GER
-		}
-	}
-}
 
 country_event = { # Country considers peace with UoB
 	id = gerfor.50
@@ -1685,8 +1193,6 @@ country_event = { # Country considers peace with UoB
 		add_war_support = -0.10
 	}
 }
-
-
 
 ##### Germany losing war asking for help #####
 
@@ -3166,91 +2672,6 @@ country_event = {
 	}
 }
 
-### Treaty with Hawaii
-
-# Germany wants basing rights
-
-country_event = {
-	id = gerfor.78
-	immediate = { log = "[GetDateText]: [Root.GetName]: event gerfor.78" }
-	title = gerfor.78.t
-	desc = gerfor.78.d
-
-	is_triggered_only = yes
-
-	option = {
-		name = gerfor.78.a
-		add_political_power = 100
-		ai_chance = {
-			factor = 80
-		}
-		GER = {
-			country_event = {
-				id = gerfor.79
-				days = 2
-			}
-		}
-	}
-
-	option = {
-		name = gerfor.78.b
-		add_political_power = -20
-		ai_chance = {
-			factor = 20
-		}
-		GER = {
-			country_event = {
-				id = gerfor.80
-				days = 2
-			}
-		}
-	}
-}
-
-# Hawaii agrees
-
-country_event = {
-	id = gerfor.79
-	immediate = { log = "[GetDateText]: [Root.GetName]: event gerfor.79" }
-	title = gerfor.79.t
-	desc = gerfor.79.d
-
-	is_triggered_only = yes
-
-	option = {
-		name = gerfor.79.a
-		HAW = {
-			give_military_access = GER
-		}
-		reverse_add_opinion_modifier = {
-			target = GER
-			modifier = GER_hawaii_yes_op
-		}
-	}
-}
-
-# Hawaii disagrees
-
-country_event = {
-	id = gerfor.80
-	immediate = { log = "[GetDateText]: [Root.GetName]: event gerfor.80" }
-	title = gerfor.80.t
-	desc = gerfor.80.d
-
-	is_triggered_only = yes
-
-	option = {
-		name = gerfor.80.a
-		add_political_power = -20
-		reverse_add_opinion_modifier = {
-			target = GER
-			modifier = GER_hawaii_no_op
-		}
-	}
-}
-
-#Baku Conference continues at gerfor.156
-
 country_event = { #Germany proposes deal with Bulgaria
 	id = gerfor.140
 	immediate = { log = "[GetDateText]: [Root.GetName]: event gerfor.140" }
@@ -3353,16 +2774,26 @@ country_event = { #The Kaiserreich Besieged. Two-front war with France and Russi
 			has_war_with = SOV
 			has_war_with = RUS
 		}
-		NOT = {
-			has_offensive_war_with = SOV
-		}
-		NOT = {
-			has_offensive_war_with = RUS
-		}
 	}
 
 	option = { # Activates defense and org buff for 730 days.
 		name = gerfor.187.a
+		
+		# Add back if Germany AI starts to eat shit again routinely
+		#if = {
+		#	limit = { is_ai = yes }
+		#	add_timed_idea = {
+		#		idea = GER_two_front_idea_AI
+		#		days = 730
+		#	}
+		#}
+		#else = {
+		#	add_timed_idea = {
+		#		idea = GER_two_front_idea
+		#		days = 730
+		#	}
+		#}
+		
 		add_timed_idea = {
 			idea = GER_two_front_idea
 			days = 730
@@ -3375,6 +2806,7 @@ country_event = { # War is over yippee
 	immediate = { log = "[GetDateText]: [Root.GetName]: event gerfor.199" }
 	title = gerfor.199.t
 	desc = gerfor.199.d
+	picture = GFX_report_event_GER_End
 
 	is_triggered_only = yes
 	fire_only_once = yes
@@ -3399,58 +2831,12 @@ country_event = { # kaisergipfel time
 
 	option = {
 		name = gerfor.200.a
-		ai_chance = {
-			factor = 0
-		}
-		trigger = {
-			OR = {
-			  if = {
-				limit = {
-				  AUS = {
-					has_country_leader = { name = "Karl I" ruling_only = yes }
-					has_country_leader = { name = "Otto I" ruling_only = yes }
-						}
-					}
-				}
-			}
-		}
-		set_country_flag = GER_WON_2WK
 		AUS = {
 			country_event = {
 				id = gerfor.201
 				days = 3
 			}
 		}
-	}
-	option = {
-		name = gerfor.200.b
-		ai_chance = {
-			factor = 100
-		}
-		set_country_flag = GER_WON_2WK
-		GER = {
-			country_event = {
-				id = gerfor.207
-				days = 7
-			}
-		}
-	}
-	option = { # put austria out of its misery
-		name = gerfor.200.c
-		ai_chance = {
-			factor = 0
-		}
-		set_country_flag = GER_WON_2WK
-		every_state = {
-			limit = {
-				is_core_of = AUS
-			}
-			add_core_of = GER
-		}
-		create_wargoal = {
-			target = AUS	
-			type = annex_everything
-		 }
 	}
 }
 
@@ -3459,6 +2845,7 @@ country_event = { # austria's event
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.201" }
 	title = gerfor.201.t
 	desc = gerfor.201.d
+	picture = GFX_GER_germany_austria
 	
 	is_triggered_only = yes
 
@@ -3501,17 +2888,23 @@ country_event = { # they said nay
 
 	fire_only_once = yes
 
-	option = { # ignore em, impfed time
+	option = { # ignore em
 		name = gerfor.202.a
-		GER = {
-			country_event = {
-				id = gerfor.207
-				days = 7
+		clr_country_flag = GER_Doing_Formable
+		set_country_flag = GER_Austria_Faction_Only
+		hidden_effect = {
+			uncomplete_national_focus = {
+				focus = GER_kaisergipfel
+				uncomplete_children = no
+				refund_political_power = no
 			}
 		}
 	}
 	option = { # put austria out of its misery
 		name = gerfor.202.b
+		trigger = { AUS = { is_ai = no } }
+		clr_country_flag = GER_Doing_Formable
+		set_country_flag = GER_Austria_Faction_Only
 		every_state = {
 			limit = {
 				is_core_of = AUS
@@ -3521,7 +2914,14 @@ country_event = { # they said nay
 		create_wargoal = {
 			target = AUS	
 			type = annex_everything
-		 }
+		}
+		hidden_effect = {
+			uncomplete_national_focus = {
+				focus = GER_kaisergipfel
+				uncomplete_children = no
+				refund_political_power = no
+			}
+		}
 	}
 }
 
@@ -3542,6 +2942,7 @@ country_event = { # they said yay
 	
 	option = { # We merge our factions and stop there
 		name = gerfor.20201.b
+		trigger = { AUS = { is_ai = no } }
 		clr_country_flag = GER_Doing_Formable
 		set_country_flag = GER_Austria_Faction_Only
 		set_faction_name = GER_fuse_faction
@@ -3551,6 +2952,13 @@ country_event = { # they said yay
 			}
 			GER = { add_to_faction = PREV }
 		}
+		hidden_effect = {
+			uncomplete_national_focus = {
+				focus = GER_kaisergipfel
+				uncomplete_children = no
+				refund_political_power = no
+			}
+		}
 	}
 }
 
@@ -3559,7 +2967,7 @@ country_event = { # Austrian Generals Join Us
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.20202" }
 	title = gerfor.20202.t
 	desc = gerfor.20202.d
-	picture = GFX_GER_germany_austria
+	picture = GFX_report_event_GER_Austrian_Troops
 	
 	is_triggered_only = yes
 
@@ -3571,15 +2979,22 @@ country_event = { # Austrian Generals Join Us
 		army_experience = 5
 		AUS = {
 			random_unit_leader = {
-				limit = { has_id = 40002 }
+				limit = { has_id = 400011 }			
 				set_nationality = GER
+				set_leader_portrait = GFX_Portrait_AUS_Franz_Bohme_KX_German_Uniform
 			}
 			random_unit_leader = {
-				limit = { has_id = 40003 }
+				limit = { has_id = 400013 }			
 				set_nationality = GER
+				set_leader_portrait = GFX_Portrait_AUS_Julius_Ringel_German_Uniform
 			}
 			random_unit_leader = {
-				limit = { has_id = 40005 }
+				limit = { has_id = 400015 }			
+				set_nationality = GER
+				set_leader_portrait = GFX_Portrait_AUS_Lothar_Rendulic_KX_German_Uniform
+			}
+			random_unit_leader = {
+				limit = { has_id = 400017 }			
 				set_nationality = GER
 			}
 		}
@@ -3591,31 +3006,42 @@ country_event = { # Austrian Generals Join Us
 		army_experience = 15
 		AUS = {
 			random_unit_leader = {
-				limit = { has_id = 40002 }
+				limit = { has_id = 400010 }			
 				set_nationality = GER
+				set_leader_portrait = GFX_Portrait_AUS_Erhard_Raus_German_Uniform
 			}
 			random_unit_leader = {
-				limit = { has_id = 40003 }
+				limit = { has_id = 400011 }			
 				set_nationality = GER
+				set_leader_portrait = GFX_Portrait_AUS_Franz_Bohme_KX_German_Uniform
 			}
 			random_unit_leader = {
-				limit = { has_id = 40004 }
+				limit = { has_id = 400012 }			
 				set_nationality = GER
+				set_leader_portrait = GFX_Portrait_AUS_Friedrich_Materna_KX_German_Uniform
 			}
 			random_unit_leader = {
-				limit = { has_id = 40005 }
+				limit = { has_id = 400013 }			
 				set_nationality = GER
+				set_leader_portrait = GFX_Portrait_AUS_Julius_Ringel_German_Uniform
 			}
 			random_unit_leader = {
-				limit = { has_id = 40006 }
+				limit = { has_id = 400014 }			
 				set_nationality = GER
+				set_leader_portrait = GFX_Portrait_AUS_Karl_Eglseer_German_Uniform
 			}
 			random_unit_leader = {
-				limit = { has_id = 40007 }
+				limit = { has_id = 400015 }			
 				set_nationality = GER
+				set_leader_portrait = GFX_Portrait_AUS_Lothar_Rendulic_KX_German_Uniform
 			}
 			random_unit_leader = {
-				limit = { has_id = 40008 }
+				limit = { has_id = 400016 }			
+				set_nationality = GER
+				set_leader_portrait = GFX_Portrait_AUS_Ludwig_von_Eimannsberger_KX_German_Uniform
+			}
+			random_unit_leader = {
+				limit = { has_id = 400017 }			
 				set_nationality = GER
 			}
 		}
@@ -3628,6 +3054,36 @@ country_event = { # Austrian Generals Join Us
 		air_experience = 10
 		navy_experience = 10
 		AUS = {
+			hidden_effect = {
+				random_unit_leader = {
+					limit = { has_id = 400010 }
+					set_leader_portrait = GFX_Portrait_AUS_Erhard_Raus_German_Uniform
+				}
+				random_unit_leader = {
+					limit = { has_id = 400011 }			
+					set_leader_portrait = GFX_Portrait_AUS_Franz_Bohme_KX_German_Uniform
+				}
+				random_unit_leader = {
+					limit = { has_id = 400012 }			
+					set_leader_portrait = GFX_Portrait_AUS_Friedrich_Materna_KX_German_Uniform
+				}
+				random_unit_leader = {
+					limit = { has_id = 400013 }			
+					set_leader_portrait = GFX_Portrait_AUS_Julius_Ringel_German_Uniform
+				}
+				random_unit_leader = {
+					limit = { has_id = 400014 }			
+					set_leader_portrait = GFX_Portrait_AUS_Karl_Eglseer_German_Uniform
+				}
+				random_unit_leader = {
+					limit = { has_id = 400015 }			
+					set_leader_portrait = GFX_Portrait_AUS_Lothar_Rendulic_KX_German_Uniform
+				}
+				random_unit_leader = {
+					limit = { has_id = 400016 }
+					set_leader_portrait = GFX_Portrait_AUS_Ludwig_von_Eimannsberger_KX_German_Uniform
+				}
+			}
 			every_unit_leader = {
 				set_nationality = GER
 			}
@@ -3640,7 +3096,7 @@ country_event = { # the kaiser summit finalized
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.203" }
 	title = gerfor.203.t
 	desc = gerfor.203.d
-	picture = GFX_GER_germany_austria
+	picture = GFX_report_event_GER_Kufstein_Castle
 	
 	is_triggered_only = yes
 
@@ -3701,6 +3157,13 @@ country_event = { # the kaiser summit finalized
 			}
 			add_core_of = GER
 		}
+		hidden_effect = {
+		AUS = {
+			every_scientist = {
+				set_nationality = GER
+			}
+		}
+		}
 		annex_country = {
 			target = AUS
 		}
@@ -3754,6 +3217,113 @@ country_event = { # the kaiser summit finalized
 					is_subject_of = AUS
 					has_idea = AUS_part_of_the_Empire
 				}
+				NOT = {
+					tag = HUN
+					tag = CRO
+					tag = BOS
+					tag = CZE
+					tag = SVK
+					tag = SLO
+					tag = CUM
+					tag = TRS
+					tag = BUK
+					tag = PGU
+					tag = MNT
+					tag = CPU
+					tag = FIU
+					tag = GAL
+					tag = WSU
+					tag = KRK
+				}
+			} 
+			GER = { puppet = PREV }
+		}
+		hidden_effect = {
+		if = {
+			limit = { 
+				HUN = { 
+					OR = {
+						is_subject_of = AUS
+						has_idea = AUS_part_of_the_Empire
+					}
+				} 
+			}
+			HUN = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				CRO = { 
+					OR = {
+						is_subject_of = AUS
+						has_idea = AUS_part_of_the_Empire
+					}
+				} 
+			}
+			CRO = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				CZE = { 
+					OR = {
+						is_subject_of = AUS
+						has_idea = AUS_part_of_the_Empire
+					}
+				} 
+			}
+			CZE = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				GAL = { 
+					OR = {
+						is_subject_of = AUS
+						has_idea = AUS_part_of_the_Empire
+					}
+				} 
+			}
+			GAL = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		}
+		every_country = {
+			limit = {
+				OR = {
+					is_subject_of = AUS
+					has_idea = AUS_part_of_the_Empire
+				}
+				OR = {
+					tag = HUN
+					tag = CRO
+					tag = BOS
+					tag = CZE
+					tag = SVK
+					tag = SLO
+					tag = CUM
+					tag = TRS
+					tag = BUK
+					tag = PGU
+					tag = MNT
+					tag = CPU
+					tag = FIU
+					tag = GAL
+					tag = WSU
+					tag = KRK
+				}
 			} 
 			GER = {
 				annex_country = {
@@ -3803,6 +3373,13 @@ country_event = { # the kaiser summit finalized
 			}
 			add_core_of = GER
 		}
+		hidden_effect = {
+		AUS = {
+			every_scientist = {
+				set_nationality = GER
+			}
+		}
+		}
 		annex_country = {
 			target = AUS
 		}
@@ -3828,55 +3405,8 @@ country_event = { # pan europa time
 
 	fire_only_once = yes
 
-	option = { # nah
-		name = gerfor.204.a
-		set_country_flag = GER_nonpaneuro
-		add_political_power = 75
-		hidden_effect = {
-			GER = {
-				country_event = {
-					id = gerfor.205
-					days = 7
-					}
-				}
-			}
-	}
-	option = { # european union faction
-		name = gerfor.204.b
-		set_global_flag = GER_EU_Formed
-		set_country_flag = GER_nonpaneuro
-		set_faction_name = GER_european_union
-		add_ideas = GER_EU_Leader
-		every_country = {
-			limit = {
-				is_in_europe = yes
-				is_in_faction_with = GER
-				NOT = { tag = GER }
-			}
-			add_ideas = GER_EU_Member
-		}
-		every_country = {
-			limit = {
-				is_in_europe = yes
-			}
-			GER = {
-				create_wargoal = {
-					target = PREV
-					type = annex_everything
-				}
-			}
-		}
-		hidden_effect = {
-		GER = {
-			country_event = {
-				id = gerfor.205
-				days = 7
-				}
-			}
-		}
-	}
 	option = { # full on pan euro
-		name = gerfor.204.c
+		name = gerfor.204.a
 		set_country_flag = GER_EU
 		every_country = {
 			limit = {
@@ -3888,6 +3418,298 @@ country_event = { # pan europa time
 					type = annex_everything
 				}
 			}
+		}
+		hidden_effect = {
+		if = {
+			limit = { 
+				AUS = { is_in_faction_with = GER } 
+			}
+			AUS = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}	
+		if = {
+			limit = { 
+				BAT = { is_in_faction_with = GER } 
+			}
+			BAT = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				BEL = { is_in_faction_with = GER } 
+			}
+			BEL = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				FLN = { is_in_faction_with = GER } 
+			}
+			FLN = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				WLL = { is_in_faction_with = GER } 
+			}
+			WLL = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				BUL = { is_in_faction_with = GER } 
+			}
+			BUL = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				CAR = { is_in_faction_with = GER } 
+			}
+			CAR = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				CRO = { is_in_faction_with = GER } 
+			}
+			CRO = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				CZE = { is_in_faction_with = GER } 
+			}
+			CZE = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				DEN = { is_in_faction_with = GER } 
+			}
+			DEN = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				GAL = { is_in_faction_with = GER } 
+			}
+			GAL = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				GEO = { is_in_faction_with = GER } 
+			}
+			GEO = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				GRE = { is_in_faction_with = GER } 
+			}
+			GRE = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				HOL = { is_in_faction_with = GER } 
+			}
+			HOL = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				HUN = { is_in_faction_with = GER } 
+			}
+			HUN = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				IRE = { is_in_faction_with = GER } 
+			}
+			IRE = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				ITA = { is_in_faction_with = GER } 
+			}
+			ITA = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				LAT = { is_in_faction_with = GER } 
+			}
+			LAT = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				LIT = { is_in_faction_with = GER } 
+			}
+			LIT = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				PAP = { is_in_faction_with = GER } 
+			}
+			PAP = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				POL = { is_in_faction_with = GER } 
+			}
+			POL = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				SCT = { is_in_faction_with = GER } 
+			}
+			SCT = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				SER = { is_in_faction_with = GER } 
+			}
+			SER = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				SIC = { is_in_faction_with = GER } 
+			}
+			SIC = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				SPR = { is_in_faction_with = GER } 
+			}
+			SPR = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				SRI = { is_in_faction_with = GER } 
+			}
+			SRI = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				SWE = { is_in_faction_with = GER } 
+			}
+			SWE = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				SWI = { is_in_faction_with = GER } 
+			}
+			SWI = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
+		if = {
+			limit = { 
+				UKR = { is_in_faction_with = GER } 
+			}
+			UKR = {
+				every_scientist = {
+					set_nationality = GER
+				}
+			}
+		}
 		}
 		every_country = {
 			limit = {
@@ -3961,7 +3783,7 @@ country_event = { # Christianitas Event
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.20401" }
 	title = gerfor.20401.t
 	desc = gerfor.20401.d
-	picture = GFX_GER_european_union
+	picture = GFX_report_event_GER_European_Mary
 	
 	is_triggered_only = yes
 
@@ -4020,7 +3842,7 @@ country_event = { # ImpFed Natives Question
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.20402" }
 	title = gerfor.20402.t
 	desc = gerfor.20402.d
-	picture = GFX_GER_european_union
+	picture = GFX_report_event_GER_Colonial_Natives
 	
 	is_triggered_only = yes
 
@@ -4042,7 +3864,7 @@ country_event = { # New Landtags - Mittelafrika
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.20403" }
 	title = gerfor.20403.t
 	desc = gerfor.20403.d
-	picture = GFX_GER_european_union
+	picture = GFX_report_event_GER_MAF_Capital
 	
 	is_triggered_only = yes
 
@@ -4092,7 +3914,7 @@ country_event = { # New Landtags - Ostasien
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.20404" }
 	title = gerfor.20404.t
 	desc = gerfor.20404.d
-	picture = GFX_GER_european_union
+	picture = GFX_report_event_GER_GEA_Capital
 	
 	is_triggered_only = yes
 
@@ -4148,7 +3970,7 @@ country_event = { # New Landtags - Baltic Duchy
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.20405" }
 	title = gerfor.20405.t
 	desc = gerfor.20405.d
-	picture = GFX_GER_european_union
+	picture = GFX_report_event_GER_Baltic_Duchy_Capital
 	
 	is_triggered_only = yes
 
@@ -4247,18 +4069,16 @@ country_event = { # kraut impfed time
 
 	fire_only_once = yes
 
-	option = { # nah
-		name = gerfor.207.a
-		ai_chance = {
-			factor = 100
-		}
-	}
 	option = { # yea
-	name = gerfor.207.b
-		ai_chance = {
-			factor = 0
-		}
+	name = gerfor.207.a
 		set_country_flag = GER_can_form_impfed
+		hidden_effect = {
+		BAT = {
+			every_scientist = {
+				set_nationality = GER
+			}
+		}
+		}
 		if = {
 			limit = {
 				CIV = { is_in_faction_with = GER }
@@ -4489,7 +4309,7 @@ country_event = { # Dutch Weltpolitik Startup (for Netherlands)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.210" }
 	title = gerfor.210.t
 	desc = gerfor.210.d
-	picture = GFX_report_event_GER_Germany_Netherlands_Postcard
+	picture = GFX_report_event_GER_Propaganda_Postcard1
 	
 	is_triggered_only = yes
 
@@ -4685,7 +4505,7 @@ country_event = { # Dutch Weltpolitik Startup (German Threats)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.214" }
 	title = gerfor.214.t
 	desc = gerfor.214.d
-	picture = GFX_report_event_GER_Germany_Netherlands_Postcard
+	picture = GFX_report_event_GER_Prussian_Coat
 	
 	is_triggered_only = yes
 
@@ -4828,7 +4648,7 @@ country_event = { # Dutch Weltpolitik Continuation (German Threats)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.218" }
 	title = gerfor.218.t
 	desc = gerfor.218.d
-	picture = GFX_report_event_GER_Germany_Netherlands_Postcard
+	picture = GFX_report_event_GER_Prussian_Coat
 	
 	is_triggered_only = yes
 
@@ -4868,7 +4688,7 @@ country_event = { # Dutch Weltpolitik (Sanctions)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.219" }
 	title = gerfor.219.t
 	desc = gerfor.219.d
-	picture = GFX_report_event_GER_Germany_Netherlands_Postcard
+	picture = GFX_report_event_ARG_Export
 	
 	is_triggered_only = yes
 
@@ -4890,7 +4710,7 @@ country_event = { # Dutch Weltpolitik (Germany Sanctioned Us)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.220" }
 	title = gerfor.220.t
 	desc = gerfor.220.d
-	picture = GFX_report_event_GER_Germany_Netherlands_Postcard
+	picture = GFX_report_event_ARG_Export
 	
 	is_triggered_only = yes
 
@@ -4910,7 +4730,7 @@ country_event = { # Dutch Weltpolitik (Germany Backs Down)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.221" }
 	title = gerfor.221.t
 	desc = gerfor.221.d
-	picture = GFX_report_event_GER_Germany_Netherlands_Postcard
+	picture = GFX_report_event_GER_Propaganda_Postcard1
 	
 	is_triggered_only = yes
 
@@ -4926,7 +4746,7 @@ country_event = { # Swedish Weltpolitik Startup (For Sweden)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.222" }
 	title = gerfor.222.t
 	desc = gerfor.222.d
-	picture = GFX_report_event_SWE_Miners
+	picture = GFX_report_event_GER_Propaganda_Postcard1
 	
 	is_triggered_only = yes
 
@@ -4958,7 +4778,7 @@ country_event = { # Swedish Weltpolitik Startup (Swedes Accept)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.223" }
 	title = gerfor.223.t
 	desc = gerfor.223.d
-	picture = GFX_report_event_SWE_Miners
+	picture = GFX_report_event_SWE_knights
 	
 	is_triggered_only = yes
 
@@ -4983,7 +4803,7 @@ country_event = { # Swedish Weltpolitik Startup (Swedes Refuse)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.224" }
 	title = gerfor.224.t
 	desc = gerfor.224.d
-	picture = GFX_report_event_SWE_Miners
+	picture = GFX_report_event_SWE_knights
 	
 	is_triggered_only = yes
 
@@ -5021,7 +4841,7 @@ country_event = { # Swedish Weltpolitik Startup (German Threats)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.225" }
 	title = gerfor.225.t
 	desc = gerfor.225.d
-	picture = GFX_report_event_SWE_Miners
+	picture = GFX_report_event_GER_Prussian_Coat
 	
 	is_triggered_only = yes
 
@@ -5052,7 +4872,7 @@ country_event = { # Swedish Weltpolitik Continuation (For Sweden)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.226" }
 	title = gerfor.226.t
 	desc = gerfor.226.d
-	picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_SWE_knights
 	
 	is_triggered_only = yes
 
@@ -5093,7 +4913,7 @@ country_event = { # Swedish Weltpolitik Continuation (Sweden Accepts)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.227" }
 	title = gerfor.227.t
 	desc = gerfor.227.d
-	picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_SWE_knights
 	
 	is_triggered_only = yes
 
@@ -5109,7 +4929,7 @@ country_event = { # Swedish Weltpolitik Continuation (Sweden Accepts Somewhat)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.228" }
 	title = gerfor.228.t
 	desc = gerfor.228.d
-	picture = GFX_report_event_SWE_Bofors
+	picture = GFX_report_event_SWE_knights
 	
 	is_triggered_only = yes
 
@@ -5154,7 +4974,7 @@ country_event = { # Swedish Weltpolitik Continuation (Sweden Refuses)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.229" }
 	title = gerfor.229.t
 	desc = gerfor.229.d
-	picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_SWE_knights
 	
 	is_triggered_only = yes
 
@@ -5192,7 +5012,7 @@ country_event = { # Swedish Weltpolitik Continuation (German Threats)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.230" }
 	title = gerfor.230.t
 	desc = gerfor.230.d
-	picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Prussian_Coat
 	
 	is_triggered_only = yes
 
@@ -5224,7 +5044,7 @@ country_event = { # Swedish Weltpolitik (Sanctions)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.231" }
 	title = gerfor.231.t
 	desc = gerfor.231.d
-	picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_ARG_Export
 	
 	is_triggered_only = yes
 
@@ -5246,7 +5066,7 @@ country_event = { # Swedish Weltpolitik (Germany Sanctioned Us)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.232" }
 	title = gerfor.232.t
 	desc = gerfor.232.d
-	picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_ARG_Export
 	
 	is_triggered_only = yes
 
@@ -5266,7 +5086,7 @@ country_event = { # Swedish Weltpolitik (Germany Backs Down)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.233" }
 	title = gerfor.233.t
 	desc = gerfor.233.d
-	picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Propaganda_Postcard1
 	
 	is_triggered_only = yes
 
@@ -5297,7 +5117,7 @@ country_event = { # Cuba Weltpolitik Startup (For Cuba)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.235" }
 	title = gerfor.235.t
 	desc = gerfor.235.d
-	picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Propaganda_Postcard1
 	
 	is_triggered_only = yes
 
@@ -5330,7 +5150,7 @@ country_event = { # Cuba Weltpolitik Startup (Cuba Accepts)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.236" }
 	title = gerfor.236.t
 	desc = gerfor.236.d
-	picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_CUB_flag
 	
 	is_triggered_only = yes
 
@@ -5363,7 +5183,7 @@ country_event = { # Cuba Weltpolitik Startup (Cuba Declines)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.237" }
 	title = gerfor.237.t
 	desc = gerfor.237.d
-	picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_CUB_flag
 	
 	is_triggered_only = yes
 
@@ -5397,7 +5217,7 @@ country_event = { # Cuba Weltpolitik Startup (German Threats)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.238" }
 	title = gerfor.238.t
 	desc = gerfor.238.d
-	picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Prussian_Coat
 	
 	is_triggered_only = yes
 
@@ -5430,7 +5250,7 @@ country_event = { # Cuba Weltpolitik Continuation (For Cuba)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.239" }
 	title = gerfor.239.t
 	desc = gerfor.239.d
-	picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Guantanamo
 	
 	is_triggered_only = yes
 
@@ -5463,7 +5283,7 @@ country_event = { # Cuba Weltpolitik Continuation (Cuba Accepts)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.240" }
 	title = gerfor.240.t
 	desc = gerfor.240.d
-	picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Guantanamo
 	
 	is_triggered_only = yes
 
@@ -5479,7 +5299,7 @@ country_event = { # Cuba Weltpolitik Continuation (Cuba Declines)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.241" }
 	title = gerfor.241.t
 	desc = gerfor.241.d
-	picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Guantanamo
 	
 	is_triggered_only = yes
 
@@ -5497,7 +5317,7 @@ country_event = { # Cuba Weltpolitik Continuation (Cuba Declines)
 	}
 	
 	option = { # Oh well
-		name = gerfor.241.a
+		name = gerfor.241.b
 		add_political_power = 15
 		CUB = {
 			country_event = {
@@ -5513,7 +5333,7 @@ country_event = { # Cuba Weltpolitik Continuation (German Threats)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.242" }
 	title = gerfor.242.t
 	desc = gerfor.242.d
-	picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Prussian_Coat
 	
 	is_triggered_only = yes
 
@@ -5531,7 +5351,7 @@ country_event = { # Cuba Weltpolitik Continuation (German Threats)
 	}
 	
 	option = { # No!
-		name = gerfor.242.a
+		name = gerfor.242.b
 		GER = {
 			country_event = {
 				id = gerfor.243
@@ -5546,7 +5366,7 @@ country_event = { # Cuba Weltpolitik Continuation (Sanctions)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.243" }
 	title = gerfor.243.t
 	desc = gerfor.243.d
-	picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_ARG_Export
 	
 	is_triggered_only = yes
 
@@ -5568,7 +5388,7 @@ country_event = { # Cuba Weltpolitik Continuation (Sanctions - Cuba POV)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.244" }
 	title = gerfor.244.t
 	desc = gerfor.244.d
-	picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_ARG_Export
 	
 	is_triggered_only = yes
 
@@ -5588,7 +5408,7 @@ country_event = { # Cuba Weltpolitik Continuation (Germany Backs Down)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.245" }
 	title = gerfor.245.t
 	desc = gerfor.245.d
-	picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Propaganda_Postcard1
 	
 	is_triggered_only = yes
 
@@ -5604,7 +5424,7 @@ country_event = { # France Requests Nancy Back
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.250" }
 	title = gerfor.250.t
 	desc = gerfor.250.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Nancy
 	
 	is_triggered_only = yes
 
@@ -5645,7 +5465,7 @@ country_event = { # France Gets Nancy Back
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.251" }
 	title = gerfor.251.t
 	desc = gerfor.251.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Nancy
 	
 	is_triggered_only = yes
 
@@ -5662,7 +5482,7 @@ country_event = { # Britain Requests Colonies Back (Africa)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.252" }
 	title = gerfor.252.t
 	desc = gerfor.252.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_British_Africa
 	
 	is_triggered_only = yes
 
@@ -5751,7 +5571,7 @@ country_event = { # Britain Gets Colonies Back (Africa)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.253" }
 	title = gerfor.253.t
 	desc = gerfor.253.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_British_Africa
 	
 	is_triggered_only = yes
 
@@ -5768,7 +5588,7 @@ country_event = { # Britain Requests Colonies Back (Asia)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.254" }
 	title = gerfor.254.t
 	desc = gerfor.254.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_British_Asia
 	
 	is_triggered_only = yes
 
@@ -5831,7 +5651,7 @@ country_event = { # Britain Gets Colonies Back (Asia)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.255" }
 	title = gerfor.255.t
 	desc = gerfor.255.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_British_Asia
 	
 	is_triggered_only = yes
 
@@ -5848,7 +5668,7 @@ country_event = { # FROM Joins Mitteleuropa (Halifax Stuff)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.256" }
 	title = gerfor.256.t
 	desc = gerfor.256.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_WHR_peace_germany
 	
 	is_triggered_only = yes
 
@@ -5865,7 +5685,7 @@ country_event = { # ForPol Intro Event
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.260" }
 	title = gerfor.260.t
 	desc = gerfor.260.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Eagle_Earth
 	
 	is_triggered_only = yes
 
@@ -5882,7 +5702,7 @@ country_event = { # Obligations of Empire
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.261" }
 	title = gerfor.261.t
 	desc = gerfor.261.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Volunteer_Trumpet
 	
 	is_triggered_only = yes
 
@@ -5899,11 +5719,9 @@ country_event = { # German Support Arrives for Avalov
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.262" }
 	title = gerfor.262.t
 	desc = gerfor.262.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Avalov_Units
 	
 	is_triggered_only = yes
-
-	fire_only_once = yes
 
 	option = { # Cool
 		name = gerfor.262.a
@@ -5928,11 +5746,9 @@ country_event = { # Further German Support Arrives for Avalov
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.263" }
 	title = gerfor.263.t
 	desc = gerfor.263.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Avalov_Units
 	
 	is_triggered_only = yes
-
-	fire_only_once = yes
 
 	option = { # Cool
 		name = gerfor.263.a
@@ -5955,7 +5771,7 @@ country_event = { # German Materiel Arrives
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.264" }
 	title = gerfor.264.t
 	desc = gerfor.264.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Guns_Lined
 	
 	is_triggered_only = yes
 
@@ -5977,7 +5793,7 @@ country_event = { # 2ACW Side Picker
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.265" }
 	title = gerfor.265.t
 	desc = gerfor.265.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_USA_americans_will_fight_for_liberty
 	
 	is_triggered_only = yes
 
@@ -6021,11 +5837,9 @@ country_event = { # German Support Arrives for ConStates
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.266" }
 	title = gerfor.266.t
 	desc = gerfor.266.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_CAR_states_rights
 	
 	is_triggered_only = yes
-
-	fire_only_once = yes
 
 	option = { # Cool
 		name = gerfor.266.a
@@ -6050,11 +5864,9 @@ country_event = { # German Support Arrives for Long
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.267" }
 	title = gerfor.267.t
 	desc = gerfor.267.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_TEX_Huey_Capital_Statue
 	
 	is_triggered_only = yes
-
-	fire_only_once = yes
 
 	option = { # Cool
 		name = gerfor.267.a
@@ -6079,11 +5891,9 @@ country_event = { # Further German Support Arrives for ConStates
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.268" }
 	title = gerfor.268.t
 	desc = gerfor.268.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_CAR_states_rights
 	
 	is_triggered_only = yes
-
-	fire_only_once = yes
 
 	option = { # Cool
 		name = gerfor.268.a
@@ -6106,11 +5916,9 @@ country_event = { # Further German Support Arrives for Long
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.269" }
 	title = gerfor.269.t
 	desc = gerfor.269.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_TEX_Huey_Capital_Statue
 	
 	is_triggered_only = yes
-
-	fire_only_once = yes
 
 	option = { # Cool
 		name = gerfor.269.a
@@ -6133,11 +5941,9 @@ country_event = { # German Support Arrives for Spain
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.270" }
 	title = gerfor.270.t
 	desc = gerfor.270.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_SPR_cortes_generales
 	
 	is_triggered_only = yes
-
-	fire_only_once = yes
 
 	option = { # Cool
 		name = gerfor.270.a
@@ -6162,11 +5968,9 @@ country_event = { # Further German Support Arrives for Spain
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.271" }
 	title = gerfor.271.t
 	desc = gerfor.271.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_SPR_cortes_generales
 	
 	is_triggered_only = yes
-
-	fire_only_once = yes
 
 	option = { # Cool
 		name = gerfor.271.a
@@ -6189,11 +5993,9 @@ country_event = { # Germany Helps Ottomans
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.272" }
 	title = gerfor.272.t
 	desc = gerfor.272.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_OTT_germans_and_ottomans
 	
 	is_triggered_only = yes
-
-	fire_only_once = yes
 
 	option = { # Cool
 		name = gerfor.272.a
@@ -6213,11 +6015,9 @@ country_event = { # Germany Helps Ottomans 2
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.273" }
 	title = gerfor.273.t
 	desc = gerfor.273.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_OTT_germans_and_ottomans
 	
 	is_triggered_only = yes
-
-	fire_only_once = yes
 
 	option = { # Cool
 		name = gerfor.273.a
@@ -6244,11 +6044,9 @@ country_event = { # Germany Helps Ethiopia
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.274" }
 	title = gerfor.274.t
 	desc = gerfor.274.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_ETH_aksum
 	
 	is_triggered_only = yes
-
-	fire_only_once = yes
 
 	option = { # Cool
 		name = gerfor.274.a
@@ -6268,11 +6066,9 @@ country_event = { # Germany Helps Ethiopia 2
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.275" }
 	title = gerfor.275.t
 	desc = gerfor.275.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_ETH_aksum
 	
 	is_triggered_only = yes
-
-	fire_only_once = yes
 
 	option = { # Cool
 		name = gerfor.275.a
@@ -6299,7 +6095,7 @@ country_event = { # Back Garden
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.280" }
 	title = gerfor.280.t
 	desc = gerfor.280.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Back_Garden
 	
 	is_triggered_only = yes
 
@@ -6323,7 +6119,7 @@ country_event = { # Sicily Intro - For Germany
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.281" }
 	title = gerfor.281.t
 	desc = gerfor.281.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Naples
 	
 	is_triggered_only = yes
 
@@ -6338,21 +6134,21 @@ country_event = { # Sicily Intro - For Germany
 			}
 		}
 		set_country_flag = GER_Garden_Heavy
-		custom_effect_tooltip = gerfor.281.a_tt
+		custom_effect_tooltip = GER_heavy_garden_tt
 		SIC = { country_event = { id = gerfor.282 days = 1 } }
 	}
 	
 	option = { # Promise a Little
 		name = gerfor.281.b
 		set_country_flag = GER_Garden_Light
-		custom_effect_tooltip = gerfor.281.b_tt
+		custom_effect_tooltip = GER_light_garden_tt
 		SIC = { country_event = { id = gerfor.282 days = 1 } }
 	}
 	
 	option = { # They should be happy we're showing up
 		name = gerfor.281.c
 		set_country_flag = GER_Garden_None
-		custom_effect_tooltip = gerfor.281.c_tt
+		custom_effect_tooltip = GER_no_garden_tt
 		SIC = { country_event = { id = gerfor.282 days = 1 } }
 	}
 }
@@ -6362,7 +6158,7 @@ country_event = { # Sicily Intro - For Sicily
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.282" }
 	title = gerfor.282.t
 	desc = gerfor.282.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Naples
 	
 	is_triggered_only = yes
 
@@ -6396,14 +6192,12 @@ country_event = { # Sicily Intro - For Sicily
 			limit = {
 				GER = { has_country_flag = GER_Garden_None }
 			}
-			custom_effect_tooltip = GER_Garden_None_tt
 			add_political_power = 5
 		}
 		else_if = {
 			limit = {
 				GER = { has_country_flag = GER_Garden_Light }
 			}
-			custom_effect_tooltip = GER_Garden_Light_tt
 			add_political_power = 20
 			117 = {
 				add_extra_state_shared_building_slots = 1
@@ -6418,7 +6212,6 @@ country_event = { # Sicily Intro - For Sicily
 			limit = {
 				GER = { has_country_flag = GER_Garden_Heavy }
 			}
-			custom_effect_tooltip = GER_Garden_Heavy_tt
 			add_political_power = 40
 			117 = {
 				add_extra_state_shared_building_slots = 2
@@ -6459,14 +6252,12 @@ country_event = { # Sicily Intro - For Sicily
 			limit = {
 				GER = { has_country_flag = GER_Garden_None }
 			}
-			custom_effect_tooltip = GER_Garden_None_tt
 			add_political_power = 5
 		}
 		else_if = {
 			limit = {
 				GER = { has_country_flag = GER_Garden_Light }
 			}
-			custom_effect_tooltip = GER_Garden_Light_tt
 			add_political_power = 20
 			117 = {
 				add_extra_state_shared_building_slots = 1
@@ -6481,7 +6272,6 @@ country_event = { # Sicily Intro - For Sicily
 			limit = {
 				GER = { has_country_flag = GER_Garden_Heavy }
 			}
-			custom_effect_tooltip = GER_Garden_Heavy_tt
 			add_political_power = 40
 			117 = {
 				add_extra_state_shared_building_slots = 2
@@ -6518,17 +6308,18 @@ country_event = { # Sicily Intro - For Sicily
 				GER = { has_country_flag = GER_Garden_Heavy }
 			}
 		}
-		custom_effect_tooltip = GER_Garden_No_Cooperation
 		GER = { country_event = { id = gerfor.285 days = 1 } }
 	}
 	
 	option = { # Never! - This is for the triggered branches
 		name = gerfor.282.e
 		trigger = {
-			has_completed_focus = SIC_NeoSanfedisti_coup
-			has_completed_focus = SIC_Pios_Papacy
-			has_completed_focus = SIC_mafia_takeover
-			has_completed_focus = SIC_ride_the_tiger
+			OR = {
+				has_completed_focus = SIC_NeoSanfedisti_coup
+				has_completed_focus = SIC_Pios_Papacy
+				has_completed_focus = SIC_mafia_takeover
+				has_completed_focus = SIC_ride_the_tiger
+			}
 		}
 		GER = { country_event = { id = gerfor.285 days = 1 } }
 	}
@@ -6539,7 +6330,7 @@ country_event = { # Sicily Wants Heavy Cooperation
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.283" }
 	title = gerfor.283.t
 	desc = gerfor.283.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Naples
 	
 	is_triggered_only = yes
 
@@ -6567,12 +6358,18 @@ country_event = { # Sicily Wants Heavy Cooperation
 			army_experience = -15
 			navy_experience = -5
 			add_political_power = -50
-			activate_decision = GER_Sicilian_Economic_Aid
+			add_timed_idea = {
+				idea = GER_Heavy_Sicilian_Economic_Aid
+				days = 180
+			}
 		}
 		else_if = {
 			limit = { has_country_flag = GER_Garden_Light }
 			clr_country_flag = GER_Garden_Light
-			activate_decision = GER_Sicilian_Economic_Aid
+			add_timed_idea = {
+				idea = GER_Light_Sicilian_Economic_Aid
+				days = 140
+			}
 		}
 		else_if = {
 			limit = { has_country_flag = GER_Garden_None }
@@ -6598,7 +6395,7 @@ country_event = { # Sicily Wants Light Cooperation
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.284" }
 	title = gerfor.284.t
 	desc = gerfor.284.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Naples
 	
 	is_triggered_only = yes
 
@@ -6624,12 +6421,18 @@ country_event = { # Sicily Wants Light Cooperation
 			army_experience = -15
 			navy_experience = -5
 			add_political_power = -50
-			activate_decision = GER_Sicilian_Economic_Aid
+			add_timed_idea = {
+				idea = GER_Heavy_Sicilian_Economic_Aid
+				days = 180
+			}
 		}
 		else_if = {
 			limit = { has_country_flag = GER_Garden_Light }
 			clr_country_flag = GER_Garden_Light
-			activate_decision = GER_Sicilian_Economic_Aid
+			add_timed_idea = {
+				idea = GER_Light_Sicilian_Economic_Aid
+				days = 140
+			}
 		}
 		else_if = {
 			limit = { has_country_flag = GER_Garden_None }
@@ -6655,7 +6458,7 @@ country_event = { # Sicily Refuses Cooperation
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.285" }
 	title = gerfor.285.t
 	desc = gerfor.285.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Naples
 	
 	is_triggered_only = yes
 
@@ -6672,7 +6475,7 @@ country_event = { # Netherlands Intro - For Germany
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.286" }
 	title = gerfor.286.t
 	desc = gerfor.286.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Amsterdam
 	
 	is_triggered_only = yes
 
@@ -6687,21 +6490,21 @@ country_event = { # Netherlands Intro - For Germany
 			}
 		}
 		set_country_flag = GER_Garden_Heavy
-		custom_effect_tooltip = gerfor.286.a_tt
+		custom_effect_tooltip = GER_heavy_garden_tt
 		HOL = { country_event = { id = gerfor.287 days = 1 } }
 	}
 	
 	option = { # Promise a Little
 		name = gerfor.286.b
 		set_country_flag = GER_Garden_Light
-		custom_effect_tooltip = gerfor.286.b_tt
+		custom_effect_tooltip = GER_light_garden_tt
 		HOL = { country_event = { id = gerfor.287 days = 1 } }
 	}
 	
 	option = { # They should be happy we're showing up
 		name = gerfor.286.c
 		set_country_flag = GER_Garden_None
-		custom_effect_tooltip = gerfor.286.c_tt
+		custom_effect_tooltip = GER_no_garden_tt
 		HOL = { country_event = { id = gerfor.287 days = 1 } }
 	}
 }
@@ -6711,7 +6514,7 @@ country_event = { # Netherlands Intro - For Netherlands
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.287" }
 	title = gerfor.287.t
 	desc = gerfor.287.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Amsterdam
 	
 	is_triggered_only = yes
 
@@ -6734,14 +6537,12 @@ country_event = { # Netherlands Intro - For Netherlands
 			limit = {
 				GER = { has_country_flag = GER_Garden_None }
 			}
-			custom_effect_tooltip = GER_Garden_None_tt
 			add_political_power = 5
 		}
 		else_if = {
 			limit = {
 				GER = { has_country_flag = GER_Garden_Light }
 			}
-			custom_effect_tooltip = GER_Garden_Light_tt
 			add_political_power = 20
 			35 = {
 				add_extra_state_shared_building_slots = 1
@@ -6756,7 +6557,6 @@ country_event = { # Netherlands Intro - For Netherlands
 			limit = {
 				GER = { has_country_flag = GER_Garden_Heavy }
 			}
-			custom_effect_tooltip = GER_Garden_Heavy_tt
 			add_political_power = 40
 			35 = {
 				add_extra_state_shared_building_slots = 2
@@ -6789,14 +6589,12 @@ country_event = { # Netherlands Intro - For Netherlands
 			limit = {
 				GER = { has_country_flag = GER_Garden_None }
 			}
-			custom_effect_tooltip = GER_Garden_None_tt
 			add_political_power = 5
 		}
 		else_if = {
 			limit = {
 				GER = { has_country_flag = GER_Garden_Light }
 			}
-			custom_effect_tooltip = GER_Garden_Light_tt
 			add_political_power = 20
 			35 = {
 				add_extra_state_shared_building_slots = 1
@@ -6811,7 +6609,6 @@ country_event = { # Netherlands Intro - For Netherlands
 			limit = {
 				GER = { has_country_flag = GER_Garden_Heavy }
 			}
-			custom_effect_tooltip = GER_Garden_Heavy_tt
 			add_political_power = 40
 			35 = {
 				add_extra_state_shared_building_slots = 2
@@ -6840,7 +6637,6 @@ country_event = { # Netherlands Intro - For Netherlands
 				GER = { has_country_flag = GER_Garden_Heavy }
 			}
 		}
-		custom_effect_tooltip = GER_Garden_No_Cooperation
 		GER = { country_event = { id = gerfor.290 days = 1 } }
 	}
 }
@@ -6850,7 +6646,7 @@ country_event = { # Netherlands Wants Heavy Cooperation
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.288" }
 	title = gerfor.288.t
 	desc = gerfor.288.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Amsterdam
 	
 	is_triggered_only = yes
 
@@ -6878,12 +6674,18 @@ country_event = { # Netherlands Wants Heavy Cooperation
 			army_experience = -15
 			navy_experience = -5
 			add_political_power = -50
-			activate_decision = GER_Dutch_Economic_Aid
+			add_timed_idea = {
+				idea = GER_Heavy_Dutch_Economic_Aid
+				days = 180
+			}
 		}
 		else_if = {
 			limit = { has_country_flag = GER_Garden_Light }
 			clr_country_flag = GER_Garden_Light
-			activate_decision = GER_Dutch_Economic_Aid
+			add_timed_idea = {
+				idea = GER_Light_Dutch_Economic_Aid
+				days = 140
+			}
 		}
 		else_if = {
 			limit = { has_country_flag = GER_Garden_None }
@@ -6909,7 +6711,7 @@ country_event = { # Netherlands Wants Light Cooperation
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.289" }
 	title = gerfor.289.t
 	desc = gerfor.289.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Amsterdam
 	
 	is_triggered_only = yes
 
@@ -6935,12 +6737,18 @@ country_event = { # Netherlands Wants Light Cooperation
 			army_experience = -15
 			navy_experience = -5
 			add_political_power = -50
-			activate_decision = GER_Dutch_Economic_Aid
+			add_timed_idea = {
+				idea = GER_Heavy_Dutch_Economic_Aid
+				days = 180
+			}
 		}
 		else_if = {
 			limit = { has_country_flag = GER_Garden_Light }
 			clr_country_flag = GER_Garden_Light
-			activate_decision = GER_Dutch_Economic_Aid
+			add_timed_idea = {
+				idea = GER_Light_Dutch_Economic_Aid
+				days = 140
+			}
 		}
 		else_if = {
 			limit = { has_country_flag = GER_Garden_None }
@@ -6966,7 +6774,7 @@ country_event = { # Netherlands Refuses Cooperation
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.290" }
 	title = gerfor.290.t
 	desc = gerfor.290.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Amsterdam
 	
 	is_triggered_only = yes
 
@@ -6983,7 +6791,7 @@ country_event = { # Ireland Intro - For Germany
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.291" }
 	title = gerfor.291.t
 	desc = gerfor.291.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Dublin
 	
 	is_triggered_only = yes
 
@@ -6998,21 +6806,21 @@ country_event = { # Ireland Intro - For Germany
 			}
 		}
 		set_country_flag = GER_Garden_Heavy
-		custom_effect_tooltip = gerfor.291.a_tt
+		custom_effect_tooltip = GER_heavy_garden_tt
 		IRE = { country_event = { id = gerfor.292 days = 1 } }
 	}
 	
 	option = { # Promise a Little
 		name = gerfor.291.b
 		set_country_flag = GER_Garden_Light
-		custom_effect_tooltip = gerfor.291.b_tt
+		custom_effect_tooltip = GER_light_garden_tt
 		IRE = { country_event = { id = gerfor.292 days = 1 } }
 	}
 	
 	option = { # They should be happy we're showing up
 		name = gerfor.291.c
 		set_country_flag = GER_Garden_None
-		custom_effect_tooltip = gerfor.291.c_tt
+		custom_effect_tooltip = GER_no_garden_tt
 		IRE = { country_event = { id = gerfor.292 days = 1 } }
 	}
 }
@@ -7022,7 +6830,7 @@ country_event = { # Ireland Intro - For Ireland
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.292" }
 	title = gerfor.292.t
 	desc = gerfor.292.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Dublin
 	
 	is_triggered_only = yes
 
@@ -7045,14 +6853,12 @@ country_event = { # Ireland Intro - For Ireland
 			limit = {
 				GER = { has_country_flag = GER_Garden_None }
 			}
-			custom_effect_tooltip = GER_Garden_None_tt
 			add_political_power = 5
 		}
 		else_if = {
 			limit = {
 				GER = { has_country_flag = GER_Garden_Light }
 			}
-			custom_effect_tooltip = GER_Garden_Light_tt
 			add_political_power = 25
 			navy_experience = 20
 		}
@@ -7060,7 +6866,6 @@ country_event = { # Ireland Intro - For Ireland
 			limit = {
 				GER = { has_country_flag = GER_Garden_Heavy }
 			}
-			custom_effect_tooltip = GER_Garden_Heavy_tt
 			add_political_power = 40
 			add_tech_bonus = {
 				bonus = 0.5
@@ -7086,21 +6891,18 @@ country_event = { # Ireland Intro - For Ireland
 			limit = {
 				GER = { has_country_flag = GER_Garden_None }
 			}
-			custom_effect_tooltip = GER_Garden_None_tt
 			add_political_power = 5
 		}
 		else_if = {
 			limit = {
 				GER = { has_country_flag = GER_Garden_Light }
 			}
-			custom_effect_tooltip = GER_Garden_Light_tt
 			add_political_power = 20
 		}
 		else_if = {
 			limit = {
 				GER = { has_country_flag = GER_Garden_Heavy }
 			}
-			custom_effect_tooltip = GER_Garden_Heavy_tt
 			add_political_power = 40
 			add_tech_bonus = {
 				bonus = 0.5
@@ -7125,7 +6927,6 @@ country_event = { # Ireland Intro - For Ireland
 				}
 			}
 		}
-		custom_effect_tooltip = GER_Garden_No_Cooperation
 		GER = { country_event = { id = gerfor.295 days = 1 } }
 	}
 }
@@ -7135,7 +6936,7 @@ country_event = { # Ireland Wants Heavy Cooperation
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.293" }
 	title = gerfor.293.t
 	desc = gerfor.293.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Dublin
 	
 	is_triggered_only = yes
 
@@ -7197,7 +6998,7 @@ country_event = { # Ireland Wants Light Cooperation
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.294" }
 	title = gerfor.294.t
 	desc = gerfor.294.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Dublin
 	
 	is_triggered_only = yes
 
@@ -7257,7 +7058,7 @@ country_event = { # Ireland Refuses Cooperation
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.295" }
 	title = gerfor.295.t
 	desc = gerfor.295.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Dublin
 	
 	is_triggered_only = yes
 
@@ -7274,7 +7075,7 @@ country_event = { # Austria Intro - For Germany
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.296" }
 	title = gerfor.296.t
 	desc = gerfor.296.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Vienna
 	
 	is_triggered_only = yes
 
@@ -7289,14 +7090,14 @@ country_event = { # Austria Intro - For Germany
 			}
 		}
 		set_country_flag = GER_Garden_Heavy
-		custom_effect_tooltip = gerfor.296.a_tt
+		custom_effect_tooltip = GER_heavy_garden_tt
 		AUS = { country_event = { id = gerfor.297 days = 1 } }
 	}
 	
 	option = { # Only do some diplomatic overtures
 		name = gerfor.296.b
 		set_country_flag = GER_Garden_None
-		custom_effect_tooltip = gerfor.296.b_tt
+		custom_effect_tooltip = GER_no_garden_tt
 		AUS = { country_event = { id = gerfor.297 days = 1 } }
 	}
 }
@@ -7306,7 +7107,7 @@ country_event = { # Austria Intro - For Austria
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.297" }
 	title = gerfor.297.t
 	desc = gerfor.297.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Vienna
 	
 	is_triggered_only = yes
 
@@ -7333,7 +7134,6 @@ country_event = { # Austria Intro - For Austria
 			limit = {
 				GER = { has_country_flag = GER_Garden_None }
 			}
-			custom_effect_tooltip = GER_Garden_None_tt
 			add_political_power = 15
 			add_stability = 0.05
 		}
@@ -7341,7 +7141,6 @@ country_event = { # Austria Intro - For Austria
 			limit = {
 				GER = { has_country_flag = GER_Garden_Heavy }
 			}
-			custom_effect_tooltip = GER_Garden_Heavy_tt
 			add_political_power = 40
 			add_stability = 0.05
 			add_tech_bonus = {
@@ -7365,7 +7164,6 @@ country_event = { # Austria Intro - For Austria
 		}
 		add_political_power = -30
 		add_stability = -0.01
-		custom_effect_tooltip = GER_Garden_No_Cooperation
 		GER = { country_event = { id = gerfor.299 days = 1 } }
 	}
 }
@@ -7375,7 +7173,7 @@ country_event = { # Austria Desires Cooperation
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.298" }
 	title = gerfor.298.t
 	desc = gerfor.298.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Vienna
 	
 	is_triggered_only = yes
 
@@ -7430,7 +7228,7 @@ country_event = { # Austria Refuses Cooperation
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.299" }
 	title = gerfor.299.t
 	desc = gerfor.299.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Vienna
 	
 	is_triggered_only = yes
 
@@ -7447,7 +7245,7 @@ country_event = { # Sweden Intro - For Germany
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.300" }
 	title = gerfor.300.t
 	desc = gerfor.300.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Stockholm
 	
 	is_triggered_only = yes
 
@@ -7478,7 +7276,7 @@ country_event = { # Sweden Intro - For Sweden
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.301" }
 	title = gerfor.301.t
 	desc = gerfor.301.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Stockholm
 	
 	is_triggered_only = yes
 
@@ -7508,13 +7306,11 @@ country_event = { # Sweden Intro - For Sweden
 			limit = {
 				GER = { has_country_flag = GER_Garden_None }
 			}
-			custom_effect_tooltip = GER_Garden_None_tt
 		}
 		else_if = {
 			limit = {
 				GER = { has_country_flag = GER_Garden_Heavy }
 			}
-			custom_effect_tooltip = GER_Garden_Heavy_tt
 			add_political_power = 40
 			add_stability = 0.03
 			increase_ruling_party_popularity_by_5 = yes
@@ -7532,7 +7328,6 @@ country_event = { # Sweden Intro - For Sweden
 				GER = { has_country_flag = GER_Garden_Heavy }
 			}
 		}
-		custom_effect_tooltip = GER_Garden_No_Cooperation
 		GER = { country_event = { id = gerfor.303 days = 1 } }
 	}
 }
@@ -7542,7 +7337,7 @@ country_event = { # Sweden Desires Cooperation
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.302" }
 	title = gerfor.302.t
 	desc = gerfor.302.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Stockholm
 	
 	is_triggered_only = yes
 
@@ -7584,7 +7379,7 @@ country_event = { # Sweden Refuses Cooperation
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.303" }
 	title = gerfor.303.t
 	desc = gerfor.303.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Stockholm
 	
 	is_triggered_only = yes
 
@@ -7601,7 +7396,7 @@ country_event = { # Germany Needs Atlantic Security
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.304" }
 	title = gerfor.304.t
 	desc = gerfor.304.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_CAN_iceland_map
 	
 	is_triggered_only = yes
 
@@ -7631,7 +7426,7 @@ country_event = { # Germany Demands Iceland and Other Atlantic Islands
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.305" }
 	title = gerfor.305.t
 	desc = gerfor.305.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_CAN_iceland_map
 	
 	is_triggered_only = yes
 
@@ -7673,7 +7468,7 @@ country_event = { # Germany Demands Danish Involvement in the Reichspakt
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.306" }
 	title = gerfor.306.t
 	desc = gerfor.306.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Copenhagen
 	
 	is_triggered_only = yes
 
@@ -7713,7 +7508,7 @@ country_event = { # Denmark Refuses
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.307" }
 	title = gerfor.307.t
 	desc = gerfor.307.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Copenhagen
 	
 	is_triggered_only = yes
 
@@ -7729,7 +7524,7 @@ country_event = { # Denmark Accepts
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.308" }
 	title = gerfor.308.t
 	desc = gerfor.308.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Copenhagen
 	
 	is_triggered_only = yes
 
@@ -7746,7 +7541,7 @@ country_event = { # Germany Wants Gibraltar (Non-War Variant) # Might flesh this
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.309" }
 	title = gerfor.309.t
 	desc = gerfor.309.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Gibraltar_Rock
 	
 	is_triggered_only = yes
 
@@ -7770,7 +7565,7 @@ country_event = { # Germany Wants Gibraltar - For Spain (Non-War Variant)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.310" }
 	title = gerfor.310.t
 	desc = gerfor.310.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Gibraltar_Rock
 	
 	is_triggered_only = yes
 
@@ -7814,7 +7609,7 @@ country_event = { # Germany Wants Gibraltar - Spain Agrees (Non-War Variant)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.311" }
 	title = gerfor.311.t
 	desc = gerfor.311.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Gibraltar_Rock
 	
 	is_triggered_only = yes
 
@@ -7831,7 +7626,7 @@ country_event = { # Germany Wants Gibraltar - Spain Refuses (Non-War Variant)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.312" }
 	title = gerfor.312.t
 	desc = gerfor.312.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Gibraltar_Rock
 	
 	is_triggered_only = yes
 
@@ -7847,7 +7642,7 @@ country_event = { # Germany Wants Gibraltar (War Variant)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.313" }
 	title = gerfor.313.t
 	desc = gerfor.313.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Gibraltar_Rock
 	
 	is_triggered_only = yes
 
@@ -7884,7 +7679,7 @@ country_event = { # Germany Wants Gibraltar - For Spain (War Variant)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.314" }
 	title = gerfor.314.t
 	desc = gerfor.314.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Gibraltar_Rock
 	
 	is_triggered_only = yes
 
@@ -7914,7 +7709,7 @@ country_event = { # Germany Seizes Gibraltar - For Spain (War Variant)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.315" }
 	title = gerfor.315.t
 	desc = gerfor.315.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Gibraltar_Rock
 	
 	is_triggered_only = yes
 
@@ -7934,7 +7729,7 @@ country_event = { # Germany Wants Gibraltar - Spain Says Yes (War Variant)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.316" }
 	title = gerfor.316.t
 	desc = gerfor.316.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Gibraltar_Rock
 	
 	is_triggered_only = yes
 
@@ -7950,7 +7745,7 @@ country_event = { # Germany Wants Gibraltar - Spain Says No (War Variant)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.317" }
 	title = gerfor.317.t
 	desc = gerfor.317.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Gibraltar_Rock
 	
 	is_triggered_only = yes
 
@@ -7966,7 +7761,7 @@ country_event = { # Germany Wants Gibraltar - Operation Success (War Variant)
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.318" }
 	title = gerfor.318.t
 	desc = gerfor.318.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Gibraltar_Rock
 	
 	is_triggered_only = yes
 
@@ -7982,7 +7777,7 @@ country_event = { # Germany Wants Dock Access
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.319" }
 	title = gerfor.319.t
 	desc = gerfor.319.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_NOR_event_ragnarok_formable
 	
 	is_triggered_only = yes
 
@@ -8004,7 +7799,7 @@ country_event = { # Germany Asks For Dock Access
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.320" }
 	title = gerfor.320.t
 	desc = gerfor.320.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_NOR_event_ragnarok_formable
 	
 	is_triggered_only = yes
 
@@ -8042,7 +7837,7 @@ country_event = { # Nordstern Exercises
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.321" }
 	title = gerfor.321.t
 	desc = gerfor.321.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_NOR_event_ragnarok_formable
 	
 	is_triggered_only = yes
 
@@ -8059,7 +7854,7 @@ country_event = { # Norway Said No
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.322" }
 	title = gerfor.322.t
 	desc = gerfor.322.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_NOR_event_ragnarok_formable
 	
 	is_triggered_only = yes
 
@@ -8075,7 +7870,7 @@ country_event = { # Anti-NFA Event
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.323" }
 	title = gerfor.323.t
 	desc = gerfor.323.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_French_Sunk
 	
 	is_triggered_only = yes
 
@@ -8106,7 +7901,7 @@ country_event = { # Anti-NFA Event - NFA POV
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.324" }
 	title = gerfor.324.t
 	desc = gerfor.324.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_French_Sunk
 	
 	is_triggered_only = yes
 
@@ -8125,7 +7920,7 @@ country_event = { # Anti-NFA Event - MAF POV
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.325" }
 	title = gerfor.325.t
 	desc = gerfor.325.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_French_Sunk
 	
 	is_triggered_only = yes
 
@@ -8142,7 +7937,7 @@ country_event = { # Anti-CAN Event
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.326" }
 	title = gerfor.326.t
 	desc = gerfor.326.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Evil_Brit
 	
 	is_triggered_only = yes
 
@@ -8158,7 +7953,7 @@ country_event = { # Pro-CAN Event
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.327" }
 	title = gerfor.327.t
 	desc = gerfor.327.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Anglo_German_Stand
 	
 	is_triggered_only = yes
 
@@ -8190,7 +7985,7 @@ country_event = { # Pro-NFA Event
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.328" }
 	title = gerfor.328.t
 	desc = gerfor.328.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_France_Peace
 	
 	is_triggered_only = yes
 
@@ -8222,7 +8017,7 @@ country_event = { # German Support Arrives in League of Eight Provinces / Qing C
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.329" }
 	title = gerfor.329.t
 	desc = gerfor.329.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_generic_east_china_map
 	
 	is_triggered_only = yes
 	
@@ -8254,7 +8049,7 @@ country_event = { # Germany Opens Talks With Siam
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.330" }
 	title = gerfor.330.t
 	desc = gerfor.330.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_SIA_Reclaim_Indochina
 	
 	is_triggered_only = yes
 	
@@ -8293,7 +8088,7 @@ country_event = { # Siam Receives German Courting
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.331" }
 	title = gerfor.331.t
 	desc = gerfor.331.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_SIA_Reclaim_Indochina
 	
 	is_triggered_only = yes
 	
@@ -8325,7 +8120,7 @@ country_event = { # Burma Invited to Conference
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.332" }
 	title = gerfor.332.t
 	desc = gerfor.332.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_ALB_Burma
 	
 	is_triggered_only = yes
 	
@@ -8357,7 +8152,7 @@ country_event = { # Conference Fails Before it can Begin
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.333" }
 	title = gerfor.333.t
 	desc = gerfor.333.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_ALB_Burma
 	
 	is_triggered_only = yes
 	
@@ -8373,7 +8168,7 @@ country_event = { # Germany Starts Siam-Burma Conference
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.334" }
 	title = gerfor.334.t
 	desc = gerfor.334.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Siam_Burma
 	
 	is_triggered_only = yes
 	
@@ -8409,7 +8204,7 @@ country_event = { # Siam is promised Burmese renunciation
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.335" }
 	title = gerfor.335.t
 	desc = gerfor.335.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Siam_Burma
 	
 	is_triggered_only = yes
 	
@@ -8437,7 +8232,7 @@ country_event = { # Burma revokes its claims
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.336" }
 	title = gerfor.336.t
 	desc = gerfor.336.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Siam_Burma
 	
 	is_triggered_only = yes
 	
@@ -8455,7 +8250,7 @@ country_event = { # Siam refuses Burmese renunciation compromise
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.337" }
 	title = gerfor.337.t
 	desc = gerfor.337.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Siam_Burma
 	
 	is_triggered_only = yes
 	
@@ -8505,7 +8300,7 @@ country_event = { # Siam will join the Reichspakt
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.338" }
 	title = gerfor.338.t
 	desc = gerfor.338.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Siam_Burma
 	
 	is_triggered_only = yes
 	
@@ -8528,7 +8323,7 @@ country_event = { # The conference is a failure
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.339" }
 	title = gerfor.339.t
 	desc = gerfor.339.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Siam_Burma
 	
 	is_triggered_only = yes
 	
@@ -8543,7 +8338,7 @@ country_event = { # Germany Starts War with Siam - For Burma and Siam
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.340" }
 	title = gerfor.340.t
 	desc = gerfor.340.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Siam_Burma
 	
 	is_triggered_only = yes
 	
@@ -8560,7 +8355,7 @@ country_event = { # Siam is promised Burmese renunciation and Sung Treng
 	}
 	title = gerfor.341.t
 	desc = gerfor.341.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Siam_Burma
 	
 	is_triggered_only = yes
 	
@@ -8588,7 +8383,7 @@ country_event = { # Siam is pressed to invade Burma
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.342" }
 	title = gerfor.342.t
 	desc = gerfor.342.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Siam_Burma
 	
 	is_triggered_only = yes
 	
@@ -8622,7 +8417,7 @@ country_event = { # Siam is pressed to invade Burma - Siam Says Yes
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.343" }
 	title = gerfor.343.t
 	desc = gerfor.343.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Siam_Burma
 	
 	is_triggered_only = yes
 	
@@ -8643,7 +8438,7 @@ country_event = { # Siam is pressed to invade Burma - Siam Says No
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.344" }
 	title = gerfor.344.t
 	desc = gerfor.344.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Siam_Burma
 	
 	is_triggered_only = yes
 	
@@ -8671,7 +8466,7 @@ country_event = { # What to do with Afghanistan
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.345" }
 	title = gerfor.345.t
 	desc = gerfor.345.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_AFG_afghanistan_map
 	
 	is_triggered_only = yes
 	
@@ -8693,7 +8488,7 @@ country_event = { # Afghanistan is sent German support
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.346" }
 	title = gerfor.346.t
 	desc = gerfor.346.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_AFG_afghanistan_map
 	
 	is_triggered_only = yes
 	
@@ -8719,7 +8514,7 @@ country_event = { # Afghanistan Accepts Support/Faction
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.347" }
 	title = gerfor.347.t
 	desc = gerfor.347.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_AFG_afghanistan_map
 	
 	is_triggered_only = yes
 	
@@ -8736,7 +8531,7 @@ country_event = { # Afghanistan Refuses Support/Faction
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.348" }
 	title = gerfor.348.t
 	desc = gerfor.348.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_AFG_afghanistan_map
 	
 	is_triggered_only = yes
 	
@@ -8753,7 +8548,7 @@ country_event = { # Afghanistan is asked to join the Reichspakt
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.349" }
 	title = gerfor.349.t
 	desc = gerfor.349.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_AFG_afghanistan_map
 	
 	is_triggered_only = yes
 	
@@ -8780,7 +8575,7 @@ country_event = { # Outreach to the Princes
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.350" }
 	title = gerfor.350.t
 	desc = gerfor.350.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Indian_Princes
 	
 	is_triggered_only = yes
 	
@@ -8818,7 +8613,7 @@ country_event = { # Outreach to the Princes
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.351" }
 	title = gerfor.351.t
 	desc = gerfor.351.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Indian_Princes
 	
 	is_triggered_only = yes
 	
@@ -8914,7 +8709,7 @@ country_event = { # Princely Fed Says Yes
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.352" }
 	title = gerfor.352.t
 	desc = gerfor.352.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Indian_Princes
 	
 	is_triggered_only = yes
 	
@@ -8933,7 +8728,7 @@ country_event = { # Princely Fed Says No
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.353" }
 	title = gerfor.353.t
 	desc = gerfor.353.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Indian_Princes
 	
 	is_triggered_only = yes
 	
@@ -8952,7 +8747,7 @@ country_event = { # Ostpolitik Question
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.354" }
 	title = gerfor.354.t
 	desc = gerfor.354.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_RUS_breast_litovsk_map
 	
 	is_triggered_only = yes
 	
@@ -9056,7 +8851,7 @@ country_event = { # Interacting with Georgia
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.355" }
 	title = gerfor.355.t
 	desc = gerfor.355.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Tbilisi
 	
 	is_triggered_only = yes
 	
@@ -9080,7 +8875,7 @@ country_event = { # Germany increases their level of support
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.356" }
 	title = gerfor.356.t
 	desc = gerfor.356.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Tbilisi
 	
 	is_triggered_only = yes
 	
@@ -9106,7 +8901,7 @@ country_event = { # Germany increases their level of support
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.357" }
 	title = gerfor.357.t
 	desc = gerfor.357.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Tbilisi
 	
 	is_triggered_only = yes
 	
@@ -9135,7 +8930,7 @@ country_event = { # Georgia Says Yes
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.358" }
 	title = gerfor.358.t
 	desc = gerfor.358.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Tbilisi
 	
 	is_triggered_only = yes
 	
@@ -9151,7 +8946,7 @@ country_event = { # Georgia Says No
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.359" }
 	title = gerfor.359.t
 	desc = gerfor.359.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Tbilisi
 	
 	is_triggered_only = yes
 	
@@ -9167,7 +8962,7 @@ country_event = { # Ostpolitik Military Buildup
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.360" }
 	title = gerfor.360.t
 	desc = gerfor.360.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Eastern_Troops
 	
 	is_triggered_only = yes
 	
@@ -9241,7 +9036,7 @@ country_event = { # Ostpolitik Economic Buildup
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.361" }
 	title = gerfor.361.t
 	desc = gerfor.361.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_ALB_Industrialization
 	
 	is_triggered_only = yes
 	
@@ -9315,7 +9110,7 @@ country_event = { # Ostpolitik - German Military Aid Arrives
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.362" }
 	title = gerfor.362.t
 	desc = gerfor.362.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Eastern_Troops
 	
 	is_triggered_only = yes
 	
@@ -9392,7 +9187,7 @@ country_event = { # Ostpolitik - Caucasus Realignment
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.363" }
 	title = gerfor.363.t
 	desc = gerfor.363.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_RUS_caucasus
 	
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -9415,9 +9210,11 @@ country_event = { # Ostpolitik - Caucasus Realignment
 		name = gerfor.363.b
 		trigger = {
 			DKB = {
-				has_completed_focus = DKB_distance_ourselves_from_germany
-				has_completed_focus = DKB_coup
-				has_socialist_government = yes
+				OR = {
+					has_completed_focus = DKB_distance_ourselves_from_germany
+					has_completed_focus = DKB_coup
+					has_socialist_government = yes
+				}
 			}
 		}
 		MTR = { country_event = { id = gerfor.370 days = 1 } }
@@ -9431,7 +9228,7 @@ country_event = { # Ostpolitik - Don Host is courted, what do they want
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.364" }
 	title = gerfor.364.t
 	desc = gerfor.364.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_RUS_don_kuban_map
 	
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -9473,7 +9270,7 @@ country_event = { # Ostpolitik - Don wants stuff
 		text = gerfor.365.d_eco
 		trigger = { DKB = { has_country_flag = DKB_GER_Eco } }
 	}
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_RUS_don_kuban_map
 	
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -9492,7 +9289,10 @@ country_event = { # Ostpolitik - Don wants stuff
 		}
 		else_if = {
 			limit = { DKB = { has_country_flag = DKB_GER_Eco } }
-			activate_decision = GER_Don_Economic_Aid
+			add_timed_idea = {
+				idea = GER_Don_Economic_Aid
+				days = 160
+			}
 		}
 		DKB = { country_event = { id = gerfor.366 days = 1 } }
 	}
@@ -9508,7 +9308,7 @@ country_event = { # Ostpolitik - Germany says yes
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.366" }
 	title = gerfor.366.t
 	desc = gerfor.366.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_RUS_don_kuban_map
 	
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -9627,7 +9427,7 @@ country_event = { # Ostpolitik - Germany says no
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.367" }
 	title = gerfor.367.t
 	desc = gerfor.367.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_RUS_don_kuban_map
 	
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -9643,7 +9443,7 @@ country_event = { # Ostpolitik - Don Joins RP
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.368" }
 	title = gerfor.368.t
 	desc = gerfor.368.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_RUS_don_kuban_map
 	
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -9659,7 +9459,7 @@ country_event = { # Ostpolitik - Don Rejects Us
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.369" }
 	title = gerfor.369.t
 	desc = gerfor.369.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_RUS_don_kuban_map
 	
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -9674,7 +9474,7 @@ country_event = { # Ostpolitik - Mountain Republic is courted, are they receptiv
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.370" }
 	title = gerfor.370.t
 	desc = gerfor.370.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_RUS_chechens
 	
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -9698,7 +9498,7 @@ country_event = { # Ostpolitik - Mountain Republic says yes
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.371" }
 	title = gerfor.371.t
 	desc = gerfor.371.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_RUS_chechens
 	
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -9714,7 +9514,7 @@ country_event = { # Ostpolitik - Mountain Republic says no
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.372" }
 	title = gerfor.372.t
 	desc = gerfor.372.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_RUS_chechens
 	
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -9729,7 +9529,7 @@ country_event = { # Ostpolitik - Getting Azerbaijan
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.373" }
 	title = gerfor.373.t
 	desc = gerfor.373.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_AZE_azerbaijan
 	
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -9753,7 +9553,7 @@ country_event = { # Ostpolitik - Azerbaijan is Courted
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.374" }
 	title = gerfor.374.t
 	desc = gerfor.374.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_AZE_azerbaijan
 	
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -9784,7 +9584,7 @@ country_event = { # Ostpolitik - Azerbaijan Says Yes
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.375" }
 	title = gerfor.375.t
 	desc = gerfor.375.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_AZE_azerbaijan
 	
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -9800,7 +9600,7 @@ country_event = { # Ostpolitik - Azerbaijan Says No
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.376" }
 	title = gerfor.376.t
 	desc = gerfor.376.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_AZE_azerbaijan
 	
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -9815,7 +9615,7 @@ country_event = { # Ostpolitik - Holding Georgia
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.377" }
 	title = gerfor.377.t
 	desc = gerfor.377.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Medieval_Georgia
 	
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -9831,7 +9631,7 @@ country_event = { # Ostpolitik - Holding Georgia
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.378" }
 	title = gerfor.378.t
 	desc = gerfor.378.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Medieval_Georgia
 	
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -9850,7 +9650,7 @@ country_event = { # Ostpolitik - Fighting Russia
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.379" }
 	title = gerfor.379.t
 	desc = gerfor.379.d
-	#picture = GFX_report_event_SWE_National_Defense
+	picture = GFX_report_event_GER_Moscow_Burning
 	
 	is_triggered_only = yes
 	
@@ -9878,9 +9678,15 @@ country_event = { # French Occupation German Choice
 	}
 	title = gerfor.3000.t
 	desc = gerfor.3000.d
-	#picture = GFX_report_event_SWE_National_Defense tbd
+	picture = GFX_report_event_GER_French_Occupation_Leaders
 	
 	is_triggered_only = yes
+	trigger = { 
+		FRP = {
+			exists = yes
+			is_subject_of = GER
+		}
+	}
 
 	option = { # Lothar von Arnauld de la Perière
 		name = gerfor.3000.a
@@ -9951,7 +9757,7 @@ country_event = { # French Occupation Collabo
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.3001" }
 	title = gerfor.3001.t
 	desc = gerfor.3001.d
-	#picture = GFX_report_event_SWE_National_Defense tbd
+	picture = GFX_report_event_GER_Collabo
 	
 	is_triggered_only = yes
 
@@ -10079,9 +9885,15 @@ country_event = { # British Occupation German Choice
 	}
 	title = gerfor.3100.t
 	desc = gerfor.3100.d
-	#picture = GFX_report_event_SWE_National_Defense tbd
+	picture = GFX_report_event_GER_British_Occupation_Leaders
 	
 	is_triggered_only = yes
+	trigger = { 
+		GBP = {
+			exists = yes
+			is_subject_of = GER
+		}
+	}
 
 	option = { # Charles Edward, Duke of Saxe-Coburg and Gotha
 		name = gerfor.3100.a
@@ -10172,7 +9984,7 @@ country_event = { # British Occupation Collabo
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.3101" }
 	title = gerfor.3101.t
 	desc = gerfor.3101.d
-	#picture = GFX_report_event_SWE_National_Defense tbd
+	picture = GFX_report_event_GER_Collabo
 	
 	is_triggered_only = yes
 
@@ -10221,9 +10033,15 @@ country_event = { # Russian Occupation German Choice
 	}
 	title = gerfor.3200.t
 	desc = gerfor.3200.d
-	#picture = GFX_report_event_SWE_National_Defense tbd
+	picture = GFX_report_event_GER_Russian_Occupation_Leaders
 	
 	is_triggered_only = yes
+	trigger = { 
+		RPG = {
+			exists = yes
+			is_subject_of = GER
+		}
+	}
 
 	option = { # Prince Eitel Friedrich of Prussia
 		name = gerfor.3200.a
@@ -10298,7 +10116,7 @@ country_event = { # Russian Occupation Collabo
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.3201" }
 	title = gerfor.3201.t
 	desc = gerfor.3201.d
-	#picture = GFX_report_event_SWE_National_Defense tbd
+	picture = GFX_report_event_GER_Collabo
 	
 	is_triggered_only = yes
 
@@ -10320,7 +10138,7 @@ country_event = { # French Military Question
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.3240" }
 	title = gerfor.3240.t
 	desc = gerfor.3240.d
-	#picture = GFX_report_event_SWE_National_Defense tbd
+	picture = GFX_report_event_GER_French_Soldiers
 	
 	is_triggered_only = yes
 
@@ -10354,7 +10172,7 @@ country_event = { # British Military Question
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.3241" }
 	title = gerfor.3241.t
 	desc = gerfor.3241.d
-	#picture = GFX_report_event_SWE_National_Defense tbd
+	picture = GFX_report_event_GER_British_Soldiers
 	
 	is_triggered_only = yes
 
@@ -10388,7 +10206,7 @@ country_event = { # Russian Military Question
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.3242" }
 	title = gerfor.3242.t
 	desc = gerfor.3242.d
-	#picture = GFX_report_event_SWE_National_Defense tbd
+	picture = GFX_report_event_GER_Russian_Soldiers
 	
 	is_triggered_only = yes
 
@@ -10422,7 +10240,7 @@ country_event = { # Strafing Albion
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.3243" }
 	title = gerfor.3243.t
 	desc = gerfor.3243.d
-	#picture = GFX_report_event_SWE_National_Defense tbd
+	picture = GFX_report_event_GER_Blue_Sky
 	
 	is_triggered_only = yes
 
@@ -10436,7 +10254,7 @@ country_event = { # Mercy Britain
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.3244" }
 	title = gerfor.3244.t
 	desc = gerfor.3244.d
-	#picture = GFX_report_event_SWE_National_Defense tbd
+	picture = GFX_report_event_GER_Poppy
 	
 	is_triggered_only = yes
 
@@ -10450,7 +10268,7 @@ country_event = { # Cuck Britain
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.3245" }
 	title = gerfor.3245.t
 	desc = gerfor.3245.d
-	#picture = GFX_report_event_SWE_National_Defense tbd
+	picture = GFX_report_event_GER_Fallen_London
 	
 	is_triggered_only = yes
 
@@ -10464,7 +10282,7 @@ country_event = { # Angelcynn
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.3246" }
 	title = gerfor.3246.t
 	desc = gerfor.3246.d
-	#picture = GFX_report_event_SWE_National_Defense tbd
+	picture = GFX_report_event_GER_Anglo_Saxons
 	
 	is_triggered_only = yes
 
@@ -10478,7 +10296,7 @@ country_event = { # Third Lesson
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.3247" }
 	title = gerfor.3247.t
 	desc = gerfor.3247.d
-	#picture = GFX_report_event_SWE_National_Defense tbd
+	picture = GFX_report_event_GER_Communard_Fall
 	
 	is_triggered_only = yes
 
@@ -10492,7 +10310,7 @@ country_event = { # French Collaborators
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.3248" }
 	title = gerfor.3248.t
 	desc = gerfor.3248.d
-	#picture = GFX_report_event_SWE_National_Defense tbd
+	picture = GFX_report_event_GER_French_Collabos
 	
 	is_triggered_only = yes
 
@@ -10506,7 +10324,7 @@ country_event = { # French Mercy
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.3249" }
 	title = gerfor.3249.t
 	desc = gerfor.3249.d
-	#picture = GFX_report_event_SWE_National_Defense tbd
+	picture = GFX_report_event_GER_French_Peace
 	
 	is_triggered_only = yes
 
@@ -10520,7 +10338,7 @@ country_event = { # Russian Occupation
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.3251" }
 	title = gerfor.3251.t
 	desc = gerfor.3251.d
-	#picture = GFX_report_event_SWE_National_Defense tbd
+	picture = GFX_report_event_GER_Dead_Winter
 	
 	is_triggered_only = yes
 
@@ -10534,7 +10352,7 @@ country_event = { # Russian Mercy
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.3252" }
 	title = gerfor.3252.t
 	desc = gerfor.3252.d
-	#picture = GFX_report_event_SWE_National_Defense tbd
+	picture = GFX_report_event_GER_Tsar_Peter
 	
 	is_triggered_only = yes
 
@@ -10548,7 +10366,7 @@ country_event = { # Russian Cruelty
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.3253" }
 	title = gerfor.3253.t
 	desc = gerfor.3253.d
-	#picture = GFX_report_event_SWE_National_Defense tbd
+	picture = GFX_report_event_GER_Forest_Shoot
 	
 	is_triggered_only = yes
 
@@ -10562,7 +10380,7 @@ country_event = { # Russian Barbarism
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.3254" }
 	title = gerfor.3254.t
 	desc = gerfor.3254.d
-	#picture = GFX_report_event_SWE_National_Defense tbd
+	picture = GFX_report_event_GER_Livonian_Knights
 	
 	is_triggered_only = yes
 
@@ -10576,7 +10394,7 @@ country_event = { # Second Call of Catherine
 	immediate = { log = "[GetDatetext]: [Root.GetName]: event gerfor.3255" }
 	title = gerfor.3255.t
 	desc = gerfor.3255.d
-	#picture = GFX_report_event_SWE_National_Defense tbd
+	picture = GFX_report_event_GER_Volga_Germans
 	
 	is_triggered_only = yes
 

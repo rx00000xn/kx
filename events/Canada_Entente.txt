@@ -8323,6 +8323,7 @@ country_event = {
 	picture = GFX_report_event_CAN_parliament1
 
 	is_triggered_only = yes
+	fire_only_once = yes
 
 	option = {
 		name = entente.300.a #Accept
@@ -10040,12 +10041,16 @@ country_event = {
 				NOT = { has_war_with = ROOT }
 			}
 		}
-		any_owned_state = {
+		any_state = {
 			NOT = {
 				state = 29
 				state = 779
 			}
 			is_european_france = yes
+			OR = {
+				is_owned_by = GER
+				owner = { is_subject_of = GER }
+			}
 		}
 	}
 
@@ -10138,8 +10143,12 @@ country_event = {
 				NOT = { has_war_with = ROOT }
 			}
 		}
-		any_owned_state = {
+		any_state = {
 			is_british_isles = yes
+			OR = {
+				is_owned_by = GER
+				owner = { is_subject_of = GER }
+			}
 		}
 	}
 
