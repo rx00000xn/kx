@@ -69,6 +69,14 @@ focus_tree = {
 										}
 										has_game_rule = {
 											rule = CSA_post_civil_war
+											option = CSA_POST_CIVIL_WAR_YOCKEY
+										}
+										has_game_rule = {
+											rule = CSA_post_civil_war
+											option = CSA_POST_CIVIL_WAR_LAROUCHE
+										}
+										has_game_rule = {
+											rule = CSA_post_civil_war
 											option = CSA_POST_CIVIL_WAR_SCOTT
 										}
 										has_game_rule = {
@@ -119,6 +127,14 @@ focus_tree = {
 								has_game_rule = {
 									rule = CSA_post_civil_war
 									option = CSA_POST_CIVIL_WAR_LOVESTONE
+								}
+								has_game_rule = {
+									rule = CSA_post_civil_war
+									option = CSA_POST_CIVIL_WAR_YOCKEY
+								}
+								has_game_rule = {
+									rule = CSA_post_civil_war
+									option = CSA_POST_CIVIL_WAR_LAROUCHE
 								}
 								has_game_rule = {
 									rule = CSA_post_civil_war
@@ -1005,36 +1021,36 @@ focus_tree = {
 							is_core_of = CSA
 							is_controlled_by = CSA
 						}
+						add_extra_state_shared_building_slots = 3
 						add_building_construction = {
 							type = industrial_complex
 							level = 3
 							instant_build = yes
 						}
-						add_extra_state_shared_building_slots = 3
 					}
 					random_owned_state = {
 						limit = {
 							is_core_of = CSA
 							is_controlled_by = CSA
 						}
+						add_extra_state_shared_building_slots = 3
 						add_building_construction = {
 							type = industrial_complex
 							level = 3
 							instant_build = yes
 						}
-						add_extra_state_shared_building_slots = 3
 					}
 					random_owned_state = {
 						limit = {
 							is_core_of = CSA
 							is_controlled_by = CSA
 						}
+						add_extra_state_shared_building_slots = 3
 						add_building_construction = {
 							type = industrial_complex
 							level = 3
 							instant_build = yes
 						}
-						add_extra_state_shared_building_slots = 3
 					}
 			}
 
@@ -1385,48 +1401,48 @@ focus_tree = {
 							is_core_of = CSA
 							is_controlled_by = CSA
 						}
+						add_extra_state_shared_building_slots = 3
 						add_building_construction = {
 							type = industrial_complex
 							level = 3
 							instant_build = yes
 						}
-						add_extra_state_shared_building_slots = 3
 					}
 					random_owned_state = {
 						limit = {
 							is_core_of = CSA
 							is_controlled_by = CSA
 						}
+						add_extra_state_shared_building_slots = 3
 						add_building_construction = {
 							type = arms_factory
 							level = 3
 							instant_build = yes
 						}
-						add_extra_state_shared_building_slots = 3
 					}
 					random_owned_state = {
 						limit = {
 							is_core_of = CSA
 							is_controlled_by = CSA
 						}
+						add_extra_state_shared_building_slots = 3
 						add_building_construction = {
 							type = industrial_complex
 							level = 3
 							instant_build = yes
 						}
-						add_extra_state_shared_building_slots = 3
 					}
 					random_owned_state = {
 						limit = {
 							is_core_of = CSA
 							is_controlled_by = CSA
 						}
+						add_extra_state_shared_building_slots = 3
 						add_building_construction = {
 							type = arms_factory
 							level = 3
 							instant_build = yes
 						}
-						add_extra_state_shared_building_slots = 3
 					}
 			}
 
@@ -4668,25 +4684,19 @@ focus_tree = {
 	focus = {# Dye Red the Bonus Army
 		id = CSA_dye_red_the_bonus_army
 		icon = {
-			trigger = {
+			GFX_goal_CSA_dye_bonus_army_red_3 = {
 				has_country_leader = {
 					name = "Bill Blizzard"
 					ruling_only = yes
 				}
 			}
-			value = GFX_goal_CSA_dye_bonus_army_red_3
-		}
-		icon = {
-			trigger = {
+			GFX_goal_CSA_dye_bonus_army_red_2 = {
 				has_country_leader = {
 					name = "Jacob Coxey"
 					ruling_only = yes
 				}
 			}
-			value = GFX_goal_CSA_dye_bonus_army_red_2
-		}
-		icon = {
-			value = GFX_goal_CSA_dye_bonus_army_red
+			GFX_goal_CSA_dye_bonus_army_red = yes
 		}
 		cost = 5
 		available = { has_government = social_democrat }
@@ -4730,7 +4740,7 @@ focus_tree = {
 	focus = {# Democracy, Human Rights and Trade Unionism
 		id = CSA_democracy_rights_trade_unionism
 		icon = {
-			trigger = {
+			GFX_goal_CSA_democracy_human_rights_unionism_2 = {
 				NOT = {
 					has_country_leader = {
 						name = "Philip Murray"
@@ -4738,10 +4748,7 @@ focus_tree = {
 					}
 				}
 			}
-			value = GFX_goal_CSA_democracy_human_rights_unionism_2
-		}
-		icon = {
-			value = GFX_goal_CSA_democracy_human_rights_unionism
+			GFX_goal_CSA_democracy_human_rights_unionism = yes
 		}
 		cost = 5
 		available = { has_government = social_democrat }
@@ -8532,6 +8539,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus CSA_fosters_economics"
 			add_ideas = CSA_total_collectivism
+			add_ideas = command_economy
 			add_political_power = 45
 			add_war_support = 0.05
 			random_owned_state = {
@@ -10112,6 +10120,7 @@ focus_tree = {
 		id = CSA_social_revolution
 		icon = GFX_goal_revolution_tools
 		cost = 5
+		available = { NOT = { has_country_leader = { name = "Francis Parker Yockey" ruling_only = yes } } }
 		prerequisite = {
 			focus = CSA_redistribute_wealth
 		}
@@ -10168,6 +10177,7 @@ focus_tree = {
 		id = CSA_illegalize_racism
 		icon = GFX_CSA_racial_liberation
 		cost = 5
+		available = { NOT = { has_country_leader = { name = "Francis Parker Yockey" ruling_only = yes } } }
 		prerequisite = {
 			focus = CSA_social_revolution
 			focus = CSA_womens_liberation
@@ -13487,6 +13497,7 @@ focus_tree = {
 		}
 		available = {
 			is_subject = no
+			NOT = { has_country_leader = { name = "Francis Parker Yockey" ruling_only = yes } }
 		}
 		relative_position_id = CSA_demand_new_england
 		x = -6
@@ -13959,6 +13970,7 @@ focus_tree = {
 		}
 		available = {
 			is_subject = no
+			NOT = { has_country_leader = { name = "Francis Parker Yockey" ruling_only = yes } }
 		}
 		relative_position_id = CSA_demand_new_england
 		x = 0
@@ -14166,6 +14178,16 @@ focus_tree = {
 			is_major = yes
 			is_subject = no
 		}
+		bypass = {
+			SPR = {
+				OR = {
+					exists = no
+					is_subject_of = ROOT 
+					is_in_faction_with = ROOT
+				}
+			}
+			CAR = { exists = no }
+		}
 		relative_position_id = CSA_world_revolution
 		x = 1
 		y = 5
@@ -14216,6 +14238,15 @@ focus_tree = {
 		available = {
 			is_major = yes
 			is_subject = no
+		}
+		bypass = {
+			BRA = {
+				OR = {
+					exists = no
+					is_subject_of = ROOT 
+					is_in_faction_with = ROOT
+				}
+			}
 		}
 		relative_position_id = CSA_world_revolution
 		x = 1
@@ -14399,6 +14430,15 @@ focus_tree = {
 			is_major = yes
 			is_subject = no
 		}
+		bypass = {
+			IRE = {
+				OR = {
+					exists = no
+					is_subject_of = ROOT 
+					is_in_faction_with = ROOT
+				}
+			}
+		}
 		relative_position_id = CSA_denounce_the_internationale
 		x = 1
 		y = 3
@@ -14425,6 +14465,9 @@ focus_tree = {
 		available = {
 			is_major = yes
 			is_subject = no
+		}
+		bypass = {
+			FRA = { exists = no }
 		}
 		relative_position_id = CSA_denounce_the_internationale
 		x = 1
@@ -14481,6 +14524,15 @@ focus_tree = {
 			is_major = yes
 			is_subject = no
 		}
+		bypass = {
+			JAP = {
+				OR = {
+					exists = no
+					is_subject_of = ROOT 
+					is_in_faction_with = ROOT
+				}
+			}
+		}
 		relative_position_id = CSA_power_of_the_revolution
 		x = -1
 		y = 1
@@ -14508,6 +14560,22 @@ focus_tree = {
 		available = {
 			is_major = yes
 			is_subject = no
+		}
+		bypass = {
+			PHI = {
+				OR = {
+					exists = no
+					is_subject_of = ROOT 
+					is_in_faction_with = ROOT
+				}
+			}
+			VIN = {
+				OR = {
+					exists = no
+					is_subject_of = ROOT 
+					is_in_faction_with = ROOT
+				}
+			}
 		}
 		relative_position_id = CSA_power_of_the_revolution
 		x = -1
@@ -14569,6 +14637,9 @@ focus_tree = {
 			is_major = yes
 			is_subject = no
 		}
+		bypass = {
+			GER = { exists = no }
+		}
 		relative_position_id = CSA_power_of_the_revolution
 		x = 1
 		y = 1
@@ -14596,6 +14667,15 @@ focus_tree = {
 		available = {
 			is_major = yes
 			is_subject = no
+		}
+		bypass = {
+			AUS = {
+				OR = {
+					exists = no
+					is_subject_of = ROOT 
+					is_in_faction_with = ROOT
+				}
+			}
 		}
 		relative_position_id = CSA_power_of_the_revolution
 		x = 1
@@ -17343,7 +17423,11 @@ focus_tree = {
 		add_war_support = 0.06
 		add_manpower = -3000
 		add_ideas = CSA_Distorters_Parasites_Culture_No_More_idea
-		hidden_effect = { country_event = { id = csa.6026 days = 30 } }
+		hidden_effect = { 
+		country_event = { id = csa.6026 days = 30 }
+		country_event = { id = csa.6038 days = 70 }
+		country_event = { id = csa.6027 days = 120 }
+			}
 		log = "[GetDateText]: [Root.GetName]: Focus CSA_Distorters_Parasites_Culture_No_More"
 		}
 	}
@@ -17409,6 +17493,7 @@ focus_tree = {
 		remove_idea = CSA_Yockey_Aftermath_idea
 		add_idea = CSA_Resurgence_Maximist_Authority_idea
 		}
+		hidden_effect = { country_event = { id = csa.6045 days = 14 } }
 		log = "[GetDateText]: [Root.GetName]: Focus CSA_Resurgence_Maximist_Authority"
 		}
 	}
@@ -17427,6 +17512,7 @@ focus_tree = {
 
 		completion_reward = {
 		add_ideas = CSA_Orchestra_Caesarian_Socialism_idea
+		hidden_effect = { country_event = { id = csa.6049 days = 42 } }
 		log = "[GetDateText]: [Root.GetName]: Focus CSA_Orchestra_Caesarian_Socialism"
 		}
 	}
@@ -17448,13 +17534,29 @@ focus_tree = {
 		increase_ruling_party_popularity_by_10 = yes
 		add_equipment_to_stockpile = {
 			type = infantry_equipment
-			amount = 1500
+			amount = 2500
 			producer = CSA
 		}
 			add_equipment_to_stockpile = {
 			type = artillery_equipment
-			amount = 120
+			amount = 250
 			producer = CSA
+		}
+		hidden_effect = { 
+		country_event = { id = csa.6042 days = 14 } 
+		if = {
+		limit = {
+		EGY = { 
+		OR = {
+		has_country_leader = { name = "Farouk I" ruling_only = yes }
+		has_country_leader = { name = "Skanderbeg II" ruling_only = yes }
+		has_country_leader = { name = "Muhammad Ali II" ruling_only = yes }
+		has_country_leader = { name = "Mekemet" ruling_only = yes }
+				}
+			}
+		}
+		country_event = { id = csa.6043 days = 77 }
+			}
 		}
 		log = "[GetDateText]: [Root.GetName]: Focus CSA_Our_Own_Take_Geopolitik"
 		}
@@ -17489,6 +17591,8 @@ focus_tree = {
 			ideology = natpop_jeffersonianism_subtype
 			traits = { }
 			}
+		country_event = { id = csa.6040 days = 14 }
+		country_event = { id = csa.6054 days = 90 }
 		}
 		add_ideas = CSA_Revolution_Silver_Red_idea
 		log = "[GetDateText]: [Root.GetName]: Focus CSA_Revolution_Silver_Red"
@@ -17568,6 +17672,7 @@ focus_tree = {
 			remove_idea = CSA_Rage_Against_Enlightenment_idea
 			add_idea = CSA_Renaissance_True_American_Worker_idea
 		}
+		hidden_effect = { country_event = { id = csa.6047 days = 21 } }
 		log = "[GetDateText]: [Root.GetName]: Focus CSA_Renaissance_True_American_Worker"
 		}
 	}
@@ -17584,10 +17689,24 @@ focus_tree = {
 			factor = 50
 		}
 		completion_reward = {
-		custom_effect_tooltip = CSA_imperium_time_tooltip
+		custom_effect_tooltip = CSA_imperium_time_tt
 		add_command_power = 60
 		add_war_support = 0.1
 		add_manpower = 7500
+		create_faction_from_template = { 
+				template = faction_template_generic_dominance 
+				name = faction_european_liberation_front
+				icon = GFX_faction_elf
+		}
+		hidden_effect = {
+		if = {
+		limit = {
+		has_country_leader_ideology = british_maximism_subtype
+		ENG = { has_country_leader = { ruling_only = yes name = "Oswald Mosley" } }
+		}
+		country_event = { id = csa.6057 days = 7 }
+			}
+		}
 		log = "[GetDateText]: [Root.GetName]: Focus CSA_Crimson_Crusade_Imperium"
 		}
 	}

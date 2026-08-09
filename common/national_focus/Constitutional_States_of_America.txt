@@ -23,7 +23,7 @@ focus_tree = {
 		}
 		bypass = {
 		has_country_flag = COR_memphis_commission 
-		has_country_leader = { ruling_only = yes name = "E.H. Crump" }
+		has_country_leader = { ruling_only = yes name = "E. H. Crump" }
 				}
 		ai_will_do = { factor = 20 }
 		x = 31
@@ -1457,15 +1457,21 @@ focus_tree = {
 			add_manpower = 12500
 			add_war_support = 0.05
 			hidden_effect = {
-			country_event = {
-			id = constate.36
-			days = 30
+				country_event = {
+					id = constate.36
+					days = 30
 				}
-			}
-			hidden_effect = {
 				country_event = {
 					id = constate.4093
 					days = 4
+				}
+				if = {
+					limit = { COR_fordists_in_power = yes }
+					country_event = {
+						id = constate.7086
+						days = 57
+						random_days = 12
+					}
 				}
 			}
 		}
@@ -2641,14 +2647,10 @@ focus_tree = {
 	focus = {
 		id = COR_all_technocrats_here
 		icon = { 
-			trigger = { COR = { has_country_flag = COR_flag_Ford_all_technocrats } }
-			value = GFX_goal_COR_committee_of_all_technocrats
+			GFX_goal_COR_committee_of_all_technocrats = { COR = { has_country_flag = COR_flag_Ford_all_technocrats } }
+			GFX_goal_COR_the_old_democrat_southern_base = { COR = { has_country_flag = COR_flag_Ford_ODP_aligned } }
+			GFX_goal_COR_new_allies_or_old_ventures = yes
 		}
-		icon = { 
-			trigger = { COR = { has_country_flag = COR_flag_Ford_ODP_aligned } }
-			value = GFX_goal_COR_the_old_democrat_southern_base
-		}		
-		icon = { value = GFX_goal_COR_new_allies_or_old_ventures }
 		prerequisite = { focus = COR_ford_establishes_committee }
 		cost = 4
 		available = {
@@ -2688,6 +2690,7 @@ focus_tree = {
 			}
 			else = {
 				add_political_power = 50
+				custom_effect_tooltip = COR_fordist_focuses_allies_tooltip
 			}			
 		}
 	}	
@@ -2754,14 +2757,10 @@ focus_tree = {
 	focus = {
 		id = COR_fords_fair_labour_standards
 		icon = { 
-			trigger = { COR = { has_country_flag = COR_flag_Ford_all_technocrats } }
-			value = GFX_goal_COR_fair_labour_standards_act
+			GFX_goal_COR_fair_labour_standards_act = { COR = { has_country_flag = COR_flag_Ford_all_technocrats } }
+			GFX_goal_COR_mechanize_our_farms = { COR = { has_country_flag = COR_flag_Ford_ODP_aligned } }
+			GFX_goal_COR_our_allies_economic_vision = yes 
 		}
-		icon = { 
-			trigger = { COR = { has_country_flag = COR_flag_Ford_ODP_aligned } }
-			value = GFX_goal_COR_mechanize_our_farms
-		}		
-		icon = { value = GFX_goal_COR_our_allies_economic_vision }
 		prerequisite = { focus = COR_all_technocrats_here }
 
 
@@ -2799,6 +2798,7 @@ focus_tree = {
 			}
 			else = {
 				add_political_power = 50
+				custom_effect_tooltip = COR_fordist_focuses_allies_tooltip
 			}
 		}
 	}
@@ -3024,50 +3024,19 @@ focus_tree = {
 	focus = {
 		id = COR_ending_the_colonial_marketplace
 		icon = { 
-			trigger = { COR = { has_country_flag = COR_flag_Ford_Edsel_successor } }
-			value = GFX_goal_COR_sucsessor_edsel
-		}
-		icon = { 
-			trigger = { COR = { has_country_flag = COR_flag_Ford_Rockefeller_successor } }
-			value = GFX_goal_COR_sucsessor_rockefeller
-		}
-		icon = { 
-			trigger = { COR = { has_country_flag = COR_flag_Ford_Bennett_successor } }
-			value = GFX_goal_COR_sucsessor_bennett
-		}
-		icon = { 
-			trigger = { COR = { has_country_flag = COR_flag_Ford_Bugas_successor } }
-			value = GFX_goal_COR_sucsessor_bugas
-		}
-		icon = { 
-			trigger = { COR = { has_country_flag = COR_flag_Ford_Edison_successor } }
-			value = GFX_goal_COR_sucsessor_edison
-		}
-		icon = { 
-			trigger = { COR = { has_country_flag = COR_flag_Ford_Scott_successor } }
-			value = GFX_goal_COR_sucsessor_scott
-		}
-		icon = { 
-			trigger = { COR = { has_country_flag = COR_flag_Ford_Birch_successor } }
-			value = GFX_goal_COR_sucsessor_birch
-		}
-		icon = { 
-			trigger = { COR = { has_country_flag = COR_flag_Ford_Rieber_successor } }
-			value = GFX_goal_COR_sucsessor_rieber
-		}
-		icon = { 
-			trigger = { COR = { has_country_flag = COR_flag_Ford_Dennis_successor } }
-			value = GFX_goal_COR_sucsessor_dennis
-		}
-		icon = { 
-			trigger = { COR = { has_country_flag = COR_flag_Ford_McNamara_successor } }
-			value = GFX_goal_COR_sucsessor_mcnarama
-		}
-		icon = { 
-			trigger = { COR = { has_country_flag = COR_flag_Ford_Second_successor } }
-			value = GFX_goal_COR_sucsessor_ford_ii
+			GFX_goal_COR_sucsessor_edsel = { COR = { has_country_flag = COR_flag_Ford_Edsel_successor } }
+			GFX_goal_COR_sucsessor_rockefeller = { COR = { has_country_flag = COR_flag_Ford_Rockefeller_successor } }
+			GFX_goal_COR_sucsessor_bennett = { COR = { has_country_flag = COR_flag_Ford_Bennett_successor } }
+			GFX_goal_COR_sucsessor_bugas = { COR = { has_country_flag = COR_flag_Ford_Bugas_successor } }
+			GFX_goal_COR_sucsessor_edison = { COR = { has_country_flag = COR_flag_Ford_Edison_successor } }
+			GFX_goal_COR_sucsessor_scott = { COR = { has_country_flag = COR_flag_Ford_Scott_successor } }
+			GFX_goal_COR_sucsessor_birch = { COR = { has_country_flag = COR_flag_Ford_Birch_successor } }
+			GFX_goal_COR_sucsessor_rieber = { COR = { has_country_flag = COR_flag_Ford_Rieber_successor } }
+			GFX_goal_COR_sucsessor_dennis = { COR = { has_country_flag = COR_flag_Ford_Dennis_successor } }
+			GFX_goal_COR_sucsessor_mcnarama = { COR = { has_country_flag = COR_flag_Ford_McNamara_successor } }
+			GFX_goal_COR_sucsessor_ford_ii = { COR = { has_country_flag = COR_flag_Ford_Second_successor } }
+			GFX_goal_COR_sucsessor_ford = yes
 		}		
-		icon = { value = GFX_goal_COR_sucsessor_ford }		
 
 		prerequisite = { focus = COR_quintessentially_american }
 		prerequisite = { focus = COR_preserving_americana_through_technocracy }
@@ -4918,7 +4887,7 @@ focus_tree = {
 
 	focus = {# American Emperor
 		id = COR_american_emperor
-		icon = GFX_goal_MAF_Vizekonig
+		icon = GFX_goal_MAF_Vizekonig_Crown
 		cost = 5
 		prerequisite = {
 			focus = COR_black_laws
@@ -5068,6 +5037,14 @@ focus_tree = {
 		prerequisite = {
 			focus = COR_Bolt_of_Lightning
 		}
+		select_effect = {
+		hidden_effect = {
+			country_event = {
+				id = constate.7083
+				days = 12
+				}
+			}
+		}		
 		available_if_capitulated = yes
 		x = -1
 		y = 1
@@ -5140,9 +5117,11 @@ focus_tree = {
 			has_government = national_populist
 		}
 		prerequisite = {
-			focus = COR_Reveal_Armstrongs_Cult
 			focus = COR_Wrangle_Klan_Remnants
 		}
+		prerequisite = {
+			focus = COR_Reveal_Armstrongs_Cult
+		}		
 		available_if_capitulated = yes
 		x = 0
 		y = 2
@@ -5420,6 +5399,10 @@ focus_tree = {
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus COR_Scales_of_Columbia"
+			country_event = {
+			id = constate.7084
+			days = 5
+			}			
 			if = {
 			limit = {
 			has_idea = COR_the_eyes_of_god_idea
@@ -5530,7 +5513,16 @@ focus_tree = {
 		} else = {
 			add_ideas = COR_Anglo_Saxon_domination_idea
 		}
-		
+			hidden_effect = {
+			country_event = {
+			id = constate.7081
+			days = 67
+			}
+			country_event = {
+			id = constate.7085
+			days = 10
+			}			
+			}		
 		}
 	}
 
@@ -5607,9 +5599,7 @@ focus_tree = {
 			remove_idea = COR_black_laws_idea_3
 			add_idea = COR_Americanization_Authority_idea
 			}
-		} else = {
-			add_ideas = COR_Americanization_Authority_idea
-		}
+		} 
 			hidden_effect = {
 			country_event = {
 			id = constate.7061
@@ -5835,7 +5825,7 @@ focus_tree = {
 			hidden_effect = {
 				country_event = {
 				id = constate.7078
-				days = 320
+				days = 60
 				}			
 			}
 		}
@@ -10217,7 +10207,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus COR_expand_Fort_Benning_for_Training"
 			hidden_effect = {
-			load_oob = "ACW_COR_inspire_georgia"
+			load_oob = "ACW_CAR_inspire_georgia"
  			}
 			add_war_support = 0.03
 			army_experience = 15
@@ -10412,8 +10402,12 @@ focus_tree = {
 				remove_idea = COR_Almond_Aggression_idea
 				add_idea = COR_Almond_Aggression_idea2
 			}
-			set_technology = {
-				special_forces_mountaineers = 1
+			custom_effect_tooltip = tooltip_white_line
+			enable_tech_mountain_warfare = yes
+			add_tech_bonus = {
+				category = mountaineers_tech
+				bonus = 0.75
+				uses = 1
 			}
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
@@ -12737,6 +12731,7 @@ focus_tree = {
 				}
 			}	
 		}
+		cancel_if_invalid = yes
 
 		ai_will_do = {
 			factor = 40
@@ -13125,6 +13120,7 @@ focus_tree = {
 		}
 		available = {
 		is_subject = no
+		is_in_faction = no
 		ENT = { exists = yes}
 		NOT = {
 		ENT = {
@@ -13137,6 +13133,7 @@ focus_tree = {
 		NOT = { has_country_leader = { ruling_only = yes name = "George W. Christians" } }
 	    }
 		relative_position_id = COR_back_in_business
+		cancel_if_invalid = yes
 		x = -7
 		y = 1
 
@@ -13716,6 +13713,7 @@ focus_tree = {
 		}
 		available = {
 			is_subject = no
+			is_in_faction = no
 			GER = { exists = yes}
 			NOT = {
 			GER = {
@@ -13735,6 +13733,7 @@ focus_tree = {
 			focus = COR_western_brothers
 		}
 		relative_position_id = COR_back_in_business
+		cancel_if_invalid = yes
 		x = 2
 		y = 1
 
@@ -16636,26 +16635,14 @@ focus_tree = {
 	focus = {#Limbaugh
 		id = COR_silence_klanationalists
 		icon = {
-			trigger = {
-				NOT = {
-				has_country_leader = {
-					ruling_only = yes
-					name = "David Bibb Graves"
-				}
-			    }
-			}
-			value = GFX_goal_COR_Silence_Klan_Nationalists
-		}
-		icon = {
-			trigger = {
+			GFX_goal_COR_Humanize_Klan = {
 				has_country_leader = {
 					ruling_only = yes
 					name = "David Bibb Graves"
 				}
 			}
-			value = GFX_goal_COR_Humanize_Klan
+			GFX_goal_COR_Silence_Klan_Nationalists = yes
 		}
-		icon =  GFX_goal_COR_Silence_Klan_Nationalists
 		cost = 5		
 		available = {
 				OR = {
@@ -16775,9 +16762,6 @@ focus_tree = {
 						hidden_effect = {
 							country_event = { id = constate.67792 days = 15 }
 						}
-						hidden_effect = {
-							country_event = { id = constate.6781 days = 6 }
-						}
 				add_political_power = 100
 			add_ideas = COR_american_progress
 		}
@@ -16805,9 +16789,9 @@ focus_tree = {
 		has_country_leader = { ruling_only = yes name = "David Bibb Graves" }
 		has_country_leader = { ruling_only = yes name = "William Alexander Percy" }
 		has_country_leader = { ruling_only = yes name = "Al Gore" }	
-		has_country_leader = { ruling_only = yes name = "E.H. Crump" }
+		has_country_leader = { ruling_only = yes name = "E. H. Crump" }
 		has_country_leader = { ruling_only = yes name = "Georgia Tann" }
-		has_country_leader = { ruling_only = yes name = "N.J. Ford" }	
+		has_country_leader = { ruling_only = yes name = "N. J. Ford" }	
 		has_country_leader = { ruling_only = yes name = "John R. Brinkley" }
 		}
 	    }
@@ -16836,9 +16820,9 @@ focus_tree = {
 		has_country_leader = { ruling_only = yes name = "David Bibb Graves" }
 		has_country_leader = { ruling_only = yes name = "William Alexander Percy" }
 		has_country_leader = { ruling_only = yes name = "Al Gore" }	
-		has_country_leader = { ruling_only = yes name = "E.H. Crump" }
+		has_country_leader = { ruling_only = yes name = "E. H. Crump" }
 		has_country_leader = { ruling_only = yes name = "Georgia Tann" }
-		has_country_leader = { ruling_only = yes name = "N.J. Ford" }	
+		has_country_leader = { ruling_only = yes name = "N. J. Ford" }	
 		has_country_leader = { ruling_only = yes name = "John R. Brinkley" }
 		}
 		}
@@ -16865,9 +16849,9 @@ focus_tree = {
 		has_country_leader = { ruling_only = yes name = "David Bibb Graves" }
 		has_country_leader = { ruling_only = yes name = "William Alexander Percy" }
 		has_country_leader = { ruling_only = yes name = "Al Gore" }	
-		has_country_leader = { ruling_only = yes name = "E.H. Crump" }
+		has_country_leader = { ruling_only = yes name = "E. H. Crump" }
 		has_country_leader = { ruling_only = yes name = "Georgia Tann" }
-		has_country_leader = { ruling_only = yes name = "N.J. Ford" }	
+		has_country_leader = { ruling_only = yes name = "N. J. Ford" }	
 		has_country_leader = { ruling_only = yes name = "John R. Brinkley" }
 		}
 		}
@@ -16897,9 +16881,9 @@ focus_tree = {
 		has_country_leader = { ruling_only = yes name = "David Bibb Graves" }
 		has_country_leader = { ruling_only = yes name = "William Alexander Percy" }
 		has_country_leader = { ruling_only = yes name = "Al Gore" }	
-		has_country_leader = { ruling_only = yes name = "E.H. Crump" }
+		has_country_leader = { ruling_only = yes name = "E. H. Crump" }
 		has_country_leader = { ruling_only = yes name = "Georgia Tann" }
-		has_country_leader = { ruling_only = yes name = "N.J. Ford" }	
+		has_country_leader = { ruling_only = yes name = "N. J. Ford" }	
 		has_country_leader = { ruling_only = yes name = "John R. Brinkley" }
 		}
 		}
@@ -16948,9 +16932,9 @@ focus_tree = {
 		has_country_leader = { ruling_only = yes name = "David Bibb Graves" }
 		has_country_leader = { ruling_only = yes name = "William Alexander Percy" }
 		has_country_leader = { ruling_only = yes name = "Al Gore" }	
-		has_country_leader = { ruling_only = yes name = "E.H. Crump" }
+		has_country_leader = { ruling_only = yes name = "E. H. Crump" }
 		has_country_leader = { ruling_only = yes name = "Georgia Tann" }
-		has_country_leader = { ruling_only = yes name = "N.J. Ford" }	
+		has_country_leader = { ruling_only = yes name = "N. J. Ford" }	
 		has_country_leader = { ruling_only = yes name = "John R. Brinkley" }
 		}
 		}
@@ -17048,9 +17032,9 @@ focus_tree = {
 		has_country_leader = { ruling_only = yes name = "David Bibb Graves" }
 		has_country_leader = { ruling_only = yes name = "William Alexander Percy" }
 		has_country_leader = { ruling_only = yes name = "Al Gore" }	
-		has_country_leader = { ruling_only = yes name = "E.H. Crump" }
+		has_country_leader = { ruling_only = yes name = "E. H. Crump" }
 		has_country_leader = { ruling_only = yes name = "Georgia Tann" }
-		has_country_leader = { ruling_only = yes name = "N.J. Ford" }	
+		has_country_leader = { ruling_only = yes name = "N. J. Ford" }	
 		has_country_leader = { ruling_only = yes name = "John R. Brinkley" }
 		}
 		}

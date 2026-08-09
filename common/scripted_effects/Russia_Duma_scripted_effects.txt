@@ -5936,11 +5936,11 @@ RUS_setup_presidential_victory = {
 			limit = { has_country_flag = vergun_nsnp_candidate }
 			RUS_setup_president_vergun = yes
 		}
-		if = {
+		else_if = {
 			limit = { has_country_flag = trushnovich_nsnp_candidate }
 			RUS_setup_president_trushnovich = yes
 		}
-		if = {
+		else_if = {
 			limit = { has_country_flag = pryanishnikov_nsnp_candidate }
 			RUS_setup_president_pryanishnikov = yes
 		}
@@ -13103,6 +13103,12 @@ setup_new_president = {
 			}
 			else_if = {
 				limit = {
+					has_country_flag = chernov_psr_candidate
+				}
+				RUS_setup_president_chernov = yes
+			}
+			else_if = {
+				limit = {
 					OR = {
 						has_country_flag = avksentiev_psr_candidate	
 						has_country_flag = avksentiev_psr_kdp_candidate
@@ -14175,6 +14181,32 @@ RUS_setup_vns_government = {
 		RUS_add_to_coalition = yes
 	}
 	set_variable = { Duma_Party_Status^8 = 1 }
+	mp_support_calc = yes
+	senators_support_calc = yes
+}
+RUS_setup_rms_government = {
+	hidden_effect = {
+		# Just in case
+		remove_all_ministers = yes		
+	}
+	if = {
+		limit = { has_country_flag = RUS_rms_is_authdem }
+		add_ideas = RUS_Vasiliy_V_Shulgin_hog_sco
+		add_ideas = RUS_Nikolay_Rybinsky_for_pau
+		add_ideas = RUS_Sergey_Bulgakov_eco_sco
+		add_ideas = RUS_Mikhail_Rodzyanko_sec_sco
+	}
+	else = {
+		add_ideas = RUS_Pyetr_N_Vrangel_hog_pau
+		add_ideas = RUS_Nikolay_Rybinsky_for_pau
+		add_ideas = RUS_Ivan_Tkhorzhevsky_eco_pau
+		add_ideas = RUS_Yakov_Slaschyov_sec_pau
+	}
+	set_temp_variable = { RUS_coalition_partner = 8 }
+	RUS_add_to_coalition = yes
+	set_temp_variable = { RUS_coalition_partner = 13 }
+	RUS_add_to_coalition = yes	
+	set_variable = { Duma_Party_Status^12 = 1 }
 	mp_support_calc = yes
 	senators_support_calc = yes
 }
@@ -15494,9 +15526,9 @@ Get_initial_RUS_LAW_MERGE_PM_PRESIDENT = {
 			has_idea = rus_solidarism
 		}
 		randomize_nsnp_support_average = yes
-	}
-	set_temp_variable = { CurrentSupportForBillPerc^14 = 1 }
-	set_temp_variable = { CurrentSenateSupportForBillPerc^14 = 1 }
+	}	
+	set_variable = { CurrentSupportForBillPerc^14 = 1 }
+	set_variable = { CurrentSenateSupportForBillPerc^14 = 1 }
 }
 Get_initial_RUS_LAW_STATE_RELIGION = {
 	# Initial Support #
@@ -17742,6 +17774,7 @@ RUS_pass_current_law = {
 		clr_country_flag = bolsheviks_banned
 		clr_country_flag = nsp_banned
 		set_country_flag = bolsheviks_allowed
+		set_variable = { Duma_Bill_Status^47 = 3 }
 		if = {
 			limit = { has_country_flag = psr_banned }
 			custom_effect_tooltip = RUS_unban_psr

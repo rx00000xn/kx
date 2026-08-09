@@ -79,16 +79,13 @@ focus_tree = {
 		}
 		completion_reward = {
 			country_event = BAS.4
-			172 = { 
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
+			random_owned_controlled_state = {
+			prioritize = { 172 }
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+			}
 			hidden_effect = {
-			BAS = { country_event = { id = BAS.335 days = 66 }}			
-				}
+			BAS = { country_event = { id = BAS.335 days = 66 } }			
 			}
 		}
 	}
@@ -452,6 +449,10 @@ focus_tree = {
 			add_ideas = BAS_Open_Hand_to_EAJ
 			hidden_effect = {
 				BAS = { country_event = { id = BAS.158 days = 25 }}
+				if = {
+					limit = { has_country_flag = BAS_carlist_moderation }
+					BAS = { country_event = { id = BAS.599 days = 28 }}
+				}
 			}
 		}
 	}
@@ -477,21 +478,15 @@ focus_tree = {
 		completion_reward = {
 			country_event = BAS.27
 			add_ideas = BAS_Worker_Led_Industrialization
-			172 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			172 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-					}
-				}
+			random_owned_controlled_state = {
+			prioritize = { 172 }
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+			prioritize = { 172 }
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = { type = arms_factory level = 1 instant_build = yes }
 			}
 		}
 	}
@@ -676,6 +671,9 @@ focus_tree = {
 				type = arms_factory
 				level = 1
 			}
+			hidden_effect = {
+				BAS = { country_event = { id = BAS.598 days = 28 }}
+			}
 		}
 	}
 	focus = {
@@ -705,6 +703,10 @@ focus_tree = {
 			add_ideas = BAS_Form_the_Popular_Front
 			hidden_effect = {
 				BAS = { country_event = { id = BAS.182 days = 55 }}
+				if = {
+					limit = { has_country_flag = BAS_carlist_moderation }
+					BAS = { country_event = { id = BAS.599 days = 28 }}
+				}
 			}
 		}
 	}
@@ -962,14 +964,11 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_ideas = BAS_Expand_Social_Welfare
-			172 = {
-			add_extra_state_shared_building_slots = 3
-			add_building_construction = {
-			type = industrial_complex 
-			level = 3
-			instant_build = yes
+			random_owned_controlled_state = {
+				prioritize = { 172 }
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = { type = industrial_complex level = 3 instant_build = yes }
 				}
-			}
 		}
 	}
 	focus = {
@@ -998,6 +997,10 @@ focus_tree = {
 			add_ideas = BAS_Redeeming_the_Concept_of_Republic
 			hidden_effect = {
 				BAS = { country_event = { id = BAS.185 days = 44 }}
+				if = {
+					limit = { has_country_flag = BAS_carlist_moderation }
+					BAS = { country_event = { id = BAS.599 days = 28 }}
+				}
 			}
 		}
 	}
@@ -1121,9 +1124,25 @@ focus_tree = {
 		}
 		available = {
 			has_government = authoritarian_democrat
+			hidden_trigger = { 
+				NOT = { 
+					has_idea = BAS_Maria_Rosa_Urraca_Pastor_hog_pau
+					has_idea = BAS_Marcelino_Oreja_hog_ade
+					has_idea = BAS_Rafael_Aizpun_hog_mli
+					has_idea = BAS_Ricardo_Oreja_hog_ade
+				} 
+			}
 		}
 		bypass = {
 			has_government = authoritarian_democrat
+			hidden_trigger = { 
+				NOT = { 
+					has_idea = BAS_Maria_Rosa_Urraca_Pastor_hog_pau
+					has_idea = BAS_Marcelino_Oreja_hog_ade
+					has_idea = BAS_Rafael_Aizpun_hog_mli
+					has_idea = BAS_Ricardo_Oreja_hog_ade
+				} 
+			}
 		}
 		ai_will_do = {
 			factor = 100
@@ -1431,6 +1450,7 @@ focus_tree = {
 			add_ideas = BAS_Republican_Traditionalism
 			hidden_effect = {
 				BAS = { country_event = { id = BAS.161 days = 57 }}
+				BAS = { country_event = { id = BAS.598 days = 28 }}
 			}
 		}
 	}
@@ -1749,6 +1769,9 @@ focus_tree = {
 		}
 		completion_reward = {
 		country_event = BAS.454
+		hidden_effect = {
+			country_event = { id = BAS.524 days = 45}
+			}
 		}
 	}
 	focus = {
@@ -1769,6 +1792,9 @@ focus_tree = {
 		}
 		completion_reward = {
 		add_ideas = BAS_Euzkeldun_Batzokija
+		hidden_effect = {
+			country_event = { id = BAS.523 days = 85}
+			}
 		}
 	}
 	focus = {
@@ -1790,6 +1816,9 @@ focus_tree = {
 		completion_reward = {
 		country_event = BAS.164
 		add_ideas = BAS_Confederalism
+		hidden_effect = {
+			country_event = { id = BAS.521 days = 35}
+			}
 		}
 	}
 	focus = {
@@ -1813,6 +1842,13 @@ focus_tree = {
 		}
 		completion_reward = {
 		add_ideas = BAS_Godly_Euskadi
+		if = {
+			limit = { has_country_flag = BAS_carlist_monarchy }
+		country_event = BAS.519
+		}
+		else = {
+			country_event = BAS.96
+			}
 		}
 	}
 	focus = {
@@ -1827,7 +1863,7 @@ focus_tree = {
 		}
 		available = {
 			has_government = authoritarian_democrat
-			has_country_flag = BAS_carlist_moderation
+			has_country_flag = BAS_Carlist_Moderates_Exist
 		}
 		ai_will_do = {
 			factor = 100
@@ -1848,7 +1884,7 @@ focus_tree = {
 		}
 		available = {
 			has_government = authoritarian_democrat
-			has_country_flag = BAS_carlist_moderation
+			has_country_flag = BAS_Carlist_Moderates_Exist
 		}
 		ai_will_do = {
 			factor = 100
@@ -1872,7 +1908,7 @@ focus_tree = {
 		}
 		available = {
 			has_government = authoritarian_democrat
-			has_country_flag = BAS_carlist_moderation
+			has_country_flag = BAS_Carlist_Moderates_Exist
 		}
 		ai_will_do = {
 			factor = 100
@@ -1900,7 +1936,7 @@ focus_tree = {
 		}
 		available = {
 			has_government = authoritarian_democrat
-			has_country_flag = BAS_carlist_moderation
+			has_country_flag = BAS_Carlist_Moderates_Exist
 		}
 		ai_will_do = {
 			factor = 100
@@ -1925,14 +1961,18 @@ focus_tree = {
 		}
 		available = {
 			has_government = authoritarian_democrat
-			has_country_flag = BAS_carlist_moderation
+			has_country_flag = BAS_Carlist_Moderates_Exist
 		}
 		ai_will_do = {
 			factor = 100
 		}
 		completion_reward = {
 		country_event = BAS.448
-		remove_ideas = BAS_Integrist_Resistance
+			random_owned_controlled_state = {
+				prioritize = { 172 }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+				}
 		hidden_effect = {
 			country_event = { id = BAS.482 days = 35}
 			}
@@ -1950,7 +1990,7 @@ focus_tree = {
 		}
 		available = {
 			has_government = authoritarian_democrat
-			has_country_flag = BAS_carlist_moderation
+			has_country_flag = BAS_Carlist_Moderates_Exist
 		}
 		ai_will_do = {
 			factor = 100
@@ -1977,7 +2017,7 @@ focus_tree = {
 		}
 		available = {
 			has_government = authoritarian_democrat
-			has_country_flag = BAS_carlist_moderation
+			has_country_flag = BAS_Carlist_Moderates_Exist
 		}
 		ai_will_do = {
 			factor = 100
@@ -1987,15 +2027,17 @@ focus_tree = {
 		hidden_effect = {
 			if = {
 			limit = { has_country_flag = BAS_felix }
-			country_event = BAS.444
+			country_event = { id = BAS.614 days = 20}
+			country_event = { id = BAS.515 days = 35}
 			}
 			else_if = {
 				limit = { has_country_flag = BAS_carlos }
-				country_event = BAS.443
+				country_event = { id = BAS.515 days = 35}
 			}
 			else_if = {
 				limit = { has_country_flag = BAS_carlist_republic }
 				country_event = BAS.446
+				country_event = { id = BAS.514 days = 35}
 				}
 			}
 		}
@@ -2124,6 +2166,7 @@ focus_tree = {
 			OR = {
 			has_government = authoritarian_democrat
 			has_government = syndicalist
+			has_government = radical_socialist
 			has_government = national_populist
 			}
 		}
@@ -2152,6 +2195,7 @@ focus_tree = {
 			OR = {
 			has_government = authoritarian_democrat
 			has_government = syndicalist
+			has_government = radical_socialist
 			has_government = national_populist
 			}
 		}
@@ -2183,6 +2227,7 @@ focus_tree = {
 			OR = {
 			has_government = authoritarian_democrat
 			has_government = syndicalist
+			has_government = radical_socialist
 			has_government = national_populist
 			}
 		}
@@ -2192,6 +2237,13 @@ focus_tree = {
 		completion_reward = {
 		country_event = BAS.458
 		add_ideas = BAS_humanist_nationalism
+		if = {
+			limit = { has_country_flag = BAS_carlist_monarchy }
+		country_event = { id = BAS.595 days = 40 }
+		}
+		else = {
+			country_event = { id = BAS.520 days = 40 }
+			}
 		}
 	}
 	focus = {
@@ -2252,8 +2304,13 @@ focus_tree = {
 		}
 		completion_reward = {
 		country_event = BAS.459
-		}
+		random_owned_controlled_state = {
+				prioritize = { 172 }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+				}
 	}
+}
 	focus = {
 		id = BAS_Vanguard_of_Christian_Democracy
 		icon = GFX_goal_BAS_Vanguard_Catholic_Europeanism
@@ -2438,6 +2495,7 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
+		country_event = BAS.445
 		add_ideas = BAS_confessional_Republicanism
 		hidden_effect = {
 			country_event = { id = BAS.486 days = 70}
@@ -2462,6 +2520,16 @@ focus_tree = {
 		}
 		completion_reward = {
 		country_event = BAS.465
+		random_owned_controlled_state = {
+				prioritize = { 172 }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+				}
+		random_owned_controlled_state = {
+				prioritize = { 172 }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+				}
 		hidden_effect = {
 			country_event = { id = BAS.487 days = 53}
 			}
@@ -2484,9 +2552,16 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-		add_political_power = 2
+		172 = {
+		add_extra_state_shared_building_slots = 3
+		add_building_construction = {
+		type = infrastructure 
+		level = 1
+		instant_build = yes
+			}
+		}
 		hidden_effect = {
-			country_event = { id = BAS.488 days = 35}
+			country_event = { id = BAS.445 days = 35}
 			}
 		}
 	}
@@ -2512,8 +2587,12 @@ focus_tree = {
 		completion_reward = {
 		country_event = BAS.466
 		add_ideas = BAS_navarran_primacy
-		hidden_effect = {
-			country_event = { id = BAS.445 days = 35}
+		if = {
+			limit = { has_country_flag = BAS_carlist_monarchy }
+		country_event = { id = BAS.513 days = 40 }
+		}
+		else = {
+			country_event = { id = BAS.488 days = 40 }
 			}
 		}
 	}
@@ -2555,6 +2634,9 @@ focus_tree = {
 		}
 		completion_reward = {
 		country_event = BAS.469
+		hidden_effect = {
+			country_event = { id = BAS.502 days = 67}
+			}
 		}
 	}
 	focus = {
@@ -2576,6 +2658,9 @@ focus_tree = {
 		completion_reward = {
 		country_event = BAS.467
 		add_ideas = BAS_regime_of_social_justice
+		hidden_effect = {
+			country_event = { id = BAS.503 days = 75}
+			}
 		}
 	}
 	focus = {
@@ -2619,6 +2704,9 @@ focus_tree = {
 		}
 		completion_reward = {
 		add_ideas = BAS_utopianism_in_biscay
+		hidden_effect = {
+			country_event = { id = BAS.505 days = 25}
+			}
 		}
 	}
 	focus = {
@@ -2639,6 +2727,9 @@ focus_tree = {
 		}
 		completion_reward = {
 		add_ideas = BAS_unitary_state_of_Euskadi
+		hidden_effect = {
+			country_event = { id = BAS.504 days = 25}
+			}
 		}
 	}
 	focus = {
@@ -2662,6 +2753,13 @@ focus_tree = {
 		}
 		completion_reward = {
 		country_event = BAS.470
+		if = {
+			limit = { has_country_flag = BAS_carlist_monarchy }
+		country_event = { id = BAS.511 days = 40 }
+		}
+		else = {
+			country_event = { id = BAS.509 days = 40 }
+			}
 		}
 	}
 	focus = {
@@ -2724,7 +2822,22 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-		add_political_power = 2
+			hidden_effect = {
+			set_country_flag = BAS_ELA_Exist
+			clr_country_flag = BAS_emb_synd
+			create_country_leader = {
+			name = "Santiago Meabe Bilbao"
+			picture = "gfx/leaders/BAS/Portrait_BAS_Santiago_Meabe.png"
+			expire = "1.1.1"
+			ideology = christian_syndicalism_subtype 
+			}
+			set_party_name = { 
+			ideology = syndicalist
+			long_name = BAS_syndicalist_party_alt2_long
+			name = BAS_syndicalist_party_alt2
+			}
+		}
+		country_event = BAS.501
 		}
 	}
 	focus = {
@@ -2828,6 +2941,13 @@ focus_tree = {
 		completion_reward = {
 		country_event = BAS.480
 		add_ideas = BAS_basque_revolution
+		if = {
+			limit = { has_country_flag = BAS_carlist_monarchy }
+		country_event = { id = BAS.512 days = 40 }
+		}
+		else = {
+			country_event = { id = BAS.510 days = 40 }
+			}
 		}
 	}
 	focus = {
@@ -2842,7 +2962,7 @@ focus_tree = {
 		}
 		available = {
 			has_government = syndicalist
-			has_country_flag = BAS_ELA_victory
+			has_country_flag = BAS_ELA_Exist
 		}
 		ai_will_do = {
 			factor = 100
@@ -2863,7 +2983,7 @@ focus_tree = {
 		}
 		available = {
 			has_government = syndicalist
-			has_country_flag = BAS_ELA_victory
+			has_country_flag = BAS_ELA_Exist
 		}
 		ai_will_do = {
 			factor = 100
@@ -2871,6 +2991,9 @@ focus_tree = {
 		completion_reward = {
 		country_event = BAS.475
 		add_ideas = BAS_socprog_of_ela
+		hidden_effect = {
+			country_event = { id = BAS.506 days = 82}
+			}
 		}
 	}
 	focus = {
@@ -2885,13 +3008,16 @@ focus_tree = {
 		}
 		available = {
 			has_government = syndicalist
-			has_country_flag = BAS_ELA_victory
+			has_country_flag = BAS_ELA_Exist
 		}
 		ai_will_do = {
 			factor = 100
 		}
 		completion_reward = {
 		country_event = BAS.473
+		hidden_effect = {
+			country_event = { id = BAS.507 days = 55}
+			}
 		}
 	}
 	focus = {
@@ -2909,7 +3035,7 @@ focus_tree = {
 		}
 		available = {
 			has_government = syndicalist
-			has_country_flag = BAS_ELA_victory
+			has_country_flag = BAS_ELA_Exist
 		}
 		ai_will_do = {
 			factor = 100
@@ -2930,7 +3056,7 @@ focus_tree = {
 		}
 		available = {
 			has_government = syndicalist
-			has_country_flag = BAS_ELA_victory
+			has_country_flag = BAS_ELA_Exist
 		}
 		ai_will_do = {
 			factor = 100
@@ -2938,6 +3064,9 @@ focus_tree = {
 		completion_reward = {
 		country_event = BAS.476
 		add_ideas = BAS_christ_in_a_crimson_heart
+		hidden_effect = {
+			country_event = { id = BAS.508 days = 35}
+			}
 		}
 	}
 	focus = {
@@ -2952,7 +3081,7 @@ focus_tree = {
 		}
 		available = {
 			has_government = syndicalist
-			has_country_flag = BAS_ELA_victory
+			has_country_flag = BAS_ELA_Exist
 		}
 		ai_will_do = {
 			factor = 100
@@ -2976,7 +3105,7 @@ focus_tree = {
 		}
 		available = {
 			has_government = syndicalist
-			has_country_flag = BAS_ELA_victory
+			has_country_flag = BAS_ELA_Exist
 		}
 		ai_will_do = {
 			factor = 100
@@ -2984,13 +3113,20 @@ focus_tree = {
 		completion_reward = {
 		country_event = BAS.477
 		add_ideas = BAS_prole_caths
+		if = {
+			limit = { has_country_flag = BAS_carlist_monarchy }
+		country_event = { id = BAS.517 days = 40 }
+		}
+		else = {
+			country_event = { id = BAS.516 days = 40 }
+			}
 		}
 	}
 	focus = {
 		id = BAS_Euzko_Gudariak
 		icon = GFX_goal_BAS_Eusko_Gudariak
-		relative_position_id = BAS_Euskadi_Economy_Springs_Up
-		x = 14
+		relative_position_id = BAS_First_Basque_Elections
+		x = 36
 		y = 0
 		available = {
 			has_war = no
@@ -3017,12 +3153,20 @@ focus_tree = {
 		prerequisite = {
 			focus = BAS_Euzko_Gudariak
 		}
+		available = { 
+			NOT = { 
+		has_completed_focus = BAS_Offensive_Army
+			}
+		}
 		cost = 3.5
 		ai_will_do = {
 			factor = 40
 		}
 		completion_reward = {
-			country_event = BAS.12
+			swap_ideas = {
+				remove_idea = BAS_army
+				add_idea = BAS_peoples_army_1
+			}
 			hidden_effect = {
 			BAS = { country_event = { id = BAS.326 days = 45 }}			
 			}
@@ -3044,13 +3188,10 @@ focus_tree = {
 		completion_reward = {
 			country_event = BAS.12		
 			random_owned_controlled_state = {
+				prioritize = { 172 }
 				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
+				add_building_construction = { type = arms_factory level = 2 instant_build = yes }
 				}
-			}
 		}
 	}
 	focus = {
@@ -3194,7 +3335,11 @@ focus_tree = {
 		}
 		completion_reward = {
 			country_event = BAS.91
-			set_technology = { tech_martial_arts = 1 }
+			custom_effect_tooltip = tech_martial_arts_effect
+			hidden_effect = {
+				set_technology = { tech_martial_arts = 1 popup = no }
+			}
+			add_research_slot = 1
 			if = {
 				limit = {
 					has_idea = BAS_peoples_army_4
@@ -3288,12 +3433,20 @@ focus_tree = {
 		prerequisite = {
 			focus = BAS_Euzko_Gudariak
 		}
+		available = { 
+			NOT = { 
+		has_completed_focus = BAS_Defensive_Army
+			}
+		}
 		cost = 3.5
 		ai_will_do = {
 			factor = 40
 		}
 		completion_reward = {
-			country_event = BAS.12
+			swap_ideas = {
+				remove_idea = BAS_army
+				add_idea = BAS_offensive_army_1
+			}
 			hidden_effect = {
 			BAS = { country_event = { id = BAS.326 days = 45 }}			
 			}
@@ -3313,6 +3466,7 @@ focus_tree = {
 			factor = 40
 		}
 		completion_reward = {
+			country_event = { id = BAS.363 days = 12 }
 			set_technology = { tech_mountain_artillery = 1 }
 			add_equipment_to_stockpile = {
 				type = anti_tank_equipment_1
@@ -3330,13 +3484,10 @@ focus_tree = {
 				producer = SPR
 			}
 			random_owned_controlled_state = {
+				prioritize = { 172 }
 				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
+				add_building_construction = { type = arms_factory level = 2 instant_build = yes }
 				}
-			}
 		}
 	}
 	focus = {
@@ -3497,7 +3648,11 @@ focus_tree = {
 			factor = 40
 		}
 		completion_reward = {
-			set_technology = { tech_assault_battalion = 1 }
+			custom_effect_tooltip = tech_assault_battalion_effect
+			hidden_effect = {
+				set_technology = { tech_assault_battalion = 1 popup = no }
+			}
+			add_research_slot = 1
 			if = {
 				limit = {
 					has_idea = BAS_offensive_army_4
@@ -3749,17 +3904,14 @@ focus_tree = {
 		}
 		completion_reward = {
 				add_research_slot = 1
-				172 = {
+				random_owned_controlled_state = {
+				prioritize = { 172 }
 				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex 
-					level = 1
-					instant_build = yes
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
 				}
 				hidden_effect = {
 				BAS = { country_event = { id = BAS.300 days = 35 }}			
 				}
-			}
 		}
 	}
 	focus = {
@@ -3786,22 +3938,19 @@ focus_tree = {
 						remove_idea = BAS_economy_4
 						add_idea = BAS_economy_5
 			}
-			172 = {
-				add_extra_state_shared_building_slots = 4
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
+			random_owned_controlled_state = {
+				prioritize = { 172 }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = arms_factory level = 2 instant_build = yes }
 				}
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
+			random_owned_controlled_state = {
+				prioritize = { 172 }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = arms_factory level = 2 instant_build = yes }
+				}	
 			hidden_effect = {
 			BAS = { country_event = { id = BAS.319 days = 25 }}			
-			    }
-			}					
+			    }				
 		}
 	}
 	focus = {
@@ -3848,816 +3997,6 @@ focus_tree = {
 			}
 			hidden_effect = {
 			BAS = { country_event = { id = BAS.322 days = 65 }}			
-			}
-		}
-	}
-	focus = {
-		id = BAS_Syndicalist_Revolution
-		icon = GFX_goal_BAS_Crimson_storm_washes
-		relative_position_id = BAS_Return_to_Tradition
-		x = 10
-		y = 0
-		cost = 0
-		available = {
-			has_government = syndicalist
-			has_country_flag = BAS_anarchist_victory
-		}
-		bypass = {
-			has_government = syndicalist
-			has_country_flag = BAS_anarchist_victory
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			custom_effect_tooltip = unlock_focuses
-			hidden_effect = {
-			news_event = worldnews.1319
-			}
-		}
-	}
-	focus = {
-		id = BAS_Bury_the_Red_Berets
-		icon = GFX_goal_BAS_Death_throes_of_carlism
-		relative_position_id = BAS_Syndicalist_Revolution
-		x = 3
-		y = 1
-		cost = 5
-		prerequisite = {
-			focus = BAS_Syndicalist_Revolution
-		}
-		available = {
-			has_government = syndicalist
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = BAS_Looming_Threat_of_Carlism
-				add_idea = BAS_Carlism_Destroyed
-			}
-			hidden_effect = {
-			BAS = { country_event = { id = BAS.234 days = 15 }}			
-				}
-			}
-	}
-	focus = {
-		id = BAS_Form_Emakume_Askeak
-		icon = GFX_goal_BAS_Kasi_Milicianas
-		relative_position_id = BAS_Syndicalist_Revolution
-		x = 3
-		y = 3
-		cost = 5
-		prerequisite = {
-			focus = BAS_Bury_the_Red_Berets
-		}
-		available = {
-			has_government = syndicalist
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			country_event = BAS.244
-			add_ideas = BAS_Milicianas
-			
-			}
-	}
-	focus = {
-		id = BAS_Unite_the_Abertzales
-		icon = GFX_goal_BAS_Serpent_and_axe
-		relative_position_id = BAS_Syndicalist_Revolution
-		x = 0
-		y = 1
-		cost = 5
-		prerequisite = {
-			focus = BAS_Syndicalist_Revolution
-		}
-		available = {
-			has_government = syndicalist
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			country_event = BAS.243
-			add_ideas = BAS_Reeling_Nationalists
-			
-		}
-	}
-	focus = {
-		id = BAS_Memory_of_Los_Justicieros
-		icon = GFX_goal_BAS_Los_Justicieros
-		relative_position_id = BAS_Syndicalist_Revolution
-		x = -3
-		y = 1
-		cost = 5
-		prerequisite = {
-			focus = BAS_Syndicalist_Revolution
-		}
-		available = {
-			has_government = syndicalist
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			country_event = BAS.237
-			add_ideas = BAS_Los_Justiciaros
-		}
-	}
-	focus = {
-		id = BAS_No_Corporations_Nor_Caciquismos
-		icon = GFX_goal_BAS_Liberate_ancient_professions
-		relative_position_id = BAS_Syndicalist_Revolution
-		x = -3
-		y = 3
-		cost = 5
-		prerequisite = {
-			focus = BAS_Memory_of_Los_Justicieros
-		}
-		available = {
-			has_government = syndicalist
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			country_event = BAS.236
-			add_ideas = BAS_Red_Agrarianism
-		}
-	}
-	focus = {
-		id = BAS_Refurbish_San_Sebastian
-		icon = GFX_goal_BAS_Heart_of_euskal_herria
-		relative_position_id = BAS_Syndicalist_Revolution
-		x = 0
-		y = 2
-		cost = 5
-		prerequisite = {
-			focus = BAS_Unite_the_Abertzales
-		}
-		available = {
-			has_government = syndicalist
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			country_event = BAS.238
-			add_ideas = BAS_Red_San_Sebastian
-			172 = {
-				add_extra_state_shared_building_slots = 3
-			}
-		}
-	}
-	focus = {
-		id = BAS_Jakintza_Baitha_Allies
-		icon = GFX_goal_BAS_Standardized_basque
-		relative_position_id = BAS_Syndicalist_Revolution
-		x = -2
-		y = 2
-		cost = 5
-		prerequisite = {
-			focus = BAS_Unite_the_Abertzales
-		}
-		available = {
-			has_government = syndicalist
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			country_event = BAS.235
-			add_political_power = -150
-			add_ideas = BAS_Concessions_to_Tradition
-		}
-	}
-	focus = {
-		id = BAS_Merge_Nationalist_Unions
-		icon = GFX_goal_BAS_Scythes_hammers_harpoons
-		relative_position_id = BAS_Syndicalist_Revolution
-		x = 2
-		y = 2
-		cost = 5
-		prerequisite = {
-			focus = BAS_Unite_the_Abertzales
-		}
-		available = {
-			has_government = syndicalist
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-				country_event = BAS.240
-				add_ideas = BAS_Union_of_ELA_and_CNT
-			172 = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}
-		}
-	}
-	focus = {
-		id = BAS_Nationalize_Euskalduna
-		icon = GFX_goal_BAS_Industrial_cooperatives
-		relative_position_id = BAS_Syndicalist_Revolution
-		x = -1
-		y = 3
-		cost = 5
-		prerequisite = {
-			focus = BAS_Merge_Nationalist_Unions
-			focus = BAS_Jakintza_Baitha_Allies
-			focus = BAS_Refurbish_San_Sebastian
-		}
-		available = {
-			has_government = syndicalist
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-				country_event = BAS.239
-				add_ideas = BAS_Red_Fleet
-				172 = {
-				add_extra_state_shared_building_slots = 5
-				add_building_construction = {
-					type = dockyard
-					level = 5
-					instant_build = yes
-				}
-			}
-		}
-	}
-	focus = {
-		id = BAS_The_Course_of_Our_Movement
-		icon = GFX_goal_BAS_Anarcho_abertzalism
-		relative_position_id = BAS_Syndicalist_Revolution
-		x = 1
-		y = 3
-		cost = 5
-		prerequisite = {
-			focus = BAS_Merge_Nationalist_Unions
-			focus = BAS_Jakintza_Baitha_Allies
-			focus = BAS_Refurbish_San_Sebastian
-		}
-		available = {
-			has_government = syndicalist
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			country_event = BAS.153
-		}
-	}
-	focus = {
-		id = BAS_Crimson_Coast
-		icon = GFX_goal_BAS_True_freedom_of_basque_homeland
-		relative_position_id = BAS_Syndicalist_Revolution
-		x = 0
-		y = 4
-		cost = 5
-		prerequisite = {
-			focus = BAS_The_Course_of_Our_Movement	
-		}
-		prerequisite = {
-			focus = BAS_Form_Emakume_Askeak
-		}
-		prerequisite = {
-			focus = BAS_No_Corporations_Nor_Caciquismos
-		}
-		prerequisite = {
-			focus = BAS_Nationalize_Euskalduna
-		}
-		available = {
-			has_government = syndicalist
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			country_event = BAS.242
-			add_research_slot = 1
-			add_ideas = BAS_Crimson_Coast
-		}
-	}
-		focus = {
-		id = BAS_Basque_Communism
-		icon = GFX_goal_BAS_Euskadi_Damocles_Guillotine
-		relative_position_id = BAS_Syndicalist_Revolution
-		x = 8
-		y = 0
-		cost = 0
-		available = {
-			AND = {
-			has_government = totalist
-			is_puppet = no
-			}
-		}
-		bypass = {
-			AND = {
-			has_government = totalist
-			is_puppet = no
-			}
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			custom_effect_tooltip = unlock_focuses
-			hidden_effect = {
-			news_event = worldnews.1320
-			}
-		}
-	}
-		focus = {
-		id = BAS_Paris_Overtures
-		icon = GFX_goal_BAS_Paris_Clique_Basque_Soil
-		relative_position_id = BAS_Basque_Communism
-		x = 1
-		y = 1
-		cost = 2
-		available = {
-			has_government = totalist
-		}
-		prerequisite = {
-			focus = BAS_Basque_Communism
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			country_event = BAS.74
-			add_war_support = 0.03
-			add_political_power = 75
-			remove_ideas = BAS_Question_of_Spanish_Immigrants
-		}
-	}
-		focus = {
-		id = BAS_Integrate_Aznarites
-		icon = GFX_goal_BAS_Abertzales_One_Glorious_Cause
-		relative_position_id = BAS_Basque_Communism
-		x = -1
-		y = 1
-		cost = 2
-		available = {
-			has_government = totalist
-		}
-		prerequisite = {
-			focus = BAS_Basque_Communism
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			country_event = BAS.283
-		}
-	}
-		focus = {
-		id = BAS_Final_Nail_in_Carlist_Coffin
-		icon = GFX_goal_BAS_Sweep_Away_Residual_Requete
-		relative_position_id = BAS_Basque_Communism
-		x = -1
-		y = 2
-		cost = 2
-		available = {
-			has_government = totalist
-		}
-		prerequisite = {
-			focus = BAS_Integrate_Aznarites
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			add_stability = 0.07
-			remove_ideas = BAS_Looming_Threat_of_Carlism
-		}
-	}
-		focus = {
-		id = BAS_Seize_the_Steelworks
-		icon = GFX_goal_BAS_Strike_Steelworks
-		relative_position_id = BAS_Basque_Communism
-		x = 1
-		y = 2
-		cost = 2
-		available = {
-			has_government = totalist
-		}
-		prerequisite = {
-			focus = BAS_Paris_Overtures
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			country_event = BAS.284
-			172 = {
-			add_extra_state_shared_building_slots = 2
-			add_building_construction = {
-				type = industrial_complex
-				level = 2
-				instant_build = yes
-					}				
-				}
-			}
-		}
-		focus = {
-		id = BAS_Basque_Jacobins_Seize_the_Day
-		icon = GFX_goal_BAS_Red_Lehendakari_Crimson_Chairman
-		relative_position_id = BAS_Basque_Communism
-		x = 0
-		y = 3
-		cost = 1
-		available = {
-			has_government = totalist
-		}
-		prerequisite = {
-			focus = BAS_Seize_the_Steelworks
-		}
-		prerequisite = {
-			focus = BAS_Final_Nail_in_Carlist_Coffin
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			country_event = BAS.274
-		}
-	}
-	focus = {
-		id = BAS_Centralization_Through_Any_Means
-		icon = {
-			trigger = {
-				has_country_flag = BAS_jacobins
-			}
-			value = GFX_goal_BAS_Nation_Centralized_Under_Party
-		}
-		icon = {
-			value = GFX_goal_BAS_Defusing_Dynamiters_Likiniano
-		}
-		dynamic = yes
-		relative_position_id = BAS_Basque_Jacobins_Seize_the_Day
-		x = 2
-		y = 1
-		cost = 4
-		prerequisite = {
-			focus = BAS_Basque_Jacobins_Seize_the_Day
-		}
-		available = {
-			has_government = totalist
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {	
-			if = {
-				limit = { has_country_flag = BAS_jacobins }
-				country_event = BAS.533
-			add_ideas = command_economy
-			}
-			else = {
-				country_event = BAS.278
-				add_ideas = BAS_communist_democracy
-			}
-		}
-	}
-	focus = {
-		id = BAS_Right_of_Smallholders
-		icon = {
-			trigger = {
-				has_country_flag = BAS_jacobins
-			}
-			value = GFX_goal_BAS_Gobierno_Campesinos_Obreros
-		}
-		icon = {
-			value = GFX_goal_BAS_Baserri_Etxea_Natural_Collective
-		}
-		dynamic = yes
-		relative_position_id = BAS_Basque_Jacobins_Seize_the_Day
-		x = 0
-		y = 1
-		cost = 4
-		prerequisite = {
-			focus = BAS_Basque_Jacobins_Seize_the_Day
-		}
-		available = {
-			has_government = totalist
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {	
-			if = {
-				limit = { has_country_flag = BAS_jacobins }
-				country_event = BAS.525
-			remove_ideas = BAS_rural_resistance
-				172 = { increase_state_category_by_one_level = yes }
-			}
-			else = {
-				country_event = BAS.280
-				remove_ideas = BAS_rural_resistance
-				172 = { add_extra_state_shared_building_slots = 4 }
-			}
-		}
-	}
-	focus = {
-		id = BAS_Revive_the_Spectre_of_Communism
-		icon = {
-			trigger = {
-				has_country_flag = BAS_jacobins
-			}
-			value = GFX_goal_BAS_Spectre_Communism_Over_Iberia
-		}
-		icon = {
-			value = GFX_goal_BAS_Catholic_Clergy_Crimson_Coat
-		}
-		relative_position_id = BAS_Basque_Jacobins_Seize_the_Day
-		x = -2
-		y = 1
-		cost = 4
-		prerequisite = {
-			focus = BAS_Basque_Jacobins_Seize_the_Day
-		}
-		available = {
-			has_government = totalist
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			if = {
-				limit = { has_country_flag = BAS_jacobins }
-			country_event = BAS.75
-			add_ideas = BAS_Revive_the_Spectre_of_Communism_idea
-			}
-			else = {
-				country_event = BAS.275
-			}
-		}
-	}
-	focus = {
-		id = BAS_Bend_the_Unions_to_Our_Will
-		icon = {
-			trigger = {
-				has_country_flag = BAS_jacobins
-			}
-			value = GFX_goal_BAS_Proletarian_Unionism_Federacion_Vasco_Navarra
-		}
-		icon = {
-			value = GFX_goal_BAS_Collective_Dream_Federaztios_Unionists
-		}
-		relative_position_id = BAS_Basque_Jacobins_Seize_the_Day
-		x = 0
-		y = 2
-		cost = 4
-		prerequisite = {
-			focus = BAS_Right_of_Smallholders
-		}
-		prerequisite = {
-			focus = BAS_Revive_the_Spectre_of_Communism
-		}
-		prerequisite = {
-			focus = BAS_Centralization_Through_Any_Means
-		}
-		available = {
-			has_government = totalist
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			if = {
-				limit = { has_country_flag = BAS_jacobins }
-			country_event = BAS.246
-			add_ideas = BAS_Bend_the_Unions_to_Our_Will_idea
-			}
-			else = {
-				country_event = BAS.276
-				add_ideas = BAS_fen_tanyl
-			}
-		}
-	}
-	focus = {
-		id = BAS_Bring_in_French_Theorists
-		icon = {
-			trigger = {
-				has_country_flag = BAS_jacobins
-			}
-			value = GFX_goal_BAS_Request_Aid_Our_French_Benefactors
-		}
-		icon = {
-			value = GFX_goal_BAS_Communism_Without_Orthodox_Puritanism
-		}
-		dynamic = yes
-		relative_position_id = BAS_Basque_Jacobins_Seize_the_Day
-		x = -2
-		y = 2
-		cost = 4
-		prerequisite = {
-			focus = BAS_Centralization_Through_Any_Means
-		}
-		prerequisite = {
-			focus = BAS_Revive_the_Spectre_of_Communism
-		}
-		available = {
-			has_government = totalist
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			if = {
-				limit = { has_country_flag = BAS_jacobins }
-			country_event = BAS.76
-			add_ideas = BAS_French_Theorists
-			}
-			else = {
-				country_event = BAS.273
-				add_ideas = command_economy
-			}
-		}
-	}
-	focus = {
-		id = BAS_Introduce_Cult_of_Reason_to_Iberia
-		icon = {
-			trigger = {
-				has_country_flag = BAS_jacobins
-			}
-			value = GFX_goal_BAS_Iberian_Cult_Reason
-		}
-		icon = {
-			value = GFX_goal_BAS_Amuategi_Battalion_Youth
-		}
-		dynamic = yes
-		relative_position_id = BAS_Basque_Jacobins_Seize_the_Day
-		x = 2
-		y = 2
-		cost = 4
-		prerequisite = {
-			focus = BAS_Centralization_Through_Any_Means
-		}
-		prerequisite = {
-			focus = BAS_Revive_the_Spectre_of_Communism
-		}
-		available = {
-			has_government = totalist
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			if = {
-				limit = { has_country_flag = BAS_jacobins }
-				country_event = BAS.245
-				add_ideas = BAS_Introduce_Cult_of_Reason_to_Iberia_idea
-				add_research_slot = 1
-			}
-			else = {
-				country_event = BAS.277
-				add_ideas = BAS_young_guard
-			}
-		}
-	}
-	focus = {
-		id = BAS_Rekindle_Class_Warfare
-		icon = {
-			trigger = {
-				has_country_flag = BAS_jacobins
-			}
-			value = GFX_goal_BAS_Escalate_Class_Warfare_Euskadi
-		}
-		icon = {
-			value = GFX_goal_BAS_Truly_Nationalized_Industry_Euskadi
-		}
-		dynamic = yes
-		relative_position_id = BAS_Basque_Jacobins_Seize_the_Day
-		x = -1
-		y = 3
-		cost = 4
-		prerequisite = {
-			focus = BAS_Bend_the_Unions_to_Our_Will
-			focus = BAS_Introduce_Cult_of_Reason_to_Iberia
-			focus = BAS_Bring_in_French_Theorists
-		}
-		available = {
-			has_government = totalist
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			if = {
-				limit = { has_country_flag = BAS_jacobins }
-				add_stability = -0.15
-				172 = {
-				add_extra_state_shared_building_slots = 4
-				add_building_construction = {
-					type = arms_factory
-					level = 4
-					instant_build = yes
-				}
-			}
-			else = {
-				add_stability = -0.08
-				172 = { add_extra_state_shared_building_slots = 4 }
-				172 = { add_building_construction = { type = arms_factory level = 2 instant_build = yes }}
-				172 = { add_building_construction = { type = industrial_complex level = 2 instant_build = yes }}
-				}
-			}
-		}
-	}
-	focus = {
-		id = BAS_Fortitude_of_the_Party_Line
-		icon = {
-			trigger = {
-				has_country_flag = BAS_jacobins
-			}
-			value = GFX_goal_BAS_Fortitude_Party_Line
-		}
-		icon = {
-			value = GFX_goal_BAS_Detritus_Broken_Red_Spain
-		}
-		dynamic = yes
-		relative_position_id = BAS_Basque_Jacobins_Seize_the_Day
-		x = 1
-		y = 3
-		cost = 4
-		prerequisite = {
-			focus = BAS_Bend_the_Unions_to_Our_Will
-			focus = BAS_Introduce_Cult_of_Reason_to_Iberia
-			focus = BAS_Bring_in_French_Theorists
-		}
-		available = {
-			has_government = totalist
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			if = {
-				limit = { has_country_flag = BAS_jacobins }
-			country_event = BAS.529
-			}
-			else = {
-				country_event = BAS.281
-			}
-		}
-	}
-	focus = {
-		id = BAS_First_Jacobins_of_Iberia
-		icon = {
-			trigger = {
-				has_country_flag = BAS_jacobins
-			}
-			value = GFX_goal_BAS_True_Revolution_Arrives_Iberia
-		}
-		icon = {
-			value = GFX_goal_BAS_Finalised_Vision_Lenin_Iberian_Soil
-		}
-		dynamic = yes
-		relative_position_id = BAS_Basque_Jacobins_Seize_the_Day
-		x = 0
-		y = 4
-		cost = 4
-		prerequisite = {
-			focus = BAS_Rekindle_Class_Warfare
-			focus = BAS_Fortitude_of_the_Party_Line
-		}
-		available = {
-			has_government = totalist
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-		create_wargoal = {
-			type = annex_everything
-			target = 41.owner
-		}
-			if = {
-				limit = { has_country_flag = BAS_jacobins }
-			add_research_slot = 1
-			add_ideas = BAS_First_Jacobins_of_Iberia
-			country_event = BAS.247
-			every_state = {
-				limit = { is_spain = yes }
-				add_core_of = BAS
-				}
-			}
-			else = {
-				country_event = BAS.282
-				add_ideas = BAS_reforged_communism
-			every_state = {
-				limit = { is_spain = yes }
-				add_claim_by = BAS
-				}
 			}
 		}
 	}
@@ -5001,22 +4340,16 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-			172 = {
+			random_owned_controlled_state = {
+				prioritize = { 172 }
 				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-					}
+				add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
 				}
-			172 = {
+			random_owned_controlled_state = {
+				prioritize = { 172 }
 				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = dockyard
-					level = 1
-					instant_build = yes
+				add_building_construction = { type = dockyard level = 1 instant_build = yes }
 				}
-			}
 		}
 	}
 	focus = {
@@ -5246,7 +4579,789 @@ focus_tree = {
 				add_state_core = 702
 				add_state_core = 168
 				add_state_core = 176
+				add_state_core = 705
 			}		
+		}
+	}
+	focus = {
+		id = BAS_Syndicalist_Revolution
+		icon = GFX_goal_BAS_Crimson_storm_washes
+		relative_position_id = BAS_Return_to_Tradition
+		x = 10
+		y = 0
+		cost = 0
+		available = {
+			has_government = syndicalist
+			has_country_flag = BAS_anarchist_victory
+		}
+		bypass = {
+			has_government = syndicalist
+			has_country_flag = BAS_anarchist_victory
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			custom_effect_tooltip = unlock_focuses
+			hidden_effect = {
+			news_event = worldnews.1319
+			}
+		}
+	}
+	focus = {
+		id = BAS_Bury_the_Red_Berets
+		icon = GFX_goal_BAS_Death_throes_of_carlism
+		relative_position_id = BAS_Syndicalist_Revolution
+		x = 3
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = BAS_Syndicalist_Revolution
+		}
+		available = {
+			has_government = syndicalist
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = BAS_Looming_Threat_of_Carlism
+				add_idea = BAS_Carlism_Destroyed
+			}
+			hidden_effect = {
+			BAS = { country_event = { id = BAS.234 days = 15 }}			
+				}
+			}
+	}
+	focus = {
+		id = BAS_Form_Emakume_Askeak
+		icon = GFX_goal_BAS_Kasi_Milicianas
+		relative_position_id = BAS_Syndicalist_Revolution
+		x = 3
+		y = 3
+		cost = 5
+		prerequisite = {
+			focus = BAS_Bury_the_Red_Berets
+		}
+		available = {
+			has_government = syndicalist
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			country_event = BAS.244
+			add_ideas = BAS_Milicianas
+			
+			}
+	}
+	focus = {
+		id = BAS_Unite_the_Abertzales
+		icon = GFX_goal_BAS_Serpent_and_axe
+		relative_position_id = BAS_Syndicalist_Revolution
+		x = 0
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = BAS_Syndicalist_Revolution
+		}
+		available = {
+			has_government = syndicalist
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			country_event = BAS.243
+			add_ideas = BAS_Reeling_Nationalists
+			
+		}
+	}
+	focus = {
+		id = BAS_Memory_of_Los_Justicieros
+		icon = GFX_goal_BAS_Los_Justicieros
+		relative_position_id = BAS_Syndicalist_Revolution
+		x = -3
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = BAS_Syndicalist_Revolution
+		}
+		available = {
+			has_government = syndicalist
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			country_event = BAS.237
+			add_ideas = BAS_Los_Justiciaros
+		}
+	}
+	focus = {
+		id = BAS_No_Corporations_Nor_Caciquismos
+		icon = GFX_goal_BAS_Liberate_ancient_professions
+		relative_position_id = BAS_Syndicalist_Revolution
+		x = -3
+		y = 3
+		cost = 5
+		prerequisite = {
+			focus = BAS_Memory_of_Los_Justicieros
+		}
+		available = {
+			has_government = syndicalist
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			country_event = BAS.236
+			add_ideas = BAS_Red_Agrarianism
+		}
+	}
+	focus = {
+		id = BAS_Refurbish_San_Sebastian
+		icon = GFX_goal_BAS_Heart_of_euskal_herria
+		relative_position_id = BAS_Syndicalist_Revolution
+		x = 0
+		y = 2
+		cost = 5
+		prerequisite = {
+			focus = BAS_Unite_the_Abertzales
+		}
+		available = {
+			has_government = syndicalist
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			country_event = BAS.238
+			add_ideas = BAS_Red_San_Sebastian
+			172 = {
+				add_extra_state_shared_building_slots = 3
+			}
+		}
+	}
+	focus = {
+		id = BAS_Jakintza_Baitha_Allies
+		icon = GFX_goal_BAS_Standardized_basque
+		relative_position_id = BAS_Syndicalist_Revolution
+		x = -2
+		y = 2
+		cost = 5
+		prerequisite = {
+			focus = BAS_Unite_the_Abertzales
+		}
+		available = {
+			has_government = syndicalist
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			country_event = BAS.235
+			add_political_power = -150
+			add_ideas = BAS_Concessions_to_Tradition
+		}
+	}
+	focus = {
+		id = BAS_Merge_Nationalist_Unions
+		icon = GFX_goal_BAS_Scythes_hammers_harpoons
+		relative_position_id = BAS_Syndicalist_Revolution
+		x = 2
+		y = 2
+		cost = 5
+		prerequisite = {
+			focus = BAS_Unite_the_Abertzales
+		}
+		available = {
+			has_government = syndicalist
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+				country_event = BAS.240
+				add_ideas = BAS_Union_of_ELA_and_CNT
+			random_owned_controlled_state = {
+			prioritize = { 172 }
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = BAS_Nationalize_Euskalduna
+		icon = GFX_goal_BAS_Industrial_cooperatives
+		relative_position_id = BAS_Syndicalist_Revolution
+		x = -1
+		y = 3
+		cost = 5
+		prerequisite = {
+			focus = BAS_Merge_Nationalist_Unions
+			focus = BAS_Jakintza_Baitha_Allies
+			focus = BAS_Refurbish_San_Sebastian
+		}
+		available = {
+			has_government = syndicalist
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+				country_event = BAS.239
+				add_ideas = BAS_Red_Fleet
+				172 = {
+				add_extra_state_shared_building_slots = 5
+				add_building_construction = {
+					type = dockyard
+					level = 5
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = BAS_The_Course_of_Our_Movement
+		icon = GFX_goal_BAS_Anarcho_abertzalism
+		relative_position_id = BAS_Syndicalist_Revolution
+		x = 1
+		y = 3
+		cost = 5
+		prerequisite = {
+			focus = BAS_Merge_Nationalist_Unions
+			focus = BAS_Jakintza_Baitha_Allies
+			focus = BAS_Refurbish_San_Sebastian
+		}
+		available = {
+			has_government = syndicalist
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			country_event = BAS.153
+		}
+	}
+	focus = {
+		id = BAS_Crimson_Coast
+		icon = GFX_goal_BAS_True_freedom_of_basque_homeland
+		relative_position_id = BAS_Syndicalist_Revolution
+		x = 0
+		y = 4
+		cost = 5
+		prerequisite = {
+			focus = BAS_The_Course_of_Our_Movement	
+		}
+		prerequisite = {
+			focus = BAS_Form_Emakume_Askeak
+		}
+		prerequisite = {
+			focus = BAS_No_Corporations_Nor_Caciquismos
+		}
+		prerequisite = {
+			focus = BAS_Nationalize_Euskalduna
+		}
+		available = {
+			has_government = syndicalist
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			country_event = BAS.242
+			add_research_slot = 1
+			add_ideas = BAS_Crimson_Coast
+		}
+	}
+		focus = {
+		id = BAS_Basque_Communism
+		icon = GFX_goal_BAS_Euskadi_Damocles_Guillotine
+		relative_position_id = BAS_Syndicalist_Revolution
+		x = 8
+		y = 0
+		cost = 0
+		available = {
+			AND = {
+			has_government = totalist
+			is_puppet = no
+			}
+		}
+		bypass = {
+			AND = {
+			has_government = totalist
+			is_puppet = no
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			custom_effect_tooltip = unlock_focuses
+			hidden_effect = {
+			news_event = worldnews.1320
+			}
+		}
+	}
+		focus = {
+		id = BAS_Paris_Overtures
+		icon = GFX_goal_BAS_Paris_Clique_Basque_Soil
+		relative_position_id = BAS_Basque_Communism
+		x = 1
+		y = 1
+		cost = 2
+		available = {
+			has_government = totalist
+		}
+		prerequisite = {
+			focus = BAS_Basque_Communism
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			country_event = BAS.74
+			add_war_support = 0.03
+			add_political_power = 75
+			remove_ideas = BAS_Question_of_Spanish_Immigrants
+		}
+	}
+		focus = {
+		id = BAS_Integrate_Aznarites
+		icon = GFX_goal_BAS_Abertzales_One_Glorious_Cause
+		relative_position_id = BAS_Basque_Communism
+		x = -1
+		y = 1
+		cost = 2
+		available = {
+			has_government = totalist
+		}
+		prerequisite = {
+			focus = BAS_Basque_Communism
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			country_event = BAS.283
+		}
+	}
+		focus = {
+		id = BAS_Final_Nail_in_Carlist_Coffin
+		icon = GFX_goal_BAS_Sweep_Away_Residual_Requete
+		relative_position_id = BAS_Basque_Communism
+		x = -1
+		y = 2
+		cost = 2
+		available = {
+			has_government = totalist
+		}
+		prerequisite = {
+			focus = BAS_Integrate_Aznarites
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			add_stability = 0.07
+			remove_ideas = BAS_Looming_Threat_of_Carlism
+		}
+	}
+		focus = {
+		id = BAS_Seize_the_Steelworks
+		icon = GFX_goal_BAS_Strike_Steelworks
+		relative_position_id = BAS_Basque_Communism
+		x = 1
+		y = 2
+		cost = 2
+		available = {
+			has_government = totalist
+		}
+		prerequisite = {
+			focus = BAS_Paris_Overtures
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			country_event = BAS.284
+			random_owned_controlled_state = {
+			prioritize = { 172 }
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+			}
+			}
+		}
+		focus = {
+		id = BAS_Basque_Jacobins_Seize_the_Day
+		icon = GFX_goal_BAS_Red_Lehendakari_Crimson_Chairman
+		relative_position_id = BAS_Basque_Communism
+		x = 0
+		y = 3
+		cost = 1
+		available = {
+			has_government = totalist
+		}
+		prerequisite = {
+			focus = BAS_Seize_the_Steelworks
+		}
+		prerequisite = {
+			focus = BAS_Final_Nail_in_Carlist_Coffin
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			country_event = BAS.274
+		}
+	}
+	focus = {
+		id = BAS_Centralization_Through_Any_Means
+		icon = {
+			GFX_goal_BAS_Nation_Centralized_Under_Party = {
+				has_country_flag = BAS_jacobins
+			}
+			GFX_goal_BAS_Defusing_Dynamiters_Likiniano = yes
+		}
+		dynamic = yes
+		relative_position_id = BAS_Basque_Jacobins_Seize_the_Day
+		x = 2
+		y = 1
+		cost = 4
+		prerequisite = {
+			focus = BAS_Basque_Jacobins_Seize_the_Day
+		}
+		available = {
+			has_government = totalist
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {	
+			if = {
+				limit = { has_country_flag = BAS_jacobins }
+				country_event = BAS.533
+			add_ideas = command_economy
+			}
+			else = {
+				country_event = BAS.278
+				add_ideas = BAS_communist_democracy
+			}
+		}
+	}
+	focus = {
+		id = BAS_Right_of_Smallholders
+		icon = {
+			GFX_goal_BAS_Gobierno_Campesinos_Obreros = {
+				has_country_flag = BAS_jacobins
+			}
+			GFX_goal_BAS_Baserri_Etxea_Natural_Collective = yes
+		}
+		dynamic = yes
+		relative_position_id = BAS_Basque_Jacobins_Seize_the_Day
+		x = 0
+		y = 1
+		cost = 4
+		prerequisite = {
+			focus = BAS_Basque_Jacobins_Seize_the_Day
+		}
+		available = {
+			has_government = totalist
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {	
+			if = {
+				limit = { has_country_flag = BAS_jacobins }
+				country_event = BAS.525
+			remove_ideas = BAS_rural_resistance
+				172 = { increase_state_category_by_one_level = yes }
+			}
+			else = {
+				country_event = BAS.280
+				remove_ideas = BAS_rural_resistance
+				172 = { add_extra_state_shared_building_slots = 4 }
+			}
+		}
+	}
+	focus = {
+		id = BAS_Revive_the_Spectre_of_Communism
+		icon = {
+			GFX_goal_BAS_Spectre_Communism_Over_Iberia = {
+				has_country_flag = BAS_jacobins
+			}
+			GFX_goal_BAS_Catholic_Clergy_Crimson_Coat = yes
+		}
+		relative_position_id = BAS_Basque_Jacobins_Seize_the_Day
+		x = -2
+		y = 1
+		cost = 4
+		prerequisite = {
+			focus = BAS_Basque_Jacobins_Seize_the_Day
+		}
+		available = {
+			has_government = totalist
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			if = {
+				limit = { has_country_flag = BAS_jacobins }
+			country_event = BAS.75
+			add_ideas = BAS_Revive_the_Spectre_of_Communism_idea
+			}
+			else = {
+				country_event = BAS.275
+			}
+		}
+	}
+	focus = {
+		id = BAS_Bend_the_Unions_to_Our_Will
+		icon = {
+			GFX_goal_BAS_Proletarian_Unionism_Federacion_Vasco_Navarra = {
+				has_country_flag = BAS_jacobins
+			}
+			GFX_goal_BAS_Collective_Dream_Federaztios_Unionists = yes
+		}
+		relative_position_id = BAS_Basque_Jacobins_Seize_the_Day
+		x = 0
+		y = 2
+		cost = 4
+		prerequisite = {
+			focus = BAS_Right_of_Smallholders
+		}
+		prerequisite = {
+			focus = BAS_Revive_the_Spectre_of_Communism
+		}
+		prerequisite = {
+			focus = BAS_Centralization_Through_Any_Means
+		}
+		available = {
+			has_government = totalist
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			if = {
+				limit = { has_country_flag = BAS_jacobins }
+			country_event = BAS.246
+			add_ideas = BAS_Bend_the_Unions_to_Our_Will_idea
+			}
+			else = {
+				country_event = BAS.276
+				add_ideas = BAS_fen_tanyl
+			}
+		}
+	}
+	focus = {
+		id = BAS_Bring_in_French_Theorists
+		icon = {
+			GFX_goal_BAS_Request_Aid_Our_French_Benefactors = {
+				has_country_flag = BAS_jacobins
+			}
+			GFX_goal_BAS_Communism_Without_Orthodox_Puritanism = yes
+		}
+		dynamic = yes
+		relative_position_id = BAS_Basque_Jacobins_Seize_the_Day
+		x = -2
+		y = 2
+		cost = 4
+		prerequisite = {
+			focus = BAS_Centralization_Through_Any_Means
+		}
+		prerequisite = {
+			focus = BAS_Revive_the_Spectre_of_Communism
+		}
+		available = {
+			has_government = totalist
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			if = {
+				limit = { has_country_flag = BAS_jacobins }
+			country_event = BAS.76
+			add_ideas = BAS_French_Theorists
+			}
+			else = {
+				country_event = BAS.273
+				add_ideas = command_economy
+			}
+		}
+	}
+	focus = {
+		id = BAS_Introduce_Cult_of_Reason_to_Iberia
+		icon = {
+			GFX_goal_BAS_Iberian_Cult_Reason = {
+				has_country_flag = BAS_jacobins
+			}
+			GFX_goal_BAS_Amuategi_Battalion_Youth = yes
+		}
+		dynamic = yes
+		relative_position_id = BAS_Basque_Jacobins_Seize_the_Day
+		x = 2
+		y = 2
+		cost = 4
+		prerequisite = {
+			focus = BAS_Centralization_Through_Any_Means
+		}
+		prerequisite = {
+			focus = BAS_Revive_the_Spectre_of_Communism
+		}
+		available = {
+			has_government = totalist
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			if = {
+				limit = { has_country_flag = BAS_jacobins }
+				country_event = BAS.245
+				add_ideas = BAS_Introduce_Cult_of_Reason_to_Iberia_idea
+				add_research_slot = 1
+			}
+			else = {
+				country_event = BAS.277
+				add_ideas = BAS_young_guard
+			}
+		}
+	}
+	focus = {
+		id = BAS_Rekindle_Class_Warfare
+		icon = {
+			GFX_goal_BAS_Escalate_Class_Warfare_Euskadi = {
+				has_country_flag = BAS_jacobins
+			}
+			GFX_goal_BAS_Truly_Nationalized_Industry_Euskadi = yes
+		}
+		dynamic = yes
+		relative_position_id = BAS_Basque_Jacobins_Seize_the_Day
+		x = -1
+		y = 3
+		cost = 4
+		prerequisite = {
+			focus = BAS_Bend_the_Unions_to_Our_Will
+			focus = BAS_Introduce_Cult_of_Reason_to_Iberia
+			focus = BAS_Bring_in_French_Theorists
+		}
+		available = {
+			has_government = totalist
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			if = {
+				limit = { has_country_flag = BAS_jacobins }
+				add_stability = -0.15
+				random_owned_controlled_state = {
+				prioritize = { 172 }
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = { type = arms_factory level = 4 instant_build = yes }
+				}
+			}
+			else = {
+				add_stability = -0.08
+				random_owned_controlled_state = {
+				prioritize = { 172 }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = arms_factory level = 2 instant_build = yes }
+				}
+				random_owned_controlled_state = {
+				prioritize = { 172 }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+				}
+			}
+		}
+	}
+	focus = {
+		id = BAS_Fortitude_of_the_Party_Line
+		icon = {
+			GFX_goal_BAS_Fortitude_Party_Line = {
+				has_country_flag = BAS_jacobins
+			}
+			GFX_goal_BAS_Detritus_Broken_Red_Spain = yes
+		}
+		dynamic = yes
+		relative_position_id = BAS_Basque_Jacobins_Seize_the_Day
+		x = 1
+		y = 3
+		cost = 4
+		prerequisite = {
+			focus = BAS_Bend_the_Unions_to_Our_Will
+			focus = BAS_Introduce_Cult_of_Reason_to_Iberia
+			focus = BAS_Bring_in_French_Theorists
+		}
+		available = {
+			has_government = totalist
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			if = {
+				limit = { has_country_flag = BAS_jacobins }
+			country_event = BAS.529
+			}
+			else = {
+				country_event = BAS.281
+			}
+		}
+	}
+	focus = {
+		id = BAS_First_Jacobins_of_Iberia
+		icon = {
+			GFX_goal_BAS_True_Revolution_Arrives_Iberia = {
+				has_country_flag = BAS_jacobins
+			}
+			GFX_goal_BAS_Finalised_Vision_Lenin_Iberian_Soil = yes
+		}
+		dynamic = yes
+		relative_position_id = BAS_Basque_Jacobins_Seize_the_Day
+		x = 0
+		y = 4
+		cost = 4
+		prerequisite = {
+			focus = BAS_Rekindle_Class_Warfare
+			focus = BAS_Fortitude_of_the_Party_Line
+		}
+		available = {
+			has_government = totalist
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+		create_wargoal = {
+			type = annex_everything
+			target = 41.owner
+		}
+			if = {
+				limit = { has_country_flag = BAS_jacobins }
+			add_research_slot = 1
+			add_ideas = BAS_First_Jacobins_of_Iberia
+			country_event = BAS.247
+			every_state = {
+				limit = { is_spain = yes }
+				add_core_of = BAS
+				}
+			}
+			else = {
+				country_event = BAS.282
+				add_ideas = BAS_reforged_communism
+			every_state = {
+				limit = { is_spain = yes }
+				add_claim_by = BAS
+				}
+			}
 		}
 	}
 	focus = {
@@ -5404,14 +5519,19 @@ focus_tree = {
 		id = BAS_Basque_Irredentism
 		icon = GFX_goal_BAS_Irredentism
 		relative_position_id = BAS_Return_to_Tradition
-		x = 26
+		x = 30
 		y = 0
 		cost = 4
 		available = {
 			has_country_flag = BAS_secured_its_independence
 			is_subject = no
+			OR = {
+			has_completed_focus = BAS_First_Basque_Elections
+			has_completed_focus = BAS_Basque_Jacobins_Seize_the_Day
+			has_completed_focus = BAS_Syndicalist_Revolution
+			}
 			NOT = {
-			has_government = totalist
+			has_country_flag = BAS_jacobins
 			has_country_flag = BAS_traditionalist_victory
 			}
 		}
@@ -5422,12 +5542,6 @@ focus_tree = {
 			add_war_support = 0.1
 			add_political_power = 25
 			add_command_power = 150
-			1334 = {
-			add_core_of = BAS
-			}
-			984 = {
-			add_core_of = BAS
-			}
 			hidden_effect = {
 			BAS = { country_event = { id = BAS.323 days = 66 }}			
 			}
@@ -5437,12 +5551,13 @@ focus_tree = {
 		id = BAS_Iberian_Roots
 		icon = GFX_goal_BAS_Republicanism
 		relative_position_id = BAS_Basque_Irredentism
-		x = 2
+		x = 3
 		y = 1
 		cost = 4
 		available = {
 			is_subject = no
 			NOT = {
+			has_government = totalist
 			has_government = syndicalist
 			has_government = paternal_autocrat
 			has_government = authoritarian_democrat
@@ -5460,22 +5575,226 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
+			add_war_support = 0.08
+			country_event = BAS.279
+		}
+	}
+	focus = {
+		id = BAS_Republican_Officers
+		icon = GFX_goal_CAT_Army_free_of_agitators
+		relative_position_id = BAS_Basque_Irredentism
+		x = 3
+		y = 2
+		cost = 4
+		available = {
+			is_subject = no
+			NOT = {
+			has_government = totalist
+			has_government = syndicalist
+			has_government = paternal_autocrat
+			has_government = authoritarian_democrat
+			has_government = national_populist
+			has_country_flag = BAS_traditionalist_victory
+			}
+		}
+		prerequisite = {
+			focus = BAS_Iberian_Roots
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			country_event = BAS.606
+			every_unit_leader = {
+				limit = {
+					has_id = 5426 
+				}
+				promote_leader = yes
+			}
+				every_unit_leader = {
+				add_max_trait = 1
+				add_skill_level = 1
+				add_logistics = 1
+				add_planning = 1
+				add_defense = 1
+				add_attack = 1
+			}
+		}
+	}
+	focus = {
+		id = BAS_Diaspora_Support
+		icon = GFX_goal_GLC_Cuban_diaspora_returns
+		relative_position_id = BAS_Basque_Irredentism
+		x = 1
+		y = 2
+		cost = 4
+		available = {
+			is_subject = no
+			NOT = {
+			has_government = totalist
+			has_government = syndicalist
+			has_government = paternal_autocrat
+			has_government = authoritarian_democrat
+			has_government = national_populist
+			has_country_flag = BAS_traditionalist_victory
+			}
+		}
+		prerequisite = {
+			focus = BAS_Iberian_Roots
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+		172 = { add_manpower = 15000 }
+		add_offsite_building = {
+				type = arms_factory
+				level = 1
+			}
+			add_offsite_building = {
+				type = industrial_complex
+				level = 1
+			}
+		}
+	}
+	focus = {
+		id = BAS_Rekindled_Pact_of_Donostia
+		icon = GFX_goal_SPR_One_and_multiple
+		relative_position_id = BAS_Basque_Irredentism
+		x = 5
+		y = 2
+		cost = 4
+		available = {
+			is_subject = no
+			NOT = {
+			has_government = totalist
+			has_government = syndicalist
+			has_government = paternal_autocrat
+			has_government = authoritarian_democrat
+			has_government = national_populist
+			has_country_flag = BAS_traditionalist_victory
+			}
+		}
+		prerequisite = {
+			focus = BAS_Iberian_Roots
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			country_event = BAS.257
+			172 = { add_manpower = 8500 }
+		}
+	}
+	focus = {
+		id = BAS_Contact_Sympathisers
+		icon = GFX_goal_GUA_Paris_Agents
+		relative_position_id = BAS_Basque_Irredentism
+		x = 2
+		y = 3
+		cost = 4
+		available = {
+			is_subject = no
+			NOT = {
+			has_government = totalist
+			has_government = syndicalist
+			has_government = paternal_autocrat
+			has_government = authoritarian_democrat
+			has_government = national_populist
+			has_country_flag = BAS_traditionalist_victory
+			}
+		}
+		bypass = {
+			41 = { is_owned_by_ROOT_or_subject = yes }
+		}
+		prerequisite = {
+			focus = BAS_Diaspora_Support
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
 			add_war_support = 0.15
-			add_political_power = 25
+			add_ideas = SPR_warriors_of_the_republic
 			country_event = BAS.228
+		}
+	}
+	focus = {
+		id = BAS_Unbanned_Spanish_Organisations
+		icon = GFX_goal_GUA_Freedom_Orellana_Era_Prisoners
+		relative_position_id = BAS_Basque_Irredentism
+		x = 4
+		y = 3
+		cost = 4
+		available = {
+			is_subject = no
+			NOT = {
+			has_government = totalist
+			has_government = syndicalist
+			has_government = paternal_autocrat
+			has_government = authoritarian_democrat
+			has_government = national_populist
+			has_country_flag = BAS_traditionalist_victory
+			}
+		}
+		prerequisite = {
+			focus = BAS_Rekindled_Pact_of_Donostia
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			country_event = BAS.232
+		}
+	}
+	focus = {
+		id = BAS_Viva_La_Republica
+		icon = GFX_goal_SPR_The_monster_wakes
+		relative_position_id = BAS_Basque_Irredentism
+		x = 3
+		y = 4
+		cost = 4
+		available = {
+			is_subject = no
+			SPR = { exists = no }
+			NOT = {
+			has_government = totalist
+			has_government = syndicalist
+			has_government = paternal_autocrat
+			has_government = authoritarian_democrat
+			has_government = national_populist
+			has_country_flag = BAS_traditionalist_victory
+			}
+		}
+		prerequisite = {
+			focus = BAS_Republican_Officers
+		}
+		prerequisite = {
+			focus = BAS_Unbanned_Spanish_Organisations
+		}
+		prerequisite = {
+			focus = BAS_Contact_Sympathisers
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+		country_event = BAS.270
+		add_ideas = BAS_powerhouse_of_iberia
 		}
 	}
 		focus = {
 		id = BAS_Beyond_Iberia
 		icon = GFX_goal_CAT_No_Spaniards_below_pyrenees
 		relative_position_id = BAS_Basque_Irredentism
-		x = -2
+		x = -3
 		y = 1
 		cost = 4
 		available = {
 			is_subject = no
 			NOT = {
 			has_country_flag = BAS_traditionalist_victory
+			has_country_flag = BAS_jacobins
 			}
 		}
 		mutually_exclusive = {
@@ -5488,7 +5807,45 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-			country_event = BAS.251
+			country_event = BAS.605
+			every_unit_leader = {
+				limit = {
+					has_id = 5426 
+				}
+				promote_leader = yes
+			}
+				every_unit_leader = {
+				add_max_trait = 1
+				add_skill_level = 1
+				add_logistics = 1
+				add_planning = 1
+				add_defense = 1
+				add_attack = 1
+			}
+		}
+	}
+		focus = {
+		id = BAS_Iparralde_Question
+		icon = GFX_goal_NFA_Greater_France
+		relative_position_id = BAS_Basque_Irredentism
+		x = -3
+		y = 2
+		cost = 4
+		available = {
+			is_subject = no
+			NOT = {
+			has_country_flag = BAS_traditionalist_victory
+			has_country_flag = BAS_jacobins
+			}
+		}
+		prerequisite = {
+			focus = BAS_Beyond_Iberia
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			country_event = BAS.227
 			add_political_power = 25
 			add_command_power = 150
 			hidden_effect = {
@@ -5497,18 +5854,103 @@ focus_tree = {
 		}
 	}
 		focus = {
-		id = BAS_Iparralde
-		icon = GFX_goal_NFA_Greater_France
+		id = BAS_Reestablish_Our_Maritime_Might
+		icon = GFX_goal_NFL_full_provincehood
 		relative_position_id = BAS_Basque_Irredentism
-		x = 0
+		x = -1
 		y = 2
 		cost = 4
 		available = {
 			is_subject = no
+			NOT = {
+			has_country_flag = BAS_traditionalist_victory
+			has_country_flag = BAS_jacobins
+			}
 		}
 		prerequisite = {
 			focus = BAS_Beyond_Iberia
-			focus = BAS_Iberian_Roots
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			country_event = BAS.222
+		}
+	}
+		focus = {
+		id = BAS_Defensive_Alliances_with_Other_Separatists
+		icon = GFX_goal_CAT_World_struggle_for_liberty
+		relative_position_id = BAS_Basque_Irredentism
+		x = -5
+		y = 2
+		cost = 4
+		available = {
+			is_subject = no
+			NOT = {
+			has_country_flag = BAS_traditionalist_victory
+			has_country_flag = BAS_jacobins
+			}
+		}
+		prerequisite = {
+			focus = BAS_Beyond_Iberia
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			country_event = BAS.256
+			add_offsite_building = {
+				type = arms_factory
+				level = 2
+			}
+		}
+	}
+		focus = {
+		id = BAS_Rekindled_Galeuzca
+		icon = GFX_goal_CAT_League_of_oppressed_states
+		relative_position_id = BAS_Basque_Irredentism
+		x = -4
+		y = 3
+		cost = 4
+		available = {
+			is_subject = no
+			NOT = {
+			has_country_flag = BAS_traditionalist_victory
+			has_country_flag = BAS_jacobins
+			}
+		}
+		prerequisite = {
+			focus = BAS_Defensive_Alliances_with_Other_Separatists
+		}
+		mutually_exclusive = {
+			focus = BAS_Towards_a_New_Phoenicia
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			country_event = BAS.260
+		}
+	}
+		focus = {
+		id = BAS_Towards_a_New_Phoenicia
+		icon = GFX_goal_DOM_The_Phoenix
+		relative_position_id = BAS_Basque_Irredentism
+		x = -2
+		y = 3
+		cost = 4
+		available = {
+			is_subject = no
+			NOT = {
+			has_country_flag = BAS_traditionalist_victory
+			has_country_flag = BAS_jacobins
+			}
+		}
+		prerequisite = {
+			focus = BAS_Reestablish_Our_Maritime_Might
+		}
+		mutually_exclusive = {
+			focus = BAS_Rekindled_Galeuzca
 		}
 		ai_will_do = {
 			factor = 100
@@ -5518,139 +5960,32 @@ focus_tree = {
 		}
 	}
 		focus = {
-		id = BAS_Our_Colonies_in_the_New_World
-		icon = GFX_goal_NFL_full_provincehood
-		relative_position_id = BAS_Basque_Irredentism
-		x = -4
-		y = 2
-		cost = 4
-		available = {
-			is_subject = no
-		}
-		prerequisite = {
-			focus = BAS_Beyond_Iberia
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			add_war_support = 0.1
-			country_event = BAS.222
-		}
-	}
-		focus = {
-		id = BAS_Contact_the_Diaspora
-		icon = GFX_CAR_conquer_chile
-		relative_position_id = BAS_Basque_Irredentism
-		x = -2
-		y = 2
-		cost = 4
-		available = {
-			is_subject = no
-		}
-		prerequisite = {
-			focus = BAS_Beyond_Iberia
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			country_event = BAS.226 
-		}
-	}
-		focus = {
-		id = BAS_Liberation_Comes
-		icon = GFX_goal_SPR_Iberian_prison_of_nations
-		relative_position_id = BAS_Basque_Irredentism
-		x = 4
-		y = 2
-		cost = 4
-		available = {
-			is_subject = no
-		}
-		prerequisite = {
-			focus = BAS_Iberian_Roots
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			add_war_support = 0.1
-			country_event = BAS.232
-		}
-	}
-		focus = {
-		id = BAS_Strategic_Alliances
-		icon = GFX_goal_CAT_World_struggle_for_liberty
-		relative_position_id = BAS_Basque_Irredentism
-		x = 2
-		y = 2
-		cost = 4
-		available = {
-			is_subject = no
-		}
-		prerequisite = {
-			focus = BAS_Iberian_Roots
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-		country_event = BAS.260
-		}
-	}
-		focus = {
-		id = BAS_The_New_Power_of_Iberia
+		id = BAS_A_New_Powerhouse_of_Iberia
 		icon = GFX_goal_MEX_There_Power_Union
 		relative_position_id = BAS_Basque_Irredentism
-		x = 1
-		y = 3
+		x = -3
+		y = 4
 		cost = 4
 		available = {
 			is_subject = no
-		}
-		mutually_exclusive = {
-			focus = BAS_Euskadi_Free_of_Castille
+			NOT = {
+			has_country_flag = BAS_traditionalist_victory
+			has_country_flag = BAS_jacobins
+			}
 		}
 		prerequisite = {
-			focus = BAS_Liberation_Comes
-			focus = BAS_Strategic_Alliances
+			focus = BAS_Towards_a_New_Phoenicia
+			focus = BAS_Rekindled_Galeuzca
+		}
+		prerequisite = {
+			focus = BAS_Iparralde_Question
 		}
 		ai_will_do = {
 			factor = 100
 		}
 		completion_reward = {
-			add_ideas = BAS_powerhouse_of_iberia
-			add_war_support = 0.1
-			add_political_power = 75
-			add_command_power = 50
-		}
-	}
-		focus = {
-		id = BAS_Euskadi_Free_of_Castille
-		icon = GFX_goal_SPR_Struggle_against_tyranny
-		relative_position_id = BAS_Basque_Irredentism
-		x = -1
-		y = 3
-		cost = 4
-		available = {
-			is_subject = no
-		}
-		mutually_exclusive = {
-			focus = BAS_The_New_Power_of_Iberia
-		}
-		prerequisite = {
-			focus = BAS_Contact_the_Diaspora
-			focus = BAS_Our_Colonies_in_the_New_World
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			add_ideas = BAS_free_of_castile
-			add_war_support = 0.1
-			add_political_power = 75
-			add_command_power = 50
+		country_event = BAS.251
+		add_ideas = BAS_free_of_castile
 		}
 	}
 	focus = {
@@ -5923,6 +6258,7 @@ focus_tree = {
 		y = 0
 		cost = 4
 		available = {
+			has_country_flag = BAS_secured_its_independence
 			is_subject = no
 		}
 		ai_will_do = {
@@ -6047,11 +6383,11 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
-			add_ideas = BAS_Fokker_Vultures
+			add_ideas = BAS_Refitting
 			add_doctrine_cost_reduction = {
 				name = air_doc_bonus
-				cost_reduction = 0.5
-				uses = 1
+				cost_reduction = 1
+				uses = 2
 				category = air_doctrine
 			}
 		}
@@ -6074,10 +6410,11 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
+			air_experience = 25
 			172 = {
 				add_building_construction = {
 					type = air_base
-					level = 3
+					level = 1
 					instant_build = yes
 			}
 		}
@@ -6107,15 +6444,14 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
-			172 = {
-				add_building_construction = {
-					type = radar
-					instant_build = yes
+			air_experience = 50
+			add_ideas = BAS_pyrenean_birds
 			172 = {
 				add_building_construction = {
 					type = air_base
 					level = 3
 					instant_build = yes
+				}	
 			}
 		}
 	}

@@ -571,10 +571,9 @@ defined_text = {
 			AND = {
 				tag = CAN
 				NOT = {
-					OR = {
-						has_country_flag = CAN_gov_gen
-						has_country_flag = CAN_president
-					}
+					has_country_flag = CAN_gov_gen
+					has_country_flag = CAN_president
+					has_country_flag = DOUBLE_LEADER_GUI_VISIBLE
 				}
 			}
 		}
@@ -597,6 +596,15 @@ defined_text = {
 			}
 		}
 		localization_key = PM_OR_PRES
+	}	
+	text = {
+		trigger = {
+			AND = {
+				tag = CAN
+				has_country_flag = DOUBLE_LEADER_GUI_VISIBLE
+			}
+		}
+		localization_key = PM_OR_KING_OR_QUEEN
 	}	
 	text = {
 		trigger = {
@@ -649,6 +657,13 @@ defined_text = {
 			has_country_flag = EU_COUNCIL_VISIBLE
 		}
 		localization_key = KZ_OR_COUNCIL_OR_LEADER
+	}
+	text = {
+		trigger = {
+			tag = CSA
+			has_idea = ENG_Oswald_Mosley_hog_tot 
+			}
+		localization_key = DR_OR_LEADER
 	}
 	text = {
 		trigger = {
@@ -765,7 +780,10 @@ defined_text = {
 	text = {
 		trigger = {
 			tag = DKB
-			RUS_patriarch_sergius = yes
+			OR = {
+				RUS_patriarch_sergius = yes
+				RUS_patriarch_isaac = yes
+			}
 			has_idea = DKB_Sergey_Sokolov_hog_npo
 		}
 		localization_key = PT_OR_PM
@@ -947,6 +965,14 @@ defined_text = {
 			has_country_flag = USA_admiral_triumvirate
 		}
 		localization_key = USA_OR_ADML
+	}
+
+	text = {
+		trigger = {
+			tag = USA
+			has_country_flag = USA_flag_Wills_triumvirate
+		}
+		localization_key = USA_OR_WIL
 	}
 	
 	text = {
@@ -1179,7 +1205,7 @@ defined_text = {
 		}
 		localization_key = KI_OR_TAO_OR_MUA
 	}
-	
+
 	text = {
 		trigger = {
 			tag = DEN
@@ -1218,6 +1244,9 @@ defined_text = {
 	text = {
 		trigger = {
 			tag = BAS
+			NOT = {
+				has_country_flag = BAS_luxembourg_dual_monarchy
+			}
 		}
 		localization_key = PM_OR_LEADER
 	}
@@ -1616,6 +1645,7 @@ defined_text = {
 			NOT = { 
 				has_country_leader_with_trait = RUS_supreme_ruler 
 				has_idea = RUS_Patriarch_Sergius_hog_pau
+				has_idea = RUS_Patriarch_Isaac_hog_pau
 			}
 		}
 		localization_key = EM_OR_LEADER
@@ -1625,7 +1655,10 @@ defined_text = {
 		trigger = {
 			tag = RUS
 			RUS_russian_monarch = yes
-			has_idea = RUS_Patriarch_Sergius_hog_pau
+			OR = {
+				has_idea = RUS_Patriarch_Sergius_hog_pau
+				has_idea = RUS_Patriarch_Isaac_hog_pau
+			}
 		}
 		localization_key = EM_OR_PATRIARCH
 	}
@@ -2034,20 +2067,28 @@ defined_text = {
 		}
 		localization_key = PR_OR_GAM
 	}
+	
 	text = {
 		trigger = {
-			tag = ENG
-			ENG_Hardliners_lead = yes
+			tag = BAS
+			has_country_flag = BAS_luxembourg_dual_monarchy
 		}
-		localization_key = CHRM_OR_ANG
+		localization_key = LUX_OR_BAS_OR_LEH
+	}		
+
+	text = {
+		trigger = {
+			tag = ALA
+		}
+		localization_key = PRN_OR_CEO
 	}
+
 	text = {
 		trigger = {
-			tag = ENG
-			ENG_Autonomists_lead  = yes
-			has_country_flag = ENG_AUT_Regional_chairmen
+			has_country_flag = DOUALLA_BELL_VISIBLE
+			NOT = { tag = GEX }
 		}
-		localization_key = CHRM_OR_SCT
+		localization_key = KAI_OR_DMB
 	}
 }
 
@@ -2121,6 +2162,13 @@ defined_text = {
 			has_country_flag = USA_admiral_triumvirate
 		}
 		localization_key = USA_OR_ADM2
+	}
+	text = {
+		trigger = {
+			tag = USA
+			has_country_flag = USA_flag_Wills_triumvirate
+		}
+		localization_key = USA_OR_WIL2
 	}	
 	text = {
 		trigger = {
@@ -2173,6 +2221,19 @@ defined_text = {
 		}
 		localization_key = GH_OR_MG2
 	}
+	text = {
+		trigger = {
+			tag = BAS
+			has_country_flag = BAS_luxembourg_dual_monarchy
+		}
+		localization_key = BAS_LUX_QN
+	}	
+	text = {
+		trigger = {
+			tag = CAN
+		}
+		localization_key = QW_OR_PM2
+	}
 }
 
 defined_text = {
@@ -2210,6 +2271,13 @@ defined_text = {
 			tag = GER
 		}
 		localization_key = KZ_OR_LEADER2
+	}
+	text = {
+		trigger = {
+			tag = CSA
+			has_idea = ENG_Oswald_Mosley_hog_tot 
+			}
+		localization_key = DR_OR_LEADER2
 	}
 	text = {
 		trigger = {
@@ -2328,7 +2396,10 @@ defined_text = {
 	text = {
 		trigger = {
 			tag = DKB
-			RUS_patriarch_sergius = yes
+			OR = {
+				RUS_patriarch_sergius = yes
+				RUS_patriarch_isaac = yes
+			}
 		}
 		localization_key = PT_OR_PM2
 	}		
@@ -2658,6 +2729,7 @@ defined_text = {
 				OR = {
 				has_country_flag = USA_triumvirate
 				has_country_flag = USA_admiral_triumvirate
+				has_country_flag = USA_flag_Wills_triumvirate
 				}
 			}
 		}
@@ -2670,6 +2742,14 @@ defined_text = {
 			has_country_flag = USA_admiral_triumvirate
 		}
 		localization_key = USA_OR_ADM
+	}
+
+	text = {
+		trigger = {
+			tag = USA
+			has_country_flag = USA_flag_Wills_triumvirate
+		}
+		localization_key = USA_OR_WIL
 	}
 	
 	text = {
@@ -2788,7 +2868,10 @@ defined_text = {
 		trigger = {
 			tag = RUS
 			RUS_russian_monarch = yes
-			has_idea = RUS_Patriarch_Sergius_hog_pau
+			OR = {
+				has_idea = RUS_Patriarch_Sergius_hog_pau
+				has_idea = RUS_Patriarch_Isaac_hog_pau
+			}
 		}
 		localization_key = EM_OR_PATRIARCH2
 	}
@@ -2902,6 +2985,7 @@ defined_text = {
 		}
 		localization_key = PM_OR_LEADER2
 	}
+
 	
 	text = {
 		trigger = {
@@ -3530,6 +3614,21 @@ defined_text = {
 			tag = MNT
 		}
 		localization_key = PR_OR_PM2
+	}
+	
+	text = {
+		trigger = {
+			tag = ALA
+		}
+		localization_key = PRN_OR_CEO2
+	}
+
+	text = {
+		trigger = {
+			has_country_flag = DOUALLA_BELL_VISIBLE
+			NOT = { tag = GEX }
+		}
+		localization_key = KAI_OR_DMB2
 	}
 }
 
@@ -4892,6 +4991,14 @@ defined_text = {
 		}
 		localization_key = "Lydia Liliuokalani"
 	}
+			
+	text = { #Not by Minister Ideas
+		trigger = {
+			has_country_flag = BAS_luxembourg_dual_monarchy
+		}
+		localization_key = "Charlotte of Luxembourg"
+	}
+
 
 	text = { #Not by Minister Ideas
 		trigger = {
@@ -4927,6 +5034,13 @@ defined_text = {
 			}
 		}
 		localization_key = "Raymond A. Spruance"
+	}
+
+	text = { 
+		trigger = {
+			has_country_flag = USA_flag_Wills_triumvirate
+		}
+		localization_key = "Curtis LeMay"
 	}
 	
 	text = {
@@ -5241,6 +5355,12 @@ defined_text = {
 			has_idea = CAN_Major_James_Coldwell_hog_sde
 		}
 		localization_key = CAN_Major_James_Coldwell_hog_sde
+	}
+	text = {
+		trigger = {
+			has_idea = CAN_Agnes_Macphail_hog_sde
+		}
+		localization_key = CAN_Agnes_Macphail_hog_sde
 	}
 	text = {
 		trigger = {
@@ -6093,6 +6213,13 @@ defined_text = {
 			has_idea = AST_John_McEwen_hog_sco
 		}
 		localization_key = AST_John_McEwen_hog_sco
+	}
+
+	text = { 
+		trigger = {
+			has_idea = AST_Keith_Murdoch_hog_sco
+		}
+		localization_key = AST_Keith_Murdoch_hog_sco
 	}
 
 	text = { 
@@ -7491,6 +7618,13 @@ defined_text = {
 	
 	text = {
 		trigger = {
+			has_idea = USA_Clare_Boothe_Luce_veep_sco
+		}
+		localization_key = USA_Clare_Boothe_Luce_veep_sco
+	}
+	
+	text = {
+		trigger = {
 			has_idea = USA_Happy_Chandler_veep_sco
 		}
 		localization_key = USA_Happy_Chandler_veep_sco
@@ -7547,6 +7681,13 @@ defined_text = {
 	
 	text = {
 		trigger = {
+			has_idea = USA_Robert_E_Wood_veep_ade
+		}
+		localization_key = USA_Robert_E_Wood_veep_ade
+	}
+	
+	text = {
+		trigger = {
 			has_idea = USA_William_Lemke_veep_ade
 		}
 		localization_key = USA_William_Lemke_veep_ade
@@ -7557,6 +7698,13 @@ defined_text = {
 			has_idea = USA_John_Rankin_veep_pau
 		}
 		localization_key = USA_John_Rankin_veep_pau
+	}
+	
+	text = {
+		trigger = {
+			has_idea = USA_Hanford_Macnider_veep_pau
+		}
+		localization_key = USA_Hanford_Macnider_veep_pau
 	}
 	
 	text = {
@@ -7575,6 +7723,13 @@ defined_text = {
 	
 	text = {
 		trigger = {
+			has_idea = USA_Robert_R_McCormick_veep_pau
+		}
+		localization_key = USA_Robert_R_McCormick_veep_pau
+	}
+	
+	text = {
+		trigger = {
 			has_idea = USA_Hiram_W_Evans_veep_npo
 		}
 		localization_key = USA_Hiram_W_Evans_veep_npo
@@ -7586,12 +7741,26 @@ defined_text = {
 		}
 		localization_key = USA_Samuel_Green_veep_npo
 	}
+	
+	text = {
+		trigger = {
+			has_idea = USA_Willis_Carto_veep_npo
+		}
+		localization_key = USA_Willis_Carto_veep_npo
+	}
 
 	text = {
 		trigger = {
 			has_idea = USA_William_Halsey_Jr_hog_pau
 		}
 		localization_key = USA_William_Halsey_Jr_hog_pau
+	}
+
+	text = {
+		trigger = {
+			has_country_flag = USA_flag_Wills_triumvirate
+		}
+		localization_key = WCC_Richard_K_Sutherland_sec_npo
 	}
 	
 	text = {
@@ -8072,6 +8241,50 @@ defined_text = {
 		localization_key = CAL_George_Marshall_eco_ade
 	}
 	
+	### Alaskans ###
+
+	text = {
+		trigger = {
+			has_idea = ALA_Stephen_Birch_hog_pau
+		}
+		localization_key = ALA_Stephen_Birch_hog_pau
+	}
+	
+	text = {
+		trigger = {
+			has_idea = ALA_George_Denver_Guggenheim_hog_pau
+		}
+		localization_key = ALA_George_Denver_Guggenheim_hog_pau
+	}
+	
+	text = {
+		trigger = {
+			has_idea = ALA_John_Pierpont_Morgan_Jr_hog_pau
+		}
+		localization_key = ALA_John_Pierpont_Morgan_Jr_hog_pau
+	}
+	
+	text = {
+		trigger = {
+			has_idea = ALA_Junius_Spencer_Morgan_III_hog_pau
+		}
+		localization_key = ALA_Junius_Spencer_Morgan_III_hog_pau
+	}
+	
+	text = {
+		trigger = {
+			has_idea = ALA_Henry_Sturgis_Morgan_hog_pau
+		}
+		localization_key = ALA_Henry_Sturgis_Morgan_hog_pau
+	}
+	
+	text = {
+		trigger = {
+			has_idea = ALA_Segundo_Llorente_hog_pau
+		}
+		localization_key = ALA_Segundo_Llorente_hog_pau
+	}
+	
 	### Irish Taoiseachs ###
 
 	text = {
@@ -8542,6 +8755,125 @@ defined_text = {
 			has_idea = BAS_Mariano_Zufia_Urrizalqui_hog_rso
 		}
 		localization_key = BAS_Mariano_Zufia_Urrizalqui_hog_rso
+	}
+		
+	text = {
+		trigger = {
+			has_idea = BAS_Tomas_Bilbao_Hospitalet_hog_sde
+		}
+		localization_key = BAS_Tomas_Bilbao_Hospitalet_hog_sde
+	}
+		
+	text = {
+		trigger = {
+			has_idea = BAS_Elias_Gallastegi_Uriarte_hog_ade
+		}
+		localization_key = BAS_Elias_Gallastegi_Uriarte_hog_ade
+	}
+		
+	text = {
+		trigger = {
+			has_idea = BAS_Jose_Antonio_de_Aguirre_y_Lecube_hog_sco
+		}
+		localization_key = BAS_Jose_Antonio_de_Aguirre_y_Lecube_hog_sco
+	}
+		
+	text = {
+		trigger = {
+			has_idea = BAS_Manuel_de_Irujo_y_Ollo_hog_sco
+		}
+		localization_key = BAS_Manuel_de_Irujo_y_Ollo_hog_sco
+	}
+		
+	text = {
+		trigger = {
+			has_idea = BAS_Santiago_Meabe_hog_syn
+		}
+		localization_key = BAS_Santiago_Meabe_hog_syn
+	}
+		
+	text = {
+		trigger = {
+			has_idea = BAS_santiago_aznar_sarachanga_hog_rso
+		}
+		localization_key = BAS_santiago_aznar_sarachanga_hog_rso
+	}
+		
+	text = {
+		trigger = {
+			has_idea = BAS_Maria_Rosa_Urraca_Pastor_hog_pau
+		}
+		localization_key = BAS_Maria_Rosa_Urraca_Pastor_hog_pau
+	}
+		
+	text = {
+		trigger = {
+			has_idea = BAS_Rafael_Aizpun_hog_mli
+		}
+		localization_key = BAS_Rafael_Aizpun_hog_mli
+	}
+		
+	text = {
+		trigger = {
+			has_idea = BAS_Alfredo_Espinosa_Orive_hog_sli
+		}
+		localization_key = BAS_Alfredo_Espinosa_Orive_hog_sli
+	}
+		
+	text = {
+		trigger = {
+			has_idea = BAS_Blas_de_Otero_hog_sli
+		}
+		localization_key = BAS_Blas_de_Otero_hog_sli
+	}
+		
+	text = {
+		trigger = {
+			has_idea = BAS_Mariano_Anso_hog_sli
+		}
+		localization_key = BAS_Mariano_Anso_hog_sli
+	}
+			
+	text = {
+		trigger = {
+			has_idea = BAS_Jesus_Larranaga_hog_tot
+		}
+		localization_key = BAS_Jesus_Larranaga_hog_tot
+	}
+			
+	text = {
+		trigger = {
+			has_idea = BAS_Mixel_Labeguerie_hog_ade
+		}
+		localization_key = BAS_Mixel_Labeguerie_hog_ade
+	}
+			
+	text = {
+		trigger = {
+			has_idea = BAS_Luis_Arana_Goiri_hog_pau
+		}
+		localization_key = BAS_Luis_Arana_Goiri_hog_pau
+	}
+			
+	text = {
+		trigger = {
+			has_idea = BAS_Jose_Maria_Arizmendiarrieta_hog_sco
+		}
+		localization_key = BAS_Jose_Maria_Arizmendiarrieta_hog_sco
+	}
+			
+	text = {
+		trigger = {
+			has_idea = BAS_Manu_Robles_Arangiz_hog_pau
+		}
+		localization_key = BAS_Manu_Robles_Arangiz_hog_pau
+	}
+			
+	text = {
+		trigger = {
+			has_idea = BAS_Jean_Ybarnegaray_hog_pau
+		}
+		localization_key = BAS_Jean_Ybarnegaray_hog_pau
 	}
 
 	### Catalan PMs ###
@@ -9805,6 +10137,12 @@ defined_text = {
 			has_idea = RUS_Patriarch_Sergius_hog_pau
 		}
 		localization_key = RUS_Patriarch_Sergius_hog_pau
+	}
+	text = {
+		trigger = {
+			has_idea = RUS_Patriarch_Isaac_hog_pau
+		}
+		localization_key = RUS_Patriarch_Isaac_hog_pau
 	}
 	text = {
 		trigger = {
@@ -12951,6 +13289,13 @@ defined_text = {
 	
 	text = { #Fired by Minister Ideas
 		trigger = {
+			has_idea = ENG_Oswald_Mosley_hog_tot
+		}
+		localization_key = ENG_Oswald_Mosley_hog_tot
+	}
+	
+	text = { #Fired by Minister Ideas
+		trigger = {
 			has_idea = TRM_Alexander_Kazembek_hog_tot
 		}
 		localization_key = TRM_Alexander_Kazembek_hog_tot
@@ -13297,6 +13642,14 @@ defined_text = {
 		}
 		localization_key = "Peter Kerrigan"
 	}
+	text = { #Not by Minister Ideas
+		trigger = {
+			has_country_flag = DOUALLA_BELL_VISIBLE
+			NOT = { tag = GEX }
+		}
+		localization_key = "Alexander Douala Manga Bell"
+	}
+
 	#so on and so forth
 }
 
@@ -14180,6 +14533,19 @@ defined_text = {
 	}
 }
 
+defined_text = {
+	name = ALAGetHoGTitle
+	text = {
+		trigger = {
+			has_idea = ALA_Segundo_Llorente_hog_pau
+		}
+		localization_key = "Gouverneur"
+	}
+	text = {
+		localization_key = "Managing Director"
+	}
+}
+
 ### _FUN Portraits ###
 
 defined_text = {
@@ -14886,7 +15252,12 @@ defined_text = {
 		}
 		localization_key = GFX_Portrait_NZL_Lydia_Liliuokalani
 	}
-
+	text = { #Not by Minister Ideas
+		trigger = {
+			has_country_flag = BAS_luxembourg_dual_monarchy
+		}
+		localization_key = GFX_Portrait_BAS_Charlotte
+	}			
 	text = { #Not by Minister Ideas
 		trigger = {
 			has_country_flag = NZL_David 
@@ -15106,6 +15477,13 @@ defined_text = {
 
 	text = {
 		trigger = {
+			has_country_flag = USA_flag_Wills_triumvirate
+		}
+		localization_key = GFX_Portrait_WCC_Curtis_LeMay
+	}
+
+	text = {
+		trigger = {
 			has_country_flag = USA_admiral_triumvirate
 			OR = {
 				has_country_flag = USA_pacific_fleet_puppet
@@ -15221,6 +15599,12 @@ defined_text = {
 		}
 		localization_key = GFX_Portrait_Papal_State_Gregorius_XVII
 	}
+	text = {
+		trigger = {
+			has_country_flag = CAN_PLANTAGENET_LARP
+		}
+		localization_key = GFX_Portrait_NFA_Isabelle_II_Queen
+	}
 }
 
 defined_text = {
@@ -15238,6 +15622,13 @@ defined_text = {
 			
 		}
 		localization_key = GFX_Portrait_Canada_Major_James_Coldwell
+	}
+	text = {
+		trigger = {
+			has_idea = CAN_Agnes_Macphail_hog_sde
+			
+		}
+		localization_key = GFX_Portrait_Canada_Agnes_Macphail
 	}
 	text = {
 		trigger = {
@@ -16021,7 +16412,7 @@ text = {
 		trigger = {
 			has_idea = AST_John_Curtin_hog_sde
 		}
-		localization_key = GFX_Portrait_AST_John_Curtin
+		localization_key = GFX_Portrait_AST_John_Curtin_KX
 	}
 
 	text = { 
@@ -16035,7 +16426,7 @@ text = {
 		trigger = {
 			has_idea = AST_Billy_Hughes_hog_mli
 		}
-		localization_key = GFX_Portrait_AST_Billy_Hughes
+		localization_key = GFX_Portrait_AST_Billy_Hughes_KX
 	}
 
 	text = { 
@@ -16049,7 +16440,7 @@ text = {
 		trigger = {
 			has_idea = AST_Robert_Menzies_hog_mli
 		}
-		localization_key = GFX_Portrait_AST_Robert_Menzies
+		localization_key = GFX_Portrait_AST_Robert_Menzies_KX
 	}
 
 	text = { 
@@ -16099,6 +16490,13 @@ text = {
 			has_idea = AST_John_McEwen_hog_sco
 		}
 		localization_key = GFX_Portrait_AST_John_McEwen
+	}
+
+	text = { 
+		trigger = {
+			has_idea = AST_Keith_Murdoch_hog_sco
+		}
+		localization_key = GFX_Portrait_AST_Keith_Murdoch
 	}
 
 	text = { 
@@ -16154,7 +16552,7 @@ text = {
 		trigger = {
 			has_idea = AST_George_Wootten_hog_pau
 		}
-		localization_key = GFX_Portrait_AST_George_Wootten
+		localization_key = GFX_Portrait_AST_George_Wootten_KX
 	}
 
 	text = { 
@@ -16182,7 +16580,7 @@ text = {
 		trigger = {
 			has_idea = AST_Thomas_Blamey_hog_pau
 		}
-		localization_key = GFX_Portrait_AST_Thomas_Blamey
+		localization_key = GFX_Portrait_AST_Thomas_Blamey_KX
 	}
 
 	text = { 
@@ -16213,7 +16611,7 @@ text = {
 		trigger = {
 			has_idea = AST_Leslie_Morshead_hog_pau
 		}
-		localization_key = GFX_Portrait_AST_Leslie_Morshead
+		localization_key = GFX_Portrait_AST_Leslie_Morshead_KX
 	}
 
 	###New Zeland PMs###
@@ -17372,6 +17770,13 @@ text = {
 	
 	text = {
 		trigger = {
+			has_idea = USA_Clare_Boothe_Luce_veep_sco
+		}
+		localization_key = GFX_Portrait_USA_Clare_Boothe_Luce
+	}
+	
+	text = {
+		trigger = {
 			has_idea = USA_Happy_Chandler_veep_sco
 		}
 		localization_key = GFX_Portrait_USA_Happy_Chandler
@@ -17428,9 +17833,23 @@ text = {
 	
 	text = {
 		trigger = {
+			has_idea = USA_Robert_E_Wood_veep_ade
+		}
+		localization_key = GFX_Portrait_USA_Robert_E_Wood
+	}
+	
+	text = {
+		trigger = {
 			has_idea = USA_William_Lemke_veep_ade
 		}
 		localization_key = GFX_Portrait_TEX_William_Lemke
+	}
+	
+	text = {
+		trigger = {
+			has_idea = USA_Hanford_Macnider_veep_pau
+		}
+		localization_key = GFX_Portrait_USA_Hanford_MacNider
 	}
 	
 	text = {
@@ -17456,6 +17875,13 @@ text = {
 	
 	text = {
 		trigger = {
+			has_idea = USA_Robert_R_McCormick_veep_pau
+		}
+		localization_key = GFX_Portrait_NEE_Robert_R_McCormick
+	}
+	
+	text = {
+		trigger = {
 			has_idea = USA_Hiram_W_Evans_veep_npo
 		}
 		localization_key = GFX_Portrait_Hiram_Evans_suit
@@ -17466,6 +17892,13 @@ text = {
 			has_idea = USA_Samuel_Green_veep_npo
 		}
 		localization_key = GFX_Portrait_USA_Samuel_Green
+	}
+	
+	text = {
+		trigger = {
+			has_idea = USA_Willis_Carto_veep_npo
+		}
+		localization_key = GFX_Portrait_COR_Willis_Carto
 	}
 
 	text = {
@@ -17478,6 +17911,14 @@ text = {
 
 	text = {
 		trigger = {
+			has_idea = USA_Charles_Willoughby_hog_pau
+			has_country_flag = USA_flag_Wills_triumvirate
+		}
+		localization_key = GFX_Portrait_USA_Richard_Sutherland
+	}
+
+	text = {
+		trigger = {
 			has_idea = USA_William_Halsey_Jr_hog_pau
 			has_country_flag = USA_admiral_triumvirate
 			NOT = {
@@ -17486,6 +17927,14 @@ text = {
 			}
 		}
 		localization_key = GFX_Portrait_USA_Chester_Nimitz_KR
+	}
+
+	text = {
+		trigger = {
+			has_idea = USA_William_Halsey_Jr_hog_pau
+			has_country_flag = USA_flag_Wills_triumvirate
+		}
+		localization_key = GFX_Portrait_WCC_Curtis_LeMay
 	}
 
 	text = {
@@ -17976,6 +18425,50 @@ text = {
 			has_country_leader = { name = "Henry H. Arnold" ruling_only = yes }
 		}
 		localization_key = GFX_Portrait_CAL_george_marshall
+	}
+	
+	### Alaskans ###
+
+	text = {
+		trigger = {
+			has_idea = ALA_Stephen_Birch_hog_pau
+		}
+		localization_key = GFX_Portrait_Alaska_Stephen_Birch
+	}
+	
+	text = {
+		trigger = {
+			has_idea = ALA_George_Denver_Guggenheim_hog_pau
+		}
+		localization_key = GFX_Portrait_Alaska_George_Denver_Guggenheim
+	}
+	
+	text = {
+		trigger = {
+			has_idea = ALA_John_Pierpont_Morgan_Jr_hog_pau
+		}
+		localization_key = GFX_Portrait_NEE_JP_Morgan_JR
+	}
+	
+	text = {
+		trigger = {
+			has_idea = ALA_Junius_Spencer_Morgan_III_hog_pau
+		}
+		localization_key = GFX_Portrait_NEE_Junius_Spencer_Morgan_III
+	}
+	
+	text = {
+		trigger = {
+			has_idea = ALA_Henry_Sturgis_Morgan_hog_pau
+		}
+		localization_key = GFX_Portrait_NEE_Henry_S_Morgan
+	}
+	
+	text = {
+		trigger = {
+			has_idea = ALA_Segundo_Llorente_hog_pau
+		}
+		localization_key = GFX_Portrait_ALA_Segundo_Llorente
 	}
 	
 	### Irish Taoiseachs ###
@@ -19486,6 +19979,125 @@ text = {
 		}
 		localization_key = GFX_Portrait_BAS_Mariano_Zufia_Urrizalqui
 	}
+		
+	text = {
+		trigger = {
+			has_idea = BAS_Tomas_Bilbao_Hospitalet_hog_sde
+		}
+		localization_key = GFX_Portrait_BAS_Tomas_Bilbao_Hospitalet
+	}
+		
+	text = {
+		trigger = {
+			has_idea = BAS_Elias_Gallastegi_Uriarte_hog_ade
+		}
+		localization_key = GFX_Portrait_BAS_Elias_Gallastegi_Uriarte
+	}
+		
+	text = {
+		trigger = {
+			has_idea = BAS_Jose_Antonio_de_Aguirre_y_Lecube_hog_sco
+		}
+		localization_key = GFX_Portrait_BAS_Jose_Antonio_de_Aguirre_y_Lecube
+	}
+		
+	text = {
+		trigger = {
+			has_idea = BAS_Manuel_de_Irujo_y_Ollo_hog_sco
+		}
+		localization_key = GFX_Portrait_BAS_Manuel_de_Irujo_y_Ollo
+	}
+		
+	text = {
+		trigger = {
+			has_idea = BAS_Santiago_Meabe_hog_syn
+		}
+		localization_key = GFX_Portrait_BAS_Santiago_Meabe
+	}
+		
+	text = {
+		trigger = {
+			has_idea = BAS_santiago_aznar_sarachanga_hog_rso
+		}
+		localization_key = GFX_Portrait_BAS_santiago_aznar_sarachanga
+	}
+		
+	text = {
+		trigger = {
+			has_idea = BAS_Maria_Rosa_Urraca_Pastor_hog_pau
+		}
+		localization_key = GFX_Portrait_BAS_Maria_Rosa_Urraca_Pastor
+	}
+		
+	text = {
+		trigger = {
+			has_idea = BAS_Rafael_Aizpun_hog_mli
+		}
+		localization_key = GFX_Portrait_BAS_Rafael_Aizpun
+	}
+		
+	text = {
+		trigger = {
+			has_idea = BAS_Alfredo_Espinosa_Orive_hog_sli
+		}
+		localization_key = GFX_Portrait_BAS_Alfredo_Espinosa_Orive
+	}
+		
+	text = {
+		trigger = {
+			has_idea = BAS_Blas_de_Otero_hog_sli
+		}
+		localization_key = GFX_Portrait_BAS_Blas_de_Otero
+	}
+		
+	text = {
+		trigger = {
+			has_idea = BAS_Mariano_Anso_hog_sli
+		}
+		localization_key = GFX_Portrait_BAS_Mariano_Anso
+	}
+			
+	text = {
+		trigger = {
+			has_idea = BAS_Jesus_Larranaga_hog_tot
+		}
+		localization_key = GFX_Portrait_BAS_Jesus_Larranaga
+	}
+			
+	text = {
+		trigger = {
+			has_idea = BAS_Mixel_Labeguerie_hog_ade
+		}
+		localization_key = GFX_Portrait_BAS_Mixel_Labeguerie
+	}
+			
+	text = {
+		trigger = {
+			has_idea = BAS_Luis_Arana_Goiri_hog_pau
+		}
+		localization_key = GFX_Portrait_BAS_Luis_Arana_Goiri
+	}
+			
+	text = {
+		trigger = {
+			has_idea = BAS_Jose_Maria_Arizmendiarrieta_hog_sco
+		}
+		localization_key = GFX_Portrait_BAS_Jose_Maria_Arizmendiarrieta
+	}
+			
+	text = {
+		trigger = {
+			has_idea = BAS_Manu_Robles_Arangiz_hog_pau
+		}
+		localization_key = GFX_Portrait_BAS_Manu_Robles_Arangiz
+	}
+			
+	text = {
+		trigger = {
+			has_idea = BAS_Jean_Ybarnegaray_hog_pau
+		}
+		localization_key = GFX_Portrait_BAS_Jean_Ybarnegaray
+	}
 
 	### Catalan PMs ###
 	
@@ -19728,6 +20340,12 @@ text = {
 			has_idea = RUS_Patriarch_Sergius_hog_pau
 		}
 		localization_key = GFX_Sergius_portrait
+	}
+	text = {
+		trigger = {
+			has_idea = RUS_Patriarch_Isaac_hog_pau
+		}
+		localization_key = GFX_Isaac_portrait
 	}
 	text = {
 		trigger = {
@@ -22835,6 +23453,13 @@ text = {
 	
 	text = { #Fired by Minister Ideas
 		trigger = {
+			has_idea = ENG_Oswald_Mosley_hog_tot
+		}
+		localization_key = GFX_Portrait_England_Oswald_Mosley
+	}
+	
+	text = { #Fired by Minister Ideas
+		trigger = {
 			has_idea = TRM_Alexander_Kazembek_hog_tot
 		}
 		localization_key = GFX_Portrait_TRM_Alexander_Kazembek_regent
@@ -23307,5 +23932,13 @@ text = {
 		}
 		localization_key = GFX_Portrait_ENG_Peter_Kerrigan
 	}
+	text = { #Not by Minister Ideas
+		trigger = {
+			has_country_flag = DOUALLA_BELL_VISIBLE
+			NOT = { tag = GEX }
+		}
+		localization_key = GFX_Portrait_Mittelafrika_Alexander_Duala_Manga_Bell
+	}
+	
 	#so on and so forth
 }

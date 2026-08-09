@@ -42,7 +42,6 @@ country_event = { # Fist Event
 					days = 12
 				}
 			}
-			
 		}
 	}
 	title = Alaska.0.t
@@ -506,13 +505,6 @@ country_event = {
 				ALA_Earl_Stannard_eco_pau
 				ALA_Winfield_Ervin_Jr_sec_pau
 			}
-			LIC = {
-				country_event = {
-					id = licfor.19
-					days = 30
-					random_hours = 10
-				}
-			}
 		}
 	}
 }
@@ -712,13 +704,6 @@ country_event = { # The First Test
 				ALA_Meyer_Robert_Guggenheim_for_pau
 				ALA_Earl_Stannard_eco_pau
 				ALA_Winfield_Ervin_Jr_sec_pau
-			}
-			LIC = {
-				country_event = {
-					id = licfor.19
-					days = 30
-					random_hours = 10
-				}
 			}
 		}
 	}
@@ -1652,15 +1637,8 @@ country_event = { #
 	id = Alaska.26
 	immediate = {log = "[GetDateText]: [Root.GetName]: event Alaska.26"}
 	title = Alaska.26.t
-	desc = {
-		text = Alaska.26.d
-		trigger = { NOT = { is_in_faction_with = AUS } }
-	}
-	desc = {
-		text = Alaska.26.d.AUS
-		trigger = { is_in_faction_with = AUS }
-	}
-	picture = GFX_HOL_rhine_ships
+	desc = Alaska.26.d
+	picture = GFX_report_event_HOL_rhine_ships
 	
 	immediate = {
 		hidden_effect = {
@@ -1674,11 +1652,7 @@ country_event = { #
 	option = { 
 		name = Alaska.26.a
 		ai_chance = {
-			base = 50
-			modifier = {
-				factor = 0
-				has_cosmetic_tag = ALA_AUS
-			}
+			factor = 50
 		}
 		trigger = { NOT = {	has_war_with = JAP } }
 		if = { limit = { has_country_flag = ALA_JAP_influence } }
@@ -1691,11 +1665,7 @@ country_event = { #
 	option = { 
 		name = Alaska.26.b
 		ai_chance = {
-			base = 50
-			modifier = {
-				factor = 0
-				has_cosmetic_tag = ALA_AUS
-			}
+			factor = 50
 		}
 		trigger = { NOT = {	has_war_with = CAN } }
 		set_country_flag = ALA_CAN_SHIP
@@ -1705,20 +1675,6 @@ country_event = { #
 		custom_effect_tooltip = ALA_CAN_raise_influence_by_1
 		custom_effect_tooltip = ALA_CAN_raise_opinion_by_1
 		set_country_flag = ALA_CAN_SHIP
-	}
-	option = { 
-		name = Alaska.26.c
-		trigger = {
-			is_in_faction_with = AUS
-		}
-		ai_chance = {
-			base = 50
-			modifier = {
-				factor = 100
-				has_cosmetic_tag = ALA_AUS
-			}
-		}
-		set_country_flag = ALA_AUS_SHIP
 	}
 }
 
@@ -2592,6 +2548,11 @@ country_event = { #Guggenheim Dead
 				traits = {  }
 			}
 		}
+		if = {
+			limit = { has_idea = ALA_Simon_Guggenheim_hog_pau }
+			remove_ideas_with_trait = head_of_government
+			add_ideas = ALA_George_Denver_Guggenheim_hog_pau
+		}
 	}
 }
 
@@ -2619,6 +2580,11 @@ country_event = { #Morgan Dead
 			ideology = corporatocracy_subtype
 			traits = {  }
 		}
+		if = {
+			limit = { has_idea = ALA_John_Pierpont_Morgan_Jr_hog_pau }
+			remove_ideas_with_trait = head_of_government
+			add_ideas = ALA_Junius_Spencer_Morgan_III_hog_pau
+		}
 	}
 	
 	option = { #RIP
@@ -2630,6 +2596,11 @@ country_event = { #Morgan Dead
 			expire = "1.1.1"
 			ideology = corporatocracy_subtype
 			traits = {  }
+		}
+		if = {
+			limit = { has_idea = ALA_John_Pierpont_Morgan_Jr_hog_pau }
+			remove_ideas_with_trait = head_of_government
+			add_ideas = ALA_Henry_Sturgis_Morgan_hog_pau
 		}
 	}
 }
@@ -3607,7 +3578,7 @@ country_event = { # How is this Nation gonna run?
 		add_political_power = 50
 		set_country_flag = ALA_redman_superevent_flag
 		hidden_effect = {
-			country_event = { id = alaska.61 days = 7 }
+			country_event = { id = Alaska.61 days = 7 }
 			}
 	}
 	option = { # Traditonalism
@@ -3623,7 +3594,7 @@ country_event = { # How is this Nation gonna run?
 		}
 		set_country_flag = ALA_redman_superevent_flag
 		hidden_effect = {
-			country_event = { id = alaska.61 days = 7 }
+			country_event = { id = Alaska.61 days = 7 }
 			}
 	}
 }
@@ -3935,6 +3906,13 @@ country_event = { # asking for Alaska Back
 				}
 			}
 			modifier = {
+				factor = 0
+				has_game_rule = {
+					rule = USA_civil_war_strengthen
+					option = USA_CIVIL_WAR_STRENGTHEN_ALA
+				}
+			}
+			modifier = {
 				factor = 0.5
 				has_country_flag = ALA_BARONS
 			}
@@ -4076,6 +4054,11 @@ country_event = { # Alaska has been returned to us
 
 	option = {
 		name = Alaska.101.a
+		hidden_effect = {
+			ALA = {
+				every_scientist = { set_nationality = ROOT }
+			}
+		}
 		annex_country = {
 			target = ALA
 			transfer_troops = no
@@ -4169,16 +4152,16 @@ country_event = { # Alaska will return to us if we promise them statehood
 	option = {
 		name = Alaska.102.a
 		set_country_flag = ALA_promised_statehood
-		country_event = { id = alaska.101 days = 1 }
+		country_event = { id = Alaska.101 days = 1 }
 		hidden_effect = {
-			country_event = { id = alaska.104 days = 7 }
+			country_event = { id = Alaska.104 days = 7 }
 		}
 		add_political_power = -25
 	}
 	option = {
 		name = Alaska.102.b
 		trigger = { is_ai = no }
-		country_event = { id = alaska.103 days = 1 }
+		country_event = { id = Alaska.103 days = 1 }
 		add_political_power = 25
 	}
 }
@@ -4195,9 +4178,9 @@ country_event = { # Alaska will return to us if we promise them autonomy
 	option = {
 		name = Alaska.1022.a
 		set_country_flag = ALA_promised_autonomy
-		country_event = { id = alaska.1012 days = 1 }
+		country_event = { id = Alaska.1012 days = 1 }
 		hidden_effect = {
-			country_event = { id = alaska.104 days = 7 }
+			country_event = { id = Alaska.104 days = 7 }
 		}
 		save_global_event_target_as = ALA_AMERICAN_TAG
 		add_political_power = -25
@@ -4205,7 +4188,7 @@ country_event = { # Alaska will return to us if we promise them autonomy
 	option = {
 		name = Alaska.1022.b
 		trigger = { is_ai = no }
-		country_event = { id = alaska.103 days = 1 }
+		country_event = { id = Alaska.103 days = 1 }
 		add_political_power = 25
 	}
 }
@@ -4363,14 +4346,9 @@ country_event = { # yo should we just buy alaska
 			factor = 80
 			modifier = {
 				factor = 0
-				OR = {
-					has_game_rule = {
-						rule = ALA_POLITICAL_PATH
-						option = ALA_LIECHTENSTEIN
-					}
-					LIC = {
-						is_ai = no
-					}
+				has_game_rule = {
+					rule = ALA_POLITICAL_PATH
+					option = ALA_LIECHTENSTEIN
 				}
 			}
 		}
@@ -4420,36 +4398,54 @@ country_event = { # the crazy sons of bitches did it
 
 	option = { # epic
 		name = Alaska.111.a
-		set_country_flag = ALA_purchase_liechtenstein
 		create_country_leader = {
 			name = "Franz Joseph II"
-			desc = "LIC_FRANZ_II_DESC"
+			desc = "POLITICS_FRANZJOSEPH_II_DESC"
 			picture = "gfx/leaders/ALA/Portrait_ALA_Franz_Joseph_II.png"
 			expire = "1.1.1"
 			ideology = absolute_monarchy_subtype
+			traits = {  }
 		}
 		set_cosmetic_tag = ALA_LIC
-		if = {
-			limit = { LIC = { is_in_faction = yes } }
-			var:LIC.faction_leader = { add_to_faction = ALA }
-		}
 		if = {
 			limit = { is_ai = yes }
 			add_ideas = ALA_clueless_austrians
 		}
 		get_current_government_type = yes
-		LIC = {
-			set_autonomy = {
-				target = ALA
-				autonomy_state = kr_default_puppet
-			}
+		if = {
+			limit = { is_ai = no }
+			transfer_state = 1235
+		    add_state_core = 1235
+			transfer_state = 1235
+		    add_state_core = 1235
 		}
+		AUS = { add_to_faction = ALA }
+		set_country_flag = ALA_purchase_liechtenstein
 		restore_previous_government_type = yes
-		hidden_effect = {
-			news_event = {
-				id = licnews.5
-				days = 1
-			}
+		if = {
+			limit = { has_country_leader = { name = "Simon Guggenheim" ruling_only = yes } }
+			remove_ideas_with_trait = head_of_government
+			add_ideas = ALA_Simon_Guggenheim_hog_pau
+		}
+		if = {
+			limit = { has_country_leader = { name = "George Denver Guggenheim" ruling_only = yes } }
+			remove_ideas_with_trait = head_of_government
+			add_ideas = ALA_George_Denver_Guggenheim_hog_pau
+		}
+		if = {
+			limit = { has_country_leader = { name = "John Pierpont Morgan Jr." ruling_only = yes } }
+			remove_ideas_with_trait = head_of_government
+			add_ideas = ALA_John_Pierpont_Morgan_Jr_hog_pau
+		}
+		if = {
+			limit = { has_country_leader = { name = "Junius Spencer Morgan III" ruling_only = yes } }
+			remove_ideas_with_trait = head_of_government
+			add_ideas = ALA_Junius_Spencer_Morgan_III_hog_pau
+		}
+		if = {
+			limit = { has_country_leader = { name = "Henry Sturgis Morgan" ruling_only = yes } }
+			remove_ideas_with_trait = head_of_government
+			add_ideas = ALA_Henry_Sturgis_Morgan_hog_pau
 		}
 	}
 }
@@ -4602,7 +4598,7 @@ country_event = { # flavour event about jewish settlement pt.3
 		}
 	}
 }
-country_event = { # Lichtenstein wants to buy warships
+country_event = { # Lichtenstein wants to buy Vorarlberg
 	id = Alaska.118
 	immediate = {log = "[GetDateText]: [Root.GetName]: event Alaska.118"}
 	title = Alaska.118.t
@@ -4613,37 +4609,26 @@ country_event = { # Lichtenstein wants to buy warships
 	
 	is_triggered_only = yes
 
-	option = { # no
+	option = { # uh no
 		name = Alaska.118.a
-		ai_chance = { factor = 30 }
-		ALA = {
-			country_event = {
-				id = Alaska.119
-				days = 1
-				random_hours = 24
-			}
-			if = {
-				limit = { AUS_is_constituent = yes }
-				THIS_add_five_collapse = yes
-			}
+		ai_chance = {
+			factor = 30
 		}
+		ALA = {
+			country_event = Alaska.119
+		}
+		
 	}
 	
 	option = { # eh why not
 		name = Alaska.118.b
-		ai_chance = { factor = 70 }
-		ALA = {
-			country_event = {
-				id = Alaska.120
-				days = 1
-				random_hours = 24
-			}
-			if = {
-				limit = { AUS_is_constituent = yes }
-				THIS_subtract_five_collapse = yes
-			}
+		ai_chance = {
+			factor = 70
 		}
-		custom_effect_tooltip = AUS_transfer_ALA_ships_tt
+		ALA = {
+			country_event = Alaska.120
+		}
+		
 	}
 }
 country_event = { # AUS said no!
@@ -4659,7 +4644,8 @@ country_event = { # AUS said no!
 
 	option = { # Sad!
 		name = Alaska.119.a
-		add_political_power = -20
+		add_political_power = 50
+		
 	}
 }
 country_event = { # AUS said yes!
@@ -4675,37 +4661,14 @@ country_event = { # AUS said yes!
 
 	option = { # epic
 		name = Alaska.120.a
-		AUS = {
-			for_loop_effect = {
-				end = 2
-				if = {
-					limit = {
-						has_navy_size = {
-							size > 0
-							type = light_cruiser
-						}
-					}
-					transfer_ship = {
-						type = light_cruiser
-						target = ALA
-						exclude_refitting = no
-					}
-				}
-				if = {
-					limit = {
-						has_navy_size = {
-							size > 0
-							type = destroyer
-						}
-					}
-					transfer_ship = {
-						type = destroyer
-						target = ALA
-						exclude_refitting = no
-					}
-				}
+		ALA = {
+			if = { 
+				limit = { is_ai = no }
+				add_state_core = 942
+			    transfer_state = 942
 			}
 		}
+		
 	}
 }
 
@@ -5041,6 +5004,10 @@ country_event = { # CSA Falls
 				has_capitulated = yes
 				exists = no
 			}
+		}
+		has_country_leader = {
+			name = "Joseph Jurich"
+			ruling_only = yes
 		}
 	}
 
@@ -5561,6 +5528,11 @@ country_event = {# Canadian invasion
 		ai_chance = {
 			factor = 50
 		}
+		hidden_effect = {
+			ALA = {
+				every_scientist = { set_nationality = ROOT }
+			}
+		}
 		CAN = {
 			annex_country = {
 				target = ALA
@@ -5787,6 +5759,154 @@ country_event = {# Capital?
 	option = { #Juneau
 		name = Alaska.146.h
 		add_political_power = 10
+	}
+}
+
+country_event = {# We're Crab People now, Dee
+	id = Alaska.147
+	immediate = {log = "[GetDateText]: [Root.GetName]: event Alaska.147"}
+	title = Alaska.147.t
+	desc = {
+		text = Alaska.147.d_jurich
+		trigger = { has_government = totalist }
+	}
+	desc = {
+		text = Alaska.147.d_beach
+		trigger = { has_government = radical_socialist }
+	}
+	picture = GFX_report_event_ALA_were_crab_people_now
+	
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = { #This Slammin is Salmon
+		name = Alaska.147.a
+		463 = { add_extra_state_shared_building_slots = -1 }
+		add_stability = -0.05
+		add_political_power = 20
+		increase_ruling_party_popularity_by_3 = yes
+	}
+	option = { #Crabsolute Cinema
+		name = Alaska.147.b
+		463 = { add_extra_state_shared_building_slots = 2 }
+		remove_ideas_with_trait = economy_minister
+		add_ideas = ALA_Lowell_Wakefield_eco_tot
+	}
+	option = { #Even Socialism evolves into a crab
+		name = Alaska.147.c
+		463 = { add_extra_state_shared_building_slots = 2 }
+		if = {
+			limit = { has_government = totalist }
+			create_country_leader = {
+				name = "Lowell Wakefield"
+				desc = "POLITICS_LOWELL_WAKEFIELD_DESC"
+				picture = "gfx/leaders/ALA/Portrait_Alaska_Lowell_Wakefield.png"
+				expire = "1.1.1"
+				ideology = crab_communalism_subtype
+				traits = {}
+			}
+			custom_effect_tooltip = tot_crab_communalism_subtype_swap_tt
+		}
+		else = {
+			create_country_leader = {
+				name = "Lowell Wakefield"
+				desc = "POLITICS_LOWELL_WAKEFIELD_DESC"
+				picture = "gfx/leaders/ALA/Portrait_Alaska_Lowell_Wakefield.png"
+				expire = "1.1.1"
+				ideology = radsoc_crab_communalism_subtype
+				traits = {}
+			}
+			custom_effect_tooltip = radsoc_radsoc_crab_communalism_subtype_swap_tt
+		}
+	}
+}
+
+country_event = {# Lena Morrow Lewis
+	id = Alaska.148
+	immediate = {log = "[GetDateText]: [Root.GetName]: event Alaska.148"}
+	title = Alaska.148.t
+	desc = Alaska.148.d
+	picture = GFX_report_event_ALA_lena_morrow_lewis
+	
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = { #Sure
+		name = Alaska.148.a
+		create_country_leader = {
+			name = "Lena Morrow Lewis"
+			desc = "POLITICS_LENA_MORROW_LEWIS_DESC"
+			picture = "gfx/leaders/ALA/Portrait_Alaska_Lena_Morrow_Lewis.png"
+			expire = "1.1.1"
+			ideology = syn_anarcha_feminism_subtype
+			traits = {}
+			female = yes
+		}
+	}
+	option = { #Sure
+		name = Alaska.148.b
+		create_country_leader = {
+			name = "Lena Morrow Lewis"
+			desc = "POLITICS_LENA_MORROW_LEWIS_DESC"
+			picture = "gfx/leaders/ALA/Portrait_Alaska_Lena_Morrow_Lewis.png"
+			expire = "1.1.1"
+			ideology = syn_teetotalism_subtype
+			traits = {}
+			female = yes
+		}
+	}
+	option = { #Sure
+		name = Alaska.148.c
+		create_country_leader = {
+			name = "Lena Morrow Lewis"
+			desc = "POLITICS_LENA_MORROW_LEWIS_DESC"
+			picture = "gfx/leaders/ALA/Portrait_Alaska_Lena_Morrow_Lewis.png"
+			expire = "1.1.1"
+			ideology = christian_syndicalism_subtype
+			traits = {}
+			female = yes
+		}
+	}
+	option = { #Nah
+		name = Alaska.148.e
+		add_popularity = {
+			ideology = syndicalist
+			popularity = 0.02
+		}
+	}
+}
+
+country_event = {# Jesuits
+	id = Alaska.149
+	immediate = {log = "[GetDateText]: [Root.GetName]: event Alaska.149"}
+	title = Alaska.149.t
+	desc = Alaska.149.d
+	picture = GFX_report_event_ALA_jesuit_order
+	
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = { #No
+		name = Alaska.149.a
+		add_popularity = {
+			ideology = paternal_autocrat
+			popularity = 0.02
+		}
+	}
+	option = { #Yes
+		name = Alaska.149.b
+		remove_ideas_with_trait = head_of_government
+		add_ideas = ALA_Segundo_Llorente_hog_pau
+		set_country_leader_ideology = pataut_christian_democracy_subtype
+		custom_effect_tooltip = pataut_pataut_christian_democracy_subtype_swap_tt
+		set_party_name = {
+			name = ALA_LIC_party
+			long_name = ALA_LIC_party_long
+			ideology = paternal_autocrat
+		}
 	}
 }
 
@@ -7475,6 +7595,8 @@ country_event = { # Indianizing America
 		set_province_name = { id = 12341 name = "Nabasoto"}
 		set_province_name = { id = 11685 name = "O-wash-ta-nong"}
 		set_province_name = { id = 7420 name = "Kitchiwikwedongsing"}
+		set_province_name = { id = 9747 name = "Ministigweyaa"}
+		set_province_name = { id = 11656 name = "Gwayak-waasizo"}
 	}
 }
 
@@ -7553,7 +7675,7 @@ country_event = { #Baste Huwhite Reseravtions
 				#Units
 				division_template = {
 					name = "Warrior Society"
-					division_names_group = CSA_INF_01
+					division_names_group = USA_INF_01
 
 					regiments = {
 						infantry = { x = 0 y = 0 }
@@ -7576,6 +7698,7 @@ country_event = { #Baste Huwhite Reseravtions
 						owner = ROOT
 					}
 				}
+				
 			}
 			create_dynamic_country = {	#Francophonia
 				original_tag = ALA
@@ -7629,7 +7752,7 @@ country_event = { #Baste Huwhite Reseravtions
 				#Units
 				division_template = {
 					name = "Warrior Society"
-					division_names_group = CSA_INF_01
+					division_names_group = USA_INF_01
 
 					regiments = {
 						infantry = { x = 0 y = 0 }
@@ -7652,6 +7775,7 @@ country_event = { #Baste Huwhite Reseravtions
 						owner = ROOT
 					}
 				}
+				
 			}
 			create_dynamic_country = {	#Cucked New English
 				original_tag = ALA
@@ -7705,7 +7829,7 @@ country_event = { #Baste Huwhite Reseravtions
 				#Units
 				division_template = {
 					name = "Warrior Society"
-					division_names_group = CSA_INF_01
+					division_names_group = USA_INF_01
 
 					regiments = {
 						infantry = { x = 0 y = 0 }
@@ -7728,6 +7852,7 @@ country_event = { #Baste Huwhite Reseravtions
 						owner = ROOT
 					}
 				}
+				
 			}
 			country_event = {
 				id = REDAlaska.102

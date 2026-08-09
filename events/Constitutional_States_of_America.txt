@@ -2878,12 +2878,6 @@ country_event = { # Christians requests meeting
 			factor = 50
 			modifier = {
 				factor = 0
-				OR = {
-					has_game_rule = {
-						rule = COR_post_civil_war
-						option = COR_POST_CIVIL_WAR_COLUMBIAN
-					}
-				}
 				has_game_rule = {
 					rule = COR_post_civil_war
 					option = COR_POST_CIVIL_WAR_ARMSTRONG
@@ -3456,6 +3450,10 @@ country_event = { # Vardaman Potato
 	option = {
 		name = constate.11097.b
 		add_political_power = 10
+		set_victory_points = {
+			province = 525
+			value = 15
+		}
 	}
 }
 
@@ -4094,7 +4092,7 @@ country_event = { # Choosing ODP Ministers
 		}
 	}
 	option = { # Connor
-		name = constate.1123.b
+		name = constate.1123.c
 		add_stability = 0.01
 		hidden_effect = {
 		add_ideas = COR_Theophilus_Eugene_Connor_sec_pau
@@ -6319,25 +6317,6 @@ country_event = { # Time to Retreat?
 			CAN_find_entente_leader = yes
 			event_target:entente_transfer_to = { CAN_transfer_entente_leader = yes }
 		}
-		CAN = {
-			every_owned_state = {
-				COR = {
-					transfer_state = PREV
-				}
-			}
-		}
-		if = {
-		limit = { 
-				MEX = { is_in_faction_with = NFA }
-				}
-		MEX = {
-			every_owned_state = {
-				COR = {
-					transfer_state = PREV
-					}
-				}
-			}
-		}
 		if = {
 			limit = {
 				CAN = {
@@ -6353,12 +6332,24 @@ country_event = { # Time to Retreat?
 		}
 		if = {
 			limit = {
+				NFL = {
+					exists = yes
+					is_in_faction_with = ENT
+				}
+			}
+			COR = {
+				annex_country = {
+					target = NFL
+					transfer_troops = no
+				}
+			}
+		}
+		if = {
+			limit = {
 				MEX = {
-					is_in_faction_with = NFA
+					is_in_faction_with = ENT
 				}
-				COR = {
-				controls_state = 277
-				}
+				COR = { controls_state = 277 }
 			}
 			COR = {
 				annex_country = {
@@ -6369,20 +6360,10 @@ country_event = { # Time to Retreat?
 		}
 		white_peace_with_TARGET = yes
 		every_enemy_country = {
-			limit = { 
-				is_valid_peace_target = yes 
-				is_in_faction_with = NFA
-			}
+			limit = {  is_in_faction_with = ENT }
 			white_peace_with_TARGET = yes
 		}
-		if = {
-			limit = {
-				CAF = {
-				is_valid_peace_target = yes 
-				}
-			}
-			white_peace_with_TARGET = yes
-		}
+		hidden_effect = { COR = { set_country_flag = COR_already_peaced_canada } }
 	}
 }
 
@@ -7000,9 +6981,15 @@ country_event = { # Great Smallpox Outbreak
 			factor = 1
 			modifier = {
 				factor = 0
-				has_game_rule = {
-					rule = COR_post_civil_war
-					option = COR_POST_CIVIL_WAR_COLUMBIAN
+				OR = {
+					has_game_rule = {
+						rule = COR_post_civil_war
+						option = COR_POST_CIVIL_WAR_CHRISTIANS
+					}
+					has_game_rule = {
+						rule = COR_post_civil_war
+						option = COR_POST_CIVIL_WAR_COLUMBIAN
+					}
 				}
 			}
 		}
@@ -7031,12 +7018,12 @@ country_event = { # Smallpox outbreak grows
 				OR = {
 					has_game_rule = {
 						rule = COR_post_civil_war
+						option = COR_POST_CIVIL_WAR_ARMSTRONG
+					}	
+					has_game_rule = {
+						rule = COR_post_civil_war
 						option = COR_POST_CIVIL_WAR_COLUMBIAN
 					}
-				}
-				has_game_rule = {
-					rule = COR_post_civil_war
-					option = COR_POST_CIVIL_WAR_CHRISTIANS
 				}
 			}
 		}
@@ -7051,9 +7038,19 @@ country_event = { # Smallpox outbreak grows
 			factor = 1
 			modifier = {
 				factor = 0
-				has_game_rule = {
-					rule = COR_post_civil_war
-					option = COR_POST_CIVIL_WAR_ARMSTRONG
+				OR = {
+					has_game_rule = {
+						rule = COR_post_civil_war
+						option = COR_POST_CIVIL_WAR_ARMSTRONG
+					}	
+					has_game_rule = {
+						rule = COR_post_civil_war
+						option = COR_POST_CIVIL_WAR_CHRISTIANS
+					}
+					has_game_rule = {
+						rule = COR_post_civil_war
+						option = COR_POST_CIVIL_WAR_COLUMBIAN
+					}
 				}
 			}
 		}
@@ -7072,9 +7069,15 @@ country_event = { # Smallpox outbreak grows
 			factor = 1
 			modifier = {
 				factor = 0
-				has_game_rule = {
-					rule = COR_post_civil_war
-					option = COR_POST_CIVIL_WAR_ARMSTRONG
+				OR = {
+					has_game_rule = {
+						rule = COR_post_civil_war
+						option = COR_POST_CIVIL_WAR_ARMSTRONG
+					}	
+					has_game_rule = {
+						rule = COR_post_civil_war
+						option = COR_POST_CIVIL_WAR_CHRISTIANS
+					}
 				}
 			}
 		}
@@ -7101,19 +7104,9 @@ country_event = { # Armstrong Dead
 
 	is_triggered_only = yes
 
-	immediate = {
-	hidden_effect = {
-	set_country_flag = Herbert_W_Armstrong_dead
-	remove_all_ministers = yes
-	set_party_name = {
-		ideology = national_populist
-		long_name = COR_national_populist_young_klan_party_long
-		name = COR_national_populist_young_klan_party 
-	}
-	}
-	}
 	option = { #Columbian Victory
 		name = constate.5101.a
+		set_country_flag = Herbert_W_Armstrong_dead
 		set_cosmetic_tag = COR_columbia_1
 		set_country_flag = COR_columbian_victory
 		create_country_leader = {
@@ -7124,6 +7117,7 @@ country_event = { # Armstrong Dead
 			ideology = legionarism_subtype
 			traits = { young_leader_hos }
 		}
+		custom_effect_tooltip = natpop_legionarism_subtype_swap_tt	
 		set_party_name = {
 			ideology = national_populist
 			long_name = COR_national_populist_columbians_party_long
@@ -7172,8 +7166,15 @@ country_event = { # Young Klan coups Armstrong
 		remove_ideas = COR_warriors_of_elijah_ideas_2
 		}
 		remove_ideas = COR_national_tithe_idea
+		set_country_flag = Herbert_W_Armstrong_dead
 		set_country_flag = COR_stoner_victory
 		set_country_flag = young_klan_victory
+		set_cosmetic_tag = COR_young_klan_america
+				set_party_name = {
+				ideology = national_populist
+				long_name = COR_national_populist_young_klan_party_long
+				name = COR_national_populist_young_klan_party
+				}		
 		create_country_leader = {
 			name = "J.B. Stoner"
 			desc = ""
@@ -7182,6 +7183,7 @@ country_event = { # Young Klan coups Armstrong
 			ideology = klan_nationalism_subtype
 			traits = { young_leader_hos }
 		}
+		custom_effect_tooltip = natpop_klan_nationalism_subtype_swap_tt	
 		hidden_effect = {
 			remove_all_ministers = yes
 			add_ideas = COR_J_B_Stoner_hog_npo
@@ -7610,9 +7612,9 @@ country_event = { # America is reunited
 
 	trigger = {
 		OR = {
-		has_country_leader = { ruling_only = yes name = "E.H. Crump"} 
+		has_country_leader = { ruling_only = yes name = "E. H. Crump"} 
 		has_country_leader = { ruling_only = yes name = "Georgia Tann"}
-		has_country_leader = { ruling_only = yes name = "N.J. Ford"}
+		has_country_leader = { ruling_only = yes name = "N. J. Ford"}
 		has_country_leader = { ruling_only = yes name = "John R. Brinkley"}
 		}
 		tag = COR
@@ -8561,6 +8563,7 @@ country_event = { #State of Sequoyah
 					elections_allowed = no
 				}
 				set_cosmetic_tag = COR_SEQUOYAH
+				
 			}
 		puppet = 374.owner
 		COR = {
@@ -9693,7 +9696,7 @@ country_event = { # Crump
 		add_ideas = COR_N_J_Ford_sec_ade
 				set_country_flag = COR_memphis_commission 
 		create_country_leader = {
-			name = "E.H. Crump"
+			name = "E. H. Crump"
 			desc = "POLITICS_CRUMP_DESC"
 			picture = "gfx/leaders/COR/Portrait_COR_E_H_Crump.png"
 			expire = "1.1.1"
@@ -10333,9 +10336,9 @@ country_event = {
 			   limit = {
 				   NOT = {
 						OR = {
-					  has_country_leader = { ruling_only = yes name = "E.H. Crump"}
+					  has_country_leader = { ruling_only = yes name = "E. H. Crump"}
 					  has_country_leader = { ruling_only = yes name = "Georgia Tann"}
-					  has_country_leader = { ruling_only = yes name = "N.J. Ford"}
+					  has_country_leader = { ruling_only = yes name = "N. J. Ford"}
 					  has_country_leader = { ruling_only = yes name = "John R. Brinkley"}
 					  }
 				   }
@@ -10348,7 +10351,7 @@ country_event = {
 		add_ideas = COR_N_J_Ford_sec_ade
 				set_country_flag = COR_memphis_commission 
 		create_country_leader = {
-			name = "E.H. Crump"
+			name = "E. H. Crump"
 			desc = "POLITICS_CRUMP_DESC"
 			picture = "gfx/leaders/COR/Portrait_COR_E_H_Crump.png"
 			expire = "1.1.1"
@@ -10385,9 +10388,9 @@ country_event = {
 		custom_effect_tooltip = "New Presidential Elections will take place every 4 years!"
 			if = {
 			   limit = {
-					  has_country_leader = { ruling_only = yes name = "E.H. Crump"}
+					  has_country_leader = { ruling_only = yes name = "E. H. Crump"}
 					  has_country_leader = { ruling_only = yes name = "Georgia Tann"}
-					  has_country_leader = { ruling_only = yes name = "N.J. Ford"}
+					  has_country_leader = { ruling_only = yes name = "N. J. Ford"}
 					  has_country_leader = { ruling_only = yes name = "John R. Brinkley"}
 				   }
 				}
@@ -11079,8 +11082,14 @@ country_event = {
 			long_name = COR_national_corporatism_paternal_autocrat_long
 			name = COR_national_corporatism_paternal_autocrat 
 				}
-			remove_all_ministers = yes
 			hidden_effect = {
+				remove_all_ministers = yes
+				add_ideas = {
+				COR_Henry_Ford_hog_pau
+				COR_George_Sylvester_Viereck_for_pau
+				COR_Fred_Chase_Koch_eco_ade
+				COR_Edsel_Ford_sec_pau
+				}
 				if = {
 					limit = { NOT = { has_country_flag = COR_usa_cosmetic_fired } }
 					drop_cosmetic_tag = yes
@@ -11088,12 +11097,6 @@ country_event = {
                 	set_cosmetic_tag = COR_business_plot
 					set_country_flag = COR_usa_cosmetic_fired
 				}
-			}
-			add_ideas = {
-				add_ideas = COR_Henry_Ford_hog_pau
-				add_ideas = COR_George_Sylvester_Viereck_for_pau
-				add_ideas = COR_Fred_Chase_Koch_eco_ade
-				add_ideas = COR_Edsel_Ford_sec_pau
 			}
 	}
 }	
@@ -11316,7 +11319,30 @@ country_event = { #48 or 50
 
 	fire_only_once = yes
 	
-	is_triggered_only = yes
+	trigger = {
+		tag = COR
+		owns_state = 463
+		owns_state = 629
+		OR = {
+			has_country_leader = {
+			ruling_only = yes
+			name = "Rush Limbaugh Sr."
+			}
+		has_country_leader = {
+			ruling_only = yes
+			name = "David Bibb Graves"
+			}
+		has_country_leader = {
+			ruling_only = yes
+			name = "William Alexander Percy"
+			}
+		has_country_leader = {
+			ruling_only = yes
+			name = "Al Gore"
+			}
+		}
+
+	}
 
 	option = {
 		name = constate.6781.a
@@ -11496,7 +11522,7 @@ country_event = {#Crump! gets shot
 	option = {
 		name = constate.6784.b
 		create_country_leader = {
-			name = "N.J. Ford"
+			name = "N. J. Ford"
 			desc = ""
 			picture = "gfx/leaders/COR/Portrait_COR_N_J_Ford.png"
 			expire = "1.1.1"
@@ -11913,14 +11939,12 @@ country_event = { # technocrats or ODP
 			popularity = 0.07
 		}		
 		end_coalition = yes
-		
 		set_country_flag = COR_flag_Ford_all_technocrats
 		hidden_effect = {
 			country_event = { id = constate.7012 days = 35 }
 			remove_ideas_with_trait = security_minister
 			add_ideas = COR_John_Bugas_sec_pau
 		}
-		
 	}
 	
 	option = { #ODP gang
@@ -11937,8 +11961,8 @@ country_event = { # technocrats or ODP
 			ideology = social_conservative
 			popularity = 0.04
 		}		
-		
-		
+		set_country_leader_ideology = corporatocracy_subtype
+		custom_effect_tooltip = pataut_corporatocracy_subtype_swap_tt
 		set_country_flag = COR_flag_Ford_ODP_aligned
 		hidden_effect = {
 			country_event = { id = constate.7013 days = 35 }
@@ -13557,6 +13581,10 @@ country_event = { #Away from the cloth - no more kkk guys
 				id = constate.7062
 				days = 40
 				}	
+			country_event = {
+				id = constate.7061
+				days = 450
+				}				
 			}
 	}
 }
@@ -13576,21 +13604,13 @@ country_event = { #Second founding - start the larp train
 			country_event = {
 			id = constate.7065
 			days = 180
-			}			
-		}		
-	}
-	
-	option = { #we are washington son
-		name = constate.7056.b
-		set_country_leader_ideology = natpop_washingtonism_subtype
-		custom_effect_tooltip = natpop_natpop_washingtonism_subtype_swap_tt
-			hidden_effect = {
+			}
 			country_event = {
-			id = constate.7065
-			days = 180
+			id = constate.7082
+			days = 8
 			}			
 		}		
-	}	
+	} 	
 }
 
 country_event = { #farmers stuff
@@ -13646,7 +13666,7 @@ country_event = { #farmers stuff
 	}
 	option = { #command economy
 		name = constate.7057.c
-			add_stability = -0.03
+			add_stability = -0.1
 			add_ideas = command_economy
 			random_owned_controlled_state = {
 				limit = {
@@ -13694,7 +13714,7 @@ country_event = { #Legion thuggery question
 	}
 	
 	option = { #allow it 
-		name = constate.7059.a
+		name = constate.7059.b
 		add_stability = -0.03
 		add_war_support = 0.03		
 	}	
@@ -13705,7 +13725,7 @@ country_event = { #The Columbian Creed
 	immediate = {log = "[GetDateText]: [Root.GetName]: event constate.7060"}
 	title = constate.7060.t
 	desc = constate.7060.d
-	picture = GFX_COR_thunderbolts
+	picture = GFX_COR_Columbian_Creed
 	
 	is_triggered_only = yes
 
@@ -13789,7 +13809,7 @@ country_event = { #Madagascar or uganda?
 	immediate = {log = "[GetDateText]: [Root.GetName]: event constate.7064"}
 	title = constate.7064.t
 	desc = constate.7064.d
-	picture = GFX_CAR_lindbergh_uniform
+	picture = GFX_report_event_Madagascar
 	
 	is_triggered_only = yes
 
@@ -13888,8 +13908,8 @@ country_event = { #South africa accepts
 	option = { #yay
 		name = constate.7067.a
 			COR = {
-				add_state_core = 541
-				add_state_core = 964
+				add_state_claim = 541
+				add_state_claim = 964
 
 				transfer_state = 541
 				transfer_state = 964			
@@ -13918,11 +13938,16 @@ country_event = { #South africa denies
 
 	option = { #darn
 		name = constate.7068.a
-		
+		ai_chance = {
+			factor = 100
+		}
 	}
 
 	option = { #take it by force
 		name = constate.7068.b
+		ai_chance = {
+			factor = 0
+		}
 		if = {
 			limit = {
 			SAF = {	is_in_faction_with = COR }
@@ -13955,7 +13980,7 @@ country_event = { #Columbians want to buy south west africa - MAF
 		name = constate.7069.a
 		COR = {
 			country_event = {
-				id = constate.7067
+				id = constate.7070
 				days = 2
 				}
 			}		
@@ -13965,7 +13990,7 @@ country_event = { #Columbians want to buy south west africa - MAF
 		name = constate.7069.b
 		COR = {
 			country_event = {
-				id = constate.7068
+				id = constate.7071
 				days = 2
 				}
 			}		
@@ -13984,8 +14009,8 @@ country_event = { #MAF accepts
 	option = { #yay
 		name = constate.7070.a
 			COR = {
-				add_state_core = 541
-				add_state_core = 964
+				add_state_claim = 541
+				add_state_claim = 964
 
 				transfer_state = 541
 				transfer_state = 964			
@@ -14014,11 +14039,16 @@ country_event = { #MAF denies
 
 	option = { #darn
 		name = constate.7071.a
-
+		ai_chance = {
+			factor = 100
+		}
 	}
 
 	option = { #take it by force
 		name = constate.7071.b
+		ai_chance = {
+			factor = 0
+		}
 		if = {
 			limit = {
 			MAF = {	is_in_faction_with = COR }
@@ -14049,14 +14079,13 @@ country_event = { #South West africa puppet
 
 	option = { #maintain direct rule
 		name = constate.7072.a
-
+		set_country_flag = COR_col_africa_setup
 	}
 
 	option = { #let saf out only - small
 		name = constate.7072.b
 		trigger = {
 			AND = { 
-				1179 = { is_owned_and_controlled_by = COR }
 				681 = { is_owned_and_controlled_by = COR }
 				945 = { is_owned_and_controlled_by = COR }
 				946 = { is_owned_and_controlled_by = COR }
@@ -14068,89 +14097,16 @@ country_event = { #South West africa puppet
 				542 = { is_owned_and_controlled_by = COR }				
 			}			
 		}
-			set_country_flag = COR_flag_puppeted_SAF
-			SAF = {
-				add_state_core = 1179
-				add_state_core = 681
-				add_state_core = 945
-				add_state_core = 946
-				add_state_core = 719
-				add_state_core = 85
-				add_state_core = 947
-				add_state_core = 738
-				add_state_core = 275
-				add_state_core = 542
+		COR_SAF_puppet_small = yes
 
-				transfer_state = 1179
-				transfer_state = 681
-				transfer_state = 945
-				transfer_state = 946
-				transfer_state = 719
-				transfer_state = 85
-				transfer_state = 947
-				transfer_state = 738
-				transfer_state = 275
-				transfer_state = 542			
-			}
-			every_owned_state = {
-				limit = {
-					OR = {
-						state = 1176
-						state = 681
-						state = 945
-						state = 946
-						state = 719
-						state = 85
-						state = 947
-						state = 738
-						state = 275
-						state = 542
-					}
-				}
-				SAF = { transfer_state = PREV }
-			}
-			set_autonomy = {
-				target = SAF
-				autonomous_state = kx_colored_puppet
-			}
-			SAF = { 
-				set_politics = { 
-					ruling_party = national_populist
-				}
-				create_country_leader = {
-					name = "Johannes van Rensburg"
-					picture = "gfx/leaders/SAF/Portrait_SAF_Johannes_van_Rensburg.png"
-					expire = "1.1.1"
-					ideology = legionarism_subtype
-				}
-				set_popularities = {
-					totalist = 0
-					radical_socialist = 10
-					syndicalist = 5
-					social_democrat = 0
-					social_liberal = 10 
-					market_liberal = 0
-					social_conservative = 5
-					authoritarian_democrat = 5
-					paternal_autocrat = 5
-					national_populist = 60
-				}	
-				set_party_name = {
-				ideology = national_populist
-				long_name = SAF_national_populist_party_long_PNP
-				name = SAF_national_populist_party_PNP
-				}
-				set_cosmetic_tag = SAF_national_populist
-				load_focus_tree = generic_focus
-
-			}
 	}	
 
-	option = { #let saf out only - small
+	option = { #let saf out only - big
 		name = constate.7072.c
 		trigger = {
 			AND = { 
-				1179 = { is_owned_and_controlled_by = COR }
+				541 = { is_owned_and_controlled_by = COR }
+				964 = { is_owned_and_controlled_by = COR }
 				681 = { is_owned_and_controlled_by = COR }
 				945 = { is_owned_and_controlled_by = COR }
 				946 = { is_owned_and_controlled_by = COR }
@@ -14161,88 +14117,9 @@ country_event = { #South West africa puppet
 				275 = { is_owned_and_controlled_by = COR }
 				542 = { is_owned_and_controlled_by = COR }				
 			}			
-		}		
-			set_country_flag = COR_flag_puppeted_SAF
-			SAF = {
-				add_state_core = 1179
-				add_state_core = 681
-				add_state_core = 945
-				add_state_core = 946
-				add_state_core = 719
-				add_state_core = 85
-				add_state_core = 947
-				add_state_core = 738
-				add_state_core = 275
-				add_state_core = 542
-				add_state_core = 541
-				add_state_core = 964
+		}
 
-				transfer_state = 1179
-				transfer_state = 681
-				transfer_state = 945
-				transfer_state = 946
-				transfer_state = 719
-				transfer_state = 85
-				transfer_state = 947
-				transfer_state = 738
-				transfer_state = 275
-				transfer_state = 542
-				transfer_state = 541
-				transfer_state = 964				
-			}
-			every_owned_state = {
-				limit = {
-					OR = {
-						state = 1176
-						state = 681
-						state = 945
-						state = 946
-						state = 719
-						state = 85
-						state = 947
-						state = 738
-						state = 275
-						state = 542
-						state = 541
-						state = 964						
-					}
-				}
-				SAF = { transfer_state = PREV }
-			}
-			set_autonomy = {
-				target = SAF
-				autonomous_state = kx_colored_puppet
-			}
-			SAF = { 
-				set_politics = { 
-					ruling_party = national_populist
-				}
-				create_country_leader = {
-					name = "Louis Weichardt"
-					picture = "gfx/leaders/NMB/Portrait_NMB_Louis_Weichardt.png"
-					expire = "1.1.1"
-					ideology = legionarism_subtype
-				}
-				set_popularities = {
-					totalist = 0
-					radical_socialist = 10
-					syndicalist = 5
-					social_democrat = 0
-					social_liberal = 10 
-					market_liberal = 0
-					social_conservative = 5
-					authoritarian_democrat = 5
-					paternal_autocrat = 5
-					national_populist = 60
-				}	
-				set_party_name = {
-				ideology = national_populist
-				long_name = COR_south_africa_columbian_long
-				name = COR_south_africa_columbian
-				}
-				set_cosmetic_tag = SAF_columbian
-
-			}
+		COR_SAF_puppet_large = yes
 	}
 
 	option = { #let bilbo have his realm
@@ -14252,66 +14129,17 @@ country_event = { #South West africa puppet
 				964 = { is_owned_and_controlled_by = COR }
 				541 = { is_owned_and_controlled_by = COR }				
 			}			
-		}		
-			set_country_flag = COR_flag_puppeted_NMB
-			NMB = {
-				add_state_core = 541
-				add_state_core = 964
+		}
 
-				transfer_state = 541
-				transfer_state = 964			
-			}
-			every_owned_state = {
-				limit = {
-					OR = {
-						state = 541
-						state = 964
-					}
-				}
-				NMB = { transfer_state = PREV }
-			}
-			set_autonomy = {
-				target = NMB
-				autonomous_state = kx_colored_puppet
-			}
-			NMB = { 
-				set_politics = { 
-					ruling_party = national_populist
-				}
-				create_country_leader = {
-					name = "Theodore G. Bilbo"
-					picture = "gfx/leaders/FSA/Portrait_FSA_Theodore_G_Bilbo.png"
-					expire = "1.1.1"
-					ideology = legionarism_subtype
-				}
-				set_popularities = {
-					totalist = 0
-					radical_socialist = 10
-					syndicalist = 5
-					social_democrat = 0
-					social_liberal = 10 
-					market_liberal = 0
-					social_conservative = 5
-					authoritarian_democrat = 5
-					paternal_autocrat = 5
-					national_populist = 60
-				}	
-				set_party_name = {
-				ideology = national_populist
-				long_name = COR_namibia_bilbo_party_long
-				name = COR_namibia_bilbo_party
-				}
-				set_cosmetic_tag = NMB_bilboland
-				load_focus_tree = generic_focus
-
-			}
+		COR_Bilbo_puppet = yes
 	}
 
 	option = { #let both out
 		name = constate.7072.f
 		trigger = {
 			AND = { 
-				1179 = { is_owned_and_controlled_by = COR }
+				541 = { is_owned_and_controlled_by = COR }
+				964 = { is_owned_and_controlled_by = COR }
 				681 = { is_owned_and_controlled_by = COR }
 				945 = { is_owned_and_controlled_by = COR }
 				946 = { is_owned_and_controlled_by = COR }
@@ -14320,138 +14148,14 @@ country_event = { #South West africa puppet
 				947 = { is_owned_and_controlled_by = COR }
 				738 = { is_owned_and_controlled_by = COR }
 				275 = { is_owned_and_controlled_by = COR }
-				542 = { is_owned_and_controlled_by = COR }
-				964 = { is_owned_and_controlled_by = COR }
-				541 = { is_owned_and_controlled_by = COR }					
+				542 = { is_owned_and_controlled_by = COR }						
 			}			
 		}		
-			set_country_flag = COR_flag_puppeted_NMB
-			set_country_flag = COR_flag_puppeted_SAF
-			NMB = {
-				add_state_core = 541
-				add_state_core = 964
 
-				transfer_state = 541
-				transfer_state = 964			
-			}
-			every_owned_state = {
-				limit = {
-					OR = {
-						state = 541
-						state = 964
-					}
-				}
-				NMB = { transfer_state = PREV }
-			}
-			set_autonomy = {
-				target = NMB
-				autonomous_state = kx_colored_puppet
-			}
-			NMB = { 
-				set_politics = { 
-					ruling_party = national_populist
-				}
-				create_country_leader = {
-					name = "Theodore G. Bilbo"
-					picture = "gfx/leaders/FSA/Portrait_FSA_Theodore_G_Bilbo.png"
-					expire = "1.1.1"
-					ideology = legionarism_subtype
-				}
-				set_popularities = {
-					totalist = 0
-					radical_socialist = 10
-					syndicalist = 5
-					social_democrat = 0
-					social_liberal = 10 
-					market_liberal = 0
-					social_conservative = 5
-					authoritarian_democrat = 5
-					paternal_autocrat = 5
-					national_populist = 60
-				}	
-				set_party_name = {
-				ideology = national_populist
-				long_name = COR_namibia_bilbo_party_long
-				name = COR_namibia_bilbo_party
-				}
-				set_cosmetic_tag = NMB_bilboland
-				load_focus_tree = generic_focus
-
-			}
-			SAF = {
-				add_state_core = 1179
-				add_state_core = 681
-				add_state_core = 945
-				add_state_core = 946
-				add_state_core = 719
-				add_state_core = 85
-				add_state_core = 947
-				add_state_core = 738
-				add_state_core = 275
-				add_state_core = 542
-
-				transfer_state = 1179
-				transfer_state = 681
-				transfer_state = 945
-				transfer_state = 946
-				transfer_state = 719
-				transfer_state = 85
-				transfer_state = 947
-				transfer_state = 738
-				transfer_state = 275
-				transfer_state = 542			
-			}
-			every_owned_state = {
-				limit = {
-					OR = {
-						state = 1176
-						state = 681
-						state = 945
-						state = 946
-						state = 719
-						state = 85
-						state = 947
-						state = 738
-						state = 275
-						state = 542
-					}
-				}
-				SAF = { transfer_state = PREV }
-			}
-			set_autonomy = {
-				target = SAF
-				autonomous_state = kx_colored_puppet
-			}
-			SAF = { 
-				set_politics = { 
-					ruling_party = national_populist
-				}
-				create_country_leader = {
-					name = "Louis Weichardt"
-					picture = "gfx/leaders/NMB/Portrait_NMB_Louis_Weichardt.png"
-					expire = "1.1.1"
-					ideology = legionarism_subtype
-				}
-				set_popularities = {
-					totalist = 0
-					radical_socialist = 10
-					syndicalist = 5
-					social_democrat = 0
-					social_liberal = 10 
-					market_liberal = 0
-					social_conservative = 5
-					authoritarian_democrat = 5
-					paternal_autocrat = 5
-					national_populist = 60
-				}	
-				set_party_name = {
-				ideology = national_populist
-				long_name = COR_south_africa_columbian_long
-				name = COR_south_africa_columbian
-				}
-				set_cosmetic_tag = SAF_columbian
-
-			}			
+		COR_Bilbo_puppet = yes
+		COR_SAF_puppet_small = yes
+		
+		
 	}		
 }
 
@@ -14529,6 +14233,9 @@ country_event = { #new day of the saxon
 		add_ideas = COR_Lothrop_Stoddard_for_npo		
 		add_manpower = -1200
 		add_stability = -0.02
+		set_country_leader_ideology = nordicism_subtype
+		custom_effect_tooltip = natpop_nordicism_subtype_swap_tt
+		
 	}	
 }
 
@@ -14537,17 +14244,19 @@ country_event = { #vision fullfilled
 	immediate = {log = "[GetDateText]: [Root.GetName]: event constate.7077"}
 	title = constate.7077.t
 	desc = constate.7077.d
-	picture = GFX_COR_george_washington_prayer
+	picture = GFX_COR_Columbian_Finale
 	
 	is_triggered_only = yes
 
 	option = { #
 		name = constate.7077.a
-
+		increase_ruling_party_popularity_by_5 = yes 
+		add_manpower = 1000
+		add_stability = 0.1
 	}
 }
 
-country_event = { #protectorates
+country_event = { #protectorate
 	id = constate.7078
 	immediate = {log = "[GetDateText]: [Root.GetName]: event constate.7078"}
 	title = constate.7078.t
@@ -14558,11 +14267,58 @@ country_event = { #protectorates
 
 	option = { #no
 		name = constate.7078.a
-
+		ai_chance = {
+			factor = 100
+		}
 	}
 	option = { #yes
-		name = constate.7078.a
+		name = constate.7078.b
+		ai_chance = {
+			factor = 0
+		}
 		set_country_flag = COR_flag_columbian_world_puppet
+		custom_effect_tooltip = COR_Columbian_anglo_war_declaration_tt
+		add_war_support = 0.1
+			create_wargoal = {
+				type = annex_everything
+				target = var:126.owner
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = var:113.owner
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = var:37.owner
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = var:141.owner
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = var:110.owner
+			}		
+			create_wargoal = {
+				type = annex_everything
+				target = var:64.owner
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = var:7.owner
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = var:6.owner
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = var:16.owner
+			}	
+			create_wargoal = {
+				type = annex_everything
+				target = var:100.owner
+			}			
 	}	
 }
 
@@ -14586,6 +14342,7 @@ country_event = { #future leadership
 			ideology = natpop_jacksonianism_subtype
 			traits = { young_leader_hos }
 			}
+		custom_effect_tooltip = natpop_natpop_jacksonianism_subtype_swap_tt	
 	}
 	option = { #no
 		name = constate.7079.b
@@ -14600,17 +14357,10 @@ country_event = { # Saxon Europe Puppet
 	desc = constate.7080.d
 	picture = GFX_COR_anglo_europe_flag
 
-	hidden =  yes
 	fire_only_once = yes
-	trigger = {
-		has_country_flag = COR_flag_columbian_world_puppet
-		all_other_country = {
-			is_in_europe = yes
-			exists = no
-		}
-	}
+	is_triggered_only = yes
 
-	option = { # Flavor
+	option = { # 
 		name = constate.7080.a
 		every_state = {
 			limit = {
@@ -14631,7 +14381,11 @@ country_event = { # Saxon Europe Puppet
 					   ideology = legionarism_subtype
 					   traits = {}
 				}
+				set_politics = { 
+					ruling_party = national_populist
+				}
 			set_country_flag = LEADER_GUI_NOT_VISIBLE
+			add_ideas = COR_anglo_puppet_columbia
 			remove_ideas = GBR_military_chaos_1
 			add_state_core = PREV
 			transfer_state = PREV
@@ -14648,10 +14402,139 @@ country_event = { # Saxon Europe Puppet
 						transfer_state = 979
 						transfer_state = 34
 						transfer_state = 100
+						
+						add_state_core = 113
+						add_state_core = 135
+						add_state_core = 134
+						add_state_core = 119
+						add_state_core = 36
+						add_state_core = 866
+						add_state_core = 7
+						add_state_core = 35
+						add_state_core = 978
+						add_state_core = 6
+						add_state_core = 979
+						add_state_core = 34
+						add_state_core = 100
+						
 			}
 			add_core_of = GBR
 
 		 }
 		 puppet = GBR
+	}
+}
+
+country_event = { #strong families event
+	id = constate.7081
+	immediate = {log = "[GetDateText]: [Root.GetName]: event constate.7081"}
+	title = constate.7081.t
+	desc = constate.7081.d
+	picture = GFX_COR_Columbian_Strong_Family
+	
+	is_triggered_only = yes
+
+	option = { #
+		name = constate.7081.a
+		add_manpower = 500
+	}
+}
+
+country_event = { #rewriting washingtons beliefs 
+	id = constate.7082
+	immediate = {log = "[GetDateText]: [Root.GetName]: event constate.7082"}
+	title = constate.7082.t
+	desc = constate.7082.d
+	picture = GFX_COR_Washington_Head
+	
+	is_triggered_only = yes
+
+	option = { # yes
+		name = constate.7082.a
+		set_country_leader_ideology = natpop_washingtonism_subtype
+		custom_effect_tooltip = natpop_natpop_washingtonism_subtype_swap_tt
+		set_party_name = {
+			ideology = national_populist
+			long_name = COR_national_populist_columbians_inc_long
+			name = COR_national_populist_columbians_inc 
+		}		
+	}
+	
+	option = { # no
+		name = constate.7082.b
+
+	}	
+}
+
+country_event = { #convincing patton
+	id = constate.7083
+	immediate = {log = "[GetDateText]: [Root.GetName]: event constate.7083"}
+	title = constate.7083.t
+	desc = constate.7083.d
+	picture = GFX_COR_thunderbolts
+	
+	is_triggered_only = yes
+
+	option = { #
+		name = constate.7083.a
+		army_experience = 15
+		add_war_support = 0.02
+	}
+}
+
+country_event = { #new freedom
+	id = constate.7084
+	immediate = {log = "[GetDateText]: [Root.GetName]: event constate.7084"}
+	title = constate.7084.t
+	desc = constate.7084.d
+	picture = GFX_COR_Columbian_Faith
+	
+	is_triggered_only = yes
+
+	option = { #
+		name = constate.7084.a
+		increase_ruling_party_popularity_by_2 = yes
+	}
+}
+
+country_event = { #ASCOA
+	id = constate.7085
+	immediate = {log = "[GetDateText]: [Root.GetName]: event constate.7085"}
+	title = constate.7085.t
+	desc = constate.7085.d
+	picture = GFX_COR_Earnest_Cox
+	
+	is_triggered_only = yes
+
+	option = { #
+		name = constate.7085.a
+		add_political_power = 10
+			random_owned_controlled_state = {
+				prioritize = { 1155 }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+			}
+		}				
+	}
+}
+
+country_event = { #Dodge v, Ford
+	id = constate.7086
+	immediate = {log = "[GetDateText]: [Root.GetName]: event constate.7086"}
+	title = constate.7086.t
+	desc = constate.7086.d
+	picture = GFX_COR_Dodge_Ford
+	
+	is_triggered_only = yes
+
+	option = { #
+		name = constate.7086.a
+		add_political_power = 25
+		increase_ruling_party_popularity_by_2 = yes
+		random_owned_controlled_state = { add_extra_state_shared_building_slots = 1 }
+		random_owned_controlled_state = { add_extra_state_shared_building_slots = 1 }
 	}
 }

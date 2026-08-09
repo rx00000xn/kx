@@ -1983,17 +1983,17 @@ country_event = { # Defection
 		army_experience = -100
 		add_manpower = -100
 		if = {
-			limit = { any_unit_leader = { has_trait = USA_admiral_nimitz } }
+			limit = { any_unit_leader = { has_trait = USA_admiral_nimitz_trait } }
 			random_unit_leader = {
-				limit = { has_trait = USA_admiral_nimitz }
+				limit = { has_trait = USA_admiral_nimitz_trait }
 				set_nationality = TXS
 			}
 		}
 		if = {
-			limit = { CAL = { any_unit_leader = { has_trait = USA_admiral_nimitz } } }
+			limit = { CAL = { any_unit_leader = { has_trait = USA_admiral_nimitz_trait } } }
 			CAL = {
 				random_unit_leader = {
-					limit = { has_trait = USA_admiral_nimitz }
+					limit = { has_trait = USA_admiral_nimitz_trait }
 					set_nationality = TXS
 				}
 			}
@@ -2040,7 +2040,16 @@ country_event = { # Defection
 			set_leader_portrait = GFX_Portrait_Texas_Claire_Lee_Chennault
 		}
 		random_unit_leader = {
+			limit = { has_id = 99501 }			
+			set_nationality = TXS
+			set_leader_portrait = GFX_Portrait_Texas_Andrew_Davis_Bruce
+		}
+		random_unit_leader = {
 			limit = { has_trait = TEX_lbj_trait }
+			set_nationality = TXS
+		}
+		random_unit_leader = {
+			limit = { has_trait = USA_admiral_andrews_trait }
 			set_nationality = TXS
 		}
 		hidden_effect = {
@@ -2048,13 +2057,19 @@ country_event = { # Defection
 				target_country = TXS
 				character = TEX_Frank_Malina
 			}
-		}
-		hidden_effect = {
-				set_nationality = {
-					target_country = TXS
-					character = TEX_Frank_Malina
-				}
-			}	
+			set_nationality = {
+				target_country = TXS
+				character = TEX_Margaret_Hutchinson_Rousseau
+			}
+			set_nationality = {
+				target_country = TXS
+				character = TEX_Andrew_Davis_Bruce_Scientist
+			}
+			set_portraits = {
+				character = TEX_Andrew_Davis_Bruce_Scientist
+				army = { large = GFX_Portrait_Texas_Andrew_Davis_Bruce_Scientist }
+			}
+		}	
 		COR = {
 			random_unit_leader = {
 				limit = { has_id = 78900 }			
@@ -4113,6 +4128,12 @@ country_event = { # America is reunited
 				}
 			}
 		}
+		every_state = {
+                limit = {
+					is_united_states = yes
+				}
+			add_core_of = ROOT
+		}
 		set_country_flag = TXS_UNITED_AMERICA
 		set_cosmetic_tag = USA_HOUSTON_KING
 		set_global_flag = USA_HAS_RETURNED
@@ -4137,6 +4158,12 @@ country_event = { # America is reunited
 					name = "Wilhelm III"
 				}
 			}
+		}
+		every_state = {
+                limit = {
+					is_united_states = yes
+				}
+			add_core_of = ROOT
 		}
 		set_country_flag = TXS_UNITED_AMERICA
 		set_cosmetic_tag = USA_HOUSTON_KING
@@ -4277,7 +4304,7 @@ country_event = { # Loyalty to the U.S
 		if = {
 			limit = {
 				WCC = {
-					is_in_faction_with = USA
+					is_ally_with = USA
 				}
 			}
 			give_military_access = WCC
@@ -4809,6 +4836,13 @@ country_event = { #
 		name = TXS.47.a
 		ai_chance = {
 			factor = 50
+			modifier = {
+				factor = 0
+				has_game_rule = {
+					rule = USA_civil_war_strengthen
+					option = USA_CIVIL_WAR_STRENGTHEN_TXS
+				}
+			}
 		}
 		USA = {
 			annex_country = {
@@ -6042,6 +6076,13 @@ country_event = { # Statehood Question
 		name = TXS.59.b
 		ai_chance = {
 			factor = 25
+			modifier = {
+				factor = 0
+				has_game_rule = {
+					rule = USA_civil_war_strengthen
+					option = USA_CIVIL_WAR_STRENGTHEN_TXS
+				}
+			}
 		}
 		CSA = {
 			change_tag_from = TXS
@@ -6056,6 +6097,9 @@ country_event = { # Statehood Question
 			every_unit_leader = {
 				set_nationality = CSA
 			}
+		}
+		hidden_effect = {
+			every_scientist = { set_nationality = CSA }
 		}
 	}
 }
@@ -7390,6 +7434,13 @@ country_event = { # Statehood
 		name = TXS.80.b
 		ai_chance = {
 			factor = 50
+			modifier = {
+				factor = 0
+				has_game_rule = {
+					rule = USA_civil_war_strengthen
+					option = USA_CIVIL_WAR_STRENGTHEN_TXS
+				}
+			}
 		}
 		if = {
 			limit = {
@@ -7407,6 +7458,20 @@ country_event = { # Statehood
 		TXS = {
 			every_unit_leader = {
 				set_nationality = TEX
+			}
+		}
+		hidden_effect = {
+			set_nationality = {
+				target_country = TEX
+				character = TEX_Frank_Malina
+			}
+			set_nationality = {
+				target_country = TEX
+				character = TEX_Margaret_Hutchinson_Rousseau
+			}
+			set_nationality = {
+				target_country = TEX
+				character = TEX_Andrew_Davis_Bruce_Scientist
 			}
 		}
 	}
@@ -8543,7 +8608,7 @@ country_event = { #TIP support surge
 		}
 		hidden_effect = {
 			country_event = {
-				id = txs.108
+				id = TXS.108
 				days = 5
 				} #party spliters
 		}
@@ -9500,7 +9565,7 @@ country_event = { #Do World Politics?
 			factor = 50
 			modifier = {
 				factor = 0
-				NOT = {
+				OR = {
 					has_game_rule = {
 						rule = TXS_foreign_policy
 						option = DEFAULT
@@ -9871,6 +9936,7 @@ country_event = { #Selling America
 			
 			#Event Target
 			save_global_event_target_as = chevron_oil
+			
 		}
 		create_dynamic_country = {	#Sinclar
 			original_tag = WCC
@@ -9947,6 +10013,7 @@ country_event = { #Selling America
 			
 			#Event Target
 			save_global_event_target_as = sinclair_oil
+			
 		}
 		create_dynamic_country = {	#Marland
 			original_tag = TEX
@@ -10025,6 +10092,7 @@ country_event = { #Selling America
 			
 			#Event Target
 			save_global_event_target_as = marland_oil
+			
 		}
 		create_dynamic_country = {	#Hunt
 			original_tag = COR
@@ -10123,6 +10191,7 @@ country_event = { #Selling America
 			
 			#Event Target
 			save_global_event_target_as = hunt_oil
+			
 		}
 		create_dynamic_country = {	#Getty
 			original_tag = CSA
@@ -10209,6 +10278,7 @@ country_event = { #Selling America
 			
 			#Event Target
 			save_global_event_target_as = getty_oil
+			
 		}
 		create_dynamic_country = {	#Standard Oil
 			original_tag = NEE
@@ -10283,6 +10353,7 @@ country_event = { #Selling America
 			
 			#Event Target
 			save_global_event_target_as = jersey_standard_oil
+			
 		}
 		event_target:chevron_oil = {
 			get_current_government_type = yes
