@@ -31315,6 +31315,7 @@ country_event = { #
 	}
 	
 	is_triggered_only = yes
+	trigger = { has_country_flag = soviet_russia_restored }
 	fire_only_once = yes
 	picture = GFX_event_russia_zhdanov
 	
@@ -33841,6 +33842,7 @@ country_event = { #
 	desc = russoc.210.d
 			
 	is_triggered_only = yes
+	trigger = { has_country_flag = soviet_russia_restored }
 	fire_only_once = yes
 	picture = GFX_report_event_SOV_event_zinoviev
 	
@@ -33897,6 +33899,7 @@ country_event = { #
 	desc = russoc.211.d
 			
 	is_triggered_only = yes
+	trigger = { has_country_flag = soviet_russia_restored }
 	fire_only_once = yes
 	picture = GFX_report_event_SOV_event_zinoviev2
 	
@@ -33918,6 +33921,7 @@ country_event = { #
 	desc = russoc.212.d
 			
 	is_triggered_only = yes
+	trigger = { has_country_flag = soviet_russia_restored }
 	fire_only_once = yes
 	picture = GFX_report_event_RUS_lev_kamenev
 	
@@ -33975,6 +33979,7 @@ country_event = { #
 	desc = russoc.213.d
 			
 	is_triggered_only = yes
+	trigger = { has_country_flag = soviet_russia_restored }
 	fire_only_once = yes
 	picture = GFX_report_event_SOV_event_molotov
 	
@@ -34017,6 +34022,7 @@ country_event = { #
 	desc = russoc.214.d
 			
 	is_triggered_only = yes
+	trigger = { has_country_flag = soviet_russia_restored }
 	fire_only_once = yes
 	picture = GFX_report_event_RUS_internationale_question
 	
@@ -34245,7 +34251,7 @@ country_event = { #
 		SOV_change_politburo_bukharin = yes
 	}
 	option = {
-		name = russoc.220.b
+		name = russoc.221.b
 		SOV_remove_counter_rev_sabotage = yes
 		set_temp_variable = { politburo_change = 1 }
 		SOV_change_politburo_bukharin = yes
@@ -34275,6 +34281,7 @@ country_event = { #
 	desc = russoc.223.d
 			
 	is_triggered_only = yes
+	trigger = { has_country_flag = soviet_russia_restored }
 	fire_only_once = yes
 	
 	option = {
@@ -34305,6 +34312,7 @@ country_event = { #
 	}
 		
 	is_triggered_only = yes
+	trigger = { has_country_flag = soviet_russia_restored }
 	fire_only_once = yes
 	
 	option = {
@@ -35139,6 +35147,7 @@ country_event = { #
 	desc = russoc.235.d
 		
 	is_triggered_only = yes
+	trigger = { has_country_flag = soviet_russia_restored }
 	fire_only_once = yes
 	picture = GFX_report_event_SOV_sverdlov
 	
@@ -35439,6 +35448,7 @@ country_event = { #
 	desc = russoc.242.d
 		
 	is_triggered_only = yes
+	trigger = { has_country_flag = soviet_russia_restored }
 	fire_only_once = yes
 	picture = GFX_report_event_RUS_secretariat_building
 	
@@ -35733,6 +35743,7 @@ country_event = { #
 	desc = russoc.246.d
 		
 	is_triggered_only = yes
+	trigger = { has_country_flag = soviet_russia_restored }
 	fire_only_once = yes
 	picture = GFX_report_event_SOV_event_molotov2
 	
@@ -36358,6 +36369,7 @@ country_event = { #
 	desc = russoc.257.d
 			
 	is_triggered_only = yes
+	trigger = { has_country_flag = soviet_russia_restored }
 	fire_only_once = yes
 	picture = GFX_report_event_RUS_lev_kamenev
 	
@@ -38631,6 +38643,7 @@ country_event = { #
 	desc = russoc.301.d
 		
 	is_triggered_only = yes
+	trigger = { has_country_flag = soviet_russia_restored }
 	fire_only_once = yes
 	picture = GFX_report_event_SOV_chutskayev
 	
@@ -40280,6 +40293,7 @@ country_event = { #
 	desc = russoc.329.d
 	
 	is_triggered_only = yes
+	trigger = { has_country_flag = soviet_russia_restored }
 	fire_only_once = yes
 	picture = GFX_report_event_SOV_event_city
 		
@@ -52392,6 +52406,10 @@ country_event = { #Russia offers us an alliance
 				factor = 0
 				OR = {
 					AND = {
+						tag = AFG
+						is_in_faction = yes
+					}
+					AND = {
 						tag = SER
 						NOT = { has_game_rule = { rule = SER_forpol option = SER_FORPOL_RANDOM } }
 						NOT = { has_game_rule = { rule = SER_forpol option = SER_FORPOL_RUSSIA } }
@@ -52648,6 +52666,11 @@ country_event = { #Russia offers us an alliance
 				factor = 0
 				num_divisions < 25
 			}
+			modifier = {
+				factor = 0
+				tag = AFG
+				is_in_faction = yes
+			}
 		}
 		FROM = { country_event = { id = rusfor.58 hours = 8 } }
 		if = {
@@ -52684,6 +52707,10 @@ country_event = { #Russia offers us an alliance
 			modifier = {
 				add = 100
 				OR = {
+					AND = {
+						tag = AFG
+						is_in_faction = yes
+					}
 					AND = {
 						tag = SER
 						NOT = { has_game_rule = { rule = SER_forpol option = SER_FORPOL_RANDOM } }
@@ -63983,6 +64010,8 @@ country_event = { #Outcome of the Vladivostok Conference
 			}
 			every_owned_state = {
 				limit = { region = 221 }
+				remove_core_of = ROOT
+				remove_claim_by = ROOT
 				transfer_state_to = FROM
 			}
 		}
@@ -63996,6 +64025,8 @@ country_event = { #Outcome of the Vladivostok Conference
 			MON = {
 				every_owned_state = {
 					limit = { region = 222 }
+					remove_core_of = ROOT
+					remove_claim_by = ROOT
 					transfer_state_to = FROM
 				}
 			}
@@ -64008,6 +64039,8 @@ country_event = { #Outcome of the Vladivostok Conference
 			}
 			every_owned_state = {
 				limit = { is_mongolia = yes }
+				remove_core_of = ROOT
+				remove_claim_by = ROOT
 				transfer_state_to = FROM
 			}
 		}
@@ -64144,6 +64177,10 @@ country_event = { #Time for a Truce? #MON offers peace
 
 	trigger = {
 		original_tag = MON
+		NOT = { 
+			has_completed_focus = MON_prepare_for_war 
+			has_completed_focus = MON_restore_the_mongolian_lands_in_the_west
+		}
 		var:566.owner = { #Irkutsk
 			has_war_with = ROOT
 			is_russian_tag_that_can_integrate = yes
@@ -69533,14 +69570,14 @@ country_event = { # Don refuses!
 			modifier = {
 				factor = 0
 				OR = {
-					KUB = { is_in_faction_with = AUS }
-					KUB = { is_in_faction_with = GER }
-					KUB = { is_in_faction_with = INT }
-					KUB = { is_guaranteed_by = AUS }
-					KUB = { is_guaranteed_by = GER }
-					KUB = { is_guaranteed_by = INT }
+					FROM = { is_in_faction_with = AUS }
+					FROM = { is_in_faction_with = GER }
+					FROM = { is_in_faction_with = INT }
+					FROM = { is_guaranteed_by = AUS }
+					FROM = { is_guaranteed_by = GER }
+					FROM = { is_guaranteed_by = INT }
 					AND = {
-						KUB = {
+						FROM = {
 							OR = { 
 								is_guaranteed_by = UKR
 								is_subject_of = UKR
@@ -69558,10 +69595,6 @@ country_event = { # Don refuses!
 						}
 					}
 				}
-			}
-			modifier = {
-				factor = 0
-				FROM = { is_in_faction_with = GER }
 			}
 			modifier = {
 				factor = 0
@@ -70867,7 +70900,7 @@ country_event = { #Kvzhd
 	is_triggered_only = yes
 	
 	option = {
-		name = rusfor.1406.a
+		name = rusfor.1404.a
 		add_political_power = 30
 		effect_tooltip = {
 			give_military_access = FROM

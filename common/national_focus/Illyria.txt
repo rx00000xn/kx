@@ -3479,20 +3479,8 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-			SLO = { 
-				set_temp_variable = { revolt_progress_change = -0.1 }
-				BOTDE_add_collapse = yes
-			}
-			every_state = {
-				limit = {
-					is_core_of = SLO
-					OR = {
-						is_owned_by = AUS
-						is_owned_by = CRO
-					}
-				}
-				add_dynamic_modifier = { modifier = CRO_slovenia_state_mod }
-			}
+			add_political_power = 50
+			add_stability = 0.1
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_AUS_FEDERALIZATION }
 	}
@@ -4680,6 +4668,13 @@ focus_tree = {
 			if = {
 				limit = { has_completed_focus = CRO_best_friends }
 				BUL = { country_event = { id = cro.17 days = 1 } }
+			}
+			if = {
+				limit = { has_subject = SLO }
+				annex_country = {
+					target = SLO
+					transfer_troops = yes
+				}
 			}
 			add_state_core = 107
 			add_state_core = 108

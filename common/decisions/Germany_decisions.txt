@@ -4,7 +4,7 @@
 
 political_actions = {
 	GER_Flag_Picker = {
-		icon = generic_agreement
+		icon = GFX_decision_ger_flag
 		allowed = {
 			original_tag = GER
 		}
@@ -13,9 +13,11 @@ political_actions = {
 			OR = {
 				NOT = {
 					has_country_flag = GER_EU
-					has_country_flag = GER_can_form_impfed
+					has_country_flag = GER_formed_impfed
+					has_cosmetic_tag = GER_AUS
 					has_cosmetic_tag = GER_German_Greater
 					has_cosmetic_tag = GER_greater
+					has_cosmetic_tag = GER_greater_alt
 				}
 			}
 		}
@@ -32,19 +34,12 @@ political_actions = {
 		}
 	}
 	GER_Force_Russian_Surrender = {
-		icon = GFX_decision_eng_trade_unions_support
+		icon = GFX_decision_rus_flag
 		allowed = { tag = GER }
 		available = {
-			NOT = {
-				AND = {
-					DKB = {
-						is_in_faction_with = GER
-						has_completed_focus = DKB_the_foreigners_coup
-					}
-				}
-			}
 			FROM = {
 				has_dictatorship_government = no
+				NOT = { has_government = totalist }
 				surrender_progress > 0.5
 			}
 			surrender_progress < 0.3
@@ -100,7 +95,7 @@ political_actions = {
 				}
 			}
 		}
-		cost = freedec?0
+		cost = 0
 		days_remove = 45
 		
 		ai_will_do = {
@@ -131,7 +126,7 @@ political_actions = {
 		}
 	}
 	GER_appeal_to_old_friends = {
-		icon = generic_civil_support
+		icon = GFX_decision_dec_GER_central_power_knights
 
 		allowed = {
 			original_tag = GER
@@ -228,7 +223,7 @@ political_actions = {
 	}
 
 	GER_send_support_to_bulgaria = {
-		icon = generic_agreement
+		icon = GFX_decision_support_equipment
 
 		allowed = {
 			original_tag = GER
@@ -287,7 +282,7 @@ political_actions = {
 	}
 	
 	GER_send_support_to_proxy = {
-		icon = generic_agreement
+		icon = GFX_decision_support_equipment
 
 		allowed = { original_tag = GER }
 
@@ -353,8 +348,7 @@ political_actions = {
 	}
 
 	GER_join_kaiser_wilhelm_society = {
-		icon = generic_research
-
+		icon = GFX_decision_dec_GER_wilhelm_society
 		allowed = {
 			NOT = {
 				tag = GER
@@ -367,7 +361,6 @@ political_actions = {
 				tag = BHC
 				tag = RUS
 				tag = JAP
-				tag = USA #can't join
 				tag = CAL
 				tag = NEE
 				tag = DEH
@@ -376,6 +369,7 @@ political_actions = {
 			}
 			OR = {
 				tag = QIE
+				tag = LEP
 				is_chinese_tag = no #can't join
 			}
 		}
@@ -409,6 +403,12 @@ political_actions = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision GER_join_kaiser_wilhelm_society target: [From.GetName]"
+			hidden_effect = {
+				if = { 
+					limit = { is_in_tech_research_group = yes } 
+					remove_from_all_tech_sharing_groups = yes
+				}
+			}
 			add_to_tech_sharing_group = german_research
 		}
 	}
@@ -470,78 +470,12 @@ political_actions = {
 			}
 		}
 	}
-	GER_form_imperial_federation = {# 
-		icon = generic_form_nation
-		allowed = { original_tag = GER }
-		available = {
-			owns_state = 881
-			owns_state = 965
-			owns_state = 547
-			owns_state = 925
-			owns_state = 548
-			owns_state = 539
-			owns_state = 953
-			owns_state = 928
-			owns_state = 813
-			owns_state = 871
-			owns_state = 541
-			owns_state = 964
-			owns_state = 952
-			owns_state = 660
-			owns_state = 927
-			owns_state = 878
-			owns_state = 558
-			owns_state = 877
-			owns_state = 876
-			owns_state = 963
-			owns_state = 274
-			owns_state = 1321
-			owns_state = 1322
-			owns_state = 1323
-			owns_state = 1032
-			owns_state = 870
-			owns_state = 869
-			owns_state = 879
-			owns_state = 871
-			owns_state = 1025
-			owns_state = 977
-			owns_state = 962
-			owns_state = 881
-			owns_state = 336
-			owns_state = 1091
-			owns_state = 13
-			owns_state = 190
-		}
-		visible = { has_country_flag = GER_can_form_impfed }
-		fire_only_once = yes
-		cost = 50
-		days_remove = 30
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision GER_form_imperial_fed"
-			GER = {
-				country_event = {
-					id = gerfor.209
-				}
-			}
-			every_state = {
-					limit = {
-						is_owned_by = GER
-					}
-					GER = { 
-						add_state_core = PREV 
-				}
-			}
-	   }
-	   ai_will_do = {
-			factor = 50
-		}
-    }
 }
 
 GER_halifax_category = {
 
 	GER_Halifax_Alsace_Lorraine = {
-		icon = generic_agreement
+		icon = GFX_decision_dec_GER_halifax_al
 		visible = {
 			OR = {
 				is_ai = no
@@ -604,7 +538,7 @@ GER_halifax_category = {
 	}
 	
 	GER_Halifax_Colonial_Claims = {
-		icon = generic_agreement
+		icon = GFX_decision_dec_GER_halifax_colonies
 		visible = {
 			OR = {
 				is_ai = no
@@ -664,7 +598,7 @@ GER_halifax_category = {
 	}
 	
 	GER_Halifax_Mitteleuropa = {
-		icon = generic_agreement
+		icon = GFX_decision_dec_GER_halifax_me
 		visible = {
 			OR = {
 				is_ai = no
@@ -718,7 +652,7 @@ GER_halifax_category = {
 	}
 	
 	GER_Halifax_Signature = {
-		icon = generic_agreement
+		icon = GFX_decision_dec_GER_halifax
 		visible = {
 			OR = {
 				is_ai = no
@@ -785,13 +719,13 @@ GER_halifax_category = {
 GER_desperate_struggle_category = {
 
 	GER_increase_struggle_level2 = {
-		icon = GFX_decision_generic_military
+		icon = GFX_decision_dec_GER_struggle
 		
 		allowed = { original_tag = GER }
 		
 		available = {
 			OR = {
-				surrender_progress > 0.40
+				surrender_progress > 0.30
 				AND = {
 					NOT = { controls_state = 5 }
 					NOT = { controls_state = 776 }
@@ -822,13 +756,13 @@ GER_desperate_struggle_category = {
 	}
 	
 	GER_increase_struggle_level3 = {
-		icon = GFX_decision_generic_military
+		icon = GFX_decision_dec_GER_struggle
 		
 		allowed = { original_tag = GER }
 		
 		available = {
 			OR = {
-				surrender_progress > 0.60
+				surrender_progress > 0.50
 				AND = {
 					NOT = { controls_state = 86 }
 					NOT = { controls_state = 67 }
@@ -864,13 +798,13 @@ GER_desperate_struggle_category = {
 	}
 	
 	GER_increase_struggle_level4 = {
-		icon = GFX_decision_generic_military
+		icon = GFX_decision_dec_GER_struggle
 		
 		allowed = { original_tag = GER }
 		
 		available = {
 			OR = {
-				surrender_progress > 0.80
+				surrender_progress > 0.70
 				AND = {
 					NOT = { controls_state = 68 }
 					NOT = { controls_state = 63 }
@@ -902,7 +836,7 @@ GER_desperate_struggle_category = {
 	}
 
 	GER_recruit_landsturm = {
-		icon = GFX_decision_generic_military
+		icon = GFX_decision_dec_GER_landsturm
 
 		allowed = { original_tag = GER }
 		
@@ -1034,7 +968,7 @@ GER_desperate_struggle_category = {
 	}
 	
 	GER_armeehelferinnen_air = {
-		icon = GFX_decision_generic_military
+		icon = GFX_decision_dec_GER_armeehelferinnen
 	
 		allowed = { original_tag = GER }
 	
@@ -1066,7 +1000,7 @@ GER_desperate_struggle_category = {
 	}
 	
 	GER_armeehelferinnen_hospitals = {
-		icon = GFX_decision_generic_military
+		icon = GFX_decision_dec_GER_nurse
 	
 		allowed = { original_tag = GER }
 	
@@ -1098,7 +1032,7 @@ GER_desperate_struggle_category = {
 	}
 	
 	GER_armeehelferinnen_factories = {
-		icon = GFX_decision_generic_military
+		icon = GFX_decision_dec_GER_female_worker
 	
 		allowed = { original_tag = GER }
 	
@@ -1133,7 +1067,7 @@ GER_desperate_struggle_category = {
 	}
 	
 	GER_armeehelferinnen_logistics = {
-		icon = GFX_decision_generic_military
+		icon = GFX_decision_dec_GER_armeehelferinnen_logistics
 	
 		allowed = { original_tag = GER }
 	
@@ -1168,7 +1102,7 @@ GER_desperate_struggle_category = {
 	}
 	
 	GER_armeehelferinnen_navy = {
-		icon = GFX_decision_generic_military
+		icon = GFX_decision_dec_GER_helferinnen_navy
 	
 		allowed = { original_tag = GER }
 	
@@ -1204,7 +1138,7 @@ GER_desperate_struggle_category = {
 	}
 	
 	GER_armeehelferinnen_partisans = {
-		icon = GFX_decision_generic_military
+		icon = GFX_decision_dec_GER_woman_partisan
 	
 		allowed = { original_tag = GER }
 	
@@ -1239,10 +1173,10 @@ GER_desperate_struggle_category = {
 	}
 	
 	GER_launch_chemical_attack = {
-		icon = GFX_decision_generic_military
-	
+		icon = GFX_decision_dec_GER_gas
+
 		allowed = { original_tag = GER }
-	
+
 		available = {
 			NOT = {
 				has_country_flag = GER_preparing_chemical_attack
@@ -1308,10 +1242,10 @@ GER_desperate_struggle_category = {
 	}
 	
 	GER_bifrost_expansion_1 = {
-		icon = GFX_decision_generic_military
-	
+		icon = GFX_decision_dec_GER_bifrost
+
 		allowed = { original_tag = GER }
-	
+
 		available = {
 			has_idea = GER_Desperate_Struggle2_idea
 			NOT = {
@@ -1346,6 +1280,7 @@ GER_desperate_struggle_category = {
 GER_militarism_category = {
 
 	GER_militarism_enhanced_benefits = {
+		icon = GFX_decision_dec_GER_soldiers_pay
 		allowed = { original_tag = GER }
 		
 		visible = {
@@ -1400,6 +1335,7 @@ GER_militarism_category = {
 	}
 	
 	GER_militarism_patriotic_schooling = {
+		icon = GFX_decision_dec_GER_young_cadet
 		allowed = { original_tag = GER }
 		
 		visible = {
@@ -1439,6 +1375,7 @@ GER_militarism_category = {
 	}
 	
 	GER_militarism_martial_parades = {
+		icon = GFX_decision_dec_GER_marching_soldiers
 		allowed = { original_tag = GER }
 		
 		visible = {
@@ -1482,6 +1419,7 @@ GER_militarism_category = {
 GER_mitteleuropa_category = {
 
 	GER_mitteleuropa_tutorial_decision = {
+		icon = GFX_decision_dec_GER_ME_german
 		allowed = { original_tag = GER }
 		available = {
 			hidden_trigger = { has_country_flag = GER_blank_flag }
@@ -1489,6 +1427,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_mitteleuropa_improve_buff = {
+		icon = GFX_decision_dec_GER_ME_improve
 		allowed = { original_tag = GER }
 		available = {
 			custom_trigger_tooltip = {
@@ -1560,6 +1499,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_mitteleuropa_improve_strength = {
+		icon = GFX_decision_dec_GER_ME_enrich
 		allowed = { original_tag = GER }
 		available = {
 			custom_trigger_tooltip = {
@@ -1569,6 +1509,10 @@ GER_mitteleuropa_category = {
 					value = 2
 					compare = greater_than_or_equals
 				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = GER_Mittel_Max_Possible_Strength_tt
+				check_variable = { GER.GER_mitteleuropa_strength_display_var < 100 }
 			}
 		}
 		
@@ -1610,6 +1554,7 @@ GER_mitteleuropa_category = {
 	### Subregion Scandinavia
 	
 	GER_bismarckian_paternalism_Scandinavia = {
+		icon = GFX_decision_dec_GER_bismarck_paternalism
 		allowed = { original_tag = GER }
 		visible = {
 			has_completed_focus = GER_Bismarckian_Paternalism
@@ -1683,6 +1628,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_KWS_investments_Scandinavia = {
+		icon = GFX_decision_dec_GER_wilhelm_society
 		allowed = { original_tag = GER }
 		visible = {
 			has_completed_focus = GER_Expand_the_Kaiser_Wilhelm_Society
@@ -1740,6 +1686,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Battle_of_Jutland_Wrecks = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -1815,6 +1762,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Scandinavian_Fjords = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -1897,6 +1845,7 @@ GER_mitteleuropa_category = {
 	### Subregion Italy
 	
 	GER_bismarckian_paternalism_Italy = {
+		icon = GFX_decision_dec_GER_bismarck_paternalism
 		allowed = { original_tag = GER }
 		visible = {
 			has_completed_focus = GER_Bismarckian_Paternalism
@@ -1970,6 +1919,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_KWS_investments_Italy = {
+		icon = GFX_decision_dec_GER_wilhelm_society
 		allowed = { original_tag = GER }
 		visible = {
 			has_completed_focus = GER_Expand_the_Kaiser_Wilhelm_Society
@@ -2043,6 +1993,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Italian_Universities = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -2138,6 +2089,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Castel_Monte = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -2193,6 +2145,7 @@ GER_mitteleuropa_category = {
 	### Subregion France
 	
 	GER_bismarckian_paternalism_France = {
+		icon = GFX_decision_dec_GER_bismarck_paternalism
 		allowed = { original_tag = GER }
 		visible = {
 			has_completed_focus = GER_Bismarckian_Paternalism
@@ -2266,6 +2219,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_KWS_investments_France = {
+		icon = GFX_decision_dec_GER_wilhelm_society
 		allowed = { original_tag = GER }
 		visible = {
 			has_completed_focus = GER_Expand_the_Kaiser_Wilhelm_Society
@@ -2339,6 +2293,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Weltkrieg_Scars = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -2393,6 +2348,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Basilica_Saint_Denis = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -2447,6 +2403,7 @@ GER_mitteleuropa_category = {
 	### Subregion Britain
 	
 	GER_bismarckian_paternalism_Britain = {
+		icon = GFX_decision_dec_GER_bismarck_paternalism
 		allowed = { original_tag = GER }
 		visible = {
 			has_completed_focus = GER_Bismarckian_Paternalism
@@ -2520,6 +2477,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_KWS_investments_Britain = {
+		icon = GFX_decision_dec_GER_wilhelm_society
 		allowed = { original_tag = GER }
 		visible = {
 			has_completed_focus = GER_Expand_the_Kaiser_Wilhelm_Society
@@ -2593,6 +2551,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Gateway_to_Atlantic = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -2657,6 +2616,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Cliffs_of_Moher = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -2714,6 +2674,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_British_Coal_Mining = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -2775,6 +2736,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_English_Garden_Tours = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -2832,6 +2794,7 @@ GER_mitteleuropa_category = {
 	### Subregion Iberia
 	
 	GER_bismarckian_paternalism_Iberia = {
+		icon = GFX_decision_dec_GER_bismarck_paternalism
 		allowed = { original_tag = GER }
 		visible = {
 			has_completed_focus = GER_Bismarckian_Paternalism
@@ -2905,6 +2868,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_KWS_investments_Iberia = {
+		icon = GFX_decision_dec_GER_wilhelm_society
 		allowed = { original_tag = GER }
 		visible = {
 			has_completed_focus = GER_Expand_the_Kaiser_Wilhelm_Society
@@ -2978,6 +2942,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Visigothic_Archaeology = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -3035,6 +3000,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Alhambra_Tourism = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -3100,6 +3066,7 @@ GER_mitteleuropa_category = {
 	### Subregion Benelux
 	
 	GER_bismarckian_paternalism_Benelux = {
+		icon = GFX_decision_dec_GER_bismarck_paternalism
 		allowed = { original_tag = GER }
 		visible = {
 			has_completed_focus = GER_Bismarckian_Paternalism
@@ -3173,6 +3140,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_KWS_investments_Benelux = {
+		icon = GFX_decision_dec_GER_wilhelm_society
 		allowed = { original_tag = GER }
 		visible = {
 			has_completed_focus = GER_Expand_the_Kaiser_Wilhelm_Society
@@ -3248,8 +3216,8 @@ GER_mitteleuropa_category = {
 	## Belgium / Flanders-Wallonia
 	
 	GER_Belgium_War_Memorial = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
-		
 		visible = {
 			has_country_flag = GER_building_belgium_memorial
 			OR = {
@@ -3298,6 +3266,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_shadow_belgium = {
+		icon = GFX_decision_dec_GER_shadow
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_shadow_spawned
@@ -3349,10 +3318,14 @@ GER_mitteleuropa_category = {
 				country_event = gerdom.3734
 			}
 			add_political_power = 50
+			effect_tooltip = {
+				BEL = { add_ideas = GER_Looming_Shadow_idea }
+			}
 		}
 	}
 	
 	GER_Belgium_Hydroelectricity = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -3418,6 +3391,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Ommegang = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_European_Tourism_Flag
@@ -3502,6 +3476,7 @@ GER_mitteleuropa_category = {
 	## Netherlands
 	
 	GER_Building_Polders = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -3565,6 +3540,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Keukenhof = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_European_Tourism_Flag
@@ -3619,6 +3595,7 @@ GER_mitteleuropa_category = {
 	### Subregion Germany
 	
 	GER_generic_build_factory_heimat = { # Debug Event. Also here to give the AI an easier time with the deccat.
+		icon = GFX_decision_dec_GER_heimat_factory
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -3675,6 +3652,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Elbe_Projekt = {
+		icon = GFX_decision_dec_GER_elbe_electric
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -3725,6 +3703,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Wardenclyffe_Tower = {
+		icon = GFX_decision_dec_GER_wardenclyffe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -3767,6 +3746,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Reichsautobahn_Brandenburg = {
+		icon = GFX_decision_dec_GER_autobahn_brandenburg
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -3801,6 +3781,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Reichsautobahn_Hanover = {
+		icon = GFX_decision_dec_GER_autobahn_hanover
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -3834,6 +3815,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Reichsautobahn_Bavaria = {
+		icon = GFX_decision_dec_GER_autobahn_bavaria
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -3879,6 +3861,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Reichsautobahn_Rhineland = {
+		icon = GFX_decision_dec_GER_autobahn_rhineland
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -3924,6 +3907,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Reichsautobahn_Prussia = {
+		icon = GFX_decision_dec_GER_autobahn_prussia
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -3980,6 +3964,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_europas_palast = {
+		icon = GFX_decision_dec_GER_palace
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_building_palast_europas
@@ -4006,6 +3991,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_neobaroque_palast = {
+		icon = GFX_decision_dec_GER_palace
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_building_palast_europas
@@ -4028,6 +4014,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_neoromanesque_palast = {
+		icon = GFX_decision_dec_GER_palace
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_building_palast_europas
@@ -4050,6 +4037,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_bauhaus_palast = {
+		icon = GFX_decision_dec_GER_palace
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_building_palast_europas
@@ -4074,6 +4062,7 @@ GER_mitteleuropa_category = {
 	### Subregion Oststaats
 	
 	GER_bismarckian_paternalism_Oststaats = {
+		icon = GFX_decision_dec_GER_bismarck_paternalism
 		allowed = { original_tag = GER }
 		visible = {
 			has_completed_focus = GER_Bismarckian_Paternalism
@@ -4147,6 +4136,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_KWS_investments_Oststaats = {
+		icon = GFX_decision_dec_GER_wilhelm_society
 		allowed = { original_tag = GER }
 		visible = {
 			has_completed_focus = GER_Expand_the_Kaiser_Wilhelm_Society
@@ -4220,6 +4210,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_biagarnav_park = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -4327,6 +4318,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Commonwealth_Trail = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_European_Tourism_Flag
@@ -4446,6 +4438,7 @@ GER_mitteleuropa_category = {
 	## Baltics
 	
 	GER_shadow_baltics = {
+		icon = GFX_decision_dec_GER_shadow
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_shadow_spawned
@@ -4497,10 +4490,14 @@ GER_mitteleuropa_category = {
 				country_event = gerdom.3734
 			}
 			add_political_power = 50
+			effect_tooltip = {
+				BAT = { add_ideas = GER_Looming_Shadow_idea }
+			}
 		}
 	}
 	
 	GER_Berlin_Riga_Railway = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_BAT_Investments
@@ -4568,6 +4565,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Baltic_Palaces = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_BAT_Investments
@@ -4634,6 +4632,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Baltic_Settlements = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_BAT_Investments
@@ -4696,6 +4695,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Deutsche_Legion = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_BAT_Investments
@@ -4764,6 +4764,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Peipus_Pskov_Monitoring_Station = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -4772,6 +4773,7 @@ GER_mitteleuropa_category = {
 			}
 			BAT = {
 				is_in_faction_with = GER
+				owns_state = 13
 			}
 		}
 	
@@ -4829,6 +4831,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Baltic_Paradise_Island = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_European_Tourism_Flag
@@ -4900,6 +4903,7 @@ GER_mitteleuropa_category = {
 	## Belarus
 	
 	GER_shadow_belarus = {
+		icon = GFX_decision_dec_GER_shadow
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_shadow_spawned
@@ -4935,14 +4939,17 @@ GER_mitteleuropa_category = {
 				country_event = gerdom.3734
 			}
 			add_political_power = 50
+			effect_tooltip = {
+				WHR = { add_ideas = GER_Looming_Shadow_idea }
+			}
 		}
 	}
 	
 	## Lithuania
 	
 	GER_Kaunas_University = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
-		
 		visible = {
 			has_country_flag = GER_opening_kaunas
 			OR = {
@@ -4988,6 +4995,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_shadow_lithuania = {
+		icon = GFX_decision_dec_GER_shadow
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_shadow_spawned
@@ -5023,12 +5031,16 @@ GER_mitteleuropa_category = {
 				country_event = gerdom.3734
 			}
 			add_political_power = 50
+			effect_tooltip = {
+				LIT = { add_ideas = GER_Looming_Shadow_idea }
+			}
 		}
 	}
 	
 	## Poland
 	
 	GER_shadow_poland = {
+		icon = GFX_decision_dec_GER_shadow
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_shadow_spawned
@@ -5064,6 +5076,9 @@ GER_mitteleuropa_category = {
 				country_event = gerdom.3734
 			}
 			add_political_power = 50
+			effect_tooltip = {
+				POL = { add_ideas = GER_Looming_Shadow_idea }
+			}
 		}
 	}
 	
@@ -5072,6 +5087,7 @@ GER_mitteleuropa_category = {
 	## Ukraine
 	
 	GER_bismarckian_paternalism_Ukraine = {
+		icon = GFX_decision_dec_GER_bismarck_paternalism
 		allowed = { original_tag = GER }
 		visible = {
 			has_completed_focus = GER_Bismarckian_Paternalism
@@ -5140,6 +5156,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_KWS_investments_Ukraine = {
+		icon = GFX_decision_dec_GER_wilhelm_society
 		allowed = { original_tag = GER }
 		visible = {
 			has_completed_focus = GER_Expand_the_Kaiser_Wilhelm_Society
@@ -5208,6 +5225,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_shadow_ukraine = {
+		icon = GFX_decision_dec_GER_shadow
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_shadow_spawned
@@ -5243,10 +5261,14 @@ GER_mitteleuropa_category = {
 				country_event = gerdom.3734
 			}
 			add_political_power = 50
+			effect_tooltip = {
+				UKR = { add_ideas = GER_Looming_Shadow_idea }
+			}
 		}
 	}
 	
 	GER_black_sea_germans = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -5318,6 +5340,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_askania_nova = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -5394,6 +5417,7 @@ GER_mitteleuropa_category = {
 	### Subregion Russia
 	
 	GER_bismarckian_paternalism_Russia = {
+		icon = GFX_decision_dec_GER_bismarck_paternalism
 		allowed = { original_tag = GER }
 		visible = {
 			has_completed_focus = GER_Bismarckian_Paternalism
@@ -5462,6 +5486,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_KWS_investments_Russia = {
+		icon = GFX_decision_dec_GER_wilhelm_society
 		allowed = { original_tag = GER }
 		visible = {
 			has_completed_focus = GER_Expand_the_Kaiser_Wilhelm_Society
@@ -5530,6 +5555,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_White_Sea_Baltic_Canal = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -5602,6 +5628,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Oranienbaum = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -5655,6 +5682,7 @@ GER_mitteleuropa_category = {
 	### Subregion Caucasus
 	
 	GER_bismarckian_paternalism_Caucasia = {
+		icon = GFX_decision_dec_GER_bismarck_paternalism
 		allowed = { original_tag = GER }
 		visible = {
 			has_completed_focus = GER_Bismarckian_Paternalism
@@ -5723,6 +5751,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_KWS_investments_Caucasia = {
+		icon = GFX_decision_dec_GER_wilhelm_society
 		allowed = { original_tag = GER }
 		visible = {
 			has_completed_focus = GER_Expand_the_Kaiser_Wilhelm_Society
@@ -5791,6 +5820,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_caucasus_oil = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -5862,6 +5892,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_sochi_resort = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -5936,6 +5967,7 @@ GER_mitteleuropa_category = {
 	### Subregion Habsburgs
 	
 	GER_bismarckian_paternalism_Habsburgs = {
+		icon = GFX_decision_dec_GER_bismarck_paternalism
 		allowed = { original_tag = GER }
 		visible = {
 			has_completed_focus = GER_Bismarckian_Paternalism
@@ -6004,6 +6036,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_KWS_investments_Habsburgs = {
+		icon = GFX_decision_dec_GER_wilhelm_society
 		allowed = { original_tag = GER }
 		visible = {
 			has_completed_focus = GER_Expand_the_Kaiser_Wilhelm_Society
@@ -6072,6 +6105,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Zollverein_Decision = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -6126,6 +6160,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Kunsthistorisches_Museum = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -6180,6 +6215,7 @@ GER_mitteleuropa_category = {
 	### Subregion Balkans
 	
 	GER_bismarckian_paternalism_Balkans = {
+		icon = GFX_decision_dec_GER_bismarck_paternalism
 		allowed = { original_tag = GER }
 		visible = {
 			has_completed_focus = GER_Bismarckian_Paternalism
@@ -6248,6 +6284,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_KWS_investments_Balkans = {
+		icon = GFX_decision_dec_GER_wilhelm_society
 		allowed = { original_tag = GER }
 		visible = {
 			has_completed_focus = GER_Expand_the_Kaiser_Wilhelm_Society
@@ -6316,6 +6353,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Bulgarian_Factories = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -6374,6 +6412,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Nesebar = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -6438,6 +6477,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Romanian_Royals = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -6488,6 +6528,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Bran_Castle = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -6547,6 +6588,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Corinth_Canal = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -6608,6 +6650,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Corfu_Tourism = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -6673,6 +6716,7 @@ GER_mitteleuropa_category = {
 	### Subregion Anatolia
 	
 	GER_Anatolia_Strait_Defenses = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -6713,10 +6757,24 @@ GER_mitteleuropa_category = {
 			}
 		}
 		remove_effect = {
-			1225 = {
+			341 = {
 				add_building_construction = {
 					type = bunker
-					level = 3
+					level = 1
+					instant_build = yes
+					province = 849
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 2
+					instant_build = yes
+					province = 9887
+				}
+			}
+			340 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
 					instant_build = yes
 					province = 9887
 				}
@@ -6724,7 +6782,13 @@ GER_mitteleuropa_category = {
 					type = coastal_bunker
 					level = 2
 					instant_build = yes
-					province = { all_provinces = yes }
+					province = 9887
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 2
+					instant_build = yes
+					province = 6864
 				}
 			}
 			add_to_variable = {
@@ -6736,6 +6800,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Derinkuyu_Tourism = {
+		icon = GFX_decision_decision_globe_europe
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -6800,6 +6865,7 @@ GER_mitteleuropa_category = {
 	### Subregion Abyssinia
 	
 	GER_Addis_Adaba_Expansion = {
+		icon = GFX_decision_decision_globe_africa
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -6858,6 +6924,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Lalibela_Tourism = {
+		icon = GFX_decision_decision_globe_africa
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -6917,6 +6984,7 @@ GER_mitteleuropa_category = {
 	### Subregion South Africa
 	
 	GER_Boer_Culture_Project = {
+		icon = GFX_decision_decision_globe_africa
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -6967,6 +7035,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Franschhoek = {
+		icon = GFX_decision_decision_globe_africa
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -7023,6 +7092,7 @@ GER_mitteleuropa_category = {
 	### Subregion Near East
 	
 	GER_Modernized_Caravans = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -7082,6 +7152,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Jerusalem_Tourism = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -7153,7 +7224,16 @@ GER_mitteleuropa_category = {
 	
 	## Mittelafrika
 	
+	GER_mitteleuropa_mittelafrika_collapse_decision = {
+		icon = GFX_decision_dec_GER_save_maf
+		allowed = { original_tag = GER }
+		available = {
+			hidden_trigger = { has_country_flag = GER_blank_flag }
+		}
+	}
+	
 	GER_shadow_mittelafrika = {
+		icon = GFX_decision_dec_GER_shadow
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_shadow_spawned
@@ -7185,16 +7265,59 @@ GER_mitteleuropa_category = {
 		}
 		remove_effect = {
 			#country_event = gerdom.3734
-			custom_effect_tooltip = MAF_decrease_collapse_1_tt
 			MAF = {
 				country_event = gerdom.3734
-				subtract_from_variable = { MAF_collapse_var = 1 }
 			}
 			add_political_power = 50
+			effect_tooltip = {
+				MAF = { add_ideas = GER_Looming_Shadow_idea }
+			}
 		}
 	}
 	
+	#GER_Aid_Mittelafrikan_Regime = {
+	#	icon = GFX_decision_dec_GER_save_maf
+	#	allowed = { original_tag = GER }
+	#	visible = {
+	#		OR = {
+	#			has_country_flag = GER_Mitteleuropa_OpenSubregion_Mittelafrika
+	#			is_ai = yes
+	#		}
+	#		MAF = {
+	#			is_in_faction_with = GER
+	#		}
+	#	}
+	#	
+	#	available = {
+	#		num_of_civilian_factories_available_for_projects > 1
+	#	}
+	#
+	#	cost = 35
+	#	days_remove = 30
+	#	modifier = {
+	#		civilian_factory_use = 2
+	#	}
+	#	ai_will_do = {
+	#		factor = 65
+	#	}
+	#	cancel_trigger = {
+	#		MAF = {
+	#			OR = {
+	#				NOT = { is_in_faction_with = GER }
+	#				exists = no
+	#			}
+	#		}
+	#	}
+	#	remove_effect = {
+	#		custom_effect_tooltip = MAF_decrease_collapse_1_tt
+	#		MAF = {
+	#			subtract_from_variable = { MAF_collapse_var = 1 }
+	#		}
+	#	}
+	#}
+	
 	GER_Luderitz_Diamond_Mines = {
+		icon = GFX_decision_decision_globe_africa
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_MAF_Investments1
@@ -7259,14 +7382,12 @@ GER_mitteleuropa_category = {
 				tooltip = increase_investment_var_tt
 			}
 			add_to_variable = { MAF_Investment_Level = 1 }
-			custom_effect_tooltip = MAF_decrease_collapse_1_tt
-			MAF = {
-				subtract_from_variable = { MAF_collapse_var = 1 }
-			}
+			custom_effect_tooltip = GER_mitteleuropa_mittelafrika_collapse_lower_tt
 		}
 	}
 	
 	GER_expand_windhoek = {
+		icon = GFX_decision_decision_globe_africa
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_MAF_Investments1
@@ -7350,14 +7471,12 @@ GER_mitteleuropa_category = {
 				}
 			}
 			add_to_variable = { MAF_Investment_Level = 1 }
-			custom_effect_tooltip = MAF_decrease_collapse_1_tt
-			MAF = {
-				subtract_from_variable = { MAF_collapse_var = 1 }
-			}
+			custom_effect_tooltip = GER_mitteleuropa_mittelafrika_collapse_lower_tt
 		}
 	}
 	
 	GER_Afri_Cola_MAF = {
+		icon = GFX_decision_decision_globe_africa
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_MAF_Investments1
@@ -7416,14 +7535,12 @@ GER_mitteleuropa_category = {
 				tooltip = increase_investment_var_tt
 			}
 			add_to_variable = { MAF_Investment_Level = 1 }
-			custom_effect_tooltip = MAF_decrease_collapse_1_tt
-			MAF = {
-				subtract_from_variable = { MAF_collapse_var = 1 }
-			}
+			custom_effect_tooltip = GER_mitteleuropa_mittelafrika_collapse_lower_tt
 		}
 	}
 	
 	GER_Colonial_Youth_Department = {
+		icon = GFX_decision_decision_globe_africa
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_MAF_Investments1
@@ -7479,14 +7596,12 @@ GER_mitteleuropa_category = {
 				tooltip = increase_investment_var_tt
 			}
 			add_to_variable = { MAF_Investment_Level = 1 }
-			custom_effect_tooltip = MAF_decrease_collapse_1_tt
-			MAF = {
-				subtract_from_variable = { MAF_collapse_var = 1 }
-			}
+			custom_effect_tooltip = GER_mitteleuropa_mittelafrika_collapse_lower_tt
 		}
 	}
 	
 	GER_Afrikabahn = {
+		icon = GFX_decision_decision_globe_africa
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_MAF_Investments2
@@ -7575,14 +7690,12 @@ GER_mitteleuropa_category = {
 				tooltip = increase_investment_var_tt
 			}
 			add_to_variable = { MAF_Investment_Level = 1 }
-			custom_effect_tooltip = MAF_decrease_collapse_1_tt
-			MAF = {
-				subtract_from_variable = { MAF_collapse_var = 1 }
-			}
+			custom_effect_tooltip = GER_mitteleuropa_mittelafrika_collapse_lower_tt
 		}
 	}
 	
 	GER_Tanzania_Gold = {
+		icon = GFX_decision_decision_globe_africa
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_MAF_Investments2
@@ -7652,14 +7765,12 @@ GER_mitteleuropa_category = {
 				tooltip = increase_investment_var_tt
 			}
 			add_to_variable = { MAF_Investment_Level = 1 }
-			custom_effect_tooltip = MAF_decrease_collapse_1_tt
-			MAF = {
-				subtract_from_variable = { MAF_collapse_var = 1 }
-			}
+			custom_effect_tooltip = GER_mitteleuropa_mittelafrika_collapse_lower_tt
 		}
 	}
 	
 	GER_Dar_es_Salaam_Ports = {
+		icon = GFX_decision_decision_globe_africa
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_MAF_Investments2
@@ -7725,14 +7836,12 @@ GER_mitteleuropa_category = {
 				tooltip = increase_investment_var_tt
 			}
 			add_to_variable = { MAF_Investment_Level = 1 }
-			custom_effect_tooltip = MAF_decrease_collapse_1_tt
-			MAF = {
-				subtract_from_variable = { MAF_collapse_var = 1 }
-			}
+			custom_effect_tooltip = GER_mitteleuropa_mittelafrika_collapse_lower_tt
 		}
 	}
 	
 	GER_Plantation_Reform = {
+		icon = GFX_decision_decision_globe_africa
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_MAF_Investments2
@@ -7807,14 +7916,12 @@ GER_mitteleuropa_category = {
 				tooltip = increase_investment_var_tt
 			}
 			add_to_variable = { MAF_Investment_Level = 1 }
-			custom_effect_tooltip = MAF_decrease_collapse_1_tt
-			MAF = {
-				subtract_from_variable = { MAF_collapse_var = 1 }
-			}
+			custom_effect_tooltip = GER_mitteleuropa_mittelafrika_collapse_lower_tt
 		}
 	}
 	
 	GER_Askari_Recruitment_Drive = {
+		icon = GFX_decision_decision_globe_africa
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -7871,14 +7978,11 @@ GER_mitteleuropa_category = {
 				value = 1
 				tooltip = increase_investment_var_tt
 			}
-			custom_effect_tooltip = MAF_decrease_collapse_1_tt
-			MAF = {
-				subtract_from_variable = { MAF_collapse_var = 1 }
-			}
 		}
 	}
 	
 	GER_United_Africa_Mines = {
+		icon = GFX_decision_decision_globe_africa
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -7932,14 +8036,11 @@ GER_mitteleuropa_category = {
 				value = 1
 				tooltip = increase_investment_var_tt
 			}
-			custom_effect_tooltip = MAF_decrease_collapse_1_tt
-			MAF = {
-				subtract_from_variable = { MAF_collapse_var = 1 }
-			}
 		}
 	}
 	
 	GER_Zanzibar_Tourism = {
+		icon = GFX_decision_decision_globe_africa
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -7997,14 +8098,11 @@ GER_mitteleuropa_category = {
 				value = 1
 				tooltip = increase_investment_var_tt
 			}
-			custom_effect_tooltip = MAF_decrease_collapse_1_tt
-			MAF = {
-				subtract_from_variable = { MAF_collapse_var = 1 }
-			}
 		}
 	}
 	
 	GER_Mittelafrika_Safari = {
+		icon = GFX_decision_decision_globe_africa
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -8054,16 +8152,13 @@ GER_mitteleuropa_category = {
 				value = 1
 				tooltip = increase_investment_var_tt
 			}
-			custom_effect_tooltip = MAF_decrease_collapse_1_tt
-			MAF = {
-				subtract_from_variable = { MAF_collapse_var = 1 }
-			}
 		}
 	}
 	
 	### Subregion Morocco
 	
 	GER_Morocco_Phosphate_Mines = {
+		icon = GFX_decision_decision_globe_africa
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -8129,6 +8224,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Fez_Tourism = {
+		icon = GFX_decision_decision_globe_africa
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -8189,6 +8285,7 @@ GER_mitteleuropa_category = {
 	### Subregion Egypt
 	
 	GER_Aswan_Low_Dam = {
+		icon = GFX_decision_decision_globe_africa
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -8253,6 +8350,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Egyptian_Zeppelin_Tours = {
+		icon = GFX_decision_decision_globe_africa
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -8319,6 +8417,7 @@ GER_mitteleuropa_category = {
 	### Subregion Australia
 	
 	GER_Dingo_Control = {
+		icon = GFX_decision_decision_globe_australia
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -8390,6 +8489,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Great_Barrier_Reef = {
+		icon = GFX_decision_decision_globe_australia
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -8450,6 +8550,7 @@ GER_mitteleuropa_category = {
 	## German East Asia
 	
 	GER_shadow_ostasia = {
+		icon = GFX_decision_dec_GER_shadow
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_shadow_spawned
@@ -8483,13 +8584,72 @@ GER_mitteleuropa_category = {
 			#country_event = gerdom.3734
 			GEA = {
 				country_event = gerdom.3734
-				add_to_variable = { GEA_Indochinese_Anger = -1 }
+				custom_effect_tooltip = GEA_decrease_uprising_by_1
+				modify_country_flag = {
+					flag = GEA_Indochinese_Anger
+					value = -1
+				}
 			}
 			add_political_power = 50
+			effect_tooltip = {
+				GEA = { add_ideas = GER_Looming_Shadow_idea }
+			}
+		}
+	}
+	
+	GER_Aid_Ostasien_Regime = {
+		icon = GFX_decision_decision_globe_asia
+		allowed = { original_tag = GER }
+		visible = {
+			OR = {
+				has_country_flag = GER_Mitteleuropa_OpenSubregion_Ostasia
+				is_ai = yes
+			}
+			GEA = {
+				is_in_faction_with = GER
+				has_country_flag = GEA_uprising_start_flag
+				NOT = {
+					has_country_flag = GEA_Indochina_Uprising_got_cancelled
+					has_country_flag = GEA_Defeated_Uprising
+					has_country_flag = GEA_Lost_Uprising
+				}
+			}
+		}
+		
+		available = {
+			num_of_civilian_factories_available_for_projects > 1
+		}
+	
+		cost = 35
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 2
+		}
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 65
+		}
+		cancel_trigger = {
+			GEA = {
+				OR = {
+					GER_is_in_mitteleuropa = no
+					exists = no
+				}
+			}
+		}
+		remove_effect = {
+			custom_effect_tooltip = GEA_decrease_uprising_by_1
+			GEA = {
+				modify_country_flag = {
+					flag = GEA_Indochinese_Anger
+					value = -1
+				}
+			}
 		}
 	}
 	
 	GER_Pearl_Diving = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_GEA_Investments1
@@ -8543,11 +8703,18 @@ GER_mitteleuropa_category = {
 				tooltip = increase_investment_var_tt
 			}
 			add_to_variable = { GEA_Investment_Level = 1 }
-			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+			custom_effect_tooltip = GEA_decrease_uprising_by_1
+			GEA = {
+				modify_country_flag = {
+					flag = GEA_Indochinese_Anger
+					value = -1
+				}
+			}
 		}
 	}
 	
 	GER_modernize_aog_offices = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_GEA_Investments1
@@ -8612,11 +8779,18 @@ GER_mitteleuropa_category = {
 				}
 			}
 			add_to_variable = { GEA_Investment_Level = 1 }
-			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+			custom_effect_tooltip = GEA_decrease_uprising_by_1
+			GEA = {
+				modify_country_flag = {
+					flag = GEA_Indochinese_Anger
+					value = -1
+				}
+			}
 		}
 	}
 	
 	GER_Indochina_Deforestation = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_GEA_Investments1
@@ -8626,6 +8800,7 @@ GER_mitteleuropa_category = {
 			}
 			GEA = {
 				is_in_faction_with = GER
+				NOT = { has_country_flag = GEA_Lost_Uprising }
 			}
 		}
 		
@@ -8682,11 +8857,18 @@ GER_mitteleuropa_category = {
 				tooltip = increase_investment_var_tt
 			}
 			add_to_variable = { GEA_Investment_Level = 1 }
-			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+			custom_effect_tooltip = GEA_decrease_uprising_by_1
+			GEA = {
+				modify_country_flag = {
+					flag = GEA_Indochinese_Anger
+					value = -1
+				}
+			}
 		}
 	}
 	
 	GER_Ferry_Systems = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_GEA_Investments1
@@ -8772,11 +8954,18 @@ GER_mitteleuropa_category = {
 				tooltip = increase_investment_var_tt
 			}
 			add_to_variable = { GEA_Investment_Level = 1 }
-			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+			custom_effect_tooltip = GEA_decrease_uprising_by_1
+			GEA = {
+				modify_country_flag = {
+					flag = GEA_Indochinese_Anger
+					value = -1
+				}
+			}
 		}
 	}
 	
 	GER_Ostasienmark = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_GEA_Investments2
@@ -8828,11 +9017,18 @@ GER_mitteleuropa_category = {
 				tooltip = increase_investment_var_tt
 			}
 			add_to_variable = { GEA_Investment_Level = 1 }
-			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+			custom_effect_tooltip = GEA_decrease_uprising_by_1
+			GEA = {
+				modify_country_flag = {
+					flag = GEA_Indochinese_Anger
+					value = -1
+				}
+			}
 		}
 	}
 	
 	GER_Fortress_Islands = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_GEA_Investments2
@@ -8942,11 +9138,18 @@ GER_mitteleuropa_category = {
 				tooltip = increase_investment_var_tt
 			}
 			add_to_variable = { GEA_Investment_Level = 1 }
-			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+			custom_effect_tooltip = GEA_decrease_uprising_by_1
+			GEA = {
+				modify_country_flag = {
+					flag = GEA_Indochinese_Anger
+					value = -1
+				}
+			}
 		}
 	}
 	
 	GER_Rubber_GEA = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_GEA_Investments2
@@ -9010,11 +9213,18 @@ GER_mitteleuropa_category = {
 				tooltip = increase_investment_var_tt
 			}
 			add_to_variable = { GEA_Investment_Level = 1 }
-			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+			custom_effect_tooltip = GEA_decrease_uprising_by_1
+			GEA = {
+				modify_country_flag = {
+					flag = GEA_Indochinese_Anger
+					value = -1
+				}
+			}
 		}
 	}
 	
 	GER_Germanize_Civil_Service_GEA = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_GEA_Investments2
@@ -9068,11 +9278,18 @@ GER_mitteleuropa_category = {
 				tooltip = increase_investment_var_tt
 			}
 			add_to_variable = { GEA_Investment_Level = 1 }
-			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+			custom_effect_tooltip = GEA_decrease_uprising_by_1
+			GEA = {
+				modify_country_flag = {
+					flag = GEA_Indochinese_Anger
+					value = -1
+				}
+			}
 		}
 	}
 	
 	GER_Retrofit_GEA_Navy = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -9157,11 +9374,18 @@ GER_mitteleuropa_category = {
 				value = 1
 				tooltip = increase_investment_var_tt
 			}
-			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+			custom_effect_tooltip = GEA_decrease_uprising_by_1
+			GEA = {
+				modify_country_flag = {
+					flag = GEA_Indochinese_Anger
+					value = -1
+				}
+			}
 		}
 	}
 	
 	GER_Malay_Stahlstadt = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -9227,11 +9451,18 @@ GER_mitteleuropa_category = {
 				value = 1
 				tooltip = increase_investment_var_tt
 			}
-			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+			custom_effect_tooltip = GEA_decrease_uprising_by_1
+			GEA = {
+				modify_country_flag = {
+					flag = GEA_Indochinese_Anger
+					value = -1
+				}
+			}
 		}
 	}
 	
 	GER_Ha_Long_Bay = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -9239,7 +9470,7 @@ GER_mitteleuropa_category = {
 				is_ai = yes
 			}
 			has_country_flag = GER_Colonial_Tourism_Flag
-			GEA = { GER_is_in_mitteleuropa = yes }
+			GEA = { GER_is_in_mitteleuropa = yes NOT = { has_country_flag = GEA_Lost_Uprising } }
 		}
 		
 		available = {
@@ -9289,11 +9520,18 @@ GER_mitteleuropa_category = {
 				value = 1
 				tooltip = increase_investment_var_tt
 			}
-			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+			custom_effect_tooltip = GEA_decrease_uprising_by_1
+			GEA = {
+				modify_country_flag = {
+					flag = GEA_Indochinese_Anger
+					value = -1
+				}
+			}
 		}
 	}
 	
 	GER_Malacca_City = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -9349,11 +9587,18 @@ GER_mitteleuropa_category = {
 				value = 1
 				tooltip = increase_investment_var_tt
 			}
-			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
+			custom_effect_tooltip = GEA_decrease_uprising_by_1
+			GEA = {
+				modify_country_flag = {
+					flag = GEA_Indochinese_Anger
+					value = -1
+				}
+			}
 		}
 	}
 	
 	GER_Indonesian_Spices = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -9401,11 +9646,11 @@ GER_mitteleuropa_category = {
 				value = 1
 				tooltip = increase_investment_var_tt
 			}
-			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
 		}
 	}
 	
 	GER_Bali_Tourism = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -9468,13 +9713,13 @@ GER_mitteleuropa_category = {
 				value = 1
 				tooltip = increase_investment_var_tt
 			}
-			GEA = { add_to_variable = { GEA_Indochinese_Anger = -1 } }
 		}
 	}
 	
 	### Subregion Persia
 	
 	GER_Zoroaster = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -9526,6 +9771,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Tabriz_Bazaar = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -9582,6 +9828,7 @@ GER_mitteleuropa_category = {
 	### Subregion Central Asia
 	
 	GER_Modern_Silk_Road = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -9684,6 +9931,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Aral_Sea_Sailing = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -9756,6 +10004,7 @@ GER_mitteleuropa_category = {
 	### Subregion Japan
 	
 	GER_Meissen_Porcelain = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -9822,6 +10071,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Japanese_Tourism = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -9885,6 +10135,7 @@ GER_mitteleuropa_category = {
 	## China
 	
 	GER_Rural_Connection_China = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_AOG_Investments
@@ -9965,6 +10216,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_German_Asian_Bank = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_AOG_Investments
@@ -10019,6 +10271,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Confucian_Renaissance = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_AOG_Investments
@@ -10079,6 +10332,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_New_East_Asia_Squadron = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			has_country_flag = GER_AOG_Investments
@@ -10155,6 +10409,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Chinese_Opium = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -10200,6 +10455,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Forbidden_City = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -10268,6 +10524,7 @@ GER_mitteleuropa_category = {
 	### Subregion South Asia
 	
 	GER_Ceylon_Connections = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -10353,6 +10610,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Nepal_Balloons = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -10423,6 +10681,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Mangrove_Logging = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -10485,6 +10744,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Rangoon_Safari = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -10537,6 +10797,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Afghan_Military_Modernization = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -10602,6 +10863,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Qargha_Dam = {
+		icon = GFX_decision_decision_globe_asia
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -10663,6 +10925,7 @@ GER_mitteleuropa_category = {
 	### Subregion Brazil
 	
 	GER_German_Brazilians = {
+		icon = GFX_decision_decision_globe_south_america
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -10726,6 +10989,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Brazilian_Carnival = {
+		icon = GFX_decision_decision_globe_south_america
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -10794,6 +11058,7 @@ GER_mitteleuropa_category = {
 	### Subregion La Plata
 	
 	GER_Argentinean_Farms = {
+		icon = GFX_decision_decision_globe_south_america
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -10854,6 +11119,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_Perito_Moreno = {
+		icon = GFX_decision_decision_globe_south_america
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -10914,6 +11180,7 @@ GER_mitteleuropa_category = {
 	### Subregion Central America
 	
 	GER_ZKG_Investments = {
+		icon = GFX_decision_decision_globe_north_america
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -10983,6 +11250,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_German_Clubs_Costa_Rica = {
+		icon = GFX_decision_decision_globe_north_america
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -11053,6 +11321,7 @@ GER_mitteleuropa_category = {
 	### Subregion USA
 	
 	GER_Sons_of_Hermann = {
+		icon = GFX_decision_decision_globe_north_america
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -11124,6 +11393,7 @@ GER_mitteleuropa_category = {
 	}
 	
 	GER_American_Prison_Tourism = {
+		icon = GFX_decision_decision_globe_north_america
 		allowed = { original_tag = GER }
 		visible = {
 			OR = {
@@ -11374,54 +11644,10 @@ french_occupation_decisions = {
 	}
 }
 
-GER_black_monday_category = {
-
-	GER_factories_for_colonies_full = {
-		icon = generic_construction
-		allowed = {
-			always = no #manually activated
-		}
-
-		days_remove = 365
-		fire_only_once = yes
-
-		modifier = {
-			civilian_factory_use = 8
-		}
-	}
-
-	GER_factories_for_colonies_partly = {
-		icon = generic_construction
-		allowed = {
-			always = no #manually activated
-		}
-
-		days_remove = 260
-		fire_only_once = yes
-
-		modifier = {
-			civilian_factory_use = 5
-		}
-	}
-
-	GER_agricultural_help = {
-		icon = generic_political_discourse
-		allowed = {
-			always = no #manually activated
-		}
-
-		days_remove = 105
-		fire_only_once = yes
-
-		modifier = {
-			stability_weekly = -0.02
-		}
-	}
-}
-
 GER_kaiserwaffe_category = {
 
 	GER_kaiserwaffe_arminius_landcruiser_breakthrough = {
+		icon = GFX_decision_dec_GER_arminius
 		visible = {
 			OR = {
 				has_country_flag = ARMINIUS_OPEN
@@ -11454,6 +11680,7 @@ GER_kaiserwaffe_category = {
 	}
 	
 	GER_kaiserwaffe_arminius_landcruiser = {
+		icon = GFX_decision_dec_GER_arminius
 		visible = {
 			OR = {
 				has_country_flag = ARMINIUS_OPEN
@@ -11503,6 +11730,7 @@ GER_kaiserwaffe_category = {
 	}
 	
 	GER_kaiserwaffe_arminius_large_caliber_guns_breakthrough = {
+		icon = GFX_decision_dec_GER_arminius
 		visible = {
 			OR = {
 				has_country_flag = ARMINIUS_OPEN
@@ -11535,6 +11763,7 @@ GER_kaiserwaffe_category = {
 	}
 	
 	GER_kaiserwaffe_arminius_large_caliber_guns = {
+		icon = GFX_decision_dec_GER_arminius
 		visible = {
 			OR = {
 				has_country_flag = ARMINIUS_OPEN
@@ -11576,6 +11805,7 @@ GER_kaiserwaffe_category = {
 	}
 	
 	GER_kaiserwaffe_arminius_night_vision = {
+		icon = GFX_decision_dec_GER_arminius
 		visible = {
 			OR = {
 				has_country_flag = ARMINIUS_OPEN
@@ -11614,6 +11844,7 @@ GER_kaiserwaffe_category = {
 	## Do ATGMs at some point.
 	
 	GER_kaiserwaffe_hohenstaufen_supercarrier_breakthrough = {
+		icon = GFX_decision_dec_GER_hohenstaufen
 		visible = {
 			OR = {
 				has_country_flag = HOHENSTAUFEN_OPEN
@@ -11647,6 +11878,7 @@ GER_kaiserwaffe_category = {
 	}
 	
 	GER_kaiserwaffe_hohenstaufen_supercarrier = {
+		icon = GFX_decision_dec_GER_hohenstaufen
 		visible = {
 			OR = {
 				has_country_flag = HOHENSTAUFEN_OPEN
@@ -11738,6 +11970,7 @@ GER_kaiserwaffe_category = {
 	}
 	
 	GER_kaiserwaffe_hohenstaufen_nuclear_submarine_breakthrough = {
+		icon = GFX_decision_dec_GER_hohenstaufen
 		visible = {
 			OR = {
 				has_country_flag = HOHENSTAUFEN_OPEN
@@ -11771,6 +12004,7 @@ GER_kaiserwaffe_category = {
 	}
 	
 	GER_kaiserwaffe_hohenstaufen_nuclear_submarine = {
+		icon = GFX_decision_dec_GER_hohenstaufen
 		visible = {
 			OR = {
 				has_country_flag = HOHENSTAUFEN_OPEN
@@ -11869,6 +12103,7 @@ GER_kaiserwaffe_category = {
 	}
 	
 	GER_kaiserwaffe_hohenstaufen_h_class = {
+		icon = GFX_decision_dec_GER_hohenstaufen
 		visible = {
 			OR = {
 				has_country_flag = HOHENSTAUFEN_OPEN
@@ -11940,6 +12175,7 @@ GER_kaiserwaffe_category = {
 	}
 	
 	GER_kaiserwaffe_brunhilde_zeppelin = {
+		icon = GFX_decision_dec_GER_brunhilde
 		visible = {
 			OR = {
 				has_country_flag = BRUNHILDE_OPEN
@@ -11968,6 +12204,7 @@ GER_kaiserwaffe_category = {
 	}
 	
 	GER_kaiserwaffe_brunhilde_jets_breakthrough = {
+		icon = GFX_decision_dec_GER_brunhilde
 		visible = {
 			OR = {
 				has_country_flag = BRUNHILDE_OPEN
@@ -11999,6 +12236,7 @@ GER_kaiserwaffe_category = {
 	}
 	
 	GER_kaiserwaffe_brunhilde_jets = {
+		icon = GFX_decision_dec_GER_brunhilde
 		visible = {
 			OR = {
 				has_country_flag = BRUNHILDE_OPEN
@@ -12035,6 +12273,7 @@ GER_kaiserwaffe_category = {
 	}
 	
 	GER_kaiserwaffe_brunhilde_flying_wing_breakthrough = {
+		icon = GFX_decision_dec_GER_brunhilde
 		visible = {
 			OR = {
 				has_country_flag = BRUNHILDE_OPEN
@@ -12066,6 +12305,7 @@ GER_kaiserwaffe_category = {
 	}
 	
 	GER_kaiserwaffe_brunhilde_flying_wing = {
+		icon = GFX_decision_dec_GER_brunhilde
 		visible = {
 			OR = {
 				has_country_flag = BRUNHILDE_OPEN
@@ -12102,6 +12342,7 @@ GER_kaiserwaffe_category = {
 	}
 	
 	GER_kaiserwaffe_brunhilde_air_missiles = {
+		icon = GFX_decision_dec_GER_brunhilde
 		visible = {
 			OR = {
 				has_country_flag = BRUNHILDE_OPEN
@@ -12143,6 +12384,7 @@ GER_kaiserwaffe_category = {
 	}
 	
 	GER_kaiserwaffe_gotterdammerung_atom_bombs = {
+		icon = GFX_decision_dec_GER_gotterdammerung
 		visible = {
 			OR = {
 				has_country_flag = GOTTERDAMMERUNG_OPEN
@@ -12168,6 +12410,7 @@ GER_kaiserwaffe_category = {
 	}
 	
 	GER_kaiserwaffe_gotterdammerung_chemical_weapons = {
+		icon = GFX_decision_dec_GER_gotterdammerung
 		visible = {
 			OR = {
 				has_country_flag = GOTTERDAMMERUNG_OPEN
@@ -12189,6 +12432,7 @@ GER_kaiserwaffe_category = {
 	}
 	
 	GER_kaiserwaffe_gotterdammerung_nuclear_reactor = {
+		icon = GFX_decision_dec_GER_gotterdammerung
 		visible = {
 			OR = {
 				has_country_flag = GOTTERDAMMERUNG_OPEN
@@ -12220,6 +12464,7 @@ GER_kaiserwaffe_category = {
 GER_helgoland_category = {
 
 	GER_helgoland_land_reclamation_1 = {
+		icon = GFX_decision_dec_GER_lobster_claw
 		visible = {
 			has_completed_focus = GER_Helgoland_Scheme
 		}
@@ -12251,6 +12496,7 @@ GER_helgoland_category = {
 	}
 	
 	GER_helgoland_land_reclamation_2 = {
+		icon = GFX_decision_dec_GER_crab
 		visible = {
 			has_completed_focus = GER_Helgoland_Scheme
 		}
@@ -12275,6 +12521,7 @@ GER_helgoland_category = {
 	}
 	
 	GER_helgoland_luxury_casino_hotel = {
+		icon = GFX_decision_dec_GER_cards
 		visible = {
 			has_completed_focus = GER_Helgoland_Scheme
 		}
@@ -12306,6 +12553,7 @@ GER_helgoland_category = {
 	}
 	
 	GER_helgoland_opera_house = {
+		icon = GFX_decision_dec_GER_rudersdorff
 		visible = {
 			has_completed_focus = GER_Helgoland_Scheme
 		}
@@ -12337,6 +12585,7 @@ GER_helgoland_category = {
 	}
 	
 	GER_helgoland_mock_naval_battle = {
+		icon = GFX_decision_dec_GER_old_ships
 		visible = {
 			has_completed_focus = GER_Helgoland_Scheme
 		}
@@ -12371,6 +12620,7 @@ GER_helgoland_category = {
 	}
 	
 	GER_helgoland_shopping_center = {
+		icon = GFX_decision_dec_GER_shopping
 		visible = {
 			has_completed_focus = GER_Helgoland_Scheme
 		}
@@ -12403,6 +12653,7 @@ GER_helgoland_category = {
 	}
 	
 	GER_helgoland_grand_prix = {
+		icon = GFX_decision_dec_GER_helgoland
 		visible = {
 			has_completed_focus = GER_Helgoland_Scheme
 		}
@@ -12434,6 +12685,7 @@ GER_helgoland_category = {
 	}
 	
 	GER_helgoland_football_stadium = {
+		icon = GFX_decision_dec_GER_tsv_helgoland
 		visible = {
 			has_completed_focus = GER_Helgoland_Scheme
 		}
@@ -12509,7 +12761,7 @@ operations = {
 	#}
 	
 	GER_desperate_struggle_dec1 = {
-		icon = generic_ignite_civil_war
+		icon = GFX_decision_dec_GER_struggle
 		
 		allowed = { tag = GER }
 		
@@ -12520,7 +12772,7 @@ operations = {
 				has_war_with = RUS
 			}
 			has_capitulated = no
-			surrender_progress < 0.50
+			surrender_progress < 0.40
 			has_idea = GER_Desperate_Struggle3_idea
 			NOT = { has_idea = GER_Desperate_Struggle2_idea }
 			has_country_flag = GER_Desperate_Struggle_Flag
@@ -12532,7 +12784,7 @@ operations = {
 		
 		cancel_trigger = {
 			OR = {
-				surrender_progress > 0.50
+				surrender_progress > 0.40
 				NOT = {
 					has_war_with = FRA
 					has_war_with = ENG
@@ -12553,7 +12805,7 @@ operations = {
 	}
 	
 	GER_desperate_struggle_dec2 = {
-		icon = generic_ignite_civil_war
+		icon = GFX_decision_dec_GER_struggle
 		
 		allowed = { tag = GER }
 		
@@ -12564,7 +12816,7 @@ operations = {
 				has_war_with = RUS
 			}
 			has_capitulated = no
-			surrender_progress < 0.30
+			surrender_progress < 0.20
 			has_idea = GER_Desperate_Struggle2_idea
 			NOT = { has_idea = GER_Desperate_Struggle1_idea }
 			has_country_flag = GER_Desperate_Struggle_Flag
@@ -12576,7 +12828,7 @@ operations = {
 		
 		cancel_trigger = {
 			OR = {
-				surrender_progress > 0.30
+				surrender_progress > 0.20
 				NOT = {
 					has_war_with = FRA
 					has_war_with = ENG
@@ -12597,7 +12849,7 @@ operations = {
 	}
 	
 	GER_desperate_struggle_dec3 = {
-		icon = generic_ignite_civil_war
+		icon = GFX_decision_dec_GER_struggle
 		
 		allowed = { tag = GER }
 		

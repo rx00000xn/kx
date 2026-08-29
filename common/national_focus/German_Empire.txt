@@ -66,7 +66,7 @@ focus_tree = {
 			}
 			modifier = {
 				factor = 0
-				NOT = { has_completed_focus = GER_Die_Signature }
+				GER_has_down_time_for_focuses = yes
 			}
 		}
 		
@@ -98,6 +98,10 @@ focus_tree = {
 					is_ai = no
 				}
 			}
+			modifier = {
+				factor = 0
+				NOT = { has_completed_focus = GER_Die_Signature }
+			}
 		}
 		
 		completion_reward = {
@@ -128,6 +132,10 @@ focus_tree = {
 					GER_is_in_mitteleuropa = yes
 					is_ai = no
 				}
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_completed_focus = GER_Die_Signature }
 			}
 		}
 		
@@ -442,10 +450,10 @@ focus_tree = {
 		
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Resolve_Electoral_Uncertainty"
+			custom_effect_tooltip = GER_Remove_Powder_Keg
 			country_event = gerdom.1002
 			add_dynamic_modifier = { modifier = GER_electoral_reform_modifier }
 			add_political_power = 20
-			add_stability = 0.03
 		}
 		
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
@@ -598,9 +606,9 @@ focus_tree = {
 		cost = 1
 		
 		ai_will_do = {
-			factor = 0
+			base = 0
 			modifier = {
-				factor = 120
+				add = 120
 				has_government = social_liberal
 			}
 		}
@@ -900,7 +908,6 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Efficient_Elections"
 			add_political_power = 35
-			add_stability = 0.03
 		}
 		
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
@@ -960,8 +967,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Black_Monday_Strikes"
-			add_stability = -0.05
-			add_political_power = -50
+			custom_effect_tooltip = unlock_focuses
 		}
 		
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -985,7 +991,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Kaiserliche_Domane"
 			country_event = gerdom.268
-			add_stability = 0.03
+			add_stability = 0.02
 		}
 		
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
@@ -1009,7 +1015,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Katzenkopf_for_Every_Home"
 			country_event = gerdom.269
-			add_stability = 0.10
+			add_stability = 0.08
 			add_war_support = 0.05
 			add_political_power = 50
 		}
@@ -1037,8 +1043,8 @@ focus_tree = {
 			add_ideas = GER_bank_controls
 			add_to_variable = {
 				var = GER.GER_mitteleuropa_strength_var
-				value = 3
-				tooltip = add_3_to_mitteleuropastrength_tt
+				value = 2
+				tooltip = add_2_to_mitteleuropastrength_tt
 			}
 			hidden_effect = {
 				GER_recalculate_mitteleuropa_effects = yes
@@ -1165,14 +1171,6 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Bright_Opportunities_in_Dark_Times"
 			country_event = gerdom.270
-			add_to_variable = {
-				var = GER.GER_mitteleuropa_strength_var
-				value = 2
-				tooltip = add_2_to_mitteleuropastrength_tt
-			}
-			hidden_effect = {
-				GER_recalculate_mitteleuropa_effects = yes
-			}
 		}
 		
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
@@ -1220,7 +1218,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Choosing_the_Concretes_Place"
 			country_event = gerdom.272
-			add_stability = 0.03
+			add_stability = 0.02
 		}
 		
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
@@ -1245,7 +1243,6 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Atlas_No_More"
 			country_event = gerdom.273
-			add_stability = 0.03
 		}
 		
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
@@ -1371,15 +1368,25 @@ focus_tree = {
 			set_country_flag = GER_Black_Monday_Finished
 			custom_effect_tooltip = GER_Black_Monday_Finished_tooltip
 			remove_ideas = GER_black_monday_recovery_2
-			add_to_variable = {
-				var = GER.GER_mitteleuropa_strength_var
-				value = 2
-				tooltip = add_2_to_mitteleuropastrength_tt
+			if = {
+				limit = { is_ai = yes }
+				add_to_variable = {
+					var = GER.GER_mitteleuropa_strength_var
+					value = 3
+					tooltip = add_3_to_mitteleuropastrength_tt
+				}
+			}
+			else = {
+				add_to_variable = {
+					var = GER.GER_mitteleuropa_strength_var
+					value = 1
+					tooltip = add_1_to_mitteleuropastrength_tt
+				}
 			}
 			hidden_effect = {
 				GER_recalculate_mitteleuropa_effects = yes
 			}
-			add_stability = 0.10
+			add_stability = 0.06
 		}
 		
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
@@ -1405,10 +1412,6 @@ focus_tree = {
 			modifier = {
 				add = 20
 				check_variable = { GER_mitteleuropa_strength_var < 40 }
-			}
-			modifier = {
-				factor = 0
-				NOT = { has_completed_focus = GER_Die_Signature }
 			}
 		}
 
@@ -2000,8 +2003,9 @@ focus_tree = {
 				value = 1
 				tooltip = increase_siemens_influence_tt
 			}
-			add_to_variable = { GER.GER_cartels_political_power = 0.10 }
+			add_to_variable = { GER.GER_cartels_political_power = 0.08 }
 			add_to_variable = { GER.GER_cartels_energy_speed = 0.10 }
+			add_to_variable = { GER.GER_cartels_consumer_goods = -0.05 }
 			custom_effect_tooltip = GER_Worldwide_Illumination_tooltip
 			if = {
 				limit = {
@@ -2107,9 +2111,10 @@ focus_tree = {
 				value = 1
 				tooltip = increase_aeg_influence_tt
 			}
-			add_to_variable = { GER.GER_cartels_political_power = 0.10 }
+			add_to_variable = { GER.GER_cartels_political_power = 0.04 }
 			add_to_variable = { GER.GER_cartels_monthly_population = 0.05 }
 			add_to_variable = { GER.GER_cartels_energy_consumption = -0.07 }
+			add_to_variable = { GER.GER_cartels_consumer_goods = -0.05 }
 			custom_effect_tooltip = GER_Luxury_Made_Affordable_tooltip
 			if = {
 				limit = {
@@ -2459,9 +2464,9 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Workers_Colonies"
-			add_to_variable = { GER.GER_cartels_stability = 0.05 }
-			add_to_variable = { GER.GER_cartels_factory_output = 0.05 }
-			add_to_variable = { GER.GER_cartels_efficiency_gain = 0.05 }
+			add_to_variable = { GER.GER_cartels_stability = 0.03 }
+			add_to_variable = { GER.GER_cartels_factory_output = 0.03 }
+			add_to_variable = { GER.GER_cartels_efficiency_gain = 0.03 }
 			add_to_variable = { GER.GER_cartels_monthly_population = 0.05 }
 			custom_effect_tooltip = GER_Workers_Colonies_tooltip
 		}
@@ -2491,6 +2496,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Total_Vertical_Integration"
 			add_to_variable = { GER.GER_cartels_civilian_speed = 0.05 }
 			add_to_variable = { GER.GER_cartels_industry_speed = 0.10 }
+			add_to_variable = { GER.GER_cartels_local_resources = 0.05 }
 			custom_effect_tooltip = GER_Total_Vertical_Integration_tooltip
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -2573,9 +2579,9 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_In_the_Empires_Interests"
-			add_to_variable = { GER.GER_cartels_political_power = 0.05 }
-			add_to_variable = { GER.GER_cartels_factory_output = 0.05 }
-			add_to_variable = { GER.GER_cartels_efficiency_gain = 0.05 }
+			add_to_variable = { GER.GER_cartels_political_power = 0.04 }
+			add_to_variable = { GER.GER_cartels_factory_output = 0.03 }
+			add_to_variable = { GER.GER_cartels_efficiency_gain = 0.06 }
 			custom_effect_tooltip = GER_In_the_Empires_Interests_tooltip
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -2610,10 +2616,11 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Profit_from_Envy"
 			add_to_variable = { GER.GER_cartels_political_power = -0.10 }
-			add_to_variable = { GER.GER_cartels_monthly_population = -0.15 }
+			add_to_variable = { GER.GER_cartels_stability = -0.05 }
+			add_to_variable = { GER.GER_cartels_monthly_population = -0.08 }
 			add_to_variable = { GER.GER_cartels_building_slots = 0.10 }
 			add_to_variable = { GER.GER_cartels_construction_speed = 0.05 }
-			add_to_variable = { GER.GER_cartels_energy_consumption = 0.05 }
+			add_to_variable = { GER.GER_cartels_energy_consumption = 0.12 }
 			custom_effect_tooltip = GER_Eternal_Urge_tooltip
 			66 = {
 				add_extra_state_shared_building_slots = 1
@@ -2671,9 +2678,9 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Profit_from_Envy"
-			add_to_variable = { GER.GER_cartels_consumer_goods = 0.10 }
+			add_to_variable = { GER.GER_cartels_consumer_goods = 0.12 }
 			add_to_variable = { GER.GER_cartels_monthly_population = 0.05 }
-			add_to_variable = { GER.GER_cartels_building_slots = 0.05 }
+			add_to_variable = { GER.GER_cartels_building_slots = -0.05 }
 			add_to_variable = { GER.GER_cartels_stability = 0.05 }
 			add_to_variable = { GER.GER_cartels_energy_consumption = -0.05 }
 			custom_effect_tooltip = GER_Pull_in_the_Reins_tooltip
@@ -2719,14 +2726,14 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Ascension_of_the_Steel_Eagle"
-			add_to_variable = { GER.GER_cartels_factory_output = 0.10 }
+			add_to_variable = { GER.GER_cartels_factory_output = 0.06 }
 			add_to_variable = { GER.GER_cartels_local_resources = 0.10 }
 			add_to_variable = { GER.GER_cartels_efficiency_max = 0.05 }
 			custom_effect_tooltip = GER_Ascension_of_the_Steel_Eagle_tooltip
 			add_to_variable = {
 				var = GER.GER_mitteleuropa_strength_var
-				value = 3
-				tooltip = add_3_to_mitteleuropastrength_tt
+				value = 2
+				tooltip = add_2_to_mitteleuropastrength_tt
 			}
 			hidden_effect = {
 				GER_recalculate_mitteleuropa_effects = yes
@@ -2840,11 +2847,18 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Commercial_Urbanization"
-			add_to_variable = { GER.GER_cartels_political_power = 0.05 }
+			add_to_variable = { GER.GER_cartels_political_power = 0.04 }
 			add_to_variable = { GER.GER_cartels_supply_consumption = -0.02 }
 			add_to_variable = { GER.GER_cartels_local_resources = 0.05 }
 			add_to_variable = { GER.GER_cartels_research_speed = 0.02 }
 			custom_effect_tooltip = GER_Commercial_Urbanization_tooltip
+			hidden_effect = {
+				country_event = {
+					id = gerfla.19
+					days = 27
+					random_days = 4
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -2876,11 +2890,18 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Residential_Urbanization"
-			add_to_variable = { GER.GER_cartels_stability = 0.02 }
+			add_to_variable = { GER.GER_cartels_political_power = 0.04 }
+			add_to_variable = { GER.GER_cartels_stability = 0.03 }
 			add_to_variable = { GER.GER_cartels_monthly_population = 0.05 }
 			add_to_variable = { GER.GER_cartels_building_slots = 0.02 }
-			add_to_variable = { GER.GER_cartels_factory_output = 0.05 }
 			custom_effect_tooltip = GER_Residential_Urbanization_tooltip
+			hidden_effect = {
+				country_event = {
+					id = gerfla.19
+					days = 27
+					random_days = 4
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -3142,7 +3163,7 @@ focus_tree = {
 			add_to_variable = { GER.GER_cartels_research_speed = 0.03 }
 			add_to_variable = { GER.GER_cartels_casualties = -0.05 }
 			add_to_variable = { GER.GER_cartels_morale = 0.02 }
-			add_to_variable = { GER.GER_cartels_stability = 0.02 }
+			add_to_variable = { GER.GER_cartels_war_support = 0.02 }
 			custom_effect_tooltip = GER_Pharmaceuticals_tooltip
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -3242,7 +3263,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Pharmaceuticals"
-			add_to_variable = { GER.GER_cartels_consumer_goods = -0.15 }
+			add_to_variable = { GER.GER_cartels_consumer_goods = -0.12 }
 			add_to_variable = { GER.GER_cartels_supply_consumption = -0.05 }
 			custom_effect_tooltip = GER_Polymers_tooltip
 		}
@@ -3304,8 +3325,8 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_The_Council_of_Gods"
-			add_to_variable = { GER.GER_cartels_political_power = 0.05 }
-			add_to_variable = { GER.GER_cartels_construction_speed = 0.05 }
+			add_to_variable = { GER.GER_cartels_political_power = 0.04 }
+			add_to_variable = { GER.GER_cartels_construction_speed = 0.04 }
 			custom_effect_tooltip = GER_The_Council_of_Gods_tooltip
 			add_to_variable = {
 				var = GER.GER_mitteleuropa_strength_var
@@ -3358,7 +3379,6 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Heading_Into_the_Electromechanical_Future"
-			add_stability = 0.02
 			add_tech_bonus = {
 				bonus = 0.5
 				uses = 2
@@ -3769,7 +3789,7 @@ focus_tree = {
 			}
 			modifier = {
 				factor = 0
-				NOT = { has_completed_focus = GER_Die_Signature }
+				GER_has_down_time_for_focuses = yes
 			}
 		}
 
@@ -3787,7 +3807,7 @@ focus_tree = {
 	
 	focus = {
 		id = GER_Marching_With_the_Deutches_Heer
-		icon = GFX_goal_Deutsches_Heer
+		icon = GFX_goal_GER_Deutsches_Heer
 		prerequisite = {
 			focus = GER_mil_expansion
 		}
@@ -3798,6 +3818,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				factor = 0
+				NOT = { has_completed_focus = GER_Die_Signature }
+			}
 		}
 
 		completion_reward = {
@@ -5228,6 +5252,10 @@ focus_tree = {
 			#		days = 365
 			#	}
 			#}
+			custom_effect_tooltip = GER_sturmtruppe_battalion_tt
+			hidden_effect = {
+				set_technology = { sturmtruppe_battalion_tech = 1 popup = no }
+			}
 			add_tech_bonus = {
 				bonus = 0.50
 				uses = 2
@@ -5252,6 +5280,7 @@ focus_tree = {
 					anti_air = { x = 0 y = 0 }
 					artillery = { x = 0 y = 1 }
 					rangers_support = { x = 0 y = 2 }
+					sturmtruppe_battalion = { x = 0 y = 3 }
 				}
 			}
 			custom_effect_tooltip = GER_Flugel_der_Freiheit_tt
@@ -6094,6 +6123,10 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Auftragstaktik"
+			custom_effect_tooltip = GER_sturmtruppe_battalion_tt
+			hidden_effect = {
+				set_technology = { sturmtruppe_battalion_tech = 1 popup = no }
+			}
 			add_ideas = GER_Hutiers_Initiative1
 			division_template = {
 				name = "Sturmtruppendivision"
@@ -6116,6 +6149,7 @@ focus_tree = {
 					signal_company = { x = 0 y = 0 }
 					armored_car_recon = { x = 0 y = 1 }
 					engineer = { x = 0 y = 2 }
+					sturmtruppe_battalion = { x = 0 y = 3 }
 				}
 			}
 			custom_effect_tooltip = GER_Crippling_Infiltration_tt
@@ -6201,11 +6235,6 @@ focus_tree = {
 			add_tech_bonus = {
 				bonus = 0.75
 				uses = 2
-				category = infantry_weapons
-			}
-			add_tech_bonus = {
-				ahead_reduction = 2
-				uses = 1
 				category = infantry_weapons
 			}
 		}
@@ -6336,6 +6365,11 @@ focus_tree = {
 			swap_ideas = {
 				remove_idea = GER_Hutiers_Stormtroopers2
 				add_idea = GER_Hutiers_Stormtroopers3
+			}
+			add_tech_bonus = {
+				ahead_reduction = 2
+				uses = 1
+				category = infantry_weapons
 			}
 		}
 		search_filters = { FOCUS_FILTER_ARMY_BONUS }
@@ -7605,7 +7639,7 @@ focus_tree = {
 	
 	focus = {
 		id = GER_Flying_With_the_Luftwaffe
-		icon = GFX_goal_Deutsche_Luftflotte
+		icon = GFX_goal_GER_Deutsche_Luftflotte
 		prerequisite = {
 			focus = GER_mil_expansion
 		}
@@ -7639,6 +7673,10 @@ focus_tree = {
 			modifier = {
 				add = 10
 				date > 1939.1.1
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_completed_focus = GER_Die_Signature }
 			}
 		}
 
@@ -7779,6 +7817,7 @@ focus_tree = {
 			add_to_variable = { GER.GER_luftwaffe_ace_generation = 0.20 }
 			add_to_variable = { GER.GER_luftwaffe_air_attack = 0.10 }
 			add_to_variable = { GER.GER_luftwaffe_strategic_bombing = 0.10 }
+			add_to_variable = { GER.GER_luftwaffe_mastery_gain = 0.15 }
 			custom_effect_tooltip = GER_Red_Baron_Flies_Again_tooltip
 			add_doctrine_cost_reduction = {
 				cost_reduction = 0.5
@@ -7821,6 +7860,8 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Knight_of_the_Sky"
 			add_to_variable = { GER.GER_luftwaffe_ace_bonus = 0.20 }
+			add_to_variable = { GER.GER_luftwaffe_air_attack = 0.05 }
+			add_to_variable = { GER.GER_luftwaffe_ace_effectiveness = 0.20 }
 			custom_effect_tooltip = GER_Knight_of_the_Sky_tooltip
 			add_tech_bonus = {
 				bonus = 0.25
@@ -7864,6 +7905,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Terrorizing_Landsknecht"
 			add_to_variable = { GER.GER_luftwaffe_strategic_bombing = 0.10 }
 			add_to_variable = { GER.GER_luftwaffe_night_bombing = -0.30 }
+			add_to_variable = { GER.GER_luftwaffe_air_attack = 0.10 }
 			custom_effect_tooltip = GER_Terrorizing_Landsknecht_tooltip
 			add_tech_bonus = {
 				bonus = 0.25
@@ -8187,6 +8229,7 @@ focus_tree = {
 			add_to_variable = { GER.GER_luftwaffe_superiority_efficiency = 0.10 }
 			add_to_variable = { GER.GER_luftwaffe_air_agility = 0.05 }
 			add_to_variable = { GER.GER_luftwaffe_cas_efficiency = 0.10 }
+			add_to_variable = { GER.GER_luftwaffe_mastery_gain = 0.15 }
 			custom_effect_tooltip = GER_Udets_Stunts_and_Stukas_tooltip
 			add_doctrine_cost_reduction = {
 				cost_reduction = 0.5
@@ -8266,7 +8309,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Give_the_Bombers_Some_Teeth"
-			add_to_variable = { GER.GER_luftwaffe_air_defense = 0.20 }
+			add_to_variable = { GER.GER_luftwaffe_air_defense = 0.15 }
 			add_to_variable = { GER.GER_luftwaffe_air_attack = 0.05 }
 			custom_effect_tooltip = GER_Give_the_Bombers_Some_Teeth_tooltip
 		}
@@ -8449,7 +8492,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Arados_Schnellbomber"
-			add_to_variable = { GER.GER_luftwaffe_max_speed = 0.20 }
+			add_to_variable = { GER.GER_luftwaffe_max_speed = 0.10 }
 			add_to_variable = { GER.GER_luftwaffe_bombing_targeting = 0.10 }
 			custom_effect_tooltip = GER_Arados_Schnellbomber_tooltip
 		}
@@ -8596,7 +8639,8 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Harlinghausens_War_Over_Sea"
 			add_to_variable = { GER.GER_luftwaffe_naval_efficiency = 0.20 }
 			add_to_variable = { GER.GER_luftwaffe_naval_strike_targeting = 0.10 }
-			add_to_variable = { GER.GER_luftwaffe_range = 0.20 }
+			add_to_variable = { GER.GER_luftwaffe_range = 0.10 }
+			add_to_variable = { GER.GER_luftwaffe_mastery_gain = 0.15 }
 			custom_effect_tooltip = GER_Harlinghausens_War_Over_Sea_tooltip
 			add_doctrine_cost_reduction = {
 				cost_reduction = 0.5
@@ -8789,7 +8833,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Weltreich_Weltflieger"
-			add_to_variable = { GER.GER_luftwaffe_range = 0.10 }
+			add_to_variable = { GER.GER_luftwaffe_range = 0.05 }
 			add_to_variable = { GER.GER_luftwaffe_power_projection = 0.10 }
 			custom_effect_tooltip = GER_Weltreich_Weltflieger_tooltip
 		}
@@ -8909,6 +8953,10 @@ focus_tree = {
 			add_to_variable = { GER.GER_luftwaffe_max_speed = 0.05 }
 			add_to_variable = { GER.GER_luftwaffe_ground_attack = 0.05 }
 			custom_effect_tooltip = GER_Projekt_Rottenflieger_tooltip
+			swap_ideas = {
+				remove_idea = GER_Harlinghausen_Production_idea
+				add_idea = GER_Harlinghausen_Production2_idea
+			}
 			add_breakthrough_progress = {
 				specialization = specialization_air
 				value = 0.20
@@ -8961,7 +9009,7 @@ focus_tree = {
 	
 	focus = {
 		id = GER_Sailing_With_the_Kaiserliche_Marine
-		icon = GFX_goal_Kaiserliche_Marine
+		icon = GFX_goal_GER_Kaiserliche_Marine
 		prerequisite = {
 			focus = GER_mil_expansion
 		}
@@ -9003,6 +9051,10 @@ focus_tree = {
 					has_war_with = FRA
 					has_war_with = RUS
 				}
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_completed_focus = GER_Die_Signature }
 			}
 		}
 
@@ -9260,6 +9312,7 @@ focus_tree = {
 			add_to_variable = { GER.GER_navy_capital_ship_attack_factor = 0.10 }
 			add_to_variable = { GER.GER_navy_capital_ship_defence_factor = 0.10 }
 			add_to_variable = { GER.GER_critical_receive_chance = -0.10 }
+			add_to_variable = { GER.GER_navy_mastery_gain = 0.15 }
 			custom_effect_tooltip = GER_Raeders_Floating_Fortresses_tooltip
 			add_doctrine_cost_reduction = {
 				cost_reduction = 0.5
@@ -9676,6 +9729,7 @@ focus_tree = {
 			add_to_variable = { GER.GER_navy_submarine_attack_factor = 0.10 }
 			add_to_variable = { GER.GER_navy_submarine_defence_factor = 0.10 }
 			add_to_variable = { GER.GER_naval_torpedo_hit_chance_factor = 0.10 }
+			add_to_variable = { GER.GER_navy_mastery_gain = 0.15 }
 			custom_effect_tooltip = GER_Donitzs_Unterseeboote_tooltip
 			add_doctrine_cost_reduction = {
 				cost_reduction = 0.5
@@ -10090,6 +10144,7 @@ focus_tree = {
 			add_to_variable = { GER.GER_navy_carrier_air_agility_factor = 0.10 }
 			add_to_variable = { GER.GER_navy_carrier_air_attack_factor = 0.10 }
 			add_to_variable = { GER.GER_navy_carrier_air_targetting_factor = 0.10 }
+			add_to_variable = { GER.GER_navy_mastery_gain = 0.15 }
 			custom_effect_tooltip = GER_Strassers_Seevogel_tooltip
 			add_doctrine_cost_reduction = {
 				cost_reduction = 0.5
@@ -10478,7 +10533,7 @@ focus_tree = {
 		}
 
 		ai_will_do = {
-			factor = 100
+			factor = 1000
 		}
 
 		completion_reward = {
@@ -10492,6 +10547,9 @@ focus_tree = {
 	focus = {
 		id = GER_Evacuation_Orders
 		icon = GFX_goal_GER_Evacuation_Orders
+		available = {
+			has_country_flag = GER_Desperate_Struggle_Flag
+		}
 		prerequisite = {
 			focus = GER_Desperate_Struggle
 		}
@@ -10514,6 +10572,9 @@ focus_tree = {
 	focus = {
 		id = GER_Armeehelferinnen
 		icon = GFX_goal_GER_Armeehelferinnen
+		available = {
+			has_country_flag = GER_Desperate_Struggle_Flag
+		}
 		prerequisite = {
 			focus = GER_Desperate_Struggle
 		}
@@ -10537,6 +10598,9 @@ focus_tree = {
 	focus = {
 		id = GER_Landsturm
 		icon = GFX_goal_GER_Landsturm
+		available = {
+			has_country_flag = GER_Desperate_Struggle_Flag
+		}
 		prerequisite = {
 			focus = GER_Desperate_Struggle
 		}
@@ -10560,6 +10624,9 @@ focus_tree = {
 	focus = {
 		id = GER_Reigniting_the_Chemists_War
 		icon = GFX_goal_GER_Reigniting_Chemists_War
+		available = {
+			has_country_flag = GER_Desperate_Struggle_Flag
+		}
 		prerequisite = {
 			focus = GER_Armeehelferinnen
 			focus = GER_Evacuation_Orders
@@ -10587,6 +10654,9 @@ focus_tree = {
 	focus = {
 		id = GER_Unternehmen_Bifrost
 		icon = GFX_goal_GER_Unternehmen_Bifrost
+		available = {
+			has_country_flag = GER_Desperate_Struggle_Flag
+		}
 		prerequisite = {
 			focus = GER_Armeehelferinnen
 			focus = GER_Landsturm
@@ -11661,7 +11731,48 @@ focus_tree = {
 		
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Steady_as_She_Goes_Abroad"
-			country_event = gerdom.277
+			if = {
+				limit = {
+					OR = {
+						POL = {
+							AND = {
+								exists = yes
+								is_in_faction_with = GER
+								has_country_leader = { name = "Fryderyk II Krystian" ruling_only = yes }
+							}
+						}
+						BAT = {
+							AND = {
+								exists = yes
+								is_in_faction_with = GER
+								has_country_leader = { name = "Adolf Friedrich" ruling_only = yes }
+							}
+						}
+						BEL = {
+							AND = {
+								exists = yes
+								is_in_faction_with = GER
+								has_country_leader = { name = "Adalbert" ruling_only = yes }
+							}
+						}
+						UKR = {
+							AND = {
+								exists = yes
+								is_in_faction_with = GER
+								has_country_leader = { name = "Vasyl" ruling_only = yes }
+							}
+						}
+						WHR = {
+							AND = {
+								exists = yes
+								is_in_faction_with = GER
+								has_country_leader = { name = "Uladzimir" ruling_only = yes }
+							}
+						}
+					}
+				}
+				country_event = gerdom.277
+			}
 			add_stability = 0.05
 			add_ideas = GER_Smooth_Sailing_idea
 		}
@@ -15632,6 +15743,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Colonial_Spring_Cleaning"
 			country_event = gerdom.212
+			custom_effect_tooltip = GER_Spring_Cleaning_tt
 			422 = {
 				add_extra_state_shared_building_slots = 2
 			}
@@ -15946,7 +16058,7 @@ focus_tree = {
 			factor = 70
 			modifier = {
 				factor = 0
-				NOT = { has_completed_focus = GER_Die_Signature }
+				GER_has_down_time_for_focuses = yes
 			}
 		}
 
@@ -15969,6 +16081,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 25
+			modifier = {
+				factor = 0
+				NOT = { has_completed_focus = GER_Die_Signature }
+			}
 		}
 
 		completion_reward = {
@@ -16204,6 +16320,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 20
+			modifier = {
+				factor = 0
+				GER_has_down_time_for_focuses = yes
+			}
 		}
 
 		completion_reward = {
@@ -16259,6 +16379,10 @@ focus_tree = {
 				factor = 100
 				OTT = { is_ai = no }
 			}
+			modifier = {
+				factor = 0
+				NOT = { has_completed_focus = GER_Die_Signature }
+			}
 		}
 
 		completion_reward = {
@@ -16293,6 +16417,10 @@ focus_tree = {
 			modifier = {
 				factor = 100
 				ETH = { is_ai = no }
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_completed_focus = GER_Die_Signature }
 			}
 		}
 
@@ -16338,6 +16466,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Standing_Against_the_Sultanate"
+			custom_effect_tooltip = GER_Standing_Against_the_Sultanate_tt
 			country_event = gerfor.273
 			OTT = { country_event = gerfor.273 }
 			add_war_support = 0.01
@@ -16375,6 +16504,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Ethiopian_Military_Mission"
+			custom_effect_tooltip = GER_Ethiopian_Military_Mission_tt
 			country_event = gerfor.275
 			ETH = { country_event = gerfor.275 }
 			add_war_support = 0.01
@@ -16399,6 +16529,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Outreach_to_the_Boers"
+			add_war_support = 0.03
 			add_manpower = 10000
 			create_corps_commander = {
 				name = "Manie Maritz"
@@ -16426,11 +16557,16 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 10
+			modifier = {
+				factor = 0
+				GER_has_down_time_for_focuses = yes
+			}
 		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Obligations_of_Empire"
 			country_event = gerfor.261
+			add_war_support = 0.02
 			add_manpower = 600
 			add_equipment_to_stockpile = {
 				type = infantry_equipment_1
@@ -16458,6 +16594,10 @@ focus_tree = {
 			modifier = {
 				factor = 100
 				WRA = { is_ai = no }
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_completed_focus = GER_Die_Signature }
 			}
 		}
 
@@ -16538,6 +16678,10 @@ focus_tree = {
 					COR = { is_ai = no }
 					TEX = { is_ai = no }
 				}
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_completed_focus = GER_Die_Signature }
 			}
 		}
 
@@ -16629,6 +16773,10 @@ focus_tree = {
 				factor = 100
 				SPR = { is_ai = no }
 			}
+			modifier = {
+				factor = 0
+				NOT = { has_completed_focus = GER_Die_Signature }
+			}
 		}
 
 		completion_reward = {
@@ -16706,6 +16854,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 15
+			modifier = {
+				factor = 0
+				NOT = { has_completed_focus = GER_Die_Signature }
+			}
 		}
 
 		completion_reward = { # TODO: Add the possible "new allies" decisions for China, discussed with Idle, *SG
@@ -16734,13 +16886,18 @@ focus_tree = {
 			focus = GER_Flexibility_in_the_Far_East
 		}
 		available = {
-			OR = {
-				SIA = { has_country_flag = SIA_no_civil_war }
-				has_global_flag = SIA_Civil_War_Ended
+			SIA = {
+				OR = {
+					has_global_flag = SIA_no_civil_war 
+					has_global_flag = SIA_Civil_War_Ended
+				}
+				has_socialist_government = no
 			}
-			OR = {
-				BRM = { is_in_faction_with = GER }
-				BRM = { has_socialist_government = yes }
+			BRM = {
+				OR = {
+					is_in_faction_with = GER
+					has_socialist_government = yes
+				}
 			}
 		}
 		x = 1
@@ -16748,15 +16905,22 @@ focus_tree = {
 		relative_position_id = GER_Flexibility_in_the_Far_East
 		cost = 2
 		bypass = {
-			OR = {
-				SIA = { is_in_faction_with = JAP }
-				SIA = { exists = no }
-				SIA = { is_subject = yes }
+			SIA = {
+				OR = {
+					is_in_faction_with = JAP
+					exists = no
+					is_subject = yes
+					has_socialist_government = yes
+				}
 			}
 		}
 
 		ai_will_do = {
 			factor = 15
+			modifier = {
+				factor = 0
+				NOT = { has_completed_focus = GER_Die_Signature }
+			}
 		}
 
 		completion_reward = {
@@ -16799,6 +16963,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 15
+			modifier = {
+				factor = 0
+				NOT = { has_completed_focus = GER_Die_Signature }
+			}
 		}
 
 		completion_reward = {
@@ -16850,10 +17018,15 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 40
+			modifier = {
+				factor = 0
+				GER_has_down_time_for_focuses = yes
+			}
 		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Preparing_for_the_Worst"
+			add_war_support = 0.02
 			army_experience = 10
 			56 = {
 				add_building_construction = {
@@ -17011,6 +17184,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 50
+			modifier = {
+				factor = 0
+				NOT = { has_completed_focus = GER_Die_Signature }
+			}
 		}
 
 		completion_reward = {
@@ -17073,6 +17250,11 @@ focus_tree = {
 			focus = GER_Preparing_for_the_Worst
 		}
 		available = {
+			date > 1938.5.1
+			CAN = { 
+				exists = yes 
+				is_subject = no
+			}
 			NOT = {
 				has_country_flag = GER_2WK_Victory
 				has_country_flag = GER_Halifax_Started
@@ -17091,6 +17273,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 35
+			modifier = {
+				factor = 0
+				NOT = { has_completed_focus = GER_Die_Signature }
+			}
 		}
 
 		completion_reward = {
@@ -17109,6 +17295,10 @@ focus_tree = {
 		icon = GFX_goal_GER_Hochseeflotte_Royal_Navy
 		available = {
 			has_country_flag = GER_Halifax_Success
+			CAN = { 
+				exists = yes 
+				is_subject = no
+			}
 		}
 		prerequisite = {
 			focus = GER_Halifax_Conference
@@ -17132,6 +17322,12 @@ focus_tree = {
 	focus = {
 		id = GER_Renault_Mercedes_Projects
 		icon = GFX_goal_GER_Renault_Mercedes_Projects
+		available = {
+			NFA = { 
+				exists = yes 
+				is_in_faction_with = ENT
+			}
+		}
 		prerequisite = {
 			focus = GER_Hochseeflotte_and_Royal_Navy
 		}
@@ -17213,6 +17409,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 35
+			modifier = {
+				factor = 0
+				NOT = { has_completed_focus = GER_Die_Signature }
+			}
 		}
 
 		completion_reward = {
@@ -17455,7 +17655,13 @@ focus_tree = {
 						has_socialist_government = yes
 					}
 				}
-				MTR = { exists = yes }
+				MTR = {
+					AND = {
+						exists = yes 
+						is_subject = no
+						is_in_faction = no
+					}
+				}
 			}
 		}
 		prerequisite = {
@@ -17470,7 +17676,24 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = GER_Hold_Our_Cards
 		}
-		bypass = { MTR = { exists = no } }
+		bypass = {
+			AND = {
+				DKB = {
+					OR = {
+						has_completed_focus = DKB_distance_ourselves_from_germany
+						has_completed_focus = DKB_coup
+						has_socialist_government = yes
+					}
+				}
+				MTR = { 
+					OR = {
+						exists = no 
+						is_subject = yes
+						is_in_faction = yes
+					}
+				}
+			}
+		}
 		x = -1
 		y = 1
 		relative_position_id = GER_Georgia_Support
@@ -17492,7 +17715,13 @@ focus_tree = {
 		available = {
 			OR = {
 				GEO = { has_completed_focus = GEO_kept_pipeline }
-				AZE = { exists = yes }
+				AZE = { 
+					AND = {
+						exists = yes 
+						is_subject = no
+						is_in_faction = no
+					}
+				}
 			}
 		}
 		prerequisite = {
@@ -17512,7 +17741,16 @@ focus_tree = {
 		relative_position_id = GER_Georgia_Support
 		cost = 1
 		bypass = {
-			AZE = { exists = no }
+			AND = {
+				GEO = { has_completed_focus = GEO_pipeline_seized }
+				AZE = { 
+					OR = {
+						exists = no 
+						is_subject = yes
+						is_in_faction = yes
+					}
+				}
+			}
 		}
 
 		ai_will_do = {
@@ -17561,6 +17799,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus GER_Defending_from_the_Bear"
 			custom_effect_tooltip = GER_Defending_from_the_Bear_tt
+			add_war_support = 0.03
 			if = {
 				limit = { LIT = { is_in_faction_with = GER } }
 				LIT = { country_event = gerfor.379 }
@@ -17653,7 +17892,7 @@ focus_tree = {
 				}
 				OR = {
 					has_country_leader = { name = "Karl I" ruling_only = yes }
-					has_country_leader = { name = "Otto I" ruling_only = yes }
+					has_country_leader = { name = "Franz Joseph II" ruling_only = yes }
 				}
 			}
 			NOT = { has_country_flag = GER_Doing_Formable }
