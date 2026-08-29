@@ -80,8 +80,10 @@ country_event = { #debug 2
 
 	option = { #k
 		name = bdeausdebug.2.a
-		AUS = {
-			country_event = bdeausfor.99
+		942 = {
+			set_state_flag = artifact_minor_kieferberg_3
+			save_global_event_target_as = minor_artifact
+			BOTDE_artifact_lets_check = yes
 		}
 	}
 }
@@ -98,21 +100,12 @@ country_event = { #debug 3
 
 	option = { #k
 		name = bdeausdebug.3.a
-		1313 = {
-			save_event_target_as = LIC_microstate_state
-			owner = {
-				country_event = {
-					id = licfor.39
-				}
-			}
-		}
+		22 = { clr_state_flag = AUS_state_searched_artifacts }
 	}
 	
 	option = { #k
 		name = bdeausdebug.3.b
-		1236 = {
-			LIC_create_citystate = yes
-		}
+		add_to_array = { array = discoverable_artifacts value = discovery_chance_atlantis }
 	}
 	
 }
@@ -486,18 +479,23 @@ country_event = { #Government paralyzed! (The constituents and Austria are bicke
 		name = bdeausel.0.a
 		AUS_add_three_collapse = yes
 		ALL_add_five_collapse = yes
-		add_political_power = -40
 		hidden_effect = {
 			country_event = {
 				id = bdeausel.1
 				days = 7
 				random_days = 7
 			}
+			country_event = {
+				id = bdeausel.35
+				days = 14
+				random_days = 8
+				random_hours = 24
+			}
 		}
 	}
 }
 
-country_event = { #Streeruwitz Government Resigns
+country_event = { #A Vote of No Confidence
 	id = bdeausel.1
 	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausel.1" }
 	title = bdeausel.1.t
@@ -528,13 +526,15 @@ country_event = { #Streeruwitz Government Resigns
 		name = bdeausel.1.a
 		set_politics = {
 			ruling_party = social_conservative
+			last_election = "1933.5.4"
+			election_frequency = 48
+			elections_allowed = yes
 		}
 		hidden_effect = {
 			swap_ideas = {
 				add_idea = AUS_Otto_Ender_hog_sco
 				remove_idea = AUS_Ernst_Streeruwitz_hog_ade
 			}
-			end_coalition = yes
 			add_authdem_to_coalition = yes
 			add_pataut_to_coalition = yes
 		}
@@ -552,7 +552,7 @@ country_event = { #Streeruwitz Government Resigns
 	}
 }
 
-country_event = { #The CS in Disarray
+country_event = { #Crisis in the Christlichsoziale Partei
 	id = bdeausel.2
 	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausel.2" }
 	title = bdeausel.2.t
@@ -569,6 +569,11 @@ country_event = { #The CS in Disarray
 			country_event = {
 				id = bdeausel.3
 				days = 7
+				random_hours = 48
+			}
+			country_event = { #CS coalition
+				id = bdeausel.6
+				days = 4
 				random_hours = 48
 			}
 		}
@@ -713,6 +718,14 @@ country_event = { #Kalergi Casts a Bid
 	option = { #Gather your votes...
 		name = bdeausel.3.a
 		add_popularity = {
+			ideology = market_liberal
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = paternal_autocrat
+			popularity = -0.03
+		}
+		add_popularity = {
 			ideology = social_liberal
 			popularity = 0.05
 		}
@@ -768,19 +781,6 @@ country_event = { #Snap Election Announced!
 			popularity = 0.03
 		}
 		hidden_effect = {
-			if = {
-				limit = { has_global_flag = AUS_VF_SPLIT }
-				country_event = { #VF coalition
-					id = bdeausel.5
-					days = 6
-					random_hours = 48
-				}
-			}
-			country_event = { #CS coalition
-				id = bdeausel.6
-				days = 4
-				random_hours = 48
-			}
 			country_event = {
 				id = bdeausel.2
 				days = 6
@@ -800,7 +800,7 @@ country_event = { #Snap Election Announced!
 	}
 }
 
-country_event = { #Dollfuss forms a coalition with the Heimwehr, GDVP, and Deutsche Arbeiterpartei
+country_event = { #Dollfuss forms a coalition with the Heimwehr and Deutsche Arbeiterpartei
 	id = bdeausel.5
 	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausel.5" }
 	title = bdeausel.5.t
@@ -814,6 +814,7 @@ country_event = { #Dollfuss forms a coalition with the Heimwehr, GDVP, and Deuts
 
 	option = { #Really? Gathering with them?
 		name = bdeausel.5.a
+		add_stability = -0.01
 		add_popularity = {
 			ideology = totalist
 			popularity = 0.03
@@ -938,8 +939,16 @@ country_event = { #Election
 					has_country_flag = AUS_1936_miklas
 				}
 				set_country_flag = AUS_MINISTERPREZ_MIKLAS
-				set_politics = {
-					ruling_party = social_conservative
+				meta_effect = {
+					text = {
+						set_politics = {
+							ruling_party = social_conservative
+							last_election = "[CURRENT_DATE]"
+							election_frequency = 48
+							elections_allowed = yes
+						}
+					}
+					CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 				}
 				add_popularity = {
 					ideology = social_conservative
@@ -955,8 +964,16 @@ country_event = { #Election
 			if = {
 				limit = { has_country_flag = AUS_1936_ender }
 				set_country_flag = AUS_MINISTERPREZ_ENDER
-				set_politics = {
-					ruling_party = social_conservative
+				meta_effect = {
+					text = {
+						set_politics = {
+							ruling_party = social_conservative
+							last_election = "[CURRENT_DATE]"
+							election_frequency = 48
+							elections_allowed = yes
+						}
+					}
+					CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 				}
 				add_popularity = {
 					ideology = social_conservative
@@ -972,8 +989,16 @@ country_event = { #Election
 			if = {
 				limit = { has_global_flag = AUS_BURESCH }
 				set_country_flag = AUS_MINISTERPREZ_BURESCH
-				set_politics = {
-					ruling_party = authoritarian_democrat
+				meta_effect = {
+					text = {
+						set_politics = {
+							ruling_party = authoritarian_democrat
+							last_election = "[CURRENT_DATE]"
+							election_frequency = 48
+							elections_allowed = yes
+						}
+					}
+					CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 				}
 				add_popularity = {
 					ideology = authoritarian_democrat
@@ -989,8 +1014,16 @@ country_event = { #Election
 			hidden_effect = { complete_national_focus = AUS_cs_reign_continues }
 		}
 		else = {
-			set_politics = {
-				ruling_party = authoritarian_democrat
+			meta_effect = {
+				text = {
+					set_politics = {
+						ruling_party = authoritarian_democrat
+						last_election = "[CURRENT_DATE]"
+						election_frequency = 48
+						elections_allowed = yes
+					}
+				}
+				CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 			}
 			add_popularity = {
 				ideology = authoritarian_democrat
@@ -1089,8 +1122,16 @@ country_event = { #Election
 		trigger = {
 			has_global_flag = AUS_VF_SPLIT
 		}
-		set_politics = {
-			ruling_party = paternal_autocrat
+		meta_effect = {
+			text = {
+				set_politics = {
+					ruling_party = paternal_autocrat
+					last_election = "[CURRENT_DATE]"
+					election_frequency = 48
+					elections_allowed = yes
+				}
+			}
+			CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 		}
 		add_popularity = {
 			ideology = social_conservative
@@ -1149,8 +1190,16 @@ country_event = { #Election
 		remove_all_ministers_but_for = yes
 		if = {
 			limit = { has_country_flag = AUS_otto_bauer_36 }
-			set_politics = {
-				ruling_party = radical_socialist
+			meta_effect = {
+				text = {
+					set_politics = {
+						ruling_party = radical_socialist
+						last_election = "[CURRENT_DATE]"
+						election_frequency = 48
+						elections_allowed = yes
+					}
+				}
+				CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 			}
 			add_socdem_to_coalition = yes
 			add_ideas = {
@@ -1172,8 +1221,16 @@ country_event = { #Election
 			}
 		}
 		else = {
-			set_politics = {
-				ruling_party = social_democrat
+			meta_effect = {
+				text = {
+					set_politics = {
+						ruling_party = social_democrat
+						last_election = "[CURRENT_DATE]"
+						election_frequency = 48
+						elections_allowed = yes
+					}
+				}
+				CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 			}
 			add_radsoc_to_coalition = yes
 			add_ideas = {
@@ -1247,8 +1304,16 @@ country_event = { #Election
 				}
 			}
 		}
-		set_politics = {
-			ruling_party = social_liberal
+		meta_effect = {
+			text = {
+				set_politics = {
+					ruling_party = social_liberal
+					last_election = "[CURRENT_DATE]"
+					election_frequency = 48
+					elections_allowed = yes
+				}
+			}
+			CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 		}
 		add_popularity = {
 			ideology = social_liberal
@@ -1595,6 +1660,13 @@ country_event = { #Dollfuss Makes His Move
 			ideology = social_conservative
 			popularity = 0.07
 		}
+		hidden_effect = {
+			country_event = {
+				id = bdeausel.5
+				days = 6
+				random_hours = 48
+			}
+		}
 	}
 }
 
@@ -1637,15 +1709,31 @@ country_event = { #The Election of 1940
 			limit = {
 				has_global_flag = AUS_VF_SPLIT
 			}
-			set_politics = {
-				ruling_party = social_conservative
+			meta_effect = {
+				text = {
+					set_politics = {
+						ruling_party = social_conservative
+						last_election = "[CURRENT_DATE]"
+						election_frequency = 48
+						elections_allowed = yes
+					}
+				}
+				CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 			}
 			add_authdem_to_coalition = yes
 			AUS_elect_CS_1940 = yes
 		}
 		else = {
-			set_politics = {
-				ruling_party = authoritarian_democrat
+			meta_effect = {
+				text = {
+					set_politics = {
+						ruling_party = authoritarian_democrat
+						last_election = "[CURRENT_DATE]"
+						election_frequency = 48
+						elections_allowed = yes
+					}
+				}
+				CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 			}
 			add_soccon_to_coalition = yes
 			add_pataut_to_coalition = yes
@@ -1675,8 +1763,16 @@ country_event = { #The Election of 1940
 			}
 		}
 		AUS_elect_DBP_1940 = yes
-		set_politics = {
-			ruling_party = social_liberal
+		meta_effect = {
+			text = {
+				set_politics = {
+					ruling_party = social_liberal
+					last_election = "[CURRENT_DATE]"
+					election_frequency = 48
+					elections_allowed = yes
+				}
+			}
+			CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 		}
 	}
 	
@@ -1691,8 +1787,16 @@ country_event = { #The Election of 1940
 				factor = party_popularity@paternal_autocrat
 			}
 		}
-		set_politics = {
-			ruling_party = paternal_autocrat
+		meta_effect = {
+			text = {
+				set_politics = {
+					ruling_party = paternal_autocrat
+					last_election = "[CURRENT_DATE]"
+					election_frequency = 48
+					elections_allowed = yes
+				}
+			}
+			CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 		}
 		AUS_elect_VF_1940 = yes
 	}
@@ -2222,7 +2326,7 @@ country_event = { #The Cross Renewed
 	title = bdeausel.26.t
 	desc = bdeausel.26.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_vaterland_front_car
 
 	fire_only_once = yes
 
@@ -2231,9 +2335,11 @@ country_event = { #The Cross Renewed
 	option = { #Let's hope this keeps both halves together
 		name = bdeausel.26.a
 		add_stability = 0.03
+		AUS_subtract_one_collapse = yes
+		ALL_subtract_one_collapse = yes
 		add_popularity = {
 			ideology = authoritarian_democrat
-			popularity = 0.025
+			popularity = 0.05
 		}
 	}
 }
@@ -2610,7 +2716,7 @@ country_event = { #Strike in Pola
 	title = bdeausel.35.t
 	desc = bdeausel.35.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_pola_navy
 
 	fire_only_once = yes
 
@@ -2637,10 +2743,8 @@ country_event = { #Strike in Pola
 		}
 		add_political_power = -10
 		add_stability = -0.05
-		AUS_raise_vienna_tenseness = yes
 		#Event for FIU
 	}
-	
 }
 
 country_event = { #The Ordo Novi Templi raises its Swords
@@ -2715,7 +2819,7 @@ country_event = { #Addressing the Crisis
 	}
 }
 
-country_event = { #Brawl in the Reichsrat
+country_event = { #Das Kolosseum: The Reichsrat Suspended!
 	id = bdeausel.38
 	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausel.38" }
 	title = bdeausel.38.t
@@ -2727,12 +2831,18 @@ country_event = { #Brawl in the Reichsrat
 
 	is_triggered_only = yes
 
-	option = { #This might just be doable!
+	option = { #Even in such dire straits, no one seems to know where to steer
 		name = bdeausel.38.a
 		add_political_power = -10
 		add_stability = -0.075
 		add_ideas = AUS_divided_society_botde
+		custom_effect_tooltip = AUS_ethnic_events_start_tt
 		hidden_effect = {
+			country_event = {
+				id = ethnic.1
+				days = 8
+				random_hours = 300
+			}
 			country_event = {
 				id = bdeausel.36
 				days = 20
@@ -3553,6 +3663,2998 @@ country_event = { #Ancestral Heritage
 	option = { #This 'Ahnenerbe' will help rediscover our Aryan roots! 
 		name = bdeaus.35.a
 		set_country_flag = AUS_larp_von_liebenfels_indiana_jones
+		add_political_power = 50
+	}
+}
+
+country_event = { #Looking For the Past
+	id = bdeaus.36
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.36" }
+	title = bdeaus.36.t
+	desc = bdeaus.36.d
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #We ought to focus on the Sagas and the known Nordic-Aryan world.
+		name = bdeaus.36.a
+		unlock_decision_tooltip = AUS_retrace_the_sagas
+		set_country_flag = AUS_liebenfels_sagas
+	}
+	
+	option = { #Is it possible Germans managed to cross into the New World in an old time?
+		name = bdeaus.36.b
+		unlock_decision_tooltip = AUS_aryans_in_america
+		set_country_flag = AUS_liebenfels_new_world
+	}
+}
+
+country_event = { #The Gnosis Abroad
+	id = bdeaus.37
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.37" }
+	title = bdeaus.37.t
+	desc = bdeaus.37.d
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Let's look into the Sitecah and the legends of ancient root-races.
+		name = bdeaus.37.a
+		custom_effect_tooltip = AUS_north_america_continent_discovery_3_tt
+		set_country_flag = AUS_north_america_legends
+		add_to_variable = {
+			var = AUS_north_america_continent_discovery
+			value = 0.03
+		}
+	}
+	
+	option = { #Focus on the nearer past. Could Germans have constructed sites in South America?
+		name = bdeaus.37.b
+		custom_effect_tooltip = AUS_south_america_continent_discovery_3_tt
+		set_country_flag = AUS_south_america_legends
+		add_to_variable = {
+			var = AUS_south_america_continent_discovery
+			value = 0.03
+		}
+	}
+}
+
+country_event = { #Orichalcum Unearthed in Shipwreck!
+	id = bdeaus.38
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.38" }
+	title = bdeaus.38.t
+	desc = bdeaus.38.d
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Let's look into the Sitecah and the legends of ancient root-races.
+		name = bdeaus.38.a
+		custom_effect_tooltip = atlantis_discovery_3
+		add_to_variable = {
+			var = discovery_chance_atlantis
+			value = 0.03
+		}
+	}
+}
+
+country_event = { #An Ancient Aryan Burial Site
+	id = bdeaus.39
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.39" }
+	title = bdeaus.39.t
+	desc = bdeaus.39.d
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Let's look into the Sitecah and the legends of ancient root-races.
+		name = bdeaus.39.a
+		custom_effect_tooltip = rhine_gold_discovery_3
+		add_to_variable = {
+			var = discovery_chance_rhine_gold
+			value = 0.03
+		}
+	}
+}
+	
+country_event = { #No progress in the seas
+	id = bdeaus.40
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.40" }
+	title = bdeaus.40.t
+	desc = bdeaus.40.d
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Let's look into the Sitecah and the legends of ancient root-races.
+		name = bdeaus.40.a
+		
+	}
+}
+
+country_event = { #Giant Statues Found in Sardinia
+	id = bdeaus.41
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.41" }
+	title = bdeaus.41.t
+	desc = bdeaus.41.d
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Could Atlanteans have had contact with ancient Lemurians?
+		name = bdeaus.41.a
+		custom_effect_tooltip = lemurian_discovery_3
+		add_to_variable = {
+			var = discovery_chance_lemurian
+			value = 0.03
+		}
+	}
+}
+
+country_event = { #Master event for artifact hunting.
+	id = bdeaus.42
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.42" }
+	title = bdeaus.42.t
+	desc = bdeaus.42.d
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+	
+	hidden = yes
+
+	option = { #Could Atlanteans have had contact with ancient Lemurians?
+		name = bdeaus.42.a
+		AUS_artifact_hunt_roll = yes
+		country_event = {
+			id = bdeaus.42
+			days = 30
+		}
+	}
+}
+
+country_event = { #Atlantis progress
+	id = bdeaus.43
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.43" }
+	title = {
+		text = bdeaus.43.t_tartessos
+		trigger = { OR = { 169 = { has_state_flag = artifact_hunting_houses_atlantis } 1336 = { has_state_flag = artifact_hunting_houses_atlantis } 173 = { has_state_flag = artifact_hunting_houses_atlantis } 118 = { has_state_flag = artifact_hunting_houses_atlantis } } }
+	}
+	desc = {
+		text = bdeaus.43.d_tartessos
+		trigger = { OR = { 169 = { has_state_flag = artifact_hunting_houses_atlantis } 1336 = { has_state_flag = artifact_hunting_houses_atlantis } 173 = { has_state_flag = artifact_hunting_houses_atlantis } 118 = { has_state_flag = artifact_hunting_houses_atlantis } } }
+	}
+	title = {
+		text = bdeaus.43.t_sardinia
+		trigger = { 114 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	desc = {
+		text = bdeaus.43.d_sardinia
+		trigger = { 114 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	title = {
+		text = bdeaus.43.t_thera
+		trigger = { 939 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	desc = {
+		text = bdeaus.43.d_thera
+		trigger = { 939 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	title = {
+		text = bdeaus.43.t_canaries
+		trigger = { 178 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	desc = {
+		text = bdeaus.43.d_canaries
+		trigger = { 178 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	title = {
+		text = bdeaus.43.t_iceland
+		trigger = { 100 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	desc = {
+		text = bdeaus.43.d_iceland
+		trigger = { 100 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	title = {
+		text = bdeaus.43.t_kitezh
+		trigger = { 252 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	desc = {
+		text = bdeaus.43.d_kitezh
+		trigger = { 252 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	title = {
+		text = bdeaus.43.t_tibet
+		trigger = { 322 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	desc = {
+		text = bdeaus.43.d_tibet
+		trigger = { 322 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	title = {
+		text = bdeaus.43.t_mexico
+		trigger = { 277 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	desc = {
+		text = bdeaus.43.d_mexico
+		trigger = { 277 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	title = {
+		text = bdeaus.43.t_piedras_negras
+		trigger = { 1250 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	desc = {
+		text = bdeaus.43.d_piedras_negras
+		trigger = { 1250 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	title = {
+		text = bdeaus.43.t_bimini
+		trigger = { 690 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	desc = {
+		text = bdeaus.43.d_bimini
+		trigger = { 690 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Could Atlanteans have had contact with ancient Lemurians?
+		name = bdeaus.43.a
+		custom_effect_tooltip = AUS_atlantis_dig
+		set_country_flag = artifact_hunting_atlantis_dig
+	}
+}
+
+country_event = { #Atlantis found
+	id = bdeaus.44
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.44" }
+	title = {
+		text = bdeaus.44.t_tartessos
+		trigger = { OR = { 169 = { has_state_flag = artifact_hunting_houses_atlantis } 1336 = { has_state_flag = artifact_hunting_houses_atlantis } 173 = { has_state_flag = artifact_hunting_houses_atlantis } 118 = { has_state_flag = artifact_hunting_houses_atlantis } } }
+	}
+	desc = {
+		text = bdeaus.44.d_tartessos
+		trigger = { OR = { 169 = { has_state_flag = artifact_hunting_houses_atlantis } 1336 = { has_state_flag = artifact_hunting_houses_atlantis } 173 = { has_state_flag = artifact_hunting_houses_atlantis } 118 = { has_state_flag = artifact_hunting_houses_atlantis } } }
+	}
+	title = {
+		text = bdeaus.44.t_sardinia
+		trigger = { 114 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	desc = {
+		text = bdeaus.44.d_sardinia
+		trigger = { 114 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	title = {
+		text = bdeaus.44.t_thera
+		trigger = { 939 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	desc = {
+		text = bdeaus.44.d_thera
+		trigger = { 939 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	title = {
+		text = bdeaus.44.t_canaries
+		trigger = { 178 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	desc = {
+		text = bdeaus.44.d_canaries
+		trigger = { 178 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	title = {
+		text = bdeaus.44.t_iceland
+		trigger = { 100 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	desc = {
+		text = bdeaus.44.d_iceland
+		trigger = { 100 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	title = {
+		text = bdeaus.44.t_kitezh
+		trigger = { 252 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	desc = {
+		text = bdeaus.44.d_kitezh
+		trigger = { 252 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	title = {
+		text = bdeaus.44.t_tibet
+		trigger = { 322 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	desc = {
+		text = bdeaus.44.d_tibet
+		trigger = { 322 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	title = {
+		text = bdeaus.44.t_mexico
+		trigger = { 277 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	desc = {
+		text = bdeaus.44.d_mexico
+		trigger = { 277 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	title = {
+		text = bdeaus.44.t_piedras_negras
+		trigger = { 1250 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	desc = {
+		text = bdeaus.44.d_piedras_negras
+		trigger = { 1250 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	title = {
+		text = bdeaus.44.t_bimini
+		trigger = { 690 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	desc = {
+		text = bdeaus.44.d_bimini
+		trigger = { 690 = { has_state_flag = artifact_hunting_houses_atlantis } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #Could Atlanteans have had contact with ancient Lemurians?
+		name = bdeaus.44.a
+		remove_from_array = { array = discoverable_artifacts value = discovery_chance_atlantis }
+		set_country_flag = AUS_atlantis_discovered
+	}
+}
+
+country_event = { #Z progress
+	id = bdeaus.45
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.45" }
+	title = bdeaus.45.t
+	desc = bdeaus.45.d
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.45.a
+		custom_effect_tooltip = AUS_z_dig
+		set_country_flag = artifact_hunting_z_dig
+	}
+}
+
+country_event = { #Z found
+	id = bdeaus.46
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.46" }
+	title = bdeaus.46.t
+	desc = bdeaus.46.d
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.46.a
+		custom_effect_tooltip = AUS_lost_city_Z_discovered_tt
+		remove_from_array = { array = discoverable_artifacts value = discovery_chance_z }
+		set_country_flag = AUS_lost_city_Z_discovered
+	}
+}
+
+country_event = { #Tiwanaku progress
+	id = bdeaus.47
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.47" }
+	title = bdeaus.47.t
+	desc = bdeaus.47.d
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.47.a
+		custom_effect_tooltip = AUS_tiwanaku_dig
+		set_country_flag = artifact_hunting_tiwanaku_dig
+	}
+}
+
+country_event = { #Tiwanaku found
+	id = bdeaus.48
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.48" }
+	title = bdeaus.48.t
+	desc = bdeaus.48.d
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.48.a
+		remove_from_array = { array = discoverable_artifacts value = discovery_chance_tiwanaku }
+		set_country_flag = AUS_tiwanaku_discovered
+	}
+}
+
+country_event = { #Nazca Line progress
+	id = bdeaus.49
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.49" }
+	title = bdeaus.49.t
+	desc = bdeaus.49.d
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.49.a
+		custom_effect_tooltip = AUS_nazca_dig
+		set_country_flag = artifact_hunting_nazca_dig
+	}
+}
+
+country_event = { #Nazca Line found
+	id = bdeaus.50
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.50" }
+	title = bdeaus.50.t
+	desc = bdeaus.50.d
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.50.a
+		remove_from_array = { array = discoverable_artifacts value = discovery_chance_nazca }
+		set_country_flag = AUS_nazca_theozoan_discovered
+	}
+}
+
+country_event = { #L'Anse Aux Meadows progress
+	id = bdeaus.51
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.51" }
+	title = bdeaus.51.t
+	desc = bdeaus.51.d
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.51.a
+		custom_effect_tooltip = AUS_l_anse_aux_meadows_dig
+		set_country_flag = artifact_hunting_l_anse_aux_meadows_dig
+	}
+}
+
+country_event = { #L'Anse Aux Meadows found
+	id = bdeaus.52
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.52" }
+	title = bdeaus.52.t
+	desc = bdeaus.52.d
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.52.a
+		remove_from_array = { array = discoverable_artifacts value = discovery_chance_l_anse_aux_meadows }
+		set_country_flag = AUS_l_anse_aux_meadows_discovered
+	}
+}
+
+country_event = { #Ark of the Covenant progress
+	id = bdeaus.53
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.53" }
+	title = {
+		text = bdeaus.53.t_tigray
+		trigger = { 823 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	desc = {
+		text = bdeaus.53.d_tigray
+		trigger = { 823 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	title = {
+		text = bdeaus.53.t_dumghe
+		trigger = { 545 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	desc = {
+		text = bdeaus.53.d_dumghe
+		trigger = { 545 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	title = {
+		text = bdeaus.53.t_tanis
+		trigger = { 446 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	desc = {
+		text = bdeaus.53.d_tanis
+		trigger = { 446 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	title = {
+		text = bdeaus.53.t_chartres
+		trigger = { 33 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	desc = {
+		text = bdeaus.53.d_chartres
+		trigger = { 33 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	title = {
+		text = bdeaus.53.t_rosslyn
+		trigger = { 121 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	desc = {
+		text = bdeaus.53.d_rosslyn
+		trigger = { 121 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	title = {
+		text = bdeaus.53.t_hill_tara
+		trigger = { 113 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	desc = {
+		text = bdeaus.53.d_hill_tara
+		trigger = { 113 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	title = {
+		text = bdeaus.53.t_jerusalem
+		trigger = { 454 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	desc = {
+		text = bdeaus.53.d_jerusalem
+		trigger = { 454 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	title = {
+		text = bdeaus.53.t_nova_scotia
+		trigger = { 464 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	desc = {
+		text = bdeaus.53.d_nova_scotia
+		trigger = { 464 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	title = {
+		text = bdeaus.53.t_cayenne
+		trigger = { 310 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	desc = {
+		text = bdeaus.53.d_cayenne
+		trigger = { 310 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.53.a
+		custom_effect_tooltip = AUS_ark_of_the_covenant_dig
+		set_country_flag = artifact_hunting_ark_of_the_covenant_dig
+	}
+}
+
+country_event = { #Ark of the Covenant found
+	id = bdeaus.54
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.54" }
+	title = {
+		text = bdeaus.54.t_tigray
+		trigger = { 823 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	desc = {
+		text = bdeaus.54.d_tigray
+		trigger = { 823 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	title = {
+		text = bdeaus.54.t_dumghe
+		trigger = { 545 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	desc = {
+		text = bdeaus.54.d_dumghe
+		trigger = { 545 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	title = {
+		text = bdeaus.54.t_tanis
+		trigger = { 446 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	desc = {
+		text = bdeaus.54.d_tanis
+		trigger = { 446 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	title = {
+		text = bdeaus.54.t_chartres
+		trigger = { 33 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	desc = {
+		text = bdeaus.54.d_chartres
+		trigger = { 33 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	title = {
+		text = bdeaus.54.t_rosslyn
+		trigger = { 121 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	desc = {
+		text = bdeaus.54.d_rosslyn
+		trigger = { 121 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	title = {
+		text = bdeaus.54.t_hill_tara
+		trigger = { 113 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	desc = {
+		text = bdeaus.54.d_hill_tara
+		trigger = { 113 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	title = {
+		text = bdeaus.54.t_jerusalem
+		trigger = { 454 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	desc = {
+		text = bdeaus.54.d_jerusalem
+		trigger = { 454 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	title = {
+		text = bdeaus.54.t_nova_scotia
+		trigger = { 464 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	desc = {
+		text = bdeaus.54.d_nova_scotia
+		trigger = { 464 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	title = {
+		text = bdeaus.54.t_cayenne
+		trigger = { 310 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	desc = {
+		text = bdeaus.54.d_cayenne
+		trigger = { 310 = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.54.a
+		remove_from_array = { array = discoverable_artifacts value = discovery_chance_ark_of_the_covenant }
+		set_country_flag = AUS_ark_of_the_covenant_discovered
+	}
+}
+
+country_event = { #Holy Grail progress
+	id = bdeaus.55
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.55" }
+	title = {
+		text = bdeaus.55.t_valencia
+		trigger = { 167 = { has_state_flag = artifact_hunting_houses_holy_grail } }
+	}
+	desc = {
+		text = bdeaus.55.d_valencia
+		trigger = { 167 = { has_state_flag = artifact_hunting_houses_holy_grail } }
+	}
+	title = {
+		text = bdeaus.55.t_montesegur
+		trigger = { 984 = { has_state_flag = artifact_hunting_houses_holy_grail } }
+	}
+	desc = {
+		text = bdeaus.55.d_montesegur
+		trigger = { 984 = { has_state_flag = artifact_hunting_houses_holy_grail } }
+	}
+	title = {
+		text = bdeaus.55.t_petra
+		trigger = { 455 = { has_state_flag = artifact_hunting_houses_holy_grail } }
+	}
+	desc = {
+		text = bdeaus.55.d_petra
+		trigger = { 455 = { has_state_flag = artifact_hunting_houses_holy_grail } }
+	}
+	title = {
+		text = bdeaus.55.t_glastonbury
+		trigger = { 338 = { has_state_flag = artifact_hunting_houses_holy_grail } }
+	}
+	desc = {
+		text = bdeaus.55.d_glastonbury
+		trigger = { 338 = { has_state_flag = artifact_hunting_houses_holy_grail } }
+	}
+	title = {
+		text = bdeaus.55.t_aaargh_stalker_monty_python
+		trigger = { 120 = { has_state_flag = artifact_hunting_houses_holy_grail } }
+	}
+	desc = {
+		text = bdeaus.55.d_aaargh_stalker_monty_python
+		trigger = { 120 = { has_state_flag = artifact_hunting_houses_holy_grail } }
+	}
+	title = {
+		text = bdeaus.55.t_westford_knight_henry_sinclair
+		trigger = { 932 = { has_state_flag = artifact_hunting_houses_holy_grail } }
+	}
+	desc = {
+		text = bdeaus.55.d_westford_knight_henry_sinclair
+		trigger = { 932 = { has_state_flag = artifact_hunting_houses_holy_grail } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.55.a
+		custom_effect_tooltip = AUS_holy_grail_dig
+		set_country_flag = artifact_hunting_holy_grail_dig
+	}
+}
+
+country_event = { #Holy Grail found
+	id = bdeaus.56
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.56" }
+	title = {
+		text = bdeaus.56.t_valencia
+		trigger = { 167 = { has_state_flag = artifact_hunting_houses_holy_grail } }
+	}
+	desc = {
+		text = bdeaus.56.d_valencia
+		trigger = { 167 = { has_state_flag = artifact_hunting_houses_holy_grail } }
+	}
+	title = {
+		text = bdeaus.56.t_montesegur
+		trigger = { 984 = { has_state_flag = artifact_hunting_houses_holy_grail } }
+	}
+	desc = {
+		text = bdeaus.56.d_montesegur
+		trigger = { 984 = { has_state_flag = artifact_hunting_houses_holy_grail } }
+	}
+	title = {
+		text = bdeaus.56.t_petra
+		trigger = { 455 = { has_state_flag = artifact_hunting_houses_holy_grail } }
+	}
+	desc = {
+		text = bdeaus.56.d_petra
+		trigger = { 455 = { has_state_flag = artifact_hunting_houses_holy_grail } }
+	}
+	title = {
+		text = bdeaus.56.t_glastonbury
+		trigger = { 338 = { has_state_flag = artifact_hunting_houses_holy_grail } }
+	}
+	desc = {
+		text = bdeaus.56.d_glastonbury
+		trigger = { 338 = { has_state_flag = artifact_hunting_houses_holy_grail } }
+	}
+	title = {
+		text = bdeaus.56.t_aaargh_stalker_monty_python
+		trigger = { 120 = { has_state_flag = artifact_hunting_houses_holy_grail } }
+	}
+	desc = {
+		text = bdeaus.56.d_aaargh_stalker_monty_python
+		trigger = { 120 = { has_state_flag = artifact_hunting_houses_holy_grail } }
+	}
+	title = {
+		text = bdeaus.56.t_westford_knight_henry_sinclair
+		trigger = { 932 = { has_state_flag = artifact_hunting_houses_holy_grail } }
+	}
+	desc = {
+		text = bdeaus.56.d_westford_knight_henry_sinclair
+		trigger = { 932 = { has_state_flag = artifact_hunting_houses_holy_grail } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.56.a
+		remove_from_array = { array = discoverable_artifacts value = discovery_chance_holy_grail }
+		set_country_flag = AUS_holy_grail_discovered
+	}
+}
+
+country_event = { #Noah's Ark progress
+	id = bdeaus.57
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.57" }
+	title = {
+		text = bdeaus.57.t_ararat
+		trigger = { 230 = { has_state_flag = artifact_hunting_houses_noahs_ark } }
+	}
+	desc = {
+		text = bdeaus.57.d_ararat
+		trigger = { 230 = { has_state_flag = artifact_hunting_houses_noahs_ark } }
+	}
+	title = {
+		text = bdeaus.57.t_carrhae
+		trigger = { 350 = { has_state_flag = artifact_hunting_houses_noahs_ark } }
+	}
+	desc = {
+		text = bdeaus.57.d_carrhae
+		trigger = { 350 = { has_state_flag = artifact_hunting_houses_noahs_ark } }
+	}
+	title = {
+		text = bdeaus.57.t_ecbatana
+		trigger = { 421 = { has_state_flag = artifact_hunting_houses_noahs_ark } }
+	}
+	desc = {
+		text = bdeaus.57.d_ecbatana
+		trigger = { 421 = { has_state_flag = artifact_hunting_houses_noahs_ark } }
+	}
+	title = {
+		text = bdeaus.57.t_antarctica
+		trigger = { 1223 = { has_state_flag = artifact_hunting_houses_noahs_ark } }
+	}
+	desc = {
+		text = bdeaus.57.d_antarctica
+		trigger = { 1223 = { has_state_flag = artifact_hunting_houses_noahs_ark } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.57.a
+		custom_effect_tooltip = AUS_noahs_ark_dig
+		set_country_flag = artifact_hunting_noahs_ark_dig
+	}
+}
+
+country_event = { #Noah's Ark found
+	id = bdeaus.58
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.58" }
+	title = {
+		text = bdeaus.58.t_ararat
+		trigger = { 230 = { has_state_flag = artifact_hunting_houses_noahs_ark } }
+	}
+	desc = {
+		text = bdeaus.58.d_ararat
+		trigger = { 230 = { has_state_flag = artifact_hunting_houses_noahs_ark } }
+	}
+	title = {
+		text = bdeaus.58.t_carrhae
+		trigger = { 350 = { has_state_flag = artifact_hunting_houses_noahs_ark } }
+	}
+	desc = {
+		text = bdeaus.58.d_carrhae
+		trigger = { 350 = { has_state_flag = artifact_hunting_houses_noahs_ark } }
+	}
+	title = {
+		text = bdeaus.58.t_ecbatana
+		trigger = { 421 = { has_state_flag = artifact_hunting_houses_noahs_ark } }
+	}
+	desc = {
+		text = bdeaus.58.d_ecbatana
+		trigger = { 421 = { has_state_flag = artifact_hunting_houses_noahs_ark } }
+	}
+	title = {
+		text = bdeaus.58.t_antarctica
+		trigger = { 1223 = { has_state_flag = artifact_hunting_houses_noahs_ark } }
+	}
+	desc = {
+		text = bdeaus.58.d_antarctica
+		trigger = { 1223 = { has_state_flag = artifact_hunting_houses_noahs_ark } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.58.a
+		remove_from_array = { array = discoverable_artifacts value = discovery_chance_noahs_ark }
+		set_country_flag = AUS_noahs_ark_discovered
+	}
+}
+
+country_event = { #Holy Lance progress
+	id = bdeaus.59
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.59" }
+	title = {
+		text = bdeaus.59.t_vienna
+		trigger = { 1223 = { has_state_flag = artifact_hunting_houses_holy_lance } }
+	}
+	desc = {
+		text = bdeaus.59.d_vienna
+		trigger = { 1223 = { has_state_flag = artifact_hunting_houses_holy_lance } }
+	}
+	title = {
+		text = bdeaus.59.t_citeaux
+		trigger = { 27 = { has_state_flag = artifact_hunting_houses_holy_lance } }
+	}
+	desc = {
+		text = bdeaus.59.d_citeaux
+		trigger = { 27 = { has_state_flag = artifact_hunting_houses_holy_lance } }
+	}
+	title = {
+		text = bdeaus.59.t_constantinople
+		trigger = { 773 = { has_state_flag = artifact_hunting_houses_holy_lance } }
+	}
+	desc = {
+		text = bdeaus.59.d_constantinople
+		trigger = { 773 = { has_state_flag = artifact_hunting_houses_holy_lance } }
+	}
+	title = {
+		text = bdeaus.59.t_echmiatsin
+		trigger = { 230 = { has_state_flag = artifact_hunting_houses_holy_lance } }
+	}
+	desc = {
+		text = bdeaus.59.d_echmiatsin
+		trigger = { 230 = { has_state_flag = artifact_hunting_houses_holy_lance } }
+	}
+	title = {
+		text = bdeaus.59.t_antioch
+		trigger = { 553 = { has_state_flag = artifact_hunting_houses_holy_lance } }
+	}
+	desc = {
+		text = bdeaus.59.d_antioch
+		trigger = { 553 = { has_state_flag = artifact_hunting_houses_holy_lance } }
+	}
+	title = {
+		text = bdeaus.59.t_rome
+		trigger = { 2 = { has_state_flag = artifact_hunting_houses_holy_lance } }
+	}
+	desc = {
+		text = bdeaus.59.d_rome
+		trigger = { 2 = { has_state_flag = artifact_hunting_houses_holy_lance } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.59.a
+		custom_effect_tooltip = AUS_holy_lance_dig
+		set_country_flag = artifact_hunting_holy_lance_dig
+	}
+}
+
+country_event = { #Holy Lance found
+	id = bdeaus.60
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.60" }
+	title = {
+		text = bdeaus.60.t_vienna
+		trigger = { 1223 = { has_state_flag = artifact_hunting_houses_holy_lance } }
+	}
+	desc = {
+		text = bdeaus.60.d_vienna
+		trigger = { 1223 = { has_state_flag = artifact_hunting_houses_holy_lance } }
+	}
+	title = {
+		text = bdeaus.60.t_citeaux
+		trigger = { 27 = { has_state_flag = artifact_hunting_houses_holy_lance } }
+	}
+	desc = {
+		text = bdeaus.60.d_citeaux
+		trigger = { 27 = { has_state_flag = artifact_hunting_houses_holy_lance } }
+	}
+	title = {
+		text = bdeaus.60.t_constantinople
+		trigger = { 773 = { has_state_flag = artifact_hunting_houses_holy_lance } }
+	}
+	desc = {
+		text = bdeaus.60.d_constantinople
+		trigger = { 773 = { has_state_flag = artifact_hunting_houses_holy_lance } }
+	}
+	title = {
+		text = bdeaus.60.t_echmiatsin
+		trigger = { 230 = { has_state_flag = artifact_hunting_houses_holy_lance } }
+	}
+	desc = {
+		text = bdeaus.60.d_echmiatsin
+		trigger = { 230 = { has_state_flag = artifact_hunting_houses_holy_lance } }
+	}
+	title = {
+		text = bdeaus.60.t_antioch
+		trigger = { 553 = { has_state_flag = artifact_hunting_houses_holy_lance } }
+	}
+	desc = {
+		text = bdeaus.60.d_antioch
+		trigger = { 553 = { has_state_flag = artifact_hunting_houses_holy_lance } }
+	}
+	title = {
+		text = bdeaus.60.t_rome
+		trigger = { 2 = { has_state_flag = artifact_hunting_houses_holy_lance } }
+	}
+	desc = {
+		text = bdeaus.60.d_rome
+		trigger = { 2 = { has_state_flag = artifact_hunting_houses_holy_lance } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.60.a
+		remove_from_array = { array = discoverable_artifacts value = discovery_chance_holy_lance }
+		set_country_flag = AUS_holy_lance_discovered
+	}
+}
+
+country_event = { #Iron Crown progress
+	id = bdeaus.61
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.61" }
+	title = bdeaus.61.t
+	desc = bdeaus.61.d
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.61.a
+		custom_effect_tooltip = AUS_iron_crown_dig
+		set_country_flag = artifact_hunting_iron_crown_dig
+	}
+}
+
+country_event = { #Iron Crown found
+	id = bdeaus.62
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.62" }
+	title = bdeaus.62.t
+	desc = bdeaus.62.d
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.62.a
+		remove_from_array = { array = discoverable_artifacts value = discovery_chance_iron_crown }
+		set_country_flag = AUS_iron_crown_discovered
+	}
+}
+
+country_event = { #True Cross progress
+	id = bdeaus.63
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.63" }
+	title = {
+		text = bdeaus.63.t_constantinople
+		trigger = { 773 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.63.d_constantinople
+		trigger = { 773 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.63.t_athos
+		trigger = { 989 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.63.d_athos
+		trigger = { 989 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.63.t_rome
+		trigger = { 2 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.63.d_rome
+		trigger = { 2 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.63.t_tarlac
+		trigger = { 327 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.63.d_tarlac
+		trigger = { 327 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.63.t_brussels
+		trigger = { 6 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.63.d_brussels
+		trigger = { 6 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.63.t_vienna
+		trigger = { 1137 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.63.d_vienna
+		trigger = { 1137 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.63.t_paris
+		trigger = { 16 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.63.d_paris
+		trigger = { 16 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.63.t_venice
+		trigger = { 160 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.63.d_venice
+		trigger = { 160 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.63.t_amba_geshen
+		trigger = { 920 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.63.d_amba_geshen
+		trigger = { 920 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.63.t_florence
+		trigger = { 162 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.63.d_florence
+		trigger = { 162 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.63.t_murcia_caravaca
+		trigger = { 168 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.63.d_murcia_caravaca
+		trigger = { 168 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.63.t_jerusalem
+		trigger = { 454 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.63.d_jerusalem
+		trigger = { 454 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.63.t_armenia
+		trigger = { 230 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.63.d_armenia
+		trigger = { 230 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.63.t_edinburgh_blackrood
+		trigger = { 121 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.63.d_edinburgh_blackrood
+		trigger = { 121 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.63.t_ireland
+		trigger = { 135 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.63.d_ireland
+		trigger = { 135 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.63.a
+		custom_effect_tooltip = AUS_true_cross_dig
+		hidden_effect = {
+			every_state = {
+				limit = {
+					has_state_flag = artifact_hunting_houses_true_cross_fragment
+				}
+				set_state_flag = artifact_hunting_true_cross_dig
+			}
+		}
+	}
+}
+
+country_event = { #True Cross found
+	id = bdeaus.64
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.64" }
+	title = {
+		text = bdeaus.64.t_constantinople
+		trigger = { 773 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.64.d_constantinople
+		trigger = { 773 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.64.t_athos
+		trigger = { 989 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.64.d_athos
+		trigger = { 989 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.64.t_rome
+		trigger = { 2 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.64.d_rome
+		trigger = { 2 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.64.t_tarlac
+		trigger = { 327 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.64.d_tarlac
+		trigger = { 327 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.64.t_brussels
+		trigger = { 6 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.64.d_brussels
+		trigger = { 6 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.64.t_vienna
+		trigger = { 1137 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.64.d_vienna
+		trigger = { 1137 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.64.t_paris
+		trigger = { 16 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.64.d_paris
+		trigger = { 16 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.64.t_venice
+		trigger = { 160 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.64.d_venice
+		trigger = { 160 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.64.t_amba_geshen
+		trigger = { 920 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.64.d_amba_geshen
+		trigger = { 920 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.64.t_florence
+		trigger = { 162 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.64.d_florence
+		trigger = { 162 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.64.t_murcia_caravaca
+		trigger = { 168 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.64.d_murcia_caravaca
+		trigger = { 168 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.64.t_jerusalem
+		trigger = { 454 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.64.d_jerusalem
+		trigger = { 454 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.64.t_armenia
+		trigger = { 230 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.64.d_armenia
+		trigger = { 230 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.64.t_edinburgh_blackrood
+		trigger = { 121 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.64.d_edinburgh_blackrood
+		trigger = { 121 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	title = {
+		text = bdeaus.64.t_ireland
+		trigger = { 135 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	desc = {
+		text = bdeaus.64.d_ireland
+		trigger = { 135 = { has_state_flag = artifact_hunting_houses_true_cross_fragment } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.64.a
+		remove_from_array = { array = discoverable_artifacts value = discovery_chance_true_cross }
+		set_country_flag = AUS_true_cross_discovered
+	}
+}
+
+country_event = { #Rhine Gold progress
+	id = bdeaus.65
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.65" }
+	title = {
+		text = bdeaus.65.t_mainz
+		trigger = { 135 = { has_state_flag = artifact_hunting_houses_rhine_gold } }
+	}
+	desc = {
+		text = bdeaus.65.d_mainz
+		trigger = { 135 = { has_state_flag = artifact_hunting_houses_rhine_gold } }
+	}
+	title = {
+		text = bdeaus.65.t_cologne
+		trigger = { 781 = { has_state_flag = artifact_hunting_houses_rhine_gold } }
+	}
+	desc = {
+		text = bdeaus.65.d_cologne
+		trigger = { 781 = { has_state_flag = artifact_hunting_houses_rhine_gold } }
+	}
+	title = {
+		text = bdeaus.65.t_liechtenstein
+		trigger = { 1235 = { has_state_flag = artifact_hunting_houses_rhine_gold } }
+	}
+	desc = {
+		text = bdeaus.65.d_liechtenstein
+		trigger = { 1235 = { has_state_flag = artifact_hunting_houses_rhine_gold } }
+	}
+	title = {
+		text = bdeaus.65.t_swiss
+		trigger = { 151 = { has_state_flag = artifact_hunting_houses_rhine_gold } }
+	}
+	desc = {
+		text = bdeaus.65.d_swiss
+		trigger = { 151 = { has_state_flag = artifact_hunting_houses_rhine_gold } }
+	}
+	title = {
+		text = bdeaus.65.t_elsass_lothringen
+		trigger = { 28 = { has_state_flag = artifact_hunting_houses_rhine_gold } }
+	}
+	desc = {
+		text = bdeaus.65.d_elsass_lothringen
+		trigger = { 28 = { has_state_flag = artifact_hunting_houses_rhine_gold } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.65.a
+		custom_effect_tooltip = AUS_rhine_gold_dig
+		set_country_flag = artifact_hunting_rhine_gold_dig
+	}
+}
+
+country_event = { #Rhine Gold found
+	id = bdeaus.66
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.66" }
+	title = {
+		text = bdeaus.66.t_mainz
+		trigger = { 135 = { has_state_flag = artifact_hunting_houses_rhine_gold } }
+	}
+	desc = {
+		text = bdeaus.66.d_mainz
+		trigger = { 135 = { has_state_flag = artifact_hunting_houses_rhine_gold } }
+	}
+	title = {
+		text = bdeaus.66.t_cologne
+		trigger = { 781 = { has_state_flag = artifact_hunting_houses_rhine_gold } }
+	}
+	desc = {
+		text = bdeaus.66.d_cologne
+		trigger = { 781 = { has_state_flag = artifact_hunting_houses_rhine_gold } }
+	}
+	title = {
+		text = bdeaus.66.t_liechtenstein
+		trigger = { 1235 = { has_state_flag = artifact_hunting_houses_rhine_gold } }
+	}
+	desc = {
+		text = bdeaus.66.d_liechtenstein
+		trigger = { 1235 = { has_state_flag = artifact_hunting_houses_rhine_gold } }
+	}
+	title = {
+		text = bdeaus.66.t_swiss
+		trigger = { 151 = { has_state_flag = artifact_hunting_houses_rhine_gold } }
+	}
+	desc = {
+		text = bdeaus.66.d_swiss
+		trigger = { 151 = { has_state_flag = artifact_hunting_houses_rhine_gold } }
+	}
+	title = {
+		text = bdeaus.66.t_elsass_lothringen
+		trigger = { 28 = { has_state_flag = artifact_hunting_houses_rhine_gold } }
+	}
+	desc = {
+		text = bdeaus.66.d_elsass_lothringen
+		trigger = { 28 = { has_state_flag = artifact_hunting_houses_rhine_gold } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.66.a
+		remove_from_array = { array = discoverable_artifacts value = discovery_chance_rhine_gold }
+		set_country_flag = AUS_rhine_gold_discovered
+	}
+}
+
+country_event = { #Atlantean Remains progress
+	id = bdeaus.67
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.67" }
+	title = {
+		text = bdeaus.67.t_austria
+		trigger = { 39 = { has_state_flag = artifact_hunting_houses_atlantean } }
+	}
+	desc = {
+		text = bdeaus.67.d_austria
+		trigger = { 39 = { has_state_flag = artifact_hunting_houses_atlantean } }
+	}
+	title = {
+		text = bdeaus.67.t_altamura_man
+		trigger = { 837 = { has_state_flag = artifact_hunting_houses_atlantean } }
+	}
+	desc = {
+		text = bdeaus.67.d_altamura_man
+		trigger = { 837 = { has_state_flag = artifact_hunting_houses_atlantean } }
+	}
+	title = {
+		text = bdeaus.67.t_hadar
+		trigger = { 921 = { has_state_flag = artifact_hunting_houses_atlantean } }
+	}
+	desc = {
+		text = bdeaus.67.d_hadar
+		trigger = { 921 = { has_state_flag = artifact_hunting_houses_atlantean } }
+	}
+	title = {
+		text = bdeaus.67.t_SAF
+		trigger = { 275 = { has_state_flag = artifact_hunting_houses_atlantean } }
+	}
+	desc = {
+		text = bdeaus.67.d_SAF
+		trigger = { 275 = { has_state_flag = artifact_hunting_houses_atlantean } }
+	}
+	title = {
+		text = bdeaus.67.t_jerusalem
+		trigger = { 454 = { has_state_flag = artifact_hunting_houses_atlantean } }
+	}
+	desc = {
+		text = bdeaus.67.d_jerusalem
+		trigger = { 454 = { has_state_flag = artifact_hunting_houses_atlantean } }
+	}
+	title = {
+		text = bdeaus.67.t_alexandria
+		trigger = { 447 = { has_state_flag = artifact_hunting_houses_atlantean } }
+	}
+	desc = {
+		text = bdeaus.67.d_alexandria
+		trigger = { 447 = { has_state_flag = artifact_hunting_houses_atlantean } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.67.a
+		custom_effect_tooltip = AUS_atlantean_dig
+		set_country_flag = artifact_hunting_atlantean_dig
+	}
+}
+
+country_event = { #Atlantean Remains found
+	id = bdeaus.68
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.68" }
+	title = {
+		text = bdeaus.68.t_austria
+		trigger = { 39 = { has_state_flag = artifact_hunting_houses_atlantean } }
+	}
+	desc = {
+		text = bdeaus.68.d_austria
+		trigger = { 39 = { has_state_flag = artifact_hunting_houses_atlantean } }
+	}
+	title = {
+		text = bdeaus.68.t_altamura_man
+		trigger = { 837 = { has_state_flag = artifact_hunting_houses_atlantean } }
+	}
+	desc = {
+		text = bdeaus.68.d_altamura_man
+		trigger = { 837 = { has_state_flag = artifact_hunting_houses_atlantean } }
+	}
+	title = {
+		text = bdeaus.68.t_hadar
+		trigger = { 921 = { has_state_flag = artifact_hunting_houses_atlantean } }
+	}
+	desc = {
+		text = bdeaus.68.d_hadar
+		trigger = { 921 = { has_state_flag = artifact_hunting_houses_atlantean } }
+	}
+	title = {
+		text = bdeaus.68.t_SAF
+		trigger = { 275 = { has_state_flag = artifact_hunting_houses_atlantean } }
+	}
+	desc = {
+		text = bdeaus.68.d_SAF
+		trigger = { 275 = { has_state_flag = artifact_hunting_houses_atlantean } }
+	}
+	title = {
+		text = bdeaus.68.t_jerusalem
+		trigger = { 454 = { has_state_flag = artifact_hunting_houses_atlantean } }
+	}
+	desc = {
+		text = bdeaus.68.d_jerusalem
+		trigger = { 454 = { has_state_flag = artifact_hunting_houses_atlantean } }
+	}
+	title = {
+		text = bdeaus.68.t_alexandria
+		trigger = { 447 = { has_state_flag = artifact_hunting_houses_atlantean } }
+	}
+	desc = {
+		text = bdeaus.68.d_alexandria
+		trigger = { 447 = { has_state_flag = artifact_hunting_houses_atlantean } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.68.a
+		remove_from_array = { array = discoverable_artifacts value = discovery_chance_atlantean_remains }
+		set_country_flag = AUS_atlantean_skeleton_discovered
+	}
+}
+
+country_event = { #Lemurian remains progress
+	id = bdeaus.69
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.69" }
+	title = {
+		text = bdeaus.69.t_sitecah
+		trigger = { 1165 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	desc = {
+		text = bdeaus.69.d_sitecah
+		trigger = { 1165 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	title = {
+		text = bdeaus.69.t_erice
+		trigger = { 115 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	desc = {
+		text = bdeaus.69.d_erice
+		trigger = { 115 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	title = {
+		text = bdeaus.69.t_anakim
+		trigger = { 454 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	desc = {
+		text = bdeaus.69.d_anakim
+		trigger = { 454 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	title = {
+		text = bdeaus.69.t_nephilim
+		trigger = { 992 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	desc = {
+		text = bdeaus.69.d_nephilim
+		trigger = { 992 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	title = {
+		text = bdeaus.69.t_patagons
+		trigger = { 512 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	desc = {
+		text = bdeaus.69.d_patagons
+		trigger = { 512 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	title = {
+		text = bdeaus.69.t_harlaa
+		trigger = { 906 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	desc = {
+		text = bdeaus.69.d_harlaa
+		trigger = { 906 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	title = {
+		text = bdeaus.69.t_maero
+		trigger = { 723 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	desc = {
+		text = bdeaus.69.d_maero
+		trigger = { 723 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	title = {
+		text = bdeaus.69.t_hiti
+		trigger = { 941 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	desc = {
+		text = bdeaus.69.d_hiti
+		trigger = { 941 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	title = {
+		text = bdeaus.69.t_kandahar
+		trigger = { 1218 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	desc = {
+		text = bdeaus.69.d_kandahar
+		trigger = { 1218 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	title = {
+		text = bdeaus.69.t_jotunn
+		trigger = { 141 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	desc = {
+		text = bdeaus.69.d_jotunn
+		trigger = { 141 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.69.a
+		custom_effect_tooltip = AUS_lemurian_dig
+		set_country_flag = artifact_hunting_lemurian_dig
+	}
+}
+
+country_event = { #Lemurian remains found
+	id = bdeaus.70
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.70" }
+	title = {
+		text = bdeaus.70.t_sitecah
+		trigger = { 1165 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	desc = {
+		text = bdeaus.70.d_sitecah
+		trigger = { 1165 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	title = {
+		text = bdeaus.70.t_erice
+		trigger = { 115 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	desc = {
+		text = bdeaus.70.d_erice
+		trigger = { 115 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	title = {
+		text = bdeaus.70.t_anakim
+		trigger = { 454 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	desc = {
+		text = bdeaus.70.d_anakim
+		trigger = { 454 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	title = {
+		text = bdeaus.70.t_nephilim
+		trigger = { 992 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	desc = {
+		text = bdeaus.70.d_nephilim
+		trigger = { 992 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	title = {
+		text = bdeaus.70.t_patagons
+		trigger = { 512 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	desc = {
+		text = bdeaus.70.d_patagons
+		trigger = { 512 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	title = {
+		text = bdeaus.70.t_harlaa
+		trigger = { 906 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	desc = {
+		text = bdeaus.70.d_harlaa
+		trigger = { 906 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	title = {
+		text = bdeaus.70.t_maero
+		trigger = { 723 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	desc = {
+		text = bdeaus.70.d_maero
+		trigger = { 723 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	title = {
+		text = bdeaus.70.t_hiti
+		trigger = { 941 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	desc = {
+		text = bdeaus.70.d_hiti
+		trigger = { 941 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	title = {
+		text = bdeaus.70.t_kandahar
+		trigger = { 1218 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	desc = {
+		text = bdeaus.70.d_kandahar
+		trigger = { 1218 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	title = {
+		text = bdeaus.70.t_jotunn
+		trigger = { 141 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	desc = {
+		text = bdeaus.70.d_jotunn
+		trigger = { 141 = { has_state_flag = artifact_hunting_houses_lemurian } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.70.a
+		remove_from_array = { array = discoverable_artifacts value = discovery_chance_lemurian_remains }
+		set_country_flag = AUS_lemurian_skeleton_sitecah_discovered
+	}
+}
+
+country_event = { #Iron Buddha progress
+	id = bdeaus.71
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.71" }
+	title = {
+		text = bdeaus.71.t_tibet
+		trigger = { 322 = { has_state_flag = artifact_hunting_houses_buddha } }
+	}
+	desc = {
+		text = bdeaus.71.d_tibet
+		trigger = { 322 = { has_state_flag = artifact_hunting_houses_buddha } }
+	}
+	title = {
+		text = bdeaus.71.t_sikkim
+		trigger = { 888 = { has_state_flag = artifact_hunting_houses_buddha } }
+	}
+	desc = {
+		text = bdeaus.71.d_sikkim
+		trigger = { 888 = { has_state_flag = artifact_hunting_houses_buddha } }
+	}
+	title = {
+		text = bdeaus.71.t_shanghai
+		trigger = { 743 = { has_state_flag = artifact_hunting_houses_buddha } }
+	}
+	desc = {
+		text = bdeaus.71.d_shanghai
+		trigger = { 743 = { has_state_flag = artifact_hunting_houses_buddha } }
+	}
+	title = {
+		text = bdeaus.71.t_tianjin
+		trigger = { 609 = { has_state_flag = artifact_hunting_houses_buddha } }
+	}
+	desc = {
+		text = bdeaus.71.d_tianjin
+		trigger = { 609 = { has_state_flag = artifact_hunting_houses_buddha } }
+	}
+	title = {
+		text = bdeaus.71.t_xian
+		trigger = { 799 = { has_state_flag = artifact_hunting_houses_buddha } }
+	}
+	desc = {
+		text = bdeaus.71.d_xian
+		trigger = { 799 = { has_state_flag = artifact_hunting_houses_buddha } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.71.a
+		custom_effect_tooltip = AUS_iron_man_buddha_dig
+		set_country_flag = artifact_hunting_iron_man_buddha_dig
+	}
+}
+
+country_event = { #Iron Buddha found
+	id = bdeaus.72
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.72" }
+	title = {
+		text = bdeaus.72.t_tibet
+		trigger = { 322 = { has_state_flag = artifact_hunting_houses_buddha } }
+	}
+	desc = {
+		text = bdeaus.72.d_tibet
+		trigger = { 322 = { has_state_flag = artifact_hunting_houses_buddha } }
+	}
+	title = {
+		text = bdeaus.72.t_sikkim
+		trigger = { 888 = { has_state_flag = artifact_hunting_houses_buddha } }
+	}
+	desc = {
+		text = bdeaus.72.d_sikkim
+		trigger = { 888 = { has_state_flag = artifact_hunting_houses_buddha } }
+	}
+	title = {
+		text = bdeaus.72.t_shanghai
+		trigger = { 743 = { has_state_flag = artifact_hunting_houses_buddha } }
+	}
+	desc = {
+		text = bdeaus.72.d_shanghai
+		trigger = { 743 = { has_state_flag = artifact_hunting_houses_buddha } }
+	}
+	title = {
+		text = bdeaus.72.t_tianjin
+		trigger = { 609 = { has_state_flag = artifact_hunting_houses_buddha } }
+	}
+	desc = {
+		text = bdeaus.72.d_tianjin
+		trigger = { 609 = { has_state_flag = artifact_hunting_houses_buddha } }
+	}
+	title = {
+		text = bdeaus.72.t_xian
+		trigger = { 799 = { has_state_flag = artifact_hunting_houses_buddha } }
+	}
+	desc = {
+		text = bdeaus.72.d_xian
+		trigger = { 799 = { has_state_flag = artifact_hunting_houses_buddha } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.72.a
+		remove_from_array = { array = discoverable_artifacts value = discovery_chance_iron_man_buddha }
+		set_country_flag = AUS_ironman_buddha_discovered
+	}
+}
+
+country_event = { #Balmung progress
+	id = bdeaus.73
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.73" }
+	title = {
+		text = bdeaus.73.t_gloucestershire
+		trigger = { 338 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	desc = {
+		text = bdeaus.73.d_gloucestershire
+		trigger = { 338 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	title = {
+		text = bdeaus.73.t_sicily
+		trigger = { 115 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	desc = {
+		text = bdeaus.73.d_sicily
+		trigger = { 115 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	title = {
+		text = bdeaus.73.t_durandal
+		trigger = { 172 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	desc = {
+		text = bdeaus.73.d_durandal
+		trigger = { 172 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	title = {
+		text = bdeaus.73.t_tyrfing
+		trigger = { 140 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	desc = {
+		text = bdeaus.73.d_tyrfing
+		trigger = { 140 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	title = {
+		text = bdeaus.73.t_iceland
+		trigger = { 100 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	desc = {
+		text = bdeaus.73.d_iceland
+		trigger = { 100 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	title = {
+		text = bdeaus.73.t_ramsund
+		trigger = { 141 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	desc = {
+		text = bdeaus.73.d_ramsund
+		trigger = { 141 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	title = {
+		text = bdeaus.73.t_teutoburg
+		trigger = { 57 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	desc = {
+		text = bdeaus.73.d_teutoburg
+		trigger = { 57 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	title = {
+		text = bdeaus.73.t_south_wales
+		trigger = { 122 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	desc = {
+		text = bdeaus.73.d_south_wales
+		trigger = { 122 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.73.a
+		custom_effect_tooltip = AUS_balmung_dig
+		set_country_flag = artifact_hunting_balmung_dig
+	}
+}
+
+country_event = { #Balmung found
+	id = bdeaus.74
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.74" }
+	title = {
+		text = bdeaus.74.t_gloucestershire
+		trigger = { 338 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	desc = {
+		text = bdeaus.74.d_gloucestershire
+		trigger = { 338 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	title = {
+		text = bdeaus.74.t_sicily
+		trigger = { 115 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	desc = {
+		text = bdeaus.74.d_sicily
+		trigger = { 115 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	title = {
+		text = bdeaus.74.t_durandal
+		trigger = { 172 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	desc = {
+		text = bdeaus.74.d_durandal
+		trigger = { 172 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	title = {
+		text = bdeaus.74.t_tyrfing
+		trigger = { 140 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	desc = {
+		text = bdeaus.74.d_tyrfing
+		trigger = { 140 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	title = {
+		text = bdeaus.74.t_iceland
+		trigger = { 100 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	desc = {
+		text = bdeaus.74.d_iceland
+		trigger = { 100 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	title = {
+		text = bdeaus.74.t_ramsund
+		trigger = { 141 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	desc = {
+		text = bdeaus.74.d_ramsund
+		trigger = { 141 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	title = {
+		text = bdeaus.74.t_teutoburg
+		trigger = { 57 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	desc = {
+		text = bdeaus.74.d_teutoburg
+		trigger = { 57 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	title = {
+		text = bdeaus.74.t_south_wales
+		trigger = { 122 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	desc = {
+		text = bdeaus.74.d_south_wales
+		trigger = { 122 = { has_state_flag = artifact_hunting_houses_balmung } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.74.a
+		remove_from_array = { array = discoverable_artifacts value = discovery_chance_balmung }
+		set_country_flag = AUS_balmung_discovered
+	}
+}
+
+country_event = { #Tarnhelm progress
+	id = bdeaus.75
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.75" }
+	title = {
+		text = bdeaus.75.t_antarctica
+		trigger = { 1223 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	desc = {
+		text = bdeaus.75.d_antarctica
+		trigger = { 1223 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	title = {
+		text = bdeaus.75.t_corfu
+		trigger = { 758 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	desc = {
+		text = bdeaus.75.d_corfu
+		trigger = { 758 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	title = {
+		text = bdeaus.75.t_nahanni
+		trigger = { 472 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	desc = {
+		text = bdeaus.75.d_nahanni
+		trigger = { 472 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	title = {
+		text = bdeaus.75.t_cusco
+		trigger = { 494 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	desc = {
+		text = bdeaus.75.d_cusco
+		trigger = { 494 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	title = {
+		text = bdeaus.75.t_iceland
+		trigger = { 100 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	desc = {
+		text = bdeaus.75.d_iceland
+		trigger = { 100 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	title = {
+		text = bdeaus.75.t_sweden
+		trigger = { 141 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	desc = {
+		text = bdeaus.75.d_sweden
+		trigger = { 141 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	title = {
+		text = bdeaus.75.t_burgundy
+		trigger = { 27 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	desc = {
+		text = bdeaus.75.d_burgundy
+		trigger = { 27 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	title = {
+		text = bdeaus.75.t_kyoto
+		trigger = { 531 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	desc = {
+		text = bdeaus.75.d_kyoto
+		trigger = { 531 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.75.a
+		custom_effect_tooltip = AUS_tarnhelm_dig
+		set_country_flag = artifact_hunting_tarnhelm_dig
+	}
+}
+
+country_event = { #Tarnhelm found
+	id = bdeaus.76
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeaus.76" }
+	title = {
+		text = bdeaus.76.t_antarctica
+		trigger = { 1223 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	desc = {
+		text = bdeaus.76.d_antarctica
+		trigger = { 1223 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	title = {
+		text = bdeaus.76.t_corfu
+		trigger = { 768 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	desc = {
+		text = bdeaus.76.d_corfu
+		trigger = { 768 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	title = {
+		text = bdeaus.76.t_nahanni
+		trigger = { 472 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	desc = {
+		text = bdeaus.76.d_nahanni
+		trigger = { 472 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	title = {
+		text = bdeaus.76.t_cusco
+		trigger = { 494 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	desc = {
+		text = bdeaus.76.d_cusco
+		trigger = { 494 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	title = {
+		text = bdeaus.76.t_iceland
+		trigger = { 100 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	desc = {
+		text = bdeaus.76.d_iceland
+		trigger = { 100 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	title = {
+		text = bdeaus.76.t_sweden
+		trigger = { 141 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	desc = {
+		text = bdeaus.76.d_sweden
+		trigger = { 141 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	title = {
+		text = bdeaus.76.t_burgundy
+		trigger = { 27 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	desc = {
+		text = bdeaus.76.d_burgundy
+		trigger = { 27 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	title = {
+		text = bdeaus.76.t_kyoto
+		trigger = { 531 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	desc = {
+		text = bdeaus.76.d_kyoto
+		trigger = { 531 = { has_state_flag = artifact_hunting_houses_tarnhelm } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeaus.76.a
+		remove_from_array = { array = discoverable_artifacts value = discovery_chance_tarnhelm }
+		set_country_flag = AUS_tarnhelm_discovered
+	}
+}
+
+country_event = { #Nothing Ever Happens
+	id = bdeaus.77
+	immediate = { log = "[GetDateText]: [THIS.GetName]: event bdeaus.77" }
+	title = bdeaus.77.t
+	desc = bdeaus.77.d
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+	
+
+	option = { #ah_poopy
+		name = bdeaus.77.a
+		
+	}
+}
+
+country_event = { #Something Sometimes Happens (There's something here but we cannot confirm it yet)
+	id = bdeaus.78
+	immediate = { log = "[GetDateText]: [THIS.GetName]: event bdeaus.78" }
+	title = bdeaus.78.t
+	desc = bdeaus.78.d
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+	
+
+	option = { #ah_poopy
+		name = bdeaus.78.a
+		
+	}
+}
+
+country_event = { #Master Random Ass Minor Artifact Fuck Event
+	id = bdeaus.79
+	immediate = { log = "[GetDateText]: [THIS.GetName]: event bdeaus.79" }
+	title = {
+		text = bdeaus.79.t_gevaudan
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_beast_of_gevaudan } }
+	}
+	desc = {
+		text = bdeaus.79.d_gevaudan
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_beast_of_gevaudan } }
+	}
+	title = {
+		text = bdeaus.79.t_bigfoot
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_bigfoot } }
+	}
+	desc = {
+		text = bdeaus.79.d_bigfoot
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_bigfoot } }
+	}
+	title = {
+		text = bdeaus.79.t_carmilla
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_carmilla } }
+	}
+	desc = {
+		text = bdeaus.79.d_carmilla
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_carmilla } }
+	}
+	title = {
+		text = bdeaus.79.t_golden_idol
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_the_golden_idol } }
+	}
+	desc = {
+		text = bdeaus.79.d_golden_idol
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_the_golden_idol } }
+	}
+	title = {
+		text = bdeaus.79.t_apple_of_eden
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_apple_of_eden } }
+	}
+	desc = {
+		text = bdeaus.79.d_apple_of_eden
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_apple_of_eden } }
+	}
+	title = {
+		text = bdeaus.79.t_gobekli_tepe
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_gobekli_tepe } }
+	}
+	desc = {
+		text = bdeaus.79.d_gobekli_tepe
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_gobekli_tepe } }
+	}
+	title = {
+		text = bdeaus.79.t_richard_iii
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_richard_iii_grave } }
+	}
+	desc = {
+		text = bdeaus.79.d_richard_iii
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_richard_iii_grave } }
+	}
+	title = {
+		text = bdeaus.79.t_dead_sea_scrolls
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_dead_sea_scrolls } }
+	}
+	desc = {
+		text = bdeaus.79.d_dead_sea_scrolls
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_dead_sea_scrolls } }
+	}
+	title = {
+		text = bdeaus.79.t_bosnian_pyramid
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_bosnian_pyramid } }
+	}
+	desc = {
+		text = bdeaus.79.d_bosnian_pyramid
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_bosnian_pyramid } }
+	}
+	title = {
+		text = bdeaus.79.t_chauvet
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_chauvet_caves } }
+	}
+	desc = {
+		text = bdeaus.79.d_chauvet
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_chauvet_caves } }
+	}
+	title = {
+		text = bdeaus.79.t_sankara_stones
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_sankara_stones } }
+	}
+	desc = {
+		text = bdeaus.79.d_sankara_stones
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_sankara_stones } }
+	}
+	title = {
+		text = bdeaus.79.t_crystal_skull
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_crystal_skull } }
+	}
+	desc = {
+		text = bdeaus.79.d_crystal_skull
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_crystal_skull } }
+	}
+	title = {
+		text = bdeaus.79.t_lost_city_monkey_god
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_lost_city_of_the_monkey_god } }
+	}
+	desc = {
+		text = bdeaus.79.d_lost_city_monkey_god
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_lost_city_of_the_monkey_god } }
+	}
+	title = {
+		text = bdeaus.79.t_ivans_library
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_ivans_library } }
+	}
+	desc = {
+		text = bdeaus.79.d_ivans_library
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_ivans_library } }
+	}
+	title = {
+		text = bdeaus.79.t_confederate_gold
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_confederate_gold } }
+	}
+	desc = {
+		text = bdeaus.79.d_confederate_gold
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_confederate_gold } }
+	}
+	title = {
+		text = bdeaus.79.t_arpad
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_arpad_remains } }
+	}
+	desc = {
+		text = bdeaus.79.d_arpad
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_arpad_remains } }
+	}
+	title = {
+		text = bdeaus.79.t_valerievalerievalerievalerievalerievalerievalerievalerievalerievalerie
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_kieferberg } }
+	}
+	desc = {
+		text = bdeaus.79.d_valerievalerievalerievalerievalerievalerievalerievalerievalerievalerie
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_kieferberg } }
+	}
+	title = {
+		text = bdeaus.79.t_alpenrose
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_kieferberg_2 } }
+	}
+	desc = {
+		text = bdeaus.79.d_alpenrose
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_kieferberg_2 } }
+	}
+	title = {
+		text = bdeaus.79.t_alaric
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_alaric_treasure_busento } }
+	}
+	desc = {
+		text = bdeaus.79.d_alaric
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_alaric_treasure_busento } }
+	}
+	title = {
+		text = bdeaus.79.t_mercury_poisoning
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_qin_shi_huang } }
+	}
+	desc = {
+		text = bdeaus.79.d_mercury_poisoning
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_qin_shi_huang } }
+	}
+	title = {
+		text = bdeaus.79.t_tisul_princess
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_tisul_princess } }
+	}
+	desc = {
+		text = bdeaus.79.d_tisul_princess
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_tisul_princess } }
+	}
+	title = {
+		text = bdeaus.79.t_taltos_idol
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_children_of_clay_idol } }
+	}
+	desc = {
+		text = bdeaus.79.d_taltos_idol
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_children_of_clay_idol } }
+	}
+	title = {
+		text = bdeaus.79.t_golden_woman
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_golden_woman } }
+	}
+	desc = {
+		text = bdeaus.79.d_golden_woman
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_golden_woman } }
+	}
+	title = {
+		text = bdeaus.79.t_el_dorado
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_el_dorado } }
+	}
+	desc = {
+		text = bdeaus.79.d_el_dorado
+		trigger = { event_target:minor_artifact = { has_state_flag = artifact_minor_el_dorado } }
+	}
+	
+	
+	picture = "[CollectMyMinorArtifactsButNotInAnEpsteinWayTho]"
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+
+	option = { #ah_poopy
+		name = bdeaus.79.a
+		if = { limit = { event_target:minor_artifact = { has_state_flag = artifact_minor_beast_of_gevaudan } }
+			
+		}
+		if = { limit = { event_target:minor_artifact = { has_state_flag = artifact_minor_bigfoot } }
+			
+		}
+		if = { limit = { event_target:minor_artifact = { has_state_flag = artifact_minor_carmilla } }
+			
+		}
+		if = { limit = { event_target:minor_artifact = { has_state_flag = artifact_minor_the_golden_idol } }
+			
+		}
+		if = { limit = { event_target:minor_artifact = { has_state_flag = artifact_minor_apple_of_eden } }
+			
+		}
+		if = { limit = { event_target:minor_artifact = { has_state_flag = artifact_minor_gobekli_tepe } }
+			
+		}
+		if = { limit = { event_target:minor_artifact = { has_state_flag = artifact_minor_richard_iii_grave } }
+			
+		}
+		if = { limit = { event_target:minor_artifact = { has_state_flag = artifact_minor_dead_sea_scrolls } }
+			
+		}
+		if = { limit = { event_target:minor_artifact = { has_state_flag = artifact_minor_bosnian_pyramid } }
+			
+		}
+		if = { limit = { event_target:minor_artifact = { has_state_flag = artifact_minor_chauvet_caves } }
+			
+		}
+		if = { limit = { event_target:minor_artifact = { has_state_flag = artifact_minor_sankara_stones } }
+			
+		}
+		if = { limit = { event_target:minor_artifact = { has_state_flag = artifact_minor_crystal_skull } }
+			
+		}
+		if = { limit = { event_target:minor_artifact = { has_state_flag = artifact_minor_lost_city_of_the_monkey_god } }
+			
+		}
+		if = { limit = { event_target:minor_artifact = { has_state_flag = artifact_minor_ivans_library } }
+			
+		}
+		if = { limit = { event_target:minor_artifact = { has_state_flag = artifact_minor_confederate_gold } }
+			
+		}
+		if = { limit = { event_target:minor_artifact = { has_state_flag = artifact_minor_arpad_remains } }
+			
+		}
+		if = { limit = { event_target:minor_artifact = { has_state_flag = artifact_minor_kieferberg } } #Re-clearing the artifact searched flag so the 'did I discover anything' script will fire the next artifact event
+			event_target:minor_artifact = { clr_state_flag = artifact_minor_kieferberg clr_state_flag = AUS_state_searched_artifacts set_state_flag = artifact_minor_kieferberg_2 set_state_flag = AUS_state_searched_artifacts_false_positive }
+		}
+		if = { limit = { event_target:minor_artifact = { has_state_flag = artifact_minor_kieferberg_2 } }
+			event_target:minor_artifact = { clr_state_flag = artifact_minor_kieferberg_2 clr_state_flag = AUS_state_searched_artifacts set_state_flag = artifact_minor_kieferberg_3 }
+		}
+		if = { limit = { event_target:minor_artifact = { has_state_flag = artifact_minor_alaric_treasure_busento } }
+			
+		}
+		if = { limit = { event_target:minor_artifact = { has_state_flag = artifact_minor_qin_shi_huang } }
+			
+		}
+		if = { limit = { event_target:minor_artifact = { has_state_flag = artifact_minor_tisul_princess } }
+			
+		}
+		if = { limit = { event_target:minor_artifact = { has_state_flag = artifact_minor_children_of_clay_idol } }
+			
+		}
+		if = { limit = { event_target:minor_artifact = { has_state_flag = artifact_minor_golden_woman } }
+			
+		}
+		if = { limit = { event_target:minor_artifact = { has_state_flag = artifact_minor_el_dorado } }
+			
+		}
+		hidden_effect = { every_state = { clear_global_event_target = minor_artifact } }
+	}
+}
+
+country_event = { #Reaching Out to Theosophical Lodges
+	id = bdeaus.80
+	immediate = { log = "[GetDateText]: [THIS.GetName]: event bdeaus.80" }
+	title = bdeaus.80.t
+	desc = bdeaus.80.d
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+	
+
+	option = { #Reach out to the lodges in Canada.
+		name = bdeaus.80.a
+		custom_effect_tooltip = AUS_europe_continent_discovery_025_tt
+		add_to_variable = {
+			var = AUS_europe_continent_discovery
+			value = 0.025
+		}
+	}
+	
+	option = { #Reach out to the lodges in America.
+		name = bdeaus.80.b
+		custom_effect_tooltip = AUS_north_america_continent_discovery_025_tt
+		add_to_variable = {
+			var = AUS_north_america_continent_discovery
+			value = 0.025
+		}
+	}
+	
+	option = { #Reach out to Indian lodges
+		name = bdeaus.80.c
+		custom_effect_tooltip = AUS_asia_continent_discovery_025_tt
+		add_to_variable = {
+			var = AUS_asia_continent_discovery
+			value = 0.025
+		}
+	}
+	
+}
+
+country_event = { #MLT- Ariosophs Come Seeking Information
+	id = bdeaus.81
+	immediate = { log = "[GetDateText]: [THIS.GetName]: event bdeaus.81" }
+	title = bdeaus.81.t
+	desc = bdeaus.81.d
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+	
+
+	option = { #Dismiss these silly Grail hunters.
+		name = bdeaus.81.a
+		FROM = {
+			set_country_flag = AUS_knights_no
+			country_event = { id = bdeaus.82 }
+		}
+	}
+	
+	option = { #Actually, we do know a thing or two.
+		name = bdeaus.81.b
+		add_political_power = -25
+		add_stability = -0.03
+		add_timed_idea = { idea = AUS_hidden_ariosophic_research days = 180 }
+		FROM = {
+			set_country_flag = AUS_knights_yes
+			country_event = { id = bdeaus.82 }
+		}
+	}
+	
+}
+
+country_event = { #AUS - Maltese Knights' Response
+	id = bdeaus.82
+	immediate = { log = "[GetDateText]: [THIS.GetName]: event bdeaus.82" }
+	title = {
+		text = bdeaus.82.ty
+		trigger = { event_target:minor_artifact = { has_country_flag = AUS_knights_yes } }
+	}
+	desc = {
+		text = bdeaus.82.dy
+		trigger = { event_target:minor_artifact = { has_country_flag = AUS_knights_yes } }
+	}
+	title = {
+		text = bdeaus.82.tn
+		trigger = { event_target:minor_artifact = { has_country_flag = AUS_knights_no } }
+	}
+	desc = {
+		text = bdeaus.82.dn
+		trigger = { event_target:minor_artifact = { has_country_flag = AUS_knights_no } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+	
+
+	option = { #Let's look into the Ark of the Covenant.
+		name = bdeaus.82.a
+		trigger = { has_country_flag = AUS_knights_yes }
+		custom_effect_tooltip = ark_of_the_covenant_discovery_2
+		add_to_variable = { var = discovery_chance_ark_of_the_covenant value = 0.025 }
+	}
+	
+	option = { #What of Grail legends?
+		name = bdeaus.82.b
+		trigger = { has_country_flag = AUS_knights_yes }
+		custom_effect_tooltip = holy_grail_discovery_2
+		add_to_variable = { var = discovery_chance_holy_grail value = 0.025 }
+	}
+	
+	option = { #Damn
+		name = bdeaus.82.c
+		trigger = { has_country_flag = AUS_knights_no }
+		add_political_power = -30
+	}
+	
+}
+
+country_event = { #AUS_mission_wotanists- Excavation Results
+	id = bdeaus.83
+	immediate = { log = "[GetDateText]: [THIS.GetName]: event bdeaus.83" }
+	title = {
+		text = bdeaus.83.t_complete
+		trigger = { event_target:minor_artifact = { has_country_flag = AUS_completed_mission_AUS_mission_wotanists } }
+	}
+	desc = {
+		text = bdeaus.83.d_complete
+		trigger = { event_target:minor_artifact = { has_country_flag = AUS_completed_mission_AUS_mission_wotanists } }
+	}
+	title = {
+		text = bdeaus.83.t_fail
+		trigger = { event_target:minor_artifact = { has_country_flag = AUS_failed_mission_AUS_mission_wotanists } }
+	}
+	desc = {
+		text = bdeaus.83.d_fail
+		trigger = { event_target:minor_artifact = { has_country_flag = AUS_failed_mission_AUS_mission_wotanists } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+	
+
+	option = { #Cool
+		name = bdeaus.83.a
+		trigger = { has_country_flag = AUS_completed_mission_AUS_mission_wotanists }
+		if = { limit = { check_variable = { var = AUS_mission_search_states_wotan value = 10 compare = greater_than_or_equals } }
+			random_list = {
+				50 = {
+					custom_effect_tooltip = balmung_discovery_3
+					add_to_variable = { var = discovery_chance_balmung value = 0.03 }
+				}
+				50 = {
+					custom_effect_tooltip = tarnhelm_discovery_3
+					add_to_variable = { var = discovery_chance_tarnhelm value = 0.03 }
+				}
+			}
+			custom_effect_tooltip = rhine_gold_discovery_2
+			add_to_variable = { var = discovery_chance_rhine_gold value = 0.025 }
+			else = {
+				random_list = {
+					50 = {
+						custom_effect_tooltip = balmung_discovery_3
+						add_to_variable = { var = discovery_chance_balmung value = 0.03 }
+					}
+					50 = {
+						custom_effect_tooltip = tarnhelm_discovery_3
+						add_to_variable = { var = discovery_chance_tarnhelm value = 0.03 }
+					}
+				}
+			}
+		}
+	}
+	
+	option = { #Damn
+		name = bdeaus.83.b
+		trigger = { has_country_flag = AUS_failed_mission_AUS_mission_wotanists }
+		decrease_ruling_party_popularity_by_5 = yes
+		add_stability = -0.05
+	}
+	
+}
+
+country_event = { #AUS_mission_theozoology- Excavation Results
+	id = bdeaus.84
+	immediate = { log = "[GetDateText]: [THIS.GetName]: event bdeaus.84" }
+	title = {
+		text = bdeaus.84.t_complete
+		trigger = { event_target:minor_artifact = { has_country_flag = AUS_completed_mission_AUS_mission_theozoology } }
+	}
+	desc = {
+		text = bdeaus.84.d_complete
+		trigger = { event_target:minor_artifact = { has_country_flag = AUS_completed_mission_AUS_mission_theozoology } }
+	}
+	title = {
+		text = bdeaus.84.t_fail
+		trigger = { event_target:minor_artifact = { has_country_flag = AUS_failed_mission_AUS_mission_theozoology } }
+	}
+	desc = {
+		text = bdeaus.84.d_fail
+		trigger = { event_target:minor_artifact = { has_country_flag = AUS_failed_mission_AUS_mission_theozoology } }
+	}
+	
+	picture = GFX_event_AUS_anglo_bank_run
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+	
+
+	option = { #Cool
+		name = bdeaus.84.a
+		trigger = { has_country_flag = AUS_completed_mission_AUS_mission_theozoology }
+		random_list = {
+			50 = {
+				custom_effect_tooltip = atlantean_discovery_3
+				add_to_variable = { var = discovery_chance_atlantean_remains value = 0.03 }
+			}
+			50 = {
+				custom_effect_tooltip = lemurian_discovery_3
+				add_to_variable = { var = discovery_chance_lemurian value = 0.03 }
+			}
+		}
+	}
+	
+	option = { #Damn
+		name = bdeaus.84.b
+		trigger = { has_country_flag = AUS_failed_mission_AUS_mission_theozoology }
+		decrease_ruling_party_popularity_by_5 = yes
+		add_stability = -0.05
+		add_political_power = -100
+	}
+	
+}
+
+country_event = { #Aktion 5bb. (5 for root race of Aryan; bb of "Belebung," or revival)
+	id = bdeaus.85
+	immediate = { log = "[GetDateText]: [THIS.GetName]: event bdeaus.85" }
+	title = bdeaus.85.t
+	desc = bdeaus.85.d
+	
+	picture = GFX_event_AUS_aktion_5bb
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+	
+
+	option = { #Sign the order.
+		name = bdeaus.85.a
+		add_political_power = 100
+		set_country_flag = AUS_you_deserve_to_get_shot #https://www.youtube.com/watch?v=AFA-rOls8YA
+		add_ideas = AUS_aktion_5bb
+		hidden_effect = {
+			country_event = {
+				id = bdeausflavor.183
+				days = 30
+				random_days = 45
+			}
+			country_event = {
+				id = bdeaus.88 #Constituencies Refuse Implementation of Aktion 5bb
+				days = 120
+				random_days = 60
+			}
+			country_event = {
+				id = bdeaus.89 #Violence Erupts in Linz Over Aktion 5Bb Protocol
+				days = 240
+				random_days = 60
+			}
+		}
+	}
+	
+	option = { #Think of the extant aristocracy.
+		name = bdeaus.85.b
+		add_stability = 0.01
+		set_country_flag = AUS_has_some_morals #Re-education shit
+		hidden_effect = {
+			country_event = {
+				id = bdeausflavor.183
+				days = 30
+				random_days = 45
+			}
+		}
+	}
+	
+}
+
+country_event = { #Promulgating the Party Newspaper
+	id = bdeaus.86
+	immediate = { log = "[GetDateText]: [THIS.GetName]: event bdeaus.86" }
+	title = bdeaus.86.t
+	desc = bdeaus.86.d
+	
+	picture = GFX_event_AUS_aktion_5bb
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+	
+
+	option = { #If you want gnosis, you must read German!
+		name = bdeaus.86.a
+		add_political_power = 50
+		ALL_add_three_collapse = yes
+	}
+	
+	option = { #Offer the paper in other languages, such as Hungarian.
+		name = bdeaus.86.b
+		ALL_subtract_one_collapse = yes
+		increase_ruling_party_popularity_by_5 = yes
+		add_political_power = -25
+		add_stability = -0.03
+	}
+}
+
+country_event = { #Local Parishes Resist Ariosophical Doctrine
+	id = bdeaus.87
+	immediate = { log = "[GetDateText]: [THIS.GetName]: event bdeaus.87" }
+	title = bdeaus.87.t
+	desc = bdeaus.87.d
+	
+	picture = GFX_event_AUS_aktion_5bb
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+	
+
+	option = { #Brush off these meddlers. It's nothing.
+		name = bdeaus.87.a
+		decrease_ruling_party_popularity_by_3 = yes
+		add_political_power = -30
+	}
+	
+}
+
+country_event = { #Constituency Governments Refuse Invocation of Aktion 5Bb
+	id = bdeaus.88
+	immediate = { log = "[GetDateText]: [THIS.GetName]: event bdeaus.88" }
+	title = bdeaus.88.t
+	desc = bdeaus.88.d
+	
+	picture = GFX_event_AUS_aktion_5bb
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+	
+	option = { #Brush off these meddlers. It's nothing.
+		name = bdeaus.88.a
+		ALL_add_five_collapse = yes
+		add_stability = -0.1
+	}
+}
+
+country_event = { #Riots over Aktion 5Bb!
+	id = bdeaus.89
+	immediate = { log = "[GetDateText]: [THIS.GetName]: event bdeaus.89" }
+	title = {
+		text = bdeaus.89.t_bauernsanatorium
+		trigger = { has_country_flag = AUS_bauernsanatorium }
+	}
+	desc = {
+		text = bdeaus.89.d_bauernsanatorium
+		trigger = { has_country_flag = AUS_bauernsanatorium }
+	}
+	title = {
+		text = bdeaus.89.t
+		trigger = { NOT = { has_country_flag = AUS_bauernsanatorium } }
+	}
+	desc = {
+		text = bdeaus.89.d
+		trigger = { NOT = { has_country_flag = AUS_bauernsanatorium } }
+	}
+	
+	picture = GFX_event_AUS_aktion_5bb
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+	
+	option = { #Well, maybe those schmucks will never reproduce anyways. Stop the program.
+		name = bdeaus.89.a
+		add_political_power = 50
+		add_stability = 0.05
+		remove_ideas = AUS_aktion_5bb
+		decrease_ruling_party_popularity_by_10 = yes
+	}
+	
+	option = { #They don't know what's good for them.
+		name = bdeaus.89.b
+		decrease_ruling_party_popularity_by_10 = yes
+		AUS_add_five_collapse = yes
+		add_political_power = -100
+		add_stability = -0.1
+	}
+	
+}
+
+country_event = { #Safeguarding Germanic Contributions to the Empire
+	id = bdeaus.90
+	immediate = { log = "[GetDateText]: [THIS.GetName]: event bdeaus.90" }
+	title = bdeaus.90.t
+	desc = bdeaus.90.d
+	
+	picture = GFX_event_AUS_aktion_5bb
+
+	fire_only_once = no
+
+	is_triggered_only = yes
+	
+	option = { #Brush off these meddlers. It's nothing.
+		name = bdeaus.90.a
+		AUS_subtract_five_collapse = yes
+		add_political_power = 20
 	}
 }
 
@@ -8699,10 +11801,6 @@ country_event = { #The Fifth Balkan War Begins
 				is_ally_with = SER
 			}
 		}
-	}
-	
-	mean_time_to_happen = {
-		days = 1
 	}
 	
 	trigger = {
@@ -15185,7 +18283,7 @@ country_event = { #Ausgleich check
 
 	is_triggered_only = yes
 
-	option = { #Ok
+	option = {
 		name = bdeausgleich.0.a
 		if = {
 			limit = { has_war = yes }
@@ -15218,6 +18316,38 @@ country_event = { #Plan for the Ausgleich
 	fire_only_once = yes
 
 	is_triggered_only = yes
+
+	after = {
+		if = {
+			limit = { has_idea = AUS_approaching_ausgleich }
+			remove_ideas = AUS_approaching_ausgleich
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						has_government = social_liberal
+						has_government = paternal_autocrat
+					}
+				}
+				country_event = {
+					id = bdeausgleichflavor.6
+					days = 14
+					random_hours = 120
+				}
+			}
+			country_event = {
+				id = bdeausgleichflavor.12
+				days = 4
+				random_hours = 72
+			}
+			country_event = {
+				id = bdeausgleich.3
+				days = 8
+				random_hours = 72
+			}
+		}
+	}
 
 	option = { #No way. This is between us and the Magyars.
 		name = bdeausgleich.1.a
@@ -15252,16 +18382,8 @@ country_event = { #Plan for the Ausgleich
 		else = {
 			add_to_variable = { global.ausgleich_successes = -1 }
 		}
-		remove_ideas = AUS_approaching_ausgleich
 		set_global_flag = AUS_ausgleich_hungary
 		HUN_subtract_five_collapse = yes
-		hidden_effect = {
-			country_event = {
-				id = bdeausgleich.3
-				days = 8
-				random_hours = 72
-			}
-		}
 	}
 	
 	option = { #Discuss this with just the 5 constituents.
@@ -15306,17 +18428,9 @@ country_event = { #Plan for the Ausgleich
 			}
 			add_to_variable = { global.ausgleich_successes = 1 }
 		}
-		remove_ideas = AUS_approaching_ausgleich
 		set_global_flag = AUS_ausgleich_kingdoms
 		ALL_subtract_five_collapse = yes
-		hidden_effect = {
-			country_event = {
-				id = bdeausgleich.3
-				days = 8
-				random_hours = 72
-			}
-			HUN_add_five_collapse = yes
-		}
+		HUN_add_five_collapse = yes
 	}
 	
 	option = { #All peoples of the Empire must be able to participate.
@@ -15339,12 +18453,29 @@ country_event = { #Plan for the Ausgleich
 				days = 1
 			}
 		}
-		every_country = {
+		every_possible_country = {
 			limit = {
 				OR = {
-					tag = CRO
-					tag = CZE
-					tag = GAL
+					AND = {
+						AUS_is_constituent = yes
+						OR = {
+							tag = CRO
+							tag = CZE
+							tag = GAL
+						}
+					}
+					AND = {
+						AUS_is_minority = yes
+						OR = {
+							tag = SLO
+							tag = SVK
+							tag = BUK
+							tag = TRS
+							tag = BOS
+							tag = WSU
+							tag = MNT
+						}
+					}
 				}
 			}
 			country_event = {
@@ -15352,7 +18483,6 @@ country_event = { #Plan for the Ausgleich
 				days = 1
 			}
 		}
-		remove_ideas = AUS_approaching_ausgleich
 		set_global_flag = AUS_ausgleich_peoples
 		AUS_subtract_one_collapse = yes
 		AUS_lower_all_minorities = yes
@@ -15374,11 +18504,6 @@ country_event = { #Plan for the Ausgleich
 		}
 		hidden_effect = {
 			country_event = {
-				id = bdeausgleich.3
-				days = 8
-				random_hours = 72
-			}
-			country_event = {
 				id = bdeausgleichflavor.4
 				days = 15
 				random_hours = 72
@@ -15388,24 +18513,11 @@ country_event = { #Plan for the Ausgleich
 				days = 30
 				random_hours = 72
 			}
-			if = {
-				limit = {
-					OR = {
-						has_government = social_liberal
-						has_government = paternal_autocrat
-					}
-				}
-				country_event = {
-					id = bdeausgleichflavor.6
-					days = 14
-					random_hours = 120
-				}
-			}
 		}
 	}
 }
 
-country_event = { #CONSTS - Invitation to the Ausgleich
+country_event = { #Invitation to the Ausgleich
 	id = bdeausgleich.2
 	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausgleich.2 ausgleich success: [?global.ausgleich_successes]" }
 	title = bdeausgleich.2.t
@@ -15418,7 +18530,6 @@ country_event = { #CONSTS - Invitation to the Ausgleich
 	option = { #Let's see what this is all about...
 		name = bdeausgleich.2.a
 		set_country_flag = going_to_le_ausgleich
-		custom_effect_tooltip = ausgleich_in_gui
 	}
 }
 
@@ -15436,17 +18547,19 @@ country_event = { #The Ausgleich Begins (Hidden)
 
 	is_triggered_only = yes
 
-	option = { #Let's see what this is all about...
+	option = {
 		name = bdeausgleich.3.a
 		set_global_flag = AUS_ausgleich_begun
-		every_country = {
+		clear_array = global.ausgleich_attendants
+		get_sorted_scored_countries = {
+		    scorer = BOTDE_ausgleich_priority_score
+		    array = global.ausgleich_attendants
+		}
+		every_possible_country = {
 			limit = {
 				OR = {
 					tag = AUS
-					tag = HUN
-					tag = CZE
-					tag = CRO
-					tag = HUN
+					has_country_flag = going_to_le_ausgleich
 				}
 			}
 			country_event = bdeausgleich.4
@@ -15531,19 +18644,8 @@ country_event = { #The Ausgleich Begins
 		name = bdeausgleich.4.a
 		trigger = { NOT = { tag = AUS } }
 		if = {
-			limit = {
-				tag = HUN
-			}
+			limit = { tag = HUN }
 			unlock_decision_tooltip = HUN_our_demands
-		}
-		if = {
-			limit = {
-				OR = {
-					tag = CRO
-					tag = CZE
-				}
-			}
-			unlock_decision_tooltip = CRO_CZE_trialism
 		}
 	}
 	
@@ -15551,11 +18653,21 @@ country_event = { #The Ausgleich Begins
 		name = bdeausgleich.4.b
 		trigger = { tag = AUS }
 		custom_effect_tooltip = BOTDE_minigame_paused
-		unlock_decision_tooltip = AUS_fate_of_illyria
-		unlock_decision_tooltip = AUS_renegotiary_debts
+		if = {
+			limit = { CRO = { has_country_flag = going_to_le_ausgleich } }
+			unlock_decision_tooltip = AUS_fate_of_illyria
+		}
+		else = {
+			set_global_flag = AUS_question_1
+		}
+		if = {
+			limit = { HUN = { has_country_flag = going_to_le_ausgleich } }
+			unlock_decision_tooltip = AUS_renegotiary_debts
+			unlock_decision_tooltip = AUS_hungarian_federalisation
+			unlock_decision_tooltip = AUS_fiume_zadar_status
+		}
 		unlock_decision_tooltip = AUS_common_army_law
-		unlock_decision_tooltip = AUS_hungarian_federalisation
-		unlock_decision_tooltip = AUS_fiume_zadar_status
+		unlock_decision_tooltip = AUS_const_autonomy
 		set_global_flag = AUS_ausgleich_ongoing
 		set_global_flag = AUS_pause_collapse_flag
 		if = {
@@ -15586,22 +18698,6 @@ country_event = { #The Ausgleich Begins
 					tag = AUS
 					has_country_flag = going_to_le_ausgleich
 				}
-				NOT = {
-					is_in_array = { global.ausgleich_attendants = THIS.id }
-				}
-			}
-			if = {
-				limit = {
-					tag = HUN
-				}
-				add_to_array = {
-					array = global.ausgleich_attendants
-					value = THIS.id
-					index = 1
-				}
-			}
-			else = {
-				add_to_array = { global.ausgleich_attendants = THIS.id }
 			}
 			country_event = {
 				id = bdeausgleich.6
@@ -15731,7 +18827,7 @@ country_event = { #HUN - Austria extends ausgleich.
 						is_ai = no
 						check_variable = { AUS.subject_revolt_progress < 0.8 }
 					}
-					check_variable = { HUN.subject_revolt_progress < 0.05 }
+					check_variable = { HUN.subject_revolt_progress < 0.2 }
 					has_country_flag = HUN_always_accept_ausgleich_demands
 				}
 				add = 90
@@ -15792,8 +18888,21 @@ country_event = { #Federal Plan
 	
 	is_triggered_only = yes
 
+	after = {
+		hidden_effect = {
+			clear_array = global.ausgleich_attendants
+			get_sorted_scored_countries = {
+			    scorer = BOTDE_ausgleich_priority_score
+			    array = global.ausgleich_attendants
+			}
+		}
+	}
+
 	option = { #Whether they like it or not, this is the best solution.
 		name = bdeausgleich.6.a
+		ai_chance = {
+			base = 33
+		}
 		trigger = {
 			tag = AUS
 		}
@@ -15823,6 +18932,9 @@ country_event = { #Federal Plan
 	
 	option = { #This will finally modernize the Empire!
 		name = bdeausgleich.6.b
+		ai_chance = {
+			base = 33
+		}
 		trigger = {
 			NOT = {
 				tag = AUS
@@ -15834,6 +18946,9 @@ country_event = { #Federal Plan
 	
 	option = { #What a letdown... this violates the integrity of our people!
 		name = bdeausgleich.6.c
+		ai_chance = {
+			base = 33
+		}
 		trigger = {
 			NOT = {
 				tag = AUS
@@ -16037,9 +19152,7 @@ country_event = { #Hungary requests reparations due to loss of Croatia-Slavonia.
 	option = { #Let the Illyrians pay the debt.
 		name = bdeausgleich.10.b
 		trigger = {
-			CRO = {
-				is_subject_of = AUS
-			}
+			CRO = { AUS_is_constituent = yes }
 		}
 		CRO_add_five_collapse = yes
 		HUN_subtract_five_collapse = yes
@@ -16195,13 +19308,13 @@ country_event = { #HUN - Austria Pays Up
 		}
 	}
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_random_hungarian_bridge
 
 	fire_only_once = yes
 
 	is_triggered_only = yes
 
-	option = { #I really didn't expect that to work.
+	option = { #Half-surprising.
 		name = bdeausgleich.12.a
 		add_political_power = 20
 		custom_effect_tooltip = AUS_effect_occurs_at_end_of_the_ausgleich_tt
@@ -16255,12 +19368,11 @@ country_event = { #HUN - Austria denies payment.
 
 	is_triggered_only = yes
 
-	option = { #This is bullshit!
+	option = { #Why preach peace, yet antagonize us?
 		name = bdeausgleich.14.a
 		add_political_power = -30
 		add_stability = -0.04
 		set_variable = { AUS.ausgleich_fiscal_status_a_var = 3 }
-		set_country_flag = HUN_failed_negotiation
 	}
 }
 
@@ -16270,7 +19382,7 @@ country_event = { #HUN - Austrian counter-demand: all minorities to be given aut
 	title = bdeausgleich.15.t
 	desc = bdeausgleich.15.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_ethnic_map_1899
 
 	fire_only_once = yes
 
@@ -16483,12 +19595,6 @@ country_event = { #Hungary Withdraws from the Ausgleich
 				}
 				clr_country_flag = going_to_le_ausgleich
 			}
-			if = {
-				limit = {
-					is_in_array = { global.ausgleich_attendants = HUN.id }
-				}
-				remove_from_array = { global.ausgleich_attendants = HUN.id }
-			}
 		}
 		hidden_effect = {
 			if = {
@@ -16512,7 +19618,7 @@ country_event = { #Hungary Accepts Minority Solution
 	title = bdeausgleich.20.t
 	desc = bdeausgleich.20.d
 	
-	picture = GFX_event_HUN_LBOZO
+	picture = GFX_event_AUS_ethnic_map_1899
 
 	fire_only_once = yes
 
@@ -16579,9 +19685,7 @@ country_event = { #The Fate of Illyria in the Ausgleich (if invited kingdoms/peo
 	fire_only_once = yes
 	
 	trigger = {
-		CRO = {
-			is_in_faction_with = AUS
-		}
+		CRO = { AUS_is_constituent = yes }
 	}
 
 	is_triggered_only = yes
@@ -16593,8 +19697,7 @@ country_event = { #The Fate of Illyria in the Ausgleich (if invited kingdoms/peo
 		CRO_subtract_ten_collapse = yes
 		set_variable = { AUS.ausgleich_illyria_status_var = 1 }
 		set_global_flag = AUS_ausgleich_illyria_promoted_AUS
-		set_global_flag = AUS_question_1
-		clr_global_flag = ausgleich_debating_question
+		
 		custom_effect_tooltip = bdeausgleich.25.a_tt
 		every_collection_element = {
 			input = collection:botde_ausgleich_countries_except_austria_and_hungary
@@ -16839,7 +19942,6 @@ country_event = { #Illyrians Restless for Autonomy (if didn't invite peoples/kin
 		name = bdeausgleich.24.a
 		add_political_power = -15
 		CRO_add_five_collapse = yes
-		AUS_gleich_add_illyrian_grievance = yes
 		set_global_flag = AUS_question_1
 		clr_global_flag = ausgleich_debating_question
 		hidden_effect = {
@@ -16934,7 +20036,7 @@ country_event = { #Other constituents - Illyria Promoted
 		}
 	}
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_croatian_flags
 	
 	is_triggered_only = yes
 
@@ -16963,7 +20065,7 @@ country_event = { #Other constituents - Illyria Promoted
 				tag = CRO
 			}
 		}
-		add_political_power = -5
+		add_political_power = 5
 	}
 }
 
@@ -16984,110 +20086,49 @@ country_event = { #HUN - Illyria promoted
 	}
 	desc = bdeausgleich.26.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_croatian_flags
 
 	fire_only_once = yes
 
 	is_triggered_only = yes
 
-	option = { #What effects will this have for Transleithania's power?
+	option = { #Transleithania shrinks further...
 		name = bdeausgleich.26.a
 		ai_chance = {
-			base = 50
+			base = 70
 		}
 		add_political_power = -25
 		add_stability = -0.03
-		AUS_gleich_add_hungarian_grievance = yes
 		set_global_flag = AUS_question_1
+		clr_global_flag = ausgleich_debating_question
 		add_to_variable = { global.ausgleich_successes = 1 }
 	}
 	
 	option = { #New plan - bring Illyria to Transleithania as our compromise!
 		name = bdeausgleich.26.b
 		ai_chance = {
-			base = 50
+			base = 30
 			modifier = {
 				OR = {
-					check_variable = { HUN.subject_revolt_progress < 0.05 }
+					check_variable = { HUN.subject_revolt_progress < 0.2 }
 					has_country_flag = HUN_always_accept_ausgleich_demands
 				}
 				factor = 0
 			}
 		}
 		trigger = {
-			has_country_flag = HUN_failed_negotiation
+			CRO = { CRO_is_occupied_trigger = no }
 		}
 		HUN_subtract_five_collapse = yes
 		add_political_power = -50
 		AUS = {
 			country_event = {
 				id = bdeausgleich.30
-				days = 2
+				days = 1
 				random_hours = 48
 			}
 		}
 	}
-}
-
-country_event = { #Illyria Promoted, Bosnia has autonomy
-	id = bdeausgleich.27
-	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausgleich.27 ausgleich success: [?global.ausgleich_successes]" }
-	title = bdeausgleich.27.t
-	title = {
-		text = bdeausgleich.27.t_CRO
-		trigger = {
-			tag = CRO
-		}
-	}
-	title = {
-		text = bdeausgleich.27.t_notCRO
-		trigger = {
-			NOT = {
-				tag = CRO
-			}
-		}
-	}
-	desc = {
-		text = bdeausgleich.27.t_CRO
-		trigger = {	
-			tag = CRO
-		}
-	}
-	desc = {
-		text = bdeausgleich.27.t_notCRO
-		trigger = {
-			NOT = {
-				tag = CRO
-			}
-		}
-	}
-	
-	picture = GFX_report_event_BAN_big_speech2
-
-	fire_only_once = yes
-
-	is_triggered_only = yes
-
-	option = { #Good
-		name = bdeausgleich.27.a
-		trigger = {
-			tag = CRO
-		}
-		custom_effect_tooltip = bdeausgleich.25.a_tt
-		add_political_power = 100
-		CRO_subtract_ten_collapse = yes
-	}
-	
-	option = { #Interesting
-		name = bdeausgleich.27.b
-		trigger = {
-			NOT = {
-				tag = CRO
-			}
-		}
-		add_political_power = -5
-	}
-	
 }
 
 country_event = { #Hungary Gives German West Hungary
@@ -17139,7 +20180,6 @@ country_event = { #Hungary Denies
 		name = bdeausgleich.29.a
 		set_global_flag = AUS_gleich_HUN_tensions_remain
 		add_political_power = -15
-		AUS_gleich_add_hungarian_grievance = yes
 		set_global_flag = AUS_question_0
 		clr_global_flag = ausgleich_debating_question
 	}
@@ -17151,17 +20191,23 @@ country_event = { #Hungary Proposes a New Compromise
 	title = bdeausgleich.30.t
 	desc = bdeausgleich.30.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_croatian_flags
 
 	fire_only_once = yes
 
 	is_triggered_only = yes
 
-	option = { #This would interfere with our plans.
-		name = bdeausgleich.30.a
-		add_political_power = 25
+	after = {
 		set_global_flag = AUS_question_1
 		clr_global_flag = ausgleich_debating_question
+	}
+
+	option = { #This would interfere with our plans.
+		name = bdeausgleich.30.a
+		ai_chance = {
+			base = 33
+		}
+		add_political_power = 25
 		HUN = {
 			country_event = {
 				id = bdeausgleich.32
@@ -17172,45 +20218,52 @@ country_event = { #Hungary Proposes a New Compromise
 	}
 	
 	option = { #Let it happen - we are already playing with fire as is.
-		name = bdeausgleich.30.a
+		name = bdeausgleich.30.b
+		ai_chance = {
+			base = 33
+		}
+		if = {
+			limit = { has_global_flag = AUS_ausgleich_illyria_promoted_AUS }
+			clr_global_flag = AUS_ausgleich_illyria_promoted_AUS
+		}
 		set_global_flag = AUS_transleithanian_illyria
-		set_global_flag = AUS_question_1
-		clr_global_flag = ausgleich_debating_question
+		add_to_variable = { global.ausgleich_successes = -1 }
+		custom_effect_tooltip = AUS_some_effects_no_longer_occur_at_end_of_the_ausgleich_tt
+		custom_effect_tooltip = bdeausgleich.31.a_tt
+		set_variable = { AUS.ausgleich_illyria_status_var = 2 }
 		add_stability = 0.06
 		add_political_power = -20
 		CRO = {
 			country_event = {
 				id = bdeausgleich.31
-				days = 2
-				random_hours = 48
+				days = 1
 			}
 		}
 		HUN = {
 			country_event = {
 				id = bdeausgleich.33
-				days = 2
-				random_hours = 48
+				days = 1
 			}
 		}
 	}
 	
 	option = { #Might we prefer to simply solve some problems now and save others for later?
 		name = bdeausgleich.30.c
+		ai_chance = {
+			base = 33
+		}
 		trigger = {
 			has_country_flag = AUS_questioning_trialism
 			NOT = {
 				has_country_flag = AUS_trialism_epicfail
 			}
 		}
-		set_global_flag = AUS_question_1
-		clr_global_flag = ausgleich_debating_question
 		country_event = {
 			id = bdeausgleich.63
 			days = 1
 			random_hours = 24
 		}
 	}
-	
 }
 
 country_event = { #CRO - Austria Turns Us Over to Transleithania
@@ -17219,7 +20272,7 @@ country_event = { #CRO - Austria Turns Us Over to Transleithania
 	title = bdeausgleich.31.t
 	desc = bdeausgleich.31.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_transleithania_map
 
 	fire_only_once = yes
 
@@ -17238,7 +20291,7 @@ country_event = { #HUN - Austria Shuts Down The Request
 	title = bdeausgleich.32.t
 	desc = bdeausgleich.32.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_HUN_LBOZO
 
 	fire_only_once = yes
 
@@ -17247,7 +20300,8 @@ country_event = { #HUN - Austria Shuts Down The Request
 	option = { #This Empire is rotting.
 		name = bdeausgleich.32.a
 		add_war_support = 0.1
-		set_global_flag = AUS_gleich_HUN_tensions_remain
+		add_to_variable = { global.ausgleich_successes = -2 }
+		HUN_add_ten_collapse = yes
 	}
 }
 
@@ -17257,7 +20311,7 @@ country_event = { #HUN - Austria Folds
 	title = bdeausgleich.33.t
 	desc = bdeausgleich.33.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_croatian_flags
 
 	fire_only_once = yes
 
@@ -17265,6 +20319,7 @@ country_event = { #HUN - Austria Folds
 
 	option = { #Finally, a win.
 		name = bdeausgleich.33.a
+		custom_effect_tooltip = bdeausgleich.31.a_tt
 		add_political_power = 20
 	}
 }
@@ -17286,43 +20341,19 @@ country_event = { #An Uneasy New Status Quo
 	}
 }
 
-country_event = { #Austro-Hungarian Tensions Remain Unsolved (fires if AUS_gleich_HUN_tensions_remain is set) #BAD OUTCOME
-	id = bdeausgleich.35
-	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausgleich.35 ausgleich success: [?global.ausgleich_successes]" }
-	title = bdeausgleich.35.t
-	desc = bdeausgleich.35.d
-	
-	picture = GFX_report_event_BAN_big_speech2
-
-	is_triggered_only = yes
-
-	option = { #
-		name = bdeausgleich.35.a
-		add_stability = -0.05
-		clr_global_flag = AUS_ausgleich_ongoing
-		GER = {
-			country_event = {
-				id = bdeausgleich.57
-				days = 5
-				random_hours = 48
-			}
-		}
-	}
-}
-
 country_event = { #Ausgleich Renegotiatory Debts
 	id = bdeausgleich.36
 	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausgleich.36 ausgleich success: [?global.ausgleich_successes]" }
 	title = bdeausgleich.36.t
 	desc = bdeausgleich.36.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_economic_map
 
 	fire_only_once = yes
 
 	is_triggered_only = yes
 
-	option = { #It's time to do away with this. The Transleithanian finance ministries must be bridged as an essential prerequisite to the Federation.
+	option = { #Present the Finanzsanierungsplan, we need finanical unity in the empire.
 		name = bdeausgleich.36.a
 		ai_chance = {
 			base = 70
@@ -17351,7 +20382,7 @@ country_event = { #Ausgleich Renegotiatory Debts
 		}
 	}
 	
-	option = { #Few token reforms
+	option = { #Cut the Finanzministerium from the plan and present it to appease the Hungarians.
 		name = bdeausgleich.36.b
 		ai_chance = {
 			base = 30
@@ -17381,19 +20412,19 @@ country_event = { #Ausgleich Renegotiatory Debts
 	}
 }
 
-country_event = { #HUN - Austria Attempts to Unravel the Customs Union Compromise (AI chances affected by HUN govt.)
+country_event = { #HUN - Der Finanzsanierungsplan
 	id = bdeausgleich.37
 	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausgleich.37 ausgleich success: [?global.ausgleich_successes]" }
 	title = bdeausgleich.37.t
 	desc = bdeausgleich.37.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_report_event_GER_Vienna
 
 	fire_only_once = yes
 
 	is_triggered_only = yes
 
-	option = { #They're right. The Federation will benefit without it.
+	option = { #Despite some concerns, this is a perfectly fine plan.
 		name = bdeausgleich.37.a
 		ai_chance = {
 			base = 60
@@ -17408,13 +20439,13 @@ country_event = { #HUN - Austria Attempts to Unravel the Customs Union Compromis
 		FROM = {
 			country_event = {
 				id = bdeausgleich.39
-				days = 3
+				days = 1
 			}
 		}
 	}
 	
-	option = { #They just keep on trying to undermine us!
-		name = bdeausgleich.36.b
+	option = { #Pick up your shields, Magyars; Hungary is under attack!
+		name = bdeausgleich.37.b
 		ai_chance = {
 			base = 40
 			modifier = {
@@ -17422,13 +20453,12 @@ country_event = { #HUN - Austria Attempts to Unravel the Customs Union Compromis
 				factor = 0
 			}
 		}
-		AUS_gleich_add_hungarian_grievance = yes
 		add_political_power = 20
 		HUN_add_three_collapse = yes
 		FROM = {
 			country_event = {
 				id = bdeausgleich.40
-				days = 3
+				days = 1
 			}
 		}
 	}
@@ -17440,20 +20470,20 @@ country_event = { #HUN - Austria Reforms The Customs Union
 	title = bdeausgleich.38.t
 	desc = bdeausgleich.38.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_coat_of_arms_postcard
 
 	fire_only_once = yes
 
 	is_triggered_only = yes
 
-	option = { #Perhaps this will serve the Empire well.
+	option = { #Let us hope it works.
 		name = bdeausgleich.38.a
 		add_political_power = -15
 		add_to_variable = { global.ausgleich_successes = 2 }
 		FROM = {
 			country_event = {
 				id = bdeausgleich.39
-				days = 3
+				days = 1
 			}
 		}
 	}
@@ -17521,7 +20551,7 @@ country_event = { #Fiscal Renegotiations - Budget Policy
 	title = bdeausgleich.400.t
 	desc = bdeausgleich.400.desc
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_austrian_coins
 
 	fire_only_once = yes
 
@@ -17547,6 +20577,9 @@ country_event = { #Fiscal Renegotiations - Budget Policy
 
 	option = { #Compromise and assign budget expensives to remain approxmently what they were across the entire empire
 		name = bdeausgleich.400.a
+		ai_chance = {
+			base = 50
+		}
 		add_political_power = -20
 		AUS_subtract_five_collapse = yes
 		ALL_subtract_five_collapse = yes
@@ -17554,18 +20587,44 @@ country_event = { #Fiscal Renegotiations - Budget Policy
 	}
 	option = { #Favor Cisleithania
 		name = bdeausgleich.400.b
+		ai_chance = {
+			base = 30
+		}
 		add_political_power = 20
 		AUS_subtract_five_collapse = yes
 		HUN_add_five_collapse = yes
 		set_variable = { AUS.ausgleich_fiscal_status_c_var = 2 }
+		effect_tooltip = {
+			custom_effect_tooltip = AUS_effect_occurs_at_end_of_the_ausgleich_tt
+			every_country = {
+				limit = { is_cisleithania = yes }
+				add_timed_idea = {
+					idea = AUS_ausgleich_favored_budget
+					days = 365
+				}
+			}
+		}
 	}
 	option = { #Favor Transleithania
 		name = bdeausgleich.400.c
+		ai_chance = {
+			base = 20
+		}
 		trigger = { HUN = { AUS_country_is_in_ausgleich = yes } }
 		add_political_power = -10
 		AUS_add_five_collapse = yes
 		HUN_subtract_five_collapse = yes
 		set_variable = { AUS.ausgleich_fiscal_status_c_var = 3 }
+		effect_tooltip = {
+			custom_effect_tooltip = AUS_effect_occurs_at_end_of_the_ausgleich_tt
+			every_country = {
+				limit = { is_transleithania = yes }
+				add_timed_idea = {
+					idea = AUS_ausgleich_favored_budget
+					days = 365
+				}
+			}
+		}
 	}
 }
 
@@ -17575,7 +20634,7 @@ country_event = { #HUN - New Budget
 	title = bdeausgleich.401.t
 	desc = bdeausgleich.401.desc
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_economic_map
 
 	fire_only_once = yes
 
@@ -17592,7 +20651,7 @@ country_event = { #HUN - New Budget
 		add_to_variable = { global.ausgleich_successes = 1 }
 	}
 	option = { #wtf i love austria now???
-		name = bdeausgleich.401.a
+		name = bdeausgleich.401.b
 		trigger = {
 			check_variable = { AUS.ausgleich_fiscal_status_c_var = 3 }
 		}
@@ -17666,6 +20725,17 @@ country_event = { #Hungarians complain once again
 				random_hours = 24
 			}
 		}
+		effect_tooltip = {
+			custom_effect_tooltip = AUS_some_effects_no_longer_occur_at_end_of_the_ausgleich_tt
+			custom_effect_tooltip = AUS_effect_occurs_at_end_of_the_ausgleich_tt
+			every_country = {
+				limit = { is_transleithania = yes }
+				add_timed_idea = {
+					idea = AUS_ausgleich_favored_budget
+					days = 365
+				}
+			}
+		}
 	}
 	option = { #Fine, agree to the hungarian counterdemand
 		name = bdeausgleich.402.b
@@ -17675,11 +20745,13 @@ country_event = { #Hungarians complain once again
 		add_political_power = -15
 		AUS_add_one_collapse = yes
 		HUN_subtract_five_collapse = yes
-		clr_global_flag = AUS_compromise_duchess
 		clr_global_flag = ausgleich_debating_question
 		set_global_flag = HUN_common_minister
-		#Change your economy minister to whoever Hungary's is
 		set_global_flag = AUS_question_2
+		effect_tooltip = {
+			custom_effect_tooltip = AUS_effect_occurs_at_end_of_the_ausgleich_tt
+			AUS_add_hungarian_eco_minister_effect = yes
+		}
 		FROM = {
 			country_event = {
 				id = bdeausgleich.403
@@ -17689,7 +20761,7 @@ country_event = { #Hungarians complain once again
 		}
 	}
 	option = { #You shackled your own economy to a single port, why should we listen to you?
-		name = bdeausgleich.402.b
+		name = bdeausgleich.402.c
 		add_political_power = -30
 		AUS_subtract_five_collapse = yes
 		HUN_add_five_collapse = yes
@@ -17709,7 +20781,7 @@ country_event = { #HUN - Austrians fold over fiscal policy
 	title = bdeausgleich.403.t
 	desc = bdeausgleich.403.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_austrian_coins
 
 	fire_only_once = yes
 
@@ -17727,7 +20799,7 @@ country_event = { #HUN - Austrians refuse to budge on fiscal policy
 	title = bdeausgleich.404.t
 	desc = bdeausgleich.404.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_war_bonds
 
 	fire_only_once = yes
 
@@ -17795,7 +20867,7 @@ country_event = { #AUS - Hungarians give up complaining policy
 	title = bdeausgleich.405.t
 	desc = bdeausgleich.405.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_Orszaghaz_postcard
 
 	fire_only_once = yes
 
@@ -17817,7 +20889,7 @@ country_event = { #AUS - Hungarians refuse to back down
 	title = bdeausgleich.406.t
 	desc = bdeausgleich.406.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_empty_legislature
 
 	fire_only_once = yes
 
@@ -17830,6 +20902,7 @@ country_event = { #AUS - Hungarians refuse to back down
 		set_global_flag = AUS_question_2
 		clr_global_flag = ausgleich_debating_question
 		add_to_variable = { global.ausgleich_successes = -1 }
+		custom_effect_tooltip = AUS_some_effects_no_longer_occur_at_end_of_the_ausgleich_tt
 	}
 }
 
@@ -17839,42 +20912,35 @@ country_event = { #The Common Finance Minister
 	title = {
 		text = bdeausgleich.41.tHUN
 		trigger = {
-			is_in_faction_with = HUN
+			HUN = { AUS_country_is_in_ausgleich = yes }
 		}
 	}
 	title = {
 		text = bdeausgleich.41.tnoHUN
 		trigger = {
-			NOT = {
-				is_in_faction_with = HUN
-			}
+			HUN = { AUS_country_is_in_ausgleich = no }
 		}
 	}
 	desc = {
 		text = bdeausgleich.41.dHUN
 		trigger = {	
-			is_in_faction_with = HUN
+			HUN = { AUS_country_is_in_ausgleich = yes }
 		}
 	}
 	desc = {
 		text = bdeausgleich.41.dnoHUN
 		trigger = {
-			NOT = {
-				is_in_faction_with = HUN
-			}
+			HUN = { AUS_country_is_in_ausgleich = no }
 		}
 	}
 	
-	picture = GFX_event_AUS_Austria_Hungary_Brothers
+	picture = GFX_event_AUS_austrian_coins
 
 	fire_only_once = yes
 
 	is_triggered_only = yes
 
-	option = { #Let the Austrian be the common minister.
-		name = bdeausgleich.41.a
-		AUS_subtract_ten_collapse = yes
-		set_global_flag = AUS_common_minister
+	after = {
 		if = {
 			limit = { HUN = { AUS_country_is_in_ausgleich = yes } }
 			HUN = {
@@ -17884,28 +20950,42 @@ country_event = { #The Common Finance Minister
 				}
 			}
 		}
+		else = {
+			country_event = {
+				id = bdeausgleich.400
+				days = 1
+			}
+		}
+	}
+
+	option = { #Appoint a Cisleithanian finance minister.
+		name = bdeausgleich.41.a
+		ai_chance = {
+			base = 60
+		}
+		AUS_subtract_five_collapse = yes
+		set_global_flag = AUS_common_minister
 	}
 	
-	option = { #Let the Hungarian be the common minister.
+	option = { #Appoint a Transleithanian finance minister.
 		name = bdeausgleich.41.b
+		ai_chance = {
+			base = 40
+		}
 		trigger = { HUN = { AUS_country_is_in_ausgleich = yes } }
 		HUN_subtract_ten_collapse = yes
 		add_political_power = -30
 		set_global_flag = HUN_common_minister
-		HUN = {
-			country_event = {
-				id = bdeausgleich.42
-				days = 3
-			}
+		effect_tooltip = {
+			custom_effect_tooltip = AUS_effect_occurs_at_end_of_the_ausgleich_tt
+			AUS_add_hungarian_eco_minister_effect = yes
 		}
-		#Change your economy minister to whoever Hungary's is
 	}
 }
 
 country_event = { #HUN- Austria Appoints A New Common Minister
 	id = bdeausgleich.42
 	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausgleich.42 ausgleich success: [?global.ausgleich_successes]" }
-	title = bdeausgleich.42.t
 	title = {
 		text = bdeausgleich.42.t_AUS
 		trigger = {
@@ -17919,19 +20999,19 @@ country_event = { #HUN- Austria Appoints A New Common Minister
 		}
 	}
 	desc = {
-		text = bdeausgleich.42.t_AUS
+		text = bdeausgleich.42.d_AUS
 		trigger = {
 			has_global_flag = AUS_common_minister
 		}
 	}
 	desc = {
-		text = bdeausgleich.42.t_HUN
+		text = bdeausgleich.42.d_HUN
 		trigger = {
 			has_global_flag = HUN_common_minister
 		}
 	}
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_austria_hungary_civil_ensign_art
 
 	fire_only_once = yes
 
@@ -17947,39 +21027,29 @@ country_event = { #HUN- Austria Appoints A New Common Minister
 		}
 	}
 
-	option = { #Bad
+	option = { #Do they know how to make good decisions?
 		name = bdeausgleich.42.a
 		trigger = {
 			has_global_flag = AUS_common_minister
-			NOT = { has_global_flag = AUS_gleich_HUN_resists_customs_reform }
 		}
-		HUN_add_three_collapse = yes
+		if = {
+			limit = { has_global_flag = AUS_gleich_HUN_resists_customs_reform }
+			HUN_add_five_collapse = yes
+		}
+		else = {
+			HUN_add_three_collapse = yes
+		}
 	}
 	
-	option = { #Good
+	option = { #Sensible, I guess.
 		name = bdeausgleich.42.b
 		trigger = {
 			has_global_flag = HUN_common_minister
-			NOT = { has_global_flag = AUS_gleich_HUN_resists_customs_reform }
 		}
-		add_political_power = 20
-		add_stability = 0.02
-	}
-	
-	option = { #Bad
-		name = bdeausgleich.42.a
-		trigger = {
-			has_global_flag = AUS_common_minister
-			has_global_flag = AUS_gleich_HUN_resists_customs_reform
-		}
-		HUN_add_five_collapse = yes
-	}
-	
-	option = { #Good
-		name = bdeausgleich.42.b
-		trigger = {
-			has_global_flag = HUN_common_minister
-			has_global_flag = AUS_gleich_HUN_resists_customs_reform
+		if = {
+			limit = { NOT ={ has_global_flag = AUS_gleich_HUN_resists_customs_reform } }
+			add_political_power = 20
+			add_stability = 0.02
 		}
 	}
 }
@@ -18444,179 +21514,126 @@ country_event = { #HUN - FROM extends claims
 	}
 }
 
-
-
-#A flavor event or more to fire for everyone
-
-
-
-country_event = { #Illyrian Candidates Push Trialism
+country_event = { #Ironing Out the Autonomy within the Föderalismusplan
 	id = bdeausgleich.52
 	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausgleich.52 ausgleich success: [?global.ausgleich_successes]" }
 	title = bdeausgleich.52.t
 	desc = bdeausgleich.52.d
 	
-	picture = GFX_event_AUS_trialism_map
+	picture = GFX_event_AUS_double_headed_eagle_statue
 		
-	trigger = {
-		CRO = {
-			is_in_faction_with = AUS
-		}
-	}
+	fire_only_once = yes
 
 	is_triggered_only = yes
 
-	option = { #Let's save this for later.
+	option = { #It is time to define what exactly a constituent is.
 		name = bdeausgleich.52.a
-		ai_chance = {
-			factor = 10
+		country_event = {
+			id = bdeausgleich.53
+			days = 1
 		}
-		trigger = {
-			tag = AUS
-		}
-		add_stability = 0.01
-		set_global_flag = AUS_question_3
-		clr_global_flag = ausgleich_debating_question
-	}
-	
-	option = { #It is worth a closer look.
-		name = bdeausgleich.52.f
-		ai_chance = {
-			factor = 10
-		}
-		trigger = {
-			tag = AUS
-			OR = {
-				has_government = social_conservative
-				has_government = authoritarian_democrat
-			}
-			has_completed_focus = AUS_old_ideas_reformed
-		}
-		add_political_power = -10
-		set_country_flag = AUS_questioning_trialism
-		set_global_flag = AUS_question_3
-		clr_global_flag = ausgleich_debating_question
-	}
-	
-	option = { #The formation of Illyria has made their heads too big.
-		name = bdeausgleich.52.b
-		ai_chance = {
-			factor = 10
-		}
-		trigger = {
-			tag = HUN
-		}
-		add_war_support = 0.01
-	}
-	
-	option = { #A vain effort.
-		name = bdeausgleich.52.c
-		ai_chance = {
-			factor = 10
-		}
-		trigger = {
-			tag = CRO
-		}
-		add_political_power = -5
-	}
-	
-	option = { #What about us?
-		name = bdeausgleich.52.e
-		ai_chance = {
-			factor = 10
-		}
-		trigger = {
-			NOT = {
-				tag = AUS
-				tag = HUN
-				tag = CRO
-			}
-		}
-		add_political_power = 5
 	}
 }
 
-
-
-#In the case of high tensions
-
-
-
-country_event = { #Over-the-border Whispers
+country_event = { #Defining the 'Federation' in Austrian Federation
 	id = bdeausgleich.53
 	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausgleich.53 ausgleich success: [?global.ausgleich_successes]" }
 	title = bdeausgleich.53.t
 	desc = bdeausgleich.53.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_ethnic_map_1899
+
+	fire_only_once = yes
 	
 	is_triggered_only = yes
 
-	option = { #This absolutely will not happen.
-		name = bdeausgleich.53.a
-		ai_chance = {
-			factor = 10
-		}
-		trigger = {
-			tag = AUS
-		}
-		add_stability = -0.01
-		AUS_raise_austro_german_tensions = yes
-	}
-	
-	option = { #Entirely unacceptable. Germany cannot intervene again.
-		name = bdeausgleich.53.b
-		ai_chance = {
-			factor = 10
-		}
-		trigger = {
-			tag = HUN
-		}
-		add_political_power = -5
-	}
-	
-	option = { #What does this mean for us?
-		name = bdeausgleich.53.c
-		ai_chance = {
-			factor = 10
-		}
-		trigger = {
-			NOT = {
-				tag = AUS
-				tag = HUN
+	after = {
+		every_collection_element = {
+			input = collection:botde_ausgleich_countries_except_austria
+			country_event = {
+				id = bdeausgleich.54
+				days = 1
 			}
 		}
-		add_political_power = -5
+		hidden_effect = {
+			country_event = {
+				id = bdeausgleich.57
+				days = 3
+			}
+		}
+	}
+
+	option = { #Present [AUS.GetPrimeMinister]'s Autonomieplan.
+		name = bdeausgleich.53.a
+		ai_chance = {
+			base = 80
+		}
+		set_global_flag = AUS_reform_autonomieplan
+		effect_tooltip = {
+			custom_effect_tooltip = AUS_if_agreed_to_applies_at_end_of_ausgleich_tt
+			AUS_give_post_ausgleich_federal_plan_idea_effect = yes
+		}
+	}
+	
+	option = { #Keep powers as the Föderalismusplan currently defines.
+		name = bdeausgleich.53.b
+		ai_chance = {
+			base = 20
+		}
+		set_global_flag = AUS_status_quo_autonomieplan
+		effect_tooltip = {
+			custom_effect_tooltip = AUS_if_agreed_to_applies_at_end_of_ausgleich_tt
+			swap_ideas = {
+				remove_idea = AUS_federal_plan
+				add_idea = AUS_federal_plan_post_ausgleich_generic
+			}
+		}
 	}
 }
 
-country_event = { #Austria Rebukes Advances
+country_event = { #CONST - [AUS.GetPrimeMinister] Presents the Autonomieplan
 	id = bdeausgleich.54
 	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausgleich.54 ausgleich success: [?global.ausgleich_successes]" }
 	title = bdeausgleich.54.t
 	desc = bdeausgleich.54.d
 	
-	picture = GFX_report_event_BAN_big_speech2
-		
-	trigger = {
-		FIU = {
-			is_in_faction_with = AUS
-			is_in_faction_with = HUN
-		}
-	}
+	picture = GFX_event_AUS_ethnic_map_1899
 
 	is_triggered_only = yes
 
-	option = { #Their loss.
+	option = { #A needed sacrifice
 		name = bdeausgleich.54.a
 		ai_chance = {
-			factor = 10
+			base = 100
+			modifier = {
+				set_temp_variable = { temp_factor = 1 }
+				subtract_from_temp_variable = { temp_factor = subject_revolt_progress }
+				factor = temp_factor
+			}
 		}
-		add_political_power = -10
+		add_political_power = -20
+		ROOT_subtract_five_collapse = yes
+		AUS_raise_govt_percentage_1 = yes
+	}
+
+	option = { #We need to keep our own powers as well! Demand a less centralized plan.
+		name = bdeausgleich.54.b
+		trigger = {
+			has_global_flag = AUS_reform_autonomieplan
+		}
+		ai_chance = {
+			base = 100
+			modifier = {
+				factor = subject_revolt_progress
+			}
+		}
+		set_country_flag = AUS_gleich_const_rejects_autonomieplan
+		add_political_power = 20
+		ROOT_add_five_collapse = yes
 	}
 }
 
-country_event = { #The Kaiser resists Hungarian antagonization (if grievances rise to 2)
+country_event = { #The Kaiser resists Hungarian antagonization
 	id = bdeausgleich.55
 	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausgleich.55 ausgleich success: [?global.ausgleich_successes]" }
 	title = bdeausgleich.55.t
@@ -18630,9 +21647,6 @@ country_event = { #The Kaiser resists Hungarian antagonization (if grievances ri
 
 	option = { #His name is the Good King for a reason.
 		name = bdeausgleich.55.a
-		ai_chance = {
-			factor = 10
-		}
 		add_stability = 0.03
 		add_political_power = 20
 		HUN_subtract_five_collapse = yes
@@ -18658,51 +21672,38 @@ country_event = { #HUN - People resist Anti-Habsburg sentiments (The Hungarian p
 
 	is_triggered_only = yes
 
-	option = { #His name is the Good King for a reason.
+	option = { #Interesting.
 		name = bdeausgleich.56.a
-		ai_chance = {
-			factor = 10
-		}
 		AUS_subtract_five_collapse = yes
 		ALL_subtract_five_collapse = yes
 		add_stability = -0.03
 	}
 }
 
-country_event = { #GER - Reports of the Ausgleich (if magyar grievances go above 3 OR austro hungarian tensions unresolved)
+country_event = { #hidden check for if everyone agreed to the Autonomieplan
 	id = bdeausgleich.57
 	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausgleich.57 ausgleich success: [?global.ausgleich_successes]" }
 	title = bdeausgleich.57.t
 	desc = bdeausgleich.57.d
-	
-	picture = GFX_report_event_BAN_big_speech2
 
-	fire_only_once = yes
+	hidden = yes
+	
+	picture = GFX_event_AUS_i_was_there_dude
 
 	is_triggered_only = yes
 
-	option = { #Propose to mediate once more... though we will not be so lenient.
+	option = {
 		name = bdeausgleich.57.a
-		ai_chance = {
-			factor = 10
+		if = {
+			limit = { any_country = { has_country_flag = AUS_gleich_const_rejects_autonomieplan } }
+			country_event = bdeausgleich.59
 		}
-		add_stability = -0.03
-		add_political_power = -20
-		every_collection_element = {
-			input = collection:botde_ausgleich_countries
-			country_event = {
-				id = bdeausgleich.53
-				days = 3
-			}
+		else = {
+			add_to_variable = { global.ausgleich_successes = 1 }
+			AUS_subtract_three_collapse = yes
+			ALL_subtract_three_collapse = yes
+			country_event = bdeausgleich.60
 		}
-	}
-	
-	option = { #Don't they ever learn?
-		name = bdeausgleich.57.b
-		ai_chance = {
-			factor = 10
-		}
-		add_stability = 0.01
 	}
 }
 
@@ -18778,7 +21779,7 @@ country_event = { #The End of the Ausgleich
 		}
 	}
 	
-	picture = GFX_event_AUS_Austria_Hungary_Brothers
+	picture = GFX_event_AUS_Ausgleich_Poster
 
 	fire_only_once = yes
 
@@ -18794,7 +21795,7 @@ country_event = { #The End of the Ausgleich
 		AUS_ausgleich_ending_effect = yes
 	}
 
-	option = { #Let us set to work on federalizing the Empire.
+	option = { #The Empire is falling apart...
 		name = bdeausgleich.58.a
 		trigger = {
 			has_global_flag = AUS_terrible_ausgleich
@@ -18832,53 +21833,20 @@ country_event = { #The End of the Ausgleich
 						random_days = 3
 					}
 				}
-				random_list = {
-					50 = {
-						modifier = {
-							factor = HUN.subject_revolt_progress
-						}
-						
-					}
-					
-					40 = {
-						modifier = {
-							factor = 10
-							has_global_flag = AUS_ausgleich_kingdoms
-						}
-						modifier = {
-							factor = 20
-							has_global_flag = AUS_ausgleich_peoples
-						}
-						country_event = {
-							id = bdeausint.49
-						}
-					}
-				}
 			}
 		}
 	}
 	
-	option = { #Let us set to work on federalizing the Empire.
+	option = { #That could've gone better.
 		name = bdeausgleich.58.b
 		trigger = {
 			has_global_flag = AUS_bad_ausgleich
 		}
 		AUS_add_five_collapse = yes
 		ALL_add_three_collapse = yes
-		hidden_effect = {
-			if = {
-				limit = {
-					NOT = {
-						has_global_flag = HUN_boycotted_ausgleich
-					}
-				}
-				HUN_add_five_collapse = yes
-				add_to_variable = { HUN.extra_value = 0.005 }
-			}
-		}
 	}
 	
-	option = { #Let us set to work on federalizing the Empire.
+	option = { #Could've gone worse.
 		name = bdeausgleich.58.c
 		trigger = {
 			OR = {
@@ -18892,27 +21860,21 @@ country_event = { #The End of the Ausgleich
 			}
 		}
 		if = {
-			limit = {
-				has_global_flag = AUS_ausgleich_peoples
-			}
+			limit = { has_global_flag = AUS_ausgleich_peoples }
 			AUS_lower_all_minorities = yes
 		}
 		if = {
-			limit = {
-				has_global_flag = AUS_ausgleich_kingdoms
-			}
+			limit = { has_global_flag = AUS_ausgleich_kingdoms }
 			ALL_subtract_three_collapse = yes
 		}
 		if = {
-			limit = {
-				has_global_flag = AUS_ausgleich_hungary
-			}
+			limit = { has_global_flag = AUS_ausgleich_hungary }
 			HUN_subtract_ten_collapse = yes
 		}
 		AUS_fed_speed_2_add = yes
 	}
 	
-	option = { #Let us set to work on federalizing the Empire.
+	option = { #Gott erhalte. Gott Beschütze!
 		name = bdeausgleich.58.d
 		trigger = {
 			has_global_flag = AUS_good_ausgleich
@@ -18922,158 +21884,158 @@ country_event = { #The End of the Ausgleich
 			AUS_fed_speed_2_add = yes
 			AUS_fed_speed_3_add = yes
 		}
-		ALL_subtract_five_collapse = yes
-		AUS_lower_all_minorities = yes
+		if = {
+			limit = { has_global_flag = AUS_ausgleich_peoples }
+			AUS_lower_all_minorities = yes
+		}
+		if = {
+			limit = { has_global_flag = AUS_ausgleich_kingdoms }
+			ALL_subtract_five_collapse = yes
+		}
+		if = {
+			limit = { has_global_flag = AUS_ausgleich_hungary }
+			HUN_subtract_ten_collapse = yes
+		}
 	}
 }
 
-country_event = { #Hungary Dismantled
+country_event = { #AUS - CONST concerns over autonomieplan
 	id = bdeausgleich.59
 	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausgleich.59 ausgleich success: [?global.ausgleich_successes]" }
 	title = bdeausgleich.59.t
 	desc = bdeausgleich.59.d
 	
-	picture = GFX_report_event_BAN_big_speech2
-
-	fire_only_once = yes
+	picture = GFX_event_AUS_ethnic_map_1899
 
 	is_triggered_only = yes
 
-	option = { #A masterful feat of diplomacy.
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = bdeausgleich.60
+				days = 3
+			}
+		}
+	}
+
+	option = {
 		name = bdeausgleich.59.a
 		ai_chance = {
-			factor = 10
+			base = 40
 		}
-		add_political_power = 50
+		if = {
+			limit = { has_global_flag = AUS_reform_autonomieplan }
+			clr_global_flag = AUS_reform_autonomieplan
+		}
+		set_global_flag = AUS_status_quo_autonomieplan
+		every_collection_element = {
+			input = collection:botde_ausgleich_countries_except_austria
+			country_event = {
+				id = bdeausgleich.590
+				days = 1
+			}
+		}
+		effect_tooltip = {
+			custom_effect_tooltip = AUS_some_effects_no_longer_occur_at_end_of_the_ausgleich_tt
+			custom_effect_tooltip = AUS_if_agreed_to_applies_at_end_of_ausgleich_tt
+			swap_ideas = {
+				remove_idea = AUS_federal_plan
+				add_idea = AUS_federal_plan_post_ausgleich_generic
+			}
+		}
+	}
+
+	option = {
+		name = bdeausgleich.59.b
+		ai_chance = {
+			base = 60
+		}
+		add_to_variable = { global.ausgleich_successes = -1 }
+		every_country = {
+			limit = { has_country_flag = AUS_gleich_const_rejects_autonomieplan }
+			country_event = {
+				id = bdeausgleich.591
+				days = 1
+			}
+		}
 	}
 }
 
-country_event = { #Proposal: Cancel the Ausgleich?
+country_event = { #CONST - Austria revises the plan
+	id = bdeausgleich.590
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausgleich.590 ausgleich success: [?global.ausgleich_successes]" }
+	title = bdeausgleich.590.t
+	desc = bdeausgleich.590.d
+	
+	picture = GFX_event_AUS_imperial_flag_color
+
+	is_triggered_only = yes
+
+	option = { #good!
+		name = bdeausgleich.590.a
+		trigger = { has_country_flag = AUS_gleich_const_rejects_autonomieplan }
+		add_political_power = 20
+		clr_country_flag = AUS_gleich_const_rejects_autonomieplan
+	}
+	option = { #interesting
+		name = bdeausgleich.590.b
+		trigger = { NOT = { has_country_flag = AUS_gleich_const_rejects_autonomieplan } }
+		add_political_power = 5
+	}
+}
+
+country_event = { #CONST - Austria keeps the plan
+	id = bdeausgleich.591
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausgleich.591 ausgleich success: [?global.ausgleich_successes]" }
+	title = bdeausgleich.591.t
+	desc = bdeausgleich.591.d
+	
+	picture = GFX_event_AUS_transleithania_map
+
+	is_triggered_only = yes
+
+	option = { #damn
+		name = bdeausgleich.591.a
+		add_political_power = -20
+		ROOT_add_five_collapse = yes
+		clr_country_flag = AUS_gleich_const_rejects_autonomieplan
+	}
+}
+
+country_event = { #AUS - autonomieplan finalized
 	id = bdeausgleich.60
 	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausgleich.60 ausgleich success: [?global.ausgleich_successes]" }
 	title = bdeausgleich.60.t
 	desc = bdeausgleich.60.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_imperial_flag_color
 
 	fire_only_once = yes
 
 	is_triggered_only = yes
-	trigger = {
-		NOT = { has_global_flag = AUS_collapsed }
-	}
 
-	option = { #Keep it for the sake of the federal plan, we need to be prepared.
+	option = { #good!
 		name = bdeausgleich.60.a
-		ai_chance = {
-			factor = 10
-		}
-		AUS_fed_speed_3_add = yes
-		add_political_power = -30
-		country_event = bdeausgleich.1
-	}
-	
-	option = { #Seriously? We don't actually need it.
-		name = bdeausgleich.60.b
-		ai_chance = {
-			factor = 10
-		}
-		trigger = {
-			check_variable = { AUS.ordo_novi_templi_presence = 3 }
-		}
-		add_popularity = {
-			ideology = totalist
-			popularity = 0.1
-		}
-		add_popularity = {
-			ideology = syndicalist
-			popularity = 0.1
-		}
-		add_popularity = {
-			ideology = national_populist
-			popularity = 0.1
-		}
-		set_global_flag = ausgleich_cancelled
-		add_political_power = 20
-		AUS_add_ten_collapse = yes
-		ALL_add_ten_collapse = yes
-		every_collection_element = {
-			input = collection:botde_ausgleich_countries
-			country_event = {
-				id = bdeausgleich.61
-				days = 2
-				random_hours = 24
+		set_global_flag = AUS_question_3
+		clr_global_flag = ausgleich_debating_question
+		add_to_variable = { global.ausgleich_successes = 1 }
+		if = {
+			limit = { has_global_flag = AUS_reform_autonomieplan }
+			effect_tooltip = {
+				custom_effect_tooltip = AUS_effect_occurs_at_end_of_the_ausgleich_tt
+				AUS_give_post_ausgleich_federal_plan_idea_effect = yes
 			}
 		}
-	}
-}
-
-country_event = { #Ausgleich Cancelled
-	id = bdeausgleich.61
-	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausgleich.61 ausgleich success: [?global.ausgleich_successes]" }
-	title = bdeausgleich.61.t
-	desc = bdeausgleich.61.d
-	
-	picture = GFX_report_event_BAN_big_speech2
-
-	is_triggered_only = yes
-
-	option = { #Very worrying... how did this get through the Emperor?
-		name = bdeausgleich.61.a
-		trigger = {
-			NOT = { tag = AUS }
-		}
-		THIS_add_ten_collapse = yes
-	}
-	option = { #The empire is falling apart, we can't have more disagreements!
-		name = bdeausgleich.61.b
-		trigger = {
-			tag = AUS
-		}
-		add_political_power = 20
-		hidden_effect = {
-			country_event = {
-				id = bdeausgleich.62
-				days = 2
-				random_hours = 24
+		else_if = {
+			limit = { has_global_flag = AUS_status_quo_autonomieplan }
+			effect_tooltip = {
+				custom_effect_tooltip = AUS_effect_occurs_at_end_of_the_ausgleich_tt
+				swap_ideas = {
+					remove_idea = AUS_federal_plan
+					add_idea = AUS_federal_plan_post_ausgleich_generic
+				}
 			}
 		}
-	}
-}
-
-country_event = { #Ausgleich Cancelled Riots
-	id = bdeausgleich.62
-	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausgleich.62 ausgleich success: [?global.ausgleich_successes]" }
-	title = bdeausgleich.62.t
-	desc = bdeausgleich.62.d
-	
-	picture = GFX_event_AUS_legislature_protest
-
-	fire_only_once = yes
-
-	is_triggered_only = yes
-
-	option = { #damn
-		name = bdeausgleich.62.a
-		ai_chance = {
-			factor = 10
-		}
-		add_stability = -0.15
-		decrease_ruling_party_popularity_by_10 = yes
-		add_popularity = {
-			ideology = totalist
-			popularity = 0.1
-		}
-		add_popularity = {
-			ideology = syndicalist
-			popularity = 0.1
-		}
-		add_popularity = {
-			ideology = national_populist
-			popularity = 0.1
-		}
-		ALL_add_ten_collapse = yes
-		AUS_raise_all_minorities = yes
 	}
 }
 
@@ -19083,7 +22045,7 @@ country_event = { #The Trialist Question
 	title = bdeausgleich.63.t
 	desc = bdeausgleich.63.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_trialism_map
 
 	fire_only_once = yes
 
@@ -19092,7 +22054,7 @@ country_event = { #The Trialist Question
 	option = { #The idea of dualism and trialism is outdated. We must seek other ideas.
 		name = bdeausgleich.63.a
 		ai_chance = {
-			factor = 10
+			base = 10
 		}
 		add_political_power = 15
 		set_country_flag = AUS_trialism_epicfail
@@ -19427,12 +22389,12 @@ country_event = { #HUN - Austria Folds; Original Autonomous Transylvania Proposa
 					days = 3
 				}
 			}
-			else = {
-				AUS = {
-					country_event = {
-						id = bdeausgleich.24
-						days = 3
-					}
+		}
+		else = {
+			AUS = {
+				country_event = {
+					id = bdeausgleich.24
+					days = 3
 				}
 			}
 		}
@@ -19455,7 +22417,7 @@ country_event = { #Looping event; now makes a stalling mission
 		AUS_ausgleich_ongoing_trigger = yes
 	}
 	
-	option = { #bruh momento numero zwei
+	option = {
 		name = bdeausgleich.69.a
 		country_event = {
 			id = bdeausgleich.69
@@ -20153,9 +23115,7 @@ country_event = { #Check for if everyone agreed to unity plan
 		name = bdeausgleich.735.a
 		if = {
 			limit = {
-				NOT = {
-					any_country = { has_country_flag = AUS_ausgleich_army_unity_complaint }
-				}
+				NOT = { any_country = { has_country_flag = AUS_ausgleich_army_unity_complaint } }
 			}
 			if = {
 				limit = {
@@ -20177,9 +23137,7 @@ country_event = { #Check for if everyone agreed to unity plan
 		}
 		if = {
 			limit = {
-				any_country = {
-					has_country_flag = AUS_ausgleich_army_unity_complaint
-				}
+				any_country = { has_country_flag = AUS_ausgleich_army_unity_complaint }
 			}
 			country_event = {
 				id = bdeausgleich.735
@@ -20259,6 +23217,12 @@ country_event = { #Hungarian Federalization Speed
 		ai_chance = {
 			base = 50
 		}
+		trigger = {
+			NOT = {
+				has_global_flag = AUS_autonomous_transleithania
+				has_global_flag = AUS_autonomous_transleithania_minorities
+			}
+		}
 		HUN = { set_country_flag = HUN_ausgleich_slow_fed_speed }
 		add_political_power = 20
 	}
@@ -20268,6 +23232,12 @@ country_event = { #Hungarian Federalization Speed
 		ai_chance = {
 			base = 30
 		}
+		trigger = {
+			NOT = {
+				has_global_flag = AUS_autonomous_transleithania
+				has_global_flag = AUS_autonomous_transleithania_minorities
+			}
+		}
 		HUN = { set_country_flag = HUN_ausgleich_medium_fed_speed }
 		add_political_power = 10
 	}
@@ -20276,6 +23246,12 @@ country_event = { #Hungarian Federalization Speed
 		name = bdeausgleich.74.c
 		ai_chance = {
 			base = 15
+		}
+		trigger = {
+			NOT = {
+				has_global_flag = AUS_autonomous_transleithania
+				has_global_flag = AUS_autonomous_transleithania_minorities
+			}
 		}
 		HUN = { set_country_flag = HUN_ausgleich_high_fed_speed }
 		add_political_power = -5
@@ -20287,9 +23263,33 @@ country_event = { #Hungarian Federalization Speed
 		ai_chance = {
 			base = 5
 		}
+		trigger = {
+			NOT = {
+				has_global_flag = AUS_autonomous_transleithania
+				has_global_flag = AUS_autonomous_transleithania_minorities
+			}
+		}
 		HUN = { set_country_flag = HUN_ausgleich_ludicrous_fed_speed }
 		add_political_power = -30
 		increase_ruling_party_popularity_by_4 = yes
+	}
+
+	option = { #autonomous speed
+		name = bdeausgleich.74.e
+		ai_chance = {
+			base = 100
+		}
+		trigger = {
+			OR = {
+				has_global_flag = AUS_autonomous_transleithania
+				has_global_flag = AUS_autonomous_transleithania_minorities
+			}
+		}
+		add_stability = 0.05
+		HUN = {
+			add_stability = 0.05
+			set_country_flag = HUN_ausgleich_slow_fed_speed
+		}
 	}
 }
 
@@ -20339,7 +23339,7 @@ country_event = { #Hungarian Federalization Speed, Hungarian Response
 			modifier = {
 				OR = {
 					has_country_flag = HUN_ausgleich_slow_fed_speed
-					check_variable = { HUN.subject_revolt_progress > 0.04 }
+					check_variable = { HUN.subject_revolt_progress < 0.2 }
 				}
 				factor = 0
 			}
@@ -21060,6 +24060,14 @@ country_event = { #HUN - Fate of Fiume-Zadar
 
 	option = { #Fine
 		name = bdeausgleich.82.a
+		ai_chance = {
+			base = 100
+			modifier = {
+				set_temp_variable = { temp_factor = 1 }
+				subtract_from_temp_variable = { temp_factor = HUN.subject_revolt_progress }
+				factor = temp_factor
+			}
+		}
 		add_political_power = -25
 		HUN_subtract_five_collapse = yes
 		add_to_variable = { global.ausgleich_successes = 1 }
@@ -21092,6 +24100,12 @@ country_event = { #HUN - Fate of Fiume-Zadar
 	option = { #What the FUCK
 		name = bdeausgleich.82.b
 		trigger = { check_variable = { AUS.ausgleich_fiume_zadar_status_var = 2 } }
+		ai_chance = {
+			base = 100
+			modifier = {
+				factor = HUN.subject_revolt_progress
+			}
+		}
 		add_political_power = 25
 		ALL_add_five_collapse = yes
 		add_to_variable = { global.ausgleich_successes = -1 }
@@ -21183,6 +24197,14 @@ country_event = { #HUN - Austria refuses to fold over fiume
 
 	option = { #fine, let them have their way
 		name = bdeausgleich.85.a
+		ai_chance = {
+			base = 100
+			modifier = {
+				set_temp_variable = { temp_factor = 1 }
+				subtract_from_temp_variable = { temp_factor = HUN.subject_revolt_progress }
+				factor = temp_factor
+			}
+		}
 		add_political_power = -50
 		add_to_variable = { global.ausgleich_successes = 1 }
 		hidden_effect = {
@@ -21213,9 +24235,23 @@ country_event = { #HUN - Austria refuses to fold over fiume
 
 	option = { #we will not give up the dual ports!
 		name = bdeausgleich.85.b
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = HUN.subject_revolt_progress
+			}
+		}
 		add_political_power = -50
 		add_to_variable = { global.ausgleich_successes = -2 }
 		set_variable = { AUS.ausgleich_fiume_zadar_status_var = 3 }
+		hidden_effect = {
+			FIU = {
+				country_event = {
+					id = bdeausint.26
+					days = 1
+				}
+			}
+		}
 	}
 }
 
@@ -21225,7 +24261,7 @@ country_event = { #CZE - Czechoslovakist Sentiment Prevail in Delegates
 	title = bdeausgleichflavor.1.t
 	desc = bdeausgleichflavor.1.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_CZE_map_with_rus
 
 	fire_only_once = yes
 
@@ -21238,25 +24274,18 @@ country_event = { #CZE - Czechoslovakist Sentiment Prevail in Delegates
 				AUS_is_constituent = yes
 			}
 		}
-		ai_chance = {
-			factor = 10
-		}
 		add_political_power = -5
 	}
 	
 	option = { #But how loyal will it be?
-		name = bdeausgleichflavor.1.a
+		name = bdeausgleichflavor.1.b
 		trigger = {
 			HUN = {
 				AUS_is_constituent = no
 			}
 		}
-		ai_chance = {
-			factor = 10
-		}
 		add_political_power = -5
 	}
-	
 }
 
 country_event = { #CRO - Muslim Delegates Express Their Concerns
@@ -21265,17 +24294,12 @@ country_event = { #CRO - Muslim Delegates Express Their Concerns
 	title = bdeausgleichflavor.2.t
 	desc = bdeausgleichflavor.2.d
 	
-	picture = GFX_report_event_BAN_big_speech2
-
-	fire_only_once = yes
+	picture = GFX_event_AUS_muslim_bosnia_arms
 
 	is_triggered_only = yes
 
-	option = { #Let's hope a ruckus with Austria is avoided
+	option = { #As long as they're loyal to the empire, we have no issues.
 		name = bdeausgleichflavor.2.a
-		ai_chance = {
-			factor = 10
-		}
 		add_political_power = -5
 	}
 }
@@ -21286,17 +24310,12 @@ country_event = { #HUN - Tildy and the Delegates Express Future Concerns
 	title = bdeausgleichflavor.3.t
 	desc = bdeausgleichflavor.3.d
 	
-	picture = GFX_report_event_BAN_big_speech2
-
-	fire_only_once = yes
+	picture = GFX_event_AUS_Balkan_Crisis
 
 	is_triggered_only = yes
 
-	option = { #Hungary must remain whole!
+	option = { #Their fears are simply misplaced... right?
 		name = bdeausgleichflavor.3.a
-		ai_chance = {
-			factor = 10
-		}
 		add_political_power = -5
 	}
 }
@@ -21315,9 +24334,6 @@ country_event = { #OAAO Members Take Offense (if invited Peoples to the Ausgleic
 
 	option = { #Who cares
 		name = bdeausgleichflavor.4.a
-		ai_chance = {
-			factor = 10
-		}
 		add_stability = -0.01
 		add_political_power = 10
 		add_popularity = {
@@ -21339,9 +24355,6 @@ country_event = { #Milan Hodza Revives the Federative Hungary Idea
 
 	option = { #Might be worth listening to... or changing.
 		name = bdeausgleichflavor.5.a
-		ai_chance = {
-			factor = 10
-		}
 		if = {
 			limit = { tag = HUN }
 			add_political_power = -15
@@ -21367,22 +24380,20 @@ country_event = { #Pan-European Sentiments Echoed (if government is Dollfuss, Ka
 	title = bdeausgleichflavor.6.t
 	desc = bdeausgleichflavor.6.d
 	
-	picture = GFX_event_AUS_federalist_banner
+	picture = GFX_report_event_GER_Europe
 
 	is_triggered_only = yes
 
-	option = { #Might be worth listening to... or changing.
+	option = { #Our Federation is the first step towards such an idea. Let us take it slow.
 		name = bdeausgleichflavor.6.a
-		ai_chance = {
-			factor = 10
-		}
+		add_political_power = 10
 		add_popularity = {
 			ideology = social_liberal
-			popularity = 0.03
+			popularity = 0.05
 		}
 		add_popularity = {
 			ideology = paternal_autocrat
-			popularity = 0.03
+			popularity = 0.02
 		}
 	}
 }
@@ -21397,15 +24408,47 @@ country_event = { #Hungarian candidates warn of Romanian menace
 
 	is_triggered_only = yes
 
-	option = { #
+	option = {
 		name = bdeausgleichflavor.7.a
-		ai_chance = {
-			factor = 10
-		}
 		add_war_support = 0.03
 		if = {
 			limit = { tag = AUS }
 			HUN_subtract_five_collapse = yes
+			every_possible_country = {
+				limit = {
+					AUS_is_danubian_tag = yes
+					OR = {
+						tag = BUK
+						tag = TRS
+						tag = BAN
+					}
+				}
+				set_temp_variable = { revolt_progress_change = 0.05 }
+				custom_override_tooltip = {
+					tooltip = BOTDE_collapse_no_country_name_with_flag_tt
+					BOTDE_add_collapse = yes
+				}
+			}
+		}
+		else_if = {
+			limit = { tag = HUN }
+			effect_tooltip = {
+				every_possible_country = {
+					limit = {
+						AUS_is_danubian_tag = yes
+						OR = {
+							tag = BUK
+							tag = TRS
+							tag = BAN
+						}
+					}
+					set_temp_variable = { revolt_progress_change = 0.05 }
+					custom_override_tooltip = {
+						tooltip = BOTDE_collapse_no_country_name_with_flag_tt
+						BOTDE_add_collapse = yes
+					}
+				}
+			}
 		}
 	}
 }
@@ -21420,17 +24463,47 @@ country_event = { #Illyrian candidates warn of Serb menace
 
 	is_triggered_only = yes
 
-	option = { #
+	option = {
 		name = bdeausgleichflavor.8.a
-		ai_chance = {
-			factor = 10
-		}
 		add_war_support = 0.03
 		if = {
-			limit = {
-				tag = AUS
-			}
+			limit = { tag = AUS }
 			CRO_subtract_five_collapse = yes
+			every_possible_country = {
+				limit = {
+					AUS_is_danubian_tag = yes
+					OR = {
+						tag = SKS
+						tag = BOS
+						tag = SLO
+					}
+				}
+				set_temp_variable = { revolt_progress_change = 0.05 }
+				custom_override_tooltip = {
+					tooltip = BOTDE_collapse_no_country_name_with_flag_tt
+					BOTDE_add_collapse = yes
+				}
+			}
+		}
+		else_if = {
+			limit = { tag = CRO }
+			effect_tooltip = {
+				every_possible_country = {
+					limit = {
+						AUS_is_danubian_tag = yes
+						OR = {
+							tag = SKS
+							tag = BOS
+							tag = SLO
+						}
+					}
+					set_temp_variable = { revolt_progress_change = 0.05 }
+					custom_override_tooltip = {
+						tooltip = BOTDE_collapse_no_country_name_with_flag_tt
+						BOTDE_add_collapse = yes
+					}
+				}
+			}
 		}
 	}
 }
@@ -21447,9 +24520,8 @@ country_event = { #A United Passport
 
 	option = {
 		name = bdeausgleichflavor.9.a
-		ai_chance = {
-			factor = 10
-		}
+		AUS_subtract_one_collapse = yes
+		ALL_subtract_one_collapse = yes
 		add_political_power = 20
 	}
 }
@@ -21466,9 +24538,8 @@ country_event = { #Danubian Citizenship
 
 	option = {
 		name = bdeausgleichflavor.10.a
-		ai_chance = {
-			factor = 10
-		}
+		AUS_subtract_one_collapse = yes
+		ALL_subtract_one_collapse = yes
 		add_stability = 0.03
 	}
 }
@@ -21487,11 +24558,8 @@ country_event = { #Heckling between Hungarians and National Councils
 		has_global_flag = AUS_ausgleich_ongoing
 	}
 
-	option = { #Worrying
+	option = { #Break it up!
 		name = bdeausgleichflavor.11.a
-		ai_chance = {
-			factor = 10
-		}
 		ALL_add_three_collapse = yes
 	}
 }
@@ -21502,7 +24570,7 @@ country_event = { #Procession of the Representatives; Vienna is in full festivit
 	title = bdeausgleichflavor.12.t
 	desc = bdeausgleichflavor.12.d
 	
-	picture = GFX_event_AUS_renner_walk_2
+	picture = GFX_event_AUS_franz_josef_jubilee
 
 	is_triggered_only = yes
 	
@@ -21510,11 +24578,8 @@ country_event = { #Procession of the Representatives; Vienna is in full festivit
 		has_global_flag = AUS_ausgleich_ongoing
 	}
 
-	option = { #Worrying
+	option = { #All the world's in tune on a spring afternoon when we're holding the Ausgleich!
 		name = bdeausgleichflavor.12.a
-		ai_chance = {
-			factor = 10
-		}
 		add_political_power = 15
 	}
 }
@@ -21533,11 +24598,8 @@ country_event = { #The Ausgleich is Stalling
 		has_global_flag = AUS_ausgleich_ongoing
 	}
 
-	option = { #Worrying
+	option = { #We should hurry things along!
 		name = bdeausgleichflavor.13.a
-		ai_chance = {
-			factor = 10
-		}
 		add_political_power = -15
 	}
 }
@@ -21578,6 +24640,17 @@ country_event = { #Ausgleich Upcoming
 		add_ideas = AUS_approaching_ausgleich
 		AUS_subtract_five_collapse = yes
 		ALL_subtract_five_collapse = yes
+		hidden_effect = {
+			if = {
+				limit = { is_ally_with = FIU }
+				FIU = {
+					country_event = {
+						id = nufiu.7
+						days = 1
+					}
+				}
+			}
+		}
 	}
 }
 
@@ -22342,62 +25415,72 @@ country_event = { #Formation of the Danubian Federation
 		hidden_effect = {
 			if = {
 				limit = {
-					OR = {
-						has_government = radical_socialist
-						has_government = social_democrat
-					}
-				}
-				set_country_flag = AUS_FED_DANUBIANFEDERATION_flag
-			}
-			if = {
-				limit = {
-					has_government = social_liberal
-				}
-				set_country_flag = AUS_FED_UNITEDSTATES_flag
-			}
-			if = {
-				limit = {
-					has_government = social_conservative
-				}
-				set_country_flag = AUS_FED_AUSTRIAHUNGARY_flag
-			}
-			if = {
-				limit = {
-					has_government = authoritarian_democrat
-					has_country_flag = AUS_AUTHDEM_DOLLFUSS
-				}
-				set_country_flag = AUS_FED_FEDERALSTATE_flag
-			}
-			if = {
-				limit = {
-					has_government = authoritarian_democrat
 					NOT = {
-						has_country_flag = AUS_AUTHDEM_DOLLFUSS
-						has_country_flag = AUS_karl_absolute
+						has_country_flag = AUS_FED_DANUBIANFEDERATION_flag
+						has_country_flag = AUS_FED_UNITEDSTATES_flag
+						has_country_flag = AUS_FED_AUSTRIAHUNGARY_flag
+						has_country_flag = AUS_FED_FEDERALSTATE_flag
 					}
 				}
-				set_country_flag = AUS_FED_AUSTRIAHUNGARY_flag
-			}
-			if = {
-				limit = {
-					has_government = paternal_autocrat
-					NOT = {
-						has_country_flag = AUS_karl_absolute
-					}
-				}
-				set_country_flag = AUS_FED_FEDERALSTATE_flag
-			}
-			if = {
-				limit = {
-					AND = {
+				if = {
+					limit = {
 						OR = {
-							has_government = authoritarian_democrat
-							has_government = paternal_autocrat
+							has_government = radical_socialist
+							has_government = social_democrat
 						}
-						has_country_flag = AUS_karl_absolute
 					}
+					set_country_flag = AUS_FED_DANUBIANFEDERATION_flag
 				}
-				set_country_flag = AUS_FED_AUSTRIAHUNGARY_flag
+				if = {
+					limit = {
+						has_government = social_liberal
+					}
+					set_country_flag = AUS_FED_UNITEDSTATES_flag
+				}
+				if = {
+					limit = {
+						has_government = social_conservative
+					}
+					set_country_flag = AUS_FED_AUSTRIAHUNGARY_flag
+				}
+				if = {
+					limit = {
+						has_government = authoritarian_democrat
+						has_country_flag = AUS_AUTHDEM_DOLLFUSS
+					}
+					set_country_flag = AUS_FED_FEDERALSTATE_flag
+				}
+				if = {
+					limit = {
+						has_government = authoritarian_democrat
+						NOT = {
+							has_country_flag = AUS_AUTHDEM_DOLLFUSS
+							has_country_flag = AUS_karl_absolute
+						}
+					}
+					set_country_flag = AUS_FED_AUSTRIAHUNGARY_flag
+				}
+				if = {
+					limit = {
+						has_government = paternal_autocrat
+						NOT = {
+							has_country_flag = AUS_karl_absolute
+						}
+					}
+					set_country_flag = AUS_FED_FEDERALSTATE_flag
+				}
+				if = {
+					limit = {
+						AND = {
+							OR = {
+								has_government = authoritarian_democrat
+								has_government = paternal_autocrat
+							}
+							has_country_flag = AUS_karl_absolute
+						}
+					}
+					set_country_flag = AUS_FED_AUSTRIAHUNGARY_flag
+				}
 			}
 		}
 	}
@@ -22416,8 +25499,18 @@ country_event = { #Formation of the Danubian Federation
 			cancel_resistance = yes
 		}
 		every_possible_country = {
-			limit = { has_idea = AUS_federal_plan }
-			remove_ideas = AUS_federal_plan
+			limit = { AUS_has_any_federal_plan_idea = yes }
+			remove_ideas = {
+				AUS_federal_plan
+				AUS_federal_plan_post_ausgleich_generic
+				AUS_federal_plan_post_ausgleich_bauer
+				AUS_federal_plan_post_ausgleich_renner
+				AUS_federal_plan_post_ausgleich_kalergi
+				AUS_federal_plan_post_ausgleich_miklas
+				AUS_federal_plan_post_ausgleich_ender
+				AUS_federal_plan_post_ausgleich_buresch
+				AUS_federal_plan_post_ausgleich_dollfuss
+			}
 		}
 		if = {
 			limit = { has_Karl_Habsburg_as_leader = yes }
@@ -22470,6 +25563,10 @@ country_event = { #Formation of the Danubian Federation
 		}
 		AUS_the_state_modifiers = yes
 		hidden_effect = {
+			if = {
+				limit = { has_country_flag = AUS_federal_government_forming }
+				clr_country_flag = AUS_federal_government_forming
+			}
 			if = {
 				limit = { has_global_flag = AUS_ausgleich_peoples }
 				country_event = {
@@ -22989,11 +26086,8 @@ country_event = { #First Meeting of the Bundeskommission
 	option = { #An essential first step.
 		name = bdeausint.30.a
 		add_political_power = 10
-		every_country = {
-			limit = {
-				AUS_is_constituent = yes
-				NOT = { tag = AUS }
-			}
+		every_other_country = {
+			limit = { AUS_is_constituent = yes }
 			country_event = {
 				id = bdeausint.3
 				hours = 2
@@ -23003,6 +26097,7 @@ country_event = { #First Meeting of the Bundeskommission
 		increase_ruling_party_popularity_by_3 = yes
 		AUS_raise_govt_percentage_3 = yes
 		custom_effect_tooltip = AUS_enable_new_govt_making
+		set_country_flag = AUS_federal_government_forming
 		hidden_effect = { country_event = bdeausint.4 }
 	}
 }
@@ -26895,16 +29990,6 @@ country_event = { #Schutzbund Called to the Streets Under Notion of Instability
 			popularity = 0.03
 		}
 		add_stability = -0.05
-		random_owned_state = {
-			limit = {
-				NOT = {
-					has_dynamic_modifier = {
-						modifier = AUS_schutzbund_presence
-					}
-				}
-			}
-			AUS_change_paramilitary_schutzbund = yes
-		}
 	}
 }
 
@@ -26925,16 +30010,6 @@ country_event = { #Ariosophs Co-Opt Discontent (when at 90% collapse or more)
 		add_popularity = {
 			ideology = national_populist
 			popularity = 0.05
-		}
-		random_owned_state = {
-			limit = {
-				AUS_has_paramilitary_presence = no
-			}
-			AUS_change_paramilitary_ont = yes
-		}
-		add_to_variable = {
-			var = AUS.ariosoph_power
-			value = 1
 		}
 	}
 }
@@ -26963,6 +30038,12 @@ country_event = { #Trieste Unions go on Strike (when at 90% collapse or more, no
 			idea = AUS_trieste_strike
 			days = 30
 		}
+		1100 = {
+			add_dynamic_modifier = {
+				modifier = AUS_strike
+				days = 90
+			}
+		}
 		set_country_flag = AUS_revolution_value_event
 	}
 }
@@ -26972,7 +30053,8 @@ country_event = { #Danubian Internationale Mounting Pressure (when at 90% collap
 	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausint.92" }
 	title = bdeausint.92.t
 	desc = bdeausint.92.d
-	picture = GFX_event_AUS_revolution
+
+	picture = GFX_event_AUS_KPO_badge
 
 	fire_only_once = yes
 
@@ -26983,11 +30065,11 @@ country_event = { #Danubian Internationale Mounting Pressure (when at 90% collap
 		add_political_power = -10
 		add_popularity = {
 			ideology = totalist
-			popularity = 0.03
+			popularity = 0.05
 		}
 		add_popularity = {
 			ideology = syndicalist
-			popularity = 0.03
+			popularity = 0.05
 		}
 		AUS_add_revolution_to_SDAPO = yes
 		set_country_flag = AUS_revolution_value_event
@@ -28898,7 +31980,7 @@ country_event = { #DBP, CS, VF, and SDAPO all meet
 	}
 }
 
-country_event = { #Kick out Karl or nah - Liebenfels
+country_event = { #Fate of the Lion of Habsburg
 	id = bdeausint.1238
 	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausint.1238" }
 	title = bdeausint.1238.t
@@ -28910,37 +31992,8 @@ country_event = { #Kick out Karl or nah - Liebenfels
 	
 	is_triggered_only = yes
 	
-	option = { #yeah
+	option = { #restrict his powers
 		name = bdeausint.1238.a
-		ai_chance = {
-			base = 90
-		}
-		add_political_power = 100
-		add_stability = -0.15
-		ALL_add_ten_collapse = yes
-		custom_override_tooltip = {
-			tooltip = AUS_will_trigger_anti_vril_coup_tt
-			create_country_leader = {
-				name = "Jörg Lanz von Liebenfels"
-				desc = "POLITICS_LIEBENFELS_DESC"
-				picture = "gfx/leaders/AUS/Portrait_AUS_Liebenfels.png"
-				expire = "1.1.1"
-				ideology = ariosophy_subtype
-			}
-			country_event = {
-				id = bdeausint.1239
-				days = 7
-				random_days = 3
-			}
-		}
-	}
-	
-	option = { #he's too valuable, resrict his powers but keep him as kaiser
-		name = bdeausint.1238.b
-		ai_chance = {
-			base = 10
-		}
-		add_political_power = -100
 		add_stability = 0.1
 		ALL_subtract_five_collapse = yes
 		hidden_effect = {
@@ -29035,31 +32088,21 @@ country_event = { #Karl fires liebenfels
 	}
 }
 
-country_event = { #PNEO Coup
+country_event = { #Karl Refuses to Swear in Liebenfels
 	id = bdeausint.1239
 	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausint.1239" }
 	title = bdeausint.1239.t
 	desc = bdeausint.1239.d
 
-	picture = GFX_event_AUS_legislature_protest
+	picture = GFX_event_AUS_legislature_building
 	
 	fire_only_once = yes
 	
 	is_triggered_only = yes
 	
-	option = { #the coalition defeats the OAAO!
+	option = { #So be it.
 		name = bdeausint.1239.a
-		effect_tooltip = {
-			set_politics = {
-				ruling_party = authoritarian_democrat
-			}
-		}
-		hidden_effect = {
-			add_days_mission_timeout = {
-				mission = AUS_liebenfels_civil_war_leadup_headsup
-				days = -500
-			}
-		}
+		add_stability = -0.1
 	}
 }
 
@@ -32656,6 +35699,16 @@ country_event = { #FIU - Austria Prepares A Polar Expedition
 				country_event = bdeausflavor.33
 			}
 		}
+		if = {
+			limit = {
+				has_government = national_populist
+			}
+			custom_effect_tooltip = AUS_antarctica_continent_discovery_5_tt
+			add_to_variable = {
+				var = AUS_antarctica_continent_discovery
+				value = 0.05
+			}
+		}
 	}
 	
 	option = { #Not found
@@ -32698,7 +35751,7 @@ country_event = { #Disunity in a Time for Unity
 	title = bdeausflavor.34.t
 	desc = bdeausflavor.34.d
 	
-	picture = GFX_event_AUS_Radical_SDAPO_Poster
+	picture = GFX_event_AUS_KPO_badge
 	
 	is_triggered_only = yes
 
@@ -33722,6 +36775,16 @@ country_event = { #(Ariosophy) The Haunting of Kieferberg
 		add_popularity = {
 			ideology = national_populist
 			popularity = 0.02
+		}
+		hidden_effect = {
+			942 = {
+				if = {
+					limit = { has_state_flag = AUS_state_searched_artifacts }
+					clr_state_flag = AUS_state_searched_artifacts
+					set_state_flag = AUS_state_searched_more
+				}
+				set_state_flag = artifact_minor_kieferberg
+			}
 		}
 	}
 }
@@ -35052,6 +38115,7 @@ country_event = { #Extending Mental Care to the Peasants (Dollfuss; sanatoriums 
 	option = { #Interesting
 		name = bdeausflavor.125.a
 		add_stability = 0.01
+		set_country_flag = AUS_bauernsanatorium #For Aktion 5Bb, so you can get a special flavor event about these things getting burned
 	}
 }
 country_event = { #Increased Funding for the Luftfahrtruppen
@@ -36002,9 +39066,7 @@ country_event = { #History of the Jagdkommando (Spec Ops)
 
 	option = { #
 		name = bdeausflavor.147.a
-		
 	}
-	
 }
 
 country_event = { #Albert Einstein leaves in collapse aftermath or shit goes crazy
@@ -37064,11 +40126,16 @@ country_event = { #LIEBENFELS TREASURE HUNTING- Otto Rahn & the Grail Hunters
 	option = { #Invite him to search for the Grail in our name!
 		name = bdeausflavor.176.a
 		set_country_flag = AUS_treasure_rahn_accepted
+		custom_effect_tooltip = holy_grail_discovery_3
+		add_to_variable = {
+			var = discovery_chance_holy_grail
+			value = 0.03
+		}
 	}
 
 	option = { #What, we're hiring homosexuals now?
 		name = bdeausflavor.176.b
-		
+		add_stability = 0.075
 	}
 }
 
@@ -37082,15 +40149,273 @@ country_event = { #LIEBENFELS TREASURE HUNTING- The Viennese Holy Lance
 
 	is_triggered_only = yes
 
-	option = { #It's clear this Holy Lance is nothing but a farce.
+	option = { #It's clear this Holy Lance is nothing but a farce. We ought to do more research!
 		name = bdeausflavor.177.a
-		set_country_flag = AUS_treasure_rahn_accepted
+		add_political_power = 15
+		add_stability = 0.015
+		set_country_flag = AUS_lance_discovery
+		custom_effect_tooltip = AUS_lance_discovery_tt
+		hidden_effect = {
+			add_to_array = { discoverable_artifacts = discovery_chance_holy_lance }
+			AUS_hide_the_holy_lance = yes
+		}
 	}
 
 	option = { #It shall serve as part of our divine heritage.
 		name = bdeausflavor.177.b
-		add_stability = 0.015
-		add_political_power = 15
+		set_country_flag = AUS_lance_vienna
+		set_country_flag = AUS_holy_lance_discovered
+		custom_effect_tooltip = AUS_lance_vienna_tt
+		custom_effect_tooltip = AUS_discover_holy_lance
+	}
+}
+
+country_event = { #SDAPO Vienna Internationale contacts in Consts or smth
+	id = bdeausflavor.178
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.178" }
+	title = bdeausflavor.178.t
+	desc = bdeausflavor.178.d
+	
+	picture = GFX_event_AUS_marx_studien_and_badge
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeausflavor.178.a
+		add_timed_idea = {
+			idea = AUS_const_internationale
+			days = 240
+		}
+		add_popularity = {
+			ideology = social_democrat
+			popularity = 0.05
+		}
+		add_popularity = {
+			ideology = radical_socialist
+			popularity = 0.05
+		}
+	}
+}
+
+country_event = { #DBP - USGA naming controversy
+	id = bdeausflavor.179
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.179" }
+	title = bdeausflavor.179.t
+	desc = bdeausflavor.179.d
+	
+	picture = GFX_event_AUS_ethnic_map_1899
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeausflavor.179.a
+		AUS_add_one_collapse = yes
+		ALL_add_one_collapse = yes
+		AUS_minus_govt_percentage_1 = yes
+		add_popularity = {
+			ideology = social_liberal
+			popularity = -0.05
+		}
+	}
+}
+
+country_event = { #ARIOSOPHY- Explanation of the racial hierarchy; Aryans; Mediterraneanoids; Pygmies
+	id = bdeausflavor.180
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.180" }
+	title = bdeausflavor.180.t
+	desc = bdeausflavor.180.d
+	
+	picture = GFX_event_AUS_ethnic_map_1899
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeausflavor.180.a
+		add_political_power = -25
+		add_war_support = 0.03
+	}
+}
+
+country_event = { #ARIOSOPHY- Our Ancestral Root-Races, and the Sub-Races of the World.
+	id = bdeausflavor.181
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.181" }
+	title = bdeausflavor.181.t
+	desc = bdeausflavor.181.d
+	
+	picture = GFX_event_AUS_ethnic_map_1899
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeausflavor.181.a
+		add_political_power = -25
+		add_war_support = 0.03
+	}
+}
+
+country_event = { #ARIOSOPHY- AUS_pilgrimage_to_tibet - Meeting with Roerich
+	id = bdeausflavor.182
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.182" }
+	title = bdeausflavor.182.t
+	desc = bdeausflavor.182.d
+	
+	picture = GFX_event_AUS_ethnic_map_1899
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeausflavor.182.a
+		add_popularity = {
+			ideology = totalist
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = national_populist
+			popularity = 0.03
+		}
+	}
+}
+
+country_event = { #ARIOSOPHY- Hartheim Taken Over by the State
+	id = bdeausflavor.183
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.183" }
+	title = {
+		text = bdeausflavor.183.t_moral
+		trigger = { has_country_flag = AUS_has_some_morals }
+	}
+	desc = {
+		text = bdeausflavor.183.d_moral
+		trigger = { has_country_flag = AUS_has_some_morals }
+	}
+	title = {
+		text = bdeausflavor.183.t_prettymuchotl
+		trigger = { has_country_flag = AUS_you_deserve_to_get_shot }
+	}
+	desc = {
+		text = bdeausflavor.183.d_prettymuchotl
+		trigger = { has_country_flag = AUS_you_deserve_to_get_shot }
+	}
+	
+	picture = GFX_event_AUS_hartheim_evil
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #When the root-race is purified, then shall it stop.
+		name = bdeausflavor.183.a
+		add_stability = -0.03
+		add_political_power = -30
+	}
+}
+
+country_event = { #Princess Maria Karoline protected from Hartheim, or something of the sort
+	id = bdeausflavor.184
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.184" }
+	title = bdeausflavor.184.t
+	desc = bdeausflavor.184.d
+	
+	picture = GFX_event_AUS_ethnic_map_1899
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeausflavor.184.a
+		add_popularity = {
+			ideology = totalist
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = national_populist
+			popularity = 0.03
+		}
+	}
+}
+
+country_event = { #An Order of Vehmic Assassins
+	id = bdeausflavor.185
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.185" }
+	title = bdeausflavor.185.t
+	desc = bdeausflavor.185.d
+	
+	picture = GFX_event_AUS_ethnic_map_1899
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #
+		name = bdeausflavor.185.a
+		add_stability = 0.075
+		AUS_subtract_five_collapse = yes
+	}
+}
+
+country_event = { #Expeditions to the North Pole
+	id = bdeausflavor.186
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.185" }
+	title = bdeausflavor.186.t
+	desc = bdeausflavor.186.d
+	
+	picture = GFX_event_AUS_ethnic_map_1899
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #To Hyperborea!
+		name = bdeausflavor.186.a
+		add_stability = 0.075
+		AUS_subtract_five_collapse = yes
+		#need followup for getting there or failing but I'm not doing that shit rn. 3 choices, you can use planes, etc.
+	}
+}
+
+country_event = { #Implementing Ario-Christianity
+	id = bdeausflavor.187
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.185" }
+	title = bdeausflavor.187.t
+	desc = bdeausflavor.187.d
+	
+	picture = GFX_event_AUS_ethnic_map_1899
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #To Hyperborea!
+		name = bdeausflavor.187.a
+		add_political_power = 40
+		add_stability = 0.05
+	}
+}
+
+country_event = { #Experimentation stuff (collecting oath skulls from accidents for vehmgericht, etc)
+	id = bdeausflavor.188
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausflavor.188" }
+	title = bdeausflavor.188.t
+	desc = bdeausflavor.188.d
+	
+	picture = GFX_event_AUS_ethnic_map_1899
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #To Hyperborea!
+		name = bdeausflavor.188.a
+		add_political_power = 40
+		add_stability = 0.05
 	}
 }
 
@@ -38686,6 +42011,40 @@ news_event = { #Imperial Mitteleuropa
 		name = bdeausnews.34.b
 		trigger = {
 			GER_is_in_mitteleuropa = no
+		}
+	}
+}
+
+news_event = { #Liebenfels Civil War
+	id = bdeausnews.35
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdeausnews.35" }
+	title = bdeausnews.35.t
+	desc = bdeausnews.35.d
+	
+	picture = GFX_news_event_AUS_vaterland_front_rally
+	
+	major = yes
+	
+	show_major = {
+		regional_europe_news = yes
+	}
+	
+	trigger = {
+		wants_world_news = yes
+	}
+
+	is_triggered_only = yes
+
+	option = {
+		name = bdeausnews.35.a
+		trigger = {
+			NOT = { tag = AWR }
+		}
+	}
+	option = {
+		name = bdeausnews.35.b
+		trigger = {
+			tag = AWR
 		}
 	}
 }

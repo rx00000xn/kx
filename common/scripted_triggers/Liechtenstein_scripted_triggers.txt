@@ -138,3 +138,29 @@ LIC_neutral_position = {
 		}
 	}
 }
+LIC_famine_minigame_ongoing = {
+	LIC = {
+		has_country_flag = LIC_stockpiling_flag
+		NOT = {
+			AND = {
+				has_country_flag = LIC_quotas_done
+				check_variable = { 
+					var = LIC.govt_readiness
+					value = 0
+					compare = less_than_or_equals
+				}
+			}
+		}
+	}
+}
+LIC_AI_deal_with_famine_decrease_hh_trigger = {
+	LIC_famine_minigame_ongoing = yes
+	check_variable = { LIC.govt_readiness < LIC.quota_value }
+}
+LIC_AI_deal_with_famine_increase_hh_trigger = {
+	LIC_famine_minigame_ongoing = yes
+	OR = {
+		check_variable = { LIC.govt_readiness = LIC.quota_value }
+		check_variable = { LIC.govt_readiness > LIC.quota_value }
+	}
+}

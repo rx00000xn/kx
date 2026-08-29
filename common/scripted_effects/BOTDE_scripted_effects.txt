@@ -10,12 +10,38 @@ d_ausd1 = {
 }
 
 d_ausd2 = {
-	create_country_leader = {
-		name = "Elena Bacaloglu"
-		desc = "BAN_ELENA_BACALOGLU_DESC"
-		picture = "gfx/leaders/BAN/BAN_Elena_Bacaloglu.png"
-		expire = "1.1.1"
-		ideology = italian_legionarism_subtype
+	clear_array = global.ausgleich_attendants
+	get_sorted_scored_countries = {
+	    scorer = BOTDE_ausgleich_priority_score
+	    array = global.ausgleich_attendants
+	}
+}
+
+d_ausd3 = {
+	every_possible_country = {
+		limit = {
+			OR = {
+				AND = {
+					OR = {
+						tag = CRO
+						tag = CZE
+						tag = GAL
+					}
+					AUS_is_constituent = yes
+				}
+				AUS_is_minority = yes
+			}
+		}
+		country_event = {
+			id = bdeausgleich.2
+			days = 1
+		}
+		hidden_effect = {
+			if = {
+				limit = { AUS_is_minority = yes }
+				set_country_flag = going_to_le_ausgleich
+			}
+		}
 	}
 }
 
@@ -85,38 +111,6 @@ AUS_debug_effect3 = {
 	every_collection_element = {
 		input = collection:basic_core_constituents
 		set_country_flag = going_to_le_ausgleich
-	}
-}
-
-AUS_3_fed = {
-	custom_effect_tooltip = govt_raise_3
-	add_to_variable = {
-		var = global.government_percentage
-		value = 0.03
-	}
-}
-
-AUS_5_fed = {
-	custom_effect_tooltip = govt_raise_5
-	add_to_variable = {
-		var = global.government_percentage
-		value = 0.05
-	}
-}
-
-AUS_5_fed_minus = {
-	custom_effect_tooltip = govt_minus_5
-	add_to_variable = {
-		var = global.government_percentage
-		value = -0.05
-	}
-}
-
-AUS_8_fed_minus = {
-	custom_effect_tooltip = govt_minus_8
-	add_to_variable = {
-		var = global.government_percentage
-		value = -0.08
 	}
 }
 
@@ -294,19 +288,11 @@ AUS_do_revolt_rate_rise = {
 	subtract_from_temp_variable = { revolt_rate_rising = revolt_rate_party_pop_thing }
 	add_to_temp_variable = { revolt_rate_rising = AUS.extra_value }
 	add_to_temp_variable = { revolt_rate_rising = global.extra_value_war_exhaust }
-	add_to_temp_variable = { revolt_rate_rising = global.extra_collapse_federalizing }
-	add_to_temp_variable = { revolt_rate_rising = modifier@BOTDE_revolt_rate_modifier }
 	if = {
-		limit = {
-			OR = {
-				has_completed_focus = AUS_root_out_class_hatred
-				has_completed_focus = AUS_to_these_united_states
-				has_completed_focus = AUS_test_of_time
-				has_completed_focus = AUS_charity_and_unity
-			}
-		}
-		subtract_from_temp_variable = { revolt_rate_rising = 0.002 }
+		limit = { AUS = { has_country_flag = AUS_federal_government_forming } }
+		add_to_temp_variable = { revolt_rate_rising = global.extra_collapse_federalizing }
 	}
+	add_to_temp_variable = { revolt_rate_rising = modifier@BOTDE_revolt_rate_modifier }
 	if = {
 		limit = { fifth_balkan_war = yes }
 		subtract_from_temp_variable = { revolt_rate_rising = 0.005 }
@@ -324,37 +310,32 @@ AUS_do_revolt_rate_rise = {
 }
 
 CONST_do_additional_revolt_progress = {
-	set_temp_variable = { CONST_revolt_rate_rising = num_of_factories }
-	set_temp_variable = { CONST_revolt_rate_rising_battalion_ROOT = num_battalions }
-	set_temp_variable = { CONST_revolt_rate_rising_battalion_AUS = AUS.num_battalions }
-	set_temp_variable = { CONST_revolt_rate_rising_stability = AUS.stability }
-	set_temp_variable = { CONST_revolt_rate_rising_THIS_stability = stability }
-	set_temp_variable = { CONST_revolt_rate_rising_AUS = AUS.num_of_factories }
 	if = {
-		limit = { exists = no } #disables factory and army effects if the const doesn't exist because it makes its revolt progress decrease too much
-		set_temp_variable = { CONST_revolt_rate_rising = num_core_states }
-		set_temp_variable = { CONST_revolt_rate_rising_battalion_ROOT = 0 }
-		set_temp_variable = { CONST_revolt_rate_rising_battalion_AUS = 0 }
-		set_temp_variable = { CONST_revolt_rate_rising_THIS_stability = AUS.stability }
+		limit = {
+			OR = {
+				has_war = no
+				fifth_balkan_war = yes
+			}
+		}
+		set_variable = { global.extra_value_war_exhaust = 0 }
 	}
-	divide_temp_variable = { CONST_revolt_rate_rising_THIS_stability = 3 }
-	add_to_temp_variable = { CONST_revolt_rate_rising_stability = CONST_revolt_rate_rising_THIS_stability }
-	add_to_temp_variable = { CONST_revolt_rate_rising_stability = -1.2 }
-	
-	divide_temp_variable = { CONST_revolt_rate_rising = 120 }
-	divide_temp_variable = { CONST_revolt_rate_rising_battalion_ROOT = 10000 }
-	divide_temp_variable = { CONST_revolt_rate_rising_battalion_AUS = 50000 }
-	multiply_temp_variable = { CONST_revolt_rate_rising_stability = -3.5 }
-	add_to_temp_variable = { CONST_revolt_rate_rising = CONST_revolt_rate_rising_battalion_ROOT }
-	
-	multiply_temp_variable = { CONST_revolt_rate_rising = CONST_revolt_rate_rising_stability }
-	divide_temp_variable = { CONST_revolt_rate_rising = 20 }
-	divide_temp_variable = { CONST_revolt_rate_rising_AUS = 7500 }
-	subtract_from_temp_variable = { CONST_revolt_rate_rising = CONST_revolt_rate_rising_battalion_AUS }
-	subtract_from_temp_variable = { CONST_revolt_rate_rising = CONST_revolt_rate_rising_AUS }
+	set_temp_variable = { CONST_revolt_rate_rising = stability }
+	set_temp_variable = { revolt_rate_party_pop_thing = party_popularity@ruling_party }
+	if = {
+		limit = { exists = no }
+		set_temp_variable = { CONST_revolt_rate_rising = AUS.stability }
+		set_temp_variable = { revolt_rate_party_pop_thing = AUS.party_popularity@ruling_party }
+	}
+	subtract_from_temp_variable = { CONST_revolt_rate_rising = 1 }
+	multiply_temp_variable  = { CONST_revolt_rate_rising = -0.03 }
+	divide_temp_variable = { revolt_rate_party_pop_thing = 100 }
+	subtract_from_temp_variable = { CONST_revolt_rate_rising = revolt_rate_party_pop_thing }
 	add_to_temp_variable = { CONST_revolt_rate_rising = THIS.extra_value }
 	add_to_temp_variable = { CONST_revolt_rate_rising = global.extra_value_war_exhaust }
-	add_to_temp_variable = { CONST_revolt_rate_rising = global.extra_collapse_federalizing }
+	if = {
+		limit = { AUS = { has_country_flag = AUS_federal_government_forming } }
+		add_to_temp_variable = { CONST_revolt_rate_rising = global.extra_collapse_federalizing }
+	}
 	add_to_temp_variable = { CONST_revolt_rate_rising = modifier@BOTDE_revolt_rate_modifier }
 	if = {
 		limit = { has_country_flag = AUS_evidenzbureau_focus }
@@ -371,7 +352,7 @@ CONST_do_additional_revolt_progress = {
 	add_to_temp_variable = { THIS.revolt_progress_change = CONST_revolt_rate_rising }
 	if = {
 		limit = { check_variable = { do_not_apply_revolt_change < 1 } } #for modifier tooltips
-		log = "[GetDateText]: [THIS.GetName]: CONST_do_additional_revolt_progress: [?revolt_progress_change] CONST_revolt_rate_rising_stability: [?CONST_revolt_rate_rising_stability] CONST_revolt_rate_rising_THIS_stability: [?CONST_revolt_rate_rising_THIS_stability] CONST_revolt_rate_rising_battalion_ROOT: [?CONST_revolt_rate_rising_battalion_ROOT] CONST_revolt_rate_rising_battalion_AUS: [?CONST_revolt_rate_rising_battalion_AUS]"
+		log = "[GetDateText]: [THIS.GetName]: CONST_do_additional_revolt_progress: [?revolt_progress_change]"
 		BOTDE_add_collapse = yes
 	}
 }
@@ -700,8 +681,16 @@ AUS_elect_SDAPO_1940 = {
 				has_country_flag = AUS_broz_1940
 			}
 		}
-		set_politics = {
-			ruling_party = radical_socialist
+		meta_effect = {
+			text = {
+				set_politics = {
+					ruling_party = radical_socialist
+					last_election = "[CURRENT_DATE]"
+					election_frequency = 48
+					elections_allowed = yes
+				}
+			}
+			CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 		}
 		add_socdem_to_coalition = yes
 		custom_effect_tooltip = radsoc_radsoc_austromarxism_subtype_swap_tt
@@ -731,8 +720,16 @@ AUS_elect_SDAPO_1940 = {
 		}
 	}
 	else = {
-		set_politics = {
-			ruling_party = social_democrat
+		meta_effect = {
+			text = {
+				set_politics = {
+					ruling_party = social_democrat
+					last_election = "[CURRENT_DATE]"
+					election_frequency = 48
+					elections_allowed = yes
+				}
+			}
+			CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 		}
 		add_radsoc_to_coalition = yes
 		custom_effect_tooltip = socdem_austromarxism_subtype_swap_tt
@@ -786,8 +783,16 @@ AUS_elect_SDAPO_1940 = {
 }
 
 AUS_elect_OCLK_1940 = {
-	set_politics = {
-		ruling_party = market_liberal
+	meta_effect = {
+		text = {
+			set_politics = {
+				ruling_party = market_liberal
+				last_election = "[CURRENT_DATE]"
+				election_frequency = 48
+				elections_allowed = yes
+			}
+		}
+		CURRENT_DATE = "[?global.date.GetDateStringNoHour]"
 	}
 	remove_all_ministers_but_for = yes
 	add_ideas = {
@@ -2308,6 +2313,12 @@ ROOT_subtract_five_collapse = {
 		BOTDE_add_collapse = yes
 	}
 }
+ROOT_subtract_ten_collapse = {
+	ROOT = { 
+		set_temp_variable = { revolt_progress_change = -0.1 }
+		BOTDE_add_collapse = yes
+	}
+}
 
 THIS_add_one_collapse = {
 	set_temp_variable = { revolt_progress_change = 0.01 }
@@ -2754,6 +2765,11 @@ THIS_add_one_percent_to_extra_value = {
 	BOTDE_add_revolt_rate = yes
 }
 
+THIS_subtract_zero_point_one_percent_to_extra_value = {
+	set_temp_variable = { revolt_rate_change = -0.001 }
+	BOTDE_add_revolt_rate = yes
+}
+
 THIS_subtract_one_percent_to_extra_value = {
 	set_temp_variable = { revolt_rate_change = -0.01 }
 	BOTDE_add_revolt_rate = yes
@@ -2800,6 +2816,19 @@ ALL_add_one_percent_to_extra_value = {
 	}
 }
 
+ALL_subtract_zero_point_one_percent_to_extra_value = {
+	custom_override_tooltip = {
+		tooltip = revolt_rate_all_zero_point_one_minus
+		every_country = {
+			limit = {
+				AUS_is_constituent = yes
+				NOT = { tag = AUS }
+			}
+			THIS_subtract_zero_point_one_percent_to_extra_value = yes
+		}
+	}
+}
+
 ALL_subtract_one_percent_to_extra_value = {
 	custom_override_tooltip = {
 		tooltip = revolt_rate_all_one_minus
@@ -2813,55 +2842,123 @@ ALL_subtract_one_percent_to_extra_value = {
 	}
 }
 
+AUS_minus_govt_percentage_1 = {
+	custom_override_tooltip = {
+		tooltip = govt_minus_1
+		add_to_variable = { global.government_percentage = -0.01 }
+		clamp_variable = { var = global.government_percentage min = 0 max = 1 }
+		set_temp_variable = { constituent_federalizing_temp = global.government_percentage }
+		divide_temp_variable = { constituent_federalizing_temp = 2 }
+		
+		set_variable = { global.constituent_federalizing = constituent_federalizing_temp }	
+		divide_temp_variable = { constituent_federalizing_temp = 30 }
+		
+		set_variable = { global.extra_collapse_federalizing = constituent_federalizing_temp }
+	}
+}
+
+AUS_minus_govt_percentage_5 = {
+	custom_override_tooltip = {
+		tooltip = govt_minus_5
+		add_to_variable = { global.government_percentage = -0.05 }
+		clamp_variable = { var = global.government_percentage min = 0 max = 1 }
+		set_temp_variable = { constituent_federalizing_temp = global.government_percentage }
+		divide_temp_variable = { constituent_federalizing_temp = 2 }
+		
+		set_variable = { global.constituent_federalizing = constituent_federalizing_temp }	
+		divide_temp_variable = { constituent_federalizing_temp = 30 }
+		
+		set_variable = { global.extra_collapse_federalizing = constituent_federalizing_temp }
+	}
+}
+
+AUS_minus_govt_percentage_8 = {
+	custom_override_tooltip = {
+		tooltip = govt_minus_8
+		add_to_variable = { global.government_percentage = -0.08 }
+		clamp_variable = { var = global.government_percentage min = 0 max = 1 }
+		set_temp_variable = { constituent_federalizing_temp = global.government_percentage }
+		divide_temp_variable = { constituent_federalizing_temp = 2 }
+		
+		set_variable = { global.constituent_federalizing = constituent_federalizing_temp }	
+		divide_temp_variable = { constituent_federalizing_temp = 30 }
+		
+		set_variable = { global.extra_collapse_federalizing = constituent_federalizing_temp }
+	}
+}
+
+AUS_minus_govt_percentage_15 = {
+	custom_override_tooltip = {
+		tooltip = govt_minus_15
+		add_to_variable = { global.government_percentage = -0.15 }
+		clamp_variable = { var = global.government_percentage min = 0 max = 1 }
+		set_temp_variable = { constituent_federalizing_temp = global.government_percentage }
+		divide_temp_variable = { constituent_federalizing_temp = 2 }
+		
+		set_variable = { global.constituent_federalizing = constituent_federalizing_temp }	
+		divide_temp_variable = { constituent_federalizing_temp = 30 }
+		
+		set_variable = { global.extra_collapse_federalizing = constituent_federalizing_temp }
+	}
+}
+
 AUS_raise_govt_percentage_1 = {
-	custom_effect_tooltip = govt_raise_1
-	add_to_variable = { global.government_percentage = 0.01 }
-	clamp_variable = { var = global.government_percentage min = 0 max = 1 }
-	set_temp_variable = { constituent_federalizing_temp = global.government_percentage }
-	divide_temp_variable = { constituent_federalizing_temp = 2 }
-	
-	set_variable = { global.constituent_federalizing = constituent_federalizing_temp }	
-	divide_temp_variable = { constituent_federalizing_temp = 30 }
-	
-	set_variable = { global.extra_collapse_federalizing = constituent_federalizing_temp }
+	custom_override_tooltip = {
+		tooltip = govt_raise_1
+		add_to_variable = { global.government_percentage = 0.01 }
+		clamp_variable = { var = global.government_percentage min = 0 max = 1 }
+		set_temp_variable = { constituent_federalizing_temp = global.government_percentage }
+		divide_temp_variable = { constituent_federalizing_temp = 2 }
+		
+		set_variable = { global.constituent_federalizing = constituent_federalizing_temp }	
+		divide_temp_variable = { constituent_federalizing_temp = 30 }
+		
+		set_variable = { global.extra_collapse_federalizing = constituent_federalizing_temp }
+	}
 }
 
 AUS_raise_govt_percentage_3 = {
-	custom_effect_tooltip = govt_raise_3
-	add_to_variable = {
-		var = AUS.government_percentage
-		value = 0.03
-	}
-	clamp_variable = {
-		var = AUS.government_percentage
-		min = 0
-		max = 1
+	custom_override_tooltip = {
+		tooltip = govt_raise_3
+		add_to_variable = { global.government_percentage = 0.03 }
+		clamp_variable = { var = global.government_percentage min = 0 max = 1 }
+		set_temp_variable = { constituent_federalizing_temp = global.government_percentage }
+		divide_temp_variable = { constituent_federalizing_temp = 2 }
+		
+		set_variable = { global.constituent_federalizing = constituent_federalizing_temp }	
+		divide_temp_variable = { constituent_federalizing_temp = 30 }
+		
+		set_variable = { global.extra_collapse_federalizing = constituent_federalizing_temp }
 	}
 }
 
 AUS_raise_govt_percentage_5 = {
-	custom_effect_tooltip = govt_raise_5
-	add_to_variable = {
-		var = AUS.government_percentage
-		value = 0.05
-	}
-	clamp_variable = {
-		var = AUS.government_percentage
-		min = 0
-		max = 1
+	custom_override_tooltip = {
+		tooltip = govt_raise_5
+		add_to_variable = { global.government_percentage = 0.05 }
+		clamp_variable = { var = global.government_percentage min = 0 max = 1 }
+		set_temp_variable = { constituent_federalizing_temp = global.government_percentage }
+		divide_temp_variable = { constituent_federalizing_temp = 2 }
+		
+		set_variable = { global.constituent_federalizing = constituent_federalizing_temp }	
+		divide_temp_variable = { constituent_federalizing_temp = 30 }
+		
+		set_variable = { global.extra_collapse_federalizing = constituent_federalizing_temp }
 	}
 }
 
 AUS_raise_govt_percentage_15 = {
-	custom_effect_tooltip = govt_raise_15
-	add_to_variable = {
-		var = AUS.government_percentage
-		value = 0.15
-	}
-	clamp_variable = {
-		var = AUS.government_percentage
-		min = 0
-		max = 1
+	custom_override_tooltip = {
+		tooltip = govt_raise_15
+		add_to_variable = { global.government_percentage = 0.15 }
+		clamp_variable = { var = global.government_percentage min = 0 max = 1 }
+		set_temp_variable = { constituent_federalizing_temp = global.government_percentage }
+		divide_temp_variable = { constituent_federalizing_temp = 2 }
+		
+		set_variable = { global.constituent_federalizing = constituent_federalizing_temp }	
+		divide_temp_variable = { constituent_federalizing_temp = 30 }
+		
+		set_variable = { global.extra_collapse_federalizing = constituent_federalizing_temp }
 	}
 }
 
@@ -3383,179 +3480,6 @@ AUS_change_paramilitary_frontfighters = {
 			}
 			subtract_from_variable = { AUS.ordo_novi_templi_presence = 1 }
 			remove_dynamic_modifier = { modifier = AUS_ordo_novi_templi_presence }
-		}
-	}
-}
-
-AUS_paramilitary_result = {
-	if = {
-		limit = {
-			has_country_flag = AUS_belligerent_1_victory_flag
-		}
-		if = {
-			limit = {
-				OR = {
-					AUS_heimwehr_v_schutzbund = yes
-					AUS_heimwehr_v_frontfighters = yes
-					AUS_heimwehr_v_sturmscharen = yes
-					AUS_heimwehr_v_ont = yes
-				}
-			}
-			every_owned_state = {
-				limit = {
-					has_state_flag = BOTDE_paramilitary_target_state
-				}
-				AUS_change_paramilitary_heimwehr = yes
-			}
-		}
-		else_if = {
-			limit = {
-				OR = {
-					AUS_schutzbund_v_heimwehr = yes
-					AUS_schutzbund_v_frontfighters = yes
-					AUS_schutzbund_v_sturmscharen = yes
-					AUS_schutzbund_v_ont = yes
-				}
-			}
-			every_owned_state = {
-				limit = {
-					has_state_flag = BOTDE_paramilitary_target_state
-				}
-				AUS_change_paramilitary_schutzbund = yes
-			}
-		}
-		else_if = {
-			limit = {
-				OR = {
-					AUS_frontfighters_v_heimwehr = yes
-					AUS_frontfighters_v_schutzbund = yes
-					AUS_frontfighters_v_sturmscharen = yes
-					AUS_frontfighters_v_ont = yes
-				}
-			}
-			every_owned_state = {
-				limit = {
-					has_state_flag = BOTDE_paramilitary_target_state
-				}
-				AUS_change_paramilitary_frontfighters = yes
-			}
-		}
-		else_if = {
-			limit = {
-				OR = {
-					AUS_sturmscharen_v_heimwehr = yes
-					AUS_sturmscharen_v_frontfighters = yes
-					AUS_sturmscharen_v_schutzbund = yes
-					AUS_sturmscharen_v_ont = yes
-				}
-			}
-			every_owned_state = {
-				limit = {
-					has_state_flag = BOTDE_paramilitary_target_state
-				}
-				AUS_change_paramilitary_sturmscharen = yes
-			}
-		}
-		else_if = {
-			limit = {
-				OR = {
-					AUS_ont_v_heimwehr = yes
-					AUS_ont_v_frontfighters = yes
-					AUS_ont_v_sturmscharen = yes
-					AUS_ont_v_schutzbund = yes 
-				}
-			}
-			every_owned_state = {
-				limit = {
-					has_state_flag = BOTDE_paramilitary_target_state
-				}
-				AUS_change_paramilitary_ont = yes
-			}
-		}
-	}
-	if = {
-		limit = {
-			has_country_flag = AUS_belligerent_2_victory_flag
-		}
-		if = {
-			limit = {
-				OR = {
-					AUS_schutzbund_v_heimwehr = yes
-					AUS_frontfighters_v_heimwehr = yes
-					AUS_sturmscharen_v_heimwehr = yes
-					AUS_ont_v_heimwehr = yes
-				}
-			}
-			every_owned_state = {
-				limit = {
-					has_state_flag = BOTDE_paramilitary_target_state
-				}
-				AUS_change_paramilitary_heimwehr = yes
-			}
-		}
-		else_if = {
-			limit = {
-				OR = {
-					AUS_heimwehr_v_schutzbund = yes
-					AUS_frontfighters_v_schutzbund = yes
-					AUS_sturmscharen_v_schutzbund = yes
-					AUS_ont_v_schutzbund = yes
-				}
-			}
-			every_owned_state = {
-				limit = {
-					has_state_flag = BOTDE_paramilitary_target_state
-				}
-				AUS_change_paramilitary_schutzbund = yes
-			}
-		}
-		else_if = {
-			limit = {
-				OR = {
-					AUS_schutzbund_v_frontfighters = yes
-					AUS_heimwehr_v_frontfighters = yes
-					AUS_sturmscharen_v_frontfighters = yes
-					AUS_ont_v_frontfighters = yes
-				}
-			}
-			every_owned_state = {
-				limit = {
-					has_state_flag = BOTDE_paramilitary_target_state
-				}
-				AUS_change_paramilitary_frontfighters = yes
-			}
-		}
-		else_if = {
-			limit = {
-				OR = {
-					AUS_schutzbund_v_sturmscharen = yes
-					AUS_frontfighters_v_sturmscharen = yes
-					AUS_heimwehr_v_sturmscharen = yes
-					AUS_ont_v_sturmscharen = yes
-				}
-			}
-			every_owned_state = {
-				limit = {
-					has_state_flag = BOTDE_paramilitary_target_state
-				}
-				AUS_change_paramilitary_sturmscharen = yes
-			}
-		}
-		else_if = {
-			limit = {
-				OR = {
-					AUS_schutzbund_v_ont = yes
-					AUS_frontfighters_v_ont = yes
-					AUS_sturmscharen_v_ont = yes
-					AUS_heimwehr_v_ont = yes
-				}
-			}
-			every_owned_state = {
-				limit = {
-					has_state_flag = BOTDE_paramilitary_target_state
-				}
-				AUS_change_paramilitary_ont = yes
-			}
 		}
 	}
 }
@@ -4661,55 +4585,6 @@ AUS_the_state_modifiers = {
 	}
 }
 
-AUS_gleich_add_hungarian_grievance = {
-	custom_effect_tooltip = AUS_gliech_hungarian_grievance
-	add_to_variable = {
-		var = HUN.ausgleich_grievances
-		value = 1
-	}
-	hidden_effect = {
-		if = {
-			limit = {
-				check_variable = {
-					var = HUN.ausgleich_grievances
-					value = 2
-					compare = greater_than_or_equals
-				}
-			}
-			AUS = {
-				country_event = {
-					id = bdeausgleich.55
-					days = 2
-					random = 120
-				}
-			}
-			HUN = {
-				country_event = {
-					id = bdeausgleich.56
-					days = 2
-					random = 120
-				}
-			}
-		}
-		if = {
-			limit = {
-				check_variable = {
-					var = HUN.ausgleich_grievances
-					value = 3
-					compare = greater_than_or_equals
-				}
-			}
-			GER = {
-				country_event = {
-					id = bdeausgleich.57
-					days = 2
-					random = 120
-				}
-			}
-		}
-	}
-}
-
 CZE_do_revolt = {
 	CZE = { 
 		if = {
@@ -5472,7 +5347,7 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 				AUS_is_constituent = yes
 				has_country_flag = can_use_german_companies
 			}
-			clear_country_flag = can_use_german_companies
+			clr_country_flag = can_use_german_companies
 		}
 		for_each_scope_loop = {
 			array = AUS.faction_members
@@ -6395,6 +6270,14 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 			AUS_obsolete_military_5
 			AUS_divided_society_botde
 			AUS_federal_plan
+			AUS_federal_plan_post_ausgleich_generic
+			AUS_federal_plan_post_ausgleich_bauer
+			AUS_federal_plan_post_ausgleich_renner
+			AUS_federal_plan_post_ausgleich_kalergi
+			AUS_federal_plan_post_ausgleich_miklas
+			AUS_federal_plan_post_ausgleich_ender
+			AUS_federal_plan_post_ausgleich_buresch
+			AUS_federal_plan_post_ausgleich_dollfuss
 			AUS_unsupported_rebels
 			AUS_common_army_reform
 			AUS_gleich_payments
@@ -6412,6 +6295,10 @@ AUS_blow_the_fuck_up_and_make_the_yugoslav_wars_look_like_a_joke = {
 		if = {
 			limit = { has_country_flag = subject_unrest_window_open }
 			clr_country_flag = subject_unrest_window_open
+		}
+		if = {
+			limit = { has_country_flag = AUS_federal_government_forming }
+			clr_country_flag = AUS_federal_government_forming
 		}
 		set_country_flag = released_via_austrian_collapse
 		UKR = {
@@ -8244,22 +8131,6 @@ REV_spawn_units = {
 	}	
 }
 
-do_minority_rise = {
-	if = {
-		limit = { var:capital_scope.owner = { has_country_flag = AUS_evidenzbureau_focus } }
-		THIS = { 
-			set_temp_variable = { revolt_progress_change = 0.002 }
-			BOTDE_add_collapse = yes
-		}
-	}
-	else = {
-		THIS = { 
-			set_temp_variable = { revolt_progress_change = 0.01 }
-			BOTDE_add_collapse = yes
-		}
-	}
-}
-
 do_minority_rise_advanced_calc = {
 	AUS_average_state_resistance = yes
 	set_temp_variable = { additional_value = 0 }
@@ -8305,6 +8176,16 @@ do_minority_rise_advanced_calc = {
 	add_to_temp_variable = { additional_value = resistance_value }
 	multiply_temp_variable = { additional_value = 0.8 }
 	add_to_temp_variable = { revolt_progress_change = additional_value }
+	if = {
+		limit = { var:capital_scope.owner = { has_country_flag = AUS_evidenzbureau_focus } }
+		add_to_temp_variable = { revolt_progress_change = -0.005 }
+		BOTDE_add_collapse = yes
+	}
+	if = {
+		limit = { has_country_flag = AUS_evidenzbureau_focus }
+		add_to_temp_variable = { revolt_progress_change = -0.025 }
+		BOTDE_add_collapse = yes
+	}
 	if = {
 		limit = { check_variable = { do_not_apply_revolt_change < 1 } } #for modifier tooltips
 		log = "[GetDateText]: [Root.GetName]: do_minority_rise_advanced_calc: [?revolt_progress_change]"
@@ -8516,7 +8397,6 @@ AUS_average_state_resistance = {
 }
 
 BOTDE_minority_test = {
-	do_minority_rise = yes
 	do_minority_rise_advanced_calc = yes
 }
 
@@ -8958,6 +8838,7 @@ AUS_annex_const_effect = {
 				limit = {
 					overlord = { AUS_is_constituent = yes }
 					NOT = { has_autonomy_state = botde_fiume }
+					AUS_is_constituent = no
 				}
 				AUS = {
 					transfer_technology_without_doctrines = yes
@@ -8975,6 +8856,10 @@ AUS_annex_const_effect = {
 						transfer_troops = yes
 					}
 				}
+			}
+			else_if = {
+				limit = { AUS_is_constituent = yes }
+				AUS_annex_const_effect = yes
 			}
 			else = {
 				set_autonomy = {
@@ -9906,16 +9791,11 @@ BOTDE_minority_pulse_test = {
 		if = {
 			limit = {
 				NOT = {
-					AND = {
-						has_global_flag = AUS_ausgleich_ongoing
-						has_global_flag = AUS_ausgleich_peoples
-					}
 					has_country_flag = no_minority_revolt
 					has_country_flag = AUS_evidenzbureau_minority_focus
 					has_global_flag = AUS_pause_collapse_flag 
 				}
 			}
-			do_minority_rise = yes
 			do_minority_rise_advanced_calc = yes
 		}
 		if = {
@@ -9956,16 +9836,6 @@ BOTDE_minority_pulse_test = {
 				scoped_sound_effect = "AUS_minor_imminent_revolt"
 				activate_mission = BOTDE_imminent_minority_revolt_headsup
 			}			
-		}
-		if = {
-			limit = { capital_scope.owner = { has_country_flag = AUS_evidenzbureau_focus } }
-			set_temp_variable = { revolt_progress_change = -0.005 }
-			BOTDE_add_collapse = yes
-		}
-		if = {
-			limit = { has_country_flag = AUS_evidenzbureau_minority_focus }
-			set_temp_variable = { revolt_progress_change = -0.025 }
-			BOTDE_add_collapse = yes
 		}
 		if = {
 			limit = {
@@ -10571,6 +10441,10 @@ BOTDE_6BW_start_effect = {
 THIS_minority_stop_revolt = {
 	custom_override_tooltip = {
 		tooltip = THIS_unable_to_revolt
+		every_core_state = {
+			limit = { AUS_has_minority_paramilitary_presence = yes }
+			AUS_remove_minority_paramilitary = yes
+		}
 		set_country_flag = no_minority_revolt
 		set_variable = { THIS.subject_revolt_progress = 0 }
 	}
@@ -10979,33 +10853,57 @@ FifthBW_subject_transfer_control = {
 
 AUS_hide_the_ark = {
 	random_list = {
-		120 = {
+		100 = {
+			modifier = { factor = 0 823 = { has_artifact = yes } }
 			823 = { #Tigray; Church of Our Lady Mary of Zion
 				set_state_flag = artifact_hunting_houses_ark_of_the_covenant
 			}
 		}
-		80 = {
-			275 = { #Transvaal; Dumghe Mountain
+		60 = {
+			modifier = { factor = 0 545 = { has_artifact = yes } }
+			545 = { #Zimbabwe/Rhodesia; Dumghe Mountain
+				set_state_flag = artifact_hunting_houses_ark_of_the_covenant
+			}
+		}
+		60 = {
+			modifier = { factor = 0 446 = { has_artifact = yes } }
+			446 = { #Egypt; Tanis
 				set_state_flag = artifact_hunting_houses_ark_of_the_covenant
 			}
 		}
 		20 = {
+			modifier = { factor = 0 33 = { has_artifact = yes } }
 			33 = { #France; Chartres Cathedral
 				set_state_flag = artifact_hunting_houses_ark_of_the_covenant
 			}
 		}
 		20 = {
+			modifier = { factor = 0 121 = { has_artifact = yes } }
 			121 = { #Scotland; Rosslyn Chapel
 				set_state_flag = artifact_hunting_houses_ark_of_the_covenant
 			}
 		}
 		15 = {
+			modifier = { factor = 0 113 = { has_artifact = yes } }
 			113 = { #Ireland; Hill of Tara
 				set_state_flag = artifact_hunting_houses_ark_of_the_covenant
 			}
 		}
 		10 = {
+			modifier = { factor = 0 454 = { has_artifact = yes } }
 			454 = { #Jerusalem
+				set_state_flag = artifact_hunting_houses_ark_of_the_covenant
+			}
+		}
+		10 = {
+			modifier = { factor = 0 464 = { has_artifact = yes } }
+			464 = { #Nova Scotia; Fiction; Ark moved after revolution from Rosslyn
+				set_state_flag = artifact_hunting_houses_ark_of_the_covenant
+			}
+		}
+		10 = {
+			modifier = { factor = 0 310 = { has_artifact = yes } }
+			310 = { #Cayenne; Fiction; Ark moved after French Revolution from Chartres
 				set_state_flag = artifact_hunting_houses_ark_of_the_covenant
 			}
 		}
@@ -11015,27 +10913,38 @@ AUS_hide_the_ark = {
 AUS_hide_the_holy_grail = {
 	random_list = {
 		60 = {
+			modifier = { factor = 0 167 = { has_artifact = yes } }
 			167 = { #Valencia, Spain; Cathedral of Valencia
 				set_state_flag = artifact_hunting_houses_holy_grail
 			}
 		}
 		60 = {
+			modifier = { factor = 0 984 = { has_artifact = yes } }
 			984 = { #France; Montsegur Castle
 				set_state_flag = artifact_hunting_houses_holy_grail
 			}
 		}
 		30 = {
+			modifier = { factor = 0 455 = { has_artifact = yes } }
 			455 = { #Jordan; Petra; Indiana Jones
 				set_state_flag = artifact_hunting_houses_holy_grail
 			}
 		}
 		20 = {
+			modifier = { factor = 0 338 = { has_artifact = yes } }
 			338 = { #England; Glastonbury
 				set_state_flag = artifact_hunting_houses_holy_grail
 			}
 		}
 		10 = {
+			modifier = { factor = 0 120 = { has_artifact = yes } }
 			120 = { #Scotland; Castle Stalker; Castle Aaaaargh; Monty Python
+				set_state_flag = artifact_hunting_houses_holy_grail
+			}
+		}
+		5 = {
+			modifier = { factor = 0 932 = { has_artifact = yes } }
+			932 = { #Massachusetts; Westford Knight; Henry I Sinclair
 				set_state_flag = artifact_hunting_houses_holy_grail
 			}
 		}
@@ -11045,33 +10954,45 @@ AUS_hide_the_holy_grail = {
 AUS_hide_the_holy_lance = {
 	random_list = {
 		50 = {
+			modifier = { factor = 0 1137 = { has_artifact = yes } }
 			1137 = { #Vienna; Holy Lance
 				set_state_flag = artifact_hunting_houses_holy_lance
+				clr_state_flag = AUS_state_searched_artifacts
 			}
 		}
 		20 = {
+			modifier = { factor = 0 27 = { has_artifact = yes } }
 			27 = { #France; Citeaux Abbey
 				set_state_flag = artifact_hunting_houses_holy_lance
+				clr_state_flag = AUS_state_searched_artifacts
 			}
 		}
 		25 = {
+			modifier = { factor = 0 773 = { has_artifact = yes } }
 			773 = { #Turkey; Constantinople
 				set_state_flag = artifact_hunting_houses_holy_lance
+				clr_state_flag = AUS_state_searched_artifacts
 			}
 		}
 		10 = {
+			modifier = { factor = 0 230 = { has_artifact = yes } }
 			230 = { #Armenia; Echmiatsin 
 				set_state_flag = artifact_hunting_houses_holy_lance
+				clr_state_flag = AUS_state_searched_artifacts
 			}
 		}
 		30 = {
+			modifier = { factor = 0 553 = { has_artifact = yes } }
 			553 = { #Lebanon; Tripoli; Citadel of Tripoli. Antioch Lance
 				set_state_flag = artifact_hunting_houses_holy_lance
+				clr_state_flag = AUS_state_searched_artifacts
 			}
 		}
 		40 = {
+			modifier = { factor = 0 2 = { has_artifact = yes } }
 			2 = { #Rome; St. Peter's Basilica
 				set_state_flag = artifact_hunting_houses_holy_lance
+				clr_state_flag = AUS_state_searched_artifacts
 			}
 		}
 	}
@@ -11079,23 +11000,27 @@ AUS_hide_the_holy_lance = {
 
 AUS_hide_noahs_ark = {
 	random_list = {
-		50 = {
+		70 = {
+			modifier = { factor = 0 230 = { has_artifact = yes } }
 			230 = { #Armenia; Mountains of Ararat
 				set_state_flag = artifact_hunting_houses_noahs_ark
 			}
 		}
 		20 = {
+			modifier = { factor = 0 350 = { has_artifact = yes } }
 			350 = { #Turkey; Carrhae; Harran
 				set_state_flag = artifact_hunting_houses_noahs_ark
 			}
 		}
 		20 = {
+			modifier = { factor = 0 421 = { has_artifact = yes } }
 			421 = { #Iran; Ecbatana 
 				set_state_flag = artifact_hunting_houses_noahs_ark
 			}
 		}
 		10 = {
-			1137 = { #Antarctica; Indiana Jones and the Great Circle! Uses Vienna as a substitute, though the Ark is not actually part of the Danube river flotilla. Sorry! :)
+			modifier = { factor = 0 1223 = { has_artifact = yes } }
+			1223 = { #Antarctica; Indiana Jones and the Great Circle! Uses Neuschwabenland as a substitute.
 				set_state_flag = artifact_hunting_houses_noahs_ark
 			}
 		}
@@ -11115,166 +11040,91 @@ AUS_hide_true_cross = {
 		}
 		random_list = {
 			50 = {
-				modifier = {
-					factor = 0
-					check_variable = {
-						has_state_flag = artifact_hunting_houses_true_cross_fragment
-					}
-				}
+				modifier = { factor = 0 773 = { has_artifact = yes } }
 				773 = { #Constantinople
 					set_state_flag = artifact_hunting_houses_true_cross_fragment
 				}
 			}
 			50 = {
-				modifier = {
-					factor = 0
-					check_variable = {
-						has_state_flag = artifact_hunting_houses_true_cross_fragment
-					}
-				}
+				modifier = { factor = 0 989 = { has_artifact = yes } }
 				989 = { #Mount Athos
 					set_state_flag = artifact_hunting_houses_true_cross_fragment
 				}
 			}
 			50 = {
-				modifier = {
-					factor = 0
-					check_variable = {
-						has_state_flag = artifact_hunting_houses_true_cross_fragment
-					}
-				}
+				modifier = { factor = 0 2 = { has_artifact = yes } }
 				2 = { #Rome
 					set_state_flag = artifact_hunting_houses_true_cross_fragment
 				}
 			}
 			50 = {
-				modifier = {
-					factor = 0
-					check_variable = {
-						has_state_flag = artifact_hunting_houses_true_cross_fragment
-					}
-				}
+				modifier = { factor = 0 327 = { has_artifact = yes } }
 				327 = { #Philippines; Monasterio de Tarlac
 					set_state_flag = artifact_hunting_houses_true_cross_fragment
 				}
 			}
 			50 = {
-				modifier = {
-					factor = 0
-					check_variable = {
-						has_state_flag = artifact_hunting_houses_true_cross_fragment
-					}
-				}
+				modifier = { factor = 0 6 = { has_artifact = yes } }
 				6 = { #Brussels
 					set_state_flag = artifact_hunting_houses_true_cross_fragment
 				}
 			}
 			50 = {
-				modifier = {
-					factor = 0
-					check_variable = {
-						has_state_flag = artifact_hunting_houses_true_cross_fragment
-					}
-				}
+				modifier = { factor = 0 1137 = { has_artifact = yes } }
 				1137 = { #Vienna
 					set_state_flag = artifact_hunting_houses_true_cross_fragment
 				}
 			}
 			50 = {
-				modifier = {
-					factor = 0
-					check_variable = {
-						has_state_flag = artifact_hunting_houses_true_cross_fragment
-					}
-				}
+				modifier = { factor = 0 16 = { has_artifact = yes } }
 				16 = { #Paris
 					set_state_flag = artifact_hunting_houses_true_cross_fragment
 				}
 			}
 			50 = {
-				modifier = {
-					factor = 0
-					check_variable = {
-						has_state_flag = artifact_hunting_houses_true_cross_fragment
-					}
-				}
+				modifier = { factor = 0 150 = { has_artifact = yes } }
 				160 = { #Venice
 					set_state_flag = artifact_hunting_houses_true_cross_fragment
 				}
 			}
 			50 = {
-				modifier = {
-					factor = 0
-					check_variable = {
-						has_state_flag = artifact_hunting_houses_true_cross_fragment
-					}
-				}
+				modifier = { factor = 0 920 = { has_artifact = yes } }
 				920 = { #Amba Geshen
 					set_state_flag = artifact_hunting_houses_true_cross_fragment
 				}
 			}
 			50 = {
-				modifier = {
-					factor = 0
-					check_variable = {
-						has_state_flag = artifact_hunting_houses_true_cross_fragment
-					}
-				}
+				modifier = { factor = 0 162 = { has_artifact = yes } }
 				162 = { #Florence/Pisa
 					set_state_flag = artifact_hunting_houses_true_cross_fragment
 				}
 			}
 			50 = {
-				modifier = {
-					factor = 0
-					check_variable = {
-						has_state_flag = artifact_hunting_houses_true_cross_fragment
-					}
-				}
+				modifier = { factor = 0 168 = { has_artifact = yes } }
 				168 = { #Murcia; Caravaca de la Cruz
 					set_state_flag = artifact_hunting_houses_true_cross_fragment
 				}
 			}
 			50 = {
-				modifier = {
-					factor = 0
-					check_variable = {
-						has_state_flag = artifact_hunting_houses_true_cross_fragment
-					}
-				}
+				modifier = { factor = 0 454 = { has_artifact = yes } }
 				454 = { #Jerusalem
 					set_state_flag = artifact_hunting_houses_true_cross_fragment
 				}
 			}
 			50 = {
-				modifier = {
-					factor = 0
-					check_variable = {
-						has_state_flag = artifact_hunting_houses_true_cross_fragment
-					}
-				}
+				modifier = { factor = 0 230 = { has_artifact = yes } }
 				230 = { #Armenia
 					set_state_flag = artifact_hunting_houses_true_cross_fragment
 				}
 			}
 			50 = {
-				modifier = {
-					factor = 0
-					check_variable = {
-						has_state_flag = artifact_hunting_houses_true_cross_fragment
-					}
-				}
+				modifier = { factor = 0 121 = { has_artifact = yes } }
 				121 = { #Edinburgh; Black Rood. Come up with some stuff about how it survived.
 					set_state_flag = artifact_hunting_houses_true_cross_fragment
 				}
 			}
 			50 = {
-				modifier = {
-					factor = 0
-					check_variable = {
-						has_state_flag = artifact_hunting_houses_true_cross_fragment
-					}
-				}
+				modifier = { factor = 0 135 = { has_artifact = yes } }
 				135 = { #Ireland; Holy Cross Abbey
 					set_state_flag = artifact_hunting_houses_true_cross_fragment
 				}
@@ -11291,6 +11141,7 @@ AUS_hide_true_cross = {
 AUS_hide_atlantis = {
 	random_list = {
 		50 = {
+			modifier = { factor = 0 169 = { has_artifact = yes } }
 			169 = { #Spain; Tartessos
 				set_state_flag = artifact_hunting_houses_atlantis
 			}
@@ -11305,41 +11156,55 @@ AUS_hide_atlantis = {
 			}
 		}
 		20 = {
-			114 = { #Sardinia; Luigi Usai's theory
+			modifier = { factor = 0 114 = { has_artifact = yes } }
+			114 = { #Sardinia; Luigi Usai's theory; Mont'e Prama Giants
 				set_state_flag = artifact_hunting_houses_atlantis
 			}
 		}
 		40 = {
+			modifier = { factor = 0 939 = { has_artifact = yes } }
 			939 = { #Greece; Thera; Plato's Tenfold Error; Indiana Jones 
 				set_state_flag = artifact_hunting_houses_atlantis
 			}
 		}
 		30 = {
+			modifier = { factor = 0 178 = { has_artifact = yes } }
 			178 = { #Spain; Canaries
 				set_state_flag = artifact_hunting_houses_atlantis
 			}
 		}
 		10 = {
+			modifier = { factor = 0 100 = { has_artifact = yes } }
 			100 = { #Iceland
 				set_state_flag = artifact_hunting_houses_atlantis
 			}
 		}
+		10 = {
+			modifier = { factor = 0 252 = { has_artifact = yes } }
+			252 = { #Kitezh; Nizhny Novgorod
+				set_state_flag = artifact_hunting_houses_atlantis
+			}
+		}
 		15 = {
+			modifier = { factor = 0 322 = { has_artifact = yes } }
 			322 = { #Tibet
 				set_state_flag = artifact_hunting_houses_atlantis
 			}
 		}
 		5 = {
+			modifier = { factor = 0 277 = { has_artifact = yes } }
 			277 = { #Mexico; Toltec rootrace
 				set_state_flag = artifact_hunting_houses_atlantis
 			}
 		}
 		5 = {
+			modifier = { factor = 0 1250 = { has_artifact = yes } }
 			1250 = { #Guatemala; Piedras Negras/Hall of Records/Cayce
 				set_state_flag = artifact_hunting_houses_atlantis
 			}
 		}
 		5 = {
+			modifier = { factor = 0 690 = { has_artifact = yes } }
 			690 = { #Bahamas; Bimini
 				set_state_flag = artifact_hunting_houses_atlantis
 			}
@@ -11350,32 +11215,450 @@ AUS_hide_atlantis = {
 AUS_hide_rhine_gold = {
 	random_list = {
 		45 = {
+			modifier = { factor = 0 169 = { has_artifact = yes } }
 			169 = { #Germany; recent Mainz hoard
 				set_state_flag = artifact_hunting_houses_rhine_gold
 			}
 		}
 		20 = {
+			modifier = { factor = 0 781 = { has_artifact = yes } }
 			781 = { #Germany; Cologne (fiction)
 				set_state_flag = artifact_hunting_houses_rhine_gold
 			}
 		}
 		20 = {
+			modifier = { factor = 0 1235 = { has_artifact = yes } }
 			1235 = { #Liechtenstein
 				set_state_flag = artifact_hunting_houses_rhine_gold
 			}
 		}
 		10 = {
+			modifier = { factor = 0 151 = { has_artifact = yes } }
 			151 = { #Switzerland
 				set_state_flag = artifact_hunting_houses_rhine_gold
 			}
 		}
 		5 = {
+			modifier = { factor = 0 28 = { has_artifact = yes } }
 			28 = { #Elsass-Lothringen
 				set_state_flag = artifact_hunting_houses_rhine_gold
 			}
 		}
 	}
 }
+
+AUS_hide_the_lemurians = {
+	random_list = {
+		45 = {
+			modifier = { factor = 0 1165 = { has_artifact = yes } }
+			1165 = { #Reno; Lovelock Cave; Sitecah; Lemurian
+				set_state_flag = artifact_hunting_houses_lemurian
+			}
+		}
+		20 = {
+			modifier = { factor = 0 115 = { has_artifact = yes } }
+			115 = { #Sicily; Erice Giants
+				set_state_flag = artifact_hunting_houses_lemurian
+			}
+		}
+		20 = {
+			modifier = { factor = 0 454 = { has_artifact = yes } }
+			454 = { #Israel; Anakim
+				set_state_flag = artifact_hunting_houses_lemurian
+			}
+		}
+		20 = {
+			modifier = { factor = 0 992 = { has_artifact = yes } }
+			992 = { #Israel; Nephilim
+				set_state_flag = artifact_hunting_houses_lemurian
+			}
+		}
+		20 = {
+			modifier = { factor = 0 512 = { has_artifact = yes } }
+			512 = { #Patagona; Patagons
+				set_state_flag = artifact_hunting_houses_lemurian
+			}
+		}
+		20 = {
+			modifier = { factor = 0 906 = { has_artifact = yes } }
+			906 = { #Ethiopia; Harlaa giants
+				set_state_flag = artifact_hunting_houses_lemurian
+			}
+		}
+		20 = {
+			modifier = { factor = 0 723 = { has_artifact = yes } }
+			723 = { #New Zealand; Maero
+				set_state_flag = artifact_hunting_houses_lemurian
+			}
+		}
+		20 = {
+			modifier = { factor = 0 941 = { has_artifact = yes } }
+			941 = { #Samoa; Hiti; https://tangatawhenua16.wixsite.com/the-first-ones-blog/single-post/2016/09/06/69-giants-of-the-pacific-2
+				set_state_flag = artifact_hunting_houses_lemurian
+			}
+		}
+		10 = {
+			modifier = { factor = 0 1218 = { has_artifact = yes } }
+			1218 = { #Kandhar; Giants of Kandahar; https://en.wikipedia.org/wiki/Barmanou; bastardized Lemurian
+				set_state_flag = artifact_hunting_houses_lemurian
+			}
+		}
+		10 = {
+			modifier = { factor = 0 141 = { has_artifact = yes } }
+			141 = { #Sweden; jotunn
+				set_state_flag = artifact_hunting_houses_lemurian
+			}
+		}
+	}
+}
+
+AUS_hide_the_buddha = {
+	random_list = {
+		100 = {
+			modifier = { factor = 0 322 = { has_artifact = yes } }
+			322 = { #Tibet
+				set_state_flag = artifact_hunting_houses_buddha
+			}
+		}
+		80 = {
+			modifier = { factor = 0 888 = { has_artifact = yes } }
+			888 = { #Sikkim
+				set_state_flag = artifact_hunting_houses_buddha
+			}
+		}
+		40 = {
+			modifier = { factor = 0 743 = { has_artifact = yes } }
+			743 = { #Shanghai, in private collection/takeback, fiction
+				set_state_flag = artifact_hunting_houses_buddha
+			}
+		}
+		40 = {
+			modifier = { factor = 0 609 = { has_artifact = yes } }
+			609 = { #Tianjin, the Austrian concession, in private collection/takeback, fiction
+				set_state_flag = artifact_hunting_houses_buddha
+			}
+		}
+		10 = {
+			modifier = { factor = 0 799 = { has_artifact = yes } }
+			799 = { #Xi'an, the Terracotta Army
+				set_state_flag = artifact_hunting_houses_buddha
+			}
+		}
+	}
+}
+
+AUS_hide_atlantean = {
+	random_list = {
+		100 = {
+			modifier = { factor = 0 39 = { has_artifact = yes } }
+			39 = { #Austria; Otzi the Iceman
+				set_state_flag = artifact_hunting_houses_atlantean
+			}
+		}
+		80 = {
+			modifier = { factor = 0 837 = { has_artifact = yes } }
+			837 = { #Altamura Man
+				set_state_flag = artifact_hunting_houses_atlantean
+			}
+		}
+		40 = {
+			modifier = { factor = 0 921 = { has_artifact = yes } }
+			921 = { #Hadar; Lucy
+				set_state_flag = artifact_hunting_houses_atlantean
+			}
+		}
+		40 = {
+			modifier = { factor = 0 275 = { has_artifact = yes } }
+			275 = { #South Africa; Little Foot
+				set_state_flag = artifact_hunting_houses_atlantean
+			}
+		}
+		40 = {
+			modifier = { factor = 0 454 = { has_artifact = yes } }
+			454 = { #Jerusalem neanderthal
+				set_state_flag = artifact_hunting_houses_atlantean
+			}
+		}
+		40 = {
+			modifier = { factor = 0 447 = { has_artifact = yes } }
+			447 = { #Alexandria; Alexander the Great's Tomb
+				set_state_flag = artifact_hunting_houses_atlantean
+			}
+		}
+	}
+}
+
+AUS_hide_balmung = {
+	random_list = {
+		100 = {
+			modifier = { factor = 0 338 = { has_artifact = yes } }
+			338 = { #Excalibur
+				set_state_flag = artifact_hunting_houses_balmung
+			}
+		}
+		80 = {
+			modifier = { factor = 0 115 = { has_artifact = yes } }
+			115 = { #Excalibur; Sicily
+				set_state_flag = artifact_hunting_houses_balmung
+			}
+		}
+		40 = {
+			modifier = { factor = 0 172 = { has_artifact = yes } }
+			172 = { #Spain; Durandal
+				set_state_flag = artifact_hunting_houses_balmung
+			}
+		}
+		40 = {
+			modifier = { factor = 0 140 = { has_artifact = yes } }
+			140 = { #Sweden; Tyrfing
+				set_state_flag = artifact_hunting_houses_balmung
+			}
+		}
+		40 = {
+			modifier = { factor = 0 100 = { has_artifact = yes } }
+			100 = { #Iceland
+				set_state_flag = artifact_hunting_houses_balmung
+			}
+		}
+		40 = {
+			modifier = { factor = 0 141 = { has_artifact = yes } }
+			141 = { #Sweden; Ramsund carving stuff; etc
+				set_state_flag = artifact_hunting_houses_balmung
+			}
+		}
+		40 = {
+			modifier = { factor = 0 57 = { has_artifact = yes } }
+			57 = { #Teutoburg Forest
+				set_state_flag = artifact_hunting_houses_balmung
+			}
+		}
+		40 = {
+			modifier = { factor = 0 122 = { has_artifact = yes } }
+			122 = { #Excalibur; South Wales
+				set_state_flag = artifact_hunting_houses_balmung
+			}
+		}
+	}
+}
+
+AUS_hide_tarnhelm = {
+	random_list = {
+		20 = {
+			modifier = { factor = 0 1223 = { has_artifact = yes } }
+			1223 = { #Antarctica
+				set_state_flag = artifact_hunting_houses_tarnhelm
+			}
+		}
+		20 = {
+			modifier = { factor = 0 758 = { has_artifact = yes } }
+			758 = { #Venetian Helmet; Corfu; Achilleion?
+				set_state_flag = artifact_hunting_houses_tarnhelm
+			}
+		}
+		10 = {
+			modifier = { factor = 0 472 = { has_artifact = yes } }
+			472 = { #Nahanni Valley; Headless Valley
+				set_state_flag = artifact_hunting_houses_tarnhelm
+			}
+		}
+		10 = {
+			modifier = { factor = 0 494 = { has_artifact = yes } }
+			494 = { #Peru; Cusco; conquistadors? Orellana legend? Crystal skulls?
+				set_state_flag = artifact_hunting_houses_tarnhelm
+			}
+		}
+		50 = {
+			modifier = { factor = 0 100 = { has_artifact = yes } }
+			100 = { #Iceland
+				set_state_flag = artifact_hunting_houses_tarnhelm
+			}
+		}
+		50 = {
+			modifier = { factor = 0 141 = { has_artifact = yes } }
+			141 = { #Sweden; Ramsund carving stuff; etc
+				set_state_flag = artifact_hunting_houses_tarnhelm
+			}
+		}
+		50 = {
+			modifier = { factor = 0 27 = { has_artifact = yes } }
+			27 = { #Burgundy; Burgundians, Nibelungenlied, etc
+				set_state_flag = artifact_hunting_houses_tarnhelm
+			}
+		}
+		5 = {
+			modifier = { factor = 0 531 = { has_artifact = yes } }
+			531 = { #Kyoto; Fiction; how the hell did it get here?
+				set_state_flag = artifact_hunting_houses_tarnhelm
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+AUS_atlantis_search = {
+	custom_effect_tooltip = AUS_enable_chance_atlantis
+	set_variable = {
+		var = AUS.discovery_chance_atlantis
+		value = 0.03
+	}
+	unlock_decision_tooltip = AUS_frogmen_undersea_diving
+	unlock_decision_tooltip = AUS_aryans_in_america
+	hidden_effect = {
+		add_to_array = { discoverable_artifacts = discovery_chance_atlantis }
+	}
+}
+
+AUS_artifact_hunt_setup = {
+	#Set unique values so the ticker doesn't get confused
+	set_variable = { discovery_chance_atlantis = 0.001 }
+	set_variable = { discovery_chance_z = 0.002 }
+	set_variable = { discovery_chance_tiwanaku = 0.003 }
+	set_variable = { discovery_chance_nazca = 0.004 }
+	set_variable = { discovery_chance_l_anse_aux_meadows = 0.005 }
+	set_variable = { discovery_chance_ark_of_the_covenant = 0.0051 }
+	set_variable = { discovery_chance_holy_grail = 0.0052 }
+	set_variable = { discovery_chance_noahs_ark = 0.0053 }
+	set_variable = { discovery_chance_holy_lance = 0.0054 }
+	set_variable = { discovery_chance_iron_crown = 0.0055 }
+	set_variable = { discovery_chance_true_cross = 0.0056 }
+	set_variable = { discovery_chance_rhine_gold = 0.0057 }
+	set_variable = { discovery_chance_atlantean_remains = 0.0058 }
+	set_variable = { discovery_chance_lemurian_remains = 0.0059 }
+	set_variable = { discovery_chance_iron_man_buddha = 0.0011 }
+	set_variable = { discovery_chance_balmung = 0.0012 }
+	set_variable = { discovery_chance_tarnhelm = 0.0013 }
+	
+	set_variable = { discovery_chance_continent = 0.05 }
+	
+	#Add artifacts
+	#add_to_array = { discoverable_artifacts = discovery_chance_atlantis } #Enabled in focus AUS_rediscover_atlantis
+	add_to_array = { discoverable_artifacts = discovery_chance_z}
+	#add_to_array = { discoverable_artifacts = discovery_chance_tiwanaku } #Enabled in decision AUS_aryans_in_america
+	add_to_array = { discoverable_artifacts = discovery_chance_nazca }
+	#add_to_array = { discoverable_artifacts = discovery_chance_l_anse_aux_meadows } #Enabled in decision AUS_retrace_the_sagas
+	add_to_array = { discoverable_artifacts = discovery_chance_ark_of_the_covenant }
+	add_to_array = { discoverable_artifacts = discovery_chance_holy_grail }
+	add_to_array = { discoverable_artifacts = discovery_chance_noahs_ark }
+	#add_to_array = { discoverable_artifacts = discovery_chance_holy_lance }
+	#add_to_array = { discoverable_artifacts = discovery_chance_iron_crown }
+	add_to_array = { discoverable_artifacts = discovery_chance_true_cross }
+	add_to_array = { discoverable_artifacts = discovery_chance_rhine_gold }
+	add_to_array = { discoverable_artifacts = discovery_chance_atlantean_remains }
+	add_to_array = { discoverable_artifacts = discovery_chance_lemurian_remains }
+	add_to_array = { discoverable_artifacts = discovery_chance_iron_man_buddha }
+	add_to_array = { discoverable_artifacts = discovery_chance_balmung }
+	add_to_array = { discoverable_artifacts = discovery_chance_tarnhelm }
+}
+
+AUS_artifact_hunt_roll = {
+	log = "Rolling artifact hunt in [This.GetName]"
+	
+	for_each_loop = {
+		array = discoverable_artifacts
+		value = discovery_chance
+		break = break
+		log = "Artifact hunting: [?discovery_chance]"
+		random_list = {
+			1 = { #nothing burger
+				modifier = {
+					subtract = discovery_chance
+				}
+				modifier = {
+					subtract = 0.1
+					AUS_continent_lines_up_with_artifact = yes
+				}
+				custom_effect_tooltip = "Nothing ever happens"
+				log = "Artifact hunting: Nothing burger..."
+			}
+			
+			0 = {
+				modifier = {
+					factor = 0
+					has_country_flag = AUS_discovery_is_rolled_no_more
+				}
+				modifier = {
+					add = discovery_chance
+				}
+				modifier = {
+					add = discovery_chance_continent
+					AUS_continent_lines_up_with_artifact = yes
+				}
+				modifier = {
+					factor = 0.33
+					AUS_war_with_state_owner = yes
+				}
+				log = "Artifact hunting: Discovering..."
+				set_country_flag = AUS_discovery_is_rolled_no_more #Only one discovery per loop maximum!
+				custom_effect_tooltip = "Something sometimes happens"
+				if = { limit = { check_variable = { discovery_chance_atlantis = discovery_chance } }
+					country_event = bdeaus.43
+				}
+				if = { limit = { check_variable = { discovery_chance_z = discovery_chance } }
+					country_event = bdeaus.45
+				}
+				if = { limit = { check_variable = { discovery_chance_tiwanaku = discovery_chance } }
+					country_event = bdeaus.47
+				}
+				if = { limit = { check_variable = { discovery_chance_nazca = discovery_chance } }
+					country_event = bdeaus.49
+				}
+				if = { limit = { check_variable = { discovery_chance_l_anse_aux_meadows = discovery_chance } }
+					country_event = bdeaus.51
+				}
+				if = { limit = { check_variable = { discovery_chance_ark_of_the_covenant = discovery_chance } }
+					country_event = bdeaus.53
+				}
+				if = { limit = { check_variable = { discovery_chance_holy_grail = discovery_chance } }
+					country_event = bdeaus.55
+				}
+				if = { limit = { check_variable = { discovery_chance_noahs_ark = discovery_chance } }
+					country_event = bdeaus.57
+				}
+				if = { limit = { check_variable = { discovery_chance_holy_lance = discovery_chance } }
+					country_event = bdeaus.59
+				}
+				if = { limit = { check_variable = { discovery_chance_iron_crown = discovery_chance } }
+					country_event = bdeaus.61
+				}
+				if = { limit = { check_variable = { discovery_chance_true_cross = discovery_chance } }
+					country_event = bdeaus.63
+				}
+				if = { limit = { check_variable = { discovery_chance_rhine_gold = discovery_chance } }
+					country_event = bdeaus.65
+				}
+				if = { limit = { check_variable = { discovery_chance_atlantean_remains = discovery_chance } }
+					country_event = bdeaus.67
+				}
+				if = { limit = { check_variable = { discovery_chance_lemurian_remains = discovery_chance } }
+					country_event = bdeaus.69
+				}
+				if = { limit = { check_variable = { discovery_chance_iron_man_buddha = discovery_chance } }
+					country_event = bdeaus.71
+				}
+				if = { limit = { check_variable = { discovery_chance_balmung = discovery_chance } }
+					country_event = bdeaus.73
+				}
+				if = { limit = { check_variable = { discovery_chance_tarnhelm = discovery_chance } }
+					country_event = bdeaus.75
+				}
+				
+			}
+		}
+	}
+	clr_country_flag = AUS_discovery_is_rolled_no_more
+}
+
+
+
+
+
+
 
 
 
@@ -13236,6 +13519,131 @@ KRK_setup = {
 	}
 	REV_spawn_units = yes
 }
+AUS_add_hungarian_eco_minister_effect = {
+	remove_ideas_with_trait = economy_minister
+	if = {
+		limit = { HUN = { has_idea = HUN_Erno_Gero_eco_tot } }
+		add_ideas = HUN_Erno_Gero_eco_tot
+	}
+	else_if = {
+		limit = { HUN = { has_idea = HUN_Zoltan_Vas_eco_tot } }
+		add_ideas = HUN_Zoltan_Vas_eco_tot
+	}
+	else_if = {
+		limit = { HUN = { has_idea = HUN_Rezso_Fiedler_eco_syn } }
+		add_ideas = HUN_Rezso_Fiedler_eco_syn
+	}
+	else_if = {
+		limit = { HUN = { has_idea = HUN_Rezso_Kasztner_eco_sde } }
+		add_ideas = HUN_Rezso_Kasztner_eco_sde
+	}
+	else_if = {
+		limit = { HUN = { has_idea = HUN_Bela_Zsedenyi_eco_sli } }
+		add_ideas = HUN_Bela_Zsedenyi_eco_sli
+	}
+	else_if = {
+		limit = { HUN = { has_idea = HUN_Gusztav_Gratz_eco_mli } }
+		add_ideas = HUN_Gusztav_Gratz_eco_mli
+	}
+	else_if = {
+		limit = { HUN = { has_idea = HUN_Miklos_Olgyay_eco_sco } }
+		add_ideas = HUN_Miklos_Olgyay_eco_sco
+	}
+	else_if = {
+		limit = { HUN = { has_idea = HUN_Edgar_Keksz_eco_ade } }
+		add_ideas = HUN_Edgar_Keksz_eco_ade
+	}
+	else_if = {
+		limit = { HUN = { has_idea = HUN_Imre_Oltvanyi_eco_ade } }
+		add_ideas = HUN_Imre_Oltvanyi_eco_ade
+	}
+	else_if = {
+		limit = { HUN = { has_idea = HUN_Istvan_Winchkler_eco_ade } }
+		add_ideas = HUN_Istvan_Winchkler_eco_ade
+	}
+	else_if = {
+		limit = { HUN = { has_idea = HUN_Bela_Imredy_de_Omoravia_eco_pau } }
+		add_ideas = HUN_Bela_Imredy_de_Omoravia_eco_pau
+	}
+	else_if = {
+		limit = { HUN = { has_idea = HUN_Laszlo_Endre_eco_pau } }
+		add_ideas = HUN_Laszlo_Endre_eco_pau
+	}
+	else_if = {
+		limit = { HUN = { has_idea = HUN_Lajos_Remenyi_Schneller_eco_pau } }
+		add_ideas = HUN_Lajos_Remenyi_Schneller_eco_pau
+	}
+	else_if = {
+		limit = { HUN = { has_idea = HUN_Tihamer_Fabinyi_eco_pau } }
+		add_ideas = HUN_Tihamer_Fabinyi_eco_pau
+	}
+	else_if = {
+		limit = { HUN = { has_idea = HUN_Jeno_Racz_eco_npo } }
+		add_ideas = HUN_Jeno_Racz_eco_npo
+	}
+}
+AUS_give_post_ausgleich_federal_plan_idea_effect = {
+	if = {
+		limit = { has_idea = AUS_Otto_Bauer_hog_rso }
+		swap_ideas = {
+			remove_idea = AUS_federal_plan
+			add_idea = AUS_federal_plan_post_ausgleich_bauer
+		}
+	}
+	else_if = {
+		limit = { has_idea = AUS_Karl_Renner_hog_sde }
+		swap_ideas = {
+			remove_idea = AUS_federal_plan
+			add_idea = AUS_federal_plan_post_ausgleich_bauer
+		}
+	}
+	else_if = {
+		limit = { has_idea = AUS_Richard_von_Coudenhove-Kalergi_hog_sli }
+		swap_ideas = {
+			remove_idea = AUS_federal_plan
+			add_idea = AUS_federal_plan_post_ausgleich_kalergi
+		}
+	}
+	else_if = {
+		limit = { has_idea = AUS_Wilhelm_Miklas_hog_sco }
+		swap_ideas = {
+			remove_idea = AUS_federal_plan
+			add_idea = AUS_federal_plan_post_ausgleich_miklas
+		}
+	}
+	else_if = {
+		limit = { has_idea = AUS_Otto_Ender_hog_sco }
+		swap_ideas = {
+			remove_idea = AUS_federal_plan
+			add_idea = AUS_federal_plan_post_ausgleich_ender
+		}
+	}
+	else_if = {
+		limit = { has_idea = AUS_Karl_Buresch_hog_ade }
+		swap_ideas = {
+			remove_idea = AUS_federal_plan
+			add_idea = AUS_federal_plan_post_ausgleich_buresch
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_idea = AUS_Engelbert_Dollfuss_hog_ade
+				has_idea = AUS_Engelbert_Dollfuss_hog_pau
+			}
+		}
+		swap_ideas = {
+			remove_idea = AUS_federal_plan
+			add_idea = AUS_federal_plan_post_ausgleich_dollfuss
+		}
+	}
+	else = {
+		swap_ideas = {
+			remove_idea = AUS_federal_plan
+			add_idea = AUS_federal_plan_post_ausgleich_generic
+		}
+	}
+}
 AUS_ausgleich_ending_effect = {
 	if = {
 		limit = {
@@ -13293,20 +13701,42 @@ AUS_ausgleich_ending_effect = {
 		clr_global_flag = ausgleich_AUS_transfer_german_hungary
 	}
 	if = {
-		limit = { has_global_flag = AUS_autonomous_transleithania_minorities }
-		HUN = { set_country_flag =  BOTDE_const_wont_federalize_immediately }
-		AUS_divide_hungary_effect = yes
-		AUS = {
-			country_event = {
-				id = bdeausgleich.59
-				hours = 12
-				random_hours = 24
+		limit = { check_variable = { AUS.ausgleich_fiscal_status_c_var = 2 } }
+		every_country = {
+			limit = { is_cisleithania = yes }
+			add_timed_idea = {
+				idea = AUS_ausgleich_favored_budget
+				days = 365
 			}
 		}
 	}
 	if = {
+		limit = { check_variable = { AUS.ausgleich_fiscal_status_c_var = 3 } }
+		every_country = {
+			limit = { is_transleithania = yes }
+			add_timed_idea = {
+				idea = AUS_ausgleich_favored_budget
+				days = 365
+			}
+		}
+	}
+	if = {
+		limit = { has_global_flag = HUN_common_minister }
+		AUS_add_hungarian_eco_minister_effect = yes
+		clr_global_flag = HUN_common_minister
+	}
+	if = {
+		limit = { has_global_flag = AUS_autonomous_transleithania_minorities }
+		hidden_effect = {
+			HUN = { set_country_flag =  BOTDE_const_wont_federalize_immediately }
+		}
+		AUS_divide_hungary_effect = yes
+	}
+	if = {
 		limit = { has_global_flag = AUS_autonomous_transleithania }
-		HUN = { set_country_flag =  BOTDE_const_wont_federalize_immediately }
+		hidden_effect = {
+			HUN = { set_country_flag =  BOTDE_const_wont_federalize_immediately }
+		}
 	}
 	if = {
 		limit = { has_global_flag = AUS_ausgleich_illyria_promoted_AUS }
@@ -13331,16 +13761,30 @@ AUS_ausgleich_ending_effect = {
 				}
 			}
 			restore_previous_government_type = yes
-			set_variable = { AUS_subject_status = 3 }
-			swap_ideas = {
-				remove_idea = CRO_special_status
-				add_idea = AUS_transleithanian_sphere
+			if = {
+				limit = { has_global_flag = ausgleich_eu_illyria }
+				set_variable = { AUS_subject_status = 6 }
+				swap_ideas = {
+					remove_idea = CRO_special_status
+					add_idea = CRO_proto_european_state
+				}
+				clr_global_flag = ausgleich_eu_illyria
+			}
+			else = {
+				set_variable = { AUS_subject_status = 3 }
+				swap_ideas = {
+					remove_idea = CRO_special_status
+					add_idea = AUS_transleithanian_sphere
+				}
 			}
 		}
 		clr_global_flag = AUS_transleithanian_illyria
 	}
 	if = {
-		limit = { has_global_flag = ausgleich_eu_illyria }
+		limit = {
+			NOT = { has_global_flag = AUS_transleithanian_illyria }
+			has_global_flag = ausgleich_eu_illyria
+		}
 		CRO = {
 			set_variable = { AUS_subject_status = 6 }
 			swap_ideas = {
@@ -13349,6 +13793,20 @@ AUS_ausgleich_ending_effect = {
 			}
 		}
 		clr_global_flag = ausgleich_eu_illyria
+	}
+
+	if = {
+		limit = { has_global_flag = AUS_reform_autonomieplan }
+		AUS_give_post_ausgleich_federal_plan_idea_effect = yes
+		clr_global_flag = AUS_reform_autonomieplan
+	}
+	else_if = {
+		limit = { has_global_flag = AUS_status_quo_autonomieplan }
+		swap_ideas = {
+			remove_idea = AUS_federal_plan
+			add_idea = AUS_federal_plan_post_ausgleich_generic
+		}
+		clr_global_flag = AUS_status_quo_autonomieplan
 	}
 
 	if = {
@@ -13402,7 +13860,7 @@ AUS_ausgleich_ending_effect = {
 
 	hidden_effect = {
 		clear_array = global.ausgleich_attendants
-		every_country = {
+		every_possible_country = {
 			limit = { has_country_flag = going_to_le_ausgleich }
 			clr_country_flag = going_to_le_ausgleich
 		}
@@ -13550,6 +14008,7 @@ AUS_ausgleich_const_revolt_success_effect = {
 		array = global.ausgleich_attendants
 		add_to_temp_variable = { temp_num = THIS.subject_revolt_progress }
 	}
+	log = "AUS_ausgleich_const_revolt_success_effect - temp_num: [?temp_num]"
 	if = {
 		limit = {
 			check_variable = { temp_num < 0.5 }
@@ -15692,6 +16151,12 @@ AUS_liebenfels_coup_effect = {
 			random_days = 14
 			random_hours = 24
 		}
+		country_event = {
+			id = bdeausint.1239
+			days = 1
+			random_days = 2
+			random_hours = 24
+		}
 		set_variable = { global.AUS_GER_tensions = 2 }
 		AUS_raise_austro_german_tensions = yes
 	}
@@ -15708,6 +16173,14 @@ AUS_PNEO_coup_effect = {
 	set_politics = {
 		ruling_party = authoritarian_democrat
 	}
+	add_tot_to_coalition = yes
+	add_synd_to_coalition = yes
+	add_radsoc_to_coalition = yes
+	add_socdem_to_coalition = yes
+	add_soclib_to_coalition = yes
+	add_marlib_to_coalition = yes
+	add_soccon_to_coalition = yes
+	add_pataut_to_coalition = yes
 	hidden_effect = {
 		set_variable = { Karl_Portrait_Var = 1 }
 		create_country_leader = {
@@ -15743,16 +16216,12 @@ AUS_PNEO_coup_effect = {
 			limit = { has_global_flag = AUS_hold_for_pneo_coup_flag }
 			clr_global_flag = AUS_hold_for_pneo_coup_flag
 		}
+		if = {
+			limit = { has_country_flag = AUS_larp_von_liebenfels_indiana_jones }
+			clr_country_flag = AUS_larp_von_liebenfels_indiana_jones
+		}
 		AUS_lower_austro_german_tensions = yes
 	}
-	add_tot_to_coalition = yes
-	add_synd_to_coalition = yes
-	add_radsoc_to_coalition = yes
-	add_socdem_to_coalition = yes
-	add_soclib_to_coalition = yes
-	add_marlib_to_coalition = yes
-	add_soccon_to_coalition = yes
-	add_pataut_to_coalition = yes
 }
 AUS_liebenfels_civil_war_prelude_setup = {
 	every_owned_state = {
@@ -15850,6 +16319,7 @@ AUS_liebenfels_civil_war_real_start_setup = {
 		}
 	}
 	AUS = {
+		news_event = bdeausnews.35
 		add_ideas = {
 			AUS_liebenfels_civil_war_idea
 			AUS_liebenfels_civil_war_idea_AUS
@@ -16330,11 +16800,7 @@ AUS_steal_ENG_from_LIC_effect = {
 	}
 	if = {
 		limit = { NOT = { is_in_array = { global.constituents_array = ENG } } }
-		add_to_array = {
-			array = global.constituents_array
-			value = ENG
-			index = 2
-		}
+		add_to_array = { global.constituents_array = ENG }
 	}
 	if = {
 		limit = { NOT = { is_in_array = { global.AUS_all_possible_array = ENG } } }
@@ -16349,25 +16815,10 @@ AUS_steal_ENG_from_LIC_effect = {
 }
 AUS_display_weekly_collpase_modifiers_effect = {
 	if = {
-		limit = { check_variable = { current_modifier < 10 } }
+		limit = { check_variable = { current_modifier < 9 } }
 		if = { #base value
 			limit = { check_variable = { current_modifier = 0 } }
 			set_temp_variable = { modifier = 0 }
-			if = {
-				limit = { has_global_flag = AUS_ausgleich_over }
-				subtract_from_temp_variable = { modifier = 0.002 }
-			}
-			if = {
-				limit = {
-					OR = {
-						has_completed_focus = AUS_root_out_class_hatred
-						has_completed_focus = AUS_to_these_united_states
-						has_completed_focus = AUS_test_of_time
-						has_completed_focus = AUS_charity_and_unity
-					}
-				}
-				subtract_from_temp_variable = { modifier = 0.002 }
-			}
 			custom_effect_tooltip = AUS_const_tooltip_modifier_base_value
 		}
 		if = { #ruling party pop
@@ -16452,101 +16903,45 @@ AUS_display_weekly_collpase_modifiers_effect = {
 }
 AUS_display_weekly_const_revolt_modifiers_effect = {
 	if = {
-		limit = { check_variable = { current_modifier < 13 } }
+		limit = { check_variable = { current_modifier < 10 } }
 		if = { #base value
 			limit = { check_variable = { current_modifier = 0 } }
 			set_temp_variable = { modifier = 0 }
-			if = {
-				limit = { has_global_flag = AUS_ausgleich_over }
-				subtract_from_temp_variable = { modifier = 0.01 }
-			}
 			custom_effect_tooltip = AUS_const_tooltip_modifier_base_value
 		}
-		if = { # stability
+		if = { #ruling party pop
 			limit = { check_variable = { current_modifier = 1 } }
-			set_temp_variable = { modifier = num_of_factories }
-			set_temp_variable = { temp_var = num_battalions }
-			set_temp_variable = { temp_var_2 = AUS.stability }
-			set_temp_variable = { temp_var_3 = stability }
 			if = {
 				limit = { exists = no }
-				set_temp_variable = { modifier = num_core_states }
-				set_temp_variable = { temp_var = 0 }
-				set_temp_variable = { temp_var_3 = AUS.stability }
+				set_temp_variable = { modifier = AUS.party_popularity@ruling_party }
 			}
-			add_to_temp_variable = { temp_var_2 = -1.2 }
-			divide_temp_variable = { temp_var_3 = 3 }
-			add_to_temp_variable = { temp_var_2 = temp_var_3 }
-			divide_temp_variable = { modifier = 120 }
-			divide_temp_variable = { temp_var = 10000 }
-			multiply_temp_variable = { temp_var_2 = -3.5 }
-			add_to_temp_variable = { modifier = temp_var }
-			multiply_temp_variable = { modifier = temp_var_2 }
-			divide_temp_variable = { modifier = 20 }
+			else = {
+				set_temp_variable = { modifier = party_popularity@ruling_party }
+			}
+			multiply_temp_variable = { modifier = -0.01 }
+			if = {
+				limit = { NOT = { check_variable = { modifier = 0 } } }
+				custom_effect_tooltip = AUS_const_tooltip_modifier_party_pop
+			}
+		}
+		if = { # stability
+			limit = { check_variable = { current_modifier = 2 } }
+			if = {
+				limit = { exists = no }
+				set_temp_variable = { modifier = AUS.stability }
+			}
+			else = {
+				set_temp_variable = { modifier = stability }
+			}
+			subtract_from_temp_variable = { modifier = 1 }
+			multiply_temp_variable = { modifier = -0.03 }
 			if = {
 				limit = { NOT = { check_variable = { modifier = 0 } } }
 				custom_effect_tooltip = AUS_const_tooltip_modifier_stability
 			}
 		}
-		if = { #paramilitaries
-			limit = { check_variable = { current_modifier = 2 } }
-			set_temp_variable = { modifier = num_battalions }
-			divide_temp_variable = { modifier = 10000 }
-			if = {
-				limit = { exists = no }
-				set_temp_variable = { modifier = 0 }
-			}
-			if = {
-				limit = { NOT = { check_variable = { modifier = 0 } } }
-				custom_effect_tooltip = AUS_const_tooltip_modifier_battalions
-			}
-		}
-		if = { #austrian paramilitaries
+		if = { #war exhaust
 			limit = { check_variable = { current_modifier = 3 } }
-			set_temp_variable = { modifier = AUS.num_battalions }
-			divide_temp_variable = { modifier = -50000 }
-			if = {
-				limit = { exists = no }
-				set_temp_variable = { modifier = 0 }
-			}
-			if = {
-				limit = { NOT = { check_variable = { modifier = 0 } } }
-				custom_effect_tooltip = AUS_const_tooltip_modifier_aus_battalions
-			}
-		}
-		if = { #austrian factories
-			limit = { check_variable = { current_modifier = 4 } }
-			set_temp_variable = { modifier = AUS.num_of_factories }
-			if = {
-				limit = { exists = no }
-				set_temp_variable = { modifier = num_core_states }
-			}
-			divide_temp_variable = { modifier = -7500 }
-			if = {
-				limit = { NOT = { check_variable = { modifier = 0 } } }
-				if = {
-					limit = { exists = yes }
-					custom_effect_tooltip = AUS_const_tooltip_modifier_aus_factories
-				}
-				else = {
-					custom_effect_tooltip = AUS_const_tooltip_modifier_num_of_core_states
-				}
-			}
-		}
-		if = { #evidenzbureau
-			limit = { check_variable = { current_modifier = 5 } }
-			set_temp_variable = { modifier = 0 }
-			if = {
-				limit = { has_country_flag = AUS_evidenzbureau_focus }
-				subtract_from_temp_variable = { modifier = 0.015 }
-			}
-			if = {
-				limit = { NOT = { check_variable = { modifier = 0 } } }
-				custom_effect_tooltip = AUS_const_tooltip_modifier_evidenzbureau
-			}
-		}
-		if = { #war exhaustion
-			limit = { check_variable = { current_modifier = 6 } }
 			set_temp_variable = { modifier = global.extra_value_war_exhaust }
 			if = {
 				limit = { NOT = { check_variable = { modifier = 0 } } }
@@ -16554,7 +16949,7 @@ AUS_display_weekly_const_revolt_modifiers_effect = {
 			}
 		}
 		if = { #federalizing
-			limit = { check_variable = { current_modifier = 7 } }
+			limit = { check_variable = { current_modifier = 4 } }
 			set_temp_variable = { modifier = global.extra_collapse_federalizing }
 			if = {
 				limit = { NOT = { check_variable = { modifier = 0 } } }
@@ -16562,7 +16957,7 @@ AUS_display_weekly_const_revolt_modifiers_effect = {
 			}
 		}
 		if = { #revolt rate modifier
-			limit = { check_variable = { current_modifier = 8 } }
+			limit = { check_variable = { current_modifier = 5 } }
 			set_temp_variable = { modifier = modifier@BOTDE_revolt_rate_modifier }
 			add_to_temp_variable = { modifier = extra_value }
 			if = {
@@ -16570,26 +16965,8 @@ AUS_display_weekly_const_revolt_modifiers_effect = {
 				custom_effect_tooltip = AUS_const_tooltip_modifier_revolt_rate_modifier
 			}
 		}
-		if = {
-			limit = { check_variable = { current_modifier = 9 } }
-			set_temp_variable = { modifier = 0 }
-			if = {
-				limit = {
-					any_operative_leader = { operative_leader_mission = counter_intelligence }
-					NOT = {
-						is_preparing_operation = { target = any_country }
-						is_running_operation  = { target = any_country }
-					}
-				}
-				add_to_temp_variable = { modifier = -0.03 }
-			}
-			if = {
-				limit = { NOT = { check_variable = { modifier = 0 } } }
-				custom_effect_tooltip = AUS_const_tooltip_modifier_counter_intel
-			}
-		}
 		if = { #fifth balkan war
-			limit = { check_variable = { current_modifier = 10 } }
+			limit = { check_variable = { current_modifier = 6 } }
 			set_temp_variable = { modifier = 0 }
 			if = {
 				limit = { fifth_balkan_war = yes }
@@ -16601,7 +16978,7 @@ AUS_display_weekly_const_revolt_modifiers_effect = {
 			}
 		}
 		if = { #continuous focus
-			limit = { check_variable = { current_modifier = 11 } }
+			limit = { check_variable = { current_modifier = 7 } }
 			set_temp_variable = { modifier = 0 }
 			if = {
 				limit = { has_global_flag = BOTDE_AUS_continuous_collapse_decrease_flag }
@@ -16612,8 +16989,20 @@ AUS_display_weekly_const_revolt_modifiers_effect = {
 				custom_effect_tooltip = AUS_const_tooltip_modifier_continuous_focus
 			}
 		}
+		if = { #evidenzbureau
+			limit = { check_variable = { current_modifier = 8 } }
+			set_temp_variable = { modifier = 0 }
+			if = {
+				limit = { has_country_flag = AUS_evidenzbureau_focus }
+				add_to_temp_variable = { modifier = -0.015 }
+			}
+			if = {
+				limit = { NOT = { check_variable = { modifier = 0 } } }
+				custom_effect_tooltip = AUS_const_tooltip_modifier_evidenzbureau
+			}
+		}
 		if = { #result (uses actual calculation)
-			limit = { check_variable = { current_modifier = 12 } }
+			limit = { check_variable = { current_modifier = 9 } }
 			set_temp_variable = { modifier = 0 }
 			set_temp_variable = { do_not_apply_revolt_change = 1 }
 			CONST_do_additional_revolt_progress = yes
@@ -16626,7 +17015,7 @@ AUS_display_weekly_const_revolt_modifiers_effect = {
 }
 AUS_display_weekly_minority_revolt_modifiers_effect = {
 	if = {
-		limit = { check_variable = { current_modifier < 10 } }
+		limit = { check_variable = { current_modifier < 7 } }
 		if = { #base value
 			limit = { check_variable = { current_modifier = 0 } }
 			set_temp_variable = { modifier = 0 }
@@ -16665,7 +17054,7 @@ AUS_display_weekly_minority_revolt_modifiers_effect = {
 			if = {
 				limit = {
 					exists = no
-					capital_scope.owner = { has_country_flag = AUS_evidenzbureau_focus }
+					var:capital_scope.owner = { has_country_flag = AUS_evidenzbureau_focus }
 				}
 				subtract_from_temp_variable = { modifier = 0.005 }
 			}
@@ -16694,8 +17083,8 @@ AUS_display_weekly_minority_revolt_modifiers_effect = {
 			limit = { check_variable = { current_modifier = 6 } }
 			set_temp_variable = { modifier = 0 }
 			set_temp_variable = { do_not_apply_revolt_change = 1 }
-			CONST_do_additional_revolt_progress = yes
-			add_to_temp_variable = { modifier = CONST_revolt_rate_rising }
+			do_minority_rise_advanced_calc = yes
+			add_to_temp_variable = { modifier = revolt_progress_change }
 			custom_effect_tooltip = AUS_const_tooltip_modifier_total
 		}
 		add_to_temp_variable = { current_modifier = 1 }
@@ -16710,21 +17099,11 @@ AUS_display_weekly_collpase_modifiers_effect_tooltip = { #uses a effect tooltip 
 		effect_tooltip = { AUS_display_weekly_collpase_modifiers_effect = yes }
 	}
 	else_if = {
-		limit = {
-			THIS = {
-				NOT = { tag = AUS }
-				AUS_is_constituent = yes
-			}
-		}
+		limit = { THIS = { AUS_is_constituent = yes } }
 		effect_tooltip = { AUS_display_weekly_const_revolt_modifiers_effect = yes }
 	}
 	else_if = {
-		limit = {
-			THIS = {
-				NOT = { tag = AUS }
-				AUS_is_minority = yes
-			}
-		}
+		limit = { THIS = { AUS_is_minority = yes } }
 		effect_tooltip = { AUS_display_weekly_minority_revolt_modifiers_effect = yes }
 	}
 }
@@ -17730,7 +18109,8 @@ clr_christian = {
 	remove_ideas = AUS_artifact_idea_true_cross
 	remove_ideas = AUS_artifact_idea_noahs_ark
 	remove_ideas = AUS_artifact_idea_iron_crown
-	remove_ideas = AUS_artifact_idea_holy_lance
+	remove_ideas = AUS_artifact_idea_holy_lance_viennese
+	remove_ideas = AUS_artifact_idea_holy_lance_discovery
 }
 
 clr_pagan = {
@@ -17851,7 +18231,15 @@ AUS_artifact_4 = {
 		}
 		clr_christian = yes
 		set_country_flag = AUS_holy_lance_selected
-		add_ideas = AUS_artifact_idea_holy_lance
+		if = {
+			limit = {
+				has_country_flag = AUS_lance_vienna
+			}
+			add_ideas = AUS_artifact_idea_holy_lance_viennese
+			else = {
+				add_ideas = AUS_artifact_idea_holy_lance_discovery
+			}
+		}
 	}
 	
 	if = {
@@ -17922,3 +18310,323 @@ AUS_artifact_6 = {
 	}
 }
 
+BOTDE_artifact_lets_check = {
+	if = {
+		limit = {
+			OR = {
+				NOT = { OR = { has_easter_egg_artifact = yes has_artifact = yes artifact_correct_solution = yes } }
+				AND = {
+					OR = { has_easter_egg_artifact = yes has_artifact = yes artifact_correct_solution = yes }
+					has_state_flag = AUS_state_searched_artifacts
+				}
+			}
+			NOT = { has_state_flag = artifact_minor_kieferberg_3 }
+		}
+		AUS = { country_event = { id = bdeaus.77 } } #There's nothing here
+	}
+	if = {
+		limit = {
+			artifact_correct_solution = yes
+		}
+		if = { limit = { has_state_flag = artifact_hunting_houses_atlantis }
+			AUS = { country_event = bdeaus.44 }
+		}
+		if = { limit = { has_state_flag = artifact_hunting_houses_z }
+			AUS = { country_event = bdeaus.46 }
+		}
+		if = { limit = { has_state_flag = artifact_hunting_houses_tiwanaku  }
+			AUS = { country_event = bdeaus.48 }
+		}
+		if = { limit = { has_state_flag = artifact_hunting_houses_nazca  }
+			AUS = { country_event = bdeaus.50 }
+		}
+		if = { limit = { has_state_flag = artifact_hunting_houses_l_anse_aux_meadows  }
+			AUS = { country_event = bdeaus.52 }
+		}
+		if = { limit = { has_state_flag = artifact_hunting_houses_ark_of_the_covenant  }
+			AUS = { country_event = bdeaus.54 }
+		}
+		if = { limit = { has_state_flag = artifact_hunting_houses_holy_grail  }
+			AUS = { country_event = bdeaus.56 }
+		}
+		if = { limit = { has_state_flag = artifact_hunting_houses_noahs_ark  }
+			AUS = { country_event = bdeaus.58 }
+		}
+		if = { limit = { has_state_flag = artifact_hunting_houses_holy_lance  }
+			AUS = { country_event = bdeaus.60 }
+		}
+		if = { limit = { has_state_flag = artifact_hunting_houses_iron_crown  }
+			AUS = { country_event = bdeaus.62 }
+		}
+		if = { limit = { has_state_flag = artifact_hunting_houses_true_cross_fragment  }
+			AUS = { country_event = bdeaus.64 }
+		}
+		if = { limit = { has_state_flag = artifact_hunting_houses_rhine_gold  }
+			AUS = { country_event = bdeaus.66 }
+		}
+		if = { limit = { has_state_flag = artifact_hunting_houses_atlantean  }
+			AUS = { country_event = bdeaus.68 }
+		}
+		if = { limit = { has_state_flag = artifact_hunting_houses_lemurian  }
+			AUS = { country_event = bdeaus.70 }
+		}
+		if = { limit = { has_state_flag = artifact_hunting_houses_buddha  }
+			AUS = { country_event = bdeaus.72 }
+		}
+		if = { limit = { has_state_flag = artifact_hunting_houses_balmung  }
+			AUS = { country_event = bdeaus.74 }
+		}
+		if = { limit = { has_state_flag = artifact_hunting_houses_tarnhelm  }
+			AUS = { country_event = bdeaus.76 }
+		}
+		set_state_flag = AUS_state_searched_artifacts
+	}
+	else_if = {
+		limit = {
+			has_artifact = yes
+		}
+		AUS = {
+			country_event = bdeaus.78 #There's an artifact here but we do not know where to look.
+		}
+		set_state_flag = AUS_state_searched_more
+		#Do not set AUS_state_searched_artifacts!!!
+	}
+	if = {
+		limit = {
+			has_easter_egg_artifact = yes
+		}
+		save_global_event_target_as = minor_artifact
+		if = {
+			limit = { has_state_flag = artifact_minor_kieferberg_3 }
+			AUS = { scoped_sound_effect = "battlefield_tier_easter_egg_lalala_golden_maidens" }
+			else = {
+				AUS = {
+					country_event = { id = bdeaus.79 }
+				}
+			}
+		}
+		set_state_flag = AUS_state_searched_artifacts
+	}
+	###For missions!
+	if = {
+		limit = {
+			AUS = {
+				OR = {
+					has_active_mission = AUS_mission_wotanists
+				}
+			}
+		}
+		if = {
+			limit = {
+				is_full_germany = yes
+			}
+			add_to_variable = { var = AUS_mission_search_states_wotan value = 1 }
+		}
+	}
+}
+
+FIU_raid_effect = {
+	FIU = {
+		clr_country_flag = FIU_ongoing_raid
+		clr_country_flag = FIU_readied_raid
+		FIU_add_one_total_plunder = yes
+		FIU_add_one_recent_plunder = yes
+	}
+	if = {
+		limit = { FIU_state_is_large_target = yes }
+		random_list = {
+			40 = {
+				hidden_effect = {
+					set_state_flag = state_was_raided_by_FIU
+					add_dynamic_modifier = {
+						modifier = FIU_state_just_got_raided_modifier
+						days = 180
+					}
+				}
+				FIU = {
+					FIU_add_one_successful_plunder = yes
+					FIU_successful_large_plunder = yes
+				}
+				modifier = {
+					factor = 1.15
+					FIU = { has_war_support > 0.49 }
+				}
+				modifier = {
+					factor = 1.5
+					FIU = { has_country_flag = FIU_laying_low } #If Fiume has not made any raids in the last month
+				}
+				modifier = {
+					factor = 2.5
+					FIU = { has_country_flag = FIU_readied_raid }
+				}
+			}
+			60 = {
+				FIU = {
+					FIU_add_one_failed_plunder = yes
+					FIU_do_risk_calculation = yes
+				}
+				modifier = {
+					factor = 1.2
+					FIU = { has_war_support < 0.40 }
+				}
+				modifier = {
+					factor = 1.08
+					FIU = { has_stability < 0.60 }
+				}
+				modifier = {
+					factor = 1.05
+					check_variable = { FIU_recent_plunders = 1 }
+				}
+				modifier = {
+					factor = 1.11
+					check_variable = { FIU_recent_plunders = 2 }
+				}
+				modifier = {
+					factor = 1.18
+					check_variable = { FIU_recent_plunders = 3 }
+				}
+				modifier = {
+					factor = 1.33
+					check_variable = { FIU_recent_plunders > 3 }
+				}
+			}
+		}
+		custom_effect_tooltip = tooltip_white_line
+		FIU_raise_risk_8 = yes
+	}
+	else_if = {
+		limit = { FIU_state_is_medium_target = yes }
+		random_list = {
+			50 = {
+				hidden_effect = {
+					set_state_flag = state_was_raided_by_FIU
+					add_dynamic_modifier = {
+						modifier = FIU_state_just_got_raided_modifier
+						days = 120
+					}
+				}
+				FIU = {
+					FIU_add_one_successful_plunder = yes
+					FIU_successful_medium_plunder = yes
+				}
+				modifier = {
+					factor = 1.15
+					FIU = { has_war_support > 0.49 }
+				}
+				modifier = {
+					factor = 1.5
+					FIU = { has_country_flag = FIU_laying_low } #If Fiume has not made any raids in the last month
+				}
+				modifier = {
+					factor = 2.5
+					FIU = { has_country_flag = FIU_readied_raid }
+				}
+			}
+			50 = {
+				FIU = {
+					FIU_add_one_failed_plunder = yes
+					FIU_do_risk_calculation = yes
+				}
+				modifier = {
+					factor = 1.2
+					FIU = { has_war_support < 0.40 }
+				}
+				modifier = {
+					factor = 1.08
+					FIU = { has_stability < 0.60 }
+				}
+				modifier = {
+					factor = 1.05
+					check_variable = { FIU_recent_plunders = 1 }
+				}
+				modifier = {
+					factor = 1.11
+					check_variable = { FIU_recent_plunders = 2 }
+				}
+				modifier = {
+					factor = 1.18
+					check_variable = { FIU_recent_plunders = 3 }
+				}
+				modifier = {
+					factor = 1.33
+					check_variable = { FIU_recent_plunders > 3 }
+				}
+			}
+		}
+		custom_effect_tooltip = tooltip_white_line
+		FIU_raise_risk_5 = yes
+	}
+	else = {
+		random_list = {
+			60 = {
+				hidden_effect = {
+					set_state_flag = state_was_raided_by_FIU
+					add_dynamic_modifier = {
+						modifier = FIU_state_just_got_raided_modifier
+						days = 60
+					}
+				}
+				FIU = {
+					FIU_add_one_successful_plunder = yes
+					FIU_successful_small_plunder = yes
+				}
+				modifier = {
+					factor = 1.15
+					FIU = { has_war_support > 0.49 }
+				}
+				modifier = {
+					factor = 1.5
+					FIU = { has_country_flag = FIU_laying_low } #If Fiume has not made any raids in the last month
+				}
+				modifier = {
+					factor = 2.5
+					FIU = { has_country_flag = FIU_readied_raid }
+				}
+			}
+			40 = {
+				FIU = {
+					FIU_add_one_failed_plunder = yes
+					FIU_do_risk_calculation = yes
+				}
+				modifier = {
+					factor = 1.2
+					FIU = { has_war_support < 0.40 }
+				}
+				modifier = {
+					factor = 1.08
+					FIU = { has_stability < 0.60 }
+				}
+				modifier = {
+					factor = 1.05
+					check_variable = { FIU_recent_plunders = 1 }
+				}
+				modifier = {
+					factor = 1.11
+					check_variable = { FIU_recent_plunders = 2 }
+				}
+				modifier = {
+					factor = 1.18
+					check_variable = { FIU_recent_plunders = 3 }
+				}
+				modifier = {
+					factor = 1.33
+					check_variable = { FIU_recent_plunders > 3 }
+				}
+			}
+		}
+		custom_effect_tooltip = tooltip_white_line
+		FIU_raise_risk_3 = yes
+	}
+}
+
+FIU_gain_italian_commanders = {
+	custom_override_tooltip = {
+		tooltip = FIU_italian_unit_leaders_join
+		NSW = {
+			every_unit_leader = {
+				limit = { has_trait = FIU_pro_italy_trait }
+				set_nationality = FIU
+			}
+		}
+	}
+}

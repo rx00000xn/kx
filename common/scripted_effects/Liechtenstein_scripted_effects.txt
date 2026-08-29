@@ -864,6 +864,15 @@ LIC_famine_decrease_grovel = {
 	clr_country_flag = LIC_vibecheck
 }
 
+LIC_famine_increase = {
+	custom_effect_tooltip = LIC_famine_increase
+	add_to_variable = { LIC.famine_value = -0.05 }
+	clamp_variable = { var = LIC.famine_value min = -1 max = 0 }
+	set_country_flag = LIC_vibecheck #This flag exists so the famine doesn't persist and automatically dies off for a little bit if you take the decision
+	LIC_vibe_check_famine = yes
+	clr_country_flag = LIC_vibecheck
+}
+
 LIC_readiness_weekly_increase_025 = {
 	custom_effect_tooltip = LIC_readiness_weekly_increase_025_tt
 	add_to_variable = { LIC.weekly_readiness = 0.0025 }
@@ -948,9 +957,17 @@ LIC_readiness_increase_4 = {
 	LIC_vibe_check_famine = yes
 }
 
+LIC_readiness_decrease_2 = {
+	custom_effect_tooltip = LIC_readiness_decrease_2_tt
+	add_to_variable = { LIC.govt_readiness = -0.05 }
+	clamp_variable = { var = LIC.govt_readiness min = -1 max = 1 }
+	LIC_vibe_check_famine = yes
+}
+
 
 LIC_vibe_check_famine = {
 	#Check if readiness is below 0; apply famine effect!
+	clamp_variable = { var = LIC.govt_readiness min = -1 max = 1 }
 	if = {
 		limit = {
 			check_variable = {
@@ -1001,7 +1018,7 @@ LIC_vibe_check_famine = {
 					}
 				}
 				set_country_flag = LIC_empty_stockpile_flag
-				add_idea = LIC_empty_stockpile
+				add_ideas = LIC_empty_stockpile
 			}
 		}
 	}
@@ -1155,22 +1172,22 @@ LIC_setup_gommunism = {
 		name = "Hans Beimler"
 		desc = "LIC_BEIMLER_DESC"
 		picture = "gfx/leaders/LIC/LIC_Hans_Beimler.png"
-		expire = "1965.1.1"
+		expire = "1.1.1"
 		ideology = national_communism_subtype
 	}
 	create_country_leader = {
 		name = "Franz Rauscher"
 		desc = "LIC_FRANZ_RAUSCHER_DESC"
 		picture = "gfx/leaders/LIC/LIC_Franz_Rauscher.png"
-		expire = "1965.1.1"
-		ideology = radsoc_austromarxism_subtype
+		expire = "1.1.1"
+		ideology = syn_natsynd_subtype
 	}
 	create_country_leader = {
 		name = "Franz Rauscher"
 		desc = "LIC_FRANZ_RAUSCHER_DESC"
 		picture = "gfx/leaders/LIC/LIC_Franz_Rauscher.png"
-		expire = "1965.1.1"
-		ideology = syn_natsynd_subtype
+		expire = "1.1.1"
+		ideology = radsoc_austromarxism_subtype
 	}
 	set_politics = {
 		ruling_party = totalist
@@ -1182,7 +1199,15 @@ LIC_setup_gommunism = {
 
 LIC_setup_ZZZZZ = {
 	every_unit_leader = {
-		limit = { OR = { has_id = 811867 has_id = 811868 has_id = 811869 has_id = 811870 has_id = 811871 } }
+		limit = {
+			OR = {
+				has_id = 811867
+				has_id = 811868
+				has_id = 811869
+				has_id = 811870
+				has_id = 811871
+			}
+		}
 		retire = yes
 	}
 	if = {
@@ -1209,7 +1234,7 @@ LIC_setup_ZZZZZ = {
 		name = "Boris Smyslovsky"
 		desc = "LIC_SMYSLOVSKY_DESC"
 		picture = "gfx/leaders/RUS/Portrait_RUS_Boris_Smyslovsky.png"
-		expire = "1965.1.1"
+		expire = "1.1.1"
 		ideology = junta_subtype
 	}
 	set_politics = {
@@ -1311,14 +1336,11 @@ LIC_quota_reward = {
 					value = LIC.quota_value
 					compare = greater_than_or_equals
 				}
-				
 			}
 			custom_effect_tooltip = LIC_big_shot
 			add_to_variable = { LIC.big_shot = 1 }
 			if = {
-				limit = {
-					has_country_flag = LIC_got_the_timer
-				}
+				limit = { has_country_flag = LIC_got_the_timer }
 				random_list = {
 					34 = {
 						random_owned_state = {
@@ -1364,75 +1386,95 @@ LIC_quota_reward = {
 			check_variable = { LIC.govt_readiness < LIC.quota_value }
 		}
 		add_to_variable = { LIC.quota_failure = 1 }
-		custom_effect_tooltip = LIC_quota_fail_tt
-		LIC_vdbl_angwy = yes
-		decrease_ruling_party_popularity_by_5 = yes
-		add_political_power = -50
-		add_stability = -0.075
-		add_war_support = -0.075
-		country_event = {
-			id = licflavor.66
-			days = 30
-			random_days = 30
+		set_temp_variable = { temp_check = LIC.quota_value }
+		subtract_from_temp_variable = { temp_check = LIC.govt_readiness }
+		if = {
+			limit = { check_variable = { temp_check > 0.0999 } }
+			custom_effect_tooltip = LIC_quota_fail_tt
+			LIC_vdbl_angwy = yes
+			decrease_ruling_party_popularity_by_5 = yes
+			add_political_power = -50
+			add_stability = -0.075
+			add_war_support = -0.075
+			hidden_effect = {
+				country_event = {
+					id = licflavor.66
+					days = 30
+					random_days = 30
+				}
+				country_event = { #Discontent- election woes
+					id = lic.110
+					days = 30
+					random_days = 90
+				}
+			}
 		}
-		country_event = { #Discontent- election woes
-			id = lic.110
-			days = 30
-			random_days = 90
+		else_if = {
+			limit = { check_variable = { temp_check > 0.0299 } }
+			custom_effect_tooltip = LIC_quota_fail_less_tt
+			LIC_vdbl_angwy = yes
+			decrease_ruling_party_popularity_by_3 = yes
+			add_political_power = -35
+			add_stability = -0.05
+			add_war_support = -0.05
+			hidden_effect = {
+				country_event = {
+					id = licflavor.66
+					days = 30
+					random_days = 30
+				}
+				country_event = { #Discontent- election woes
+					id = lic.110
+					days = 30
+					random_days = 90
+				}
+			}
+		}
+		else = {
+			custom_effect_tooltip = LIC_quota_fail_lesser_tt
+			LIC_vdbl_angwy = yes
+			decrease_ruling_party_popularity_by_2 = yes
+			add_political_power = -20
+			add_stability = -0.03
+			hidden_effect = {
+				country_event = {
+					id = licflavor.66
+					days = 30
+					random_days = 30
+				}
+			}
 		}
 	}
 }
 
 LIC_vdbl_angwy = {
 	if = {
-		limit = {
-			check_variable = {
-				var = LIC.quota_failure
-				value = 1
-				compare = equals
-			}
-		}
+		limit = { check_variable = { LIC.quota_failure = 1 } }
 		country_event = {
 			id = lic.55
 			days = 15
 			random_days = 185
 		}
 	}
-	if = {
-		limit = {
-			check_variable = {
-				var = LIC.quota_failure
-				value = 2
-				compare = equals
-			}
-		}
+	else_if = {
+		limit = { check_variable = { LIC.quota_failure = 2 } }
 		country_event = {
 			id = lic.56
 			days = 15
 			random_days = 185
 		}
 	}
-	if = {
-		limit = {
-			check_variable = {
-				var = LIC.quota_failure
-				value = 3
-				compare = equals
-			}
-		}
+	else_if = {
+		limit = { check_variable = { LIC.quota_failure = 3 } }
 		country_event = {
 			id = lic.57
 			days = 15
 			random_days = 185
 		}
 	}
-	if = {
+	else_if = {
 		limit = {
-			check_variable = {
-				var = LIC.quota_failure
-				value = 4
-				compare = equals
-			}
+			check_variable = { LIC.quota_failure = 4 }
 			has_country_flag = LIC_VDBL_COUP_CAN_HAPPEN
 		}
 		country_event = {
@@ -1445,21 +1487,11 @@ LIC_vdbl_angwy = {
 
 LIC_next_quota = {
 	LIC_quota_reward = yes #If you go 10-15% above quota, get some bonuses - build slots, research bonus, factories, something. Incentivize active gains!
-
-
 	add_to_variable = { LIC.LIC_quota_num = 1 }
 	if = { #1938 Quota
-		limit = {
-			check_variable = {
-				var = LIC_quota_num
-				value = 1
-				compare = equals
-			}
-		}
+		limit = { check_variable = { LIC_quota_num = 1 } }
 		if = {
-			limit = {
-				check_variable = { LIC.govt_readiness < 0 }
-			}
+			limit = { check_variable = { LIC.govt_readiness < 0 } }
 			set_temp_variable = { LIC.quota_temp = 0.1 }
 		}
 		else = {
@@ -1475,27 +1507,14 @@ LIC_next_quota = {
 			}
 		}
 	}
-	
-	if = { #1939 Quota
-		limit = {
-			check_variable = {
-				var = LIC_quota_num
-				value = 2
-				compare = equals
-			}
-		}
+	else_if = { #1939 Quota
+		limit = { check_variable = { LIC_quota_num = 2 } }
 		if = {
-			limit = {
-				check_variable = { 
-					var = LIC.govt_readiness
-					value = 0
-					compare = less_than
-				}
-			}
+			limit = { check_variable = { LIC.govt_readiness < 0 } }
 			set_temp_variable = { LIC.quota_temp = 0.1 }
-			else = {
-				set_temp_variable = { LIC.quota_temp = LIC.govt_readiness }
-			}
+		}
+		else = {
+			set_temp_variable = { LIC.quota_temp = LIC.govt_readiness }
 		}
 		add_to_temp_variable = { LIC.quota_temp = 0.25 }
 		set_variable = { LIC.quota_value = LIC.quota_temp }
@@ -1507,27 +1526,14 @@ LIC_next_quota = {
 			}
 		}
 	}
-	
-	if = { #1940 Quota
-		limit = {
-			check_variable = {
-				var = LIC_quota_num
-				value = 3
-				compare = equals
-			}
-		}
+	else_if = { #1940 Quota
+		limit = { check_variable = { LIC_quota_num = 3 } }
 		if = {
-			limit = {
-				check_variable = { 
-					var = LIC.govt_readiness
-					value = 0
-					compare = less_than
-				}
-			}
+			limit = { check_variable = { LIC.govt_readiness < 0 } }
 			set_temp_variable = { LIC.quota_temp = 0.1 }
-			else = {
-				set_temp_variable = { LIC.quota_temp = LIC.govt_readiness }
-			}
+		}
+		else = {
+			set_temp_variable = { LIC.quota_temp = LIC.govt_readiness }
 		}
 		add_to_temp_variable = { LIC.quota_temp = 0.3 }
 		set_variable = { LIC.quota_value = LIC.quota_temp }
@@ -1539,8 +1545,7 @@ LIC_next_quota = {
 			}
 		}
 	}
-	
-	if = { #Complete Minigame; results
+	else_if = { #Complete Minigame; results
 		limit = {
 			check_variable = {
 				var = LIC_quota_num
@@ -1555,13 +1560,7 @@ LIC_next_quota = {
 
 LIC_can_a_geeked_up_white_boy_goated_with_the_kasespaetzl_surplust_it_down = {
 	if = {
-		limit = {
-			check_variable = {
-				var = LIC.quota_value
-				value = 0.99
-				compare = greater_than
-			}
-		}
+		limit = { check_variable = { LIC.quota_value > 0.99 } }
 		set_variable = { LIC.quota_value = 0.9 }
 		subtract_from_variable = { LIC.govt_readiness = 0.3 }
 		country_event = lic.51
@@ -1573,56 +1572,56 @@ LIC_darkrp_hobo_role_change = {
 		name = "Otto Schaedler"
 		desc = "LIC_OTTO_SCHAELDER_DESC"
 		picture = "gfx/leaders/LIC/LIC_Otto_Schaedler.png"
-		expire = "1965.1.1"
+		expire = "1.1.1"
 		ideology = austropopulism_subtype
 	}
 	create_country_leader = {
-		name = "Franz I"
+		name = "Josef Hoop"
 		desc = "LIC_JOSEF_HOOP_DESC"
 		picture = "gfx/leaders/LIC/LIC_Josef_Hoop.png"
-		expire = "1965.1.1"
+		expire = "1.1.1"
 		ideology = authoritarian_democrat_subtype
 	}
 	create_country_leader = {
 		name = "Josef Hoop"
 		desc = "LIC_JOSEF_HOOP_DESC"
 		picture = "gfx/leaders/LIC/LIC_Josef_Hoop.png"
-		expire = "1965.1.1"
+		expire = "1.1.1"
 		ideology = national_conservative_subtype
 	}
 	create_country_leader = {
 		name = "Otto Schaedler"
 		desc = "LIC_OTTO_SCHAELDER_DESC"
 		picture = "gfx/leaders/LIC/LIC_Otto_Schaedler.png"
-		expire = "1965.1.1"
+		expire = "1.1.1"
 		ideology = marlib_austropopulism_subtype
 	}
 	create_country_leader = {
 		name = "Otto Schaedler"
 		desc = "LIC_OTTO_SCHAELDER_DESC"
 		picture = "gfx/leaders/LIC/LIC_Otto_Schaedler.png"
-		expire = "1965.1.1"
+		expire = "1.1.1"
 		ideology = social_liberal_subtype
 	}
 	create_country_leader = {
 		name = "Gustav Schädler"
 		desc = "LIC_GUSTAV_SCHAEDLER_DESC"
 		picture = "gfx/leaders/LIC/LIC_Gustav_Schadler.png"
-		expire = "1965.1.1"
+		expire = "1.1.1"
 		ideology = social_democrat_subtype
 	}
 	create_country_leader = {
 		name = "Gustav Schädler"
 		desc = "LIC_GUSTAV_SCHAEDLER_DESC"
 		picture = "gfx/leaders/LIC/LIC_Gustav_Schadler.png"
-		expire = "1965.1.1"
+		expire = "1.1.1"
 		ideology = moderate_socialist_subtype
 	}
 	create_country_leader = {
 		name = "Emil Risch"
 		desc = "LIC_EMIL_RISCH_DESC"
 		picture = "gfx/leaders/LIC/LIC_Emil_Risch.png"
-		expire = "1965.1.1"
+		expire = "1.1.1"
 		ideology = liberalized_syndicalism_subtype
 	}
 }
@@ -1649,8 +1648,6 @@ LIC_event_roulette_lets_go_gambling = {
 }
 
 LIC_picker_roll_num = {
-	
-
 	set_variable_to_random = {
 		var = global.LIC_picker_theres_a_joke_to_be_made_here_but_im_not_clever_enough
 		min = 45
@@ -1667,10 +1664,16 @@ LIC_KPOP_MORE_LIKE_KPOOP =  {
 				has_cosmetic_tag = LIC_ALPINE_CANTON
 			}
 		}
-		set_cosmetic_tag = LIC_papacy_alpine
-		else = {
-			set_cosmetic_tag = LIC_papacy
+		if = {
+			limit = { has_country_flag = LIC_archdiocese_vaduz }
+			set_cosmetic_tag = LIC_papacy_alpine_vaduz
 		}
+		else = {
+			set_cosmetic_tag = LIC_papacy_alpine
+		}
+	}
+	else = {
+		set_cosmetic_tag = LIC_papacy
 	}
 	add_ideas = LIC_holy_see
 	set_country_flag = LIC_papal_house

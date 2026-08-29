@@ -219,6 +219,10 @@ country_event = { #Annexation of Bulgaria
 				country_event = pact.68
 			}
 		}
+		if = {
+			limit = { tag = AUS }
+			AUS_occupy_BUL_effect = yes
+		}
 	}
 	option = { #integrate
 		name = annex.integration
@@ -910,7 +914,13 @@ country_event = { #Romanian liberation
 		}
 		set_temp_variable = { tag_to_release = ROM }
 		release_targeted_tag = yes
-		var:tag_to_release = { setup_romanian_puppet_leaders = yes }
+		if = {
+			limit = { tag = AUS }
+			AUS_occupy_ROM_effect = yes
+		}
+		else = {
+			var:tag_to_release = { setup_romanian_puppet_leaders = yes }
+		}
 		hidden_effect = {
 			ROM = {
 				add_state_core = 713
@@ -1297,6 +1307,30 @@ country_event = { #Serbian liberation
 		}
 		set_temp_variable = { tag_to_release = SER }
 		release_targeted_tag = yes
+		if = {
+			limit = {
+				tag = AUS
+			}
+			AUS_occupy_SER_effect = yes
+		}
+	}
+	option = { #restore kingdom of serbia under George Obrenović
+		name = annex.8.d
+		trigger = {
+			OR = {
+				tag = AUS
+				tag = BUL
+			}
+		}
+		ai_chance = {
+			factor = 100
+		}
+		set_temp_variable = { tag_to_release = SER }
+		release_targeted_tag = yes
+		SER = {
+			set_cosmetic_tag = SER_kingdom
+			hidden_effect = { SER_create_George_Obrenovic_effect = yes }
+		}
 	}
 	option = { #make Yugoslavia
 		trigger = {
@@ -2538,51 +2572,7 @@ country_event = { #Liberation of Austria
 	immediate = {
 		hidden_effect = {
 			AUS = {
-				create_country_leader = {
-					name = "Karl Renner"
-					picture = "gfx/leaders/AUS/Portrait_AUS_Karl_Renner_KX.png"
-					expire = "1.1.1"
-					ideology = austromarxism_subtype
-				}
-				create_country_leader = {
-					name = "Erik von Kuehnelt-Leddihn"
-					desc = ""
-					picture = "gfx/leaders/AUS/Portrait_AUS_Erik_von_Kuehnelt-Leddihn.png"
-					expire = "1.1.1"
-					ideology = aulic_liberalism_subtype
-				}
-				create_country_leader = {
-					name = "Richard von Coudenhove-Kalergi"
-					desc = ""
-					picture = "gfx/leaders/AUS/Portrait_AUS_Richard_von_Coudenhove_Kalergi.png"
-					expire = "1.1.1"
-					ideology = paneuropeanism_subtype
-				}
-				create_country_leader = {
-					name = "Wilhelm Miklas"
-					picture = "gfx/leaders/AUS/Portrait_AUS_Wilhelm_Miklas_KX.png"
-					expire = "1.1.1"
-					ideology = social_conservative_subtype
-				}
-				create_country_leader = {
-					name = "Wilhelm Miklas"
-					picture = "gfx/leaders/AUS/Portrait_AUS_Wilhelm_Miklas_KX.png"
-					expire = "1.1.1"
-					ideology = authoritarian_democrat_subtype
-				}
-				create_country_leader = {
-					name = "Engelbert Dollfuss"
-					picture = "gfx/leaders/AUS/Portrait_AUS_dolfuss.png"
-					expire = "1.1.1"
-					ideology = austropopulism_subtype
-				}
-				create_country_leader = {
-					name = "Jörg Lanz von Liebenfels"
-					desc = "POLITICS_LIEBENFELS_DESC"
-					picture = "gfx/leaders/AUS/Portrait_AUS_Liebenfels.png"
-					expire = "1.1.1"
-					ideology = ariosophy_subtype
-				}
+				AUS_habsburg_law_switch = yes
 			}
 			every_state = {
 				limit = {
@@ -2743,13 +2733,17 @@ country_event = { #Liberation of Austria
 		else = {
 			AUS = { set_cosmetic_tag = AUS_puppet }
 		}
+		if = {
+			limit = { has_global_flag = AUS_federalized }
+			clr_global_flag = AUS_federalized
+		}
 	}
-	option = { #Danubian Republic of Councils
+	option = { #Release Danubia Instead
 		name = annex.14.b
 		trigger = {
 			is_german_tag = no
-			has_socialist_government = yes
-			AUS = { has_completed_focus = AUS_embrace_pluralism }
+			#has_socialist_government = yes
+			AUS_is_unified = yes
 			43 = { #Budapest
 				is_owned_by = ROOT
 				is_claim_or_core_of_ROOT = no
@@ -2785,7 +2779,23 @@ country_event = { #Liberation of Austria
 		set_temp_variable = { tag_to_release = AUS }
 		release_targeted_tag = yes
 		var:tag_to_release = {
-			set_cosmetic_tag = DNF
+			set_cosmetic_tag = AUS_federalized_tag_puppet
+		}
+	}
+	option = { #old idea
+		name = annex.14.c
+		trigger = {
+			is_german_tag = yes
+			NOT = { tag = DKB }
+		}
+		ai_chance = {
+			factor = 100
+		}
+		set_country_flag = AUS_CONQ
+		country_event = annex.15
+		if = {
+			limit = { has_global_flag = AUS_federalized }
+			clr_global_flag = AUS_federalized
 		}
 	}
 	option = { #occupy
@@ -2795,9 +2805,46 @@ country_event = { #Liberation of Austria
 		}
 		set_country_flag = AUS_CONQ
 		occupy_medium_country = yes
+		if = {
+			limit = { has_global_flag = AUS_federalized }
+			clr_global_flag = AUS_federalized
+		}
 	}
 }
 
+country_event = { #greater Germany
+	id = annex.15
+	immediate = { log = "[GetDateText]: [Root.GetName]: event annex.15" }
+	title = annex.15.t
+	desc = annex.15.d
+	is_triggered_only = yes
+
+	option = {
+		name = annex.15.a
+		occupy_large_country = yes
+		every_state = {
+			limit = {
+				region = 21 #Austria
+				NOT = {
+					state = 102 #Slovenia
+					state = 1272 #Slovenia
+					state = 1101 #Slovenia
+					state = 1103 #Slovenia
+					state = 1104 #Slovenia
+					state = 736 #Istria
+					state = 1100 #Istria
+					state = 1144 #Istria
+					state = 783 #Trentino
+				}
+			}
+			add_core_of = ROOT
+		}
+		add_timed_idea = {
+			idea = GER_Austria_Integration
+			days = 365
+		}
+	}
+}
 country_event = { #Fate of the Aland Islands
 	id = annex.16
 	immediate = { log = "[GetDateText]: [Root.GetName]: event annex.16 FROM = [From.GetName]" }
@@ -3777,7 +3824,10 @@ country_event = { #Liberation of Croatia
 				remove_core_of = CRO
 				remove_claim_by = CRO
 			}
-			CRO = { remove_ideas = AUS_part_of_the_Empire }
+			CRO = {
+				remove_ideas = AUS_part_of_the_Empire
+				CRO_remove_karl = yes
+			}
 			every_state = {
 				limit = {
 					OR = {
@@ -9638,6 +9688,35 @@ country_event = { #Fate of Volhynia
 		recheck_annexations = yes
 	}
 
+	option = { #invent Volhynia
+		name = annex.46.c
+		trigger = {
+			tag = AUS
+			WSU = {
+				OR = {
+					exists = no
+					is_subject_of = ROOT
+				}
+			}
+		}
+		ai_chance = { base = 100 }
+		every_owned_state = {
+			limit = {
+				OR = {
+					state = 93
+					state = 199
+					state = 792
+					state = 997
+					state = 1088
+					state = 1228
+				}
+			}
+			add_core_of = WSU
+			transfer_state_to = WSU
+		}
+		WSU = { WSU_create_kronland = yes }
+	}
+
 	option = { #occupy
 		name = annex.occupation
 		trigger = {
@@ -9873,7 +9952,7 @@ country_event = { #The Fate of Russia
 					}
 					add_claim_by = JAP
 				}
-			}			
+			}
 			every_state = {
 				clr_state_flag = renamed_petrodvorets
 				clr_state_flag = renamed_state_apraksin
@@ -10004,6 +10083,17 @@ country_event = { #The Fate of Russia
 			release_targeted_tag = yes
 			hidden_effect = { RUS_puppet_setup = yes }
 			recheck_annexations = yes
+			if = {
+				limit = { tag = AUS }
+				RUS = {
+					set_cosmetic_tag = AUS_occupation_russia
+					set_politics = {
+						ruling_party = paternal_autocrat
+						name = AUS_occupation_generic_paternal_autocrat_party
+						long_name = AUS_occupation_generic_paternal_autocrat_party_long
+					}
+				}
+			}
 		}
 		else = {
 			set_temp_variable = { tag_to_release = RPG }
@@ -10138,6 +10228,17 @@ country_event = { #The Fate of Russia
 				has_completed_focus = TTR_Khan_In_Kazan
 				}
 				SIB = { set_cosmetic_tag = SIB_KHAN }
+			}
+			if = {
+				limit = { tag = AUS }
+				RUS = {
+					set_cosmetic_tag = AUS_occupation_russia
+					set_politics = {
+						ruling_party = paternal_autocrat
+						name = AUS_occupation_generic_paternal_autocrat_party
+						long_name = AUS_occupation_generic_paternal_autocrat_party_long
+					}
+				}
 			}
 		}
 		else = {
@@ -10286,6 +10387,17 @@ country_event = { #The Fate of Russia
 			remove_all_russian_cores = yes
 		}
 		hidden_effect = { RUS_puppet_setup = yes }
+		if = {
+			limit = { tag = AUS }
+			RUS = {
+				set_cosmetic_tag = AUS_occupation_russia
+				set_politics = {
+					ruling_party = paternal_autocrat
+					name = AUS_occupation_generic_paternal_autocrat_party
+					long_name = AUS_occupation_generic_paternal_autocrat_party_long
+				}
+			}
+		}
 	}
 
 	option = { #Integrate
@@ -14623,7 +14735,6 @@ country_event = { #fate of Germany
 		if = {
 			limit = { tag = FRA }
 			GRU = { country_event = part.49 }
-			
 		}
 		if = {
 			limit = {
@@ -14666,6 +14777,17 @@ country_event = { #fate of Germany
 					popularity = 0.5
 				}
 				set_cosmetic_tag = GRU_japanese
+			}
+		}
+		if = {
+			limit = { tag = AUS }
+			GRU = {
+				set_cosmetic_tag = AUS_occupation_germany
+				set_politics = {
+					ruling_party = paternal_autocrat
+					name = AUS_occupation_generic_paternal_autocrat_party
+					long_name = AUS_occupation_generic_paternal_autocrat_party_long
+				}
 			}
 		}
 	}
@@ -14878,10 +15000,6 @@ country_event = { #fate of Germany
 	option = { #GROSSDEUTSCHLAND
 		trigger = {
 			tag = AUS
-			OR = {
-				has_completed_focus = AUS_status_quo
-				has_completed_focus = AUS_military_occupation
-			}
 			NOT = {
 				country_exists = GER
 				country_exists = GRU
@@ -17978,6 +18096,7 @@ country_event = { #The Conquest of Bohemia
 
 	option = { #Liberate Bohemia
 		name = annex.122.a
+		trigger = { NOT = { tag = AUS } }
 		ai_chance = {
 			factor = 70
 			modifier = {
@@ -18066,6 +18185,29 @@ country_event = { #The Conquest of Bohemia
 			limit = { is_german_tag = yes NOT = { tag = AUS } }
 			setup_puppet_CZE_PGU = yes
 		}	
+	}
+
+	option = { #Keep the Sudetenland and liberate Bohemia
+		name = annex.122.b
+		trigger = {
+			OR = {
+				tag = GER
+				tag = AUS
+			}
+			any_owned_state = {
+				limit = { is_core_of = PGU }
+			}
+		}
+		ai_chance = {
+			factor = 70
+		}
+		every_state = {
+			limit = { is_core_of = PGU }
+			add_core_of = ROOT
+		}
+		occupy_medium_country = yes
+		set_temp_variable = { tag_to_release = CZE }
+		release_targeted_tag = yes
 	}
 	option = { #Czechoslovakia
 		name = annex.122.c
@@ -18208,6 +18350,92 @@ country_event = { #The Conquest of Bohemia
 			hidden_effect = { CZE = { set_cosmetic_tag = CZE_PGU_Slovakia } }
 		}	
 	}
+	option = { #Czechoslovakia, but annex Sudetenland
+		name = annex.122.e
+		trigger = {
+			OR = {
+				tag = GER
+				tag = AUS
+			}
+			any_owned_state = {
+				limit = { is_core_of = PGU }
+			}
+			70 = {
+				is_owned_by = ROOT
+				is_claim_or_core_of_ROOT = no
+			}
+		}
+		ai_chance = {
+			factor = 30
+		}
+		every_state = {
+			limit = { is_core_of = PGU }
+			add_core_of = ROOT
+		}
+		occupy_medium_country = yes
+		if = {
+			limit = {
+				1122 = { #Southern Slovakia
+					is_owned_by = ROOT
+					is_clear_other_claims = yes
+				}
+			}
+			1122 = { add_core_of = CZE } #Southern Slovakia
+		}
+		if = {
+			limit = {
+				1136 = { #Southern Slovakia
+					is_owned_by = ROOT
+					is_clear_other_claims = yes
+				}
+			}
+			1136 = { add_core_of = CZE } #Southern Slovakia
+		}
+		set_temp_variable = { tag_to_release = CZE }
+		add_to_temp_array = { target_cores_to_release = CZE }
+		add_to_temp_array = { target_cores_to_release = SVK }
+		release_targeted_tag_from_core_regions_and_add_cores = yes
+		var:tag_to_release = {
+			if = {
+				limit = {
+					NOT = { 
+						has_cosmetic_tag = CZE_czechoslovakia 
+						has_cosmetic_tag = CZE_hussite_expasion 
+						has_cosmetic_tag = CZE_hussite_rep_expasion 
+						has_cosmetic_tag = CZE_HUSSITE_EURVPE 
+						has_cosmetic_tag = CZE_SVK_alt 
+						has_cosmetic_tag = CZE_SVK_alt_2 
+						has_cosmetic_tag = CZE_zapadoslavia 
+						has_cosmetic_tag = CZE_feminist 
+						has_cosmetic_tag = CZE_czechoslovakia_imperial 
+						has_cosmetic_tag = CZE_czechoslovakia_poland 
+						has_cosmetic_tag = CZE_kingdom 
+						has_cosmetic_tag = CZE_kingdom_2 
+						has_cosmetic_tag = CZE_kingdom_3 
+						has_cosmetic_tag = CZE_hussite_republic 
+						has_cosmetic_tag = CZE_hussite_republic_2 
+						has_cosmetic_tag = CZE_hussite_republic_3
+						has_cosmetic_tag = CZE_hussite_kingdom
+						has_cosmetic_tag = CZE_hussite_kingdom_2
+						has_cosmetic_tag = CZE_hussite_kingdom_3
+						has_cosmetic_tag = CZE_great_moravia
+						has_cosmetic_tag = CZE_schwarzenberg_tag
+						has_cosmetic_tag = CZE_lobkowicz_tag
+						has_cosmetic_tag = CZE_vlajka_alt
+						has_cosmetic_tag = CZE_vlajka_alt_boh
+						has_cosmetic_tag = CZE_agrarian_central_europe
+						has_cosmetic_tag = CZE_agrarian_danube_balkans
+						has_cosmetic_tag = CZE_agrarian_central_europe_federation
+						has_cosmetic_tag = CZE_agrarian_europe
+						has_cosmetic_tag = CZE_rusmon_puppet
+						has_cosmetic_tag = CZE_slov_rusmon_puppet
+					}
+				}
+				set_cosmetic_tag = CZE_czechoslovakia
+			}
+			set_country_flag = was_puppeted
+		}
+	}
 	option = { #Give to Austria
 		name = annex.122.d
 		trigger = {
@@ -18226,6 +18454,22 @@ country_event = { #The Conquest of Bohemia
 			transfer_territory_from_core_regions_and_add_cores = yes
 		}
 		else = { transfer_territory_from_core_regions = yes }
+	}
+	option = { #Austrian Post Collapse Release
+		name = annex.122.f
+		trigger = { tag = AUS }
+		ai_chance = {
+			factor = 30
+		}
+		set_temp_variable = { tag_to_release = CZE }
+		release_targeted_tag = yes
+		if = {
+			limit = { AUS_habsburg_in_charge = yes }
+			CZE = {
+				set_cosmetic_tag = CZE_habsburg
+				BOTDE_create_austrian_emperor = yes
+			}
+		}
 	}
 	option = { #integrate
 		name = annex.integration
@@ -21623,6 +21867,7 @@ country_event = { #Fate of Galicia
 			GAL = { 
 				remove_ideas = AUS_part_of_the_Empire
 				remove_ideas = GAL_karol_olbracht
+				GAL_remove_karl = yes
 			}
 			every_state = {
 				limit = {
@@ -23811,6 +24056,17 @@ country_event = { #Netherlands Liberation
 			limit = { tag = GER }
 			country_event = hol.4
 		}
+		else_if = {
+			limit = { tag = AUS }
+			HOL = {
+				set_cosmetic_tag = AUS_occupation_netherlands
+				set_politics = {
+					ruling_party = paternal_autocrat
+					name = AUS_occupation_generic_paternal_autocrat_party
+					long_name = AUS_occupation_generic_paternal_autocrat_party_long
+				}
+			}
+		}
 	}
 	option = { #Restore to the government in exile
 		name = annex.154.f
@@ -24826,6 +25082,17 @@ country_event = { #Fate of France
 				}
 			}
 		}
+		else_if = {
+			limit = { tag = AUS }
+			FRP = {
+				set_cosmetic_tag = AUS_occupation_france
+				set_politics = {
+					ruling_party = paternal_autocrat
+					name = AUS_occupation_generic_paternal_autocrat_party
+					long_name = AUS_occupation_generic_paternal_autocrat_party_long
+				}
+			}
+		}
 	}
 	option = {
 		name = annex.157.c #Liberate Bretagne and France
@@ -24961,6 +25228,28 @@ country_event = { #Fate of France
 			    }
 			}
 		}
+		else_if = {
+			limit = { tag = AUS }
+			FRP = {
+				set_cosmetic_tag = AUS_occupation_france
+				set_politics = {
+					ruling_party = paternal_autocrat
+					name = AUS_occupation_generic_paternal_autocrat_party
+					long_name = AUS_occupation_generic_paternal_autocrat_party_long
+				}
+			}
+		}
+		else_if = {
+			limit = { tag = AUS }
+			FRP = {
+				set_cosmetic_tag = AUS_occupation_france
+				set_politics = {
+					ruling_party = paternal_autocrat
+					name = AUS_occupation_generic_paternal_autocrat_party
+					long_name = AUS_occupation_generic_paternal_autocrat_party_long
+				}
+			}
+		}
 	}
 	option = {
 		name = annex.157.g #Divide France between the north and Occitania
@@ -25020,7 +25309,18 @@ country_event = { #Fate of France
 		puppet_released_tag = yes
 		OCC = {
 			set_cosmetic_tag = OCC_NOR
+		}
+		if = {
+			limit = { tag = AUS }
+			OCC = {
+				set_cosmetic_tag = AUS_occupation_occitania
+				set_politics = {
+					ruling_party = paternal_autocrat
+					name = AUS_occupation_generic_paternal_autocrat_party
+					long_name = AUS_occupation_generic_paternal_autocrat_party_long
+				}
 			}
+		}
 
 		every_state = {
 			limit = {
@@ -25114,6 +25414,17 @@ country_event = { #Fate of France
 					national_populist = 0
 				}
 			    }
+			}
+		}
+		else_if = {
+			limit = { tag = AUS }
+			FRP = {
+				set_cosmetic_tag = AUS_occupation_france
+				set_politics = {
+					ruling_party = paternal_autocrat
+					name = AUS_occupation_generic_paternal_autocrat_party
+					long_name = AUS_occupation_generic_paternal_autocrat_party_long
+				}
 			}
 		}
 	}
@@ -25222,8 +25533,19 @@ country_event = { #Fate of France
 
 		set_temp_variable = { tag_to_release = OCC }
 		puppet_released_tag = yes
-				OCC = {
-		set_cosmetic_tag = OCC_NOR
+		OCC = {
+			set_cosmetic_tag = OCC_NOR
+		}
+		if = {
+			limit = { tag = AUS }
+			OCC = {
+				set_cosmetic_tag = AUS_occupation_occitania
+				set_politics = {
+					ruling_party = paternal_autocrat
+					name = AUS_occupation_generic_paternal_autocrat_party
+					long_name = AUS_occupation_generic_paternal_autocrat_party_long
+				}
+			}
 		}
 
 		every_state = {
@@ -25318,6 +25640,17 @@ country_event = { #Fate of France
 					national_populist = 0
 				}
 			    }
+			}
+		}
+		else_if = {
+			limit = { tag = AUS }
+			FRP = {
+				set_cosmetic_tag = AUS_occupation_france
+				set_politics = {
+					ruling_party = paternal_autocrat
+					name = AUS_occupation_generic_paternal_autocrat_party
+					long_name = AUS_occupation_generic_paternal_autocrat_party_long
+				}
 			}
 		}
 
@@ -25544,6 +25877,17 @@ country_event = { #Fate of Southern France
 		puppet_released_tag = yes
 		OCC = {
 		set_cosmetic_tag = OCC_NOR
+		}
+		if = {
+			limit = { tag = AUS }
+			OCC = {
+				set_cosmetic_tag = AUS_occupation_occitania
+				set_politics = {
+					ruling_party = paternal_autocrat
+					name = AUS_occupation_generic_paternal_autocrat_party
+					long_name = AUS_occupation_generic_paternal_autocrat_party_long
+				}
+			}
 		}
 	}
 
@@ -26023,6 +26367,17 @@ country_event = { #Fate of Britain
 				}
 			}
 		}
+		else_if = {
+			limit = { tag = AUS }
+			GBP = {
+				set_cosmetic_tag = AUS_occupation_britain
+				set_politics = {
+					ruling_party = paternal_autocrat
+					name = AUS_occupation_generic_paternal_autocrat_party
+					long_name = AUS_occupation_generic_paternal_autocrat_party_long
+				}
+			}
+		}
 	}
 	option = { #divide all
 		name = annex.159.a
@@ -26101,6 +26456,45 @@ country_event = { #Fate of Britain
 
 		set_temp_variable = { tag_to_release = SCT }
 		release_targeted_tag = yes
+		if = {
+			limit = { tag = GER }
+			SCT = {
+				country_event = part.65
+			}
+			WAL = {
+				country_event = part.67
+			}
+			GBP = {
+				country_event = part.69
+			}
+		}
+		else_if = {
+			limit = { tag = AUS }
+			SCT = {
+				set_cosmetic_tag = AUS_occupation_scotland
+				set_politics = {
+					ruling_party = paternal_autocrat
+					name = AUS_occupation_generic_paternal_autocrat_party
+					long_name = AUS_occupation_generic_paternal_autocrat_party_long
+				}
+			}
+			WAL = {
+				set_cosmetic_tag = AUS_occupation_wales
+				set_politics = {
+					ruling_party = paternal_autocrat
+					name = AUS_occupation_generic_paternal_autocrat_party
+					long_name = AUS_occupation_generic_paternal_autocrat_party_long
+				}
+			}
+			GBP = {
+				set_cosmetic_tag = AUS_occupation_england
+				set_politics = {
+					ruling_party = paternal_autocrat
+					name = AUS_occupation_generic_paternal_autocrat_party
+					long_name = AUS_occupation_generic_paternal_autocrat_party_long
+				}
+			}
+		}
 		if = {
 			limit = { 
 				OR = {
@@ -34682,6 +35076,26 @@ country_event = { #Fate of Indonesia
 						popularity = 60
 					}
 				}
+				if = {
+					limit = { ROOT = { tag = AUS } }
+					every_state = {
+						limit = { 
+							is_core_of = BOR
+							is_owned_by_ROOT_or_ally = yes
+						}
+						transfer_state_to = BOR
+					}
+					AUS = { puppet = BOR }
+					BOR = {
+						set_cosmetic_tag = BOR_AUS
+						set_politics = {
+							ruling_party = paternal_autocrat
+							elections_allowed = no
+							name = BOR_AUS_paternal_autocrat_party
+							long_name = BOR_AUS_paternal_autocrat_party_long
+						}
+					}
+				}
 			}
 		}
 	}
@@ -35270,6 +35684,19 @@ country_event = { #Fate of Malaysia
 		}
 		set_temp_variable = { tag_to_release = SAR }
 		puppet_released_tag = yes
+		if = {
+			limit = { tag = AUS }
+			SAR = {
+				set_cosmetic_tag = SAR_AUS
+				set_politics = {
+					ruling_party = paternal_autocrat
+					elections_allowed = no
+					name = SAR_AUS_paternal_autocrat_party
+					long_name = SAR_AUS_paternal_autocrat_party_long
+				}
+			}
+		}
+
 		every_owned_state = {
 			limit = {
 				is_core_of = MLY
@@ -35879,7 +36306,20 @@ country_event = { # Palestine
 		ai_chance = {
 			factor = 20
 		}
-		create_dynamic_country = {
+		if = {
+			limit = {
+				has_country_flag = ISRAEL_FLAG
+			}
+			AUS_THE_KALERGI_PLAN_CAST_THY_BREAD = yes
+		}
+		else_if = {
+			limit = {
+				has_country_flag = JERUSALEM_FLAG
+			}
+			AUS_JERUSALEM_LEOPOLD_V_DREAM = yes
+		}
+		else = {
+			create_dynamic_country = {
 				original_tag = PAL
 				transfer_state = 992
 				add_state_core = 992
@@ -35950,7 +36390,7 @@ country_event = { # Palestine
 					expire = "1.1.1"
 					ideology = militarism_subtype
 				}
-				
+			}
 		}
 		var:454.owner = {
 			ROOT = { puppet = PREV }
@@ -39641,11 +40081,14 @@ country_event = { #The Fate of Northern Italy
 					set_politics = {
 						ruling_party = paternal_autocrat
 						elections_allowed = no
+						name = AUS_occupation_generic_paternal_autocrat_party
+						long_name = AUS_occupation_generic_paternal_autocrat_party_long
 					}
 					add_popularity = {
 						ideology = paternal_autocrat
 						popularity = 0.2
 					}
+					set_cosmetic_tag = AUS_occupation_italy
 					if = {
 						limit = { has_idea = ITA_republic_federation }
 						remove_ideas = ITA_republic_federation
@@ -40027,11 +40470,14 @@ country_event = { #The Fate of Italy
 					set_politics = {
 						ruling_party = paternal_autocrat
 						elections_allowed = no
+						name = AUS_occupation_generic_paternal_autocrat_party
+						long_name = AUS_occupation_generic_paternal_autocrat_party_long
 					}
 					add_popularity = {
 						ideology = paternal_autocrat
 						popularity = 0.2
 					}
+					set_cosmetic_tag = AUS_occupation_italy
 					if = {
 						limit = { has_idea = ITA_republic_federation }
 						remove_ideas = ITA_republic_federation
@@ -51102,6 +51548,63 @@ country_event = { #Fate of Fiume
 		}
 		occupy_tiny_country = yes
 		set_country_flag = FIUME_CONQ
+	}
+
+	option = { #restore fiume-zadar
+		name = annex.368.g
+		trigger = {
+			tag = AUS
+			is_ally_with = HUN
+			NOT = { has_global_flag = AUS_collapsed } 
+		}
+		1206 = {
+			transfer_state_to = FIU
+			add_core_of = FIU
+		}
+		hidden_effect = {
+			FIU = { get_current_government_type = yes }
+			HUN = {
+				set_autonomy = {
+					target = FIU
+					autonomy_state = botde_fiume
+				}
+				add_ideas = HUN_fiume_economy
+				if = {
+					limit = { AUS_DWV_member = yes }
+					FIU = { AUS_add_to_DWV = yes }
+				}
+			}
+			FIU = {
+				restore_previous_government_type = yes
+				add_ideas = {
+					FIU_Joseph_August_hog_pau
+					FIU_Szapary_Laszlo_for_pau
+					FIU_Fabinyi_Tihamer_eco_pau
+					FIU_Lajos_Csatay_sec_pau
+					AUS_part_of_the_Empire
+				}
+				set_war_support = 0.1
+				set_stability = 0.5
+				set_cosmetic_tag = FIU_hungarian_port
+				set_politics = {
+					ruling_party = authoritarian_democrat
+					elections_allowed = no
+				}
+				set_popularities = {
+				    totalist = 1
+				    radical_socialist = 3
+				    syndicalist = 7
+				    social_democrat = 3
+				    social_liberal = 3
+				    market_liberal = 7
+				    social_conservative = 14
+				    authoritarian_democrat = 38
+				    paternal_autocrat = 12
+				    national_populist = 12
+				}
+				set_country_leader_ideology = authdem_junta_subtype
+			}
+		}
 	}
 }
 country_event = { #Fate of Prijepolje
