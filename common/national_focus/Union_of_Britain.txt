@@ -9,6 +9,7 @@ focus_tree = {
 	}
 	default = no
 
+	shared_focus = ENG_ECO_nations_of_isle	
 	continuous_focus_position = { x = 3000 y = 2000 }
 
 	### Politics ###
@@ -1460,7 +1461,7 @@ focus_tree = {
 	focus = {
 		id = ENG_AUT_language_of_war
 		icon = GFX_goal_ENG_AUT_language_of_war
-		cost = 8
+		cost = 5
 		relative_position_id = ENG_AUT_first_step
 		x = -3
 		y = 1
@@ -1483,7 +1484,7 @@ focus_tree = {
 	focus = {
 		id = ENG_AUT_economic_balance
 		icon = GFX_goal_ENG_AUT_economic_balance
-		cost = 8
+		cost = 5
 		relative_position_id = ENG_AUT_first_step
 		x = 0
 		y = 1
@@ -1506,7 +1507,7 @@ focus_tree = {
 	focus = {
 		id = ENG_AUT_pick_chairmen
 		icon = GFX_goal_ENG_AUT_pick_chairmen
-		cost = 8
+		cost = 5
 		relative_position_id = ENG_AUT_first_step
 		x = 3
 		y = 1
@@ -2354,10 +2355,16 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_FED_maintain_cohesion"
+			add_popularity = {
+				ideology = syndicalist
+				popularity = 0.03
+			}
+			add_stability = 0.02
 			swap_ideas = {
 				remove_idea = ENG_Fractured_Union_Idea_1
 				add_idea = ENG_Fractured_Union_Idea_2
 			}
+			country_event = uob.513
 		}
 	}
 
@@ -2424,6 +2431,7 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_FED_discuss_WSPU"
+			add_manpower = 2000
 			country_event = {
 				id = uob.500
 				days = 6
@@ -2516,6 +2524,7 @@ focus_tree = {
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_FED_rationality_not_radicalism"
+			add_radsoc_to_coalition = yes
 			swap_ideas = {
 				remove_idea = ENG_Fractured_Union_Idea_1
 				add_idea = ENG_Fractured_Union_Idea_2
@@ -2543,6 +2552,12 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_FED_rework_the_old"
 			add_ideas = ENG_laski_idea_1
+			hidden_effect = {
+				country_event = {
+					id = uob.535
+					days = 200
+				}
+			}
 		}
 	}
 
@@ -5391,14 +5406,12 @@ focus_tree = {
 			focus = ENG_MAX_european_dream
 			focus = ENG_MAX_liberate_anglos
 		}
-
 		allow_branch = {
 			has_country_leader = {
 				name = "John Strachey"
 				ruling_only = yes
 			}
 		}
-
 		ai_will_do = { factor = 500 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_MAX_strachey_in_charge"
@@ -5417,9 +5430,6 @@ focus_tree = {
 		prerequisite = {
 			focus = ENG_MAX_european_dream
 			focus = ENG_MAX_liberate_anglos
-		}
-		available = {
-
 		}
 		allow_branch = {
 			has_country_leader = {
@@ -5447,9 +5457,6 @@ focus_tree = {
 			focus = ENG_MAX_european_dream
 			focus = ENG_MAX_liberate_anglos
 		}
-		available = {
-
-		}
 		allow_branch = {
 			has_country_leader = {
 				name = "Wilfred Risdon"
@@ -5476,9 +5483,6 @@ focus_tree = {
 			focus = ENG_MAX_european_dream
 			focus = ENG_MAX_liberate_anglos
 		}
-		available = {
-
-		}
 		allow_branch = {
 			has_country_leader = {
 				name = "Wyndham Lewis"
@@ -5496,7 +5500,7 @@ focus_tree = {
 	### Economy ###
 	focus = {
 		id = ENG_begin_economy
-		icon = GFX_goal_ENG_panic_in_london
+		icon = GFX_goal_ENG_begin_economy
 		cost = 0
 		x = 60
 		y = 21
@@ -5511,66 +5515,72 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 	focus = {
-		id = ENG_total_militarisation_eco
-		icon = GFX_goal_ENG_panic_in_london
+		id = ENG_ECO_coin_question
+		icon = GFX_goal_ENG_ECO_coin_question
 		cost = 5
 		relative_position_id = ENG_begin_economy
-		x = -3
+		x = -2
 		y = 1
 		prerequisite = {
 			focus = ENG_begin_economy
 		}
-		available = {
-
-		}
 		ai_will_do = { factor = 500 }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ENG_total_militarisation_eco"
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ECO_coin_question"
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 	focus = {
-		id = ENG_kickstart_heavy
-		icon = GFX_goal_ENG_panic_in_london
+		id = ENG_ECO_internationale_money
+		icon = GFX_goal_ENG_ECO_internationale_money
 		cost = 5
-		relative_position_id = ENG_total_militarisation_eco
+		relative_position_id = ENG_ECO_coin_question
 		x = -1
 		y = 1
 		prerequisite = {
-			focus = ENG_total_militarisation_eco
-		}
-		available = {
-
+			focus = ENG_ECO_coin_question
 		}
 		ai_will_do = { factor = 500 }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ENG_kickstart_heavy"
-			#add a couple mils + buff to mil construction speed
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ECO_internationale_money"
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 	focus = {
-		id = ENG_mixed_eco
-		icon = GFX_goal_ENG_panic_in_london
+		id = ENG_ECO_invest_in_allies
+		icon = GFX_goal_ENG_ECO_invest_in_allies
 		cost = 5
-		relative_position_id = ENG_begin_economy
-		x = -1
+		relative_position_id = ENG_ECO_internationale_money
+		x = 0
 		y = 1
 		prerequisite = {
-			focus = ENG_begin_economy
-		}
-		available = {
-
+			focus = ENG_ECO_internationale_money
 		}
 		ai_will_do = { factor = 500 }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ENG_mixed_eco"
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ECO_invest_in_allies"
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 	focus = {
-		id = ENG_agrarian_eco
-		icon = GFX_goal_ENG_panic_in_london
+		id = ENG_ECO_reverse_brain_drain
+		icon = GFX_goal_ENG_ECO_reverse_brain_drain
+		cost = 5
+		relative_position_id = ENG_ECO_coin_question
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = ENG_ECO_coin_question
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ECO_reverse_brain_drain"
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = ENG_ECO_garden_cities
+		icon = GFX_goal_ENG_ECO_garden_cities
 		cost = 5
 		relative_position_id = ENG_begin_economy
 		x = 1
@@ -5578,18 +5588,20 @@ focus_tree = {
 		prerequisite = {
 			focus = ENG_begin_economy
 		}
-		available = {
-
+		mutually_exclusive = {
+			focus = ENG_ECO_urban_sprawl
 		}
 		ai_will_do = { factor = 500 }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ENG_agrarian_eco"
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ECO_garden_cities"
+			#https://en.wikipedia.org/wiki/Welwyn_Garden_City
+			#https://en.wikipedia.org/wiki/Letchworth
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 	focus = {
-		id = ENG_civ_eco
-		icon = GFX_goal_ENG_panic_in_london
+		id = ENG_ECO_urban_sprawl
+		icon = GFX_goal_ENG_ECO_urban_sprawl
 		cost = 5
 		relative_position_id = ENG_begin_economy
 		x = 3
@@ -5597,15 +5609,335 @@ focus_tree = {
 		prerequisite = {
 			focus = ENG_begin_economy
 		}
-		available = {
-
+		mutually_exclusive = {
+			focus = ENG_ECO_garden_cities
 		}
 		ai_will_do = { factor = 500 }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ENG_civ_eco"
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ECO_urban_sprawl"
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
+	focus = {
+		id = ENG_ECO_mobilise_workers
+		icon = GFX_goal_ENG_ECO_mobilise_workers
+		cost = 5
+		relative_position_id = ENG_begin_economy
+		x = 0
+		y = 3
+		prerequisite = {
+			focus = ENG_begin_economy
+		}
+
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ECO_mobilise_workers"
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = ENG_ECO_military
+		icon = GFX_goal_ENG_ECO_military
+		cost = 5
+		relative_position_id = ENG_ECO_mobilise_workers
+		x = -3
+		y = 1
+		prerequisite = {
+			focus = ENG_ECO_mobilise_workers
+		}
+		mutually_exclusive = {
+			focus = ENG_ECO_agrarian
+			focus = ENG_ECO_future
+			focus = ENG_ECO_public
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ECO_military"
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+		focus = {
+		id = ENG_ECO_war_without_weapons
+		icon = GFX_goal_ENG_ECO_war_without_weapons
+		cost = 5
+		relative_position_id = ENG_ECO_military
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = ENG_ECO_military
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ECO_war_without_weapons"
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = ENG_ECO_northern_oil
+		icon = GFX_goal_ENG_ECO_northern_oil
+		cost = 5
+		relative_position_id = ENG_ECO_military
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = ENG_ECO_military
+			focus = ENG_ECO_future
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ECO_northern_oil"
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = ENG_ECO_future
+		icon = GFX_goal_ENG_ECO_future
+		cost = 5
+		relative_position_id = ENG_ECO_mobilise_workers
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = ENG_ECO_mobilise_workers
+		}
+		mutually_exclusive = {
+			focus = ENG_ECO_agrarian
+			focus = ENG_ECO_military
+			focus = ENG_ECO_public
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ECO_future"
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = ENG_ECO_consistency_and_evolution
+		icon = GFX_goal_ENG_ECO_consistency_and_evolution
+		cost = 5
+		relative_position_id = ENG_ECO_future
+		x = -1
+		y = 2
+		prerequisite = {
+			focus = ENG_ECO_future
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ECO_consistency_and_evolution"
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = ENG_ECO_totally_not_just_the_nhs
+		icon = GFX_goal_ENG_ECO_totally_not_just_the_nhs
+		cost = 5
+		relative_position_id = ENG_ECO_future
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = ENG_ECO_public
+			focus = ENG_ECO_future
+			focus = ENG_ECO_military
+			focus = ENG_ECO_agrarian
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ECO_totally_not_just_the_nhs"
+			#https://en.wikipedia.org/wiki/Cowdray_Club
+			#https://en.wikipedia.org/wiki/Royal_College_of_Nursing
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = ENG_ECO_public
+		icon = GFX_goal_ENG_ECO_public
+		cost = 5
+		relative_position_id = ENG_ECO_mobilise_workers
+		x = 2
+		y = 1
+		prerequisite = {
+			focus = ENG_ECO_mobilise_workers
+		}
+		mutually_exclusive = {
+			focus = ENG_ECO_agrarian
+			focus = ENG_ECO_future
+			focus = ENG_ECO_military
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ECO_public"
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = ENG_ECO_slums_begone
+		icon = GFX_goal_ENG_ECO_slums_begone
+		cost = 5
+		relative_position_id = ENG_ECO_public
+		x = 1
+		y = 2
+		prerequisite = {
+			focus = ENG_ECO_public
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ECO_slums_begone"
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = ENG_ECO_rural_development
+		icon = GFX_goal_ENG_ECO_rural_development
+		cost = 5
+		relative_position_id = ENG_ECO_public
+		x = 2
+		y = 1
+		prerequisite = {
+			focus = ENG_ECO_public
+			focus = ENG_ECO_agrarian
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ECO_rural_development"
+			#improved by garden cities focus
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = ENG_ECO_agrarian
+		icon = GFX_goal_ENG_ECO_agrarian
+		cost = 5
+		relative_position_id = ENG_ECO_mobilise_workers
+		x = 5
+		y = 1
+		prerequisite = {
+			focus = ENG_ECO_mobilise_workers
+		}
+		mutually_exclusive = {
+			focus = ENG_ECO_military
+			focus = ENG_ECO_future
+			focus = ENG_ECO_public
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ECO_agrarian"
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = ENG_ECO_back_to_roots
+		icon = GFX_goal_ENG_ECO_back_to_roots
+		cost = 5
+		relative_position_id = ENG_ECO_agrarian
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = ENG_ECO_agrarian
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ECO_back_to_roots"
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = ENG_ECO_second_revolution
+		icon = GFX_goal_ENG_ECO_second_revolution
+		cost = 5
+		relative_position_id = ENG_ECO_totally_not_just_the_nhs
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = ENG_ECO_totally_not_just_the_nhs
+		}
+		prerequisite = {
+			focus = ENG_ECO_northern_oil
+			focus = ENG_ECO_rural_development
+		}
+		prerequisite = {
+			focus = ENG_ECO_war_without_weapons
+			focus = ENG_ECO_consistency_and_evolution
+			focus = ENG_ECO_slums_begone
+			focus = ENG_ECO_back_to_roots
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ECO_second_revolution"
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = ENG_ECO_national_grid #could maybe make this focus about connecting 
+		#the country as a whole, rather then specifically about electricity
+		icon = GFX_goal_ENG_ECO_national_grid
+		cost = 5
+		relative_position_id = ENG_begin_economy
+		x = 5
+		y = 1
+		prerequisite = {
+			focus = ENG_begin_economy
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ECO_national_grid"
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = ENG_ECO_battersea_plant
+		icon = GFX_goal_ENG_ECO_battersea_plant
+		cost = 5
+		relative_position_id = ENG_ECO_national_grid
+		x = -2
+		y = 1
+		prerequisite = {
+			focus = ENG_ECO_national_grid
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ECO_battersea_plant"
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = ENG_ECO_howden_plant
+		icon = GFX_goal_ENG_ECO_howden_plant
+		cost = 5
+		relative_position_id = ENG_ECO_national_grid
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = ENG_ECO_national_grid
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ECO_howden_plant"
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = ENG_ECO_central_leccy_board
+		icon = GFX_goal_ENG_ECO_central_leccy_board
+		cost = 5
+		relative_position_id = ENG_ECO_battersea_plant
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = ENG_ECO_howden_plant
+			focus = ENG_ECO_battersea_plant
+		}
+		ai_will_do = { factor = 500 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ENG_ECO_central_leccy_board"
+			#https://en.wikipedia.org/wiki/Central_Electricity_Board
+			#https://en.wikipedia.org/wiki/Electricity_Commissioners
+			#https://en.wikipedia.org/wiki/London_and_Home_Counties_Joint_Electricity_Authority
+			#theres a fucking billion different electric boards and management things good lord
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+
+	##old
 	focus = {# The Common Land
 		id = ENG_the_common_land
 		icon = GFX_RUS_National_Agrarian_Fund
@@ -6137,7 +6469,6 @@ focus_tree = {
 		icon = GFX_goal_ENG_begin_army
 		cost = 2
 		available = {
-			always = no
 			has_completed_focus = ENG_end_the_tuc
 		}
 
@@ -6146,14 +6477,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 500
-			modifier = {
-				add = 100
-				has_war = yes
-			}
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_begin_army"
@@ -6183,13 +6510,14 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 			modifier = { factor = 0.3 NOT = { has_country_flag = ENG_MAX_mil_plan } }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_out_run"
+			set_country_flag = ENG_Mobile_Warfare_Strategy_Start_Doctrine
 			if = {
 				limit = {
 					has_completed_focus = ENG_end_the_tuc
@@ -6234,9 +6562,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_hobart_funnies"
@@ -6284,9 +6612,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_fuel_needed"
@@ -6335,13 +6663,15 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_crash_through_wall"
+			set_country_flag = ENG_Mobile_Warfare_Strategy_Martel_Doctrine
 			add_tech_bonus = {
+				name = ENG_crash_through_wall
 				bonus = 0.25
 				uses = 1
 				category = cat_heavy_armor
@@ -6384,13 +6714,15 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_liddell_hart_indirect"
+			set_country_flag = ENG_Mobile_Warfare_Strategy_Hart_Doctrine
 			add_tech_bonus = {
+				name = ENG_liddell_hart_indirect
 				bonus = 0.25
 				uses = 1
 				category = cat_light_armor
@@ -6434,12 +6766,13 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_bigger_guns_better_method"
+			army_experience = 25
 			if = {
 				limit = {
 					OR = {
@@ -6502,9 +6835,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_steel_titans"
@@ -6529,9 +6862,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_mot_or_mech"
@@ -6558,14 +6891,14 @@ focus_tree = {
 			focus = ENG_mot_or_mech
 		}
 		available = {
-			has_mastery = { track = armor amount = 400 }
+			has_mastery = { track = armor amount = 250 }
 		}
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_mot_or_mech"
@@ -6632,13 +6965,14 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 			modifier = { factor = 0.3 NOT = { has_country_flag = ENG_BSP_mil_plan } }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_out_number"
+			set_country_flag = ENG_Mass_Assault_Strategy_Doctrine
 			if = {
 				limit = {
 					has_completed_focus = ENG_end_the_tuc
@@ -6674,9 +7008,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_man_need_rifle"
@@ -6720,9 +7054,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_disrupt_and_disorganise"
@@ -6760,9 +7094,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_fools_rush_in"
@@ -6792,9 +7126,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_humble_bayonet"
@@ -6839,13 +7173,14 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_man_need_rifle"
 			add_command_power = 20
+			army_experience = 10
 			add_ideas = ENG_mil_frontline_officer_idea
 		}
 		search_filters = { FOCUS_FILTER_ARMY_BONUS }
@@ -6870,14 +7205,14 @@ focus_tree = {
 			focus = ENG_fools_rush_in
 		}
 		available = {
-			has_mastery = { track = infantry amount = 400 }
+			has_mastery = { track = infantry amount = 250 }
 		}
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_great_red_wave"
@@ -6928,13 +7263,14 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 			modifier = { factor = 0.3 NOT = { has_country_flag = ENG_AUT_mil_plan } }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_out_think"
+			set_county_flag = ENG_Grand_Battleplan_Strategy_Doctrine
 			if = {
 				limit = {
 					has_completed_focus = ENG_end_the_tuc
@@ -6968,9 +7304,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_soldier_knows"
@@ -7004,9 +7340,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_adaptive_planning"
@@ -7047,13 +7383,14 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_inter_branch"
 			air_experience = 30
+			army_experience = 30
 			add_tech_bonus = {
 				name = ENG_inter_branch
 				category = air_equipment
@@ -7083,9 +7420,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_battlefield_vision"
@@ -7118,14 +7455,14 @@ focus_tree = {
 			focus = ENG_battlefield_vision
 		}
 		available = {
-			has_mastery = { track = operations amount = 400 }
+			has_mastery = { track = operations amount = 250 }
 		}
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_situational_dominance"
@@ -7156,13 +7493,14 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 			modifier = { factor = 0.3 NOT = { has_country_flag = ENG_WSPU_mil_plan } }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_out_gun"
+			set_country_flag = ENG_Superior_Firepower_Strategy_Doctrine
 			if = {
 				limit = {
 					has_completed_focus = ENG_end_the_tuc
@@ -7196,12 +7534,13 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_weltkrieg_lesson"
+			army_experience = 20
 			add_doctrine_cost_reduction = {
 				cost_reduction = 0.25
 				category = land_doctrine
@@ -7234,9 +7573,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_weltkrieg_lesson"
@@ -7272,9 +7611,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_littlejohn_adapter"
@@ -7312,9 +7651,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_boche_busters"
@@ -7363,9 +7702,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_weltkrieg_lesson"
@@ -7400,17 +7739,18 @@ focus_tree = {
 			focus = ENG_expand_counter_battery
 		}
 		available = {
-			has_mastery = { track = combat_support amount = 400 }
+			has_mastery = { track = combat_support amount = 250 }
 		}
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_boche_busters"
+			army_experience = 15
 			swap_ideas = {
 				remove_idea = ENG_mil_medic_shock_and_horror_idea
 				add_idea = ENG_mil_earth_and_mind_idea
@@ -7437,13 +7777,14 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 			modifier = { factor = 0.3 NOT = { has_country_flag = ENG_FED_mil_plan } }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_out_class"
+			set_country_flag = ENG_Out_Class_Strategy_Start_Doctrine
 			if = {
 				limit = {
 					has_completed_focus = ENG_end_the_tuc
@@ -7477,9 +7818,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_heart_of_any_war"
@@ -7501,15 +7842,19 @@ focus_tree = {
 		prerequisite = { 
 			focus = ENG_out_class
 		}
+		available = {
+			NOT = { has_completed_focus = ENG_refine_militia }
+		}
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_calvert_plan"
+			set_country_flag = ENG_Out_Class_Strategy_Calvert_Doctrine
 			add_ideas = ENG_mil_calvert_idea
 			add_doctrine_cost_reduction = {
 				name = ENG_calvert_plan
@@ -7531,15 +7876,19 @@ focus_tree = {
 		prerequisite = { 
 			focus = ENG_out_class
 		}
+		available = {
+			NOT = { has_completed_focus = ENG_calvert_plan }
+		}
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_refine_militia"
+			set_country_flag = ENG_Out_Class_Strategy_Militia_Doctrine
 			swap_ideas = {
 				remove_idea = ENG_militia_idea
 				add_idea = ENG_mil_militia_reformed_idea
@@ -7571,9 +7920,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_layforce"
@@ -7620,9 +7969,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_study_insurgents"
@@ -7684,9 +8033,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_rapid_redeployment"
@@ -7720,13 +8069,14 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_morale_da_best"
-			add_ideas = ENG_mil_why_we_fight_idea
+			army_experience = 20
+			add_ideas =  ENG_mil_why_we_fight_idea
 			#https://en.wikipedia.org/wiki/Army_Kinematograph_Service
 		}
 		search_filters = { FOCUS_FILTER_ARMY_BONUS }
@@ -7751,9 +8101,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_only_a_scalpel"
@@ -7786,9 +8136,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 500
 			modifier = { add = 100 has_war = yes }
-			modifier = { add = 50 date > 1937.1.1 }
-			modifier = { add = 50 date > 1938.1.1 }
-			modifier = { add = 50 date > 1939.1.1 }
+			modifier = { add = 100 date > 1937.1.1 }
+			modifier = { add = 100 date > 1938.1.1 }
+			modifier = { add = 100 date > 1939.1.1 }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus ENG_morale_da_best"
@@ -7839,7 +8189,7 @@ focus_tree = {
 		}
 		cost = 5.00
 
-		x = 67
+		x = 62
 		y = 8
 
 		available = {
@@ -8517,7 +8867,7 @@ focus_tree = {
 		}
 		cost = 5.00
 
-		x = 53
+		x = 52
 		y = 8
 
 		available = {

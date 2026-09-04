@@ -1,0 +1,438 @@
+shared_focus = {
+	id = ENG_ECO_nations_of_isle
+	icon = GFX_goal_ENG_ECO_nations_of_isle
+	text_icon = joint_focus_style
+	cost = 5
+	x = -1
+	y = 1
+
+	offset = {
+		x = 13
+		y = 7
+		trigger = { original_tag = WAL }
+	}
+	offset = {
+		x = 15
+		y = 5
+		trigger = { original_tag = SCT }
+	}
+	offset = {
+		x = 70
+		y = 22
+		trigger = { original_tag = ENG }
+	}
+	available = {
+		if = {
+			limit = { 
+				OR = {
+					original_tag = SCT 
+					original_tag = WAL
+				}
+			}
+			ENG = {
+				has_socialist_government = yes
+			}
+			OR = {
+				is_subject_of = ENG
+				is_in_faction_with = ENG
+				AND = {
+					NOT = {
+						has_war_with = ENG
+					}
+					has_socialist_government = yes
+				}
+			}
+		}
+		else_if = {
+			limit = { original_tag = ENG }
+			OR = {
+				SCT = {
+					exists = yes
+					OR = {
+						is_subject_of = ENG
+						is_in_faction_with = ENG
+						AND = {
+							NOT = {
+								has_war_with = ENG
+							}
+							has_socialist_government = yes
+						}
+					}
+					
+				}
+				WAL = {
+					exists = yes
+					OR = {
+						is_subject_of = ENG
+						is_in_faction_with = ENG
+						AND = {
+							NOT = {
+								has_war_with = ENG
+							}
+							has_socialist_government = yes
+						}
+					}
+				}
+			}
+		}
+	}
+	prerequisite = {
+		focus = ENG_begin_economy
+		focus = SCT_economy_start
+		focus = WAL_power_in_a_union
+		focus = WAL_what_could_have_been
+		focus = WAL_new_republic
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ENG_ECO_nations_of_isle"
+		add_political_power = 50
+	}
+}
+joint_focus = {
+	id = UOB_scottish_industry
+	icon = GFX_goal_UOB_scottish_industry
+	text_icon = joint_focus_style
+	cost = 4
+	relative_position_id = ENG_ECO_nations_of_isle
+	x = -2
+	y = 1
+	prerequisite = {
+		focus = ENG_ECO_nations_of_isle
+	}
+	available = {
+		SCT = {
+			exists = yes
+			has_socialist_government = yes
+		}
+		if = {
+			limit = { 
+				OR = {
+					original_tag = WAL
+					original_tag = ENG
+				}
+			}
+			OR = {
+				is_in_faction_with = SCT
+				AND = {
+					NOT = {
+						has_war_with = SCT
+					}
+					has_socialist_government = yes
+				}
+			}
+		}
+	}
+	ai_will_do = { factor = 500 }
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus UOB_scottish_industry"
+		#add damn in whatever state https://en.wikipedia.org/wiki/Tummel_hydro-electric_power_scheme
+		#can talk about https://en.wikipedia.org/wiki/William_Halcrow for tunnels and https://en.wikipedia.org/wiki/Kinlochleven_hydroelectric_scheme
+	}
+}
+joint_focus = { #scotland has a shitload of mountains so theyre good at building bridges
+	id = UOB_home_of_engineers
+	icon = GFX_goal_UOB_home_of_engineers
+	text_icon = joint_focus_style
+	cost = 4
+	relative_position_id = UOB_scottish_industry
+	x = 0
+	y = 1
+	prerequisite = {
+		focus = UOB_scottish_industry
+	}
+	available = {
+		SCT = {
+			exists = yes
+			has_socialist_government = yes
+		}
+		if = {
+			limit = { 
+				OR = {
+					original_tag = WAL
+					original_tag = ENG
+				}
+			}
+			OR = {
+				is_in_faction_with = SCT
+				AND = {
+					NOT = {
+						has_war_with = SCT
+					}
+					has_socialist_government = yes
+				}
+			}
+		}
+	}
+	ai_will_do = { factor = 500 }
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus UOB_home_of_engineers"
+	}
+}
+joint_focus = {
+	id = UOB_english_industry
+	icon = GFX_goal_UOB_english_industry
+	text_icon = joint_focus_style
+	cost = 4
+	relative_position_id = ENG_ECO_nations_of_isle
+	x = 0
+	y = 1
+	prerequisite = {
+		focus = ENG_ECO_nations_of_isle
+	}
+	available = {
+		ENG = {
+			exists = yes
+			has_socialist_government = yes
+		}
+		if = {
+			limit = { 
+				OR = {
+					original_tag = SCT
+					original_tag = WAL
+				}
+			}
+			OR = {
+				is_in_faction_with = ENG
+				AND = {
+					NOT = {
+						has_war_with = ENG
+					}
+					has_socialist_government = yes
+				}
+			}
+		}
+	}
+	ai_will_do = { factor = 500 }
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus UOB_english_industry"
+	}
+}
+
+joint_focus = {
+	id = UOB_heart_of_nation
+	icon = GFX_goal_UOB_heart_of_nation
+	text_icon = joint_focus_style
+	cost = 4
+	relative_position_id = UOB_english_industry
+	x = 0
+	y = 1
+	prerequisite = {
+		focus = UOB_english_industry
+	}
+	available = {
+		ENG = {
+			exists = yes
+			has_socialist_government = yes
+		}
+		if = {
+			limit = { 
+				OR = {
+					original_tag = SCT
+					original_tag = WAL
+				}
+			}
+			OR = {
+				is_in_faction_with = ENG
+				AND = {
+					NOT = {
+						has_war_with = ENG
+					}
+					has_socialist_government = yes
+				}
+			}
+		}
+	}
+	ai_will_do = { factor = 500 }
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus UOB_heart_of_nation"
+	}
+}
+joint_focus = {
+	id = UOB_welsh_industry
+	icon = GFX_goal_UOB_welsh_industry
+	text_icon = joint_focus_style
+	cost = 4
+	relative_position_id = ENG_ECO_nations_of_isle
+	x = 2
+	y = 1
+	prerequisite = {
+		focus = ENG_ECO_nations_of_isle
+	}
+	available = {
+		WAL = {
+			exists = yes
+			has_socialist_government = yes
+		}
+		if = {
+			limit = { 
+				OR = {
+					original_tag = SCT
+					original_tag = ENG
+				}
+			}
+			OR = {
+				is_in_faction_with = WAL
+				AND = {
+					NOT = {
+						has_war_with = WAL
+					}
+					has_socialist_government = yes
+				}
+			}
+		}
+	}
+	ai_will_do = { factor = 500 }
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus UOB_welsh_industry"
+	}
+}
+joint_focus = {
+	id = UOB_land_that_fuels
+	icon = GFX_goal_UOB_land_that_fuels
+	text_icon = joint_focus_style
+	cost = 4
+	relative_position_id = UOB_welsh_industry
+	x = 0
+	y = 1
+	prerequisite = {
+		focus = UOB_welsh_industry
+	}
+	available = {
+		WAL = {
+			exists = yes
+			has_socialist_government = yes
+		}
+		if = {
+			limit = { 
+				OR = {
+					original_tag = SCT
+					original_tag = ENG
+				}
+			}
+			OR = {
+				is_in_faction_with = WAL
+				AND = {
+					NOT = {
+						has_war_with = WAL
+					}
+					has_socialist_government = yes
+				}
+			}
+		}
+	}
+	ai_will_do = { factor = 500 }
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus UOB_land_that_fuels"
+	}
+}
+
+joint_focus = {
+	id = UOB_great_british_trade_zone
+	icon = GFX_goal_UOB_great_british_trade_zone
+	text_icon = joint_focus_style
+	cost = 4
+	relative_position_id = UOB_heart_of_nation
+	x = -1
+	y = 1
+	prerequisite = {
+		focus = UOB_land_that_fuels
+	}
+	prerequisite = {
+		focus = UOB_heart_of_nation
+	}
+	prerequisite = {
+		focus = UOB_home_of_engineers
+	}
+	available = {
+		if = {
+			limit = { 
+				OR = {
+					original_tag = SCT 
+					original_tag = WAL
+				}
+			}
+			ENG = {
+				has_socialist_government = yes
+			}
+			OR = {
+				is_subject_of = ENG
+				is_in_faction_with = ENG
+				AND = {
+					NOT = {
+						has_war_with = ENG
+					}
+					has_socialist_government = yes
+				}
+			}
+		}
+		else_if = {
+			limit = { original_tag = ENG }
+			OR = {
+				SCT = {
+					exists = yes
+					OR = {
+						is_subject_of = ENG
+						is_in_faction_with = ENG
+						AND = {
+							NOT = {
+								has_war_with = ENG
+							}
+							has_socialist_government = yes
+						}
+					}
+					
+				}
+				WAL = {
+					exists = yes
+					OR = {
+						is_subject_of = ENG
+						is_in_faction_with = ENG
+						AND = {
+							NOT = {
+								has_war_with = ENG
+							}
+							has_socialist_government = yes
+						}
+					}
+				}
+			}
+		}
+	}
+	ai_will_do = { factor = 500 }
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus UOB_great_british_trade_zone"
+		if = {
+			limit = {
+				OR = {
+					original_tag = SCT
+					original_tag = WAL
+				}
+			}
+			custom_effect_tooltip = ENG_home_nation_create_eco_zone_tt
+		}
+	}
+}
+joint_focus = {
+	id = UOB_connect_capitals
+	icon = GFX_goal_UOB_connect_capitals
+	text_icon = joint_focus_style
+	cost = 4
+	relative_position_id = UOB_heart_of_nation
+	x = 1
+	y = 1
+	prerequisite = {
+		focus = UOB_land_that_fuels
+	}
+	prerequisite = {
+		focus = UOB_heart_of_nation
+	}
+	prerequisite = {
+		focus = UOB_home_of_engineers
+	}
+	ai_will_do = { factor = 500 }
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus UOB_connect_capitals"
+	}
+}
+#focus for railways between capitals, another focus for an economic zone if youre not already in one

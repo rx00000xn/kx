@@ -1053,7 +1053,7 @@ country_event = { #Anarchist autonomist coalition
 		ai_chance = {
 			base = 90
 		}
-		add_stability = -0.08
+		add_stability = -0.05
 		add_political_power = -15
 	}
 }
@@ -1136,7 +1136,7 @@ country_event = { #End of the TUC - Hardliners/BSP
 country_event = { #End of the TUC - Autonomists
 	id = uob.15
 	title = uob.13.t
-	desc = uob.13.d
+	desc = uob.13.d #need to add a second description accounting for the coalition
 	picture = GFX_report_event_generic_diplomacy3
 	is_triggered_only = yes
 	fire_only_once = yes
@@ -1245,10 +1245,10 @@ country_event = { #End of the TUC - Federationists
 				ruling_party = syndicalist
 			}
 			set_party_name = {
-					ideology = syndicalist
-					long_name = ENG_FED_syndicalist_party_new_long
-					name = ENG_FED_syndicalist_party_new
-				}
+				ideology = syndicalist
+				long_name = ENG_FED_syndicalist_party_new_long
+				name = ENG_FED_syndicalist_party_new
+			}
 		}
 		custom_effect_tooltip = general_minister_change_tt
 		remove_all_ministers = yes
@@ -1567,12 +1567,7 @@ country_event = { #Union Collapse/home nations break free
 			}
 			set_cosmetic_tag = ENG_BSP_England
 		}
-		hidden_effect = {
-		country_event = {
-			id = uob.507
-			days = 45
-		}
-		}
+
 	}
 	option = {#Bad news
 		name = uob.20.a
@@ -6467,7 +6462,7 @@ country_event = {#dora marsden more influential
 	option = {
 		name = uob.309.a
 		ai_chance = {
-			base = 50
+			base = 20
 		}
 		remove_ideas_with_trait = head_of_government
 		add_ideas = ENG_Dora_Marsden_hog_rso
@@ -6501,7 +6496,7 @@ country_event = {#women criticise aldred
 	option = {
 		name = uob.310.a
 		ai_chance = {
-			base = 50
+			base = 10
 		}
 		add_political_power = -40
 		add_stability = -0.05
@@ -6567,27 +6562,256 @@ country_event = {#do education reform?
 	option = {
 		name = uob.312.a
 		ai_chance = {
-			base = 50
+			base = 90
 		}
-		add_political_power = -25
+		add_political_power = -30
 		add_ideas = ENG_ANA_education_reform_idea
 		custom_effect_tooltip = ENG_ANA_reforms_complete_after
 		hidden_effect = {
 			country_event = {
-				id = uob.313
-				days = 340
+				id = uob.3121
+				days = 50
 			}
 		}
 	}
 	option = {
 		name = uob.312.b
 		ai_chance = {
-			base = 50
+			base = 10
 		}
 		add_political_power = 50
 	}
 }
 
+country_event = {#education reform 1 - centralised or decentralised curriculum
+	id = uob.3121
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.3121" }
+	title = uob.3121.t
+	desc = uob.3121.d
+	picture = GFX_report_event_WHR_schools
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = uob.3121.a #centralise curriculum
+		ai_chance = {
+			base = 50
+		}
+		custom_effect_tooltip = ENG_ANA_education_1_a_tt
+		add_to_variable = { ENG.ENG_ANA_research_speed_factor = 0.05 }
+		add_to_variable = { ENG.ENG_ANA_stability_factor = -0.05 }
+	}
+	option = {
+		name = uob.3121.b #decentralise curriculum
+		ai_chance = {
+			base = 50
+		}
+		custom_effect_tooltip = ENG_ANA_education_1_b_tt
+		add_to_variable = { ENG.ENG_ANA_scientist_breakthrough_bonus_factor = 0.10 }
+		add_to_variable = { ENG.ENG_ANA_research_speed_factor = -0.05 }
+		
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = uob.3122
+				days = 90
+			}
+		}
+	}
+}
+
+country_event = {#education reform 2 - academic vs artistic
+	id = uob.3122
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.3122" }
+	title = uob.3122.t
+	desc = uob.3122.d
+	picture = GFX_report_event_WHR_schools
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = uob.3122.a #academic focus
+		ai_chance = {
+			base = 50
+		}
+		custom_effect_tooltip = ENG_ANA_education_2_a_tt
+		add_to_variable = { ENG.ENG_ANA_production_factory_efficiency_gain_factor = 0.05 }
+		add_to_variable = { ENG.ENG_ANA_political_power_factor = -0.05 }
+		effect_tooltip = {
+			add_dynamic_modifier = {
+				modifier = ENG_summerhill_modifier
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = uob.3123
+				days = 90
+			}
+		}
+	}
+	option = {
+		name = uob.3122.b #articstic focus
+		ai_chance = {
+			base = 50
+		}
+		custom_effect_tooltip = ENG_ANA_education_2_b_tt
+		add_to_variable = { ENG.ENG_ANA_radical_socialist_drift = 0.03 }
+		add_to_variable = { ENG.ENG_ANA_monthly_population = 0.05}
+		effect_tooltip = {
+			add_dynamic_modifier = {
+				modifier = ENG_summerhill_modifier
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = uob.3123
+				days = 90
+			}
+		}
+	}
+	option = {
+		name = uob.3122.c #good enough
+		ai_chance = {
+			base = 5
+		}
+		add_stability = -0.06
+		remove_ideas = ENG_ANA_education_reform_idea
+		add_dynamic_modifier = {
+			modifier = ENG_summerhill_modifier
+		}
+		
+	}
+}
+
+country_event = {#education reform 3 - classes big or small
+	id = uob.3123
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.3123" }
+	title = uob.3123.t
+	desc = uob.3123.d
+	picture = GFX_report_event_WHR_schools
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = uob.3123.a #smaller classes
+		ai_chance = {
+			base = 50
+		}		
+		custom_effect_tooltip = ENG_ANA_education_3_a_tt
+		add_to_variable = { ENG.ENG_ANA_army_leader_start_level = 1 }
+		add_to_variable = { ENG.ENG_ANA_navy_leader_start_level = 1 }
+		add_to_variable = { ENG.ENG_ANA_political_power_factor = -0.05 }
+		add_to_variable = { ENG.ENG_ANA_civilian_factory_use = 2 }
+		effect_tooltip = {
+			add_dynamic_modifier = {
+				modifier = ENG_summerhill_modifier
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = uob.3124
+				days = 90
+			}
+		}
+	}
+	option = {
+		name = uob.3123.b #bigger classes
+		ai_chance = {
+			base = 50
+		}
+		custom_effect_tooltip = ENG_ANA_education_3_b_tt
+		add_to_variable = { ENG.ENG_ANA_stability_factor = 0.05 }
+		add_to_variable = { ENG.ENG_ANA_political_power_factor = 0.05 }
+		add_to_variable = { ENG.ENG_ANA_research_speed_factor = -0.05 }
+		effect_tooltip = {
+			add_dynamic_modifier = {
+				modifier = ENG_summerhill_modifier
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = uob.3124
+				days = 90
+			}
+		}
+	}
+	option = {
+		name = uob.3123.c #good enough
+		ai_chance = {
+			base = 5
+		}
+		add_stability = -0.06
+		remove_ideas = ENG_ANA_education_reform_idea
+		add_dynamic_modifier = {
+			modifier = ENG_summerhill_modifier
+		}
+		
+	}
+}
+
+country_event = {#education reform 4 - school meals
+	id = uob.3124
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.3124" }
+	title = uob.3124.t
+	desc = uob.3124.d
+	picture = GFX_report_event_WHR_schools
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = uob.3124.a #Free food 
+		ai_chance = {
+			base = 50
+		}
+		custom_effect_tooltip = ENG_ANA_education_4_a_tt
+		add_to_variable = { ENG.ENG_ANA_monthly_population = 0.05 }
+		add_to_variable = { ENG.ENG_ANA_research_speed_factor = 0.05 }
+		add_to_variable = { ENG.ENG_ANA_stability_factor = 0.05 }
+		add_to_variable = { ENG.ENG_ANA_political_power_factor = -0.05 }
+		effect_tooltip = {
+			add_dynamic_modifier = {
+				modifier = ENG_summerhill_modifier
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = uob.313
+				days = 30
+			}
+		}
+	}
+	option = {
+		name = uob.3124.b #fuck you no free food
+		ai_chance = {
+			base = 50
+		}
+		custom_effect_tooltip = ENG_ANA_education_4_b_tt
+		add_to_variable = { ENG.ENG_ANA_political_power_factor = 0.05 }
+		add_to_variable = { ENG.ENG_ANA_local_building_slots_factor = 0.1 }
+		add_to_variable = { ENG.ENG_ANA_stability_factor = -0.05 }
+		add_to_variable = { ENG.ENG_ANA_monthly_population = -0.05 }
+		effect_tooltip = {
+			add_dynamic_modifier = {
+				modifier = ENG_summerhill_modifier
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = uob.313
+				days = 30
+			}
+		}
+	}
+	option = {
+		name = uob.3124.c #good enough
+		ai_chance = {
+			base = 5
+		}
+		add_stability = -0.06
+		remove_ideas = ENG_ANA_education_reform_idea
+		add_dynamic_modifier = {
+			modifier = ENG_summerhill_modifier
+		}
+		
+	}
+}
 country_event = {#education reform complete
 	id = uob.313
 	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.313" }
@@ -6601,10 +6825,10 @@ country_event = {#education reform complete
 		ai_chance = {
 			base = 50
 		}
-		swap_ideas = {
-			remove_idea = ENG_ANA_education_reform_idea
-			add_idea = ENG_ANA_education_reform_complete_idea
+		add_dynamic_modifier = {
+			modifier = ENG_summerhill_modifier
 		}
+		remove_ideas = ENG_ANA_education_reform_idea
 	}
 	option = {
 		name = uob.313.b
@@ -6619,16 +6843,19 @@ country_event = {#education reform complete
 			ideology = anarcho_communism_subtype
 		}
 		custom_effect_tooltip = radsoc_anarcho_communism_subtype_swap_tt
-		swap_ideas = {
-			remove_idea = ENG_ANA_education_reform_idea
-			add_idea = ENG_ANA_education_reform_complete_idea
+		add_dynamic_modifier = {
+			modifier = ENG_summerhill_modifier
 		}
-		if = {
-			limit = {
-				NOT = { has_idea = ENG_Anarchist_Council_hog_rso }
+		custom_effect_tooltip = tooltip_white_line
+		remove_ideas = ENG_ANA_education_reform_idea
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = { has_idea = ENG_Anarchist_Council_hog_rso }
+				}
+				remove_ideas_with_trait = head_of_government
+				add_ideas = ENG_A_S_Neill_hog_rso
 			}
-			remove_ideas_with_trait = head_of_government
-			add_ideas = ENG_A_S_Neill_hog_rso
 		}
 	}
 }
@@ -6782,7 +7009,7 @@ country_event = { #christian anarchists
 			has_country_leader = { name = "Guy Aldred" ruling_only = yes }
 		}
 		ai_chance = {
-			base = 50
+			base = 20
 		}
 		add_political_power = 40
 		create_country_leader = {
@@ -7827,7 +8054,7 @@ country_event = {#Joad successor
 	is_triggered_only = yes
 	fire_only_once = yes
 	option = {
-		name = uob.504.a #could probably be changed as the two didnt have any relation
+		name = uob.504.a #could probably be changed as the two didnt have any relation/cut cus its bloaty
 		create_country_leader = {
 			name = "Desmond Greaves"
 			desc = ""
@@ -8160,7 +8387,7 @@ country_event = {#tom mann fucking dies
 		remove_ideas_with_trait = head_of_government
 		add_ideas = ENG_Valentine_McEntee_hog_syn
 	}
-	option = {
+	option = { #maybe cut cus its just bloaty
 		name = uob.512.c
 		create_country_leader = {
 			name = "E. J. B. Allen"
@@ -8813,6 +9040,67 @@ country_event = {#global syndie formed
 		name = uob.534.a
 		add_political_power = 50
 		set_country_flag = ENG_FED_global_formed
+	}
+}
+
+country_event = {#london school of economics opens
+	id = uob.535
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.535" }
+	title = uob.535.t
+	desc = uob.535.d
+	picture = GFX_report_event_election_vote
+	is_triggered_only = yes
+	option = { 
+		name = uob.535.a
+		add_political_power = 10
+		add_stability = 0.01
+		hidden_effect = {
+			country_event = uob.536
+			days = 100
+		}
+	}
+}
+
+country_event = {#people want laski to lecture again
+	id = uob.536
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.536" }
+	title = uob.536.t
+	desc = uob.536.d
+	picture = GFX_report_event_election_vote
+	is_triggered_only = yes
+	option = { 
+		name = uob.536.a
+		ai_chance = {
+			base = 30
+		}
+		add_political_power = 10
+		add_stability = -0.025
+	}
+	option = { 
+		name = uob.536.b
+		ai_chance = {
+			base = 30
+		}
+		add_political_power = 15
+		add_stability = 0.025
+	}
+	option = { 
+		name = uob.536.c
+		ai_chance = {
+			base = 60
+		}
+		add_political_power = -20
+		add_stability = 0.03
+		set_country_flag = LEADER_GUI_VISIBLE
+		set_country_flag = ENG_FED_mikardo_vice
+	}
+	option = { 
+		name = uob.536.e
+		ai_chance = {
+			base = 60
+		}
+		add_political_power = -20
+		add_stability = 0.03
 	}
 }
 #BSP Specific events
