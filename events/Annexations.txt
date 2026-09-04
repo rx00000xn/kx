@@ -2790,7 +2790,27 @@ country_event = { #Liberation of Austria
 		set_temp_variable = { tag_to_release = AUS }
 		release_targeted_tag = yes
 		var:tag_to_release = {
-			set_cosmetic_tag = DNF
+			set_cosmetic_tag = AUS_federalized_tag_puppet
+		}
+	}
+	option = { #old idea
+		name = annex.14.c
+		trigger = {
+			is_german_tag = yes
+			NOT = {
+				tag = GER
+				tag = DKB 
+				tag = SWI
+			}
+		}
+		ai_chance = {
+			factor = 100
+		}
+		set_country_flag = AUS_CONQ
+		country_event = annex.15
+		if = {
+			limit = { has_global_flag = AUS_federalized }
+			clr_global_flag = AUS_federalized
 		}
 	}
 	option = { #old idea
@@ -2852,7 +2872,6 @@ country_event = { #greater Germany
 		}
 	}
 }
-
 country_event = { #Fate of the Aland Islands
 	id = annex.16
 	immediate = { log = "[GetDateText]: [Root.GetName]: event annex.16 FROM = [From.GetName]" }

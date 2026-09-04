@@ -197,7 +197,6 @@ country_event = { #Final risk failure
 
 	option = {
 		name = nufiupirate.4.a
-		add_political_power = -200
 		add_popularity = {
 			ideology = paternal_autocrat
 			popularity = -0.2
@@ -205,7 +204,12 @@ country_event = { #Final risk failure
 		add_stability = -0.15
 		add_war_support = -0.15
 		set_global_flag = FIU_fleet_uncovered
+		add_timed_idea = {
+			idea = FIU_found_out
+			days = 180
+		}
 		hidden_effect = {
+			set_variable = { FIU.piracy_gains_var = 0 }
 			news_event = {
 				id = fiunews.6
 				days = 1
@@ -220,7 +224,7 @@ country_event = { #Final risk failure
 			}
 			country_event = {
 				id = nufiupirate.5
-				days = 1
+				days = 3
 			}
 		}
 	}
@@ -357,48 +361,31 @@ country_event = { #Budapest Opens an Investigation
 	}
 }
 
-country_event = { #Silence from Budapest
+country_event = { #Hungary pressures us to do something
 	id = nufiupirate.8
 	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiupirate.8"}
 	title = nufiupirate.8.t
 	desc = nufiupirate.8.d
 
-	picture = GFX_FIU_city_view
+	picture = GFX_event_AUS_Orszaghaz_postcard
 
 	is_triggered_only = yes
 
 	fire_only_once = yes
 
-	option = { #Take the opportunity to remain loyal.
+	option = { #Time is ticking.
 		name = nufiupirate.8.a
-		set_country_flag = FIU_maintain_autonomy
+		add_stability = -0.03
 		hidden_effect = {
 			country_event = {
 				id = nufiupirate.9
-				days = 3
+				days = 7
 			}
 		}
-	}
-	
-	option = { #Silently use this as a method to gain independence.
-		name = nufiupirate.8.b
-		set_country_flag = FIU_freestate
-		hidden_effect = {
-			country_event = {
-				id = nufiupirate.9
-				days = 3
-			}
-		}
-	}
-	
-	option = { #This is just encouraging us.
-		name = nufiupirate.8.b
-		set_country_flag = FIU_pirates
-		#Event here
 	}
 }
 
-country_event = { #Italians In Protest
+country_event = { #Strikes Sweep the Dockyards
 	id = nufiupirate.9
 	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiupirate.9"}
 	title = nufiupirate.9.t
@@ -410,29 +397,26 @@ country_event = { #Italians In Protest
 
 	fire_only_once = yes
 
-	option = { #We cannot handle so much at once - promise to hold an election.
+	option = { #Can they just let us work in peace?!
 		name = nufiupirate.9.a
-		ai_chance = {
-			base = 70
+		add_stability = -0.075
+		add_timed_idea = {
+			idea = FIU_strikes
+			days = 90
 		}
-		add_stability = 0.05
-		add_political_power = -30
-		hidden_effect = {
-			country_event = {
-				id = nufiupirate.10
-				days = 3
-			}
+		add_popularity = {
+			ideology = totalist
+			popularity = 0.01
 		}
-	}
-	
-	option = { #You worry about nothing.
-		name = nufiupirate.9.b
-		ai_chance = {
-			base = 30
+		add_popularity = {
+			ideology = syndicalist
+			popularity = 0.03
 		}
-		add_political_power = -20
-		add_war_support = -0.05
-		FIU_coup_raise = yes
+		add_popularity = {
+			ideology = radical_socialist
+			popularity = 0.06
+		}
+		activate_mission = FIU_call_election
 	}
 }
 
@@ -464,6 +448,7 @@ country_event = { #The Associazone Autonoma Asks to Be Included
 		}
 		add_political_power = -25
 		set_country_flag = FIU_allowed_AA
+		set_country_flag = FIU_loyalist_dalmatians
 	}
 	
 	option = { #No.
@@ -531,35 +516,21 @@ country_event = { #The Election
 
 	after = {
 		hidden_effect = {
+			mark_focus_tree_layout_dirty = yes
 			country_event = {
 				id = nufiupirate.15
 				days = 1
 				random_hours = 24
 			}
-		}
-	}
-
-	option = { #Horthy wins again.
-		name = nufiupirate.12.a
-		ai_chance = {
-			base = 33
-		}
-		set_country_flag = FIU_loyalists_stay
-		add_popularity = {
-			ideology = paternal_autocrat
-			popularity = 0.1
-		}
-		FIU_coup_raise = yes
-		hidden_effect = {
-			news_event = {
-				id = fiunews.9
+			country_event = {
+				id = nufiupirate.23
 				days = 1
 			}
 		}
 	}
 	
 	option = { #Zoltán Jekelfalussy wins.
-		name = nufiupirate.12.b
+		name = nufiupirate.12.a
 		ai_chance = {
 			base = 33
 		}
@@ -572,6 +543,10 @@ country_event = { #The Election
 			ideology = authoritarian_democrat
 			popularity = 0.1
 		}
+		remove_all_ministers = yes
+		add_ideas = {
+			FIU_Zoltan_Jekelfalussy_hog_pau
+		}
 		FIU_coup_raise = yes
 		hidden_effect = {
 			news_event = {
@@ -582,7 +557,7 @@ country_event = { #The Election
 	}
 	
 	option = { #Riccardo Zanella wins.
-		name = nufiupirate.12.c
+		name = nufiupirate.12.b
 		ai_chance = {
 			base = 33
 		}
@@ -597,8 +572,9 @@ country_event = { #The Election
 		set_politics = {
 			ruling_party = social_conservative
 		}
-		remove_all_ministers_but_hog = yes
+		remove_all_ministers = yes
 		add_ideas = {
+			FIU_Riccardo_Zanella_hog_sco
 			FIU_riccardo_zanella_sec_pau
 		}
 		FIU_gain_italian_commanders = yes
@@ -627,6 +603,10 @@ country_event = { #Hungary Demands Horthy's Removal!
 		name = nufiupirate.13.a
 		add_war_support = -0.1
 		add_stability = 0.1
+		if = {
+			limit = { has_country_flag = FIU_horthys_wild_ride }
+			clr_country_flag = FIU_horthys_wild_ride
+		}
 		set_country_flag = FIU_jekelfalussy
 		set_politics = {
 			ruling_party = authoritarian_democrat
@@ -901,6 +881,69 @@ country_event = { #HUN - horthy linked to uskokenflotte
 	}
 }
 
+country_event = { #Zadar Election Results
+	id = nufiupirate.23
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiupirate.23"}
+	title = nufiupirate.23.t
+	desc = nufiupirate.23.d
+
+	picture = GFX_event_FIU_Zadar_Panorama
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #SSI
+		name = nufiupirate.23.a
+		ai_chance = {
+			base = 33
+		}
+		add_popularity = {
+			ideology = social_democrat
+			popularity = 0.05
+		}
+	}
+
+	option = { #HPSS
+		name = nufiupirate.23.b
+		ai_chance = {
+			base = 33
+		}
+		add_popularity = {
+			ideology = social_liberal
+			popularity = 0.05
+		}
+		if = {
+			limit = { has_idea = FIU_Zadar_Mayor_Vladimir_Velebit_socdem }
+			swap_ideas = {
+				remove_idea = FIU_Zadar_Mayor_Vladimir_Velebit_socdem
+				add_idea = FIU_Zadar_Mayor_Dinko_Suljak_soclib
+			}
+		}
+	}
+
+	option = { #AA
+		name = nufiupirate.23.b
+		ai_chance = {
+			base = 33
+		}
+		trigger = {
+			has_country_flag = FIU_allowed_AA
+		}
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.05
+		}
+		if = {
+			limit = { has_idea = FIU_Zadar_Mayor_Vladimir_Velebit_socdem }
+			swap_ideas = {
+				remove_idea = FIU_Zadar_Mayor_Vladimir_Velebit_socdem
+				add_idea = FIU_Zadar_Mayor_Luigi_Ziliotto_soccon
+			}
+		}
+	}
+}
+
 country_event = { #Raid success
 	id = nufiupirate.1000
 	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiupirate.1000"}
@@ -913,7 +956,7 @@ country_event = { #Raid success
 
 	option = { #Excellent
 		name = nufiupirate.1000.a
-		add_political_power = 30
+		add_command_power = 5
 	}
 }
 
@@ -923,13 +966,16 @@ country_event = { #Raid failure
 	title = nufiupirate.2000.t
 	desc = nufiupirate.2000.d
 
-	picture = GFX_FIU_city_view
+	picture = GFX_event_FIU_pirate_ship_in_flame
 
 	is_triggered_only = yes
 
-	option = { #Excellent
+	option = { #Damnit!
 		name = nufiupirate.2000.a
+		add_stability = -0.03
 		add_political_power = -30
+		add_command_power = -5
+		FIU_raise_risk_5 = yes
 	}
 }
 
@@ -964,9 +1010,11 @@ country_event = { #hidden monthly decrease of piracy gains
 	option = {
 		name = nufiupirate.3001.a
 		add_to_variable = { FIU.piracy_gains_var = -0.01 }
+		set_temp_variable = { temp_clamp_min = FIU.pirate_level }
+		divide_temp_variable = { temp_clamp_min = 100 }
 		clamp_variable = {
 			var = FIU.piracy_gains_var
-			min = 0
+			min = temp_clamp_min
 		}
 		country_event = {
 			id = nufiupirate.3001
@@ -1085,8 +1133,13 @@ country_event = { #Black Monday strikes Fiume-Zadar!
 		}
 		add_ideas = FIU_bm_1
 		complete_national_focus = FIU_crash_at_vienna
+		activate_mission = FIU_fix_black_monday
 		hidden_effect = {
 			set_country_flag = FIU_black_monday_flag
+			country_event = {
+				id = nufiu.0
+				days = 30
+			}
 			country_event = {
 				id = nufiupirate.1
 				days = 1
@@ -1102,9 +1155,14 @@ country_event = { #Black Monday strikes Fiume-Zadar!
 				random_hours = 240
 			}
 			country_event = {
-				id = nufiupirate.9
-				days = 10
-				random_days = 20
+				id = nufiuflavor.7
+				days = 14
+				random_hours = 72
+			}
+			country_event = {
+				id = nufiupirate.8
+				days = 9
+				random_hours = 72
 			}
 		}
 	}
@@ -1124,7 +1182,7 @@ country_event = { #Zanella Calls for Closer Ties with Italian Markets
 
 	option = { #Little does he know...
 		name = nufiu.3.a
-		add_political_power = -50
+		add_political_power = -5
 		add_popularity = {
 			ideology = social_conservative
 			popularity = 0.02
@@ -1374,7 +1432,7 @@ country_event = { #City of the Evening (After Black Monday, prostitution and dru
 
 	option = { #Such is the fate of a prosperous, desired, and down-trodden city.
 		name = nufiuflavor.2.a
-		add_political_power = -25
+		add_political_power = -10
 		add_stability = -0.02
 	}
 }
@@ -1384,9 +1442,11 @@ country_event = { #City of the Night (After pirates, prostitution and drugs that
 	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiuflavor.3"}
 	title = nufiuflavor.3.t
 	desc = nufiuflavor.3.d
+
 	picture = GFX_FIU_primavera
 
 	is_triggered_only = yes
+
 	fire_only_once = yes
 
 	option = { #Such is the fate of a prosperous, desired, and down-trodden city.
@@ -1439,9 +1499,11 @@ country_event = { #The First Fiumanka Regatta (Dalmatianists do it as a race up 
 	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiuflavor.5"}
 	title = nufiuflavor.5.t
 	desc = nufiuflavor.5.d
+
 	picture = GFX_FIU_MAS15
 
 	is_triggered_only = yes
+
 	fire_only_once = yes
 
 	option = { #Hurrah!
@@ -1467,6 +1529,174 @@ country_event = { #Death of Alfred Krauss
 	option = { #Ah, his quiet retirement has ended
 		name = nufiuflavor.6.a
 		every_unit_leader = { limit = { has_id = 223202 } set_nationality = NSW }
+	}
+}
+
+country_event = { #Jekelfalussy Breaks with Horthy!
+	id = nufiuflavor.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiuflavor.7"}
+	title = nufiuflavor.7.t
+	desc = nufiuflavor.7.d
+
+	picture = GFX_event_FIU_Jekelfalussy_Portrait
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #The ship is sinking.
+		name = nufiuflavor.7.a
+		add_political_power = -30
+		add_popularity = {
+			ideology = paternal_autocrat
+			popularity = -0.05
+		}
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.05
+		}
+	}
+}
+
+country_event = { #Jekelfalussy removed, replaced by Károlyi Gyula
+	id = nufiuflavor.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiuflavor.8"}
+	title = nufiuflavor.8.t
+	desc = nufiuflavor.8.d
+
+	picture = GFX_event_FIU_Jekelfalussy_Portrait
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #Horthy's vision shall march unopposed
+		name = nufiuflavor.8.a
+		add_political_power = 30
+		remove_ideas_with_trait = head_of_government
+		add_ideas = {
+			FIU_Karolyi_Gyula_hog_pau
+		}
+		set_country_flag = FIU_loyalists_stay
+		unlock_national_focus = FIU_age_of_new_stability
+		add_popularity = {
+			ideology = paternal_autocrat
+			popularity = 0.05
+		}
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = -0.05
+		}
+	}
+}
+
+country_event = { #ANI elected in Italy
+	id = nufiuflavor.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiuflavor.9"}
+	title = nufiuflavor.9.t
+	desc = nufiuflavor.9.d
+
+	picture = GFX_report_event_ITA_unitary_republic
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #
+		name = nufiuflavor.9
+		FIU_coup_raise = yes
+		add_stability = -0.05
+		add_popularity = {
+			ideology = national_populist
+			popularity = 0.08
+		}
+	}
+}
+
+country_event = { #Austria helps us
+	id = nufiuflavor.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiuflavor.10"}
+	title = nufiuflavor.10.t
+	desc = nufiuflavor.10.d
+
+	picture = GFX_event_AUS_legislature
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #Great
+		name = nufiuflavor.10
+		add_stability = 0.05
+		add_political_power = 40
+		FIU_lower_risk_10 = yes
+	}
+}
+
+country_event = { #Jekelfalussy's Fiume
+	id = nufiuflavor.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiuflavor.11"}
+	title = nufiuflavor.11.t
+	desc = nufiuflavor.11.d
+
+	picture = GFX_event_FIU_Jekelfalussy_Portrait
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #cool
+		name = nufiuflavor.11.a
+		add_stability = 0.02
+		add_political_power = 20
+		unlock_national_focus = FIU_a_return_to_form
+	}
+}
+
+country_event = { #Bacci's Fiume
+	id = nufiuflavor.12
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiuflavor.12"}
+	title = nufiuflavor.12.t
+	desc = nufiuflavor.12.d
+
+	picture = GFX_event_FIU_fiume_italy_yuri
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #cool
+		name = nufiuflavor.12.a
+		add_political_power = 30
+		add_stability = -0.05
+		add_popularity = {
+			ideology = national_populist
+			popularity = 0.05
+		}
+		unlock_national_focus = FIU_forced_overturn
+	}
+}
+
+country_event = { #Zanella's Fiume
+	id = nufiuflavor.13
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiuflavor.13"}
+	title = nufiuflavor.13.t
+	desc = nufiuflavor.13.d
+
+	picture = GFX_event_FIU_AA_logo
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #cool
+		name = nufiuflavor.13.a
+		add_political_power = 15
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.08
+		}
+		unlock_national_focus = FIU_a_fair_win
 	}
 }
 
@@ -1625,7 +1855,196 @@ country_event = { #HUN - Fiume Denies
 			target = FIU
 		}
 	}
+}
+
+country_event = { #HUN/AUS - Fiume moves to declare the free state
+	id = nufiufor.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiufor.6"}
+	title = nufiufor.6.t
+	desc = nufiufor.6.d
+
+	picture = GFX_FIU_city_view
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #No
+		name = nufiufor.6.a
+		ai_chance = {
+			base = 50
+			modifier = {
+				FIU = { is_ai = no }
+				factor = 0
+			}
+		}
+		FROM = {
+			country_event = {
+				id = nufiufor.8
+				days = 1
+			}
+		}
+	}
 	
+	option = { #Sure
+		name = nufiufor.6.b
+		ai_chance = {
+			base = 50
+		}
+		FROM = {
+			country_event = {
+				id = nufiufor.7
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = { #FIU - FROM agrees to free state
+	id = nufiufor.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiufor.7"}
+	title = nufiufor.7.t
+	desc = nufiufor.7.d
+
+	picture = GFX_FIU_city_view
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #yay
+		name = nufiufor.7.a
+		set_cosmetic_tag = FIU_free_state
+		if = {
+			limit = { is_subject = yes }
+			OVERLORD = { end_puppet = ROOT }
+		}
+		complete_national_focus = FIU_a_free_state
+	}
+}
+
+country_event = { #FIU - FROM rejects the free state
+	id = nufiufor.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiufor.8"}
+	title = nufiufor.8.t
+	desc = nufiufor.8.d
+
+	picture = GFX_FIU_city_view
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #fuck
+		name = nufiufor.8.a
+		FIU_coup_raise = yes
+		set_country_flag = FIU_free_state_denied
+		uncomplete_national_focus = {
+			focus = FIU_a_free_state
+		}
+	}
+}
+
+country_event = { #HUN/AUS - Zanella meets with joseph august
+	id = nufiufor.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiufor.9"}
+	title = nufiufor.9.t
+	desc = nufiufor.9.d
+
+	picture = GFX_event_FIU_joseph_august
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #No
+		name = nufiufor.9.a
+		ai_chance = {
+			base = 50
+			modifier = {
+				FIU = { is_ai = no }
+				factor = 0.5
+			}
+		}
+		FROM = {
+			country_event = {
+				id = nufiufor.11
+				days = 1
+			}
+		}
+	}
+	
+	option = { #Sure
+		name = nufiufor.9.b
+		ai_chance = {
+			base = 50
+		}
+		FROM = {
+			country_event = {
+				id = nufiufor.10
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = { #FIU - Joseph August agrees to give autonomy
+	id = nufiufor.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiufor.10"}
+	title = nufiufor.10.t
+	desc = nufiufor.10.d
+
+	picture = GFX_event_FIU_joseph_august
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #yay
+		name = nufiufor.10.a
+		if = {
+			limit = { is_subject = yes }
+			OVERLORD = { end_puppet = ROOT }
+		}
+		complete_national_focus = FIU_agreement_with_joseph_august
+	}
+}
+
+country_event = { #FIU - Joseph August refuses to give autonomy
+	id = nufiufor.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiufor.11"}
+	title = nufiufor.11.t
+	desc = nufiufor.11.d
+
+	picture = GFX_event_FIU_joseph_august
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #damn
+		name = nufiufor.11.a
+		ai_chance = {
+			base = 50
+		}
+		add_political_power = -50
+	}
+
+	option = { #why are we even loyal anyway?
+		name = nufiufor.11.b
+		ai_chance = {
+			base = 50
+		}
+		add_political_power = 50
+		add_stability = -0.1
+		if = {
+			limit = { has_country_flag = FIU_loyalist_dalmatians }
+			clr_country_flag = FIU_loyalist_dalmatians
+		}
+		uncomplete_national_focus = {
+			focus = FIU_agreement_with_joseph_august
+		}
+	}
 }
 
 country_event = {
@@ -1642,6 +2061,12 @@ country_event = {
 
 	option = {
 		name = nufiucoup.1.a
+		add_political_power = -5
+		add_stability = -0.01
+		add_popularity = {
+			ideology = national_populist
+			popularity = -0.01
+		}
 	}
 }
 
@@ -1659,6 +2084,12 @@ country_event = {
 
 	option = {
 		name = nufiucoup.2.a
+		add_stability = -0.03
+		FIU_raise_risk_1 = yes
+		add_popularity = {
+			ideology = national_populist
+			popularity = 0.03
+		}
 	}
 }
 
@@ -1676,6 +2107,13 @@ country_event = {
 
 	option = {
 		name = nufiucoup.3.a
+		add_political_power = -10
+		add_stability = -0.05
+		FIU_raise_risk_3 = yes
+		add_popularity = {
+			ideology = national_populist
+			popularity = 0.05
+		}
 	}
 }
 
@@ -1693,6 +2131,12 @@ country_event = {
 
 	option = {
 		name = nufiucoup.4.a
+		add_political_power = -20
+		add_stability = -0.075
+		add_popularity = {
+			ideology = national_populist
+			popularity = 0.05
+		}
 	}
 }
 
@@ -1710,6 +2154,13 @@ country_event = {
 
 	option = {
 		name = nufiucoup.5.a
+		add_political_power = -30
+		add_stability = -0.1
+		navy_experience = -30
+		add_popularity = {
+			ideology = national_populist
+			popularity = 0.05
+		}
 	}
 }
 
@@ -1738,7 +2189,6 @@ country_event = {
 		add_war_support = 0.1
 		remove_puppet_and_leave_faction = yes
 		separate_peace_all_wars = yes
-		complete_national_focus = FIU_forced_overturn
 	}
 }
 

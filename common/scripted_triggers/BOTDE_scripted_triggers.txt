@@ -1567,6 +1567,20 @@ has_easter_egg_artifact = {
 	}
 }
 
+uses_fiu_leader_gui = {
+	FIU_has_double_leader_GUI = yes
+	FIU = {
+		owns_state = 1206
+		owns_state = 1367
+		NOT = {
+			has_cosmetic_tag = FIU_kingdom_italy_paternal_autocrat
+			has_cosmetic_tag = FIU_kingdom_venice_paternal_autocrat
+			has_cosmetic_tag = FIU_kingdom_hungary_paternal_autocrat
+			has_cosmetic_tag = FIU_dalmatian_republic_tag
+		}
+	}
+}
+
 FIU_state_is_large_target = {
 	OR = {
 		state = 2
@@ -1581,6 +1595,27 @@ FIU_state_is_large_target = {
 		state = 46
 		state = 16
 		state = 20
+		state = 41
+		state = 358
+		state = 932
+		state = 361
+		state = 371
+		state = 365
+		state = 500
+		state = 278
+		state = 685
+		state = 202
+		state = 773
+		state = 182
+		state = 183
+		state = 116
+	}
+	if = {
+		limit = { FIU = { NOT = { has_country_flag = FIU_mafia } } }
+		is_coastal = yes
+	}
+	else = {
+		always = yes
 	}
 }
 
@@ -1597,6 +1632,22 @@ FIU_state_is_medium_target = {
 		state = 163
 		state = 838
 		state = 290
+		state = 167
+		state = 169
+		state = 171
+		state = 261
+		state = 1091
+		state = 221
+		state = 206
+		state = 268
+		state = 965
+	}
+	if = {
+		limit = { FIU = { NOT = { has_country_flag = FIU_mafia } } }
+		is_coastal = yes
+	}
+	else = {
+		always = yes
 	}
 }
 
@@ -1611,10 +1662,81 @@ FIU_state_is_small_target = {
 		state = 162
 		state = 114
 		state = 105
+		state = 1330
+	}
+	if = {
+		limit = { FIU = { NOT = { has_country_flag = FIU_mafia } } }
+		is_coastal = yes
+	}
+	else = {
+		always = yes
+	}
+}
+
+FIU_can_raid_state_on_this_continent = {
+	if = {
+		limit = {
+			OR = {
+				is_on_continent = north_america
+				is_on_continent = central_america
+			}
+		}
+		FIU = { has_country_flag = FIU_north_america_raids }
+	}
+	else_if = {
+		limit = { is_on_continent = south_america }
+		FIU = { has_country_flag = FIU_south_america_raids }
+	}
+	else_if = {
+		limit = { is_on_continent = africa }
+		FIU = { has_country_flag = FIU_africa_raids }
+	}
+	else_if = {
+		limit = { is_on_continent = asia }
+		FIU = { has_country_flag = FIU_asia_raids }
+	}
+	else_if = {
+		limit = { is_on_continent = india }
+		FIU = { has_country_flag = FIU_india_raids }
+	}
+	else_if = {
+		limit = { is_on_continent = middle_east }
+		FIU = { has_country_flag = FIU_middle_east_raids }
+	}
+	else = {
+		always = yes
 	}
 }
 
 FIU_raids_are_visible_trigger = {
 	has_country_flag = FIU_black_monday_flag
 	check_variable = { FIU.lever_status_var = 2 }
+}
+
+FIU_is_able_to_pirate = {
+	AND = {
+		if = {
+			limit = { FROM = { FIU_state_is_large_target = yes } }
+			custom_override_tooltip = {
+				tooltip = FIU_piracy_level_3_tt
+				check_variable = { FIU.pirate_level > 2 }
+			}
+		}
+		else_if = {
+			limit = { FROM = { FIU_state_is_medium_target = yes } }
+			custom_override_tooltip = {
+				tooltip = FIU_piracy_level_2_tt
+				check_variable = { FIU.pirate_level > 1 }
+			}
+		}
+		else = {
+			hidden_trigger = { always = yes }
+		}
+		NOT = { has_country_flag = FIU_ongoing_raid }
+		FROM = { NOT = { has_dynamic_modifier = { modifier = FIU_state_just_got_raided_modifier } } }
+		custom_override_tooltip = {
+			tooltip = FIU_is_not_found_out_tt
+			NOT = { has_idea = FIU_found_out }
+		}
+	}
 }
