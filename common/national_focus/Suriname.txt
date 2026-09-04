@@ -15,6 +15,667 @@ focus_tree = {
 	continuous_focus_position = { x = 2200 y = 3500 }
 	
 	focus = {
+		id = SUR_a_new_constitution
+		icon = GFX_goal_NIC_Destroy_Democratic_Ideology
+		x = 10
+		y = 0
+		cost = 5
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SUR_a_new_constitution"
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = SUR_the_doedel_affair
+		icon = GFX_goal_NIC_Destroy_Democratic_Ideology
+		x = 0
+		y = 1
+		relative_position_id = SUR_a_new_constitution
+		cost = 5
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = SUR_a_new_constitution
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SUR_the_doedel_affair"
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	
+	### Economic Tree ###
+	focus = {
+		id = SUR_an_economy_in_crisis
+		icon = GFX_goal_NIC_Destroy_Democratic_Ideology
+		available = {
+			has_country_flag = SUR_black_monday_hit
+		}
+		x = 20
+		y = 0
+		cost = 5
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SUR_an_economy_in_crisis"
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = SUR_modernize_economic_data_gathering
+		icon = GFX_goal_NIC_Destroy_Democratic_Ideology
+		x = -4
+		y = 1
+		relative_position_id = SUR_an_economy_in_crisis
+		cost = 4
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = SUR_an_economy_in_crisis
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SUR_modernize_economic_data_gathering"
+			if = {
+				limit = {
+					has_idea = isolation
+				}
+				add_ideas = civilian_economy
+				add_tech_bonus = {
+					name = SUR_modernize_economic_data_gathering
+					bonus = 0.75
+					uses = 1
+					category = industry
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_idea = low_economic_mobilisation
+						has_idea = partial_economic_mobilisation
+						has_idea = war_economy
+						has_idea = tot_economic_mobilisation
+					}
+				}
+				add_political_power = 100
+				add_tech_bonus = {
+					name = SUR_modernize_economic_data_gathering
+					bonus = 0.75
+					uses = 1
+					category = industry
+				}
+			}
+			if = {
+				limit = {
+					has_idea = SUR_primitive_economy
+				}
+				swap_ideas = {
+					remove_idea = SUR_primitive_economy
+					add_idea = SUR_primitive_economy_2
+				}
+			}
+			if = {
+				limit = {
+					has_idea = SUR_primitive_economy_2
+				}
+				swap_ideas = {
+					remove_idea = SUR_primitive_economy_2
+					add_idea = SUR_primitive_economy_3
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+	}
+	focus = {
+		id = SUR_modernize_paraimbo_markets
+		icon = GFX_goal_NIC_Destroy_Democratic_Ideology
+		x = -3
+		y = 2
+		relative_position_id = SUR_an_economy_in_crisis
+		cost = 6
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = SUR_modernize_economic_data_gathering
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SUR_modernize_paraimbo_markets"
+			add_tech_bonus = {
+				name = SUR_modernize_paraimbo_markets
+				bonus = 1
+				uses = 1
+				category = construction_tech
+			}
+			add_offsite_building = { type = industrial_complex level = 1 }
+			if = {
+				limit = {
+					has_idea = SUR_primitive_economy_2
+				}
+				swap_ideas = {
+					remove_idea = SUR_primitive_economy_2
+					add_idea = SUR_primitive_economy_3
+				}
+			}
+			if = {
+				limit = {
+					has_idea = SUR_primitive_economy_3
+				}
+				swap_ideas = {
+					remove_idea = SUR_primitive_economy_3
+					add_idea = SUR_primitive_economy_4
+				}
+			}
+			if = {
+				limit = {
+					has_idea = SUR_primitive_economy_4
+				}
+				remove_ideas = SUR_primitive_economy_4
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+	}
+	focus = {
+		id = SUR_prop_up_gold_mining
+		icon = GFX_goal_NIC_Destroy_Democratic_Ideology
+		x = -5
+		y = 2
+		relative_position_id = SUR_an_economy_in_crisis
+		cost = 6
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = SUR_modernize_economic_data_gathering
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SUR_prop_up_gold_mining"
+			add_tech_bonus = {
+				name = SUR_prop_up_gold_mining
+				bonus = 1
+				uses = 1
+				category = excavation_tech
+			}
+			1038 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				set_state_category = one
+			}
+			if = {
+				limit = {
+					has_idea = SUR_black_monday_idea
+				}
+				swap_ideas = {
+					remove_idea = SUR_black_monday_idea
+					add_idea = SUR_black_monday_idea_2
+				}
+			}
+			if = {
+				limit = {
+					has_idea = SUR_black_monday_idea_2
+				}
+				swap_ideas = {
+					remove_idea = SUR_black_monday_idea_2
+					add_idea = SUR_black_monday_idea_3
+				}
+			}
+			if = {
+				limit = {
+					has_idea = SUR_black_monday_idea_3
+				}
+				swap_ideas = {
+					remove_idea = SUR_black_monday_idea_3
+					add_idea = SUR_black_monday_idea_4
+				}
+			}
+			if = {
+				limit = {
+					has_idea = SUR_black_monday_idea_4
+				}
+				remove_ideas = SUR_black_monday_idea_4
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+	}
+	focus = {
+		id = SUR_repatriate_workers_from_curacao
+		icon = GFX_goal_NIC_Destroy_Democratic_Ideology
+		x = -4
+		y = 3
+		relative_position_id = SUR_an_economy_in_crisis
+		cost = 4
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = SUR_modernize_paraimbo_markets
+		}
+		prerequisite = {
+			focus = SUR_prop_up_gold_mining
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SUR_repatriate_workers_from_curacao"
+			add_manpower = 2500
+			add_stability = 0.03
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER}
+	}
+	focus = {
+		id = SUR_the_paranam_plant
+		icon = GFX_goal_NIC_Destroy_Democratic_Ideology
+		x = 0
+		y = 1
+		relative_position_id = SUR_an_economy_in_crisis
+		cost = 7
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = SUR_an_economy_in_crisis
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SUR_the_paranam_plant"
+			309 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_resource = {
+					type = aluminium
+					amount = 10
+				}
+			}
+			if = {
+				limit = {
+					has_idea = SUR_primitive_economy
+				}
+				swap_ideas = {
+					remove_idea = SUR_primitive_economy
+					add_idea = SUR_primitive_economy_2
+				}
+			}
+			if = {
+				limit = {
+					has_idea = SUR_primitive_economy_2
+				}
+				swap_ideas = {
+					remove_idea = SUR_primitive_economy_2
+					add_idea = SUR_primitive_economy_3
+				}
+			}
+			if = {
+				limit = {
+					has_idea = SUR_primitive_economy_3
+				}
+				swap_ideas = {
+					remove_idea = SUR_primitive_economy_3
+					add_idea = SUR_primitive_economy_4
+				}
+			}
+			if = {
+				limit = {
+					has_idea = SUR_primitive_economy_4
+				}
+				remove_ideas = SUR_primitive_economy_4
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = SUR_take_over_alcoa
+		icon = GFX_goal_NIC_Destroy_Democratic_Ideology
+		x = -1
+		y = 2
+		relative_position_id = SUR_an_economy_in_crisis
+		cost = 4
+		ai_will_do = {
+			factor = 100
+		}
+		available = {
+			NOT = {
+				has_global_flag = USA_civil_war_avoided_flag
+			}
+		}
+		prerequisite = {
+			focus = SUR_the_paranam_plant
+		}
+		mutually_exclusive = {
+			focus = SUR_alcoa_us_investment
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SUR_take_over_alcoa"
+			USA = {
+				add_opinion_modifier = { target = SUR modifier = SUR_Nationalized_Alcoa }
+			}
+			309 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_political_power = 75
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = SUR_alcoa_us_investment
+		icon = GFX_goal_NIC_Destroy_Democratic_Ideology
+		x = 1
+		y = 2
+		relative_position_id = SUR_an_economy_in_crisis
+		cost = 5
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = SUR_the_paranam_plant
+		}
+		mutually_exclusive = {
+			focus = SUR_take_over_alcoa
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SUR_alcoa_us_investment"
+			309 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_political_power = -50
+			add_stability = 0.05
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = SUR_new_extraction_methods
+		icon = GFX_goal_NIC_Destroy_Democratic_Ideology
+		x = 0
+		y = 3
+		relative_position_id = SUR_an_economy_in_crisis
+		cost = 5
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = SUR_take_over_alcoa
+			focus = SUR_alcoa_us_investment
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SUR_new_extraction_methods"
+			add_tech_bonus = {
+				name = SUR_new_extraction_methods
+				bonus = 1
+				uses = 1
+				category = excavation_tech
+			}
+			309 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			unlock_decision_category_tooltip = SUR_aluminium_industry
+			custom_effect_tooltip = SUR_aluminium_industry_tt
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+	focus = {
+		id = SUR_enact_agricultural_reform
+		icon = GFX_goal_NIC_Destroy_Democratic_Ideology
+		x = 4
+		y = 1
+		relative_position_id = SUR_an_economy_in_crisis
+		cost = 5
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = SUR_an_economy_in_crisis
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SUR_enact_agricultural_reform"
+			if = {
+				limit = {
+					has_idea = SUR_black_monday_idea
+				}
+				swap_ideas = {
+					remove_idea = SUR_black_monday_idea
+					add_idea = SUR_black_monday_idea_2
+				}
+			}
+			if = {
+				limit = {
+					has_idea = SUR_black_monday_idea_2
+				}
+				swap_ideas = {
+					remove_idea = SUR_black_monday_idea_2
+					add_idea = SUR_black_monday_idea_3
+				}
+			}
+			if = {
+				limit = {
+					has_idea = SUR_black_monday_idea_3
+				}
+				swap_ideas = {
+					remove_idea = SUR_black_monday_idea_3
+					add_idea = SUR_black_monday_idea_4
+				}
+			}
+			if = {
+				limit = {
+					has_idea = SUR_black_monday_idea_4
+				}
+				remove_ideas = SUR_black_monday_idea_4
+			}
+			309 = {
+				increase_state_category_by_one_level = yes
+			}
+			add_stability = 0.05
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = SUR_promote_asian_smallholding
+		icon = GFX_goal_NIC_Destroy_Democratic_Ideology
+		x = 3
+		y = 2
+		relative_position_id = SUR_an_economy_in_crisis
+		cost = 5
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = SUR_enact_agricultural_reform
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SUR_promote_asian_smallholding"
+			if = {
+				limit = {
+					has_idea = SUR_black_monday_idea
+				}
+				swap_ideas = {
+					remove_idea = SUR_black_monday_idea
+					add_idea = SUR_black_monday_idea_2
+				}
+			}
+			if = {
+				limit = {
+					has_idea = SUR_black_monday_idea_2
+				}
+				swap_ideas = {
+					remove_idea = SUR_black_monday_idea_2
+					add_idea = SUR_black_monday_idea_3
+				}
+			}
+			if = {
+				limit = {
+					has_idea = SUR_black_monday_idea_3
+				}
+				swap_ideas = {
+					remove_idea = SUR_black_monday_idea_3
+					add_idea = SUR_black_monday_idea_4
+				}
+			}
+			if = {
+				limit = {
+					has_idea = SUR_black_monday_idea_4
+				}
+				remove_ideas = SUR_black_monday_idea_4
+			}
+			add_ideas = SUR_asian_smallholders
+			add_stability = 0.05
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = SUR_maximize_cash_crop_production
+		icon = GFX_goal_NIC_Destroy_Democratic_Ideology
+		x = 5
+		y = 2
+		relative_position_id = SUR_an_economy_in_crisis
+		cost = 5
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = SUR_enact_agricultural_reform
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SUR_maximize_cash_crop_production"
+			if = {
+				limit = {
+					has_idea = SUR_primitive_economy
+				}
+				swap_ideas = {
+					remove_idea = SUR_primitive_economy
+					add_idea = SUR_primitive_economy_2
+				}
+			}
+			if = {
+				limit = {
+					has_idea = SUR_primitive_economy_2
+				}
+				swap_ideas = {
+					remove_idea = SUR_primitive_economy_2
+					add_idea = SUR_primitive_economy_3
+				}
+			}
+			if = {
+				limit = {
+					has_idea = SUR_primitive_economy_3
+				}
+				swap_ideas = {
+					remove_idea = SUR_primitive_economy_3
+					add_idea = SUR_primitive_economy_4
+				}
+			}
+			if = {
+				limit = {
+					has_idea = SUR_primitive_economy_4
+				}
+				remove_ideas = SUR_primitive_economy_4
+			}
+			add_ideas = SUR_cash_crop_boom
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = SUR_exporting_to_european_markets
+		icon = GFX_goal_NIC_Destroy_Democratic_Ideology
+		x = 4
+		y = 3
+		relative_position_id = SUR_an_economy_in_crisis
+		cost = 5
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = SUR_promote_asian_smallholding
+		}
+		prerequisite = {
+			focus = SUR_maximize_cash_crop_production
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SUR_exporting_to_european_markets"
+			if = {
+				limit = {
+					has_idea = SUR_black_monday_idea
+				}
+				swap_ideas = {
+					remove_idea = SUR_black_monday_idea
+					add_idea = SUR_black_monday_idea_2
+				}
+			}
+			if = {
+				limit = {
+					has_idea = SUR_black_monday_idea_2
+				}
+				swap_ideas = {
+					remove_idea = SUR_black_monday_idea_2
+					add_idea = SUR_black_monday_idea_3
+				}
+			}
+			if = {
+				limit = {
+					has_idea = SUR_black_monday_idea_3
+				}
+				swap_ideas = {
+					remove_idea = SUR_black_monday_idea_3
+					add_idea = SUR_black_monday_idea_4
+				}
+			}
+			if = {
+				limit = {
+					has_idea = SUR_black_monday_idea_4
+				}
+				remove_ideas = SUR_black_monday_idea_4
+			}
+			unlock_decision_category_tooltip = SUR_agricultural_exports
+			custom_effect_tooltip = SUR_agricultural_exports_tt
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = SUR_paying_for_ourselves
+		icon = GFX_goal_NIC_Destroy_Democratic_Ideology
+		x = 0
+		y = 4
+		relative_position_id = SUR_an_economy_in_crisis
+		cost = 6
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = SUR_repatriate_workers_from_curacao
+		}
+		prerequisite = {
+			focus = SUR_new_extraction_methods
+		}
+		prerequisite = {
+			focus = SUR_exporting_to_european_markets
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SUR_paying_for_ourselves"
+		}
+	}
+	
+	### Army Tree ###
+	
+	focus = {
 		id = SUR_review_the_troepenmacht
 		icon = GFX_goal_NIC_Destroy_Democratic_Ideology
 		x = 40
@@ -351,20 +1012,10 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SUR_west_indies_to_amsterdam"
 			add_ideas = SUR_air_route
-			if = {
-				limit = { has_socialist_government = yes }
-				add_equipment_to_stockpile = {
-					type = transport_plane_equipment_1
-					amount = 10
-					producer = FRA
-				}
-			}
-			else = {
-				add_equipment_to_stockpile = {
+			add_equipment_to_stockpile = {
 					type = transport_plane_equipment_1
 					amount = 10
 					producer = HOL
-				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_AIRFORCE_BONUS }
@@ -435,11 +1086,13 @@ focus_tree = {
 		}
 	}
 	
+	### Democracy Tree ###
+	
 	focus = {
 		id = SUR_democracy
 		icon = GFX_goal_NIC_Destroy_Democratic_Ideology
 		x = 15
-		y = 0
+		y = 10
 		cost = 1
 		ai_will_do = {
 			factor = 100
@@ -482,7 +1135,10 @@ focus_tree = {
 			focus = SUR_IIV_elected
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+			swap_ideas = {
+				remove_idea = SUR_racial_tensions
+				add_idea = SUR_racial_tensions_1
+		}
 	}
 }
 	focus = {
@@ -516,7 +1172,7 @@ focus_tree = {
 			focus = SUR_IIV_elected
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		add_ideas = SUR_Indonesian_Fighters
 	}
 }
 	focus = {
@@ -533,7 +1189,7 @@ focus_tree = {
 			focus = SUR_Catholic_Hindu_Outreach
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		add_ideas = SUR_Funeral_Fund
 	}
 }
 	focus = {
@@ -550,7 +1206,7 @@ focus_tree = {
 			focus = SUR_Examples_of_the_Indonesian_Fighters
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		add_ideas = SUR_Protected_Rights_of_Javanese
 	}
 }
 	focus = {
@@ -567,7 +1223,12 @@ focus_tree = {
 			focus = SUR_Catholic_Hindu_Outreach
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		309 = { increase_state_category_by_one_level = yes }
+		random_owned_controlled_state = {
+		prioritize = { 309 }
+		add_extra_state_shared_building_slots = 2
+		add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+		}		
 	}
 }
 	focus = {
@@ -607,7 +1268,10 @@ focus_tree = {
 			focus = SUR_Deal_with_Hardjo
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+			swap_ideas = {
+				remove_idea = SUR_racial_tensions_1
+				add_idea = SUR_racial_tensions_2
+		}
 	}
 }
 	focus = {
@@ -630,7 +1294,10 @@ focus_tree = {
 			focus = SUR_Fixated_Health_Reforms
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+			swap_ideas = {
+				remove_idea = SUR_racial_tensions_2
+				add_idea = SUR_racial_tensions_3
+		}
 	}
 }
 	focus = {
@@ -655,7 +1322,7 @@ focus_tree = {
 }
 	focus = {
 		id = SUR_Unity_in_Faith
-		icon = GFX_GRU_FDP_ALL_THE_FAITHS
+		icon = GFX_goal_GER_Piety_Catholicism_Duty_Lutheranism
 		relative_position_id = SUR_democracy
 		x = 7
 		y = 2
@@ -667,7 +1334,10 @@ focus_tree = {
 			focus = SUR_PSVP_elected
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+			swap_ideas = {
+				remove_idea = SUR_racial_tensions
+				add_idea = SUR_racial_tensions_1
+		}
 	}
 }
 	focus = {
@@ -718,7 +1388,7 @@ focus_tree = {
 			focus = SUR_Expansions_in_Democracy
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		add_ideas = SUR_Spes_Patriae
 	}
 }
 	focus = {
@@ -735,7 +1405,11 @@ focus_tree = {
 			focus = SUR_Unity_in_Faith
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		random_owned_controlled_state = {
+		prioritize = { 309 }
+		add_extra_state_shared_building_slots = 2
+		add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+		}	
 	}
 }
 	focus = {
@@ -752,7 +1426,7 @@ focus_tree = {
 			focus = SUR_Unity_in_Faith
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		add_ideas = SUR_Catholic_Internationalism
 	}
 }
 	focus = {
@@ -769,7 +1443,14 @@ focus_tree = {
 			focus = SUR_Expansions_in_Democracy
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		add_offsite_building = {
+				type = arms_factory
+				level = 1
+			}
+			add_offsite_building = {
+				type = industrial_complex
+				level = 1
+		}
 	}
 }
 	focus = {
@@ -792,7 +1473,15 @@ focus_tree = {
 			focus = SUR_Rally_the_PWO
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		1038 = { add_manpower = 5500 }
+		random_owned_controlled_state = {
+		prioritize = { 1038 }
+		add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+		}
+			swap_ideas = {
+				remove_idea = SUR_racial_tensions_1
+				add_idea = SUR_racial_tensions_2
+		}
 	}
 }
 	focus = {
@@ -815,7 +1504,10 @@ focus_tree = {
 			focus = SUR_Christian_Internationalism
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+			swap_ideas = {
+				remove_idea = SUR_racial_tensions_2
+				add_idea = SUR_racial_tensions_3
+		}
 	}
 }
 	focus = {
@@ -852,7 +1544,7 @@ focus_tree = {
 			focus = SUR_VHP_elected
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		add_ideas = SUR_Ahmadiyya
 	}
 }
 	focus = {
@@ -869,7 +1561,10 @@ focus_tree = {
 			focus = SUR_VHP_elected
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+			swap_ideas = {
+				remove_idea = SUR_racial_tensions
+				add_idea = SUR_racial_tensions_fraternisation
+		}
 	}
 }
 	focus = {
@@ -886,7 +1581,7 @@ focus_tree = {
 			focus = SUR_VHP_elected
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		add_ideas = SUR_Little_India_Migration
 	}
 }
 	focus = {
@@ -903,7 +1598,7 @@ focus_tree = {
 			focus = SUR_Fraternisation_Politics
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		add_ideas = SUR_Emancipated_Muslim_Women
 	}
 }
 	focus = {
@@ -920,7 +1615,16 @@ focus_tree = {
 			focus = SUR_Propagate_Ahmadiyya
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+			add_tech_bonus = {
+				name = SUR_cinema_focus
+				bonus = 1
+				uses = 1
+				category = electronics
+			}
+		random_owned_controlled_state = {
+		prioritize = { 1038 }
+		add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+		}
 	}
 }
 	focus = {
@@ -937,7 +1641,14 @@ focus_tree = {
 			focus = SUR_Propagate_Ahmadiyya
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		add_offsite_building = {
+				type = arms_factory
+				level = 1
+			}
+			add_offsite_building = {
+				type = industrial_complex
+				level = 1
+		}
 	}
 }
 	focus = {
@@ -954,7 +1665,15 @@ focus_tree = {
 			focus = SUR_Fraternisation_Politics
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		1038 = {
+			set_state_category = pastoral
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
 	}
 }
 	focus = {
@@ -977,7 +1696,10 @@ focus_tree = {
 			focus = SUR_Emancipation_of_Muslim_Women
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+			swap_ideas = {
+				remove_idea = SUR_racial_tensions_fraternisation
+				add_idea = SUR_racial_tensions_fraternisation_1
+		}
 	}
 }
 	focus = {
@@ -1000,7 +1722,10 @@ focus_tree = {
 			focus = SUR_Entente_Investments
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+			swap_ideas = {
+				remove_idea = SUR_racial_tensions_fraternisation_1
+				add_idea = SUR_racial_tensions_fraternisation_2
+		}
 	}
 }
 	focus = {
@@ -1054,7 +1779,10 @@ focus_tree = {
 			focus = SUR_NPS_elected
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+			swap_ideas = {
+				remove_idea = SUR_racial_tensions
+				add_idea = SUR_racial_tensions_fraternisation
+		}
 	}
 }
 	focus = {
@@ -1071,7 +1799,14 @@ focus_tree = {
 			focus = SUR_NPS_elected
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		309 = {
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
 	}
 }
 	focus = {
@@ -1088,7 +1823,7 @@ focus_tree = {
 			focus = SUR_Sideline_Splinters
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		add_ideas = SUR_Moederbond
 	}
 }
 	focus = {
@@ -1105,7 +1840,23 @@ focus_tree = {
 			focus = SUR_Alliances_with_AP
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+			add_tech_bonus = {
+				name = SUR_mula_focus
+				bonus = 1
+				uses = 1
+				category = electronics
+			}
+			add_tech_bonus = {
+				name = SUR_mula_focus_1
+				bonus = 1
+				uses = 1
+				category = industry
+			}
+				every_unit_leader = {
+				add_max_trait = 1
+				add_logistics = 1
+				add_planning = 1
+		}
 	}
 }
 	focus = {
@@ -1122,7 +1873,7 @@ focus_tree = {
 			focus = SUR_Sideline_Splinters
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		add_ideas = SUR_Linguistic_Reforms
 	}
 }
 	focus = {
@@ -1145,7 +1896,10 @@ focus_tree = {
 			focus = SUR_Reel_in_the_Hindus
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+			swap_ideas = {
+				remove_idea = SUR_racial_tensions_fraternisation
+				add_idea = SUR_racial_tensions_fraternisation_1
+		}
 	}
 }
 	focus = {
@@ -1162,7 +1916,7 @@ focus_tree = {
 			focus = SUR_Alliances_with_AP
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		add_ideas = SUR_Afro_Creolean_Identity
 	}
 }
 	focus = {
@@ -1185,7 +1939,10 @@ focus_tree = {
 			focus = SUR_Celebrating_Afro_Creolean_Identity
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+			swap_ideas = {
+				remove_idea = SUR_racial_tensions_fraternisation_1
+				add_idea = SUR_racial_tensions_fraternisation_2
+		}
 	}
 }
 	focus = {
@@ -1239,7 +1996,7 @@ focus_tree = {
 			focus = SUR_SDP_elected
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		add_ideas = SUR_Anti_Catholicism
 	}
 }
 	focus = {
@@ -1256,7 +2013,10 @@ focus_tree = {
 			focus = SUR_SDP_elected
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+			swap_ideas = {
+				remove_idea = SUR_racial_tensions
+				add_idea = SUR_racial_tensions_1
+		}
 	}
 }
 	focus = {
@@ -1273,7 +2033,10 @@ focus_tree = {
 			focus = SUR_Cordial_Accord_with_the_Left
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		add_ideas = SUR_Healthcare_of_the_Experts
+		309 = {
+			add_manpower = 20000
+		}
 	}
 }
 	focus = {
@@ -1290,7 +2053,10 @@ focus_tree = {
 			focus = SUR_Defend_Creole_Rights
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		1038 = {
+			add_extra_state_shared_building_slots = 2
+			add_manpower = 15000
+		}
 	}
 }
 	focus = {
@@ -1307,7 +2073,15 @@ focus_tree = {
 			focus = SUR_Cordial_Accord_with_the_Left
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		add_ideas = SUR_De_West
+		309 = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+			type = industrial_complex
+			level = 1
+			instant_build = yes
+			}
+		}
 	}
 }
 	focus = {
@@ -1324,7 +2098,30 @@ focus_tree = {
 			focus = SUR_Defend_Creole_Rights
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		309 = {
+			add_building_construction = {
+			type = coastal_bunker
+			level = 3
+			province = 10906
+			instant_build = yes
+			}
+		}
+		309 = {
+			add_building_construction = {
+			type = coastal_bunker
+			level = 3
+			province = 12828
+			instant_build = yes
+			}
+		}
+		309 = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+			type = arms_factory
+			level = 1
+			instant_build = yes
+			}
+		}
 	}
 }
 	focus = {
@@ -1347,7 +2144,10 @@ focus_tree = {
 			focus = SUR_Expert_Driven_Healthcare_Reforms
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+			swap_ideas = {
+				remove_idea = SUR_racial_tensions_1
+				add_idea = SUR_racial_tensions_racisme
+		}
 	}
 }
 	focus = {
@@ -1370,7 +2170,10 @@ focus_tree = {
 			focus = SUR_De_Wests_Wise_Words
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+			swap_ideas = {
+				remove_idea = SUR_racial_tensions_racisme
+				add_idea = SUR_racial_tensions_racisme_1
+		}
 	}
 }
 	focus = {
@@ -1424,7 +2227,7 @@ focus_tree = {
 			focus = SUR_SAF_elected
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		add_ideas = SUR_Iberian_Language_Studies
 	}
 }
 	focus = {
@@ -1441,7 +2244,14 @@ focus_tree = {
 			focus = SUR_SAF_elected
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		309 = {
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+			type = industrial_complex
+			level = 2
+			instant_build = yes
+			}
+		}
 	}
 }
 	focus = {
@@ -1458,7 +2268,10 @@ focus_tree = {
 			focus = SUR_Finding_Allies
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+			swap_ideas = {
+				remove_idea = SUR_racial_tensions
+				add_idea = SUR_racial_tensions_1
+		}
 	}
 }
 	focus = {
@@ -1492,7 +2305,10 @@ focus_tree = {
 			focus = SUR_Finding_Allies
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+			swap_ideas = {
+				remove_idea = SUR_racial_tensions_1
+				add_idea = SUR_racial_tensions_2
+		}
 	}
 }
 	focus = {
@@ -1509,7 +2325,7 @@ focus_tree = {
 			focus = SUR_Form_the_SSV
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		add_ideas = SUR_Social_Realism
 	}
 }
 	focus = {
@@ -1532,7 +2348,7 @@ focus_tree = {
 			focus = SUR_Compulsory_Spanish_in_Schools
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+		add_ideas = SUR_Surinamese_Feminism
 	}
 }
 	focus = {
@@ -1555,6 +2371,9 @@ focus_tree = {
 			focus = SUR_Polakian_Reforms
 		}
 		completion_reward = {
-		custom_effect_tooltip = unlock_focuses
+			swap_ideas = {
+				remove_idea = SUR_racial_tensions_2
+				add_idea = SUR_racial_tensions_3
+		}
 	}
 }
