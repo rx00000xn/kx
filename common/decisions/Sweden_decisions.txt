@@ -419,807 +419,6 @@ SWE_neutral_decisions = {
 SWE_revolution_decisions = {
 
 
-		available = {
-			has_socialist_government = yes
-			NOT = { has_completed_focus = SWE_FOP_nordic_torch_alone }
-
-			FRA = {
-				has_socialist_government = yes
-			}
-			date > 1937.2.2
-			is_in_faction = no
-		}
-
-		visible = {
-			has_completed_focus = SWE_FOP_revolutionary_torch
-			is_subject = no
-			is_in_faction = no
-		}
-		ai_will_do = {
-			factor = 1000
-			modifier = {
-				factor = 0
-					has_game_rule = {
-						rule = SWE_foreign_policy 
-						option = SWE_FOREIGN_POLICY_NORDIC_INTERNAT
-					}    									
-			}
-		}
-		fire_only_once = yes
-		cost = 35
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_join_internationale_ls"
-			FRA = {
-				country_event = swefop.45
-			}
-		}
-	}
-
-	SWE_join_russian_socialists = {
-		icon = generic_nationalism
-
-		allowed = { tag = SWE }
-
-		available = {
-			has_socialist_government = yes
-			RUS = {
-				has_socialist_government = yes
-			}	
-
-			date > 1937.2.2
-			is_in_faction = no
-		}
-
-		visible = {
-			has_completed_focus = SWE_FOP_revolutionary_torch
-			is_subject = no
-			is_in_faction = no
-		}
-		ai_will_do = {
-			factor = 1000
-			modifier = {
-				factor = 0
-					has_game_rule = {
-						rule = SWE_foreign_policy 
-						option = SWE_FOREIGN_POLICY_NORDIC_INTERNAT
-					}    									
-			}
-		}
-		fire_only_once = yes
-		cost = 35
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_join_russian_socialists"
-			if = {
-				limit = { 
-					SOV = { 
-						exists = yes 
-						}
-					}
-				SOV = {
-					country_event = swefop.45
-				}		
-			} else = {
-				RUS = {
-					country_event = swefop.45
-				}			
-			}
-		}
-	}
-
-	SWE_own_faction_rev = {# Create Faction
-		icon = generic_nationalism
-
-		allowed = { tag = SWE }
-
-		available = {
-			has_socialist_government = yes
-			date > 1937.2.2
-			is_in_faction = no
-		}
-
-		visible = {
-			has_completed_focus = SWE_FOP_revolutionary_torch
-			is_subject = no
-			is_in_faction = no
-		}
-		ai_will_do = {
-			factor = 1000
-			modifier = {
-				factor = 0
-					has_game_rule = {
-						rule = SWE_foreign_policy 
-						option = SWE_FOREIGN_POLICY_INTERNATIONALE
-					}    									
-			}
-		}
-		fire_only_once = no
-		cost = 35
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_own_faction_rev"
-
-
-			if = {
-				limit = {
-					NOT = { has_country_flag = SWE_flag_lindholm_tot }
-				}
-			create_faction_from_template = { 
-				template = faction_template_generic_dominance              
-				name = faction_nordiskt_internationell
-				icon = GFX_faction_nordic_international
-			}				
-
-			}
-			if = {
-				limit = {
-						has_country_flag = SWE_flag_lindholm_tot 
-				}
-			create_faction_from_template = { 
-				template = faction_template_generic_dominance              
-				name = faction_revolutionara_nationella_internationalen
-				icon = GFX_faction_sven_lindholm
-			}				
-
-			}
-		}
-	}
-
-	swe_subjugate_norway_revolution = {
-		icon = generic_ignite_civil_war
-		allowed = { tag = SWE }			
-		available = {
-			has_socialist_government = yes
-			is_subject = no
-			
-		}
-
-		visible = {
-			OR = {
-			has_completed_focus = SWE_FOP_ready_world_revolution
-			has_completed_focus = SWE_FOP_crush_nordic_crowns
-			}
-		}
-
-		cost = 40
-		days_remove = 10
-		fire_only_once = yes
-		war_with_target_on_remove = yes
-
-		ai_will_do = {
-			base = 0
-			modifier = { 
-				add = 100
-				date > 1938.6.1
-			}
-			modifier = {
-				factor = 0
-				AND = {
-					is_faction_leader = no
-					OR = {
-						is_in_faction_with = INT
-						is_in_faction_with = GER
-						is_in_faction_with = RUS
-						is_in_faction_with = ENT
-					}
-				}
-				NOR = {
-					OR = {
-						is_in_faction_with = INT
-						is_in_faction_with = GER
-						is_in_faction_with = RUS
-						is_in_faction_with = ENT
-					}
-				}
-			}
-		}
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete swe_subjugate_norway_revolution target: [From.GetName]" 		
-			
-			setup_decision_attack_AI = yes
-			
-
-		}
-
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove swe_subjugate_norway_revolution target: [From.GetName]"
-			if = { 
-				limit = { NOR = { has_socialist_government = yes } }
-					NOR = {
-						country_event = { id = swefop.37 } 
-					}
-			}
-			else = {
-				create_wargoal = {
-					target = NOR
-					type = annex_everything
-				}
-			}
-		}
-	}
-	swe_annex_norway_revolution = {
-		icon = generic_ignite_civil_war
-		allowed = { tag = SWE }			
-		available = {
-			has_socialist_government = yes
-			is_subject = no
-		}
-
-		visible = {
-				NOR = { is_puppet_of = SWE }					
-			}
-
-		cost = 75
-		days_remove = 35
-		fire_only_once = yes
-		war_with_target_on_remove = yes
-
-		ai_will_do = {
-			base = 50
-		}
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete swe_annex_norway_revolution target: [From.GetName]"
-		}
-
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove swe_annex_norway_revolution target: [From.GetName]"
-			Annex_country = {
-				target = NOR
-				transfer_troops = yes
-			}
-		}
-	}
-
-
-	swe_subjugate_finland_revolution = {
-		icon = generic_ignite_civil_war
-		allowed = { tag = SWE }			
-		available = {
-			has_socialist_government = yes
-			is_subject = no
-			if = {
-				limit = { 
-					SWE = {
-						is_in_faction_with = FRA
-						}
-					}
-				date > 1939.11.1
-				} else = {
-					date > 1938.8.1
-				}
-		}
-
-		visible = {
-			OR = {
-			has_completed_focus = SWE_FOP_ready_world_revolution
-			has_completed_focus = SWE_FOP_crush_nordic_crowns
-			}
-		}
-
-		cost = 60
-		days_remove = 18
-		fire_only_once = yes
-		war_with_target_on_remove = yes
-
-		ai_will_do = {
-			base = 0
-			modifier = { 
-				add = 100
-				date > 1938.6.1
-			}
-			modifier = {
-				factor = 0
-				AND = {
-					is_faction_leader = no
-					OR = {
-						is_in_faction_with = INT
-						is_in_faction_with = GER
-						is_in_faction_with = RUS
-						is_in_faction_with = ENT
-					}
-				}
-				FIN = {
-					OR = {
-						is_in_faction_with = INT
-						is_in_faction_with = GER
-						is_in_faction_with = RUS
-						is_in_faction_with = ENT
-					}
-				}
-			}
-		}
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete swe_subjugate_finland_revolution target: [From.GetName]"
-			
-			setup_decision_attack_AI = yes
-		}
-
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove swe_subjugate_finland_revolution target: [From.GetName]"
-			add_state_claim = 844
-			
-			add_state_claim = 148
-			add_state_claim = 149
-			add_state_claim = 147
-			add_state_claim = 150
-			add_state_claim = 111
-			add_state_claim = 863
-			add_state_claim = 840
-			add_state_claim = 864	
-			add_state_claim = 865
-			add_state_claim = 146
-			add_state_claim = 1326
-			add_state_claim = 1325	
-			add_state_claim = 1324
-
-				create_wargoal = {
-					target = FIN
-					type = annex_everything
-				}
-		}
-	}
-
-	swe_integrate_finland_revolution = {
-		icon = generic_ignite_civil_war
-		allowed = { tag = SWE }			
-		available = {
-			has_socialist_government = yes
-
-			is_subject = no
-			AND = { 
-				840 = { is_owned_and_controlled_by = SWE }
-				863 = { is_owned_and_controlled_by = SWE }
-				149 = { is_owned_and_controlled_by = SWE }
-				148 = { is_owned_and_controlled_by = SWE }
-				844 = { is_owned_and_controlled_by = SWE }
-				150 = { is_owned_and_controlled_by = SWE }
-				864 = { is_owned_and_controlled_by = SWE }
-				111 = { is_owned_and_controlled_by = SWE }
-			}
-		}
-
-		visible = {
-			has_country_flag = SWE_flag_integrate_finland
-		}
-
-		cost = 40
-		days_remove = 95
-		fire_only_once = yes
-		war_with_target_on_remove = yes
-
-		ai_will_do = {
-			base = 50
-		}
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete swe_integrate_finland_revolution target: [From.GetName]"
-
-
-		}
-
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove swe_integrate_finland_revolution target: [From.GetName]"
-			add_state_core = 840
-			add_state_core = 863
-			add_state_core = 149
-			add_state_core = 148
-			add_state_core = 844
-			add_state_core = 150
-			add_state_core = 864
-			add_state_core = 865
-			add_state_core = 111
-			add_state_core = 147
-			add_state_core = 1326
-			add_state_core = 146
-			add_state_core = 1324
-			add_state_core = 1325			
-			
-			remove_ideas = SWE_integrate_finland
-		}
-	}
-
-	swe_subjugate_denmark_revolution = {
-		icon = generic_ignite_civil_war
-		allowed = { tag = SWE }			
-		available = {
-			has_socialist_government = yes
-			if = {
-				limit = { 
-					SWE = {
-						is_in_faction_with = FRA 
-						}
-					}
-				date > 1939.11.1
-				} else = {
-					date > 1938.8.1
-				}
-			is_subject = no
-			
-			DEN = { has_socialist_government = no }
-			is_subject = no
-		}
-
-		visible = {
-			OR = {
-			has_completed_focus = SWE_FOP_ready_world_revolution
-			has_completed_focus = SWE_FOP_crush_nordic_crowns
-			}
-		}
-
-		cost = 40
-		days_remove = 16
-		fire_only_once = yes
-		war_with_target_on_remove = yes
-
-		ai_will_do = {
-			base = 0
-			modifier = { 
-				add = 100
-				date > 1938.6.1
-			}
-			modifier = {
-				factor = 0
-				AND = {
-					is_faction_leader = no
-					OR = {
-						is_in_faction_with = INT
-						is_in_faction_with = GER
-						is_in_faction_with = RUS
-						is_in_faction_with = ENT
-					}
-				}
-				DEN = {
-					OR = {
-						is_in_faction_with = INT
-						is_in_faction_with = GER
-						is_in_faction_with = RUS
-						is_in_faction_with = ENT
-					}
-				}
-			}
-		}
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete swe_subjugate_denmark_alliance target: [From.GetName]"
-			
-			setup_decision_attack_AI = yes
-		}
-
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove swe_subjugate_denmark_alliance target: [From.GetName]"
-			if = { 
-				limit = { DEN = { has_socialist_government = yes } }
-					DEN = {
-						country_event = { id = swefop.37 } 
-					}
-			}
-			else = {
-				create_wargoal = {
-					target = DEN
-					type = annex_everything
-				}
-			}
-		}
-	}
-
-	swe_annex_denmark_revolution = {
-		icon = generic_ignite_civil_war
-		allowed = { tag = SWE }			
-		available = {
-			has_socialist_government = yes
-			date > 1938.1.1
-			is_subject = no
-		}
-
-		visible = {
-				DEN = { is_puppet_of = SWE }					
-			}
-
-		cost = 75
-		days_remove = 30
-		fire_only_once = yes
-		war_with_target_on_remove = yes
-
-		ai_will_do = {
-			base = 50
-		}
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete swe_annex_denmark_revolution target: [From.GetName]"
-		}
-
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove swe_annex_denmark_revolution target: [From.GetName]"
-			Annex_country = {
-				target = DEN
-				transfer_troops = yes
-			}
-		}
-	}
-
-	SWE_claim_iceland_revolution = {
-		icon = GFX_decision_generic_flags
-		highlight_states = {
-		highlight_state_targets = {
-			state = 100
-			state = 337
-		}
-		}
-		allowed = {
-			tag = SWE
-		}
-
-		available = {
-			has_socialist_government = yes
-
-			is_subject = no
-		}
-
-
-			
-		visible = {
-		tag = SWE
-			OR = {
-			has_completed_focus = SWE_FOP_ready_world_revolution
-			has_completed_focus = SWE_FOP_crush_nordic_crowns
-			}
-
-			NOT = {
-				OR = {
-					AND = {
-						100 = { is_owned_and_controlled_by = SWE }
-						337 = { is_owned_and_controlled_by = SWE }
-					}
-					AND = {
-						100 = { is_core_of = SWE }
-						337 = { is_core_of = SWE }
-					}
-				}
-			}
-		}
-
-		fire_only_once = yes
-		cost = 40
-
-		ai_will_do = {
-			base = 0
-			modifier = { 
-				add = 100
-				date > 1938.6.1
-			}
-			modifier = {
-				factor = 0
-				AND = {
-					is_faction_leader = no
-					OR = {
-						is_in_faction_with = INT
-						is_in_faction_with = GER
-						is_in_faction_with = RUS
-						is_in_faction_with = ENT
-					}
-				}
-				ICE = {
-					OR = {
-						is_in_faction_with = INT
-						is_in_faction_with = GER
-						is_in_faction_with = RUS
-						is_in_faction_with = ENT
-					}
-				}
-			}
-		}
-		
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_claim_iceland_revolution"
-			
-			if = {
-				limit = { 
-					ICE = { 
-						exists = yes 
-						}
-					}
-					ICE = {
-						country_event = { id = swefop.25 } 
-					}				
-			} else = {
-					create_wargoal = {
-						target = 100.owner
-						type = annex_everything
-					}
-			
-			add_state_claim = 100
-			add_state_claim = 337		
-			}			
-			
-
-		}
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_claim_iceland_revolution"
-		}
-	}
-
-
-	SWE_claim_scandinavia_revolution = {
-		icon = generic_form_nation
-		allowed = { tag = SWE }
-		available = { 
-			OR = {
-			has_completed_focus = SWE_FOP_role_to_play
-			has_completed_focus = SWE_FOP_true_nordic_union
-			}
-		}
-		
-		visible = { 
-			OR = {
-			has_completed_focus = SWE_FOP_role_to_play
-			has_completed_focus = SWE_FOP_true_nordic_union
-			}
-		}
-		fire_only_once = yes
-		cost = 50
-
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_claim_scandinavia_revolution"	
-			add_state_claim = 110
-			add_state_claim = 142
-			add_state_claim = 143
-			add_state_claim = 144
-			add_state_claim = 937
-			add_state_claim = 936
-			add_state_claim = 37
-			add_state_claim = 99
-			add_state_claim = 337
-			add_state_claim = 100
-			add_state_claim = 101
-			add_state_claim = 926		
-		}
-		ai_will_do = {
-			factor = 50
-		}
-	}
-
-	SWE_integrate_scandinavia_revolution = {
-		icon = generic_form_nation
-		allowed = { original_tag = SWE }
-		visible = {
-			110 = { is_claimed_by = SWE }
-			37 = { is_claimed_by = SWE }			
-		}
-		available = {
-			AND = { 
-				110 = { is_owned_and_controlled_by = SWE }
-				142 = { is_owned_and_controlled_by = SWE }
-				143 = { is_owned_and_controlled_by = SWE }
-				144 = { is_owned_and_controlled_by = SWE }
-				937 = { is_owned_and_controlled_by = SWE }
-				936 = { is_owned_and_controlled_by = SWE }
-				37 = { is_owned_and_controlled_by = SWE }
-				99 = { is_owned_and_controlled_by = SWE }
-				337 = { is_owned_and_controlled_by = SWE }
-				101 = { is_owned_and_controlled_by = SWE }
-				926 = { is_owned_and_controlled_by = SWE }
-
-			}
-		}
-		fire_only_once = yes
-		cost = 100
-		days_remove = 110
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_integrate_scandinavia_revolution"
-			add_stability = -0.05
-			add_timed_idea = {
-				idea = SWE_integrate_scandinavia_idea
-				days = 240
-			}		
-			if = {
-				limit = { has_country_flag = SWE_flag_radsoc_victory } 
-					if = { 
-						limit = { 840 = { is_owned_and_controlled_by = SWE } }
-							set_cosmetic_tag = SWE_NDR_radsoc
-
-					} else = {
-				set_cosmetic_tag = SWE_SCA_radsoc	
-				}
-			}
-			else_if = {
-				limit = { has_country_flag = SWE_flag_syndie_victory } 
-					if = { 
-						limit = { 840 = { is_owned_and_controlled_by = SWE } }
-							set_cosmetic_tag = SWE_NDR_anarch
-
-					} else = {				
-				set_cosmetic_tag = SWE_SCA_anarch	
-				}
-			}
-			else_if = {
-				limit = { has_country_flag = SWE_flag_central_syndie } 
-					if = { 
-						limit = { 840 = { is_owned_and_controlled_by = SWE } }
-							set_cosmetic_tag = SWE_NDR_synd
-
-					} else = {				
-				set_cosmetic_tag = SWE_SCA_synd	
-				}
-			}			
-			else_if = {
-				limit = { has_country_flag = SWE_flag_flyg_victory_2 } 
-					if = { 
-						limit = { 840 = { is_owned_and_controlled_by = SWE } }
-							set_cosmetic_tag = SWE_NDR_flyg
-
-					} else = {				
-				set_cosmetic_tag = SWE_SCA_flyg	
-				}
-			}
-			else_if = {
-				limit = { has_country_flag = SWE_flag_linderot_victory }
-					if = { 
-						limit = { 840 = { is_owned_and_controlled_by = SWE } }
-							set_cosmetic_tag = SWE_NDR_commie
-
-					} else = {				
-				set_cosmetic_tag = SWE_SCA_commie	
-				}
-			}
-			else_if = {
-				limit = { has_country_flag = SWE_flag_hugo_doctrine }
-					if = { 
-						limit = { 840 = { is_owned_and_controlled_by = SWE } }
-							set_cosmetic_tag = SWE_NDR_commie
-
-					} else = {				
-				set_cosmetic_tag = SWE_SCA_commie	
-				}
-			}
-						
-			else_if = {
-				limit = { has_country_flag = SWE_flag_lindholm_tot } 
-					if = { 
-						limit = { 840 = { is_owned_and_controlled_by = SWE } }
-							set_cosmetic_tag = SWE_NDR_natsoc
-					} else = {				
-				set_cosmetic_tag = SWE_SCA_natsoc	
-				}
-			}					
-			
-
-		}
-		
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_integrate_scandinavia_revolution"
-		every_state = {
-		limit = { is_core_of = DEN }
-		add_core_of = FROM
-		}
-		every_state = {
-		limit = { is_core_of = NOR }
-		add_core_of = FROM
-		}
-
-
-			hidden_effect = {
-				set_country_flag = SWE_flag_scandinavia_formed
-				
-				if = {
-					limit = {
-						has_country_flag = SWE_flag_syndie_victory
-					}
-					country_event = { id = swefop.48 } 
-				} 
-				else_if = {	
-					limit = {
-						has_government = totalist
-					}
-					country_event = { id = swefop.34 } 
-				}
-			}
-		
-		}
-		ai_will_do = {
-			factor = 50
-		}
-	}
 
 	SWE_core_anarchist_world = { #Anarchist world 
 		icon = generic_form_nation
@@ -1475,9 +674,6 @@ SWE_revolution_decisions = {
 			has_country_flag = SWE_flag_scandinavia_formed
 			has_country_flag = SWE_flag_rev_USSR
 			has_country_leader = { ruling_only = yes name = "Hugo Sillén" }
-
-				
-
 		}
 		
 		visible = { 
@@ -1499,14 +695,6 @@ SWE_revolution_decisions = {
 			create_wargoal = { type = annex_everything target = EST }
 			create_wargoal = { type = annex_everything target = LAT }
 			create_wargoal = { type = annex_everything target = LIT }
-			create_wargoal = { type = annex_everything target = POL }
-			create_wargoal = { type = annex_everything target = GAL }
-			create_wargoal = { type = annex_everything target = HUN }
-			create_wargoal = { type = annex_everything target = CRO }
-			create_wargoal = { type = annex_everything target = ALB }
-			create_wargoal = { type = annex_everything target = SER }
-			create_wargoal = { type = annex_everything target = BUL }
-			create_wargoal = { type = annex_everything target = ROM }
 			create_wargoal = { type = annex_everything target = DKB }
 			create_wargoal = { type = annex_everything target = GEO }
 			create_wargoal = { type = annex_everything target = AZE }
@@ -1519,37 +707,27 @@ SWE_revolution_decisions = {
 				every_state = {
 				limit = {
 					OR = {
-						region = 134
-						region = 135
-                        region = 138
-						region = 137
-						region = 40
-						region = 150
-						region = 132
-						region = 133
-						region = 165
-						region = 130
+						is_central_asia = yes
+						is_russian_starting_claims = yes
+						is_ukraine = yes
 						region = 39
 						region = 37
-						region = 38
-						region = 155
-						region = 15
-						region = 144
-						region = 27
-						region = 145
-						state = 236
-						state = 1224
-						state = 406
-						state = 67
-						state = 86
-						state = 776
-						state = 777
-						state = 5
-						state = 188
-						state = 1274
-						state = 215
-						state = 213
-						state = 722
+						region = 134
+						state = 1227
+						state = 234
+						state = 235
+						state = 1266
+						state = 237
+						state = 1226
+						state = 218
+						state = 1263
+						state = 1231
+						state = 1264
+						state = 238
+						state = 245
+						state = 657
+						state = 561
+						state = 560
 					}
 				}
 				add_claim_by = SWE
@@ -1595,6 +773,7 @@ SWE_revolution_decisions = {
 
 			NOT = {
 				country_exists = SOV
+				country_exists = RUS
 				country_exists = BAT
 				country_exists = EST
 				country_exists = LAT
@@ -1607,9 +786,6 @@ SWE_revolution_decisions = {
 				country_exists = MTR
 				country_exists = KUB
 				country_exists = GAL
-				country_exists = HUN
-				country_exists = ROM
-				country_exists = POL
 			}
 			
 		}
@@ -1628,37 +804,27 @@ SWE_revolution_decisions = {
 				every_state = {
 				limit = {
 					OR = {
-						region = 134
-						region = 135
-                        region = 138
-						region = 137
-						region = 40
-						region = 150
-						region = 132
-						region = 133
-						region = 165
-						region = 130
+						is_alash = yes
+						is_russian_starting_claims = yes
+						is_ukraine = yes
 						region = 39
 						region = 37
-						region = 38
-						region = 155
-						region = 15
-						region = 144
-						region = 27
-						region = 145
-						state = 236
-						state = 1224
-						state = 406
-						state = 67
-						state = 86
-						state = 776
-						state = 777
-						state = 5
-						state = 188
-						state = 1274
-						state = 215
-						state = 213
-						state = 722
+						region = 134
+						state = 1227
+						state = 234
+						state = 235
+						state = 1266
+						state = 237
+						state = 1226
+						state = 218
+						state = 1263
+						state = 1231
+						state = 1264
+						state = 238
+						state = 245
+						state = 657
+						state = 561
+						state = 560						
 					}
 				}
 				add_core_of = SWE
@@ -1669,7 +835,7 @@ SWE_revolution_decisions = {
 		}
 	}
 
-	SWE_claim_europe_linderot = { #The European Workers' Commonwealth
+	SWE_claim_europe_linderot = { #The European Workers' Commonwealth - switch to eastern europe
 		icon = generic_form_nation
 		allowed = { tag = SWE }
 		available = { 
@@ -1694,6 +860,158 @@ SWE_revolution_decisions = {
 		days_remove = 5
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_claim_europe_linderot"	
+
+			create_wargoal = { type = annex_everything target = GER }
+			create_wargoal = { type = annex_everything target = POL }
+			create_wargoal = { type = annex_everything target = CZE }
+			create_wargoal = { type = annex_everything target = AUS }
+			create_wargoal = { type = annex_everything target = HUN }
+			create_wargoal = { type = annex_everything target = LIT }
+			create_wargoal = { type = annex_everything target = BAT }
+			create_wargoal = { type = annex_everything target = EST }
+			create_wargoal = { type = annex_everything target = LAT }
+			create_wargoal = { type = annex_everything target = UKR }
+			create_wargoal = { type = annex_everything target = ROM }
+			create_wargoal = { type = annex_everything target = BUL }
+			create_wargoal = { type = annex_everything target = SER }
+			create_wargoal = { type = annex_everything target = ALB }
+			create_wargoal = { type = annex_everything target = CRO }
+			create_wargoal = { type = annex_everything target = GRE }
+			create_wargoal = { type = annex_everything target = WHR }			
+			
+				every_state = {
+				limit = {
+					OR = {
+						is_full_germany = yes
+						region = 21 #Austria
+						region = 22 #Bohemia
+						region = 15 #Romania
+						region = 24 #Central Balkans
+						region = 25 #Greece
+						region = 26 #Bulgaria
+						region = 27 #Hungary
+						region = 143 #Illyria
+						region = 144 #Transylvania
+						region = 37 #Baltic States
+						region = 39 #Belarus
+						region = 38 #Poland
+						region = 130 #Ukraine
+						state = 943
+						state = 760
+						state = 3
+						state = 151
+						state = 761
+					}
+				}
+				add_claim_by = SWE
+				}
+					
+				set_cosmetic_tag = SWE_linderot_eu
+				set_country_flag = SWE_flag_rev_eu_formed
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	SWE_core_europe_linderot = { #The European Workers' Commonwealth
+		icon = generic_form_nation
+		allowed = { tag = SWE }
+		available = { 
+			has_completed_focus = SWE_FOP_additional_european_conquest
+			has_completed_focus = SWE_lenin_nordic_rule
+			has_country_flag = SWE_flag_scandinavia_formed
+			has_country_flag = SWE_flag_rev_eu_formed
+			NOT = {
+				has_country_leader = { ruling_only = yes name = "Hugo Sillén" }
+				country_exists = CZE
+				country_exists = POL
+				country_exists = GER
+				country_exists = SWI
+				country_exists = LIT
+				country_exists = WHR
+				country_exists = UKR
+				country_exists = BAT
+				country_exists = LAT
+				country_exists = EST
+				country_exists = GAL
+				country_exists = HUN
+				country_exists = AUS
+				country_exists = CRO
+				country_exists = ROM
+				country_exists = BUL
+				country_exists = GRE
+				country_exists = ALB
+			}			
+		}
+		visible = { 
+			has_completed_focus = SWE_FOP_additional_european_conquest
+			has_completed_focus = SWE_lenin_nordic_rule
+			has_country_flag = SWE_flag_scandinavia_formed
+			has_country_flag = SWE_flag_rev_eu_time			
+		}
+		fire_only_once = yes
+		cost = 50
+		days_remove = 15
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_core_europe_linderot"	
+					every_state = {
+				limit = {
+					OR = {
+						is_full_germany = yes
+						region = 21 #Austria
+						region = 22 #Bohemia
+						region = 15 #Romania
+						region = 24 #Central Balkans
+						region = 25 #Greece
+						region = 26 #Bulgaria
+						region = 27 #Hungary
+						region = 143 #Illyria
+						region = 144 #Transylvania
+						region = 37 #Baltic States
+						region = 39 #Belarus
+						region = 38 #Poland
+						region = 130 #Ukraine
+						state = 943
+						state = 760
+						state = 3
+						state = 151
+						state = 761
+					}
+				}
+				add_core_of = SWE
+				}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+	}
+
+	SWE_claim_europe_generic = { #
+		icon = generic_form_nation
+		allowed = { tag = SWE }
+		available = { 
+			OR = {
+				has_completed_focus = SWE_people_council
+				has_completed_focus = SWE_command_union_loyalty
+			}	
+			has_completed_focus = SWE_FOP_additional_european_conquest
+			has_country_flag = SWE_flag_scandinavia_formed		
+		}
+		
+		visible = { 
+			OR = {
+				has_completed_focus = SWE_people_council
+				has_completed_focus = SWE_command_union_loyalty
+			}	
+			has_completed_focus = SWE_FOP_additional_european_conquest
+			has_country_flag = SWE_flag_scandinavia_formed			
+		}
+		fire_only_once = yes
+		cost = 60
+		days_remove = 5
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_claim_europe_generic"	
 			
 			create_wargoal = { type = annex_everything target = ENG }
 			create_wargoal = { type = annex_everything target = IRE }
@@ -1750,24 +1068,33 @@ SWE_revolution_decisions = {
 				add_claim_by = SWE
 				}
 					
-				set_cosmetic_tag = SWE_linderot_eu
-				set_country_flag = SWE_flag_rev_eu_formed
+				if = {
+					limit = {
+						has_country_flag = SWE_flag_central_syndie 
+						}
+				set_cosmetic_tag = SWE_flag_central_syndie
+				set_country_flag = SWE_flag_rev_eu_formed				
+				} else = {
+					set_cosmetic_tag = SWE_syndicalist_central_europe
+					set_country_flag = SWE_flag_rev_eu_formed
+				}
 		}
 		ai_will_do = {
 			factor = 0
 		}
 	}
 
-	SWE_core_europe_linderot = { #The European Workers' Commonwealth
+	SWE_core_europe_generic = { #radsoc or central syndie
 		icon = generic_form_nation
 		allowed = { tag = SWE }
 		available = { 
+			OR = {
+				has_completed_focus = SWE_people_council
+				has_completed_focus = SWE_command_union_loyalty
+			}	
 			has_completed_focus = SWE_FOP_additional_european_conquest
-			has_completed_focus = SWE_lenin_nordic_rule
-			has_country_flag = SWE_flag_scandinavia_formed
-			has_country_flag = SWE_flag_rev_eu_formed
+			has_country_flag = SWE_flag_scandinavia_formed		
 			NOT = {
-				has_country_leader = { ruling_only = yes name = "Hugo Sillén" }
 				country_exists = CZE
 				country_exists = POL
 				country_exists = GER
@@ -1784,16 +1111,18 @@ SWE_revolution_decisions = {
 			}			
 		}
 		visible = { 
+			OR = {
+				has_completed_focus = SWE_people_council
+				has_completed_focus = SWE_command_union_loyalty
+			}	
 			has_completed_focus = SWE_FOP_additional_european_conquest
-			has_completed_focus = SWE_lenin_nordic_rule
-			has_country_flag = SWE_flag_scandinavia_formed
-			has_country_flag = SWE_flag_rev_eu_time			
+			has_country_flag = SWE_flag_scandinavia_formed				
 		}
 		fire_only_once = yes
 		cost = 50
 		days_remove = 15
 		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_core_europe_linderot"	
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_core_europe_generic"	
 					every_state = {
 				limit = {
 					OR = {
@@ -1836,7 +1165,6 @@ SWE_revolution_decisions = {
 			factor = 50
 		}
 	}
-
 
 	SWE_claim_europe_lindholm = { #The European National Revolutionary Order
 		icon = generic_form_nation
@@ -1976,10 +1304,11 @@ SWE_revolution_decisions = {
 
 SWE_hyperborean_conquest_decisions = {
 
-	SWE_claim_small_nordik_realm = { #swedish empire choice
+	SWE_claim_nordik_realm = { #
 		icon = generic_form_nation
 		allowed = { tag = SWE }
 		available = { 
+			has_completed_focus = SWE_FOP_additional_european_conquest
 			has_completed_focus = SWE_our_claim_to_hyperborea
 			has_country_flag = SWE_flag_per_engdahl_victory
 			has_country_flag = SWE_flag_hyperborean_conquest_flag
@@ -1990,20 +1319,176 @@ SWE_hyperborean_conquest_decisions = {
 			has_country_flag = SWE_flag_per_engdahl_victory
 		}
 		fire_only_once = yes
-		cost = 60
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_claim_small_nordik_realm"	
-			create_wargoal = { type = annex_everything target = GER }
+		days_remove = 10
+		cost = 50
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_claim_nordik_realm"		
+				country_event = { id = swereact.125 }
+		}
+		ai_will_do = {
+			factor = 0		
+		}
+	}
 
-
-
+	SWE_core_nordik_realm = { #
+		icon = generic_form_nation
+		allowed = { tag = SWE }
+		available = { 
+			has_completed_focus = SWE_FOP_additional_european_conquest
+			has_completed_focus = SWE_our_claim_to_hyperborea
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_country_flag = SWE_flag_hyperborean_conquest_flag
+			has_country_flag = SWE_flag_manhem_nordik
+			64 = { is_owned_by_ROOT_or_ally = yes}
+			92 = { is_owned_by_ROOT_or_ally = yes}
+			206 = { is_owned_by_ROOT_or_ally = yes}
+			96 = { is_owned_by_ROOT_or_ally = yes}
+			195 = { is_owned_by_ROOT_or_ally = yes}
+			219 = { is_owned_by_ROOT_or_ally = yes}
+			91 = { is_owned_by_ROOT_or_ally = yes}
+			202 = { is_owned_by_ROOT_or_ally = yes}
+			1129 = { is_owned_by_ROOT_or_ally = yes}
+			16 = { is_owned_by_ROOT_or_ally = yes}
+			6 = { is_owned_by_ROOT_or_ally = yes}
+			7 = { is_owned_by_ROOT_or_ally = yes}
+			218 = { is_owned_by_ROOT_or_ally = yes}
+			234 = { is_owned_by_ROOT_or_ally = yes}
+			233 = { is_owned_by_ROOT_or_ally = yes}
+			231 = { is_owned_by_ROOT_or_ally = yes}
+			810 = { is_owned_by_ROOT_or_ally = yes}
+			1279 = { is_owned_by_ROOT_or_ally = yes}
+			405 = { is_owned_by_ROOT_or_ally = yes}
+			861 = { is_owned_by_ROOT_or_ally = yes}
+			1221 = { is_owned_by_ROOT_or_ally = yes}
+			NOT = {
+				country_exists = CZE
+				country_exists = GER
+				country_exists = UKR
+				country_exists = GAL
+				country_exists = LIT
+				country_exists = POL
+				country_exists = WHR
+				country_exists = FRA
+				country_exists = BEL
+				country_exists = HOL
+				country_exists = DKB
+				country_exists = KUB
+				country_exists = MTR
+				country_exists = GEO
+				country_exists = ALO
+				country_exists = TRK								
+				country_exists = KHI	
+				country_exists = UZB				
+			}
+			
+		}
+		
+		visible = { 
+			has_completed_focus = SWE_our_claim_to_hyperborea
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_country_flag = SWE_flag_manhem_nordik
+		}
+		days_remove = 150
+		fire_only_once = yes
+		cost = 100
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_core_nordik_realm"	
 				every_state = {
 					limit = {
 						OR = {
-			
+							is_full_germany = yes
+							region = 19
+							state = 15
+							is_ukraine = yes
+							region = 38 #Poland
+							region = 132 #Northern Russia
+							region = 37
+							region = 39 #Belarus
+							state = 213 #Murmansk
+			                region = 234 #Arkhangelsk
+			                state = 215 #White Karelia
+							state = 722
+							state = 1274
+							region = 150 #Arctic Russia
+							region = 133 #Central Russia
+							region = 22 #Bohemia
+							state = 36
+							state = 866
+							state = 7
+							state = 35
+							state = 978
+							state = 979
+							state = 6
+							state = 29
+							state = 34
+							state = 245
+							state = 1231
+							state = 218
+							state = 1263
+							state = 1226
+							state = 1264
+							state = 238
+							state = 237
+							state = 1266
+							state = 234
+							state = 235
+							state = 1227
+							state = 1187
+							state = 1189
+							state = 1191
+							state = 1186
+							state = 233
+							state = 232
+							state = 787
+							state = 1190
+							state = 1080
+							state = 1188
+							state = 1082
+							state = 231
+							is_central_asia = yes
+							region = 138 #Ural
+							state = 400
+							state = 398
+							state = 399
+							state = 1193
+							state = 651
+							state = 1199
+							state = 1197
+							state = 1194
+							state = 652
+							state = 251
+							state = 249
+							state = 1198
+							state = 256
+							state = 1207
+							state = 239
+							state = 401
+							state = 1224
+							state = 236
+							state = 217
+							state = 265
+							state = 582
+							state = 572
+							state = 653
+							state = 580
+							state = 1200
+							state = 403		
+							state = 713
+							state = 80
+							state = 1140
+							state = 89
+							state = 1127
+							state = 91
+							state = 1126
+							state = 1125
+							state = 1319
+							state = 1366
+							state = 1314
+							state = 88
+							state = 1214						
 						}   
 					}
-				add_claim_by = SWE
+				add_core_of = SWE
 				}
 
 		}
@@ -2012,7 +1497,506 @@ SWE_hyperborean_conquest_decisions = {
 		}
 	}
 
+	SWE_core_eurasia_realm = { #
+		icon = generic_form_nation
+		allowed = { tag = SWE }
+		available = { 
+			has_completed_focus = SWE_FOP_additional_european_conquest
+			has_completed_focus = SWE_our_claim_to_hyperborea
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_country_flag = SWE_flag_hyperborean_conquest_flag
+			has_country_flag = SWE_flag_manhem_eurasia			
+			NOT = {
+				country_exists = CZE
+				country_exists = GER
+				country_exists = UKR
+				country_exists = GAL
+				country_exists = LIT
+				country_exists = POL
+				country_exists = WHR
+				country_exists = FRA
+				country_exists = BEL
+				country_exists = HOL
+				country_exists = DKB
+				country_exists = KUB
+				country_exists = MTR
+				country_exists = GEO
+				country_exists = ALO
+				country_exists = TRK								
+				country_exists = KHI	
+				country_exists = UZB
+				country_exists = TIB
+				country_exists = SIK
+				country_exists = TAN
+				country_exists = MON	
+				country_exists = SWI
+				country_exists = SPR
+				country_exists = CAR
+				country_exists = CNT
+				country_exists = POR
+				country_exists = AUS
+				country_exists = HUN
+				country_exists = ITA		
+				country_exists = SRI
+				country_exists = PAP
+				country_exists = CRO
+				country_exists = SER								
+				country_exists = ALB	
+				country_exists = BUL
+				country_exists = ROM
+				country_exists = GRE
+				country_exists = TUR
+				country_exists = CRE
+				country_exists = PER
+				country_exists = AZE
+				country_exists = ARM
+				country_exists = JBS
+				country_exists = SAU
+				country_exists = YEM
+				country_exists = OMA				
+			}			
+		}
+		
+		visible = { 
+			has_completed_focus = SWE_our_claim_to_hyperborea
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_country_flag = SWE_flag_manhem_eurasia
 
+			
+		}
+		days_remove = 150
+		fire_only_once = yes
+		cost = 100
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_core_nordik_realm"	
+				every_state = {
+					limit = {
+						OR = {
+							is_central_asia = yes
+							is_on_continent = europe
+							is_on_continent = middle_east
+							is_mongolia = yes
+							region = 220 #Xibei
+							is_tibet = yes
+							is_xinjiang = yes
+						}
+					}
+				add_core_of = SWE
+				}
+
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	SWE_release_alpine_puppet = { #
+		icon = generic_form_nation
+		allowed = { tag = SWE }
+		available = { 
+			has_completed_focus = SWE_FOP_additional_european_conquest
+			has_completed_focus = SWE_our_claim_to_hyperborea
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_country_flag = SWE_flag_hyperborean_conquest_flag
+			NOT = {
+				has_country_flag = SWE_flag_manhem_eurasia
+			}
+			1123 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1135 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1136 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			70 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1120 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			664 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1121 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1122 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1119 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			73 = { is_owned_and_controlled_by_ROOT_or_subject = yes }	
+			983 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			14 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			30 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			23 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			
+			44 = { is_owned_and_controlled_by_ROOT_or_subject = yes }	
+			106 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			212 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1089 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			211 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			770 = { is_owned_and_controlled_by_ROOT_or_subject = yes }	
+			48 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			765 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1268 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			77 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			772 = { is_owned_and_controlled_by_ROOT_or_subject = yes }	
+			46 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			81 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1090 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1222 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			79 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			78 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1320 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			713 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			80 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			789 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			76 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			84 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1113 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			82 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			107 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			108 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			104 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1141 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			105 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1098 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			163 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			103 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1142 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1102 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			109 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1137 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			4 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			775 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			152 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			836 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			835 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			759 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			736 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1100 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			160 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			161 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1004 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			838 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			159 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			158 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			3 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			151 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			761 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			760 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			942 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1003 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			943 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			735 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			158 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			762 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			21 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			763 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			22 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			817 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			984 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			31 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			19 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1334 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			32 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			31 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			25 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			26 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			20 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			19 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			23 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			30 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			14 = { is_owned_and_controlled_by_ROOT_or_subject = yes }		
+		}
+		
+		visible = { 
+			has_completed_focus = SWE_our_claim_to_hyperborea
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_country_flag = SWE_flag_manhem_nordik
+			NOT = {
+				has_country_flag = SWE_flag_manhem_eurasia
+			}			
+		}
+		fire_only_once = yes
+		cost = 60
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_core_nordik_realm"	
+
+		every_state = {
+			limit = { 
+				OR = {
+					region = 15 #Romania
+					region = 24 #Central Balkans
+					region = 26 #Bulgaria
+					region = 27 #Hungary
+					region = 143 #Illyria
+					region = 144 #Transylvania
+					region = 21 #Austria
+					region = 20 #Southern France
+					state = 23
+					state = 30
+					state = 14
+					state = 983
+					region = 181
+					state = 73
+					state = 1119
+					state = 1122
+					state = 1121
+					state = 664
+					state = 1120
+					state = 70
+					state = 1136
+					state = 1135
+					state = 1123
+		
+				}
+			}
+			SWE = {
+			set_autonomy = {
+				target = SWI
+				autonomous_state = kx_colored_puppet
+				}
+			}			
+			SWI = {
+
+				set_politics = { 
+					ruling_party = national_populist
+				}
+				create_country_leader = {
+					name = "Hermann Wirth"
+					picture = "gfx/leaders/SWE/Portrait_GER_Hermann_Wirth.png"
+					expire = "1.1.1"
+					ideology = manhem_nordicism_subtype
+				}	
+				set_cosmetic_tag = SWI_Manhem
+				load_focus_tree = generic_focus
+				add_state_core = PREV
+				transfer_state = PREV				
+				}
+				add_core_of = SWI
+			}
+
+
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	SWE_release_med_puppet = { #
+		icon = generic_form_nation
+		allowed = { tag = SWE }
+		available = { 
+			has_completed_focus = SWE_FOP_additional_european_conquest
+			has_completed_focus = SWE_our_claim_to_hyperborea
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_country_flag = SWE_flag_hyperborean_conquest_flag
+			NOT = {
+				has_country_flag = SWE_flag_manhem_eurasia
+			}			
+			#Spain#
+			41 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			118 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			168 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			169 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			170 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			171 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			173 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			174  = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			175  = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			176  = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			177  = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			178  = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			793 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			795 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			951 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1316 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1336 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1337 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1338 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1339 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1340 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1341 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1342 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1343 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1344 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			#Portugal#
+			112  = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			179  = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			180  = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			181  = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			697  = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			698  = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			#Greece#
+			989 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1076 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			185 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			758 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			768 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			47 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			939 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			186 = { is_owned_and_controlled_by_ROOT_or_subject = yes }	
+			182 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			
+			462 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			461 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			290 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			805 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			459 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			460 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			458 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			665 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			
+			115 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			156 = { is_owned_and_controlled_by_ROOT_or_subject = yes }	
+			1006 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			837 = { is_owned_and_controlled_by_ROOT_or_subject = yes }	
+			117 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			742 = { is_owned_and_controlled_by_ROOT_or_subject = yes }	
+			1149 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			2 = { is_owned_and_controlled_by_ROOT_or_subject = yes }	
+			764 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1005 = { is_owned_and_controlled_by_ROOT_or_subject = yes }	
+			157 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			162 = { is_owned_and_controlled_by_ROOT_or_subject = yes }			
+		}
+		
+		visible = { 
+			has_completed_focus = SWE_our_claim_to_hyperborea
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_country_flag = SWE_flag_manhem_nordik
+			NOT = {
+				has_country_flag = SWE_flag_manhem_eurasia
+			}			
+		}
+		fire_only_once = yes
+		cost = 60
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_release_med_puppet"	
+
+		every_state = {
+			limit = { 
+				OR = {
+					is_spain = yes
+					is_portugal = yes
+					region = 23
+					state = 1
+					region = 25 #Greece
+					state = 669
+					region = 189 #Eastern Maghreb					
+				}
+			}
+			SWE = {
+			set_autonomy = {
+				target = CAT
+				autonomous_state = kx_colored_puppet
+				}
+			}			
+			CAT = {
+
+				set_politics = { 
+					ruling_party = national_populist
+				}
+				create_country_leader = {
+					name = "Salvador Dali"
+					picture = "gfx/leaders/CAT/Portrait_CAT_Salvador_Dali.png"
+					expire = "1.1.1"
+					ideology = manhem_nordicism_subtype
+				}	
+				set_cosmetic_tag = CAT_Manhem
+				load_focus_tree = generic_focus
+				add_state_core = PREV
+				transfer_state = PREV				
+				}
+				add_core_of = CAT
+			}
+
+
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	SWE_release_ENG_puppet = { #
+		icon = generic_form_nation
+		allowed = { tag = SWE }
+		available = { 
+			has_completed_focus = SWE_FOP_additional_european_conquest
+			has_completed_focus = SWE_our_claim_to_hyperborea
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_country_flag = SWE_flag_hyperborean_conquest_flag
+			NOT = {
+				has_country_flag = SWE_flag_manhem_eurasia
+			}			
+			119 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			113 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			113 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			135 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			
+			123 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			127 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			126 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			338 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			125 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			122 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			128 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1225 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			129 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			130 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			132 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			131 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			133 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			121 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			120 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1317 = { is_owned_and_controlled_by_ROOT_or_subject = yes }
+			1315 = { is_owned_and_controlled_by_ROOT_or_subject = yes }			
+		}
+		
+		visible = { 
+			has_completed_focus = SWE_our_claim_to_hyperborea
+			has_country_flag = SWE_flag_per_engdahl_victory
+			has_country_flag = SWE_flag_manhem_nordik
+			NOT = {
+				has_country_flag = SWE_flag_manhem_eurasia
+			}			
+		}
+		fire_only_once = yes
+		cost = 60
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_release_ENG_puppet"	
+
+		every_state = {
+			limit = { 
+				OR = {
+					is_british_isles = yes
+					state = 135
+					state = 113
+					state = 113
+					state = 119
+					
+					
+				}
+			}
+			SWE = {
+			set_autonomy = {
+				target = ENG
+				autonomous_state = kx_colored_puppet
+				}
+			}			
+			ENG = {
+
+				set_politics = { 
+					ruling_party = national_populist
+				}
+				create_country_leader = {
+					name = "Henry Williamson"
+					picture = "gfx/leaders/ENG/Portrait_Britain_Henry_Williamson.png"
+					expire = "1.1.1"
+					ideology = manhem_nordicism_subtype
+				}	
+				set_cosmetic_tag = GBP_Manhem
+				load_focus_tree = generic_focus
+				add_state_core = PREV
+				transfer_state = PREV				
+				}
+				add_core_of = ENG
+			}
+
+
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}	
 
 }
 
@@ -2026,12 +2010,12 @@ SWE_hyperborean_conquest_decisions = {
 
 SWE_hedin_and_rosen_conquest_decisions = {
 
-	SWE_claim_hedin_empire_claim = { #swedish empire choice
+	SWE_claim_hedin_empire = { #swedish empire choice
 		icon = generic_form_nation
 		allowed = { tag = SWE }
 		available = { 
+			has_completed_focus = SWE_FOP_additional_european_conquest
 			has_completed_focus = SWE_inter_swedish_german_nationalism
-			has_country_flag = SWE_flag_hedin_imperialism
 		}
 		
 		visible = { 
@@ -2039,9 +2023,11 @@ SWE_hedin_and_rosen_conquest_decisions = {
 			has_country_flag = SWE_flag_hedin_imperialism
 		}
 		fire_only_once = yes
-		cost = 60
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_claim_hedin_empire_claim"	
+		cost = 75
+		days_remove = 10
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_claim_hedin_empire"	
 			create_wargoal = { type = annex_everything target = GER }
 			create_wargoal = { type = annex_everything target = LIT }
 			create_wargoal = { type = annex_everything target = EST }
@@ -2053,77 +2039,44 @@ SWE_hedin_and_rosen_conquest_decisions = {
 			create_wargoal = { type = annex_everything target = AUS }
 			create_wargoal = { type = annex_everything target = SWI }
 			create_wargoal = { type = annex_everything target = FRA }
-			create_wargoal = { type = annex_everything target = WHR }
 			create_wargoal = { type = annex_everything target = RUS }
 
 
 				every_state = {
 				limit = {
 					OR = {
-						region = 19 #Northern France
-						region = 6 #Rhineland
-						state = 56 #Wester-Ems
-						state = 57 #Westfalen
-						state = 58 #Holstein
 						is_germany = yes
-						state = 5 #East Prussia
-						state = 8 #Luxembourg
-						state = 28 #Alsace-Lorraine
-						state = 67 #Upper Silesia
-						state = 86 #Posen
-						state = 188 #Memel
-						state = 776 #West Prussia
-						state = 777 #Masuria
-						state = 782 #Northern Schleswig
-						state = 979 #Zeeuws-Vlaanderen
-						state = 978 #Limburg
-						state = 866 #Guelders
-						state = 36 #Frisia
-						state = 35 #North Brabant
-						state = 7 #Holland
-						state = 6 #Flanders
-						state = 34 #Wallonia
-						state = 29 #Maritime Flanders
-						state = 189 #Samogitia
-						state = 11 #Kaunas
-						state = 96 #Vilnus
-						state = 94 #Vawkavysk
-						state = 1329 #Suwalki
-						state = 655 #Sudovia
-						state = 722 
-						state = 213
-						state = 215
-						state = 1274
-						state = 1327
-						state = 1328
-						state = 195
-						state = 208
-						state = 1291
-						state = 1288
-						state = 880
-						state = 209
-						state = 97
-						state = 1148
-						state = 98
-						state = 87
-						state = 1088
-						state = 10
-						state = 90
-						state = 92
+						region = 5
+						region = 38
+						region = 37
+						region = 5
+						state = 29
+						state = 779
 						state = 1138
 						state = 69
 						state = 1133
 						state = 1139
-						state = 1289
 						state = 1290
+						state = 209
+						state = 1291
+						state = 1288
+						state = 1289
+						state = 208
+						state = 263
 						state = 244
+						state = 195
+						state = 1328
+						state = 1327
 						state = 216
-						state = 263				
+						state = 1274
+						state = 215
+						state = 213
+						state = 722
 					}   
 				}
 				add_claim_by = SWE
 				}
-			country_event = { id = swereact.133 }
+			
 
 		}
 		ai_will_do = {
@@ -2131,12 +2084,12 @@ SWE_hedin_and_rosen_conquest_decisions = {
 		}
 	}
 
-	SWE_claim_hedin_empire_core = { #bigger empire core
+	SWE_core_hedin_empire = { #bigger empire core
 		icon = generic_form_nation
 		allowed = { tag = SWE }
-		available = { 
+		available = {
+			has_completed_focus = SWE_FOP_additional_european_conquest
 			has_completed_focus = SWE_inter_swedish_german_nationalism
-			has_country_flag = SWE_flag_hedin_imperialism
 				owns_state = 16
 				owns_state = 21
 				owns_state = 983
@@ -2168,71 +2121,45 @@ SWE_hedin_and_rosen_conquest_decisions = {
 		}
 		fire_only_once = yes
 		cost = 50
-		days_remove = 10
+		days_remove = 100
+		
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_claim_hedin_empire_core"	
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_core_hedin_empire"	
+			country_event = { id = swereact.133 }
+		}		
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_core_hedin_empire"	
 				every_state = {
 				limit = {
 					OR = {
-						region = 19 #Northern France
-						region = 6 #Rhineland
-						state = 56 #Wester-Ems
-						state = 57 #Westfalen
-						state = 58 #Holstein
 						is_germany = yes
-						state = 5 #East Prussia
-						state = 8 #Luxembourg
-						state = 28 #Alsace-Lorraine
-						state = 67 #Upper Silesia
-						state = 86 #Posen
-						state = 188 #Memel
-						state = 776 #West Prussia
-						state = 777 #Masuria
-						state = 782 #Northern Schleswig
-						state = 979 #Zeeuws-Vlaanderen
-						state = 978 #Limburg
-						state = 866 #Guelders
-						state = 36 #Frisia
-						state = 35 #North Brabant
-						state = 7 #Holland
-						state = 6 #Flanders
-						state = 34 #Wallonia
-						state = 29 #Maritime Flanders
-						state = 189 #Samogitia
-						state = 11 #Kaunas
-						state = 96 #Vilnus
-						state = 94 #Vawkavysk
-						state = 1329 #Suwalki
-						state = 655 #Sudovia
-						state = 722 
-						state = 213
-						state = 215
-						state = 1274
-						state = 1327
-						state = 1328
-						state = 195
-						state = 208
-						state = 1291
-						state = 1288
-						state = 880
-						state = 209
-						state = 97
-						state = 1148
-						state = 98
-						state = 87
-						state = 1088
-						state = 10
-						state = 90
-						state = 92
+						region = 5
+						region = 38
+						region = 37
+						region = 5
+						state = 29
+						state = 779
 						state = 1138
 						state = 69
 						state = 1133
 						state = 1139
-						state = 1289
 						state = 1290
+						state = 209
+						state = 1291
+						state = 1288
+						state = 1289
+						state = 208
+						state = 263
 						state = 244
+						state = 195
+						state = 1328
+						state = 1327
 						state = 216
-						state = 263				
+						state = 1274
+						state = 215
+						state = 213
+						state = 722
 					}   
 				}
 				add_core_of = SWE
@@ -2243,12 +2170,12 @@ SWE_hedin_and_rosen_conquest_decisions = {
 		}
 	}
 
-	SWE_claim_rosen_empire_claim = { #swedish empire choice
+	SWE_claim_rosen_empire = { #swedish empire choice
 		icon = generic_form_nation
 		allowed = { tag = SWE }
 		available = { 
+			has_completed_focus = SWE_FOP_additional_european_conquest
 			has_completed_focus = SWE_under_erics_swastika
-			has_country_flag = SWE_flag_rosen_imperialism
 		}
 		
 		visible = { 
@@ -2256,127 +2183,63 @@ SWE_hedin_and_rosen_conquest_decisions = {
 			has_country_flag = SWE_flag_rosen_imperialism
 		}
 		fire_only_once = yes
-		cost = 60
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_claim_rosen_empire_claim"	
+		cost = 75
+		days_remove = 10
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_claim_rosen_empire"	
 			create_wargoal = { type = annex_everything target = RUS }
-
-
+			create_wargoal = { type = annex_everything target = LIT }
+			create_wargoal = { type = annex_everything target = FRA }
+			create_wargoal = { type = annex_everything target = GER }
+			create_wargoal = { type = annex_everything target = ENG }
+			create_wargoal = { type = annex_everything target = CAN }
+			create_wargoal = { type = annex_everything target = IRE }
+			create_wargoal = { type = annex_everything target = HOL }
+			create_wargoal = { type = annex_everything target = BEL }
+			create_wargoal = { type = annex_everything target = POL }
+			create_wargoal = { type = annex_everything target = NFL }
 
 				every_state = {
 				limit = {
-					OR = {
-						region = 1 #Southern England
-						region = 2 #Northern England
-						region = 3 #Scotland
-						state = 1315 #Channel Isles
-						state = 1317 #Mann							
-						##ireland##
-						state = 119
-						state = 134
-						state = 113
-						state = 135
-						##North france/holland/belgium##
-						state = 980
-						state = 1
-						state = 1002
-						state = 114
-						state = 115
-						state = 116
-						state = 1334
-						state = 19
-						state = 23
-						state = 15
-						state = 17
-						state = 24
-						state = 30
-						state = 14
-						state = 983
-						state = 978
-						state = 866
-						state = 36 #Frisia
-						state = 35 #North Brabant
-						state = 7 #Holland
-						state = 6 #Flanders
-						state = 34 #Wallonia
-						state = 29 #Maritime Flanders
-						##Germany##
-						state = 5 #East Prussia
-						state = 188 #Memel
-						state = 777 #Masuria
-						state = 56 #Oldenburg
-						state = 57 #Westphalia
-						state = 58 #Schleswig-Holstein
-						state = 59 #Hanover
-						state = 61
-						state = 62
-						state = 1357
-						state = 63
-						state = 776
-						
-						state = 722 
-						state = 213
-						state = 215
+					OR = {	
+						is_north_germany = yes
+						is_british_isles = yes
+						is_rhineland = yes
+						region = 38
+						region = 4
+						region = 19
+						region = 5
+						region = 37
+						region = 232
+						region = 184
+						region = 8
+						region = 132
+						region = 150
+						region = 164
+						state = 28
+						state = 8
+						state = 741
 						state = 1274
-						state = 1327
-						state = 1328						
-						state = 244
-						state = 216
-						state = 262
-						state = 214	
-
-						state = 195	
-						state = 208	
-						state = 1291	
-						state = 1288	
-						state = 264	
-						state = 351	
-						state = 209	
-						state = 1289	
-						state = 1290
-						state = 397	
-						state = 400	
-						state = 880	
-						state = 246	
-						state = 210
-						state = 263
-
-						state = 189 #Samogitia
-						state = 11 #Kaunas
-						state = 96 #Vilnus
-						state = 94 #Vawkavysk
-						state = 1329 #Suwalki
-						state = 655 #Sudovia
-
-						##NA##
-						state = 464
-						state = 1331
-						state = 1330
-						state = 465
-						state = 468
-						state = 357
-						state = 934
-						state = 466
-						state = 832
-						state = 683
-						
+						state = 215
+						state = 213
+						state = 722
 					}   
 				}
 				add_claim_by = SWE
 				}
-
+			set_cosmetic_tag = SWE_rosen_empire
 		}
 		ai_will_do = {
 			factor = 0
 		}
 	}
 
-	SWE_claim_rosen_empire_core = { #bigger empire core
+	SWE_core_rosen_empire = { #bigger empire core
 		icon = generic_form_nation
 		allowed = { tag = SWE }
 		available = { 
+			has_completed_focus = SWE_FOP_additional_european_conquest
 			has_completed_focus = SWE_under_erics_swastika
-			has_country_flag = SWE_flag_rosen_imperialism
 				owns_state = 112
 				owns_state = 36
 				owns_state = 1
@@ -2392,13 +2255,10 @@ SWE_hedin_and_rosen_conquest_decisions = {
 				country_exists = LIT
 				country_exists = EST
 				country_exists = LAT
-				country_exists = POL
-				country_exists = FRA			
+				country_exists = POL		
 				country_exists = HOL
 				country_exists = BEL
 				country_exists = ENG
-				country_exists = CAN
-				country_exists = POR
 			}
 			
 		}
@@ -2409,133 +2269,33 @@ SWE_hedin_and_rosen_conquest_decisions = {
 		}
 		fire_only_once = yes
 		cost = 50
-		days_remove = 10
+		days_remove = 100
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_claim_rosen_empire_core"	
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_core_rosen_empire"	
 				every_state = {
 				limit = {
-					OR = {
-						region = 1 #Southern England
-						region = 2 #Northern England
-						region = 3 #Scotland
-						state = 1315 #Channel Isles
-						state = 1317 #Mann							
-						##ireland##
-						state = 119
-						state = 134
-						state = 113
-						state = 135
-						##North france/holland/belgium##
-						state = 980
-						state = 1
-						state = 1002
-						state = 114
-						state = 115
-						state = 116
-						state = 1334
-						state = 19
-						state = 23
-						state = 15
-						state = 17
-						state = 24
-						state = 30
-						state = 14
-						state = 983
-						state = 978
-						state = 866
-						state = 36 #Frisia
-						state = 35 #North Brabant
-						state = 7 #Holland
-						state = 6 #Flanders
-						state = 34 #Wallonia
-						state = 29 #Maritime Flanders
-						##Germany##
-						state = 5 #East Prussia
-						state = 188 #Memel
-						state = 777 #Masuria
-						state = 56 #Oldenburg
-						state = 57 #Westphalia
-						state = 58 #Schleswig-Holstein
-						state = 59 #Hanover
-						state = 61
-						state = 62
-						state = 1357
-						state = 63
-						state = 776
-						##Spain##
-						state = 171
-						state = 793
-						state = 1339
-						state = 172
-						state = 174
-						state = 173
-						state = 118
-						state = 1343
-						state = 290
-						state = 177
-						
-						##portugal##
-						state = 112 #Lisbon
-						state = 179 #Beja
-						state = 180 #Porto
-						state = 181 #Guarda
-						state = 697 #Madeira
-						state = 698 #Azores	
-
-						##ukraine##
-						state = 1221
-						state = 137
-						state = 1220
-						state = 196
-						state = 197
-						state = 1232
-						state = 192
-						
-						state = 722 
-						state = 213
-						state = 215
+					OR = {	
+						is_north_germany = yes
+						is_british_isles = yes
+						is_rhineland = yes
+						region = 38
+						region = 4
+						region = 19
+						region = 5
+						region = 37
+						region = 232
+						region = 184
+						region = 8
+						region = 132
+						region = 150
+						region = 164
+						state = 28
+						state = 8
+						state = 741
 						state = 1274
-						state = 1327
-						state = 1328						
-						state = 244
-						state = 216
-						state = 262
-						state = 214	
-
-						state = 195	
-						state = 208	
-						state = 1291	
-						state = 1288	
-						state = 264	
-						state = 351	
-						state = 209	
-						state = 1289	
-						state = 1290
-						state = 397	
-						state = 400	
-						state = 880	
-						state = 246	
-						state = 210
-						state = 263
-
-						state = 189 #Samogitia
-						state = 11 #Kaunas
-						state = 96 #Vilnus
-						state = 94 #Vawkavysk
-						state = 1329 #Suwalki
-						state = 655 #Sudovia
-
-						##NA##
-						state = 464
-						state = 1331
-						state = 1330
-						state = 465
-						state = 468
-						state = 357
-						state = 934
-						state = 466
-						state = 832
-						state = 683			
+						state = 215
+						state = 213
+						state = 722
 					}   
 				}
 				add_core_of = SWE
@@ -3189,19 +2949,19 @@ SWE_counter_revolution_army_decisions = {
 		available = {
 			controls_state = 141
 			OR = {
-				has_completed_focus = SWE_defense_of_the_realm
-				has_completed_focus = SWE_expand_the_army_college
-				has_completed_focus = SWE_curtail_the_capitalists
+				has_completed_focus = SWE_meet_with_the_politicians
+				has_completed_focus = SWE_new_rearmament_plan
+				has_completed_focus = SWE_aristocratic_tied_nationalism
 			}
 		}
 	
 		fire_only_once = yes
-		cost = 25
+		cost = 50
 		
 		modifier = {
 			political_power_factor = -0.05
 		}
-		days_remove = 15
+		days_remove = 25
 
 		
 		ai_will_do = {
@@ -3213,7 +2973,9 @@ SWE_counter_revolution_army_decisions = {
 			country_event = { id = swereact.97 }
 
 			141 = {
-				add_dynamic_modifier = { modifier = SWE_army_stockholm_modifier }
+				add_dynamic_modifier = { 
+					modifier = SWE_army_stockholm_modifier
+				}
 				add_building_construction = {
 					type = infrastructure
 					level = 1
@@ -3221,410 +2983,6 @@ SWE_counter_revolution_army_decisions = {
 				}
 			}			
 			 
-		}
-	}
-
-	SWE_army_ideology_1 = { 
-		icon = GFX_decision_south_sweden
-		fixed_random_seed = no
-		highlight_states = { 
-			highlight_state_targets = { state = 138 } 
-			highlight_state_targets = { state = 139 }
-			}		
-		allowed = { original_tag = SWE }
-		visible = {
-			has_country_flag = SWE_flag_military_steps_in
-			has_country_flag = SWE_flag_army_decision_ideology
-		}
-
-		available = {
-			has_country_flag = SWE_flag_army_decision_ideology_phase1
-			controls_state = 139
-			controls_state = 138
-		}
-	
-		fire_only_once = yes
-		cost = 50
-
-		modifier = {
-			political_power_gain = -0.10
-			consumer_goods_factor = 0.05
-		}				
-		
-		days_remove = 120
-
-		ai_will_do = {
-			factor = 100
-		}
-		
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_army_ideology_1"
-			clr_country_flag = SWE_flag_army_decision_ideology_phase1
-			set_country_flag = SWE_flag_army_decision_ideology_phase2			
-			138 = {
-				add_dynamic_modifier = { modifier = SWE_army_ideology_modifier }
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-			139 = {
-				add_dynamic_modifier = { modifier = SWE_army_ideology_modifier }
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-		}
-	}
-
-	SWE_army_ideology_2 = { 
-		icon = GFX_decision_north_west_sweden
-		fixed_random_seed = no
-		highlight_states = { 
-			highlight_state_targets = { state = 140 } 
-			highlight_state_targets = { state = 908 }
-			}		
-		allowed = { original_tag = SWE }
-		visible = {
-			has_country_flag = SWE_flag_military_steps_in
-			has_country_flag = SWE_flag_army_decision_ideology
-		}
-
-		available = {
-			has_country_flag = SWE_flag_army_decision_ideology_phase2
-			controls_state = 140
-			controls_state = 908
-		}
-	
-		fire_only_once = yes
-		cost = 50
-		
-		modifier = {
-			political_power_gain = -0.10
-			consumer_goods_factor = 0.05
-		}		
-		
-		days_remove = 120
-
-		ai_will_do = {
-			factor = 100
-		}
-		
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_army_ideology_2"
-			clr_country_flag = SWE_flag_army_decision_ideology_phase2
-			set_country_flag = SWE_flag_army_decision_ideology_phase3			
-			140 = {
-				add_dynamic_modifier = { modifier = SWE_army_ideology_modifier }
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-			908 = {
-				add_dynamic_modifier = { modifier = SWE_army_ideology_modifier }
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}					
-		}
-	}
-
-	SWE_army_ideology_3 = { 
-		icon = GFX_decision_midland_sweden
-		fixed_random_seed = no
-		highlight_states = { 
-			highlight_state_targets = { state = 38 } 
-			highlight_state_targets = { state = 778 }
-			}		
-		allowed = { original_tag = SWE }
-		visible = {
-			has_country_flag = SWE_flag_military_steps_in
-			has_country_flag = SWE_flag_army_decision_ideology
-		}
-
-		available = {
-			has_country_flag = SWE_flag_army_decision_ideology_phase3
-			controls_state = 38
-			controls_state = 778
-		}
-	
-		fire_only_once = yes
-		cost = 50
-		
-		modifier = {
-			political_power_gain = -0.10
-			consumer_goods_factor = 0.05
-		}		
-		
-		days_remove = 120
-
-		ai_will_do = {
-			factor = 100
-		}
-		
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_army_ideology_3"
-			clr_country_flag = SWE_flag_army_decision_ideology_phase3
-			set_country_flag = SWE_flag_army_decision_ideology_phase4			
-			38 = {
-				add_dynamic_modifier = { modifier = SWE_army_ideology_modifier }
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-			778 = {
-				add_dynamic_modifier = { modifier = SWE_army_ideology_modifier }
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}			
-		}
-	}	
-
-	SWE_army_ideology_4 = { 
-		icon = GFX_decision_north_sweden
-		fixed_random_seed = no
-		highlight_states = { 
-			highlight_state_targets = { state = 666 } 
-			highlight_state_targets = { state = 960 }
-			highlight_state_targets = { state = 909 }
-			}		
-		allowed = { original_tag = SWE }
-		visible = {
-			has_country_flag = SWE_flag_military_steps_in
-			has_country_flag = SWE_flag_army_decision_ideology
-		}
-
-		available = {
-			has_country_flag = SWE_flag_army_decision_ideology_phase4
-			controls_state = 666
-			controls_state = 960
-			controls_state = 909
-		}
-	
-		fire_only_once = yes
-		cost = 50
-		
-		modifier = {
-			political_power_gain = -0.10
-			consumer_goods_factor = 0.05
-		}		
-		
-		days_remove = 120
-
-		ai_will_do = {
-			factor = 100
-		}
-		
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_army_ideology_4"
-			clr_country_flag = SWE_flag_army_decision_ideology_phase4
-			set_country_flag = SWE_flag_army_decision_ideology_phase_finished			
-			666 = {
-				add_dynamic_modifier = { modifier = SWE_army_ideology_modifier }
-				add_building_construction = {
-					type = infrastructure
-					level = 2
-					instant_build = yes
-				}
-			}
-			960 = {
-				add_dynamic_modifier = { modifier = SWE_army_ideology_modifier }
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-			909 = {
-				add_dynamic_modifier = { modifier = SWE_army_ideology_modifier }
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}						
-		}
-	}
-
-	SWE_army_ideology_norway = { 
-		icon = GFX_decision_cat_NOR_pressing_irredentist_claims
-		fixed_random_seed = no
-		highlight_states = { 
-			highlight_state_targets = { state = 110 } 
-			highlight_state_targets = { state = 142 }
-			highlight_state_targets = { state = 143 }
-			highlight_state_targets = { state = 144 }
-			highlight_state_targets = { state = 936 }
-			highlight_state_targets = { state = 937 }
-			}		
-		allowed = { original_tag = SWE }
-		visible = {
-			has_country_flag = SWE_flag_military_steps_in
-			
-			has_country_flag = SWE_flag_army_decision_ideology
-			has_country_flag = SWE_flag_army_decision_ideology_phase_finished
-			controls_state = 110
-			controls_state = 142
-			controls_state = 143
-			controls_state = 144
-			controls_state = 936
-			controls_state = 937
-		}
-
-		available = {
-			has_country_flag = SWE_flag_army_decision_ideology_phase_finished
-			controls_state = 110
-			controls_state = 142
-			controls_state = 143
-			controls_state = 144
-			controls_state = 936
-			controls_state = 937
-		}
-	
-		fire_only_once = yes
-		cost = 75
-		
-		modifier = {
-			political_power_gain = -0.10
-		}		
-		
-		days_remove = 120
-
-		ai_will_do = {
-			factor = 100
-		}
-		
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_army_ideology_norway"
-		
-			110 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = infrastructure
-					level = 2
-					instant_build = yes
-				}
-			}
-			142 = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-			143 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-			144 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-			936 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}			
-			937 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}			
-		}
-	}
-
-	SWE_army_ideology_denmark = { 
-		icon = GFX_decision_cat_NOR_pressing_irredentist_claims
-		fixed_random_seed = no
-		highlight_states = { 
-			highlight_state_targets = { state = 37 } 
-			highlight_state_targets = { state = 99 }
-			highlight_state_targets = { state = 337 }
-
-			}		
-		allowed = { original_tag = SWE }
-		visible = {
-			has_country_flag = SWE_flag_military_steps_in
-			has_country_flag = SWE_flag_army_decision_ideology
-			has_country_flag = SWE_flag_army_decision_ideology_phase_finished
-			controls_state = 37
-			controls_state = 99
-			controls_state = 337
-
-		}
-
-		available = {
-			has_country_flag = SWE_flag_army_decision_ideology_phase_finished
-			controls_state = 37
-			controls_state = 99
-			controls_state = 337
-
-		}
-	
-		fire_only_once = yes
-		cost = 75
-		
-		modifier = {
-			political_power_gain = -0.10
-		}		
-		
-		days_remove = 120
-
-		ai_will_do = {
-			factor = 100
-		}
-		
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_army_ideology_denmark"
-		
-			37 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = infrastructure
-					level = 2
-					instant_build = yes
-				}
-			}
-			99 = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-			337 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-			
 		}
 	}
 
@@ -3643,6 +3001,11 @@ SWE_counter_revolution_army_decisions = {
 
 		available = {
 			has_country_flag = SWE_flag_army_decision_construction_phase1
+			OR = {
+				has_completed_focus = SWE_limited_free_market
+				has_completed_focus = SWE_defense_of_the_realm
+				has_completed_focus = SWE_volunteer_tradition
+			}
 			controls_state = 139
 			controls_state = 138
 		}
@@ -3702,6 +3065,11 @@ SWE_counter_revolution_army_decisions = {
 			has_country_flag = SWE_flag_army_decision_construction_phase2
 			controls_state = 140
 			controls_state = 908
+			OR = {
+				has_completed_focus = SWE_grand_military_awakening
+				has_completed_focus = SWE_codify_the_military_journal
+				has_completed_focus = SWE_state_unions_only
+			}			
 		}
 	
 		fire_only_once = yes
@@ -3758,6 +3126,12 @@ SWE_counter_revolution_army_decisions = {
 			has_country_flag = SWE_flag_army_decision_construction_phase3
 			controls_state = 38
 			controls_state = 778
+			OR = {
+				has_completed_focus = SWE_restructure_the_military_districts
+				has_completed_focus = SWE_new_normal_life
+				has_completed_focus = SWE_cement_ideology
+				has_completed_focus = SWE_bring_the_right_back
+			}			
 		}
 	
 		fire_only_once = yes
@@ -3816,6 +3190,12 @@ SWE_counter_revolution_army_decisions = {
 			controls_state = 666
 			controls_state = 960
 			controls_state = 909
+			OR = {
+				has_completed_focus = SWE_svea_rike
+				has_completed_focus = SWE_tiger_claw_sharp
+				has_completed_focus = SWE_never_another_revolution
+				has_completed_focus = SWE_a_promise_kept
+			}			
 		}
 	
 		fire_only_once = yes
@@ -4084,7 +3464,7 @@ SWE_elmo_decisions = {
 			is_in_faction = no
 		}
 		ai_will_do = {
-			factor = 1000
+			factor = 15
 		}
 		fire_only_once = no
 		cost = 40
@@ -4199,7 +3579,7 @@ SWE_elmo_decisions = {
 		days_remove = 15
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_core_elmo_europe"
-			country_event = { id = newsswe.5 }			
+			news_event = { id = newsswe.4 days = 1 }			
 			every_state = {
 				limit = {
 					is_on_continent = europe
@@ -4596,6 +3976,7 @@ SWE_economic_tree_decisions = {
 		available = {
 			num_of_civilian_factories_available_for_projects > 2
 			138 = { is_owned_and_controlled_by = SWE }
+			NOT = { has_country_flag = SWE_flag_developing_civ }			
 		}
 
 		visible = {
@@ -4603,6 +3984,9 @@ SWE_economic_tree_decisions = {
 				is_owned_and_controlled_by = SWE
 			}
 			has_completed_focus = SWE_finish_off_black_monday
+			NOT = {
+				has_country_flag = SWE_flag_military_steps_in
+			}
 		}
 
 		fire_only_once = yes
@@ -4616,14 +4000,16 @@ SWE_economic_tree_decisions = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_add_civilian1"
+			set_country_flag = SWE_flag_developing_civ
 		}
 		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_add_civilian1"					
+			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_add_civilian1"
+			clr_country_flag = SWE_flag_developing_civ
 			138 = {
-				add_extra_state_shared_building_slots = 3
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
-					level = 3
+					level = 1
 					instant_build = yes
 				}
 			}
@@ -4650,6 +4036,7 @@ SWE_economic_tree_decisions = {
 		available = {
 			num_of_civilian_factories_available_for_projects > 2
 			38 = { is_owned_and_controlled_by = SWE }
+			NOT = { has_country_flag = SWE_flag_developing_civ }			
 		}
 
 		visible = {
@@ -4657,6 +4044,9 @@ SWE_economic_tree_decisions = {
 				is_owned_and_controlled_by = SWE
 			}
 			has_completed_focus = SWE_finish_off_black_monday
+			NOT = {
+				has_country_flag = SWE_flag_military_steps_in
+			}			
 		}
 
 		fire_only_once = yes
@@ -4665,19 +4055,21 @@ SWE_economic_tree_decisions = {
 		days_remove = 60
 
 		modifier = {
-			civilian_factory_use = 1
+			civilian_factory_use = 2
 		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_add_civilian2"
+			set_country_flag = SWE_flag_developing_civ
 		}
 		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_add_civilian2"					
+			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_add_civilian2"
+			clr_country_flag = SWE_flag_developing_civ			
 			38 = {
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
-					level = 2
+					level = 1
 					instant_build = yes
 				}
 			}
@@ -4704,6 +4096,7 @@ SWE_economic_tree_decisions = {
 		available = {
 			num_of_civilian_factories_available_for_projects > 2
 			960 = { is_owned_and_controlled_by = SWE }
+			NOT = { has_country_flag = SWE_flag_developing_civ }
 		}
 
 		visible = {
@@ -4711,6 +4104,9 @@ SWE_economic_tree_decisions = {
 				is_owned_and_controlled_by = SWE
 			}
 			has_completed_focus = SWE_finish_off_black_monday
+			NOT = {
+				has_country_flag = SWE_flag_military_steps_in
+			}			
 		}
 
 		fire_only_once = yes
@@ -4724,9 +4120,11 @@ SWE_economic_tree_decisions = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_add_civilian3"
+			set_country_flag = SWE_flag_developing_civ
 		}
 		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_add_civilian3"					
+			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_add_civilian3"
+			clr_country_flag = SWE_flag_developing_civ			
 			960 = {
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
@@ -4779,6 +4177,10 @@ SWE_wartime_decisions = {
 		}
 		visible = {
 			has_democratic_government = yes
+			NOT = {
+				has_country_flag = SWE_flag_red_in_sweden
+				has_country_flag = SWE_flag_military_steps_in
+			}
 		}
 		fire_only_once = yes
 		cost = 35
@@ -5722,10 +5124,16 @@ SWE_alliance_reachout = {
 			factor = 30
 			modifier = {
 				factor = 0
+				OR = {
 					has_game_rule = {
 						rule = SWE_foreign_policy 
 						option = SWE_FOREIGN_POLICY_INTERNATIONALE
-					}    									
+					} 
+					has_game_rule = {
+						rule = SWE_foreign_policy 
+						option = SWE_FOREIGN_POLICY_NEUTRALITY
+					} 
+				}  									
 			}
 		}
 		fire_only_once = no
@@ -5783,7 +5191,7 @@ SWE_alliance_reachout = {
 			is_in_faction = no
 		}
 		ai_will_do = {
-			factor = 1000
+			factor = 30
 			modifier = {
 				factor = 0
 				OR = {
@@ -5808,7 +5216,7 @@ SWE_alliance_reachout = {
 		}
 	}
 	SWE_join_reichspact_ls = {# Join the Reichspact
-		icon = generic_nationalism
+		icon = GFX_decision_ger_flag
 
 		allowed = { tag = SWE }
 
@@ -5827,7 +5235,7 @@ SWE_alliance_reachout = {
 			is_in_faction = no
 		}
 		ai_will_do = {
-			factor = 1000
+			factor = 50
 			modifier = {
 				factor = 0
 				OR = {
@@ -5852,15 +5260,11 @@ SWE_alliance_reachout = {
 		}
 	}
 	SWE_join_russia_ls = {# Join the russia
-		icon = generic_nationalism
+		icon = GFX_decision_rus_flag
 
 		allowed = { tag = SWE }
 
 		available = {
-			has_socialist_government = no
-			NOT = {		
-				has_country_flag = SWE_flag_red_in_sweden
-			}
 			var:219.owner = {
 				is_faction_leader = yes
 				NOT = { any_owned_state = { is_core_of = SWE } }
@@ -5880,12 +5284,16 @@ SWE_alliance_reachout = {
 		}
 
 		visible = {
+			AND = {
+				has_completed_focus = SWE_FOP_our_home_defended_policy
+				has_country_flag = SWE_flag_red_in_sweden
+			}
 			has_completed_focus = SWE_FOP_arm_in_arm_policy
 			is_subject = no
 			is_in_faction = no
 		}
 		ai_will_do = {
-			factor = 1000
+			factor = 20
 			modifier = {
 				factor = 0
 				OR = {
@@ -5934,7 +5342,14 @@ SWE_alliance_reachout = {
 			is_in_faction = no
 		}
 		ai_will_do = {
-			factor = 1000
+			factor = 50
+			modifier = {
+				factor = 0
+				has_game_rule = {
+					rule = SWE_foreign_policy 
+					option = SWE_FOREIGN_POLICY_NEUTRALITY
+				}  									
+			}
 		}
 		fire_only_once = no
 		cost = 5
@@ -5971,12 +5386,8 @@ SWE_alliance_reachout = {
 		}
 
 		fire_only_once = yes
-		ai_will_do = { 
-			base = 0 
-			modifier = {
-				add = 1000
-				USA = { is_ai = no }
-			}
+		ai_will_do = {
+			factor = 0
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_FOP_invite_USA"
@@ -6011,12 +5422,8 @@ SWE_alliance_reachout = {
 		}
 
 		fire_only_once = yes
-		ai_will_do = { 
-			base = 0 
-			modifier = {
-				add = 1000
-				COR = { is_ai = no }
-			}
+		ai_will_do = {
+			factor = 0
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_FOP_invite_COR"
@@ -6050,12 +5457,8 @@ SWE_alliance_reachout = {
 		}
 
 		fire_only_once = yes
-		ai_will_do = { 
-			base = 0 
-			modifier = {
-				add = 1000
-				CAL = { is_ai = no }
-			}
+		ai_will_do = {
+			factor = 0
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_FOP_invite_CAL"
@@ -6090,12 +5493,8 @@ SWE_alliance_reachout = {
 		}
 
 		fire_only_once = yes
-		ai_will_do = { 
-			base = 0 
-			modifier = {
-				add = 1000
-				NEE = { is_ai = no }
-			}
+		ai_will_do = {
+			factor = 0
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_FOP_invite_NEE"
@@ -6130,12 +5529,8 @@ SWE_alliance_reachout = {
 		}
 
 		fire_only_once = yes
-		ai_will_do = { 
-			base = 0 
-			modifier = {
-				add = 1000
-				MEX = { is_ai = no }
-			}
+		ai_will_do = {
+			factor = 0
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_FOP_invite_MEX"
@@ -6210,12 +5605,8 @@ SWE_alliance_reachout = {
 		}
 
 		fire_only_once = yes
-		ai_will_do = { 
-			base = 0 
-			modifier = {
-				add = 1000
-				SPR = { is_ai = no }
-			}
+		ai_will_do = {
+			factor = 0
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_FOP_invite_SPR"
@@ -6253,12 +5644,8 @@ SWE_alliance_reachout = {
 		}
 
 		fire_only_once = yes
-		ai_will_do = { 
-			base = 0 
-			modifier = {
-				add = 1000
-				CAR = { is_ai = no }
-			}
+		ai_will_do = {
+			factor = 0
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_FOP_invite_SPR"
@@ -6295,7 +5682,7 @@ SWE_alliance_reachout = {
 
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 1000
+			factor = 30
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_FOP_invite_SPR"
@@ -6332,7 +5719,7 @@ SWE_alliance_reachout = {
 
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 1000
+			factor = 30
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_FOP_invite_NOR"
@@ -6369,7 +5756,7 @@ SWE_alliance_reachout = {
 
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 1000
+			factor = 30
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_FOP_invite_DEN"
@@ -6406,7 +5793,7 @@ SWE_alliance_reachout = {
 
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 1000
+			factor = 30
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_FOP_invite_POL"
@@ -6443,7 +5830,7 @@ SWE_alliance_reachout = {
 
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 1000
+			factor = 30
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_FOP_invite_LIT"
@@ -6480,7 +5867,7 @@ SWE_alliance_reachout = {
 
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 1000
+			factor = 30
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_FOP_invite_LAT"
@@ -6517,7 +5904,7 @@ SWE_alliance_reachout = {
 
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 1000
+			factor = 30
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_FOP_invite_EST"
@@ -6553,12 +5940,8 @@ SWE_alliance_reachout = {
 		}
 
 		fire_only_once = yes
-		ai_will_do = { 
-			base = 0 
-			modifier = {
-				add = 1000
-				HOL = { is_ai = no }
-			}
+		ai_will_do = {
+			factor = 0
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_FOP_invite_HOL"
@@ -6594,12 +5977,8 @@ SWE_alliance_reachout = {
 		}
 
 		fire_only_once = yes
-		ai_will_do = { 
-			base = 0 
-			modifier = {
-				add = 1000
-				PER = { is_ai = no }
-			}
+		ai_will_do = {
+			factor = 0
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_FOP_invite_PER"
@@ -6636,12 +6015,8 @@ SWE_alliance_reachout = {
 		}
 
 		fire_only_once = yes
-		ai_will_do = { 
-			base = 0 
-			modifier = {
-				add = 1000
-				QIE = { is_ai = no }
-			}
+		ai_will_do = {
+			factor = 0
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_FOP_invite_QIE"
@@ -6677,12 +6052,8 @@ SWE_alliance_reachout = {
 		}
 
 		fire_only_once = yes
-		ai_will_do = { 
-			base = 0 
-			modifier = {
-				add = 1000
-				ETH = { is_ai = no }
-			}
+		ai_will_do = {
+			factor = 0
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_FOP_invite_ETH"
@@ -6719,7 +6090,7 @@ SWE_alliance_reachout = {
 
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 1000
+			factor = 30
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_FOP_invite_KAR"
@@ -6755,6 +6126,12 @@ SWE_focus_foreign_decisions = {
 		}
 
 		visible = {
+			CAR = {
+				OR = {
+					has_war_with = SPR
+					has_war_with = CNT
+				}
+			}
 			NOT = {
 				SWE = {
 					has_country_flag = SWE_flag_red_in_sweden
@@ -6766,7 +6143,10 @@ SWE_focus_foreign_decisions = {
 		}
 
 		fire_only_once = yes
-		cost = 15
+		custom_cost_trigger = {
+			has_equipment = { infantry_equipment > 1999 }
+		}
+		custom_cost_text = 2000_guns
 
 		ai_will_do = {
 			factor = 55
@@ -6775,13 +6155,13 @@ SWE_focus_foreign_decisions = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_foreign_help_car"
 			set_country_flag = SWE_help_car
-			add_manpower = -3000
 			send_equipment = {
 				target = SWE
 				type = infantry_equipment
-				amount = 1500
+				amount = 2000
 			}
 			CAR = {
+				add_manpower = 250
 				country_event = {
 					id = swefop.68
 					days = 1
@@ -6821,6 +6201,12 @@ SWE_focus_foreign_decisions = {
 		}
 		
 		visible = {
+			SPR = {
+				OR = {
+					has_war_with = CAR
+					has_war_with = CNT
+				}
+			}
 			NOT = {
 				SWE = {
 					has_country_flag = SWE_flag_red_in_sweden
@@ -6832,7 +6218,10 @@ SWE_focus_foreign_decisions = {
 		}
 
 		fire_only_once = yes
-		cost = 15
+		custom_cost_trigger = {
+			has_equipment = { infantry_equipment > 1999 }
+		}
+		custom_cost_text = 2000_guns
 
 		ai_will_do = {
 			factor = 45
@@ -6841,13 +6230,13 @@ SWE_focus_foreign_decisions = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_foreign_help_kos"
 			set_country_flag = SWE_help_kos
-			add_manpower = -3000
 			send_equipment = {
 				target = SWE
 				type = infantry_equipment
-				amount = 3000
+				amount = 2000
 			}
 			SPR = {
+				add_manpower = 250
 				country_event = {
 					id = swefop.68
 					days = 1
@@ -6886,6 +6275,12 @@ SWE_focus_foreign_decisions = {
 		}
 		
 		visible = {
+			CNT = {
+				OR = {
+					has_war_with = CAR
+					has_war_with = SPR
+				}
+			}		
 			SWE = {
 				has_country_flag = SWE_flag_red_in_sweden
 			}
@@ -6895,8 +6290,10 @@ SWE_focus_foreign_decisions = {
 		}
 
 		fire_only_once = yes
-		cost = 15
-
+		custom_cost_trigger = {
+			has_equipment = { infantry_equipment > 1999 }
+		}
+		custom_cost_text = 2000_guns
 		ai_will_do = {
 			factor = 45
 		}
@@ -6904,13 +6301,13 @@ SWE_focus_foreign_decisions = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_foreign_help_cnt"
 			set_country_flag = SWE_help_cnt
-			add_manpower = -3000
 			send_equipment = {
 				target = SWE
 				type = infantry_equipment
 				amount = 3000
 			}
 			CNT = {
+				add_manpower = 250
 				country_event = {
 					id = swefop.68
 					days = 1
@@ -6964,10 +6361,22 @@ SWE_focus_foreign_decisions = {
 			}
 			has_completed_focus = SWE_FOP_to_support_the_new_world
 			has_country_flag = SWE_flag_fed_supported
+			USA = {
+				OR = {
+					has_war_with = COR
+					has_war_with = CSA
+					has_war_with = TEX
+					has_war_with = TXS
+					has_war_with = CAL
+				}
+			}			
 		}
 
 		fire_only_once = yes
-		cost = 15
+		custom_cost_trigger = {
+			has_equipment = { infantry_equipment > 1999 }
+		}
+		custom_cost_text = 2000_guns
 
 		ai_will_do = {
 			factor = 45
@@ -6975,20 +6384,14 @@ SWE_focus_foreign_decisions = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_foreign_help_feds"
-			add_manpower = -3000
 			send_equipment = {
 				target = SWE
 				type = infantry_equipment
-				amount = 3000
+				amount = 2000
 			}
-			send_equipment = {
-				target = SWE
-				type = support_equipment
-				amount = 750
-			}			
+			
 			USA = {
-				add_manpower = 3000
-				
+				add_manpower = 250
 				country_event = {
 					id = swefop.70
 					days = 1
@@ -7048,10 +6451,22 @@ SWE_focus_foreign_decisions = {
 			}
 			has_completed_focus = SWE_FOP_to_support_the_new_world
 			has_country_flag = SWE_flag_con_supported
+			COR = {
+				OR = {
+					has_war_with = USA
+					has_war_with = CSA
+					has_war_with = TEX
+					has_war_with = TXS
+					has_war_with = CAL
+				}
+			}			
 		}
 
 		fire_only_once = yes
-		cost = 15
+		custom_cost_trigger = {
+			has_equipment = { infantry_equipment > 1999 }
+		}
+		custom_cost_text = 2000_guns
 
 		ai_will_do = {
 			factor = 45
@@ -7059,19 +6474,14 @@ SWE_focus_foreign_decisions = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_foreign_help_cons"
-			add_manpower = -3000
 			send_equipment = {
 				target = SWE
 				type = infantry_equipment
-				amount = 3000
+				amount = 2000
 			}
-			send_equipment = {
-				target = SWE
-				type = support_equipment
-				amount = 750
-			}			
+			
 			COR = {
-				add_manpower = 3000
+				add_manpower = 250
 				
 				country_event = {
 					id = swefop.70
@@ -7132,10 +6542,22 @@ SWE_focus_foreign_decisions = {
 			}
 			has_completed_focus = SWE_FOP_to_support_the_new_world
 			has_country_flag = SWE_flag_aus_supported
+			TEX = {
+				OR = {
+					has_war_with = USA
+					has_war_with = CSA
+					has_war_with = COR
+					has_war_with = TXS
+					has_war_with = CAL
+				}
+			}			
 		}
 
 		fire_only_once = yes
-		cost = 15
+		custom_cost_trigger = {
+			has_equipment = { infantry_equipment > 1999 }
+		}
+		custom_cost_text = 2000_guns
 
 		ai_will_do = {
 			factor = 45
@@ -7143,19 +6565,14 @@ SWE_focus_foreign_decisions = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_foreign_help_tex"
-			add_manpower = -3000
 			send_equipment = {
 				target = SWE
 				type = infantry_equipment
-				amount = 3000
+				amount = 2000
 			}
-			send_equipment = {
-				target = SWE
-				type = support_equipment
-				amount = 750
-			}			
+		
 			TEX = {
-				add_manpower = 3000
+				add_manpower = 250
 				
 				country_event = {
 					id = swefop.70
@@ -7190,11 +6607,9 @@ SWE_focus_foreign_decisions = {
 		icon = generic_agreement
 
 		available = {
-			NOT = {
 				SWE = {
 					has_country_flag = SWE_flag_red_in_sweden
 				}
-			}
 			has_country_flag = SWE_flag_csa_supported
 			has_completed_focus = SWE_FOP_to_support_the_new_world
 			CSA = {
@@ -7209,37 +6624,42 @@ SWE_focus_foreign_decisions = {
 		}
 		
 		visible = {
-			NOT = {
 				SWE = {
 					has_country_flag = SWE_flag_red_in_sweden
 				}
-			}
 			has_completed_focus = SWE_FOP_to_support_the_new_world
 			has_country_flag = SWE_flag_csa_supported
+			CSA = {
+				OR = {
+					has_war_with = USA
+					has_war_with = TEX
+					has_war_with = COR
+					has_war_with = TXS
+					has_war_with = CAL
+				}
+			}			
 		}
 
 		fire_only_once = yes
-		cost = 15
-
+		custom_cost_trigger = {
+			has_equipment = { infantry_equipment > 1999 }
+		}
+		custom_cost_text = 2000_guns
 		ai_will_do = {
 			factor = 45
 		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_foreign_help_csa"
-			add_manpower = -3000
+
 			send_equipment = {
 				target = SWE
 				type = infantry_equipment
-				amount = 3000
+				amount = 2000
 			}
-			send_equipment = {
-				target = SWE
-				type = support_equipment
-				amount = 750
-			}			
+		
 			CSA = {
-				add_manpower = 3000
+				add_manpower = 250
 				
 				country_event = {
 					id = swefop.70
@@ -7338,8 +6758,19 @@ SWE_focus_foreign_decisions = {
 		allowed = { tag = SWE }
 		available = { 
 			has_completed_focus = SWE_FOP_to_colonise_the_new_world
-			has_completed_focus = SWE_FOP_reclaim_the_empire_policy
-			NOT = { has_country_flag = SWE_flag_new_sweden }
+			OR = {
+				has_completed_focus = SWE_FOP_reclaim_the_empire_policy
+				has_completed_focus = SWE_national_revolution
+			}
+			NOT = { 
+				has_country_flag = SWE_flag_flyg_victory_2
+				has_country_flag = SWE_flag_linderot_victory
+				has_country_flag = SWE_flag_hugo_doctrine
+				has_country_flag = SWE_flag_syndie_victory
+				has_country_flag = SWE_flag_central_syndie
+				has_country_flag = SWE_flag_radsoc_victory
+				has_country_flag = SWE_flag_new_sweden
+			}
 			is_subject = no
 			NOT = { 
 				1162 = { is_owned_and_controlled_by = SWE }
@@ -7348,8 +6779,19 @@ SWE_focus_foreign_decisions = {
 		}	
 		visible = { 
 			has_completed_focus = SWE_FOP_to_colonise_the_new_world
-			has_completed_focus = SWE_FOP_reclaim_the_empire_policy
-			NOT = { has_country_flag = SWE_flag_new_sweden }
+			OR = {
+				has_completed_focus = SWE_FOP_reclaim_the_empire_policy
+				has_completed_focus = SWE_national_revolution
+			}
+			NOT = { 
+				has_country_flag = SWE_flag_flyg_victory_2
+				has_country_flag = SWE_flag_linderot_victory
+				has_country_flag = SWE_flag_hugo_doctrine
+				has_country_flag = SWE_flag_syndie_victory
+				has_country_flag = SWE_flag_central_syndie
+				has_country_flag = SWE_flag_radsoc_victory
+				has_country_flag = SWE_flag_new_sweden
+			}
 		}
 			
 		fire_only_once = yes
@@ -7381,7 +6823,7 @@ SWE_focus_foreign_decisions = {
 			}		
 		}
 		ai_will_do = {
-			factor = 50
+			factor = 0
 		}
 	}
 
@@ -7390,8 +6832,19 @@ SWE_focus_foreign_decisions = {
 		allowed = { tag = SWE }
 		available = { 
 			has_completed_focus = SWE_FOP_to_colonise_the_new_world
-			has_completed_focus = SWE_FOP_reclaim_the_empire_policy
-			NOT = { has_country_flag = SWE_flag_small_new_sweden }
+			OR = {
+				has_completed_focus = SWE_FOP_reclaim_the_empire_policy
+				has_completed_focus = SWE_national_revolution
+			}
+			NOT = { 
+				has_country_flag = SWE_flag_flyg_victory_2
+				has_country_flag = SWE_flag_linderot_victory
+				has_country_flag = SWE_flag_hugo_doctrine
+				has_country_flag = SWE_flag_syndie_victory
+				has_country_flag = SWE_flag_central_syndie
+				has_country_flag = SWE_flag_radsoc_victory
+				has_country_flag = SWE_flag_small_new_sweden
+			}
 			is_subject = no
 			NOT = { 
 				1162 = { is_owned_and_controlled_by = SWE }
@@ -7403,8 +6856,19 @@ SWE_focus_foreign_decisions = {
 		}	
 		visible = { 
 			has_completed_focus = SWE_FOP_to_colonise_the_new_world
-			has_completed_focus = SWE_FOP_reclaim_the_empire_policy
-			NOT = { has_country_flag = SWE_flag_small_new_sweden }
+			OR = {
+				has_completed_focus = SWE_FOP_reclaim_the_empire_policy
+				has_completed_focus = SWE_national_revolution
+			}
+			NOT = { 
+				has_country_flag = SWE_flag_flyg_victory_2
+				has_country_flag = SWE_flag_linderot_victory
+				has_country_flag = SWE_flag_hugo_doctrine
+				has_country_flag = SWE_flag_syndie_victory
+				has_country_flag = SWE_flag_central_syndie
+				has_country_flag = SWE_flag_radsoc_victory
+				has_country_flag = SWE_flag_small_new_sweden
+			}
 		}
 			
 		fire_only_once = yes
@@ -7440,7 +6904,7 @@ SWE_focus_foreign_decisions = {
 			}		
 		}
 		ai_will_do = {
-			factor = 50
+			factor = 0
 		}
 	}
 
@@ -7473,10 +6937,6 @@ SWE_focus_foreign_decisions = {
 
 		ai_will_do = {
 			base = 0
-			modifier = { 
-				add = 100
-				date > 1939.6.1
-			}
 		}
 
 		complete_effect = {
@@ -7604,6 +7064,10 @@ SWE_focus_foreign_decisions = {
 			
 		fire_only_once = yes
 		cost = 25
+
+		ai_will_do = {
+			factor = 0
+		}
 		
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_foreign_decide_on_essequibo"	
@@ -7632,6 +7096,10 @@ SWE_focus_foreign_decisions = {
 			
 		fire_only_once = yes
 		cost = 25
+
+		ai_will_do = {
+			factor = 0
+		}
 		
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_foreign_decide_on_essequibo_rev"	
@@ -7657,12 +7125,17 @@ SWE_focus_foreign_decisions = {
 		}	
 		visible = { 
 			has_completed_focus = SWE_FOP_eyes_to_essequibo
-
+			NOT = { has_country_flag = SWE_flag_essequibo_puppet }
 		}
 			
 		fire_only_once = yes
 		cost = 50
 		days_remove = 55
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_foreign_core_essequibo"	
+			set_country_flag = SWE_flag_essequibo_core
+		}
 		
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_foreign_core_essequibo"	
@@ -7698,15 +7171,21 @@ SWE_focus_foreign_decisions = {
 		}	
 		visible = { 
 			has_completed_focus = SWE_FOP_eyes_to_essequibo
+			NOT = { has_country_flag = SWE_flag_essequibo_core }
 
 		}
 			
 		fire_only_once = yes
 		cost = 25
 		days_remove = 5
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_foreign_puppet_essequibo"	
+			set_country_flag = SWE_flag_essequibo_puppet
+		}
 		
 		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_foreign_core_essequibo"
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_foreign_puppet_essequibo"
 			hidden_effect = {
 				GYA = { 
 					add_state_core = 687 
@@ -7836,7 +7315,7 @@ SWE_focus_foreign_decisions = {
 			}		
 		}
 		ai_will_do = {
-			factor = 50
+			factor = 0
 		}
 	}
 
@@ -7869,7 +7348,7 @@ SWE_focus_foreign_decisions = {
 		
 		}
 		ai_will_do = {
-			factor = 50
+			factor = 0
 		}
 	}
 
@@ -7895,11 +7374,7 @@ SWE_focus_foreign_decisions = {
 			custom_effect_tooltip = former_maf_wargoals_tt
 		}
 		ai_will_do = {
-			factor = 5
-			modifier = {
-				factor = 0
-				has_war = yes
-			}
+			factor = 0
 		}
 	}
 
@@ -7923,11 +7398,7 @@ SWE_focus_foreign_decisions = {
 			custom_effect_tooltip = former_maf_wargoals_tt
 		}
 		ai_will_do = {
-			factor = 5
-			modifier = {
-				factor = 0
-				has_war = yes
-			}
+			factor = 0
 		}
 	}
 
@@ -7984,14 +7455,14 @@ SWE_focus_aid_alliance_nonrev = {
 			CAN = {
 				add_timed_idea = {
 					idea = SWE_recieved_military_advisors
-					days = 180
+					days = 100
 				}
 			}
 			add_timed_idea = {
 				idea = SWE_sending_military_advisors
-				days = 180
+				days = 100
 			}
-			army_experience = 25
+			army_experience = 10
 		}
 	}
 
@@ -8042,14 +7513,14 @@ SWE_focus_aid_alliance_nonrev = {
 			NFA = {
 				add_timed_idea = {
 					idea = SWE_recieved_military_advisors
-					days = 180
+					days = 100
 				}
 			}
 			add_timed_idea = {
 				idea = SWE_sending_military_advisors
-				days = 180
+				days = 100
 			}
-			army_experience = 25
+			army_experience = 10
 		}
 	}
 
@@ -8100,14 +7571,14 @@ SWE_focus_aid_alliance_nonrev = {
 			AST = {
 				add_timed_idea = {
 					idea = SWE_recieved_military_advisors
-					days = 180
+					days = 100
 				}
 			}
 			add_timed_idea = {
 				idea = SWE_sending_military_advisors
-				days = 180
+				days = 100
 			}
-			army_experience = 25
+			army_experience = 10
 		}
 	}
 
@@ -8159,14 +7630,14 @@ SWE_focus_aid_alliance_nonrev = {
 			GER = {
 				add_timed_idea = {
 					idea = SWE_recieved_military_advisors
-					days = 180
+					days = 100
 				}
 			}
 			add_timed_idea = {
 				idea = SWE_sending_military_advisors
-				days = 180
+				days = 100
 			}
-			army_experience = 25
+			army_experience = 10
 		}
 	}
 
@@ -8217,20 +7688,204 @@ SWE_focus_aid_alliance_nonrev = {
 			UKR = {
 				add_timed_idea = {
 					idea = SWE_recieved_military_advisors
-					days = 180
+					days = 100
 				}
 			}
 			add_timed_idea = {
 				idea = SWE_sending_military_advisors
-				days = 180
+				days = 100
 			}
-			army_experience = 25
+			army_experience = 10
 		}
 	}
 
 }
 
+SWE_focus_aid_alliance_rev = {
 
+	SWE_aid_alliance_send_advisors_UOB = {
+		icon = hol_draw_up_staff_plans
+
+		available = {
+			has_completed_focus = SWE_FOP_send_advisors
+			NOT = {
+				has_idea = SWE_sending_military_advisors
+			}
+			ENG = {
+				AND = {
+					is_subject = no
+					has_war = yes
+				}
+			}
+		}
+		
+		visible = {
+			has_completed_focus = SWE_FOP_focus_on_faction
+			is_subject = no
+			SWE = { is_in_faction_with = ENG }
+		}
+		
+		highlight_states = {
+ 			highlight_state_targets = {
+				state = FROM.capital
+			} 
+		}
+	
+		custom_cost_text = CP_80_support_30
+		custom_cost_trigger = {
+			command_power > 79.99
+			has_equipment = { support_equipment > 29 }
+		}
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_aid_alliance_send_advisors_UOB"
+			hidden_effect = {
+				add_command_power = -80
+				add_equipment_to_stockpile = {
+					type = support_equipment
+					amount = -30
+				}
+				ENG = { add_opinion_modifier = { target = SWE modifier = medium_increase } }
+			}
+			ENG = {
+				add_timed_idea = {
+					idea = SWE_recieved_military_advisors
+					days = 100
+				}
+			}
+			add_timed_idea = {
+				idea = SWE_sending_military_advisors
+				days = 100
+			}
+			army_experience = 10
+		}
+	}
+
+	SWE_aid_alliance_send_advisors_FRA = {
+		icon = hol_draw_up_staff_plans
+
+		available = {
+			has_completed_focus = SWE_FOP_send_advisors
+			NOT = {
+				has_idea = SWE_sending_military_advisors
+			}
+			FRA = {
+				AND = {
+					is_subject = no
+					has_war = yes
+				}
+			}
+		}
+		
+		visible = {
+			has_completed_focus = SWE_FOP_focus_on_faction
+			is_subject = no
+			SWE = { is_in_faction_with = FRA }
+		}
+		
+		highlight_states = {
+ 			highlight_state_targets = {
+				state = FROM.capital
+			} 
+		}
+	
+		custom_cost_text = CP_80_support_30
+		custom_cost_trigger = {
+			command_power > 79.99
+			has_equipment = { support_equipment > 29 }
+		}
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_aid_alliance_send_advisors_FRA"
+			hidden_effect = {
+				add_command_power = -80
+				add_equipment_to_stockpile = {
+					type = support_equipment
+					amount = -30
+				}
+				FRA = { add_opinion_modifier = { target = SWE modifier = medium_increase } }
+			}
+			FRA = {
+				add_timed_idea = {
+					idea = SWE_recieved_military_advisors
+					days = 100
+				}
+			}
+			add_timed_idea = {
+				idea = SWE_sending_military_advisors
+				days = 100
+			}
+			army_experience = 10
+		}
+	}
+	
+	SWE_aid_alliance_send_advisors_SRI = {
+		icon = hol_draw_up_staff_plans
+
+		available = {
+			has_completed_focus = SWE_FOP_send_advisors
+			NOT = {
+				has_idea = SWE_sending_military_advisors
+			}
+			SRI = {
+				AND = {
+					is_subject = no
+					has_war = yes
+				}
+			}
+		}
+		
+		visible = {
+			has_completed_focus = SWE_FOP_focus_on_faction
+			is_subject = no
+			SWE = { is_in_faction_with = SRI }
+		}
+		
+		highlight_states = {
+ 			highlight_state_targets = {
+				state = FROM.capital
+			} 
+		}
+	
+		custom_cost_text = CP_80_support_30
+		custom_cost_trigger = {
+			command_power > 79.99
+			has_equipment = { support_equipment > 29 }
+		}
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_aid_alliance_send_advisors_SRI"
+			hidden_effect = {
+				add_command_power = -80
+				add_equipment_to_stockpile = {
+					type = support_equipment
+					amount = -30
+				}
+				SRI = { add_opinion_modifier = { target = SWE modifier = medium_increase } }
+			}
+			SRI = {
+				add_timed_idea = {
+					idea = SWE_recieved_military_advisors
+					days = 100
+				}
+			}
+			add_timed_idea = {
+				idea = SWE_sending_military_advisors
+				days = 100
+			}
+			army_experience = 10
+		}
+	}	
+
+
+
+
+
+
+
+
+
+}
 
 
 
@@ -8254,158 +7909,38 @@ SWE_focus_scandinavia_decisions = {
 		days_remove = 15
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_focus_claim_scandinavia"	
-			add_state_claim = 110
-			add_state_claim = 142
-			add_state_claim = 143
-			add_state_claim = 144
-			add_state_claim = 937
-			add_state_claim = 936
-			add_state_claim = 37
-			add_state_claim = 99
-			add_state_claim = 337
-			add_state_claim = 100
-			add_state_claim = 101
-			add_state_claim = 926		
+		every_state = {
+			limit = {
+				OR = {
+					is_scandinavia = yes
+					state = 844
+					state = 148
+					state = 149
+					state = 147
+					state = 150	
+					state = 1326
+					state = 865
+					state = 1324
+					state = 146
+					state = 1325
+					state = 864
+					state = 111
+					state = 863
+					state = 840
+					
+				}
+			}
+			add_claim_by = SWE			
+		}
+		
+
 		}
 		ai_will_do = {
 			factor = 50
 		}
 	}
 
-	SWE_FOP_destroy_norway = {
-		icon = generic_ignite_civil_war
-		allowed = { tag = SWE }			
-		available = {
-			NOT = { is_in_faction_with = NOR }
-			OR = {
-			has_completed_focus = SWE_FOP_secure_nordics
-			has_completed_focus = SWE_FOP_karlstad_failure
-			}			
-			is_subject = no
-		}
-
-		visible = {
-			OR = {
-			has_completed_focus = SWE_FOP_secure_nordics
-			has_completed_focus = SWE_FOP_karlstad_failure
-			}						
-		}
-
-		cost = 55
-		days_remove = 20
-		fire_only_once = yes
-
-		ai_will_do = {
-			base = 0
-			modifier = { 
-				add = 100
-				date > 1938.6.1
-			}
-			modifier = {
-				factor = 0
-				AND = {
-					is_faction_leader = no
-					OR = {
-						is_in_faction_with = INT
-						is_in_faction_with = GER
-						is_in_faction_with = RUS
-						is_in_faction_with = ENT
-					}
-				}
-				NOR = {
-					OR = {
-						is_in_faction_with = INT
-						is_in_faction_with = GER
-						is_in_faction_with = RUS
-						is_in_faction_with = ENT
-					}
-				}
-			}
-		}
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete SWE_FOP_destroy_norway target: [From.GetName]"
-			
-			setup_decision_attack_AI = yes
-		}
-
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_FOP_destroy_norway target: [From.GetName]"
-				create_wargoal = {
-					target = NOR
-					type = annex_everything
-				}
-		}
-	}
-
-	SWE_FOP_destroy_denmark = {
-		icon = generic_ignite_civil_war
-		allowed = { tag = SWE }			
-		available = {
-			NOT = { is_in_faction_with = DEN }
-			OR = {
-			has_completed_focus = SWE_FOP_secure_nordics
-			has_completed_focus = SWE_FOP_danes_returned
-			}			
-			is_subject = no		
-		}
-
-		visible = {
-			OR = {
-			has_completed_focus = SWE_FOP_secure_nordics
-			has_completed_focus = SWE_FOP_danes_returned
-			}			
-		}
-
-		cost = 45
-		days_remove = 20
-		fire_only_once = yes
-
-
-		ai_will_do = {
-			base = 0
-			modifier = { 
-				add = 100
-				date > 1938.6.1
-			}
-			modifier = {
-				factor = 0
-				AND = {
-					is_faction_leader = no
-					OR = {
-						is_in_faction_with = INT
-						is_in_faction_with = GER
-						is_in_faction_with = RUS
-						is_in_faction_with = ENT
-					}
-				}
-				DEN = {
-					OR = {
-						is_in_faction_with = INT
-						is_in_faction_with = GER
-						is_in_faction_with = RUS
-						is_in_faction_with = ENT
-					}
-				}
-			}
-		}
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete SWE_FOP_destroy_denmark target: [From.GetName]"
-			
-			setup_decision_attack_AI = yes
-		}
-
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_FOP_destroy_denmark target: [From.GetName]"
-				create_wargoal = {
-					target = DEN
-					type = annex_everything
-				}
-		}
-	}
-
-	SWE_FOP_claim_iceland = {
+	SWE_focus_claim_iceland = {
 		icon = GFX_decision_ns_eagle
 		highlight_states = {
 		highlight_state_targets = {
@@ -8439,39 +7974,15 @@ SWE_focus_scandinavia_decisions = {
 				}
 			}
 		}
-
+		days_remove = 15
 		fire_only_once = yes
 		cost = 40
 
 		ai_will_do = {
-			base = 0
-			modifier = { 
-				add = 100
-				date > 1938.6.1
-			}
-			modifier = {
-				factor = 0
-				AND = {
-					is_faction_leader = no
-					OR = {
-						is_in_faction_with = INT
-						is_in_faction_with = GER
-						is_in_faction_with = RUS
-						is_in_faction_with = ENT
-					}
-				}
-				ICE = {
-					OR = {
-						is_in_faction_with = INT
-						is_in_faction_with = GER
-						is_in_faction_with = RUS
-						is_in_faction_with = ENT
-					}
-				}
-			}
+			factor = 5
 		}
 		
-		complete_effect = {
+		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_focus_claim_iceland"
 			add_state_claim = 100
 			add_state_claim = 337
@@ -8507,7 +8018,7 @@ SWE_focus_scandinavia_decisions = {
 				}
 			}
 		}
-
+		days_remove = 15
 		fire_only_once = yes
 		cost = 25
 
@@ -8524,7 +8035,7 @@ SWE_focus_scandinavia_decisions = {
 			}
 		}
 		
-		complete_effect = {
+		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_focus_claim_greenland"
 			add_state_claim = 101
 			add_state_claim = 926
@@ -8558,6 +8069,8 @@ SWE_focus_scandinavia_decisions = {
 		visible = {
 			tag = SWE
 			has_completed_focus = SWE_FOP_gamble_on_iceland
+			101 = { is_owned_and_controlled_by = DEN }
+			926 = { is_owned_and_controlled_by = DEN }			
 			NOT = {
 				101 = { is_owned_and_controlled_by = SWE }
 				926 = { is_owned_and_controlled_by = SWE }
@@ -8616,6 +8129,8 @@ SWE_focus_scandinavia_decisions = {
 		visible = {
 			tag = SWE
 			has_completed_focus = SWE_FOP_gamble_on_iceland
+			101 = { is_owned_and_controlled_by = CAN }
+			926 = { is_owned_and_controlled_by = CAN }			
 			NOT = {
 				101 = { is_owned_and_controlled_by = SWE }
 				926 = { is_owned_and_controlled_by = SWE }
@@ -8647,7 +8162,7 @@ SWE_focus_scandinavia_decisions = {
 	}
 
 	SWE_focus_request_greenland = {
-		icon = GFX_decision_ns_eagle
+		icon = GFX_decision_generic_agreement
 
 		allowed = {
 			tag = SWE
@@ -8706,54 +8221,10 @@ SWE_focus_scandinavia_decisions = {
 		}
 	}
 	
-	SWE_focus_request_iceland = { # Canada
-		icon = GFX_decision_ns_eagle
-
-		allowed = {
-			tag = SWE
-		}
-
-		available = {
-			is_subject = no
-			has_completed_focus = SWE_FOP_gamble_on_iceland
-			OR = {
-				100 = { is_claimed_by = SWE }
-				100 = { is_core_of = SWE }
-			}
-			100  = { is_owned_and_controlled_by = ICE }
-			ICE = { is_subject_of = CAN }
-			SWE = { is_in_faction_with = CAN }
-		}
-
-		visible = {
-			tag = SWE
-			has_completed_focus = SWE_FOP_gamble_on_iceland
-			NOT = {
-				100 = { is_owned_and_controlled_by = SWE }
-			}
-		}
-
-		fire_only_once = yes
-		cost = 35
-
-		ai_will_do = {
-			factor = 5
-			}
-		
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_focus_request_iceland"
-			CAN = {
-				country_event = { id = swefop.22 }
-			}
-		}
-	}
 	
-	SWE_focus_unite_iceland = {
-		icon = GFX_decision_ns_eagle
 
-		allowed = {
-			tag = SWE
-		}
+	SWE_Decide_Iceland = {
+		icon = hol_draw_up_staff_plans
 
 		available = {
 			is_subject = no
@@ -8762,229 +8233,249 @@ SWE_focus_scandinavia_decisions = {
 				100 = { is_claimed_by = SWE }
 				100 = { is_core_of = SWE }
 			}
-			100  = { is_owned_and_controlled_by = ICE }
-			ICE = {
-				has_opinion = {
-					target = SWE
-					value > 100
-				}			
-				AND = {
-					is_subject = no
-					has_completed_focus = ICE_rise_of_flokkur_jernissinna
-				}
-			}
+			100  = { is_owned_and_controlled_by = ICE }		
 		}
 
-		visible = {
-			tag = SWE
+		targets = { ICE }
+		target_root_trigger = {
 			has_completed_focus = SWE_FOP_gamble_on_iceland
-			NOT = {
-				100 = { is_owned_and_controlled_by = SWE }
-			}
 		}
 
-		fire_only_once = yes
-		cost = 50
-
-		ai_will_do = {
-			factor = 5
-			}
-		
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_focus_unite_iceland"
-			ICE = {
-				country_event = { id = swefop.25 }
-			}
-		}
-	}
-		
-	SWE_focus_norway_decision = {
-		icon = generic_ignite_civil_war
-		allowed = { tag = SWE }			
-		available = {
-			has_completed_focus = SWE_FOP_decide_on_norway
-			is_subject = no
-		}
-
-		visible = {
-			has_completed_focus = SWE_FOP_decide_on_norway
-		}
-
-		cost = 25
-		days_remove = 10
+		cost = 20
+		days_remove = 30
 		fire_only_once = yes
 
 		ai_will_do = {
-			base = 0
-			modifier = { 
-				add = 100
-				date > 1938.6.1
-			}
+			factor = 100
 			modifier = {
-				factor = 0
-				AND = {
-					is_faction_leader = no
-					OR = {
-						is_in_faction_with = INT
-						is_in_faction_with = GER
-						is_in_faction_with = RUS
-						is_in_faction_with = ENT
-					}
-				}
-				FIN = {
-					OR = {
-						is_in_faction_with = INT
-						is_in_faction_with = GER
-						is_in_faction_with = RUS
-						is_in_faction_with = ENT
-					}
-				}
+				factor = 100
+				date > 1940.1.1
 			}
 		}
 
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete SWE_focus_norway_decision target: [From.GetName]"
-			NOR = {
-				country_event = { id = swefop.37 }
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_Decide_Iceland target: [From.GetName]"
+			set_country_flag = { flag = imminent_war days = 29 value = 1 }
+			setup_decision_attack_AI = yes
+			if = {
+				limit = {
+					OR = {
+						ICE = { is_subject_of = CAN }
+						SWE = { is_in_faction_with = CAN }
+						100 = { is_owned_by_ROOT_or_ally = yes }
+					}
+				}
+				CAN = {
+					country_event = {
+						id = swefop.22
+						days = 3
+					}
+				}
+			}
+			else = {
+				ICE = {
+					country_event = {
+						id = swefop.25
+						days = 1
+					}
+				}
 			}
 		}
 
 		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_focus_norway_decision target: [From.GetName]"
-			set_country_flag = SWE_flag_focus_norway_1
-		}		
-	}
-
-	SWE_focus_norway_final_decision = {
-		icon = generic_ignite_civil_war
-		allowed = { tag = SWE }			
-		available = {
-			has_country_flag = SWE_flag_focus_norway_1
-			has_completed_focus = SWE_FOP_decide_on_norway
-			is_subject = no
-		}
-		visible = {
-			has_country_flag = SWE_flag_focus_norway_1
-			has_completed_focus = SWE_FOP_decide_on_norway
-		}
-		cost = 40
-		days_remove = 10
-		fire_only_once = yes
-
-		ai_will_do = {
-			base = 0
-			modifier = { 
-				add = 100
-				date > 1938.6.1
-			}
-		}
-
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_focus_norway_final_decision target: [From.GetName]"
+			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_Decide_Iceland target: [From.GetName]"
+			clear_decision_attack_AI = yes			
 				if = { 
 					limit = {
-						NOR = {
+						ICE = {
 							is_puppet_of = SWE
 						}
 					}
 					Annex_country = {
-						target = NOR
+						target = ICE
 						transfer_troops = yes
-					}
-					
+					}					
 					set_country_flag = SWE_flag_norway_cooperates
 					
 				} else_if = {
 					limit = {
-						OR = {
-							has_completed_focus = SWE_FOP_reclaim_the_empire_policy
-							has_completed_focus = SWE_FOP_arm_in_arm_policy
+						NOT = {
+							AND = {
+								has_completed_focus = SWE_FOP_our_home_defended_policy
+								NOT = { has_country_flag = SWE_flag_red_in_sweden }
+							}
+						}
+					}
+					create_wargoal = {
+						type = take_state_focus
+						target = ICE
+					}				
+				}
+		}
+	}
+
+
+	SWE_Decide_Norway = {
+		icon = hol_draw_up_staff_plans
+
+		available = {
+			has_completed_focus = SWE_FOP_decide_on_norway
+			is_subject = no
+			NOR = { exists = yes }			
+		}
+
+		targets = { NOR }
+		target_root_trigger = {
+			has_completed_focus = SWE_FOP_decide_on_norway
+		}
+
+		cost = 75
+		days_remove = 30
+		fire_only_once = yes
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = 0
+				date < 1940.1.1
+				OR = {
+					NOR = { is_guaranteed_by = GER }
+					NOR = { is_in_faction_with = CAN }
+					NOR = { is_in_faction_with = FRA }
+					NOR = { is_in_faction_with = GER }
+				}
+			}
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_Decide_Norway target: [From.GetName]"
+			set_country_flag = { flag = imminent_war days = 29 value = 1 }
+			setup_decision_attack_AI = yes
+			if = {
+				limit = {
+					FROM = { tag = NOR }
+				}
+				country_event = { id = swefop.36 days = 3 }
+			}
+			else_if = {
+				limit = {
+					FROM = { tag = NOR }
+					AND = {
+						has_completed_focus = SWE_FOP_reclaim_the_empire_policy
+						has_country_flag = SWE_flag_military_steps_in
+					}
+				}
+				NOR = {
+					country_event = { days = 3 id = swefop.37 }			
+				} 
+			}
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_Decide_Norway target: [From.GetName]"
+			clear_decision_attack_AI = yes
+			set_country_flag = SWE_flag_focus_norway_1
+				if = { 
+					limit = {
+						NOR = { is_subject_of = ROOT }
+					}
+					annex_country = {
+						target = NOR
+						transfer_troops = yes
+					}					
+					set_country_flag = SWE_flag_norway_cooperates
+					
+				} else_if = {
+					limit = {
+						NOT = {
+							AND = {
+								has_completed_focus = SWE_FOP_our_home_defended_policy
+								NOT = { has_country_flag = SWE_flag_red_in_sweden }
+							}
 						}
 					}
 					create_wargoal = {
 						type = take_state_focus
 						target = NOR
 					}				
+				} else_if = {
+					limit = {
+						has_country_flag = SWE_flag_Norway_abandon
+					}
+					add_political_power = 25
 				}
-		}		
+		}
 	}	
 
-	SWE_focus_denmark_decision = {
-		icon = generic_ignite_civil_war
-		allowed = { tag = SWE }			
+	SWE_Decide_Denmark = {
+		icon = hol_draw_up_staff_plans
+
 		available = {
 			has_completed_focus = SWE_FOP_gamble_on_denmark
 			is_subject = no
+			DEN = { exists = yes }			
 		}
-		visible = {
+
+		targets = { DEN }
+		target_root_trigger = {
 			has_completed_focus = SWE_FOP_gamble_on_denmark
 		}
-		cost = 25
-		days_remove = 15
+
+		cost = 75
+		days_remove = 30
 		fire_only_once = yes
 
 		ai_will_do = {
-			base = 0
-			modifier = { 
-				add = 100
-				date > 1938.6.1
+			factor = 100
+			modifier = {
+				factor = 0
+				date < 1940.1.1
+				OR = {
+					DEN = { is_guaranteed_by = GER }
+					DEN = { is_in_faction_with = CAN }
+					DEN = { is_in_faction_with = FRA }
+					DEN = { is_in_faction_with = GER }
+				}
 			}
-			factor = 50
 		}
 
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_focus_denmark_decision target: [From.GetName]"
-			
-			DEN = {
-				country_event = { id = swefop.38 } 
-			}
-		}
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_focus_denmark_decision target: [From.GetName]"
-			set_country_flag = SWE_flag_focus_denmark_1
-
-		}
-	}
-
-	SWE_focus_denmark_final_decision = {
-		icon = generic_ignite_civil_war
-		allowed = { tag = SWE }			
-		available = {
-			has_country_flag = SWE_flag_focus_denmark_1
-			has_completed_focus = SWE_FOP_gamble_on_denmark
-			is_subject = no
-		}
-		visible = {
-			has_country_flag = SWE_flag_focus_denmark_1
-			has_completed_focus = SWE_FOP_gamble_on_denmark
-		}
-		cost = 40
-		days_remove = 10
-		fire_only_once = yes
-
-		ai_will_do = {
-			base = 0
-			modifier = { 
-				add = 100
-				date > 1938.6.1
-			}
-		}
-
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_focus_denmark_final_decision target: [From.GetName]"
-				if = { 
-					limit = {
-						DEN = {
-							is_puppet_of = SWE
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_Decide_Denmark target: [From.GetName]"
+			set_country_flag = { flag = imminent_war days = 29 value = 1 }
+			setup_decision_attack_AI = yes
+			if = {
+				limit = {
+					FROM = { tag = DEN }
+					SWE = {
+						AND = {
+						has_completed_focus = SWE_FOP_reclaim_the_empire_policy
+						has_country_flag = SWE_flag_military_steps_in
 						}
 					}
-					Annex_country = {
+				}
+				DEN = {
+					country_event = { id = swefop.38 days = 3 }
+				}
+			}
+			else_if = {
+				limit = {
+					FROM = { tag = DEN }
+				}
+				country_event = { id = swefop.115 days = 3 }
+			}
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_Decide_Denmark target: [From.GetName]"
+			clear_decision_attack_AI = yes			
+				if = { 
+					limit = {
+						DEN = { is_subject_of = ROOT }
+					}
+					annex_country = {
 						target = DEN
 						transfer_troops = yes
-					}
-					
-					set_country_flag = SWE_flag_denmark_cooperates
-					
+					}					
 				} else_if = {
 					limit = {
 						OR = {
@@ -8996,467 +8487,396 @@ SWE_focus_scandinavia_decisions = {
 						type = take_state_focus
 						target = DEN
 					}				
-				}
-		}		
+				} else_if = {
+					limit = {
+						has_country_flag = SWE_flag_Denmark_abandon
+					}
+					add_political_power = 25
+				}			
+		}
 	}
 
-	SWE_focus_finland_decision = {
-		icon = generic_ignite_civil_war
-		allowed = { tag = SWE }			
+	SWE_Decide_Finland = {
+		icon = hol_draw_up_staff_plans
+
 		available = {
 			has_completed_focus = SWE_FOP_return_finland
 			is_subject = no
+			FIN = { exists = yes }			
 		}
-		visible = {
+
+		targets = { FIN }
+		target_root_trigger = {
 			has_completed_focus = SWE_FOP_return_finland
 		}
-		cost = 25
-		days_remove = 15
+
+		cost = 75
+		days_remove = 30
 		fire_only_once = yes
 
 		ai_will_do = {
-			base = 0
-			modifier = { 
-				add = 100
-				date > 1938.6.1
+			factor = 100
+			modifier = {
+				factor = 0
+				date < 1940.1.1
+				OR = {
+					FIN = { is_guaranteed_by = GER }
+					FIN = { is_in_faction_with = CAN }
+					FIN = { is_in_faction_with = FRA }
+					FIN = { is_in_faction_with = GER }
+				}
 			}
 		}
 
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_focus_finland_decision target: [From.GetName]"
-			
-			FIN = {
-				country_event = { id = swefop.38 } 
-			}
-		}
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_focus_finland_decision target: [From.GetName]"
-			set_country_flag = SWE_flag_focus_finland_1
-
-		}
-	}
-
-	SWE_focus_finland_final_decision = {
-		icon = generic_ignite_civil_war
-		allowed = { tag = SWE }			
-		available = {
-			has_country_flag = SWE_flag_focus_finland_1
-			has_completed_focus = SWE_FOP_return_finland
-			is_subject = no
-		}
-		visible = {
-			has_country_flag = SWE_flag_focus_finland_1
-			has_completed_focus = SWE_FOP_return_finland
-		}
-		cost = 25
-		days_remove = 10
-		fire_only_once = yes
-
-		ai_will_do = {
-			base = 0
-			modifier = { 
-				add = 100
-				date > 1938.6.1
-			}
-		}
-
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_focus_finland_final_decision target: [From.GetName]"
-				if = { 
-					limit = {
-						FIN = {
-							is_puppet_of = SWE
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_Decide_Finland target: [From.GetName]"
+			set_country_flag = { flag = imminent_war days = 29 value = 1 }
+			setup_decision_attack_AI = yes
+			if = {
+				limit = {
+					FROM = { tag = FIN }
+					SWE = {
+						AND = {
+						has_completed_focus = SWE_FOP_reclaim_the_empire_policy
+						has_country_flag = SWE_flag_military_steps_in
 						}
 					}
-					Annex_country = {
-						target = FIN
+				}
+				FIN = {
+					country_event = { id = swefop.48 days = 3 }
+				}
+			}
+			else_if = {
+				limit = {
+					FROM = { tag = FIN }
+				}
+				country_event = { id = swefop.113 days = 3 }
+			}
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_Decide_Finland target: [From.GetName]"
+			clear_decision_attack_AI = yes			
+				if = { 
+					limit = {
+						FIN = { is_subject_of = ROOT }
 					}
-					country_event = { id = swefop.777 days = 1 }
+					annex_country = {
+						target = FIN
+						transfer_troops = yes
+					}					
 				} else_if = {
 					limit = {
-						OR = {
-							has_completed_focus = SWE_FOP_reclaim_the_empire_policy
-							has_completed_focus = SWE_FOP_arm_in_arm_policy
+						NOT = {
+							AND = {
+								has_completed_focus = SWE_FOP_our_home_defended_policy
+								NOT = { has_country_flag = SWE_flag_red_in_sweden }
+							}
 						}
 					}
 					create_wargoal = {
 						type = take_state_focus
 						target = FIN
 					}				
-				}			 
-		}		
+				} else_if = {
+					limit = {
+						has_country_flag = SWE_flag_Finland_abandon
+					}
+					add_political_power = 25
+				}			
+		}
 	}
-	
-	
-	SWE_focus_baltics_decision = {
-		icon = generic_ignite_civil_war
-		allowed = { tag = SWE }			
+
+	SWE_Decide_Baltic_Duchy = {
+		icon = hol_draw_up_staff_plans
+
 		available = {
 			has_completed_focus = SWE_FOP_estonia_is_scandi
-			BAT = { exists = yes }
 			is_subject = no
+			BAT = { exists = yes }			
 		}
-		visible = {
+
+		targets = { BAT }
+		target_root_trigger = {
 			has_completed_focus = SWE_FOP_estonia_is_scandi
-			BAT = { exists = yes }
-			
 		}
-		cost = 25
-		days_remove = 15
+
+		cost = 75
+		days_remove = 30
 		fire_only_once = yes
 
 		ai_will_do = {
-			base = 0
-			modifier = { 
-				add = 100
-				date > 1938.6.1
+			factor = 50
+			modifier = {
+				factor = 0
+				date < 1940.1.1
+				OR = {
+					BAT = { is_guaranteed_by = GER }
+					BAT = { is_in_faction_with = CAN }
+					BAT = { is_in_faction_with = FRA }
+					BAT = { is_in_faction_with = GER }
+				}
 			}
 		}
 
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_focus_baltics_decision target: [From.GetName]"
-				country_event = { id = swefop.51 } 
-		}
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_focus_baltics_decision target: [From.GetName]"
-			set_country_flag = SWE_flag_focus_baltic_1
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_Decide_Baltic_Duchy target: [From.GetName]"
+			set_country_flag = { flag = imminent_war days = 29 value = 1 }
+			setup_decision_attack_AI = yes
+			if = {
+				limit = {
+					FROM = { tag = BAT }
+					SWE = {
+						AND = {
+						has_completed_focus = SWE_FOP_reclaim_the_empire_policy
+						has_country_flag = SWE_flag_military_steps_in
+						}
+					}
+				}
 			add_state_claim = 13
 			add_state_claim = 191
 			add_state_claim = 12
 			add_state_claim = 190
-			add_state_claim = 1091
-			if = {
-				limit = {
-					LAT = { owns_state = 880 }
+			add_state_claim = 1091				
+				BAT = {
+					country_event = { id = swefop.52 days = 3 }
 				}
-				add_state_claim = 880
 			}
-			if = {
+			else_if = {
 				limit = {
-					EST = { owns_state = 1288 }
+					FROM = { tag = BAT }
 				}
-				add_state_claim = 1288
-			}
-			create_wargoal = {
-				target = 1091.owner
-				type = annex_everything
-			}
-			if = {
-				limit = {
-					OR = {
-						EST = { exists = yes }
-						LAT = { exists = yes }
-					}
-				}
-				create_wargoal = {
-					target = EST
-					type = annex_everything
-				}
-				create_wargoal = {
-					target = LAT
-					type = annex_everything
-				}
-			}			
-		}
-	}
-
-	SWE_focus_baltics_final_decision = {
-		icon = generic_ignite_civil_war
-		allowed = { tag = SWE }			
-		available = {
-			has_country_flag = SWE_flag_focus_baltic_1
-			has_completed_focus = SWE_FOP_estonia_is_scandi
-			is_subject = no
-			BAT = { exists = yes }
-			NOT = {
-				has_country_flag = SWE_flag_baltics_abandoned
-			}			
-		}
-		visible = {
-			has_country_flag = SWE_flag_focus_baltic_1
-			has_completed_focus = SWE_FOP_estonia_is_scandi
-			BAT = { exists = yes }
-			NOT = {
-				has_country_flag = SWE_flag_baltics_abandoned
-			}			
-		}
-		cost = 25
-		days_remove = 10
-		fire_only_once = yes
-
-		ai_will_do = {
-			base = 0
-			modifier = { 
-				add = 100
-				date > 1938.6.1
+				country_event = { id = swefop.51 days = 3 }
 			}
 		}
 
 		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_focus_baltics_final_decision target: [From.GetName]"
+			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_Decide_Baltic_Duchy target: [From.GetName]"
+			clear_decision_attack_AI = yes			
 				if = { 
 					limit = {
 						BAT = {
 							is_puppet_of = SWE
 						}
 					}
-					Annex_country = {
+					add_state_claim = 13
+					add_state_claim = 191
+					add_state_claim = 12
+					add_state_claim = 190
+					add_state_claim = 1091					
+					annex_country = {
 						target = BAT
-					}
+						transfer_troops = yes
+					}					
 				} else_if = {
 					limit = {
-						OR = {
-							has_completed_focus = SWE_FOP_reclaim_the_empire_policy
-							has_completed_focus = SWE_FOP_arm_in_arm_policy
+						NOT = {
+							AND = {
+								has_completed_focus = SWE_FOP_our_home_defended_policy
+								NOT = { has_country_flag = SWE_flag_red_in_sweden }
+							}
 						}
 					}
-			create_wargoal = {
-				target = 1091.owner
-				type = annex_everything
-			}				
-				}			 
-		}		
+					add_state_claim = 13
+					add_state_claim = 191
+					add_state_claim = 12
+					add_state_claim = 190
+					add_state_claim = 1091					
+					create_wargoal = {
+						type = take_state_focus
+						target = BAT
+					}				
+				} else_if = {
+					limit = {
+						has_country_flag = SWE_flag_baltics_abandoned
+					}
+					add_political_power = 25
+				}			
+		}
 	}
-	
-	SWE_focus_destroy_Baltics = {
-		icon = generic_ignite_civil_war
-		allowed = { tag = SWE }			
-		available = {
-			has_completed_focus = SWE_FOP_reclaim_the_empire_policy
-			has_completed_focus = SWE_FOP_estonia_is_scandi
-			has_country_flag = SWE_flag_focus_baltic_1
-			is_subject = no
-			BAT = { exists = yes }
-			
-			NOT = {
-				has_country_flag = SWE_flag_baltics_abandoned
-			}
-		}
 
-		visible = {
-			has_completed_focus = SWE_FOP_reclaim_the_empire_policy
-			has_completed_focus = SWE_FOP_estonia_is_scandi
-			has_country_flag = SWE_flag_focus_baltic_1
-			NOT = {
-				has_country_flag = SWE_flag_baltics_abandoned
-			}			
-			BAT = { exists = yes }
-			BAT = { has_idea = SWE_forest_brothers_supported }
-		}
+	SWE_Decide_Estonia = {
+		icon = hol_draw_up_staff_plans
 
-		cost = 25
-		days_remove = 15
-		fire_only_once = yes
-
-		ai_will_do = {
-			base = 0
-		}
-
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_focus_destroy_Baltics target: [From.GetName]"
-
-			create_wargoal = {
-				target = 1091.owner
-				type = annex_everything
-			}			
-		}
-	}	
-	
-	SWE_focus_estonia_decision = {
-		icon = generic_ignite_civil_war
-		allowed = { tag = SWE }			
 		available = {
 			has_completed_focus = SWE_FOP_estonia_is_scandi
 			is_subject = no
+			EST = { exists = yes }			
 		}
-		visible = {
+
+		targets = { EST }
+		target_root_trigger = {
 			has_completed_focus = SWE_FOP_estonia_is_scandi
-			
 		}
-		cost = 25
-		days_remove = 15
+
+		cost = 75
+		days_remove = 30
 		fire_only_once = yes
 
 		ai_will_do = {
-			base = 0
-			modifier = { 
-				add = 100
-				date > 1938.6.1
+			factor = 100
+			modifier = {
+				factor = 0
+				date < 1940.1.1
+				OR = {
+					EST = { is_guaranteed_by = GER }
+					EST = { is_in_faction_with = CAN }
+					EST = { is_in_faction_with = FRA }
+					EST = { is_in_faction_with = GER }
+				}
 			}
 		}
 
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_focus_estonia_decision target: [From.GetName]"
-				
-				EST = {
-					country_event = { id = swefop.55 } 
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_Decide_Estonia target: [From.GetName]"
+			set_country_flag = { flag = imminent_war days = 29 value = 1 }
+			setup_decision_attack_AI = yes
+			if = {
+				limit = {
+					FROM = { tag = EST }
 				}
-		}
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_focus_estonia_decision target: [From.GetName]"
-			set_country_flag = SWE_flag_focus_estonia_1
 			add_state_claim = 13
-			add_state_claim = 191
-
-		}	
-	
-	}	
-	
-	SWE_focus_estonia_final_decision = {
-		icon = generic_ignite_civil_war
-		allowed = { tag = SWE }			
-		available = {
-			has_country_flag = SWE_flag_focus_estonia_1
-			has_completed_focus = SWE_FOP_estonia_is_scandi
-			is_subject = no
-			NOT = {
-				has_country_flag = SWE_flag_baltics_abandoned
-			}			
-		}
-		visible = {
-			has_country_flag = SWE_flag_focus_estonia_1
-			has_completed_focus = SWE_FOP_estonia_is_scandi
-			NOT = {
-				has_country_flag = SWE_flag_baltics_abandoned
-			}			
-		}
-		cost = 25
-		days_remove = 10
-		fire_only_once = yes
-
-		ai_will_do = {
-			base = 0
-			modifier = { 
-				add = 100
-				date > 1938.6.1
+			add_state_claim = 191				
+				EST = {
+					country_event = { id = swefop.55 days = 3 }
+				}
 			}
+
 		}
 
 		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_focus_estonia_final_decision target: [From.GetName]"
+			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_Decide_Estonia target: [From.GetName]"
+			clear_decision_attack_AI = yes			
 				if = { 
 					limit = {
 						EST = {
 							is_puppet_of = SWE
 						}
 					}
-					Annex_country = {
+			add_state_claim = 13
+			add_state_claim = 191				
+					annex_country = {
 						target = EST
-					}
+						transfer_troops = yes
+					}					
 				} else_if = {
 					limit = {
-						OR = {
-							has_completed_focus = SWE_FOP_reclaim_the_empire_policy
-							has_completed_focus = SWE_FOP_arm_in_arm_policy
+						NOT = {
+							AND = {
+								has_completed_focus = SWE_FOP_our_home_defended_policy
+								NOT = { has_country_flag = SWE_flag_red_in_sweden }
+							}
 						}
 					}
-						create_wargoal = {
-							target = 13.owner
-							type = annex_everything
-						}				
-				}			 
-		}		
-	}	
-	
-	SWE_focus_latvia_decision = {
-		icon = generic_ignite_civil_war
-		allowed = { tag = SWE }			
+			add_state_claim = 13
+			add_state_claim = 191					
+					create_wargoal = {
+						type = take_state_focus
+						target = EST
+					}				
+				} else_if = {
+					limit = {
+						has_country_flag = SWE_flag_baltics_abandoned
+					}
+					add_political_power = 25
+				}			
+		}
+	}		
+
+	SWE_Decide_Latvia = {
+		icon = hol_draw_up_staff_plans
+
 		available = {
 			has_completed_focus = SWE_FOP_estonia_is_scandi
 			is_subject = no
+			LAT = { exists = yes }			
 		}
-		visible = {
+
+		targets = { LAT }
+		target_root_trigger = {
 			has_completed_focus = SWE_FOP_estonia_is_scandi
-			
 		}
-		cost = 25
-		days_remove = 15
+
+		cost = 75
+		days_remove = 30
 		fire_only_once = yes
 
 		ai_will_do = {
-			base = 0
-			modifier = { 
-				add = 100
-				date > 1938.6.1
+			factor = 100
+			modifier = {
+				factor = 0
+				date < 1940.1.1
+				OR = {
+					LAT = { is_guaranteed_by = GER }
+					LAT = { is_in_faction_with = CAN }
+					LAT = { is_in_faction_with = FRA }
+					LAT = { is_in_faction_with = GER }
+				}
 			}
 		}
 
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_focus_estonia_decision target: [From.GetName]"
-				
-				LAT = {
-					country_event = { id = swefop.58 } 
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_Decide_Latvia target: [From.GetName]"
+			set_country_flag = { flag = imminent_war days = 29 value = 1 }
+			setup_decision_attack_AI = yes
+			if = {
+				limit = {
+					FROM = { tag = LAT }
 				}
-		}
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_focus_latvia_decision target: [From.GetName]"
-			set_country_flag = SWE_flag_focus_latvia_1
 			add_state_claim = 12
 			add_state_claim = 190
-			add_state_claim = 1091
-
-		}	
-	
-	}	
-	
-	SWE_focus_latvia_final_decision = {
-		icon = generic_ignite_civil_war
-		allowed = { tag = SWE }			
-		available = {
-			has_country_flag = SWE_flag_focus_latvia_1
-			has_completed_focus = SWE_FOP_estonia_is_scandi
-			is_subject = no
-			NOT = {
-				has_country_flag = SWE_flag_baltics_abandoned
-			}			
-		}
-		visible = {
-			has_country_flag = SWE_flag_focus_latvia_1
-			has_completed_focus = SWE_FOP_estonia_is_scandi
-			NOT = {
-				has_country_flag = SWE_flag_baltics_abandoned
-			}			
-		}
-		cost = 25
-		days_remove = 10
-		fire_only_once = yes
-
-		ai_will_do = {
-			base = 0
-			modifier = { 
-				add = 100
-				date > 1938.6.1
+			add_state_claim = 1091			
+				LAT = {
+					country_event = { id = swefop.58 days = 3 }
+				}
 			}
+
 		}
 
 		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_focus_latvia_final_decision target: [From.GetName]"
+			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_Decide_Latvia target: [From.GetName]"
+			clear_decision_attack_AI = yes			
 				if = { 
 					limit = {
 						LAT = {
 							is_puppet_of = SWE
 						}
 					}
-					Annex_country = {
+			add_state_claim = 12
+			add_state_claim = 190
+			add_state_claim = 1091				
+					annex_country = {
 						target = LAT
-					}
+						transfer_troops = yes
+					}					
 				} else_if = {
 					limit = {
-						OR = {
-							has_completed_focus = SWE_FOP_reclaim_the_empire_policy
-							has_completed_focus = SWE_FOP_arm_in_arm_policy
+						NOT = {
+							AND = {
+								has_completed_focus = SWE_FOP_our_home_defended_policy
+								NOT = { has_country_flag = SWE_flag_red_in_sweden }
+							}
 						}
 					}
-						create_wargoal = {
-							target = 12.owner
-							type = annex_everything
-						}				
-				}			 
-		}		
-	}	
+			add_state_claim = 12
+			add_state_claim = 190
+			add_state_claim = 1091					
+					create_wargoal = {
+						type = take_state_focus
+						target = LAT
+					}				
+				} else_if = {
+					limit = {
+						has_country_flag = SWE_flag_baltics_abandoned
+					}
+					add_political_power = 25
+				}			
+		}
+	}
+
 
 	SWE_focus_integrate_Baltics = {
-		icon = generic_ignite_civil_war
+		icon = GFX_decision_trumpet
 		allowed = { tag = SWE }			
 		available = {
 			has_completed_focus = SWE_FOP_estonia_is_scandi
@@ -9491,13 +8911,13 @@ SWE_focus_scandinavia_decisions = {
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_focus_integrate_Baltics target: [From.GetName]"
-			country_event = { id = swefop.97 }
+			country_event = { id = swefop.100 }
 			
 		}
 	}	
 	
 	SWE_FOP_integrate_Riga = {
-		icon = generic_ignite_civil_war
+		icon = GFX_decision_trumpet
 		allowed = { tag = SWE }			
 		available = {
 			has_completed_focus = SWE_FOP_reclaim_the_empire_policy
@@ -9507,6 +8927,7 @@ SWE_focus_scandinavia_decisions = {
 
 		visible = {
 			has_completed_focus = SWE_FOP_reclaim_the_empire_policy
+			1091 = { is_owned_and_controlled_by = SWE }
 		}
 
 		cost = 10
@@ -9531,47 +8952,87 @@ SWE_focus_scandinavia_decisions = {
 		}
 	}
 
-	SWE_FOP_destroy_russia = {
-		icon = generic_ignite_civil_war
-		allowed = { tag = SWE }			
+	SWE_Decide_Russia = {
+		icon = hol_draw_up_staff_plans
+
 		available = {
+			OR = {
+				is_neighbor_of = FROM
+				any_allied_country = {
+					is_neighbor_of = FROM
+				}
+				any_subject_country = {
+					is_neighbor_of = FROM
+				}
+			}		
 			has_completed_focus = SWE_FOP_a_european_titan
 			is_subject = no
+			OR = {
+				RUS = { exists = yes }
+				SOV = { exists = yes }
+			}
 		}
 
-		visible = {
+		targets = { SOV RUS }
+		target_root_trigger = {
 			has_completed_focus = SWE_FOP_a_european_titan
 		}
+
 
 		cost = 75
 		days_remove = 30
 		fire_only_once = yes
-
+		war_with_target_on_remove = yes
 
 		ai_will_do = {
-			base = 0
+			factor = 100
+			modifier = {
+				factor = 0
+				OR = {
+					FROM = { is_in_faction = yes }
+				}
+			}
+			modifier = {
+				factor = 100
+				date > 1938.1.1
+			}
 		}
 
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete SWE_FOP_destroy_russia target: [From.GetName]"
-			
+			log = "[GetDateText]: [Root.GetName]: Decision SWE_Decide_Russia target: [From.GetName]"
+			set_country_flag = { flag = imminent_war days = 29 value = 1 }
 			setup_decision_attack_AI = yes
-		}
-
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_FOP_destroy_russia target: [From.GetName]"
 			add_state_claim = 722
 			add_state_claim = 213
 			add_state_claim = 215
 			add_state_claim = 1327
 			add_state_claim = 1328
 			add_state_claim = 1274	
-			add_state_claim = 216	
-			hidden_effect = {
+			add_state_claim = 216
+
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove SWE_Decide_Russia target: [From.GetName]"
+			clear_decision_attack_AI = yes	
+			if = {
+				limit = {
+					FROM = { tag = RUS }
+				}
 				create_wargoal = {
-					target = 195.owner
+					target = RUS
 					type = annex_everything
 				}
+			}
+			else_if = {
+				limit = {
+					FROM = { tag = SOV }
+				}
+				create_wargoal = {
+					target = SOV
+					type = annex_everything
+				}
+			}
 				if = {
 					limit = {
 						country_exists = KAR
@@ -9580,8 +9041,11 @@ SWE_focus_scandinavia_decisions = {
 						target = KAR
 						type = annex_everything
 					}
-				}
-			}
+				}		
+		}
+		cancel_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision cancel SWE_Decide_Russia target: [From.GetName]"
+			clear_decision_attack_AI = yes			
 		}
 	}
 
@@ -9606,7 +9070,7 @@ SWE_focus_scandinavia_decisions = {
 			has_completed_focus = SWE_FOP_a_european_titan
 		}
 
-		cost = 30
+		cost = 90
 		days_remove = 60
 		fire_only_once = yes
 
@@ -9617,8 +9081,6 @@ SWE_focus_scandinavia_decisions = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision complete SWE_FOP_integrate_russia target: [From.GetName]"
-			
-			setup_decision_attack_AI = yes
 		}
 
 		remove_effect = {
@@ -9699,7 +9161,7 @@ SWE_focus_scandinavia_decisions = {
 	}
 
 	SWE_FOP_take_pom = {
-		icon = generic_ignite_civil_war
+		icon = GFX_decision_hand_grab
 		allowed = { tag = SWE }			
 		available = {
 			has_completed_focus = SWE_FOP_a_european_titan
@@ -9745,7 +9207,7 @@ SWE_focus_scandinavia_decisions = {
 	}
 
 	SWE_FOP_integrate_pom = {
-		icon = generic_ignite_civil_war
+		icon = GFX_decision_hand_palm_down
 		allowed = { tag = SWE }			
 		available = {
 			has_completed_focus = SWE_FOP_a_european_titan
@@ -9804,7 +9266,7 @@ SWE_focus_scandinavia_decisions = {
 	}
 
 	SWE_FOP_claim_goldcoast = { 
-		icon = GFX_decision_generic_flags
+		icon = GFX_decision_hand_grab
 		allowed = { original_tag = SWE }
 		
 		available = {
@@ -9818,13 +9280,13 @@ SWE_focus_scandinavia_decisions = {
 			is_subject = no			
 
 		}
-	
+		days_remove = 30
 		fire_only_once = yes
-		cost = 25
+		cost = 50
 		ai_will_do = {
 			base = 0
 		}
-		complete_effect = {
+		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision SWE_FOP_claim_goldcoast"
 					create_wargoal = {
 						target = 274.owner
@@ -9841,7 +9303,7 @@ SWE_focus_scandinavia_decisions = {
 	}
 
 	SWE_FOP_claim_vinland = { 
-		icon = GFX_decision_generic_flags
+		icon = GFX_decision_hand_grab
 		allowed = { original_tag = SWE }
 		
 		available = {
@@ -9875,7 +9337,7 @@ SWE_focus_scandinavia_decisions = {
 	}
 
 	SWE_FOP_establish_vinland = { 
-		icon = GFX_decision_generic_flags
+		icon = GFX_decision_trumpet
 		allowed = { original_tag = SWE }
 		visible = {
 			if = { 
@@ -9904,160 +9366,8 @@ SWE_focus_scandinavia_decisions = {
 		}
 	}
 
-
-	SWE_FOP_integrate_scandinavia = {
-		icon = generic_form_nation
-		allowed = { original_tag = SWE }
-		visible = {
-			110 = { is_claimed_by = SWE }
-			37 = { is_claimed_by = SWE }			
-		}
-		available = {
-			AND = { 
-				110 = { is_owned_and_controlled_by = SWE }
-				142 = { is_owned_and_controlled_by = SWE }
-				143 = { is_owned_and_controlled_by = SWE }
-				144 = { is_owned_and_controlled_by = SWE }
-				937 = { is_owned_and_controlled_by = SWE }
-				936 = { is_owned_and_controlled_by = SWE }
-				37 = { is_owned_and_controlled_by = SWE }
-				99 = { is_owned_and_controlled_by = SWE }
-				337 = { is_owned_and_controlled_by = SWE }
-				101 = { is_owned_and_controlled_by = SWE }
-				926 = { is_owned_and_controlled_by = SWE }
-
-			}
-			NOT = {
-				has_country_flag = SWE_flag_red_in_sweden
-			}
-			
-		}
-		fire_only_once = yes
-		cost = 80
-		days_remove = 140
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_focus_integrate_scandinavia"
-			add_stability = 0.05
-			if = { 
-				limit = { 
-					OR = {
-						NOT = {
-							has_country_flag = SWE_flag_red_in_sweden
-							has_cosmetic_tag = SWE_elmo_empire
-							has_cosmetic_tag = SWE_elmo_empire2
-							has_cosmetic_tag = SWE_elmo_empire3
-							has_cosmetic_tag = SWE_elmo_empire_herald
-							}
-						}
-					}
-				country_event = { id = scandinavia.20 }
-				} else = {
-					add_political_power = 10
-				}
-
-			if = {
-				limit = { has_country_flag = SWE_flag_radsoc_victory } 
-					if = { 
-						limit = { 840 = { is_owned_and_controlled_by = SWE } }
-							set_cosmetic_tag = SWE_NDR_radsoc
-
-					} else = {
-				set_cosmetic_tag = SWE_SCA_radsoc	
-				}
-			}
-			else_if = {
-				limit = { has_country_flag = SWE_flag_syndie_victory } 
-					if = { 
-						limit = { 840 = { is_owned_and_controlled_by = SWE } }
-							set_cosmetic_tag = SWE_NDR_anarch
-
-					} else = {				
-				set_cosmetic_tag = SWE_SCA_anarch	
-				}
-			}
-			else_if = {
-				limit = { has_country_flag = SWE_flag_central_syndie } 
-					if = { 
-						limit = { 840 = { is_owned_and_controlled_by = SWE } }
-							set_cosmetic_tag = SWE_NDR_synd
-
-					} else = {				
-				set_cosmetic_tag = SWE_SCA_synd	
-				}
-			}			
-			else_if = {
-				limit = { has_country_flag = SWE_flag_flyg_victory_2 } 
-					if = { 
-						limit = { 840 = { is_owned_and_controlled_by = SWE } }
-							set_cosmetic_tag = SWE_NDR_flyg
-
-					} else = {				
-				set_cosmetic_tag = SWE_SCA_flyg	
-				}
-			}
-			else_if = {
-				limit = { has_country_flag = SWE_flag_linderot_victory }
-					if = { 
-						limit = { 840 = { is_owned_and_controlled_by = SWE } }
-							set_cosmetic_tag = SWE_NDR_commie
-
-					} else = {				
-				set_cosmetic_tag = SWE_SCA_commie	
-				}
-			}
-			else_if = {
-				limit = { has_country_flag = SWE_flag_hugo_doctrine }
-					if = { 
-						limit = { 840 = { is_owned_and_controlled_by = SWE } }
-							set_cosmetic_tag = SWE_NDR_commie
-
-					} else = {				
-				set_cosmetic_tag = SWE_SCA_commie	
-				}
-			}
-						
-			else_if = {
-				limit = { has_country_flag = SWE_flag_lindholm_tot } 
-					if = { 
-						limit = { 840 = { is_owned_and_controlled_by = SWE } }
-							set_cosmetic_tag = SWE_NDR_natsoc
-					} else = {				
-				set_cosmetic_tag = SWE_SCA_natsoc	
-				}
-			}
-
-			
-			hidden_effect = {
-				set_country_flag = SWE_flag_scandinavia_formed
-				if = {
-					limit = {
-						has_country_flag = SWE_flag_red_in_sweden
-					}
-					country_event = { id = swefop.34 } 
-				}
-			}
-			
-		}
-		
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_focus_integrate_scandinavia"
-		every_state = {
-		limit = { is_core_of = DEN }
-		add_core_of = FROM
-		}
-		every_state = {
-		limit = { is_core_of = NOR }
-		add_core_of = FROM
-		}			
-			
-		}
-		ai_will_do = {
-			factor = 50
-		}
-	}
-
 	SWE_focus_integrate_finland = {
-		icon = generic_ignite_civil_war
+		icon = generic_agreement
 		allowed = { tag = SWE }			
 		available = {
 			has_completed_focus = SWE_FOP_return_finland
@@ -10155,134 +9465,6 @@ SWE_focus_scandinavia_decisions = {
 }
 
 SWE_formation_of_nordic = {
-
-
-	SWE_formation_decision_scandinavia = {
-		icon = generic_form_nation
-		allowed = { tag = SWE }
-		available = { 
-			has_completed_focus = SWE_FOP_eyes_to_scandinavia
-			is_subject = no
-			NOT = {
-				has_country_flag = SWE_flag_empire_declared
-			}
-			AND = { 
-				110 = { is_owned_and_controlled_by = SWE }
-				142 = { is_owned_and_controlled_by = SWE }
-				143 = { is_owned_and_controlled_by = SWE }
-				144 = { is_owned_and_controlled_by = SWE }
-				937 = { is_owned_and_controlled_by = SWE }
-				936 = { is_owned_and_controlled_by = SWE }
-				37 = { is_owned_and_controlled_by = SWE }
-				99 = { is_owned_and_controlled_by = SWE }
-				337 = { is_owned_and_controlled_by = SWE }
-				101 = { is_owned_and_controlled_by = SWE }
-				926 = { is_owned_and_controlled_by = SWE }
-			}			
-		}	
-		visible = { 
-			has_completed_focus = SWE_FOP_eyes_to_scandinavia
-			NOT = {
-				has_country_flag = SWE_flag_decided_on_formation
-			}			
-		}
-			
-		fire_only_once = yes
-		cost = 10
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_formation_decision_scandinavia"	
-			set_country_flag = SWE_flag_union_formation_decision
-			set_country_flag = SWE_flag_decided_on_formation
-		
-		}
-		ai_will_do = {
-			factor = 50
-		}
-	}
-	SWE_formation_decision_empire = {
-		icon = generic_form_nation
-		allowed = { tag = SWE }
-		available = { 
-			has_completed_focus = SWE_FOP_eyes_to_scandinavia
-			is_subject = no
-			has_country_flag = SWE_flag_empire_declared
-			AND = { 
-				110 = { is_owned_and_controlled_by = SWE }
-				142 = { is_owned_and_controlled_by = SWE }
-				143 = { is_owned_and_controlled_by = SWE }
-				144 = { is_owned_and_controlled_by = SWE }
-				937 = { is_owned_and_controlled_by = SWE }
-				936 = { is_owned_and_controlled_by = SWE }
-				37 = { is_owned_and_controlled_by = SWE }
-				99 = { is_owned_and_controlled_by = SWE }
-				337 = { is_owned_and_controlled_by = SWE }
-				101 = { is_owned_and_controlled_by = SWE }
-				926 = { is_owned_and_controlled_by = SWE }
-			}			
-		}	
-		visible = { 
-			has_completed_focus = SWE_FOP_eyes_to_scandinavia
-			NOT = {
-				has_country_flag = SWE_flag_decided_on_formation
-			}			
-		}
-			
-		fire_only_once = yes
-		cost = 10
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_formation_decision_empire"	
-			set_country_flag = SWE_flag_empire_formation_decision
-			set_country_flag = SWE_flag_decided_on_formation
-			
-			
-		}
-		ai_will_do = {
-			factor = 50
-		}
-	}
-	SWE_formation_decision_kalmar = {
-		icon = generic_form_nation
-		allowed = { tag = SWE }
-		available = { 
-			has_completed_focus = SWE_FOP_eyes_to_scandinavia
-			is_subject = no
-			AND = { 
-				110 = { is_owned_and_controlled_by = SWE }
-				142 = { is_owned_and_controlled_by = SWE }
-				143 = { is_owned_and_controlled_by = SWE }
-				144 = { is_owned_and_controlled_by = SWE }
-				937 = { is_owned_and_controlled_by = SWE }
-				936 = { is_owned_and_controlled_by = SWE }
-				37 = { is_owned_and_controlled_by = SWE }
-				99 = { is_owned_and_controlled_by = SWE }
-				337 = { is_owned_and_controlled_by = SWE }
-				101 = { is_owned_and_controlled_by = SWE }
-				926 = { is_owned_and_controlled_by = SWE }
-			}			
-			OR = {
-				has_country_flag = SWE_flag_norway_cooperates
-				has_country_flag = SWE_flag_denmark_cooperates
-			}
-		}	
-		visible = { 
-			has_completed_focus = SWE_FOP_eyes_to_scandinavia
-			NOT = {
-				has_country_flag = SWE_flag_decided_on_formation
-			}			
-		}
-			
-		fire_only_once = yes
-		cost = 10
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision SWE_formation_decision_kalmar"
-			set_country_flag = SWE_flag_kalmar_formation_decision
-			set_country_flag = SWE_flag_decided_on_formation
-		
-		}
-		ai_will_do = {
-			factor = 50
-		}
-	}
 
 	SWE_rebuild_destroyed_infrastructure = {
 		icon = GFX_decision_cement_mixer
@@ -10769,8 +9951,8 @@ SWE_formation_of_nordic = {
 		}
 		
 		fire_only_once = yes
-		cost = UKR_landreform_cost?40
-		days_remove = UKR_landreform_days_remove?90
+		cost = 10
+		days_remove = 10
 
 		ai_will_do = {
 			factor = 100

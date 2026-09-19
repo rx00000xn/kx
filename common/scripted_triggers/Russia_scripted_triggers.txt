@@ -924,7 +924,7 @@ rus_senate_duma_conflict_available = {
 					psr_in_power = yes
 					NOT = { has_country_flag = RUS_socdems_rpr }
 				}
-				has_idea = RUS_Boris_V_Savinkov_hog_npo
+				RUS_savinkov_pm = yes
 			}
 		}
 	}
@@ -934,8 +934,12 @@ rus_senate_duma_conflict_available = {
 		NOT = { check_variable = { Duma_Party_Status^8 = 2 } }
 		OR = { 
 			has_socialist_government = yes
-			has_left_democratic_government = yes
-			has_idea = RUS_Boris_V_Savinkov_hog_npo
+			has_government = social_democrat
+			AND = {
+				lkdp_in_power = yes
+				NOT = { has_country_flag = RUS_kdp_vns_coalition }
+			}
+			RUS_savinkov_pm = yes
 		}
 	}
 	else_if = {
@@ -945,7 +949,7 @@ rus_senate_duma_conflict_available = {
 		OR = { 
 			has_socialist_government = yes
 			has_liberal_government = yes
-			has_idea = RUS_Boris_V_Savinkov_hog_npo
+			RUS_savinkov_pm = yes
 		}
 	}
 	else_if = {
@@ -955,9 +959,9 @@ rus_senate_duma_conflict_available = {
 		OR = { 
 			has_socialist_government = yes
 			has_government = social_democrat
-			has_government = authoritarian_democrat
+			ep_in_power = yes
 			nsnp_in_power = yes
-			has_idea = RUS_Boris_V_Savinkov_hog_npo
+			RUS_savinkov_pm = yes
 			AND = {
 				NOT = { has_country_flag = kdp_united } 
 				lkdp_in_power = yes
@@ -970,10 +974,14 @@ rus_senate_duma_conflict_available = {
 		NOT = { check_variable = { Duma_Party_Status^6 = 2 } }			
 		OR = { 
 			has_socialist_government = yes
-			has_government = social_democrat
-			has_conservative_government = yes
+			has_government = social_democrat			
+			AND = {
+				vns_in_power = yes
+				NOT = { has_country_flag = RUS_kdp_vns_coalition }
+			}
+			ep_in_power = yes
 			nsnp_in_power = yes
-			has_idea = RUS_Boris_V_Savinkov_hog_npo
+			RUS_savinkov_pm = yes
 			AND = {
 				NOT = { has_country_flag = kdp_united } 
 				lkdp_in_power = yes
@@ -986,10 +994,14 @@ rus_senate_duma_conflict_available = {
 		NOT = { check_variable = { Duma_Party_Status^5 = 2 } }			
 		OR = { 
 			has_socialist_government = yes
-			rsdrp_in_power = yes
-			has_conservative_government = yes
+			rsdrp_in_power = yes						
+			AND = {
+				vns_in_power = yes
+				NOT = { has_country_flag = RUS_kdp_vns_coalition }
+			}
+			ep_in_power = yes
 			nsnp_in_power = yes
-			has_idea = RUS_Boris_V_Savinkov_hog_npo
+			RUS_savinkov_pm = yes
 		}
 	}
 	else_if = {
@@ -999,7 +1011,7 @@ rus_senate_duma_conflict_available = {
 		OR = {
 			has_socialist_government = yes
 			has_left_democratic_government = yes
-			has_idea = RUS_Boris_V_Savinkov_hog_npo
+			RUS_savinkov_pm = yes
 		}
 	}	
 	else_if = {
@@ -1009,7 +1021,7 @@ rus_senate_duma_conflict_available = {
 		OR = { 
 			has_conservative_government = yes
 			nsnp_in_power = yes
-			has_idea = RUS_Boris_V_Savinkov_hog_npo
+			RUS_savinkov_pm = yes
 		}
 	}
 	else_if = {
@@ -1019,7 +1031,7 @@ rus_senate_duma_conflict_available = {
 		OR = {
 			has_conservative_government = yes
 			nsnp_in_power = yes
-			has_idea = RUS_Boris_V_Savinkov_hog_npo
+			RUS_savinkov_pm = yes
 		}
 	}	
 	else_if = {
@@ -1546,7 +1558,7 @@ RUS_state_can_increase_pop = {
 	if = {
 		limit = {
 			ROOT = { 
-				has_idea = RUS_Boris_V_Savinkov_hog_npo
+				RUS_savinkov_pm = yes
 			}
 		}
 		check_variable = { THIS.RUS_state_nrpr_final_pop < 0.55 }
