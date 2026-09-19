@@ -2961,7 +2961,7 @@ save_austria = {
 					owns_state = 789
 				}
 			}
-			has_global_flag = AUS_fifth_balkan_war_begun
+			fifth_balkan_war = yes
 		}
 		available = {
 			OR = {
@@ -2969,14 +2969,11 @@ save_austria = {
 				has_war_with = ROM
 				has_war_with = RRM
 			}
-			NOT = {
-				any_allied_country = {
-					controls_state = 789
-				}
-				controls_state = 789
+			any_enemy_country = {
+				789 = { is_fully_controlled_by  = PREV }
 			}
 			has_global_flag = szeklerland_solidified_global
-			has_global_flag = AUS_fifth_balkan_war_begun
+			fifth_balkan_war = yes
 		}
 		fire_only_once = yes
 		days_remove = 7
@@ -2995,7 +2992,7 @@ save_austria = {
 			}
 		}
 		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision AUS_incite_kratochvil target: [From.GetName]"
+			log = "[GetDateText]: [Root.GetName]: Decision AUS_incite_kratochvil"
 			SZK_do_the_awesome = yes
 		}
 	}
@@ -3022,7 +3019,7 @@ save_austria = {
 				has_capitulated = yes
 			}
 			has_war_with = ROM
-			has_global_flag = AUS_fifth_balkan_war_begun
+			fifth_balkan_war = yes
 		}
 		fire_only_once = yes
 		days_remove = 7
@@ -6609,6 +6606,45 @@ AUS_foreign_policy_category = {
 			factor = 100
 		}
 	}
+
+	AUS_invite_into_DWV = {
+		cost = 0
+		icon = generic_agreement
+		allowed = { tag = AUS }
+		visible = {
+			is_faction_leader = yes
+			AUS_DWV_member = yes
+		}
+		target_trigger = {
+			FROM = {
+				is_ally_with = ROOT
+				AUS_DWV_member = no
+				NOT = { has_country_flag = AUS_no_DWV_decision_for_this_tag }
+			}
+		}
+		available = {
+			FROM = {
+				is_ally_with = ROOT
+				AUS_DWV_member = no
+				NOT = { has_country_flag = AUS_no_DWV_decision_for_this_tag }
+			}
+		}
+		fire_only_once = yes
+		days_remove = 7
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_invite_into_DWV target: [From.GetName]"
+			FROM = {
+				country_event = {
+					id = bdeausint.20
+					days = 1
+					random_hours = 24
+				}
+			}
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
 	
 	AUS_offer_swiss_secret_alliance = {
 		cost = 20
@@ -8004,7 +8040,7 @@ AUS_foreign_policy_category = {
 		available = {
 			has_completed_focus = AUS_the_austrian_throne_forever
 		}
-		targets = { SER ROM MNT VNC LOM ITA WSU }
+		targets = { SER ROM MNT VNC LOM ITA WSU BAY SLS }
 		target_root_trigger = {
 			has_global_flag = AUS_federalized
 			has_completed_focus = AUS_the_austrian_throne_forever
@@ -8187,7 +8223,7 @@ AUS_foreign_policy_category = {
 		cost = 20
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 0
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision complete AUS_claim_third_partition"
@@ -9414,7 +9450,7 @@ AUS_ausgleich_category = {
 			factor = 1000
 		}
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete AUS_attack_unionists target: [From.GetName]"
+			log = "[GetDateText]: [Root.GetName]: Decision complete AUS_fate_of_illyria"
 			set_global_flag = ausgleich_debating_question
 			country_event = {
 				id = bdeausgleich.22
@@ -9596,6 +9632,7 @@ AUS_ausgleich_category = {
 				has_global_flag = AUS_ausgleich_over
 				has_global_flag = AUS_ausgleich_hungary_about_to_blow_up
 				has_global_flag = AUS_ausgleich_hungarian_revolt
+				has_global_flag = AUS_collapsed
 			}
 		}
 		ai_will_do = {
