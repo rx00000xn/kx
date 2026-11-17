@@ -79,7 +79,7 @@ BOTDE_ausgleich_priority_score = {
 			FROM = {
 				OR = {
 					tag = AUS
-					has_country_flag = going_to_le_ausgleich
+					AUS_country_is_in_ausgleich = yes
 				}
 			}
 		}
@@ -87,8 +87,13 @@ BOTDE_ausgleich_priority_score = {
 			base = 0
 			modifier = {
 				AND = {
-					has_variable = constituents_gui_priority
-					AUS_is_constituent = yes
+					OR = {
+						AND = {
+							has_variable = constituents_gui_priority
+							AUS_is_constituent = yes
+						}
+						tag = FIU
+					}
 				}
 				set_temp_variable = { temp_add = constituents_gui_priority }
 				add_to_temp_variable = { temp_add = 15 }
@@ -100,6 +105,25 @@ BOTDE_ausgleich_priority_score = {
 					AUS_is_minority = yes
 				}
 				add = minority_gui_priority
+			}
+		}
+	}
+}
+BOTDE_all_possible_organized_by_subject_revolt = {
+	targets = {
+		target_array = global.AUS_all_possible_array
+		target_non_existing = yes
+		score = {
+			base = 0
+			modifier = {
+				AND = {
+					has_variable = subject_revolt_progress
+					AUS_can_collapse = yes
+				}
+				set_temp_variable = { temp_add = subject_revolt_progress }
+				multiply_temp_variable = { temp_add = 100 }
+				round_variable = temp_add
+				add = temp_add
 			}
 		}
 	}

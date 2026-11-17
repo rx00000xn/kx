@@ -106,10 +106,20 @@ guiTypes = {
 			pdx_tooltip = AUS_show_hide_dispel_opposition_decisions
 			pdx_tooltip_delayed = AUS_show_hide_dispel_opposition_decisions_desc
 		}
+
+		iconType = {
+			name = "AUS_revolt_paused_indicator"
+			quadTextureSprite = "GFX_AUS_pause_indicator"
+			scale = 0.8
+			position = { x = 175 y = -60 }
+			orientation = center
+			pdx_tooltip = AUS_revolt_paused_indicator_tt
+			pdx_tooltip_delayed = AUS_revolt_paused_indicator_tt_delayed
+		}
 		
 		buttonType = {
             name = "austria_help"
-            position = { x = -20 y = -130 }
+            position = { x = -43 y = 55 }
             spriteType = "GFX_help_button"
 			orientation = upper_right
             clicksound = click_close
@@ -146,7 +156,6 @@ guiTypes = {
 		orientation = center
 		origo = center
 		
-
 		background = {
 			name = "Background"
 			spriteType = "GFX_AUS_revolt_ui_background"
@@ -159,20 +168,19 @@ guiTypes = {
 			borderSize = {x = 0 y = 0}
 			text = AUS_GUI_TITLE
 			maxWidth = 1200
-			maxHeight = 20
+			maxHeight = 36
 			Orientation = upper_center
 			format = center	
 		}
 
         buttonType = {
             name = "austria_close"
-            position = {x = 1270 y = 0}
+            position = { x = -32 y = 4 }
             spriteType = "GFX_NV_btn_close"
             clicksound = click_close
+			Orientation = upper_right
 			shortcut = "ESCAPE"
         }
-		
-       
 		
 		containerWindowType = {
 			name = "subjects_view_container"
@@ -231,7 +239,6 @@ guiTypes = {
 						position = { x = 15 y = 5 }
 						size = { width = 1 height = 1 }
 						slotsize = { width = 1 height = 1 }
-						
 					}
 					horizontalScrollbar = "bottom_horizontal_slider"
 					background = {
@@ -447,7 +454,6 @@ guiTypes = {
 		size = { width = 50 height = 50 }
 		clipping = no
 		
-		
 		#iconType = {
 		#	name = "ausflag2_overlay"
 		#	quadTextureSprite = "GFX_flag_small"
@@ -488,7 +494,6 @@ guiTypes = {
 			pdx_tooltip = AUS_warning_name
 			pdx_tooltip_delayed = AUS_warning_rev_progress
 		}
-		
 	}
 	
 	containerWindowType = {
@@ -498,17 +503,6 @@ guiTypes = {
 		background = {
 			name = "minoritybackground"		
 			quadTextureSprite = "GFX_tiled_paper_bg"
-		}
-		
-		instantTextBoxType = {
-			name = "minorityoverlord"
-			position = { x = 25 y = 110 }
-			font = "hoi_18mbs"
-			text = "[THIS.GetMinorityOverlords]"
-			format = center
-			maxWidth = 100
-			maxHeight = 50
-			fixedsize = yes
 		}
 		
 		instantTextBoxType = {
@@ -527,7 +521,6 @@ guiTypes = {
 			quadTextureSprite = "GFX_shield_medium"
 			position = { x = -60 y = -44 }
 			Orientation = center
-			
 		}
 			
 		buttonType = {
@@ -581,7 +574,6 @@ guiTypes = {
 			pdx_tooltip = AUS_evidenz_button_tt
 			pdx_tooltip_delayed = AUS_evidenz_button_tt_delayed
 		}
-		
 	}
 
 	containerWindowType = {
@@ -611,7 +603,7 @@ guiTypes = {
 			name = "ausgleich_attendees_grid_containing_box"
 			position = {x = 5 y = 45}
 			margin = { top = 5 bottom = 5 }
-			size = {width = 500 height = 225 }
+			size = {width = 450 height = 225 }
 			smooth_scrolling = yes
 			verticalScrollbar = "right_vertical_slider"
 			clipping = yes
@@ -620,7 +612,7 @@ guiTypes = {
 				position = { x = 0 y = 0 }
 				size = { width = 100%% height = 100%% }
 				format = "UPPER_LEFT"
-				slotsize = { width = 500 height = 75 }
+				slotsize = { width = 450 height = 75 }
 				max_slots_horizontal = 1
 			}
 			background = {
@@ -632,7 +624,7 @@ guiTypes = {
 
 	containerWindowType = {
 		name = "ausgleich_attendee_entry"
-		size = { width = 500 height = 75 }
+		size = { width = 420 height = 75 }
 		
 		background = {
 			name = "Background"
@@ -655,13 +647,22 @@ guiTypes = {
 			pdx_tooltip_delayed = AUS_ausgleich_attendee_tooltip_delayed
 		}
 
+		iconType = {
+			name = "ausgleich_observer_status"
+			quadTextureSprite = "GFX_ausgleich_observer_icon"
+			position = { x = 42 y = 50 }
+			Orientation = left
+			scale = 0.6
+			pdx_tooltip = AUS_ausgleich_observer_tooltip
+		}
+
 		instantTextBoxType = {
 			name = "attendee_name"
-			position = { x = 108 y = 5 }
+			position = { x = 110 y = 5 }
 			font = "hoi_24header"
 			text = "[THIS.GetAusgleichCountryTooltip]"
 			format = center
-			maxWidth = 360
+			maxWidth = 300
 			maxHeight = 60
 			fixedsize = yes
 			pdx_tooltip = AUS_attendee_name_tooltip
@@ -670,15 +671,79 @@ guiTypes = {
 
 		instantTextBoxType = {
 			name = "attendee_status"
-			position = { x = 108 y = 55 }
+			position = { x = 110 y = 55 }
 			font = "hoi_16mbs"
 			text = "[THIS.GetStatus]"
 			format = center
-			maxWidth = 360
+			maxWidth = 300
 			maxHeight = 16
 			fixedsize = yes
 			pdx_tooltip = AUS_attendee_status_tooltip
 			pdx_tooltip_delayed = AUS_ausgleich_attendee_tooltip_delayed
+		}
+	}
+
+	containerWindowType = {
+		name = "austrian_debug_gui_container"
+		size = { width = 510 height = 200 }
+		background = {
+			name = "Background"
+			quadTextureSprite = "GFX_tiled_window_small"
+		}
+		buttonType = {
+			name = "debug_visible_button"
+			position = { x = -85 y = -85 }
+			quadTextureSprite = "GFX_sort_button_171x35"
+	 		buttonFont = "hoi_16mbs"
+			Orientation = "CENTER"
+			buttonText = "Decisions Visibility"
+			pdx_tooltip = KX_hide_botde_debug_decisions_toggle
+		}
+		containerWindowType = {
+			name = "austria_debug_all_consts_gridbox"
+			position = {x = 0 y = 55 }
+			margin = { top = 5 bottom = 5 left = 5 right = 5 }
+			size = { width = 510 height = 150 }
+			smooth_scrolling = yes
+			verticalScrollbar = "right_vertical_slider"
+			clipping = yes
+			gridboxtype = {
+				name = "austrian_debug_consts_grid"
+				position = { x = 0 y = 0 }
+				size = { width = 100%% height = 100%% }
+				format = "UPPER_LEFT"
+				slotsize = { width = 58 height = 42 }
+				max_slots_horizontal = 9
+			}
+			background = {
+				name = "Background"
+				quadTextureSprite = "GFX_tiled_window_small"
+			}
+		}
+	}
+
+	containerWindowType = {
+		name = "austrian_debug_const_entry"
+		size = { width = 58 height = 42 }
+		scale = 0.5
+		iconType = {
+			name = "debug_const_flag"
+			quadTextureSprite = "GFX_unionist_flag_large"
+			position = { x = 0 y = 0 }
+			pdx_tooltip = AUS_debug_const_entry_tt
+			pdx_tooltip_delayed = AUS_debug_const_entry_delayed_tt
+		}
+		instantTextboxType = {
+			name = "const_flag_text"
+			position = { x = -20 y = 0 }
+			font = "hoi_36header"
+			borderSize = {x = 0 y = 0}
+			text = "[?THIS.subject_revolt_progress|2]"
+			maxWidth = 58
+			maxHeight = 42
+			format = center
+			orientation = center
+			alwaystransparent = yes
 		}
 	}
 }

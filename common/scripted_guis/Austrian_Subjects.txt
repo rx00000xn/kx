@@ -19,8 +19,6 @@ scripted_gui = {
 				tag = TRS
 				tag = BAN
 				tag = CPU
-				tag = HSR
-				tag = HNR
 				tag = AWR
 				tag = TYR
 				tag = ITA
@@ -31,16 +29,12 @@ scripted_gui = {
 				tag = FRA
 				tag = ENG
 				tag = RUS
-				tag = SOV
 				tag = BUL
 				tag = SER
 				tag = ROM
 				tag = SWI
-				tag = RRM
 				tag = GRE
 				tag = HNZ
-				tag = CRR
-				tag = SRC
 				tag = MNT
 				tag = VNC
 				tag = LIC
@@ -136,6 +130,9 @@ scripted_gui = {
 					SER = { has_country_flag = SER_funded_seppies }
 					ROM = { has_country_flag = ROM_funded_seppies }
 				}
+			}
+			AUS_revolt_paused_indicator_visible = {
+				has_global_flag = AUS_pause_collapse_flag
 			}
 			austrian_warning_subject_entry_visible = {
 				var:v = {
@@ -285,7 +282,6 @@ scripted_gui = {
 					check_variable = { global.evidenz_value < global.evidenz_value_limit }
 				}
 				NOT = {
-					has_country_flag = GUI_evidenz_decision
 					has_country_flag = AUS_no_evidenzbureau
 					has_global_flag = AUS_evidenzbureau_decision
 				}
@@ -417,7 +413,6 @@ scripted_gui = {
 					check_variable = { global.evidenz_value < global.evidenz_value_limit }
 				}
 				NOT = {
-					has_country_flag = GUI_evidenz_decision
 					has_country_flag = AUS_no_evidenzbureau
 					has_global_flag = AUS_evidenzbureau_decision
 				}
@@ -509,13 +504,16 @@ scripted_gui = {
 			CONST_evidenz_button_click = {
 				if = {
 					limit = { NOT = { has_country_flag = AUS_evidenzbureau_focus } }
-					ROOT = { add_command_power = -10 }
+					ROOT = {
+						add_command_power = -10
+						country_event = {
+							id = bdeaus.21
+							days = 20
+						}
+					}
+					save_global_event_target_as = AUS_evidenzbureau_decision_target
 					set_global_flag = AUS_evidenzbureau_decision
 					add_to_variable = { global.evidenz_value = 1 }
-					country_event = {
-						id = bdeaus.21
-						days = 20
-					}
 				}
 				else = {
 					clr_country_flag = AUS_evidenzbureau_focus
@@ -584,13 +582,16 @@ scripted_gui = {
 			MINOR_evidenz_click = {
 				if = {
 					limit = { NOT = { has_country_flag = AUS_evidenzbureau_focus } }
-					ROOT = { add_command_power = -5 }
+					ROOT = {
+						add_command_power = -5
+						country_event = {
+							id = bdeaus.21
+							days = 10
+						}
+					}
 					set_global_flag = AUS_evidenzbureau_decision
 					add_to_variable = { global.evidenz_value = 1 }
-					country_event = {
-						id = bdeaus.21
-						days = 10
-					}
+					save_global_event_target_as = AUS_evidenzbureau_decision_target
 					else = {
 						clr_country_flag = AUS_evidenzbureau_focus
 						add_to_variable = { global.evidenz_value = -1 }
@@ -654,8 +655,6 @@ scripted_gui = {
 				tag = TRS
 				tag = BAN
 				tag = CPU
-				tag = HSR
-				tag = HNR
 				tag = AWR
 				tag = TYR
 				tag = ITA
@@ -666,16 +665,12 @@ scripted_gui = {
 				tag = FRA
 				tag = ENG
 				tag = RUS
-				tag = SOV
 				tag = BUL
 				tag = SER
 				tag = ROM
 				tag = SWI
-				tag = RRM
 				tag = GRE
 				tag = HNZ
-				tag = CRR
-				tag = SRC
 				tag = MNT
 				tag = VNC
 				tag = LIC
@@ -692,12 +687,89 @@ scripted_gui = {
 			}
 		}
 
+		triggers = {
+			ausgleich_observer_status_visible = {
+				has_country_flag = is_ausgleich_observer
+			}
+		}
+
 		properties = {
 			attendee_flag = {
 				image = "[THIS.GetFlag]"
 			}
 			attendee_flag_frame = {
 				image = "[THIS.GetFlagFrame]"
+			}
+		}
+	}
+
+	austrian_debug_gui = {
+		context_type = decision_category
+		window_name = "austrian_debug_gui_container"
+
+		visible = {
+			OR = {
+				tag = AUS
+				tag = HUN
+				tag = CRO
+				tag = CZE
+				tag = GAL
+				tag = SVK
+				tag = SLO
+				tag = BOS
+				tag = SKS
+				tag = WSU
+				tag = BUK
+				tag = TRS
+				tag = BAN
+				tag = CPU
+				tag = AWR
+				tag = TYR
+				tag = ITA
+				tag = SRI
+				tag = GER
+				tag = POL
+				tag = UKR
+				tag = FRA
+				tag = ENG
+				tag = RUS
+				tag = BUL
+				tag = SER
+				tag = ROM
+				tag = SWI
+				tag = GRE
+				tag = HNZ
+				tag = MNT
+				tag = VNC
+				tag = LIC
+			}
+		}
+
+		effects = {
+			debug_visible_button_click = {
+				AUS = {
+					if = {
+						limit = { NOT = { has_global_flag = botde_debug_decisions_hidden } }
+						set_global_flag = botde_debug_decisions_hidden
+					}
+					else = {
+						clr_global_flag = botde_debug_decisions_hidden
+					}
+				}
+			}
+		}
+
+		dynamic_lists = {
+			austrian_debug_consts_grid = {
+				array = global.AUS_all_possible_array_sorted
+				entry_container = austrian_debug_const_entry
+				change_scope = yes
+			}
+		}
+
+		properties = {
+			debug_const_flag = {
+				image = "[THIS.GetFlag]"
 			}
 		}
 	}

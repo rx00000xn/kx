@@ -46,7 +46,10 @@ on_actions = {
 			for_each_scope_loop = {
 				array = HUN.owned_states
 				if = {
-					limit = { is_core_of = TRS NOT = { is_core_of = BAN } }
+					limit = {
+						is_core_of = TRS
+						NOT = { is_core_of = BAN }
+					}
 					add_to_array = { global.ROM_target_states = THIS }
 					add_to_array = { global.ROM_transylvania_states = THIS }
 				}
@@ -138,9 +141,21 @@ on_actions = {
 				set_variable = { LIC.BM_slots = -0.25 }
 				set_variable = { LIC.quota_value = 0.3 }
 				set_variable = { LIC.GetQuotaYear = 1937 }
-				74 = { add_dynamic_modifier = { modifier = LIC_holding_jagerndorf } add_dynamic_modifier = { modifier = LIC_holding_troppau } }
+				74 = {
+					add_dynamic_modifier = { modifier = LIC_holding_jagerndorf }
+					add_dynamic_modifier = { modifier = LIC_holding_troppau }
+				}
 				1137 = { add_dynamic_modifier = { modifier = LIC_holding_generic } }
 				71 = { add_dynamic_modifier = { modifier = LIC_holding_generic } }
+				set_country_flag = franz_joseph_ii_is_not_otto_von_habsburg
+			}
+			ALA = {
+				set_country_flag = franz_joseph_ii_is_not_otto_von_habsburg
+				set_variable = { constituents_gui_priority = 2 }
+			}
+			ENG = {
+				set_country_flag = franz_joseph_ii_is_not_otto_von_habsburg
+				set_variable = { constituents_gui_priority = 12 }
 			}
 			AUS = {
 				if = {
@@ -168,7 +183,7 @@ on_actions = {
 				}
 				add_soccon_to_coalition = yes
 				add_pataut_to_coalition = yes
-				country_event = { #Turn up collapse rate 1%
+				country_event = {
 					id = constituents.23
 					days = 7
 				}
@@ -285,10 +300,14 @@ on_actions = {
 				set_country_flag = CONST_no_evidenzbureau
 			}
 			FIU = {
+				add_authdem_to_coalition = yes
 				set_variable = { FIU.lever_status_var = 2 }
 				set_variable = { FIU_coup_value = 1 }
 				set_variable = { FIU.pirate_level = 1 }
 				set_variable = { FIU.black_monday_var = 1 }
+				set_variable = { FIU.resource_add_amount = 1 }
+				set_variable = { FIU.FIU_piracy_gains_production_lack_of_resource_penalty_factor = 0 }
+				set_variable = { constituents_gui_priority = 1 }
 				set_temp_variable = { temp_industrial_cap_fact = -0.25 }
 				set_temp_variable = { temp_industrial_cap_dock = -0.25 }
 				set_temp_variable = { temp_production_speed_factor = -0.15 }
@@ -364,9 +383,8 @@ on_actions = {
 				set_variable = { CPU.subject_revolt_progress = 0.1 }
 				set_variable = { minority_gui_priority = 12 }				
 			}
-			ENG = { set_variable = { constituents_gui_priority = 12 } }
-			ALA = { set_variable = { constituents_gui_priority = 2 } }
 			SLS = { set_variable = { constituents_gui_priority = 1 } }
+			SER = { set_variable = { SER.POO_upgrade = 0 } }
 			
 			add_to_array = { global.constituents_array = AUS }
 			add_to_array = { global.constituents_array = HUN }
@@ -376,7 +394,6 @@ on_actions = {
 			add_to_array = { global.constituents_array = ITA }
 			
 			add_to_array = { global.minorities_array = SVK }
-			#add_to_array = { global.minorities_array = VNC }
 			add_to_array = { global.minorities_array = SLO }
 			add_to_array = { global.minorities_array = WSU }
 			add_to_array = { global.minorities_array = BUK }
@@ -389,25 +406,22 @@ on_actions = {
 			add_to_array = { global.minorities_array = PGU }
 			
 			add_to_array = { ROOT.austria_minority_array = SVK }
-			#add_to_array = { ROOT.austria_minority_array = VNC }
 			add_to_array = { ROOT.austria_minority_array = SLO }
 			add_to_array = { ROOT.austria_minority_array = WSU }
 			add_to_array = { ROOT.austria_minority_array = BUK }
-			#add_to_array = { ROOT.austria_minority_array = KRK }
 			add_to_array = { ROOT.austria_minority_array = CPU }
 			add_to_array = { ROOT.austria_minority_array = SKS }
 			add_to_array = { ROOT.austria_minority_array = BOS }
-			#add_to_array = { ROOT.austria_minority_array = BAN }
 			add_to_array = { ROOT.austria_minority_array = TRS }
-			#add_to_array = { ROOT.austria_minority_array = PGU }
 			
 			add_to_array = { global.AUS_all_possible_array = AUS }
 			add_to_array = { global.AUS_all_possible_array = HUN }
 			add_to_array = { global.AUS_all_possible_array = CRO }
 			add_to_array = { global.AUS_all_possible_array = CZE }
 			add_to_array = { global.AUS_all_possible_array = GAL }
-			add_to_array = { global.AUS_all_possible_array = SVK }
+			add_to_array = { global.AUS_all_possible_array = FIU }
 			add_to_array = { global.AUS_all_possible_array = VNC }
+			add_to_array = { global.AUS_all_possible_array = SVK }
 			add_to_array = { global.AUS_all_possible_array = SLO }
 			add_to_array = { global.AUS_all_possible_array = WSU }
 			add_to_array = { global.AUS_all_possible_array = BUK }
@@ -420,14 +434,34 @@ on_actions = {
 			add_to_array = { global.AUS_all_possible_array = PGU }
 			add_to_array = { global.AUS_all_possible_array = CUM }
 			add_to_array = { global.AUS_all_possible_array = HNZ }
+			add_to_array = { global.AUS_all_possible_array = SLS }
+			add_to_array = { global.AUS_all_possible_array = ENG }
+			add_to_array = { global.AUS_all_possible_array = ALA }
 			
 			add_to_array = { global.bp_occupied_tag_array_SER = SKS }
 			add_to_array = { global.bp_occupied_tag_array_SER = BOS }
-			#add_to_array = { global.bp_occupied_tag_array_SER = MNT }
 			
 			add_to_array = { global.bp_occupied_tag_array_ROM = TRS }
 			add_to_array = { global.bp_occupied_tag_array_ROM = BAN }
 			add_to_array = { global.bp_occupied_tag_array_ROM = BUK }
+
+			random_country = {
+				limit = {
+					is_ai = no
+					is_debug = yes
+					AUS_is_danubian_tag = yes
+					NOT = {
+						tag = AUS
+						tag = AWR
+					}
+				}
+				set_country_flag = force_enable_botde_debug_decisions
+			}
+
+			get_sorted_scored_countries = {
+				scorer = BOTDE_all_possible_organized_by_subject_revolt
+				array = global.AUS_all_possible_array_sorted
+			}
 		}
 	}
 	

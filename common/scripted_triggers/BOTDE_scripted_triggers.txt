@@ -23,6 +23,22 @@ AUS_has_minority_paramilitary_presence = {
 	}
 }
 
+AUS_has_serbian_paramilitaries = {
+	OR = {
+		has_dynamic_modifier = { modifier = SER_srpska_resistance }
+		has_dynamic_modifier = { modifier = SER_bosnia_resistance }
+		has_dynamic_modifier = { modifier = SER_target_lands_resistance }
+	}
+}
+
+AUS_has_romanian_paramilitaries = {
+	OR = {
+		has_dynamic_modifier = { modifier = ROM_transylvanian_resistance }
+		has_dynamic_modifier = { modifier = ROM_transylvanian_collaboration }
+		has_dynamic_modifier = { modifier = ROM_target_lands_resistance }
+	}
+}
+
 AUS_is_unified = {
 	has_global_flag = AUS_federalized
 }
@@ -64,34 +80,39 @@ has_Otto_Habsburg_as_leader = {
 	custom_override_tooltip = {
 		tooltip = has_Otto_Habsburg_as_leader_tt
 		not_tooltip = has_Otto_Habsburg_as_leader_tt_NOT
-		OR = {
-			has_country_leader = {
-				name = "Franz Joseph II"
-				ruling_only = yes
+		AND = {
+			OR = {
+				has_country_leader = {
+					name = "Franz Joseph II"
+					ruling_only = yes
+				}
+				has_country_leader = {
+					name = "II. Ferenc József"
+					ruling_only = yes
+				}
+				has_country_leader = {
+					name = "Franjo Josip II."
+					ruling_only = yes
+				}
+				has_country_leader = {
+					name = "František Josef II."
+					ruling_only = yes
+				}
+				has_country_leader = {
+					name = "Franciszek Józef II"
+					ruling_only = yes
+				}
+				has_country_leader = {
+					name = "Franz Iosif II"
+					ruling_only = yes
+				}
+				has_country_leader = {
+					name = "Frantz Yosif II"
+					ruling_only = yes
+				}
 			}
-			has_country_leader = {
-				name = "II. Ferenc József"
-				ruling_only = yes
-			}
-			has_country_leader = {
-				name = "Franjo Josip II."
-				ruling_only = yes
-			}
-			has_country_leader = {
-				name = "František Josef II."
-				ruling_only = yes
-			}
-			has_country_leader = {
-				name = "Franciszek Józef II"
-				ruling_only = yes
-			}
-			has_country_leader = {
-				name = "Franz Iosif II"
-				ruling_only = yes
-			}
-			has_country_leader = {
-				name = "Frantz Yosif II"
-				ruling_only = yes
+			NOT = {
+				has_country_flag = franz_joseph_ii_is_not_otto_von_habsburg
 			}
 		}
 	}
@@ -104,32 +125,27 @@ AUS_has_habsburgs = {
 	}
 }
 
-AUS_habsburg_in_charge = { 
-	OR = {
-		AUS_has_habsburgs = yes
-		has_country_leader = {
-			name = "Elisabeth I"
-			ruling_only = yes
-		}
-		#has_country_leader = {
-		#	name = "Franz Conrad von Hötzendorf"
-		#	ruling_only = yes
-		#}
-		#has_country_leader = {
-		#	name = "Miklós Horthy"
-		#	ruling_only = yes
-		#}
-		has_country_leader = {
-			name = "Eugen Ferdinand"
-			ruling_only = yes
-		}
-		has_country_leader = {
-			name = "Karl Pius"
-			ruling_only = yes
-		}
-		has_country_leader = {
-			name = "Maximilian Eugen"
-			ruling_only = yes
+AUS_habsburg_in_charge = {
+	custom_override_tooltip = {
+		tooltip = AUS_habsburg_in_charge
+		OR = {
+			AUS_has_habsburgs = yes
+			has_country_leader = {
+				name = "Elisabeth I"
+				ruling_only = yes
+			}
+			has_country_leader = {
+				name = "Eugen Ferdinand"
+				ruling_only = yes
+			}
+			has_country_leader = {
+				name = "Karl Pius"
+				ruling_only = yes
+			}
+			has_country_leader = {
+				name = "Maximilian Eugen"
+				ruling_only = yes
+			}
 		}
 	}
 }
@@ -703,7 +719,7 @@ AUS_has_any_federal_plan_idea = {
 	}
 }
 AUS_country_is_in_ausgleich = {
-	is_in_array = { global.ausgleich_attendants = THIS.id }
+	has_country_flag = going_to_le_ausgleich
 }
 fifth_balkan_war = {
 	custom_override_tooltip = {
@@ -734,6 +750,14 @@ fifth_balkan_war_spillover = {
 				}
 			}
 		}
+	}
+}
+austrian_civil_war = {
+	custom_override_tooltip = {
+		tooltip = austrian_civil_war_ongoing_tt
+		not_tooltip = austrian_civil_war_ongoing_tt_NOT
+		has_global_flag = AUS_civil_war
+		AUS = { has_war_with = AWR }
 	}
 }
 
@@ -832,7 +856,10 @@ AUS_small_cs_trigger = {
 		tooltip = AUS_small_CS_tt
 		not_tooltip = AUS_small_CS_tt_NOT
 		has_country_flag = AUS_small_CS_victory
-		has_government = social_conservative
+		OR = {
+			has_government = social_conservative
+			has_government = authoritarian_democrat
+		}
 	}
 }
 AUS_small_sdapo_trigger = {
@@ -1016,7 +1043,19 @@ FIU_has_any_black_monday_idea = {
 	custom_override_tooltip = {
 		tooltip = FIU_has_any_black_monday_idea_tt
 		not_tooltip = FIU_has_any_black_monday_idea_tt_NOT
-		has_dynamic_modifier = { modifier = FIU_black_monday_modifier }
+		OR = {
+			has_dynamic_modifier = { modifier = FIU_black_monday_modifier }
+			AND = {
+				has_country_flag = FIU_coffer_crisis
+				OR = {
+					has_idea = FIU_crisis_in_the_coffers_idea
+					has_idea = FIU_crisis_in_the_coffers_idea_2
+					has_idea = FIU_crisis_in_the_coffers_idea_3
+					has_idea = FIU_crisis_in_the_coffers_idea_4
+					has_idea = FIU_crisis_in_the_coffers_idea_5
+				}
+			}
+		}
 	}
 }
 SER_ROM_destablize_austria_trigger = {
@@ -1172,6 +1211,42 @@ BOTDE_AI_AUSTRO_AMERICAN_ALLIANCE = {
 	has_game_rule = {
 		rule = BOTDE_AUS_FORPOL
 		option = BOTDE_AUS_FORPOL_AUSTRO_AMERICAN_ALLIANCE
+	}
+}
+BOTDE_AI_MNT_go_syndies = {
+	has_game_rule = {
+		rule = BOTDE_MNT_black_monday_game_rule
+		option = MNT_BLACK_MONDAY_GAME_RULE_SYND
+	}
+}
+BOTDE_AI_MNT_go_soccons = {
+	has_game_rule = {
+		rule = BOTDE_MNT_black_monday_game_rule
+		option = MNT_BLACK_MONDAY_GAME_RULE_SOCCON
+	}
+}
+BOTDE_AI_MNT_go_status_quo = {
+	has_game_rule = {
+		rule = BOTDE_MNT_black_monday_game_rule
+		option = MNT_BLACK_MONDAY_GAME_RULE_STATUS_QUO
+	}
+}
+BOTDE_AI_MNT_go_patauts = {
+	has_game_rule = {
+		rule = BOTDE_MNT_black_monday_game_rule
+		option = MNT_BLACK_MONDAY_GAME_RULE_PATAUT
+	}
+}
+BOTDE_AI_MNT_go_nationalists = {
+	has_game_rule = {
+		rule = BOTDE_MNT_black_monday_game_rule
+		option = MNT_BLACK_MONDAY_GAME_RULE_NATPOP
+	}
+}
+BOTDE_AI_MNT_go_alexander_ii = {
+	has_game_rule = {
+		rule = BOTDE_MNT_black_monday_game_rule
+		option = MNT_BLACK_MONDAY_GAME_RULE_ALEXANDER_II
 	}
 }
 
@@ -1672,13 +1747,19 @@ FIU_state_is_small_target = {
 
 FIU_state_is_investment_target = {
 	OR = {
+		state = 5
 		state = 43
 		state = 44
+		state = 47
+		state = 59
 		state = 103
+		state = 105
+		state = 115
 		state = 116
 		state = 118
 		state = 163
 		state = 164
+		state = 177
 		state = 182
 		state = 183
 		state = 184
@@ -1686,10 +1767,15 @@ FIU_state_is_investment_target = {
 		state = 192
 		state = 228
 		state = 262
+		state = 290
+		state = 298
 		state = 309
 		state = 310
+		state = 447
+		state = 448
 		state = 450
 		state = 454
+		state = 458
 		state = 461
 		state = 463
 		state = 685
@@ -1697,6 +1783,7 @@ FIU_state_is_investment_target = {
 		state = 699
 		state = 753
 		state = 758
+		state = 762
 		state = 773
 		state = 837
 		state = 1098
@@ -1710,6 +1797,7 @@ FIU_state_is_investment_target = {
 		state = 1270
 		state = 1318
 		state = 1348
+		state = 1357
 		AND = {
 			is_owned_by = LEC
 			FIU = { is_ally_with = AUS }
@@ -1721,22 +1809,23 @@ FIU_state_is_investment_target = {
 			}
 		}
 	}
-	OR = {
-		distance_to = {
-		    value < 1000
-		    target = 1206
-		}
-		owner = {
-			OR = {
-				is_ally_with = FIU
-				AND = {
-					tag = LEC
-					FIU = { is_ally_with = AUS }
-					AUS = {
-						OR = {
-							has_country_flag = legation_council_member
-							has_country_flag = legation_council_vote
-						}
+	owner = {
+		OR = {
+			is_ally_with = FIU
+			is_in_faction_with = FIU
+			any_owned_state = {
+				distance_to = {
+				    value < 750
+				    target = 1206
+				}
+			}
+			AND = {
+				tag = LEC
+				FIU = { is_ally_with = AUS }
+				AUS = {
+					OR = {
+						has_country_flag = legation_council_member
+						has_country_flag = legation_council_vote
 					}
 				}
 			}
@@ -1808,6 +1897,55 @@ FIU_is_able_to_pirate = {
 		custom_override_tooltip = {
 			tooltip = FIU_is_not_found_out_tt
 			NOT = { has_idea = FIU_found_out }
+		}
+	}
+}
+
+FIU_owns_the_uskokenflotte = {
+	OR = {
+		tag = FIU
+		AND = {
+			tag = AUS
+			has_global_flag = AUS_federalized
+			owns_state = 1206
+		}
+		has_dynamic_modifier = { modifier = FIU_piracy_gains_modifier }
+		has_dynamic_modifier = { modifier = FIU_clean_gains_modifier }
+	}
+}
+
+FIU_state_is_crime_target = {
+	OR = {
+		state = 1
+		state = 21
+		AND = {
+			state = 126
+			is_owned_by = ENG
+			ENG = { has_socialist_government = yes }
+		}
+		AND = {
+			state = 159
+			is_owned_by = ITA
+			ITA = { has_government = national_populist }
+		}
+		AND = {
+			state = 177
+			OR = {
+				is_owned_by = SPR
+				is_owned_by = CAR
+			}
+		}
+		state = 459
+	}
+}
+
+MNT_alexander_ii_path_trigger = {
+	custom_override_tooltip = {
+		tooltip = MNT_alexander_ii_path_trigger_tt
+		not_tooltip = MNT_alexander_ii_path_trigger_tt_NOT
+		AND = {
+			has_country_leader = { name = "Alexander II" ruling_only = yes }
+			has_country_flag = MNT_serb_king_flag
 		}
 	}
 }

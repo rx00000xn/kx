@@ -14,6 +14,7 @@ ideas = {
 				stability_factor = -0.15
 				war_support_factor = -0.1
 				political_power_gain = -0.25
+				BOTDE_revolt_rate_modifier = 0.0025
 			}
 		}
 		
@@ -32,6 +33,7 @@ ideas = {
 				stability_factor = -0.2
 				war_support_factor = -0.15
 				political_power_gain = -0.33
+				BOTDE_revolt_rate_modifier = 0.005
 			}
 		}
 
@@ -98,17 +100,33 @@ ideas = {
 			modifier = {
 				political_power_factor = -0.2
 				stability_factor = -0.2
+				BOTDE_revolt_rate_modifier = 0.001
 			}
 		}
 		
 		CRO_bosnian_guerillas = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea CRO_bosnian_guerillas" }
-			picture = chi_war_of_resistance3
+			picture = CRO_bosnian_guerillas
             allowed = { always = no }
+			cancel = {
+				OR = {
+					is_ally_with = BOS
+					AND = {
+						is_ally_with = AUS
+						fifth_balkan_war = no
+					}
+				}
+			}
 			modifier = {
 				war_support_factor = 0.03
 				stability_factor = -0.05
 				political_power_gain = -0.1
+				conscription_factor = -0.1
+			}
+			targeted_modifier = {
+				tag = BOS
+				attack_bonus_against = -0.2
+				defense_bonus_against = -0.2
 			}
 		}
 		
@@ -786,6 +804,7 @@ ideas = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea AUS_CRO_pushing_out_austrian_industries" }
 			picture = AUS_CRO_pushing_out_austrian_industries
 			allowed = { always = no }
+			cancel = { NOT = { is_ally_with = CRO } }
 			modifier = {
 				political_power_gain = 0.15
 				consumer_goods_factor = 0.2
@@ -799,6 +818,7 @@ ideas = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea CRO_pushing_out_austrian_industries" }
 			picture = CRO_pushing_out_austrian_industries
 			allowed = { always = no }
+			cancel = { NOT = { is_ally_with = AUS } }
 			modifier = {
 				political_power_gain = -0.15
 				consumer_goods_factor = -0.2
@@ -1005,6 +1025,7 @@ ideas = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea CRO_austroslavism" }
 			picture = CRO_austroslavism
 			allowed = { always = no }
+			cancel = { NOT = { is_ally_with = AUS } }
 			modifier = {
 				political_power_gain = -0.05
 				stability_factor = 0.1
@@ -1016,6 +1037,7 @@ ideas = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea CRO_nobles_idea" }
 			picture = CRO_nobles_idea
 			allowed = { always = no }
+			cancel = { NOT = { is_ally_with = AUS } }
 			modifier = {
 				political_power_gain = -0.1
 				consumer_goods_factor = 0.05
@@ -1232,7 +1254,7 @@ ideas = {
 							tag = HUN
 						}
 					}
-					is_ally_with = CRO
+					is_ally_with = var:109.owner
 				}
 				else = {
 					always = no
@@ -1275,7 +1297,7 @@ ideas = {
 				}
 				else_if = {
 					limit = { original_tag = FIU }
-					is_ally_with = CRO
+					is_ally_with = var:109.owner
 				}
 				else = {
 					always = no
@@ -1310,14 +1332,14 @@ ideas = {
 					OR = {
 						AND = {
 							has_global_flag = AUS_federalized
-							owns_state = 169
+							owns_state = 109
 						}
 						is_ally_with = CRO
 					}
 				}
 				else_if = {
 					limit = { original_tag = FIU }
-					is_ally_with = CRO
+					is_ally_with = var:109.owner
 				}
 				else = {
 					always = no
@@ -1362,7 +1384,7 @@ ideas = {
 				}
 				else_if = {
 					limit = { original_tag = FIU }
-					is_ally_with = CRO
+					is_ally_with = var:109.owner
 				}
 				else = {
 					always = no
@@ -1397,8 +1419,12 @@ ideas = {
 						is_ally_with = CRO
 					}
 				}
-				else = {
+				else_if = {
+					limit = { original_tag = CRO }
 					has_completed_focus = CRO_support_rail_companies
+				}
+				else = {
+					always = no
 				}
 			}
 			traits = {

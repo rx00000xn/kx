@@ -37,6 +37,7 @@ SER_serb_uprising = {
 		}
 		fixed_random_seed = no
 		days_remove = 20
+		priority = 20
 		remove_effect = {
 			random_list = {
 				15 = {
@@ -1312,7 +1313,6 @@ SER_serb_uprising = {
 	
 	SER_under_siege = {
 		cost = 75
-		
 		icon = GFX_decision_generic_ignite_civil_war
 		fire_only_once = yes
 		visible = {
@@ -3145,6 +3145,7 @@ foreign_politics = {
 					tag = ITA
 				}
 				is_in_faction = no
+				at_peace_or_same_enemies_as_ROOT = yes
 				NOT = {
 					has_war_with = ROOT
 					has_country_flag = 5BW_peaced_out_at_40_cap
@@ -3165,7 +3166,32 @@ foreign_politics = {
 			factor = 100
 		}
 	}
-	
+	Belgrade_Pact_upgrade_POO = {
+		icon = GFX_decision_generic_research
+		
+		visible = {
+			tag = SER
+			pact_of_organisation_member = yes
+			check_variable = { SER.POO_upgrade < 3 }
+		}
+		
+		cancel_if_not_visible = yes
+		
+		cost = 50	
+		days_remove = 45
+		ai_will_do = {
+			factor = 100
+		}
+		
+		modifier = {
+			consumer_goods_factor = 0.15
+		}
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove Belgrade_Pact_upgrade_POO - SER.POO_upgrade: [?SER.POO_upgrade]"
+			belgrade_pact_upgrade_eco_sphere = yes
+		}
+	}
 	UKR_under_siege = {
 		cost = 30
 		
@@ -3186,6 +3212,7 @@ foreign_politics = {
 			has_defensive_war_with = AUS
 		}
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision complete UKR_under_siege"
 			WSU = {
 				THIS_add_ten_collapse = yes
 			}

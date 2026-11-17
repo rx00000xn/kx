@@ -50,6 +50,9 @@ scripted_gui = {
 			KR_femternationale_button_visible = {
 				ENG_is_in_femternationale = yes
 			}
+			KX_balkan_union_button_visible = {
+				pact_of_organisation_member = yes
+			}
 			KR_imperial_mitteleuropa_button_visible = {
 				GER_is_in_mitteleuropa = yes
 				has_global_flag = imperial_mitteleuropa
@@ -116,6 +119,11 @@ scripted_gui = {
 				}
 			}
 			KR_imperial_mitteleuropa_button_click_enabled = {
+				NOT = {
+					ROOT = { has_country_flag = economic_sphere_list_open }
+				}
+			}
+			KX_balkan_union_button_click_enabled = {
 				NOT = {
 					ROOT = { has_country_flag = economic_sphere_list_open }
 				}
@@ -303,6 +311,20 @@ scripted_gui = {
 				}
 				ROOT = {
 					set_variable = { economic_sphere_leader = GER }
+					set_country_flag = economic_sphere_list_open
+				}
+			}
+			KX_balkan_union_button_click = {
+				add_to_array = { ROOT.economic_sphere_list_array = SER }
+				for_each_loop = {
+					array = global.balkan_economic_union
+					if = {
+						limit = { NOT = { is_in_array = { ROOT.economic_sphere_list_array = v } } }
+						add_to_array = { ROOT.economic_sphere_list_array = v }
+					}
+				}
+				ROOT = {
+					set_variable = { economic_sphere_leader = SER }
 					set_country_flag = economic_sphere_list_open
 				}
 			}

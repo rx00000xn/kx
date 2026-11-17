@@ -37,8 +37,8 @@ country_event = {
 					OR = {
 						tag = GER
 						tag = AUS
-						is_subject_of = AUS
-						is_subject_of = GER
+						is_ally_with = AUS
+						is_ally_with = GER
 						tag = TUR
 						tag = ALB
 					}
@@ -127,8 +127,8 @@ country_event = {
 					OR = {
 						tag = GER
 						tag = AUS
-						is_subject_of = AUS
-						is_subject_of = GER
+						is_ally_with = AUS
+						is_ally_with = GER
 						tag = TUR
 						tag = ALB
 					}
@@ -188,8 +188,8 @@ country_event = {
 						tag = BUL
 						tag = GER
 						tag = AUS
-						is_subject_of = GER
-						is_subject_of = AUS
+						is_ally_with = GER
+						is_ally_with = AUS
 						tag = TUR
 						tag = ALB
 					}
@@ -481,7 +481,7 @@ country_event = {
 	option = {
 		name = pact.17.a # Then it is war
 		ai_chance = {
-			factor = 99
+			base = 99
 			modifier = {
 				factor = 0
 				has_game_rule = {
@@ -498,7 +498,7 @@ country_event = {
 	option = {
 		name = pact.17.b # Give in to their demands
 		ai_chance = {
-			factor = 1
+			base = 1
 			modifier = {
 				factor = 0
 				OR = {
@@ -1937,54 +1937,29 @@ country_event = {
 
 	is_triggered_only = yes
 
-	option = {
-		name = pact.49.a # At least we exist
-		clr_country_flag = SER_joined_balkan_war
+	option = {#At least we exist
+		name = pact.49.a
 		dismantle_faction = yes
-		add_timed_idea = {
-			idea = SER_reparation_payments
-			days = 1460
-		}
+		BUL_puppet_SER_effect = yes
 	}
 }
 
 # Romania: peace was signed, we lost the war
 country_event = {
 	id = pact.50
+	immediate = { log = "[GetDateText]: [Root.GetName]: event pact.50" }
 	title = pact.50.t
 	desc = pact.50.d
 	picture = GFX_report_event_generic_sign_treaty2
 
 	is_triggered_only = yes
 
-	immediate = {
-		log = "[GetDateText]: [Root.GetName]: event pact.50"
-		hidden_effect = {
-			if = {
-				limit = {
-					tag = ROM
-					is_ai = yes
-				}
-				set_politics = {
-					ruling_party = authoritarian_democrat
-					elections_allowed = no
-				}
-				hidden_effect = {
-					add_popularity = {
-						ideology = authoritarian_democrat
-						popularity = 0.2
-					}
-				}
-			}
-		}
-	}
-
-	option = {
-		name = pact.50.a # At least we exist
-		clr_country_flag = SER_joined_balkan_war
+	option = { #Are they invincible?
+		name = pact.50.a
 		effect_tooltip = {
 			SER = { dismantle_faction = yes }
 		}
+		BUL_puppet_ROM_effect = yes
 	}
 }
 
@@ -2039,7 +2014,7 @@ country_event = {
 	}
 
 	mean_time_to_happen = {
-		months = 1
+		days = 7
 	}
 
 	option = {
@@ -2065,7 +2040,7 @@ country_event = {
 	}
 
 	mean_time_to_happen = {
-		months = 1
+		days = 7
 	}
 
 	option = {
@@ -3031,7 +3006,7 @@ country_event = { #Fate of Montenegro
 	option = { #Offer to return it to Illyria
 		name = pact.83.a
 		ai_chance = {
-			factor = 50
+			base = 50
 			modifier = {
 				factor = 0
 				MNT = {
@@ -3054,9 +3029,20 @@ country_event = { #Fate of Montenegro
 		add_stability = -0.1
 		add_political_power = -120
 		var:109.owner = {
-			country_event = {
-				id = pact.84
-				days = 7
+			if = {
+				limit = { AUS_is_constituent = yes }
+				AUS = {
+					country_event = {
+						id = pact.84
+						days = 7
+					}
+				}
+			}
+			else = {
+				country_event = {
+					id = pact.84
+					days = 7
+				}
 			}
 		}
 		MNT = {
@@ -3070,7 +3056,7 @@ country_event = { #Fate of Montenegro
 	option = { #Military Dictatorship it
 		name = pact.83.b
 		ai_chance = {
-			factor = 50
+			base = 50
 			modifier = {
 				factor = 0.1
 				MNT = {
@@ -3091,12 +3077,11 @@ country_event = { #Fate of Montenegro
 	option = { #Let go of them
 		name = pact.83.c
 		ai_chance = {
-			factor = 30
+			base = 30
 		}
 		add_stability = 0.1
 		add_political_power = 120
 	}
-	
 }
 
 country_event = { #Bulgaria offers return of Montenegro
@@ -3110,15 +3095,54 @@ country_event = { #Bulgaria offers return of Montenegro
 
 	option = { #Gladly!
 		name = pact.84.a
-		annex_country = {
-			target = MNT
+		if = {
+			limit = {
+				tag = AUS
+				is_in_faction_with = CRO
+			}
+			CRO_add_three_collapse = yes
+			AUS_raise_serbians = yes
+			CRO = {
+				annex_country = {
+					target = MNT
+					transfer_troops = yes
+				}
+				hidden_effect = {
+					MNT = {
+						every_unit_leader = { set_nationality = CRO }
+						every_scientist = { set_nationality = CRO }
+					}
+					every_state = {
+						limit = { is_core_of = MNT }
+						add_state_core = CRO
+					}
+				}
+			}
+			MNT = {
+				custom_override_tooltip = {
+					tooltip = is_now_a_minority_tt
+					set_global_flag = MNT_on_array
+					set_country_flag = CONST_minor
+					set_variable = { AUS_subject_status = 0 }
+					set_variable = { MNT.subject_revolt_progress = 0.3 }
+					if = {
+						limit = {
+							NOT = {
+								is_in_array = { global.bp_occupied_tag_array_SER = MNT }
+								SER = { has_completed_focus = SER_slavic_federation }
+							}
+						}
+						add_to_array = { global.bp_occupied_tag_array_SER = MNT }
+					}
+					if = {
+						limit = { NOT = { is_in_array = { global.minorities_array = MNT } } }
+						add_to_array = { global.minorities_array = MNT }
+					}
+				}
+			}
 		}
-		add_state_core = 105
-		add_state_core = 1097
 	}
-	
 }
-
 
 country_event = { #Bulgaria prepares to give us to to Illyria
 	id = pact.85
@@ -3205,12 +3229,21 @@ country_event = { #BUL - Fate of the Karadordevics
 
 	option = { #Allow them to keep their royals.
 		name = pact.88.a
-		ai_chance = { factor = 1 }
+		ai_chance = {
+			base = 30
+			modifier = {
+				is_ai = yes
+				BOTDE_AI_MNT_go_alexander_ii = yes
+				factor = 0
+			}
+		}
 	}
 	
 	option = { #They have wronged us for the last time!
 		name = pact.88.b
-		ai_chance = { factor = 3 }
+		ai_chance = {
+			base = 70
+		}
 		SER = {
 			country_event = {
 				id = pact.89
@@ -3227,7 +3260,6 @@ country_event = { #BUL - Fate of the Karadordevics
 			}
 		}
 	}
-	
 }
 
 country_event = { #SER - Bulgaria Banishes Alexander
@@ -3241,14 +3273,6 @@ country_event = { #SER - Bulgaria Banishes Alexander
 
 	option = { #Not again...
 		name = pact.89.a
-		ai_chance = { factor = 5 }
-		#create_country_leader = {
-		#	name = "Petar Bojović"
-		#	desc = "POLITICS_PETAR_BOJOVIC_DESC"
-		#	picture = "gfx/leaders/SER/Portrait_SER_Petar_Bojovic.png"
-		#	expire = "1965.1.1"
-		#	ideology = authdem_junta_subtype
-		#}
 		set_cosmetic_tag = SER_kingdom
 		hidden_effect = {
 			SER_create_George_Obrenovic_effect = yes
@@ -3257,7 +3281,6 @@ country_event = { #SER - Bulgaria Banishes Alexander
 			ruling_party = authoritarian_democrat
 		}
 	}
-	
 }
 
 country_event = { #SER - Montenegro Offers Surrender Terms
@@ -4864,23 +4887,15 @@ country_event = {#Pact of Organization invitation
 	immediate = { log = "[GetDateText]: [Root.GetName]: event pact.300" }
 	title = pact.300.t
 	desc = pact.300.d
-	picture = GFX_report_event_generic_diplomacy1
+
+	picture = GFX_event_SER_Church_of_Saint_Sava
 
 	is_triggered_only = yes
 
 	option = {
 		name = pact.300.a #Of course
-		ai_chance = { base = 10 }
-		custom_effect_tooltip = BP_economic_integration_tt
-		set_country_flag = BP_accepted_economic_union
-		if = {
-			limit = {
-				NOT = {
-					is_in_array = { global.balkan_economic_union = ROOT }
-				}
-			}
-			add_to_array = { global.balkan_economic_union = ROOT }
-		}
+		ai_chance = { base = 100 }
+		belgrade_pact_join_eco_sphere = yes
 	}
 
 	option = {
@@ -4908,52 +4923,24 @@ country_event = {#Formation of the Economic Council (initiator)
 	immediate = { log = "[GetDateText]: [Root.GetName]: event pact.302" }
 	title = pact.302.t
 	desc = pact.302.d
-	picture = GFX_report_event_generic_diplomacy2
+
+	picture = GFX_event_SER_Church_of_Saint_Sava
 
 	is_triggered_only = yes
 
 	option = {
 		name = pact.302.a #Woop woop
-		if = {
-			limit = {
-				check_variable = { global.balkan_economic_union^num = 1 }
-			}
-			add_ideas = BP_economic_council_1
-		}
-		else_if = {
-			limit = {
-				check_variable = { global.balkan_economic_union^num = 2 }
-			}
-			add_ideas = BP_economic_council_2
-		}
-		else_if = {
-			limit = {
-				check_variable = { global.balkan_economic_union^num = 3 }
-			}
-			add_ideas = BP_economic_council_3
-		}
+		belgrade_pact_join_eco_sphere = yes
 		every_other_country = {
 			limit = {
-				OR = {
-					is_in_array = { global.balkan_economic_union = THIS }
-					AND = {
-						OR = {
-							tag = ALB
-							tag = BOS
-							tag = BUL
-							tag = CRO
-							tag = GRE
-							tag = HUN
-							tag = ROM
-						}
-						is_subject = yes
-						overlord = {
-							is_in_array = { global.balkan_economic_union = THIS }
-						}
-					}
-				}
+				is_ally_with = ROOT
+				is_member_of_economic_sphere = no
 			}
-			country_event = pact.303
+			country_event = {
+				id = pact.300
+				days = 1
+				random_hours = 24
+			}
 		}
 	}
 }
@@ -4968,24 +4955,7 @@ country_event = {#Formation of the Economic Council (others)
 
 	option = {
 		name = pact.303.a #Woop woop
-		if = {
-			limit = {
-				check_variable = { global.balkan_economic_union^num = 1 }
-			}
-			add_ideas = BP_economic_council_1
-		}
-		else_if = {
-			limit = {
-				check_variable = { global.balkan_economic_union^num = 2 }
-			}
-			add_ideas = BP_economic_council_2
-		}
-		else_if = {
-			limit = {
-				check_variable = { global.balkan_economic_union^num = 3 }
-			}
-			add_ideas = BP_economic_council_3
-		}
+		belgrade_pact_join_eco_sphere = yes
 	}
 }
 country_event = { #Economic Council upgraded
@@ -4999,27 +4969,7 @@ country_event = { #Economic Council upgraded
 
 	option = {
 		name = pact.304.a #Woop woop
-		if = {
-			limit = { has_idea = BP_economic_council_1 }
-			swap_ideas = {
-				remove_idea = BP_economic_council_1
-				add_idea = BP_economic_council_upgraded_1
-			}
-		}
-		else_if = {
-			limit = { has_idea = BP_economic_council_2 }
-			swap_ideas = {
-				remove_idea = BP_economic_council_2
-				add_idea = BP_economic_council_upgraded_2
-			}
-		}
-		else_if = {
-			limit = { has_idea = BP_economic_council_3 }
-			swap_ideas = {
-				remove_idea = BP_economic_council_3
-				add_idea = BP_economic_council_upgraded_3
-			}
-		}
+		add_political_power = 5
 	}
 }
 country_event = {#Kicked out of the Economic Council
@@ -5046,36 +4996,7 @@ country_event = {#Kicked out of the Economic Council
 
 	option = {
 		name = pact.305.a
-		if = {
-			limit = { has_idea = BP_economic_council_1 }
-			remove_ideas = BP_economic_council_1
-		}
-		else_if = {
-			limit = { has_idea = BP_economic_council_upgraded_1 }
-			remove_ideas = BP_economic_council_upgraded_1
-		}
-		else_if = {
-			limit = { has_idea = BP_economic_council_2 }
-			remove_ideas = BP_economic_council_2
-		}
-		else_if = {
-			limit = { has_idea = BP_economic_council_upgraded_2 }
-			remove_ideas = BP_economic_council_upgraded_2
-		}
-		else_if = {
-			limit = { has_idea = BP_economic_council_2 }
-			remove_ideas = BP_economic_council_2
-		}
-		else_if = {
-			limit = { has_idea = BP_economic_council_upgraded_2 }
-			remove_ideas = BP_economic_council_upgraded_2
-		}
-		if = {
-			limit = {
-				is_in_array = { global.balkan_economic_union = ROOT }
-			}
-			remove_from_array = { global.balkan_economic_union = ROOT }
-		}
+		belgrade_pact_leave_eco_sphere = yes
 	}
 }
 country_event = { #Economic Council upgraded
@@ -5089,34 +5010,7 @@ country_event = { #Economic Council upgraded
 
 	option = {
 		name = pact.306.a #Woop woop
-		if = {
-			limit = { has_idea = BP_economic_council_1 }
-			swap_ideas = {
-				remove_idea = BP_economic_council_1
-				add_idea = BP_economic_council_2
-			}
-		}
-		else_if = {
-			limit = { has_idea = BP_economic_council_2 }
-			swap_ideas = {
-				remove_idea = BP_economic_council_2
-				add_idea = BP_economic_council_3
-			}
-		}
-		else_if = {
-			limit = { has_idea = BP_economic_council_upgraded_1 }
-			swap_ideas = {
-				remove_idea = BP_economic_council_upgraded_1
-				add_idea = BP_economic_council_upgraded_2
-			}
-		}
-		else_if = {
-			limit = { has_idea = BP_economic_council_upgraded_2 }
-			swap_ideas = {
-				remove_idea = BP_economic_council_upgraded_2
-				add_idea = BP_economic_council_upgraded_3
-			}
-		}
+		add_political_power = 5
 	}
 }
 
@@ -6326,5 +6220,23 @@ country_event = { #hidden - evil ass rape thing for ROM
 	option = {
 		name = botdepact.201.a
 		activate_decision = ROM_seek_transylvanian_ties
+	}
+}
+
+country_event = { #hidden - reenable state resistance after federalizing
+	id = botdepact.202
+	immediate = { log = "[GetDateText]: [Root.GetName]: event botdepact.202" }
+	title = botdepact.202.t
+	desc = botdepact.202.d
+	
+	picture = GFX_event_AUS_i_was_there_dude
+
+	hidden = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = botdepact.202.a
+		SER_ROM_reenable_state_resistance = yes
 	}
 }

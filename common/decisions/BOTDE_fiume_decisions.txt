@@ -630,7 +630,14 @@ BOTDE_FIU_dow_jones = {
 			}
 		}
 		ai_will_do = {
-			factor = 100
+			base = 0
+			modifier = {
+				OR = {
+					check_variable = { AUS.subject_revolt_progress > 0.9 }
+					check_variable = { HUN.subject_revolt_progress > 0.8 }
+				}
+				add = 50
+			}
 		}
 	}
 
@@ -655,6 +662,13 @@ BOTDE_FIU_dow_jones = {
 			set_temp_variable = { temp_add_bm = -0.025 }
 			FIU_add_bm_effect = yes
 			FIU_increase_fraud = yes
+			if = {
+				limit = { has_active_mission = FIU_fix_black_monday }
+				add_days_mission_timeout = {
+					mission = FIU_fix_black_monday
+					days = -30
+				}
+			}
 		}
 		ai_will_do = {
 			factor = 100
@@ -682,6 +696,13 @@ BOTDE_FIU_dow_jones = {
 			set_temp_variable = { temp_add_bm = -0.03 }
 			FIU_add_bm_effect = yes
 			FIU_increase_fraud = yes
+			if = {
+				limit = { has_active_mission = FIU_fix_black_monday }
+				add_days_mission_timeout = {
+					mission = FIU_fix_black_monday
+					days = -30
+				}
+			}
 		}
 		ai_will_do = {
 			factor = 100
@@ -711,6 +732,13 @@ BOTDE_FIU_dow_jones = {
 			set_temp_variable = { temp_add_bm = -0.05 }
 			FIU_add_bm_effect = yes
 			FIU_increase_fraud = yes
+			if = {
+				limit = { has_active_mission = FIU_fix_black_monday }
+				add_days_mission_timeout = {
+					mission = FIU_fix_black_monday
+					days = -30
+				}
+			}
 		}
 		ai_will_do = {
 			factor = 100
@@ -747,6 +775,65 @@ BOTDE_FIU_dow_jones = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove FIU_local_subsidies"
 			set_temp_variable = { temp_add_bm = -0.1 }
 			FIU_add_bm_effect = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
+	FIU_public_works = {
+		cost = 30
+		icon = GFX_decision_AUS_krone_coin
+		days_remove = 120
+		priority = 2
+		days_re_enable = 60
+		allowed = { tag = FIU }
+		visible = {
+			tag = FIU
+			has_country_flag = FIU_dow_jones_enabled
+			has_country_flag = FIU_is_a_smart_fella
+			NOT = { has_country_flag = FIU_cant_get_coffer_crisis }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision FIU_public_works"
+			add_timed_idea = {
+				idea = FIU_public_works_idea
+				days = 120
+			}
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove FIU_public_works"
+			set_temp_variable = { temp_add_bm = -0.1 }
+			FIU_add_bm_effect = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
+	FIU_restore_trust_in_government = {
+		cost = 50
+		icon = GFX_decision_AUS_krone_coin
+		days_remove = 30
+		priority = 3
+		days_re_enable = 120
+		allowed = { tag = FIU }
+		visible = {
+			tag = FIU
+			has_country_flag = FIU_dow_jones_enabled
+			has_country_flag = FIU_is_a_smart_fella
+			NOT = { has_country_flag = FIU_cant_get_coffer_crisis }
+			check_variable = { party_popularity@ruling_party < 0.5 }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision FIU_restore_trust_in_government"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove FIU_restore_trust_in_government"
+			set_temp_variable = { temp_add_bm = -0.05 }
+			FIU_add_bm_effect = yes
+			increase_ruling_party_popularity_by_5 = yes
+			add_stability = 0.02
 		}
 		ai_will_do = {
 			factor = 100
@@ -825,15 +912,152 @@ BOTDE_FIU_dow_jones = {
 			else = {
 				set_temp_variable = { temp_add_bm = -0.2 }
 				FIU_add_bm_effect = yes
-				add_days_mission_timeout = {
-					mission = FIU_fix_black_monday
-					days = -200
+				if = {
+					limit = { has_active_mission = FIU_fix_black_monday }
+					add_days_mission_timeout = {
+						mission = FIU_fix_black_monday
+						days = -200
+					}
 				}
 			}
 			FIU_increase_fraud = yes
 		}
 		ai_will_do = {
 			factor = 10
+		}
+	}
+
+	FIU_quarterly_reports = {
+		cost = 25
+		icon = GFX_decision_AUS_krone_coin
+		days_remove = 14
+		days_re_enable = 180
+		priority = 2
+		visible = {
+			tag = FIU
+			FIU_has_any_black_monday_idea = yes
+			has_country_flag = FIU_is_a_fart_smella
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision FIU_quarterly_reports"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove FIU_quarterly_reports"
+			set_temp_variable = { temp_add_bm = -0.1 }
+			FIU_add_bm_effect = yes
+			if = {
+				limit = { has_active_mission = FIU_fix_black_monday }
+				add_days_mission_timeout = {
+					mission = FIU_fix_black_monday
+					days = -100
+				}
+			}
+			FIU_increase_fraud = yes
+			add_stability = -0.1
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	FIU_blame_ANI_for_issues = {
+		cost = 5
+		icon = GFX_decision_FIU_ANI_eagle
+		days_remove = 14
+		days_re_enable = 60
+		priority = 2
+		visible = {
+			tag = FIU
+			FIU_has_any_black_monday_idea = yes
+			has_country_flag = FIU_is_a_fart_smella
+			NOT = { has_government = national_populist }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision FIU_blame_ANI_for_issues"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove FIU_blame_ANI_for_issues"
+			set_temp_variable = { temp_add_bm = -0.02 }
+			FIU_add_bm_effect = yes
+			FIU_coup_raise = yes
+			add_stability = -0.03
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	FIU_loan_from_country = {
+		cost = 20
+		icon = GFX_decision_AUS_krone_coin
+		days_remove = 240
+		days_re_enable = 14
+		visible = {
+			tag = FIU
+			FIU_has_any_black_monday_idea = yes
+			has_country_flag = FIU_is_a_smart_fella
+		}
+		available = {
+			NOT = { FROM = { has_country_flag = gave_FIU_a_loan } }
+		}
+		cancel_trigger = {
+			FROM = { has_country_flag = refused_FIU_loan }
+		}
+		target_trigger = {
+			FROM = {
+				OR = {
+					tag = GER
+					tag = AUS
+					tag = HUN
+					AND = {
+						tag = ITA
+						NOT = { has_government = national_populist }
+					}
+					AND = {
+						OR = {
+							tag = NFA
+							tag = CAN
+						}
+						is_ally_with = ROOT
+					}
+				}
+			}
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision FIU_loan_from_country FROM: [From.GetName]"
+			FROM = {
+				country_event = {
+					id = nufiupirate.3009
+					days = 1
+				}
+			}
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove FIU_loan_from_country FROM: [From.GetName]"
+			set_temp_variable = { temp_add_bm = -0.05 }
+			FIU_add_bm_effect = yes
+			if = {
+				limit = { FROM = { has_country_flag = refused_FIU_loan } }
+				FROM = { clr_country_flag = refused_FIU_loan }
+			}
+			if = {
+				limit = { FROM = { has_country_flag = gave_FIU_a_loan } }
+				FROM = { clr_country_flag = gave_FIU_a_loan }
+			}
+		}
+		cancel_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision cancel FIU_loan_from_country FROM: [From.GetName]"
+			if = {
+				limit = { FROM = { has_country_flag = refused_FIU_loan } }
+				FROM = { clr_country_flag = refused_FIU_loan }
+			}
+			if = {
+				limit = { FROM = { has_country_flag = gave_FIU_a_loan } }
+				FROM = { clr_country_flag = gave_FIU_a_loan }
+			}
+		}
+		ai_will_do = {
+			base = 20
 		}
 	}
 
@@ -893,6 +1117,79 @@ BOTDE_FIU_dow_jones = {
 		}
 	}
 
+	FIU_hotels_and_ads = {
+		cost = 40
+		icon = GFX_decision_five_stars
+		days_remove = 120
+		days_re_enable = 240
+		priority = 1
+		visible = {
+			has_country_flag = FIU_tourism_maxxing
+		}
+		available = {
+			has_country_flag = FIU_tourism_maxxing
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision FIU_hotels_and_ads"
+		}
+		modifier = {
+			production_factory_max_efficiency_factor = 0.25
+			consumer_goods_factor = 0.2
+			local_resources_factor = 0.25
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove FIU_hotels_and_ads"
+			random_owned_state = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}	
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
+	FIU_five_star_living = {
+		cost = 70
+		icon = GFX_decision_five_stars
+		days_remove = 240
+		days_re_enable = 90
+		priority = 1
+		visible = {
+			has_country_flag = FIU_tourism_maxxing
+		}
+		available = {
+			has_country_flag = FIU_tourism_maxxing
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision FIU_hotels_and_ads"
+		}
+		modifier = {
+			production_factory_max_efficiency_factor = 0.05
+			consumer_goods_factor = 0.2
+			local_resources_factor = 0.05
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove FIU_hotels_and_ads"
+			random_owned_state = {
+				increase_state_category_by_one_level = yes
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}	
+				add_extra_state_shared_building_slots = 2
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
 	FIU_invest_in_state = {
 		cost = 30
 		icon = GFX_decision_AUS_krone_coin
@@ -924,9 +1221,21 @@ BOTDE_FIU_dow_jones = {
 								OR = {
 									has_democratic_government = yes
 									has_left_democratic_government = yes
+									if = {
+										limit = { is_subject = yes }
+										var:overlord = {
+											has_democratic_government = yes
+											has_left_democratic_government = yes
+										}
+									}
 								}
 							}
+							is_ally_with = ROOT
 							same_government_type_as_ROOT = yes
+							if = {
+								limit = { is_subject = yes }
+								var:overlord = { same_government_type_as_ROOT = yes }
+							}
 						}
 					}
 				}
@@ -1010,6 +1319,13 @@ BOTDE_FIU_dow_jones = {
 				}
 				set_temp_variable = { temp_add_bm = -0.03 }
 				FIU_add_bm_effect = yes
+				if = {
+					limit = { has_active_mission = FIU_fix_black_monday }
+					add_days_mission_timeout = {
+						mission = FIU_fix_black_monday
+						days = 14
+					}
+				}
 			}
 			else_if = {
 				limit = { has_country_flag = FIU_current_investment_is_medium }
@@ -1020,6 +1336,13 @@ BOTDE_FIU_dow_jones = {
 				set_temp_variable = { temp_add_bm = -0.05 }
 				FIU_add_bm_effect = yes
 				add_political_power = 10
+				if = {
+					limit = { has_active_mission = FIU_fix_black_monday }
+					add_days_mission_timeout = {
+						mission = FIU_fix_black_monday
+						days = 28
+					}
+				}
 			}
 			else_if = {
 				limit = { has_country_flag = FIU_current_investment_is_large }
@@ -1041,6 +1364,13 @@ BOTDE_FIU_dow_jones = {
 				set_temp_variable = { temp_add_bm = -0.1 }
 				FIU_add_bm_effect = yes
 				add_political_power = 20
+				if = {
+					limit = { has_active_mission = FIU_fix_black_monday }
+					add_days_mission_timeout = {
+						mission = FIU_fix_black_monday
+						days = 42
+					}
+				}
 			}
 			FROM = {
 				owner = {
@@ -1178,6 +1508,13 @@ BOTDE_FIU_dow_jones = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove FIU_deep_state_investment FROM: [From.GetName]"
 			set_temp_variable = { temp_add_bm = -0.075 }
 			FIU_add_bm_effect = yes
+			if = {
+				limit = { has_active_mission = FIU_fix_black_monday }
+				add_days_mission_timeout = {
+					mission = FIU_fix_black_monday
+					days = -14
+				}
+			}
 			hidden_effect = {
 				if = {
 					limit = { has_country_flag = FIU_ongoing_raid }
@@ -1188,6 +1525,81 @@ BOTDE_FIU_dow_jones = {
 		}
 		ai_will_do = {
 			factor = 100
+		}
+	}
+	FIU_crime_state = {
+		cost = 30
+		icon = GFX_decision_FIU_uskok
+		days_remove = 14
+		priority = 5
+		fire_only_once = yes
+		available = {
+			NOT = { has_country_flag = FIU_ongoing_raid }
+		}
+		visible = {
+			tag = FIU
+			if = {
+				limit = { FIU_has_any_black_monday_idea = yes }
+				has_country_flag = FIU_is_a_fart_smella
+				has_country_flag = FIU_crime_boss
+			}
+			else = {
+				has_country_flag = FIU_crime_boss
+			}
+		}
+		state_target = yes
+		on_map_mode = map_and_decisions_view
+		target_trigger = {
+			FROM = { FIU_state_is_crime_target = yes }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision FIU_crime_state FROM: [From.GetName]"
+			set_country_flag = FIU_ongoing_raid
+		}
+		cancel_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision cancel FIU_crime_state FROM: [From.GetName]"
+			clr_country_flag = FIU_ongoing_raid
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove FIU_crime_state FROM: [From.GetName]"
+			if = {
+				limit = { has_active_mission = FIU_fix_black_monday }
+				add_stability = -0.1
+				add_days_mission_timeout = {
+					mission = FIU_fix_black_monday
+					days = -60
+				}
+			}
+			set_temp_variable = { temp_add_bm = -0.05 }
+			FIU_add_bm_effect = yes
+			clr_country_flag = FIU_ongoing_raid
+			if = {
+				limit = { FROM = { state = 1 } }
+				country_event = nufiuflavor.17
+			}
+			else_if = {
+				limit = { FROM = { state = 21 } }
+				country_event = nufiuflavor.21
+			}
+			else_if = {
+				limit = { FROM = { state = 126 } }
+				country_event = nufiuflavor.22
+			}
+			else_if = {
+				limit = { FROM = { state = 159 } }
+				country_event = nufiuflavor.19
+			}
+			else_if = {
+				limit = { FROM = { state = 177 } }
+				country_event = nufiuflavor.20
+			}
+			else_if = {
+				limit = { FROM = { state = 459 } }
+				country_event = nufiuflavor.18
+			}
+		}
+		ai_will_do = {
+			base = 20
 		}
 	}
 }
@@ -1506,7 +1918,7 @@ FIU_shipbuilding = {
 	}
 }
 
-foreign_politics = {
+austria_collapse_category = {
 	#decision to take cattaro post-collapse here
 	#be sure to deal with what if SKS karlovac cuts off illyria
 	#HUN_restore_dominion = {
@@ -1538,7 +1950,7 @@ foreign_politics = {
 	FIU_seize_cattaro_base = {
 		icon = GFX_decision_generic_naval
 		custom_cost_trigger = {
-			has_navy_experience	> 9.5
+			has_navy_experience	> 9.9
 		}
 		custom_cost_text = FIU_10_navy_xp
 		allowed = {
@@ -1553,23 +1965,139 @@ foreign_politics = {
 		on_map_mode = map_and_decisions_view
 		visible = {
 			has_global_flag = AUS_collapsed
+			NOT = { owns_state = 1270 }
 		}
 		available = {
 			has_war = no
 			OR = {
-				AUS = {
-					owns_state = 1270
-				}
-				CRO = {
-					owns_state = 1270
-				}
+				AUS = { owns_state = 1270 }
+				CRO = { owns_state = 1270 }
 			}
 		}
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision FIU_seize_cattaro_base"
 			transfer_state = 1270
 			add_state_core = 1270
 		}
 	}
+	FIU_seize_southeast_slovenia = {
+		icon = infiltrate_state
+		custom_cost_trigger = {
+			has_army_experience	> 9.9
+		}
+		custom_cost_text = FIU_10_army_xp
+		allowed = {
+			tag = FIU
+		}
+		state_target = yes
+		target_trigger = {
+			FROM = {
+				state = 1105
+			}
+		}
+		on_map_mode = map_and_decisions_view
+		visible = {
+			has_global_flag = AUS_collapsed
+			NOT = { owns_state = 1105 }
+		}
+		available = {
+			has_war = no
+			OR = {
+				AUS = { owns_state = 1105 }
+				CRO = { owns_state = 1105 }
+				SLO = { owns_state = 1105 }
+			}
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision FIU_seize_southeast_slovenia"
+			transfer_state = 1105
+			add_state_core = 1105
+		}
+	}
+	FIU_seize_pola = {
+		icon = infiltrate_state
+		custom_cost_trigger = {
+			has_army_experience	> 9.9
+		}
+		custom_cost_text = FIU_10_army_xp
+		allowed = {
+			tag = FIU
+		}
+		state_target = yes
+		target_trigger = {
+			FROM = {
+				state = 1144
+			}
+		}
+		on_map_mode = map_and_decisions_view
+		visible = {
+			has_global_flag = AUS_collapsed
+			NOT = { owns_state = 1144 }
+		}
+		available = {
+			has_war = no
+			OR = {
+				AUS = { owns_state = 1144 }
+				CRO = { owns_state = 1144 }
+				SLO = { owns_state = 1144 }
+			}
+			var:FROM.owner = { has_war = no }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision FIU_seize_pola"
+			transfer_state = 1144
+			add_state_core = 1144
+		}
+	}
+	FIU_seize_southern_illyria = {
+		icon = infiltrate_state
+		custom_cost_trigger = {
+			has_army_experience	> 19.9
+		}
+		custom_cost_text = FIU_20_army_xp
+		allowed = {
+			tag = FIU
+		}
+		on_map_mode = map_and_decisions_view
+		days_remove = 30
+		visible = {
+			has_global_flag = AUS_collapsed
+			CRO = {
+				NOT = { owns_state = 1099 }
+				any_state_of = {
+					target = { 103 163 1098 1143 1145 }
+					is_owned_by = CRO
+				}
+			}
+			NOT = { is_ally_with = CRO }
+		}
+		available = {
+			has_war = no
+			NOT = { is_ally_with = CRO }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision FIU_seize_southern_illyria"
+			CRO = {
+				country_event = {
+					id = nufiufor.20
+					days = 29
+				}
+			}
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove FIU_seize_southern_illyria"
+			every_state = {
+				limit = {
+					is_owned_by = CRO
+					NOT = { is_in_home_area = no }
+				}
+				transfer_state_to = FIU
+			}
+		}
+	}
+}
+
+foreign_politics = {
 	
 	FIU_join_faction = {
 		icon = GFX_decision_global_liechtenstein

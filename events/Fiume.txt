@@ -22,14 +22,14 @@ country_event = { #Debug
 
 	is_triggered_only = yes
 
-	option = { #Oh no.
+	option = {
 		name = nufiudebug.0.a
 		create_country_leader = {
-			name = "Paul Pacher"
-			desc = "FIU_HORTHY_DESC"
-			picture = "gfx/leaders/FIU/general/FIU_Paul_Pachner.png"
-			expire = "1965.1.1"
-			ideology = junta_subtype
+			name = "Zentralkomitee von Fiume, Zadar, und Istrien"
+			desc = "FIU_ZENTRALKOMITEE_DESC"
+			expire = "1.1.1"
+			picture = "gfx/leaders/FIU/FIU_Zentralkomitee.png"
+			ideology = democratic_syndicalism_subtype
 		}
 	}
 }
@@ -1267,6 +1267,151 @@ country_event = { #Foreign Traders Flock to [FIU_investment_state.GetName]
 	}
 }
 
+country_event = { #Fiume requests loan
+	id = nufiupirate.3009
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiupirate.3009"}
+	title = nufiupirate.3009.t
+	desc = nufiupirate.3009.d
+
+	picture = GFX_event_FIU_trade_fleet
+
+	is_triggered_only = yes
+
+	option = {
+		name = nufiupirate.3009.a
+		ai_chance = {
+			base = 95
+		}
+		set_country_flag = gave_FIU_a_loan
+		FROM = {
+			country_event = {
+				id = nufiupirate.3010
+				hours = 2
+			}
+		}
+		add_one_random_civilian_factory = yes
+		meta_effect = {
+			text = {
+				FIU = {
+					add_timed_idea = {
+						idea = FIU_[TAG]_loan_idea
+						days = 240
+					}
+				}
+			}
+			TAG = "[ROOT.GetTag]"
+		}
+		if = {
+			limit = { tag = GER }
+			add_to_variable = {
+				var = GER_mitteleuropa_investment_count
+				value = 1
+				tooltip = increase_investment_var_tt
+			}
+		}
+		else_if = {
+			limit = {
+				AUS_is_constituent = yes
+				is_ally_with = FIU
+			}
+			ROOT_subtract_three_collapse = yes
+		}
+	}
+
+	option = {
+		name = nufiupirate.3009.b
+		ai_chance = {
+			base = 5
+			modifier = {
+				FROM = { is_ally_with = ROOT }
+				factor = 0
+			}
+		}
+		set_country_flag = refused_FIU_loan
+		FROM = {
+			country_event = {
+				id = nufiupirate.3011
+				hours = 2
+			}
+		}
+	}
+}
+
+country_event = { #FROM gives loan
+	id = nufiupirate.3010
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiupirate.3010"}
+	title = nufiupirate.3010.t
+	desc = nufiupirate.3010.d
+
+	picture = GFX_event_FIU_trade_fleet
+
+	is_triggered_only = yes
+
+	option = {
+		name = nufiupirate.3010.a
+		increase_ruling_party_popularity_by_3 = yes
+		add_stability = 0.05
+		add_political_power = 20
+		set_temp_variable = { temp_add_bm = -0.05 }
+		FIU_add_bm_effect = yes
+		add_one_random_civilian_factory = yes
+	}
+}
+
+country_event = { #FROM refuses to give loan
+	id = nufiupirate.3011
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiupirate.3011"}
+	title = nufiupirate.3011.t
+	desc = nufiupirate.3011.d
+
+	picture = GFX_event_FIU_trade_fleet
+
+	is_triggered_only = yes
+
+	option = {
+		name = nufiupirate.3011.a
+		add_stability = -0.05
+	}
+}
+
+country_event = { #Cleaning up the Uskokenflotte?
+	id = nufiupirate.3012
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiupirate.3012"}
+	title = nufiupirate.3012.t
+	desc = nufiupirate.3012.d
+
+	picture = GFX_event_FIU_trade_fleet
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #yeah
+		name = nufiupirate.3012.a
+		ai_chance = {
+			base = 50
+		}
+		add_stability = 0.05
+		set_global_flag = FIU_clean_uskokenflotte
+		remove_dynamic_modifier = { modifier = FIU_piracy_gains_modifier }
+		add_dynamic_modifier = { modifier = FIU_clean_gains_modifier }
+		if = {
+			limit = { has_country_flag = FIU_is_a_fart_smella }
+			set_variable = { FIU.fart_smella_frame_var = 1 }
+			set_country_flag = FIU_is_a_smart_fella
+			clr_country_flag = FIU_is_a_fart_smella
+		}
+	}
+
+	option = { #don't change it
+		name = nufiupirate.3012.b
+		ai_chance = {
+			base = 50
+		}
+		add_stability = -0.05
+	}
+}
+
 country_event = { #History of the Dual Guard of Fiume-Zadar
 	id = nufiulore.1
 	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiulore.1"}
@@ -1390,6 +1535,10 @@ country_event = { #Black Monday strikes Fiume-Zadar!
 			tooltip = FIU_dow_jones_now_enabled_tt
 			set_country_flag = FIU_dow_jones_enabled
 			set_country_flag = FIU_is_a_smart_fella
+			if = {
+				limit = { is_ai = yes }
+				set_country_flag = FIU_is_a_fart_smella
+			}
 		}
 		hidden_effect = {
 			set_country_flag = FIU_black_monday_flag
@@ -1511,7 +1660,13 @@ country_event = { #Crisis in the Coffers
 		custom_effect_tooltip = FIU_further_pirating_minigame
 		complete_national_focus = FIU_crisis_in_the_coffers
 		set_country_flag = FIU_coffer_crisis
+		if = {
+			limit = { has_dynamic_modifier = { modifier = FIU_black_monday_modifier } }
+			remove_dynamic_modifier = { modifier = FIU_black_monday_modifier }
+		}
+		add_ideas = FIU_crisis_in_the_coffers_idea
 		hidden_effect = {
+			set_variable = { FIU.black_monday_var = 0 }
 			set_variable = { FIU.GUI_Background_Frame = 1 }
 		}
 	}
@@ -1811,13 +1966,13 @@ country_event = { #Jekelfalussy Breaks with Horthy!
 		add_political_power = -40
 		set_temp_variable = { temp_add_bm = 0.075 }
 		FIU_add_bm_effect = yes
-		add_popularity = {
-			ideology = paternal_autocrat
-			popularity = -0.05
+		if = {
+			limit = { is_in_coalition_with_authoritarian_democrat = yes }
+			remove_authdem_from_coalition = yes
 		}
 		add_popularity = {
 			ideology = authoritarian_democrat
-			popularity = 0.05
+			popularity = 0.1
 		}
 	}
 }
@@ -1839,21 +1994,10 @@ country_event = { #The Horthyist Coup
 		add_political_power = 30
 		remove_ideas_with_trait = head_of_government
 		add_ideas = FIU_Karolyi_Gyula_hog_pau
-		if = {
-			limit = { has_idea = FIU_Zadar_Mayor_Vladimir_Velebit_socdem }
-			remove_ideas = FIU_Zadar_Mayor_Vladimir_Velebit_socdem
-		}
-		if = {
-			limit = { has_idea = FIU_Zadar_Mayor_Dinko_Suljak_soclib }
-			remove_ideas = FIU_Zadar_Mayor_Dinko_Suljak_soclib
-		}
-		if = {
-			limit = { has_idea = FIU_Zadar_Mayor_Luigi_Ziliotto_soccon }
-			remove_ideas = FIU_Zadar_Mayor_Luigi_Ziliotto_soccon
-		}
+		FIU_remove_zadar_mayor_effect = yes
 		add_ideas = FIU_Zadar_Mayor_Purgly_Emil_pataut
 		set_country_flag = FIU_loyalists_stay
-		unlock_national_focus = FIU_age_of_new_stability
+		complete_national_focus = FIU_age_of_new_stability
 		add_popularity = {
 			ideology = paternal_autocrat
 			popularity = 0.05
@@ -1861,6 +2005,12 @@ country_event = { #The Horthyist Coup
 		add_popularity = {
 			ideology = authoritarian_democrat
 			popularity = -0.05
+		}
+		hidden_effect = {
+			news_event = {
+				id = fiunews.9
+				days = 1
+			}
 		}
 	}
 }
@@ -1909,9 +2059,9 @@ country_event = { #Austria helps us
 			FIU_lower_risk_10 = yes
 		}
 		if = {
-			limit = { FIU_has_any_black_monday_idea = yes 
+			limit = { FIU_has_any_black_monday_idea = yes }
 			set_temp_variable = { temp_add_bm = -0.1 }
-			FIU_add_bm_effect = yes}
+			FIU_add_bm_effect = yes
 		}
 	}
 }
@@ -1932,7 +2082,7 @@ country_event = { #Jekelfalussy's Fiume
 		name = nufiuflavor.11.a
 		add_stability = 0.02
 		add_political_power = 20
-		unlock_national_focus = FIU_a_return_to_form
+		complete_national_focus = FIU_a_return_to_form
 	}
 }
 
@@ -1956,7 +2106,7 @@ country_event = { #Bacci's Fiume
 			ideology = national_populist
 			popularity = 0.05
 		}
-		unlock_national_focus = FIU_forced_overturn
+		complete_national_focus = FIU_forced_overturn
 	}
 }
 
@@ -1979,7 +2129,415 @@ country_event = { #Zanella's Fiume
 			ideology = social_conservative
 			popularity = 0.08
 		}
-		unlock_national_focus = FIU_a_fair_win
+		complete_national_focus = FIU_a_fair_win
+	}
+}
+
+country_event = { #Launch of the SMS Horthy
+	id = nufiuflavor.14
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiuflavor.14"}
+	title = nufiuflavor.14.t
+	desc = nufiuflavor.14.d
+
+	picture = GFX_event_FIU_horthy_portrait_color
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #Hail to the Grand Admiral!
+		name = nufiuflavor.14.a
+		ai_chance = {
+			base = 50
+		}
+		add_political_power = 15
+		create_equipment_variant = {
+		    name = "Horthy Class"								
+		    type = ship_hull_carrier_2
+		    role_icon_index = 1
+			name_group = AUS_HH_Theme
+		    modules = {
+		        fixed_ship_deck_slot_1 = ship_deck_space
+				fixed_ship_deck_slot_2 = ship_armor_carrier_deck
+				fixed_ship_anti_air_slot = ship_anti_air_3
+				fixed_ship_engine_slot = carrier_ship_engine_3
+				fixed_ship_secondaries_slot = ship_secondaries_2
+				front_1_custom_slot = ship_deck_space
+		    }
+		}
+		add_equipment_production = {
+		    equipment = {
+		        type = ship_hull_carrier_2
+				version_name = "Horthy Class"
+		    }
+			name = "SMS Horthy"
+		    requested_factories = 5
+		    progress = 0.6
+			efficiency = 0.25
+		    amount = 1
+		}
+	}
+
+	option = { #Oversee the construction, we must make sure it is laid down with the cutting-edge technology!
+		name = nufiuflavor.14.b
+		ai_chance = {
+			base = 50
+		}
+		add_political_power = 15
+		create_equipment_variant = {
+		    name = "Horthy Class"								
+		    type = ship_hull_carrier_2
+		    role_icon_index = 1
+			name_group = AUS_HH_Theme
+		    modules = {
+		        fixed_ship_deck_slot_1 = ship_deck_space
+				fixed_ship_deck_slot_2 = ship_armor_carrier_deck
+				fixed_ship_anti_air_slot = ship_anti_air_3
+				fixed_ship_engine_slot = carrier_ship_engine_3
+				fixed_ship_secondaries_slot = ship_secondaries_2
+				front_1_custom_slot = ship_deck_space
+		    }
+		}
+		add_equipment_production = {
+		    equipment = {
+		        type = ship_hull_carrier_2
+				version_name = "Horthy Class"
+		    }
+			name = "SMS Horthy"
+		    requested_factories = 5
+		    progress = 0.3
+			efficiency = 0.5
+		    amount = 1
+		}
+		add_equipment_bonus = {
+			bonus = {
+				ship_hull_carrier_2 = {
+					build_cost_ic = -0.15
+					reliability = 0.1
+					instant = yes
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Pola Strike
+	id = nufiuflavor.15
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiuflavor.15"}
+	title = nufiuflavor.15.t
+	desc = nufiuflavor.15.d
+
+	picture = GFX_event_AUS_pola_navy
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #fuck
+		name = nufiuflavor.15.a
+		add_stability = -0.1
+		set_temp_variable = { temp_add_bm = 0.1 }
+		FIU_add_bm_effect = yes
+		add_popularity = {
+			ideology = totalist
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = syndicalist
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = radical_socialist
+			popularity = 0.03
+		}
+	}
+}
+
+country_event = { #Launch of the NSM Paolo Thaon
+	id = nufiuflavor.16
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiuflavor.16"}
+	title = nufiuflavor.16.t
+	desc = nufiuflavor.16.d
+
+	picture = GFX_event_FIU_di_revel_portrait_color
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #Hail to the Grand Admiral!
+		name = nufiuflavor.16.a
+		ai_chance = {
+			base = 50
+		}
+		add_political_power = 15
+		create_equipment_variant = {
+		    name = "Paolo Thaon Class"								
+		    type = ship_hull_cruiser_2
+		    role_icon_index = 1
+			name_group = AUS_HH_Theme
+		    modules = {
+		        fixed_ship_battery_slot = ship_light_medium_battery_2
+				fixed_ship_anti_air_slot = ship_anti_air_2
+				fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+				fixed_ship_radar_slot = empty
+				fixed_ship_engine_slot = cruiser_ship_engine_2
+				fixed_ship_secondaries_slot = empty
+				fixed_ship_armor_slot = ship_armor_cruiser_2
+				mid_1_custom_slot = ship_light_medium_battery_2
+				mid_2_custom_slot = empty
+				rear_1_custom_slot = ship_airplane_launcher_2
+		    }
+		}
+		add_equipment_production = {
+		    equipment = {
+		        type = ship_hull_cruiser_2
+				version_name = "Paolo Thaon Class"
+		    }
+			name = "NSM Paolo Thaon Horthy"
+		    requested_factories = 5
+		    progress = 0.6
+			efficiency = 0.25
+		    amount = 1
+		}
+	}
+
+	option = { #Oversee the construction, we must make sure it is laid down with the cutting-edge technology!
+		name = nufiuflavor.16.b
+		ai_chance = {
+			base = 50
+		}
+		add_political_power = 15
+		create_equipment_variant = {
+		    name = "Paolo Thaon Class"								
+		    type = ship_hull_cruiser_2
+		    role_icon_index = 1
+			name_group = AUS_HH_Theme
+		    modules = {
+		        fixed_ship_battery_slot = ship_light_medium_battery_2
+				fixed_ship_anti_air_slot = ship_anti_air_2
+				fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+				fixed_ship_radar_slot = empty
+				fixed_ship_engine_slot = cruiser_ship_engine_2
+				fixed_ship_secondaries_slot = empty
+				fixed_ship_armor_slot = ship_armor_cruiser_2
+				mid_1_custom_slot = ship_light_medium_battery_2
+				mid_2_custom_slot = empty
+				rear_1_custom_slot = ship_airplane_launcher_2
+		    }
+		}
+		add_equipment_production = {
+		    equipment = {
+		        type = ship_hull_cruiser_2
+				version_name = "Paolo Thaon Class"
+		    }
+			name = "NSM Paolo Thaon"
+		    requested_factories = 5
+		    progress = 0.3
+			efficiency = 0.5
+		    amount = 1
+		}
+		add_equipment_bonus = {
+			bonus = {
+				ship_hull_cruiser_2 = {
+					build_cost_ic = -0.15
+					reliability = 0.1
+					instant = yes
+				}
+			}
+		}
+	}
+}
+
+country_event = { #The French Connection
+	id = nufiuflavor.17
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiuflavor.17"}
+	title = nufiuflavor.17.t
+	desc = nufiuflavor.17.d
+
+	picture = GFX_event_FIU_french_connection
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #
+		name = nufiuflavor.17.a
+		FIU_increase_fraud = yes
+		set_global_flag = french_connection_exists
+		add_ideas = FIU_french_connection_idea
+		every_state = {
+			limit = {
+				OR = {
+					state = 1
+					state = 21
+					state = 184
+					state = 342
+					state = 358
+					state = 359
+					state = 395
+					state = 930
+					state = 932
+					state = 1206
+				}
+				owner = {
+					OR = {
+						is_ai = yes
+						tag = FRA
+						tag = NFA
+						tag = FIU
+						tag = TUR
+					}
+				}
+			}
+			add_dynamic_modifier = { modifier = FIU_french_connection_modifier }
+		}
+	}
+}
+
+country_event = { #Unternehmen Charlamage
+	id = nufiuflavor.18
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiuflavor.18"}
+	title = nufiuflavor.18.t
+	desc = nufiuflavor.18.d
+
+	picture = GFX_report_event_NFA_event_AFFlavorMarianne
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #Syndicalism has made enemies in the criminal underworld.
+		name = nufiuflavor.18.a
+		FIU_increase_fraud = yes
+		add_opinion_modifier = { target = NFA modifier = KR_friendly }
+		reverse_add_opinion_modifier = { target = NFA modifier = KR_friendly }
+		every_country = {
+			limit = {
+				OR = {
+					tag = FIU
+					tag = NFA
+				}
+			}
+			add_ideas = FIU_mass_genocide_against_the_communard_world
+		}
+		if = {
+			limit = { FIU = { is_ai = no } }
+			every_state = {
+				limit = {
+					OR = {
+						state = 21
+						state = 763
+					}
+				}
+				add_dynamic_modifier = { modifier = FIU_fucking_up_france_modifier }
+			}
+		}
+	}
+}
+
+country_event = { #Calling on Count Carandini
+	id = nufiuflavor.19
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiuflavor.19"}
+	title = nufiuflavor.19.t
+	desc = nufiuflavor.19.d
+
+	picture = GFX_event_FIU_Carandini_coat_of_arms
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #Admiral to Count, Count to action.
+		name = nufiuflavor.19.a
+		add_ideas = FIU_were_killing_the_ANI
+		ITA = {
+			add_stability = -0.1
+			add_popularity = {
+				ideology = market_liberal
+				popularity = 0.1
+			}
+		}
+	}
+}
+
+country_event = { #The Pirate Capitalist
+	id = nufiuflavor.20
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiuflavor.20"}
+	title = nufiuflavor.20.t
+	desc = nufiuflavor.20.d
+
+	picture = GFX_event_FIU_Juan_March
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #Returning a favor for something more?
+		name = nufiuflavor.20.a
+		FIU_increase_fraud = yes
+		add_ideas = FIU_juan_march_maxxing
+	}
+}
+
+country_event = { #Rise of le Milieu
+	id = nufiuflavor.21
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiuflavor.21"}
+	title = nufiuflavor.21.t
+	desc = nufiuflavor.21.d
+
+	picture = GFX_event_FIU_le_milieu_thing
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #Actibus immensis urbs fulget massiliensis - in art and crime.
+		name = nufiuflavor.21.a
+		FIU_increase_fraud = yes
+		if = {
+			limit = { FIU = { is_ai = no } }
+			every_state = {
+				limit = {
+					OR = {
+						state = 20
+						state = 21
+						state = 22
+						state = 32
+						state = 763
+						state = 782
+					}
+				}
+				add_dynamic_modifier = { modifier = FIU_fucking_up_france_milieu_style }
+			}
+		}
+	}
+}
+
+country_event = { #London's Own Italian Mafia
+	id = nufiuflavor.22
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiuflavor.22"}
+	title = nufiuflavor.22.t
+	desc = nufiuflavor.22.d
+
+	picture = GFX_event_FIU_Griffin_London
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #From an Italian port to an Italian sanctuary.
+		name = nufiuflavor.22.a
+		FIU_increase_fraud = yes
+		every_state = {
+			limit = {
+				OR = {
+					state = 126
+				}
+			}
+			add_dynamic_modifier = { modifier = FIU_Sabini_Gang }
+		}
+		add_ideas = FIU_never_go_to_london_worst_mistake_of_my_life
 	}
 }
 
@@ -2473,6 +3031,13 @@ country_event = { #FROM asks for the Littoral
 		ai_chance = {
 			base = 80
 			modifier = {
+				ROOT = {
+					tag = AUS
+					has_global_flag = AUS_federalized
+				}
+				factor = 0.5
+			}
+			modifier = {
 				FIU = { is_ai = no }
 				factor = 0
 			}
@@ -2581,6 +3146,47 @@ country_event = { #Austria denies the free state
 				focus = FIU_a_free_state
 			}
 		}
+	}
+}
+
+country_event = { #Fiume eyes southern illyria
+	id = nufiufor.20
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiufor.20"}
+	title = nufiufor.20.t
+	desc = nufiufor.20.d
+
+	picture = GFX_FIU_city_view
+
+	is_triggered_only = yes
+
+	option = { #nothing we can do
+		name = nufiufor.20.a
+		ai_chance = {
+			base = 50
+		}
+		add_stability = -0.2
+		add_political_power = -100
+	}
+
+	option = { #we will fight must however we must
+		name = nufiufor.20.b
+		ai_chance = {
+			base = 50
+			modifier = {
+				OR = {
+					FIU = { is_ai = no }
+					var:1099.owner = { is_ai = no }
+				}
+			}
+		}
+		create_wargoal = {
+            target = FIU
+            type = annex_everything
+        }
+		create_wargoal = {
+            target = var:1099.owner
+            type = annex_everything
+        }
 	}
 }
 
@@ -2707,7 +3313,7 @@ country_event = {
 	title = nufiucoup.6.t
 	desc = nufiucoup.6.d
 
-	picture = GFX_FIU_city_view
+	picture = GFX_event_AUS_booba
 
 	is_triggered_only = yes
 
@@ -2715,17 +3321,186 @@ country_event = {
 
 	option = {
 		name = nufiucoup.6.a
-		set_politics = {
-			ruling_party = national_populists
-		}
-		set_country_flag = FIU_irredentist_party
-		set_country_flag = FIU_coups_over
-		FIU_gain_italian_commanders = yes
-		remove_ideas = FIU_italian_problem
-		add_political_power = -80
+		FIU_ANI_coup_effect = yes
+		set_political_power = 0
 		add_war_support = 0.1
-		remove_puppet_and_leave_faction = yes
-		separate_peace_all_wars = yes
+	}
+}
+
+country_event = { #AUS - ANI Coups the Fiumeian Government
+	id = nufiucoup.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiucoup.7"}
+	title = nufiucoup.7.t
+	desc = nufiucoup.7.d
+
+	picture = GFX_event_AUS_booba
+
+	is_triggered_only = yes
+
+	option = {
+		name = nufiucoup.7.a
+		ai_chance = {
+			base = 90
+			modifier = {
+				FIU = { is_ai = no }
+				add = -40
+			}
+		}
+		declare_war_on = {
+			target = FIU
+			type = annex_everything
+		}
+		if = {
+			limit = {
+				tag = AUS
+				HUN = { AUS_is_constituent = yes }
+			}
+			HUN = {
+				declare_war_on = {
+					target = FIU
+					type = annex_everything
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = AUS
+				CRO = { AUS_is_constituent = yes }
+			}
+			CRO = {
+				declare_war_on = {
+					target = FIU
+					type = annex_everything
+				}
+			}
+		}
+	}
+
+	option = {
+		name = nufiucoup.7.b
+		ai_chance = {
+			base = 10
+			modifier = {
+				FIU = { is_ai = no }
+				add = 40
+			}
+		}
+		add_stability = -0.3
+		ALL_add_ten_collapse = yes
+	}
+}
+
+country_event = { #socialists attempt coup
+	id = nufiucoup.20
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiucoup.20"}
+	title = nufiucoup.20.t
+	desc = nufiucoup.20.d
+
+	picture = GFX_event_AUS_KPO_badge
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = {
+		name = nufiucoup.20.a
+		ai_chance = {
+			base = 50
+		}
+		FIU_istrian_revolution_effect = yes
+		set_political_power = 0
+		add_war_support = 0.1
+	}
+
+	option = {
+		name = nufiucoup.20.b
+		ai_chance = {
+			base = 50
+		}
+		add_stability = -0.2
+	}
+}
+
+country_event = { #The Direction of the Red Ports
+	id = nufiucoup.21
+	immediate = {log = "[GetDateText]: [Root.GetName]: event nufiucoup.21"}
+	title = nufiucoup.21.t
+	desc = nufiucoup.21.d
+
+	picture = GFX_event_AUS_KPO_badge
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = {
+		name = nufiucoup.21.a #Da Gioz
+		ai_chance = {
+			base = 33
+		}
+		set_country_flag = FIU_red_guard_flag
+		create_country_leader = {
+			name = "Francesco Da Gioz"
+			desc = "FIU_DA_GIOZ_DESC"
+			expire = "1.1.1"
+			picture = "gfx/leaders/FIU/FIU_Francesco_Da_Gioz.png"
+			ideology = hardliner_bolshevism_subtype
+		}
+		custom_effect_tooltip = tot_hardliner_bolshevism_subtype_swap_tt
+		set_politics = {
+			ruling_party = totalist
+			elections_allowed = no
+		}
+		add_synd_to_coalition = yes
+		add_radsoc_to_coalition = yes
+		add_socdem_to_coalition = yes
+	}
+
+	option = {
+		name = nufiucoup.21.b #Pipan
+		ai_chance = {
+			base = 33
+		}
+		set_country_flag = FIU_miners_flag
+		create_country_leader = {
+			name = "Giovanni Pipan"
+			desc = "FIU_PIPAN_DESC"
+			expire = "1.1.1"
+			picture = "gfx/leaders/FIU/FIU_Giovanni_Pipan.png"
+			ideology = democratic_syndicalism_subtype
+		}
+		custom_effect_tooltip = syn_democratic_syndicalism_subtype_swap_tt
+		set_politics = {
+			ruling_party = syndicalist
+			elections_allowed = no
+		}
+		add_tot_to_coalition = yes
+		add_radsoc_to_coalition = yes
+		add_socdem_to_coalition = yes
+	}
+
+	option = {
+		name = nufiucoup.21.c #Ciliga
+		ai_chance = {
+			base = 33
+		}
+		set_country_flag = FIU_ciliga_flag
+		create_country_leader = {
+			name = "Ante Ciliga"
+			desc = "FIU_CILIGA_DESC"
+			expire = "1.1.1"
+			picture = "gfx/leaders/FIU/FIU_Ante_Ciliga.png"
+			ideology = red_ustase_subtype
+		}
+		custom_effect_tooltip = tot_red_ustase_subtype_swap_tt
+		set_cosmetic_tag = FIU_Ciliga
+		set_politics = {
+			ruling_party = totalist
+			elections_allowed = no
+		}
+		add_synd_to_coalition = yes
+		add_radsoc_to_coalition = yes
+		add_socdem_to_coalition = yes
 	}
 }
 
@@ -3852,13 +4627,6 @@ country_event = { #AUS/HUN - Fiume reports large gains (fires soon after any plu
 	}
 }
 
-
-
-
-
-
-
-
 country_event = { #debug - spawn all ships
 	id = fiu.100
 	immediate = {log = "[GetDateText]: [Root.GetName]: event fiu.100" }
@@ -4194,5 +4962,30 @@ news_event = {  #Horthy Wins
 	
 	option = {
 		name = fiunews.9.a
+	}
+}
+
+news_event = {  #ANI Coup
+	id = fiunews.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event fiunews.10" }
+	title = fiunews.10.t
+	desc = fiunews.10.d
+	
+	picture = GFX_news_ANI_flag
+	
+	major = yes
+	
+	show_major = {
+		regional_europe_news = yes
+	}
+	
+	trigger = {
+		wants_world_news = yes
+	}
+
+	is_triggered_only = yes
+	
+	option = {
+		name = fiunews.10.a
 	}
 }

@@ -1,9 +1,5 @@
-add_namespace = cro
-
 add_namespace = ill
-
-add_namespace = reign
-
+add_namespace = cro
 add_namespace = illyria
 add_namespace = bdecroint
 add_namespace = bdecrofor
@@ -469,7 +465,6 @@ country_event = { #Elections Begin!
 	
 	option = { #Let the best candidate win
 		name = cro.10.a
-		ai_chance = { factor = 100 }
 		add_political_power = 20
 		add_popularity = {
 			ideology = social_democrat
@@ -494,10 +489,8 @@ country_event = { #Elections Begin!
 		if = {
 			limit = { NOT = { has_country_flag = CRO_won_civilwar } }
 			set_country_flag = CRO_federation_survives
-			else = {
-			}
 		}
-		country_event = { id = cro.11 days = 20 }
+		country_event = { id = cro.11 days = 2 }
 	}
 }
 
@@ -509,7 +502,6 @@ country_event = { #Election results are in!
 	picture = GFX_report_event_generic_strike
 
 	immediate = {
-		log = "[GetDateText]: [Root.GetName]: event cro.11"
 		remove_all_ministers = yes
 		hidden_effect = {
 			country_event = {
@@ -519,7 +511,22 @@ country_event = { #Election results are in!
 		}
 	}
 	is_triggered_only = yes
-	trigger = { has_socialist_government = no }
+
+	trigger = {
+		has_socialist_government = no
+		NOT = { has_government = national_populist }
+	}
+
+	after = {
+		if = {
+			limit = {
+				NOT = { has_country_flag = CRO_not_first_election }
+				has_country_flag = CRO_election
+			}
+			set_country_flag = CRO_not_first_election
+		}
+		set_country_flag = CRO_election
+	}
 	
 	option = { #The Social Democrats Win!
 		name = cro.11.a
@@ -565,10 +572,14 @@ country_event = { #Election results are in!
 			popularity = 0.2
 		}
 		if = {
-			limit = { NOT = { has_cosmetic_tag = ILL_south_slavic_union } }
-			set_cosmetic_tag = ILL_free_republic
+			limit = {
+				NOT = {
+					has_cosmetic_tag = ILL_south_slavic_union
+					has_cosmetic_tag = CRO_collapse
+				}
+			}
+			set_cosmetic_tag = ILL
 		}
-		set_country_flag = CRO_election
 	}
 	
 	option = { #The Social Liberals Win!
@@ -613,15 +624,6 @@ country_event = { #Election results are in!
 		remove_all_ministers = yes
 		add_ideas = {
 			
-		}
-		set_country_flag = CRO_election
-		if = {
-			limit = {
-				NOT = {
-					has_country_flag = CRO_not_first_election
-				}
-			}
-			set_country_flag = CRO_not_first_election
 		}
 	}
 	
@@ -675,15 +677,6 @@ country_event = { #Election results are in!
 			CRO_Juraj_Krnjevic_for_sco
 			CRO_Srdan_Budisavljevic_eco_mli
 			CRO_uro_Basaricek_sec_sco
-		}
-		set_country_flag = CRO_election
-		if = {
-			limit = {
-				NOT = {
-					has_country_flag = CRO_not_first_election
-				}
-			}
-			set_country_flag = CRO_not_first_election
 		}
 	}
 }
@@ -1027,7 +1020,6 @@ country_event = { #Tito's Decision
 
 	fire_only_once = yes
 	
-	
 	option = { #Take over the government as a Syndicalist dictatorship
 		name = cro.23.a
 		trigger = {
@@ -1105,6 +1097,12 @@ country_event = { #Tito's Decision
 		}
 		remove_ideas = {
 			CRO_popular_democracy
+		}
+		hidden_effect = {
+			country_event = {
+				id = bdecroint.1
+				days = 20
+			}
 		}
 	}
 	
@@ -1396,8 +1394,9 @@ country_event = { #Bosnian State Declared!
 	
 }
 
-country_event = { #Ante Trumbic Deposed!
+country_event = { #Ante Pavelic Coup
 	id = cro.31
+	immediate = { log = "[GetDateText]: [Root.GetName]: event cro.31" }
 	title = cro.31.t
 	desc = cro.31.d 
 	picture = GFX_report_event_CRO_pavelic_coup
@@ -1406,204 +1405,46 @@ country_event = { #Ante Trumbic Deposed!
 
 	fire_only_once = yes
 	
-	
 	option = { #The republic is no more?!
 		name = cro.31.a
 		ai_chance = { factor = 50 }
-		add_stability = -0.03
+		add_stability = -0.20
 		set_politics = {
-			ruling_party = paternal_autocrat
+			ruling_party = national_populist
 		}
 		remove_all_ministers = yes
-		hidden_effect = {
-			add_ideas = {
-				CRO_Ante_Pavelic_hog_npo
-				CRO_Mladen_Lorkovic_for_pau
-				CRO_Jozo_Dumandzic_eco_pau
-				CRO_Edo_Bulat_sec_pau
-			}
+		add_ideas = {
+			CRO_Ante_Pavelic_hog_npo
+			CRO_Milan_Budak_for_npo
+			CRO_Eugen_Dido_Kvaternik_eco_npo
+			CRO_Andrija_Artukovic_sec_npo
 		}
 		add_popularity = {
-			ideology = paternal_autocrat
-			popularity = 0.5
+			ideology = national_populist
+			popularity = 0.15
 		}
-		create_country_leader = {
-			name = "Ante Pavelić"
-			desc = "CRO_ANTE_PAVELIC_DESC"
-			picture = "gfx/leaders/CRO/CRO_ante_pavelic.png"
-			expire = "1.1.1"
-			ideology = pataut_legionarism_subtype
-		}
-		set_party_name = { 
-			ideology = paternal_autocrat 
-			long_name = CRO_military_junta_paternal_autocrat_long 
-			name = CRO_military_junta_paternal_autocrat 
-		}
-		set_party_name = { 
-			ideology = national_populist 
-			long_name = CRO_military_junta_paternal_autocrat_long 
-			name = CRO_military_junta_paternal_autocrat 
-		}
-		set_cosmetic_tag = ILL_military_junta
-		set_country_flag = CRO_military_takeover
-		add_ideas = CRO_military_coup
+		set_country_flag = CRO_pavelic_is_here
 		hidden_effect = {
-			country_event = {
-				id = cro.32
-				days = 3
-			}
-			country_event = {
-				id = cro.33
-				days = 4
-			}
-			news_event =  { id = cro_news.2 days = 1 }
-			add_to_variable = {
-				var = CRO_republican_unrest
-				value = 2.5
-			}
-			add_to_variable = {
-				var = CRO_bosnian_unrest
-				value = 2.5
-			}
-			add_to_variable = {
-				var = CRO_slovenian_unrest
-				value = 2.5
-			}
-			add_to_variable = {
-				var = CRO_montenegrin_unrest
-				value = 2.5
-			}
-			set_variable = {
-				var = CRO_republican_strength
-				value = 1.5
-			}
-			set_variable = {
-				var = CRO_military_strength
-				value = 3
-			}
-			clamp_variable = {
-				var = CRO_republican_strength
-				min = 0
-				max = 3
-			}
-			clamp_variable = {
-				var = CRO_military_strength
-				min = 0
-				max = 3
-			}
-		}
-	}
-	
-}
-
-country_event = { #Citizenry Angry at the Military
-	id = cro.32
-	title = cro.32.t
-	desc = cro.32.d 
-	picture = GFX_report_event_generic_strike
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-	
-	
-	option = { #This is getting out of hand!
-		name = cro.32.a
-		ai_chance = { factor = 50 }
-		add_stability = -0.08
-		add_ideas = CRO_army_mutinies
-	}
-	
-}
-
-country_event = { #Kingdom of Montengro Re-Established
-	id = cro.33
-	title = cro.33.t
-	desc = cro.33.d 
-	picture = GFX_report_event_generic_happy_crowd
-
-	is_triggered_only = yes
-    trigger = { MNT = { exists = no } }
-	fire_only_once = yes
-	
-	
-	option = { #This is getting out of hand!
-		name = cro.33.a
-		ai_chance = { factor = 50 }
-		add_stability = -0.08
-		MNT = {
-			set_state_owner = 105
-			set_state_controller = 105
-			set_state_owner = 1097
-			set_state_controller = 1097
-			105 = {
-				add_core_of = MNT
-			}
-			1097 = {
-				add_core_of = MNT
-			}
-			CRO = {
-				declare_war_on = {
-					target = MNT
-					type = annex_everything
-				}
-			}
-		}
-		hidden_effect = {
-			MNT = {
-				load_oob = "MON_revolution"
-			}
-			news_event =  { id = cro_news.3 days = 1 }
-			add_to_variable = {
-				var = AUS_montenegrin_unrest
-				value = -2
-			}
-			SER = {
-				country_event = { id = mtn.3 days = 3 }
-			}
+			complete_national_focus = CRO_reign_begins
 			if = {
+				limit = { has_cosmetic_tag = CRO_republic }
+				drop_cosmetic_tag = yes
+			}
+			every_country = {
 				limit = {
-					CRO = {
-						OR = {
-							owns_state = 736
-							owns_state = 1100
-							owns_state = 1144
-						}
+					OR = {
+						tag = SER
+						tag = SKS
+						tag = BOS
+						is_subject_of = SER
 					}
+					NOT = { is_ally_with = ROOT }
 				}
-				AUS = { country_event = { id = cro.35 days = 4 } }
+				add_opinion_modifier = { target = PREV modifier = KR_hostile }
+				reverse_add_opinion_modifier = { target = PREV modifier = KR_hostile }
 			}
 		}
 	}
-	
-}
-
-country_event = { #Kingdom of Montengro Taken by Serbia
-	id = cro.34
-	title = cro.34.t
-	desc = cro.34.d 
-	picture = GFX_report_event_generic_towar
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-	
-	
-	option = { #Attack immediately!
-		name = cro.34.a
-		ai_chance = { factor = 20 }
-		declare_war_on = {
-			target = SER
-			type = annex_everything
-		}
-	}
-	
-	option = { #We can't deal with them now.
-		name = cro.34.b
-		ai_chance = { factor = 20 }
-		add_stability = 0.1
-	}
-	
 }
 
 country_event = { #AUSTRIA - Seize the Littoral back?
@@ -1789,17 +1630,18 @@ country_event = { #Republicans rise up!
 }
 
 ####Austria Stuff###
-country_event = { #The Enabling Act
+country_event = { #Das Föderalisierungsgesetz
 	id = cro.41
+	immediate = { log = "[GetDateText]: [Root.GetName]: event cro.41" }
 	title = cro.41.t
 	desc = cro.41.d
-	picture = GFX_report_event_generic_diplomacy1
+	picture = GFX_event_AUS_war_bonds_poster_lady
 
 	is_triggered_only = yes
 
 	fire_only_once = yes
 	
-	option = { #For Austria!
+	option = { #Vorwärts Danubia!
 		name = cro.41.a
 		increase_ruling_party_popularrity_by_10 = yes
 		add_political_power = 50
@@ -2085,140 +1927,6 @@ country_event = { #Victory Day
 		}
 	}
 }
-##Rebellion Events###
-country_event = { #Bosnia Revolts!
-	id = cro.47
-	title = cro.47.t
-	desc = cro.47.d
-	picture = GFX_report_event_CRO_bosnian_revolt
-	
-	trigger = {
-		tag = CRO
-		check_variable = {
-			var = CRO.AUS_bosnian_unrest
-			value = 3
-			compare = greater_than_or_equals
-		}
-		BOS = { exists = no }
-	}
-	
-	fire_only_once = yes
-	
-	option = { #Oh
-		name = cro.47.a
-		ai_chance = { factor = 100 }
-		BOS = {
-			set_state_owner = 104
-			set_state_controller = 104
-			104 = {
-				add_core_of = BOS
-			}
-			declare_war_on = {
-				target = CRO
-				type = annex_everything
-			}
-			load_oob = "BOS_revolution_guerilla"
-		}
-	}
-}
-country_event = { #Montenegro Revolts!
-	id = cro.48
-	title = cro.48.t
-	desc = cro.48.d
-	picture = GFX_report_event_CRO_bosnian_revolt
-	
-	trigger = {
-		tag = CRO
-		check_variable = {
-			var = AUS.AUS_montenegrin_unrest
-			value = 3
-			compare = greater_than_or_equals
-		}
-		MNT = { exists = no }
-	}
-	
-	fire_only_once = yes
-	
-	option = { #Oh
-		name = cro.48.a
-		ai_chance = { factor = 100 }
-		MNT = {
-			set_state_owner = 105
-			set_state_controller = 105
-			set_state_owner = 1097
-			set_state_controller = 1097
-			105 = {
-				add_core_of = MNT
-			}
-			1097 = {
-				add_core_of = MNT
-			}
-			CRO = {
-				declare_war_on = {
-					target = MNT
-					type = annex_everything
-				}
-			}
-			load_oob = "MON_revolution"
-		}
-	}
-}
-country_event = { #Croatia Revolts!
-	id = cro.49
-	title = cro.49.t
-	desc = cro.49.d
-	picture = GFX_report_event_CRO_bosnian_revolt
-	
-	trigger = {
-		tag = CRO
-		check_variable = {
-			var = AUS.AUS_croatian_unrest
-			value = 4
-			compare = greater_than_or_equals
-		}
-		MNT = { exists = no }
-	}
-
-	fire_only_once = yes
-	
-	option = { #Oh
-		name = cro.49.a
-		ai_chance = { factor = 100 }
-		MNT = {
-			set_state_owner = 105
-			set_state_controller = 105
-			set_state_owner = 1097
-			set_state_controller = 1097
-			105 = {
-				add_core_of = MNT
-			}
-			1097 = {
-				add_core_of = MNT
-			}
-			CRO = {
-				declare_war_on = {
-					target = MNT
-					type = annex_everything
-				}
-			}
-			load_oob = "MON_revolution"
-		}
-		BOS = {
-			set_state_owner = 104
-			set_state_controller = 104
-			104 = {
-				add_core_of = BOS
-			}
-			declare_war_on = {
-				target = CRO
-				type = annex_everything
-			}
-			load_oob = "BOS_revolution_guerilla"
-		}
-		set_cosmetic_tag = CRO
-		set_country_flag = CRO_federation_dead
-	}
-}
 
 country_event = { #CoF - Illyria wants to join our faction
 	id = cro.50
@@ -2241,227 +1949,6 @@ country_event = { #CoF - Illyria wants to join our faction
 		name = cro.50.b
 		ai_chance = { factor = 0 }
 		
-	}
-}
-
-###Reign of Terror###
-country_event = { #The Beginning of the Reign of Terror
-	id = reign.1
-	title = reign.1.t
-	desc = reign.1.d 
-	picture = GFX_report_event_IRE_civil_war5
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-	
-	
-	option = { #Long live Illyria!
-		name = reign.1.a
-		ai_chance = { factor = 30 }
-		add_stability = 0.05
-	}
-}
-
-country_event = { #Enemies of the State
-	id = reign.2
-	title = reign.2.t
-	desc = reign.2.d 
-	picture = GFX_report_event_IRE_civil_war5
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-	
-	
-	option = { #Nobody is safe.
-		name = reign.2.a
-		ai_chance = { factor = 30 }
-		add_political_power = 80
-	}
-}
-
-country_event = { #Bosnia - The True Enemy
-	id = reign.3
-	title = reign.3.t
-	desc = reign.3.d 
-	picture = GFX_report_event_IRE_civil_war5
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-	
-	
-	option = { #Nobody is safe.
-		name = reign.3.a
-		ai_chance = { factor = 30 }
-		BOS = {
-			add_stability = -0.05
-			add_war_support = -0.05
-		}
-		add_war_support = 0.05
-	}
-}
-
-country_event = { #Slovenia - The True Enemy
-	id = reign.4
-	title = reign.4.t
-	desc = reign.4.d 
-	picture = GFX_report_event_IRE_civil_war5
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-	
-	
-	option = { #Nobody is safe.
-		name = reign.4.a
-		ai_chance = { factor = 30 }
-		SLO = {
-			add_stability = -0.05
-			add_war_support = -0.05
-		}
-		add_war_support = 0.05
-	}
-}
-
-country_event = { #Republicans - The True Enemy
-	id = reign.5
-	title = reign.5.t
-	desc = reign.5.d 
-	picture = GFX_report_event_IRE_civil_war5
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-	
-	
-	option = { #Nobody is safe.
-		name = reign.5.a
-		ai_chance = { factor = 30 }
-		CRR = {
-			add_stability = -0.05
-			add_war_support = -0.05
-		}
-		add_war_support = 0.05
-	}
-}
-
-country_event = { #Pavelic's Men
-	id = reign.6
-	title = reign.6.t
-	desc = reign.6.d 
-	picture = GFX_report_event_IRE_civil_war5
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-	
-	
-	option = { #Pavelic knows best.
-		name = reign.6.a
-		ai_chance = { factor = 30 }
-		add_popularity = {
-			ideology = paternal_autocrat
-			popularity = 0.05
-		}
-	}
-}
-
-country_event = { #Citizens flee to Serbia
-	id = reign.7
-	title = reign.7.t
-	desc = reign.7.d 
-	picture = GFX_report_event_IRE_civil_war5
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-	
-	
-	option = { #Serbia will fork them over soon...
-		name = reign.7.a
-		ai_chance = { factor = 30 }
-		add_political_power = -50
-		add_stability = -0.05
-		SER = {
-			country_event = {
-				id = reign.8
-				days = 13
-			}
-		}
-	}
-}
-
-country_event = { #SER - Croats arrive at out borders
-	id = reign.8
-	title = reign.8.t
-	desc = reign.8.d 
-	picture = GFX_report_event_IRE_civil_war5
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-	
-	
-	option = { #Well, they chose us, so...
-		name = reign.8.a
-		ai_chance = { factor = 30 }
-		add_ideas = CRO_immigrants_arrived
-	}
-}
-
-country_event = { #Public Propaganda
-	id = reign.9
-	title = reign.9.t
-	desc = reign.9.d 
-	picture = GFX_report_event_IRE_civil_war5
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-	
-	
-	option = { #The State is benevolent.
-		name = reign.9.a
-		ai_chance = { factor = 30 }
-		add_stability = 0.05
-	}
-}
-
-country_event = { #The Hunting of Dissenters
-	id = reign.10
-	title = reign.10.t
-	desc = reign.10.d 
-	picture = GFX_report_event_IRE_civil_war5
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-	
-	
-	option = { #Nobody is safe.
-		name = reign.10.a
-		ai_chance = { factor = 30 }
-		add_war_support = 0.08
-	}
-}
-
-country_event = { #A Beloved State
-	id = reign.11
-	title = reign.11.t
-	desc = reign.11.d 
-	picture = GFX_report_event_IRE_civil_war5
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-	
-	
-	option = { #All Hail!
-		name = reign.11.a
-		ai_chance = { factor = 30 }
-		add_stability = 0.2
 	}
 }
 
@@ -2617,20 +2104,51 @@ country_event = { #Highway 'Unity'
 	}
 }
 
-country_event = { 
-	id = cro.1002
-	title = cro.1000.t
-	desc = cro.1000.d
-	picture = GFX_report_event_generic_towar
+country_event = { #Ustaše Support Surges
+	id = bdecroint.1
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdecroint.1" }
+	title = bdecroint.1.t
+	desc = bdecroint.1.d
+
+	picture = GFX_report_event_CRO_pavelic_coup
 	
-	hidden = yes
-	
-	trigger = {
-		CZE = {
-			NOT = {
-				is_subject_of = AUS
-				is_in_faction_with = AUS
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = bdecroint.1.a
+		ai_chance = {
+			base = 30
+			modifier = {
+				has_war = yes
+				factor = 2
 			}
+		}
+		add_stability = -0.1
+		add_popularity = {
+			ideology = national_populist
+			popularity = 0.1
+		}
+		if = {
+			limit = {
+				OR = {
+					has_stability < 0
+					has_war = yes
+				}
+				is_subject = no
+			}
+			custom_override_tooltip = {
+				tooltip = CRO_pavelic_coup_is_gonna_happen_tt
+				country_event = {
+					id = cro.31
+					days = 7
+					random_hours = 72
+				}
+			}
+		}
+		else = {
+			add_political_power = -30
 		}
 	}
 
@@ -2651,90 +2169,167 @@ country_event = {
 	}
 }
 
-country_event = { 
-	id = cro.1003
-	title = cro.1000.t
-	desc = cro.1000.d
-	picture = GFX_report_event_generic_towar
-	
-	hidden = yes
-	
-	trigger = {
-		CRO = {
-			NOT = {
-				is_subject_of = AUS
-				is_in_faction_with = AUS
-				has_country_flag = CRO_federation_dead
-				has_war = no
-			}
-		}
-	}
-	
-	fire_only_once = yes
-	
-	immediate = {
-		CRO = {
-			set_cosmetic_tag = ILL
-		}
-	}
-}
+country_event = { #ITA/ROM - Croatia offers alliance
+	id = bdecroint.2
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdecroint.2" }
+	title = bdecroint.2.t
+	desc = bdecroint.2.d
 
-country_event = { 
-	id = cro.1004
-	title = cro.1000.t
-	desc = cro.1000.d
-	picture = GFX_report_event_generic_towar
-	
-	hidden = yes
-	
-	trigger = {
-		CRO = {
-			has_country_flag = CRO_federation_dead
-			NOT = {
-				is_subject_of = AUS
-				is_in_faction_with = AUS
-			}
-		}
-	}
+	picture = GFX_report_event_CRO_pavelic_coup
 	
 	fire_only_once = yes
-	
-	immediate = {
-		CRO = {
-			set_cosmetic_tag = CRO
+
+	is_triggered_only = yes
+
+	option = { #sure
+		name = bdecroint.2.a
+		ai_chance = {
+			base = 70
 		}
-	}
-}
-country_event = { 
-	id = cro.1005
-	title = cro.1000.t
-	desc = cro.1000.d
-	picture = GFX_report_event_generic_towar
-	
-	hidden = yes
-	
-	trigger = {
-		AUS = {
-			surrender_progress > 0.91
-			AND = {
-				has_war_with = HUN
-				has_war_with = CRO
+		add_opinion_modifier = { target = FROM modifier = KR_approves_of_govt }
+		reverse_add_opinion_modifier = { target = FROM modifier = KR_approves_of_govt }
+		give_guarantee = FROM
+		give_military_access = FROM
+		diplomatic_relation = {
+		    country = FROM
+		    relation = non_aggression_pact
+		    active = yes
+		}
+		FROM = {
+			give_guarantee = ROOT
+			give_military_access = ROOT
+			diplomatic_relation = {
+			    country = ROOT
+			    relation = non_aggression_pact
+			    active = yes
 			}
 		}
 	}
 
-	fire_only_once = yes
+	option = { #hell no
+		name = bdecroint.2.b
+		ai_chance = {
+			base = 30
+			modifier = {
+				FROM = { is_ai = no }
+				factor = 0
+			}
+		}
+	}
+}
+
+country_event = { #CRO - larp as goths or not
+	id = bdecroint.3
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdecroint.3" }
+	title = bdecroint.3.t
+	desc = bdecroint.3.d
+
+	picture = GFX_report_event_CRO_goth_larp
 	
-	immediate = {
-		CRO = {
-			white_peace = AUS
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #sure
+		name = bdecroint.3.a
+		ai_chance = {
+			base = 20
 		}
-		SLO = {
-			white_peace = AUS
+		every_state = {
+			limit = {
+				OR = {
+					is_core_of = SLO
+					region = 21
+					region = 23
+					region = 181
+					state = 21
+					state = 52
+					state = 53
+					state = 155
+					state = 735
+					state = 763
+					state = 784
+					state = 943
+					state = 1106
+					state = 1111
+				}
+				is_claim_or_core_of_ROOT = no
+			}
+			add_core_of = ROOT
 		}
-		HUN = {
-			white_peace = AUS
+		every_country = {
+			limit = {
+				any_owned_state = {
+					OR = {
+						is_core_of = SLO
+						region = 21
+						region = 23
+						region = 181
+						state = 21
+						state = 32
+						state = 52
+						state = 53
+						state = 116
+						state = 155
+						state = 735
+						state = 762
+						state = 763
+						state = 784
+						state = 943
+						state = 1106
+						state = 1111
+					}
+				}
+				NOT = {
+					is_ally_with = ROOT
+					tag = ROOT
+				}
+			}
+			ROOT = {
+				create_wargoal = {
+					target = PREV
+					type = annex_everything
+				}
+			}
 		}
+		set_cosmetic_tag = CRO_Ostrogoth_Larp
+		set_country_flag = CRO_is_larping_as_goths
+	}
+
+	option = { #hell no
+		name = bdecroint.3.b
+		ai_chance = {
+			base = 80
+		}
+		add_stability = 0.05
+		add_politcal_power = 20
+	}
+}
+
+country_event = { #CRO - total gothic victory
+	id = bdecroint.4
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdecroint.4" }
+	title = bdecroint.4.t
+	desc = bdecroint.4.d
+
+	picture = GFX_report_event_CRO_goth_larp
+	
+	fire_only_once = yes
+
+	trigger = {
+		tag = CRO
+		has_country_flag = CRO_is_larping_as_goths
+		all_core_state = {
+			is_owned_by = ROOT
+		}
+	}
+
+	option = { #hooray
+		name = bdecroint.4.a
+		add_stability = 0.15
+		add_war_support = 0.15
+		add_political_power = 100
+		set_cosmetic_tag = CRO_Ostrogoth_Larp_2
 	}
 }
 
@@ -2804,6 +2399,56 @@ country_event = { #A strange coalition
 			base = 50
 		}
 		add_stability = 0.05
+	}
+}
+
+country_event = { #AUS - restore Illyria after revolt
+	id = bdecroint.7
+	immediate = { log = "[GetDateText]: [Root.GetName]: event bdecroint.7" }
+	title = bdecroint.7.t
+	desc = bdecroint.7.d
+
+	picture = GFX_event_AUS_croatian_flags
+	
+	fire_only_once = yes
+
+	trigger = {
+		tag = AUS
+		owns_state = 109
+		NOT = {
+			has_global_flag = AUS_collapsed
+			has_global_flag = AUS_federalized
+		}
+		CRO = {
+			exists = no
+			has_country_flag = BOTDE_has_revolted_before
+		}
+	}
+
+	mean_time_to_trigger = { days = 7 }
+
+	option = { #yeah
+		name = bdecroint.7.a
+		ai_chance = {
+			base = 100
+		}
+		AUS_restore_CRO_after_revolt_effect = yes
+	}
+
+	option = { #no
+		name = bdecroint.7.b
+		ai_chance = {
+			base = 0
+		}
+		CRO = {
+			custom_override_tooltip = {
+				tooltip = is_now_a_minority_tt
+				set_cosmetic_tag = CRR
+				set_global_flag = CRO_on_array
+				AUS_become_minority = yes
+				set_variable = { CRO.subject_revolt_progress = 0.3 }
+			}
+		}
 	}
 }
 

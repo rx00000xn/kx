@@ -48,7 +48,7 @@ country_event = { #Generic Picker
 
 	is_triggered_only = yes
 
-	option = { #Not good...
+	option = {
 		name = ethnic_picker.1.a
 		random_list = {
 			30 = {
@@ -193,6 +193,7 @@ country_event = { #Anti-Habsburg Bestseller
 	option = { #Ban its publication.
 		name = subject_generic.3.a
 		ai_chance = { base = 50 }
+		add_political_power = -10
 		add_stability = 0.03
 		ROOT_add_one_collapse = yes
 	}
@@ -200,6 +201,7 @@ country_event = { #Anti-Habsburg Bestseller
 	option = { #They have a point
 		name = subject_generic.3.b
 		ai_chance = { base = 50 }
+		add_political_power = 10
 		add_stability = -0.03
 		ROOT_add_three_collapse = yes
 	}
@@ -227,7 +229,7 @@ country_event = { #Faceoff in the Legislation
 	title = subject_generic.5.t
 	desc = subject_generic.5.d
 	
-	picture = GFX_report_event_generic_conference2
+	picture = GFX_event_AUS_reichsrat_final_debate
 
 	is_triggered_only = yes
 
@@ -278,7 +280,7 @@ country_event = { #Factory strike!
 	title = subject_generic.8.t
 	desc = subject_generic.8.d
 	
-	picture = GFX_report_event_generic_strike
+	picture = GFX_event_AUS_heavy_industries
 
 	trigger = {
 		NOT = { has_idea = BOTDE_strike }
@@ -325,7 +327,9 @@ country_event = { #Political Brawling
 	title = subject_generic.10.t
 	desc = subject_generic.10.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_parliament_fighting
+
+	trigger = { NOT = { has_idea = BOTDE_bickering } }
 
 	is_triggered_only = yes
 
@@ -544,18 +548,26 @@ country_event = { #AUS - Hungary has revolted!
 		name = revolt.5.a
 		add_war_support = 0.15
 		add_political_power = 100
-		declare_war_on = {
-			target = HUN
-			type = annex_everything
+		every_country = {
+			limit = { AUS_is_constituent = yes }
+			declare_war_on = {
+				target = HUN
+				type = annex_everything
+			}
 		}
 		AUS_add_three_collapse = yes
 		clear_variable = HUN.subject_revolt_progress
-		custom_effect_tooltip = defeat_four_months
-		hidden_effect = {
-			country_event = {
-				id = revolt_peace.1
-				days = 120
+		every_country = {
+			limit = {
+				OR = {
+					tag = AUS
+					AUS_is_constituent = yes
+					tag = HUN
+				}
 			}
+			activate_mission = BOTDE_hungarian_revolt_victory_time_limit
+		}
+		hidden_effect = {
 			HUN = {
 				add_ideas = AUS_fighting_for_the_people
 				#load_focus_tree = breakaway_tree
@@ -596,17 +608,16 @@ country_event = { #AUS - Illyria has revolted!
 		}
 		add_war_support = 0.15
 		add_political_power = 100
-		declare_war_on = {
-			target = CRO
-			type = annex_everything
+		every_country = {
+			limit = { AUS_is_constituent = yes }
+			declare_war_on = {
+				target = CRO
+				type = annex_everything
+			}
 		}
 		AUS_add_three_collapse = yes
 		clear_variable = CRO.subject_revolt_progress
 		hidden_effect = {
-			country_event = {
-				id = revolt_peace.2
-				days = 120
-			}
 			CRO = {
 				add_ideas = AUS_fighting_for_the_people
 				#load_focus_tree = breakaway_tree
@@ -618,6 +629,23 @@ country_event = { #AUS - Illyria has revolted!
 		name = revolt.6.b
 		trigger = {
 			CRO = { has_country_flag = CRO_will_revolt }
+		}
+		every_country = {
+			limit = { AUS_is_constituent = yes }
+			declare_war_on = {
+				target = CRO
+				type = annex_everything
+			}
+		}
+		every_country = {
+			limit = {
+				OR = {
+					tag = AUS
+					AUS_is_constituent = yes
+					tag = CRO
+				}
+			}
+			activate_mission = BOTDE_croatian_revolt_victory_time_limit
 		}
 		hidden_effect = {
 			CRO = {
@@ -665,20 +693,28 @@ country_event = { #AUS - Bohemia has revolted!
 		name = revolt.7.a
 		add_war_support = 0.15
 		add_political_power = 100
-		declare_war_on = {
-			target = CZE
-			type = annex_everything
+		every_country = {
+			limit = { AUS_is_constituent = yes }
+			declare_war_on = {
+				target = CZE
+				type = annex_everything
+			}
 		}
 		AUS_add_three_collapse = yes
 		clear_variable = CZE.subject_revolt_progress
-		hidden_effect = {
-			country_event = {
-				id = revolt_peace.3
-				days = 120
+		every_country = {
+			limit = {
+				OR = {
+					tag = AUS
+					AUS_is_constituent = yes
+					tag = CZE
+				}
 			}
+			activate_mission = BOTDE_czech_revolt_victory_time_limit
+		}
+		hidden_effect = {
 			CZE = {
 				add_ideas = AUS_fighting_for_the_people
-				#load_focus_tree = breakaway_tree
 			}
 		}
 	}
@@ -707,11 +743,6 @@ country_event = { #AUS - Bohemia has revolted!
 		CZE = {
 			set_country_flag = breakaway_free
 		}
-		hidden_effect = {
-			CZE = {
-				#load_focus_tree = breakaway_tree
-			}
-		}
 	}
 }
 
@@ -731,17 +762,26 @@ country_event = { #AUS - Galicia has revolted!
 		name = revolt.8.a
 		add_war_support = 0.15
 		add_political_power = 100
-		declare_war_on = {
-			target = GAL
-			type = annex_everything
+		every_country = {
+			limit = { AUS_is_constituent = yes }
+			declare_war_on = {
+				target = GAL
+				type = annex_everything
+			}
 		}
 		AUS_add_three_collapse = yes
 		clear_variable = GAL.subject_revolt_progress
-		hidden_effect = {
-			country_event = {
-				id = revolt_peace.4
-				days = 120
+		every_country = {
+			limit = {
+				OR = {
+					tag = AUS
+					AUS_is_constituent = yes
+					tag = GAL
+				}
 			}
+			activate_mission = BOTDE_galician_revolt_victory_time_limit
+		}
+		hidden_effect = {
 			GAL = {
 				add_ideas = AUS_fighting_for_the_people
 				#load_focus_tree = breakaway_tree
@@ -1549,7 +1589,7 @@ country_event = { #Tick up ethnic counter
 	
 	is_triggered_only = yes
 
-	option = { #k
+	option = {
 		name = ethnic.0.a
 		if = {
 			limit = {
@@ -1605,11 +1645,7 @@ country_event = { #Tick up ethnic counter
 			clr_country_flag = BOTDE_ready_held_revolt
 		}
 		if = {
-			limit = {
-				NOT = {
-					has_country_flag = no_minority_revolt
-				}
-			}
+			limit = { NOT = { has_country_flag = no_minority_revolt } }
 			country_event = {
 				id = ethnic.0
 				days = 14
@@ -1629,9 +1665,7 @@ country_event = { #AUS - Ethnic Picker
 	hidden = yes
 	
 	trigger = {
-		NOT = {
-			has_global_flag = no_more_collapse
-		}
+		AUS_can_collapse = yes
 	}
 	
 	is_triggered_only = yes
@@ -2515,7 +2549,7 @@ country_event = { #
 	title = ethnic.2_1_4.t
 	desc = ethnic.2_1_4.d
 	
-	picture = GFX_event_AUS_hungarian_revolution_car
+	picture = GFX_event_AUS_karl_drawing
 	
 	is_triggered_only = yes
 
@@ -4073,7 +4107,15 @@ country_event = { #
 		every_possible_country = {
 			limit = {
 				AUS_is_danubian_tag = yes
-				capital_scope = { is_owned_by = GAL }
+				capital_scope = {
+					OR = {
+						is_owned_by = GAL
+						AND = {
+							is_core_of = GAL
+							is_owned_by = AUS
+						}
+					}
+				}
 			}
 			set_temp_variable = { revolt_progress_change = 0.1 }
 			custom_override_tooltip = {
@@ -4149,7 +4191,15 @@ country_event = { #
 		every_possible_country = {
 			limit = {
 				AUS_is_danubian_tag = yes
-				capital_scope = { is_owned_by = GAL }
+				capital_scope = {
+					OR = {
+						is_owned_by = GAL
+						AND = {
+							is_core_of = GAL
+							is_owned_by = AUS
+						}
+					}
+				}
 			}
 			set_temp_variable = { revolt_progress_change = -0.05 }
 			custom_override_tooltip = {
@@ -4175,7 +4225,15 @@ country_event = { #
 		every_possible_country = {
 			limit = {
 				AUS_is_danubian_tag = yes
-				capital_scope = { is_owned_by = GAL }
+				capital_scope = {
+					OR = {
+						is_owned_by = GAL
+						AND = {
+							is_core_of = GAL
+							is_owned_by = AUS
+						}
+					}
+				}
 			}
 			set_temp_variable = { revolt_progress_change = 0.1 }
 			custom_override_tooltip = {
@@ -4631,7 +4689,7 @@ country_event = { #ai repeating event to fake deal with collapse
 	title = revolt.4000.t
 	desc = revolt.4000.d
 	
-	picture = GFX_report_event_BAN_big_speech2
+	picture = GFX_event_AUS_i_was_there_dude
 
 	is_triggered_only = yes
 
@@ -4652,7 +4710,7 @@ country_event = { #ai repeating event to fake deal with collapse
 	option = {
 		name = revolt.4000.a
 		ai_chance = {
-			base = 33
+			base = 25
 		}
 		if = {
 			limit = {
@@ -4693,7 +4751,7 @@ country_event = { #ai repeating event to fake deal with collapse
 	option = {
 		name = revolt.4000.b
 		ai_chance = {
-			base = 33
+			base = 50
 			modifier = {
 				AND = {
 					check_variable = { ROOT.subject_revolt_progress > 0.749 }
@@ -4707,7 +4765,7 @@ country_event = { #ai repeating event to fake deal with collapse
 	option = {
 		name = revolt.4000.c
 		ai_chance = {
-			base = 33
+			base = 25
 			modifier = {
 				check_variable = { ROOT.subject_revolt_progress > 0.9 }
 				factor = 0.1
@@ -4762,6 +4820,7 @@ country_event = { #Empire at 100% Revolt Progress - AUS
 			has_global_flag = no_more_collapse
 			has_global_flag = AUS_collapsed
 			has_global_flag = AUS_liebenfels_civil_war
+			has_global_flag = AUS_pause_collapse_flag
 			has_country_flag = imminent_collapse
 			has_country_flag = AUS_imminent_collapse
 			has_active_mission = BOTDE_collapse_headsup
@@ -4776,27 +4835,6 @@ country_event = { #Empire at 100% Revolt Progress - AUS
 		hidden_effect = {
 			every_owned_state = {
 				clr_state_flag = rev_point
-			}
-			if = {
-				limit = { NOT = { has_global_flag = AUS_rev_point_schutzbund } }
-				for_loop_effect = {
-					end = 2
-					random_owned_state = {
-						limit = {
-							NOT = { has_state_flag = rev_point }
-							has_state_flag = AUS_schutzbund
-						}
-						add_to_variable = { AUS.schutzbund_rev_point_var = 0.5 }
-						set_state_flag = rev_point
-					}
-				}
-			}
-			if = {
-				limit =  {
-					check_variable = { schutzbund_rev_point_var = 1 }
-				}
-				add_to_variable = { AUS.revolution_value = 1 }
-				set_global_flag = AUS_rev_point_schutzbund
 			}
 		}
 		set_country_flag = AUS_imminent_collapse
@@ -4813,12 +4851,9 @@ country_event = { #Empire at 100% Revolt Progress - AUS
 			}
 			HUN = { set_country_flag = AUS_collapse_HUN_stays }
 		}		
-		#### Collapse type		
-		# Revolution		
-		if = {
-			limit = {
-				check_variable = { AUS.revolution_value > 3 }
-			}
+		#### Collapse type	
+		if = { # Revolution
+			limit = { check_variable = { AUS.revolution_value > 3 } }
 			set_country_flag = AUS_revolution_collapse
 			hidden_effect = {
 				country_event = {
@@ -4983,47 +5018,6 @@ country_event = { #Collapse of the Austrian Empire
 				set_political_power = 0
 			}
 			set_cosmetic_tag = CRO_collapse
-			if = {
-				limit = {
-					NOT = {
-						country_exists = CRR
-						has_government = market_liberal
-						has_government = social_conservative
-						has_government = social_democrat
-						has_government = social_liberal
-					}
-					tag = CRO
-					OR = {
-						owns_state = 103
-						owns_state = 713
-						owns_state = 1098
-					}
-				}
-				country_event = {
-					id = constituents.15 #Croatian Republicans go insane
-					days = 3
-					random_hours = 30
-				}
-			}
-			
-			if = {
-				limit = {
-					NOT = {
-						country_exists = SRC
-						has_government = syndicalist
-						has_government = radical_socialist
-						has_government = social_democrat
-						has_government = totalist
-					}
-					tag = CRO
-					owns_state = 1105
-				}
-				country_event = {
-					id = constituents.16 #Croatian Socialists go insane
-					days = 3
-					random_hours = 30
-				}
-			}
 			CRO_remove_karl = yes
 			country_event = {
 				id = bdecroint.1
@@ -6445,7 +6439,7 @@ country_event = { #Bukovina revolt
 
 country_event = { #Tick up collapse meter
 	id = constituents.23
-	immediate = { log = "[GetDateText]: [Root.GetName]: event constituents.23" }
+	immediate = { log = "[GetDateText]: [Root.GetName]: event constituents.23 - AUS.subject_revolt_progress: [?AUS.subject_revolt_progress]" }
 	title = constituents.23.t
 	desc = constituents.23.d
 	
@@ -6453,27 +6447,13 @@ country_event = { #Tick up collapse meter
 
 	is_triggered_only = yes
 
-	option = { #dont care didnt ask plus youre austrian
+	trigger = { AUS_can_collapse = yes }
+
+	option = {
 		name = constituents.23.a
-		random_list = {
-			70 = {
-				THIS_add_two_collapse = yes
-				if = {
-					limit = {
-						NOT = {
-							has_global_flag = AUS_bonus_collapse_off
-						}
-					}
-					add_to_variable = { AUS.subject_revolt_progress = AUS.bonus_collapse_rate }
-				}
-				if = {
-					limit = { NOT = { has_global_flag = AUS_pause_collapse_flag } }
-					AUS_do_revolt_rate_rise = yes
-				}
-			}
-			30 = {
-				
-			}
+		if = {
+			limit = { NOT = { has_global_flag = AUS_pause_collapse_flag } }
+			AUS_do_revolt_rate_rise = yes
 		}
 		if = {
 			limit = {
@@ -6505,112 +6485,104 @@ country_event = { #Tick up collapse meter
 				}
 			}
 		}
-		hidden_effect = {
-			if = {
-				limit = { AUS_can_collapse = yes }
-				country_event = {
-					id = constituents.23
-					days = 12
-					random_hours = 200
-				}
+		if = {
+			limit = { AUS_can_collapse = yes }
+			country_event = {
+				id = constituents.23
+				days = 14
 			}
-			for_each_scope_loop = {
-				array = global.constituents_array
-				if = {
-					limit = {
-						OR = {
-							has_global_flag = AUS_collapsed
-							AND = {
-								NOT = {
-									is_subject_of = AUS
-									is_in_faction_with = AUS
-								}
-								NOT = { has_country_flag = BOTDE_considered_a_const_even_if_it_doesnt_exist }
+		}
+		for_each_scope_loop = {
+			array = global.constituents_array
+			if = {
+				limit = {
+					OR = {
+						has_global_flag = AUS_collapsed
+						AND = {
+							NOT = {
+								is_subject_of = AUS
+								is_in_faction_with = AUS
 							}
+							NOT = { has_country_flag = BOTDE_considered_a_const_even_if_it_doesnt_exist }
 						}
 					}
-					remove_from_array = { global.constituents_array = THIS }
+				}
+				remove_from_array = { global.constituents_array = THIS }
+			}
+		}
+		BOTDE_minority_pulse_test = yes
+		if = {
+			limit = { check_variable = { AUS.subject_revolt_progress = 1 } }
+			country_event = {
+				id = constituents.1
+				days = 7
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = schizo_value_enabled
+				check_variable = { AUS.subject_revolt_progress < 0.95 }
+			}
+			random_list = {
+				92 = {}
+				8 = { AUS_have_paranoid_schizophrenic_episode = yes }
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = schizo_value_enabled
+				NOT = { has_global_flag = AUS_screamer_went_off }
+				OR = {
+					check_variable = { AUS.subject_revolt_progress = 0.95 }
+					check_variable = { AUS.subject_revolt_progress > 0.95 }
 				}
 			}
-			BOTDE_minority_pulse_test = yes
+			random_list = {
+				99 = {}
+				1 = { AUS_screamer = yes }
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					check_variable = { AUS.subject_revolt_progress = 0.9 }
+					check_variable = { AUS.subject_revolt_progress > 0.9 }
+				}
+			}
 			if = {
 				limit = {
 					OR = {
-						check_variable = { AUS.subject_revolt_progress = 0.1 }
-						check_variable = { AUS.subject_revolt_progress > 0.1 }
+						has_government = social_democrat
+						has_government = radical_socialist
+					}
+					NOT = {
+						has_country_flag = AUS_revolution_value_event
+						has_country_flag = AUS_liebenfels_high_collapse_flavor
 					}
 				}
 				country_event = {
-					id = constituents.1
-					days = 30
-					random_hours = 30
+					id = bdeausint.92
+					days = 7
+					random_hours = 120
 				}
 			}
-			if = {
-				limit = {
-					has_country_flag = schizo_value_enabled
-					check_variable = { AUS.subject_revolt_progress < 0.95 }
-				}
-				random_list = {
-					92 = {
-					
-					}
-					8 = {
-						AUS_have_paranoid_schizophrenic_episode = yes
-					}
+			else = {
+				country_event = {
+					id = bdeausint.91
+					days = 7
+					random_hours = 120
 				}
 			}
-			if = {
-				limit = {
-					has_country_flag = schizo_value_enabled
-					NOT = {
-						has_global_flag = AUS_screamer_went_off
-					}
-					OR = {
-						check_variable = { AUS.subject_revolt_progress = 0.95 }
-						check_variable = { AUS.subject_revolt_progress > 0.95 }
-					}
-				}
-				random_list = {
-					99 = {
-					
-					}
-					1 = {
-						AUS_screamer = yes
-					}
-				}
+			country_event = {
+				id = bdeausint.90
+				days = 15
+				random_hours = 480
 			}
-			if = {
-				limit = {
-					OR = {
-						check_variable = { AUS.subject_revolt_progress = 0.9 }
-						check_variable = { AUS.subject_revolt_progress > 0.9 }
-					}
-				}
-				if = {
-					limit = {
-						OR = {
-							has_government = social_democrat
-							has_government = radical_socialist
-						}
-						NOT = {
-							has_global_flag = AUS_revolution_value_event
-						}
-					}
-					country_event = {
-						id = bdeausint.92
-						days = 30
-						random_hours = 600
-					}
-				}
-				else = {
-					country_event = {
-						id = bdeausint.91
-						days = 30
-						random_hours = 600
-					}
-				}
-			}
+		}
+		clear_array = global.AUS_all_possible_array_sorted
+		get_sorted_scored_countries = {
+			scorer = BOTDE_all_possible_organized_by_subject_revolt
+			array = global.AUS_all_possible_array_sorted
 		}
 	}
 }
@@ -7213,43 +7185,62 @@ country_event = { #Constituent revolt rise
 	hidden = yes
 	
 	trigger = {
-		NOT = {
-			has_country_flag = THIS_no_revolt
-			has_global_flag = no_more_collapse
-			has_global_flag = AUS_collapsed
-		}
+		AUS_can_collapse = yes
 	}
 
 	is_triggered_only = yes
 
-	option = { #F
+	option = {
 		name = constituents.51.a
-		ai_chance = { factor = 100 }
-		if = {
-			limit = { NOT = { has_global_flag = AUS_ausgleich_ongoing } }
-			CONST_do_additional_revolt_progress = yes
-		}
-		if = {
+		if = { #countries that don't exist can't get events with a time delay so this is a workaround
 			limit = {
-				NOT = {
-					has_country_flag = THIS_no_revolt
-					has_country_flag = no_minority_revolt
-					has_global_flag = no_more_collapse
-					has_global_flag = AUS_collapsed
+				tag = AUS
+				has_global_flag = AUS_federalized
+			}
+			every_possible_country = {
+				limit = {
+					NOT = { tag = AUS }
+					AUS_is_constituent = yes
+				}
+				if = {
+					limit = { NOT = { has_global_flag = AUS_pause_collapse_flag } }
+					CONST_do_additional_revolt_progress = yes
+				}
+				clamp_variable = {
+					var = ROOT.subject_revolt_progress
+					min = 0
+					max = 1
+				}
+				BOTDE_check_for_constituent_revolt = yes
+			}
+			if = {
+				limit = { AUS_can_collapse = yes }
+				country_event = {
+					id = constituents.51
+					days = 7
 				}
 			}
-			country_event = {
-				id = constituents.51
-				days = 2
-				random_days = 14
+		}
+		else_if = {
+			limit = { NOT = { tag = AUS } }
+			if = {
+				limit = { NOT = { has_global_flag = AUS_pause_collapse_flag } }
+				CONST_do_additional_revolt_progress = yes
 			}
+			if = {
+				limit = { AUS_can_collapse = yes }
+				country_event = {
+					id = constituents.51
+					days = 7
+				}
+			}
+			clamp_variable = {
+				var = ROOT.subject_revolt_progress
+				min = 0
+				max = 1
+			}
+			BOTDE_check_for_constituent_revolt = yes
 		}
-		clamp_variable = {
-			var = ROOT.subject_revolt_progress
-			min = 0
-			max = 1
-		}
-		BOTDE_check_for_constituent_revolt = yes
 	}
 }
 
@@ -8321,13 +8312,76 @@ country_event = { #SER and ROM, Austria blows up lmao rip bozo
 
 	option = { #They got what was coming to them...
 		name = constituents.103.a
-		ai_chance = { base = 100 }
 		increase_ruling_party_popularity_by_5 = yes
 		add_war_support = 0.1
 		add_stability = 0.1
 		if = {
 			limit = { has_idea = SER_austrias_watchful_eye }
 			remove_ideas = SER_austrias_watchful_eye
+		}
+		if = {
+			limit = { has_idea = SER_austrias_watchful_eye_2 }
+			remove_ideas = SER_austrias_watchful_eye_2
+		}
+	}
+}
+
+country_event = { #FIU - Götterdämmerung
+	id = constituents.300
+	immediate = { log = "[GetDateText]: [Root.GetName]: event constituents.300" }
+	title = constituents.300.t
+	desc = {
+		text = constituents.300.d.loyalist
+		trigger = {
+			has_country_flag = FIU_loyalists_stay
+		}
+	}
+	desc = {
+		text = constituents.300.d.not_loyalist
+		trigger = {
+			NOT = { has_country_flag = FIU_loyalists_stay }
+		}
+	}
+	
+	picture = GFX_event_FIU_war_painting
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #The Dual Ports must fight for their survival lest we all go under.
+		name = constituents.300.a
+		increase_ruling_party_popularity_by_10 = yes
+		add_war_support = 0.25
+		add_manpower = 100000
+		upgrade_economy_law = yes
+		custom_override_tooltip = {
+			tooltip = FIU_raise_5_spezialpolizeieinheit_division_tt
+			if = {
+				limit = { NOT = { has_template = "Spezialpolizeieinheit" } }
+				division_template = {
+    				name = "Spezialpolizeieinheit"
+					division_names_group = FIU_INF_02
+					regiments = {
+						infantry = { x = 0 y = 0 }
+						infantry = { x = 0 y = 1 }
+						infantry = { x = 0 y = 2 }
+						infantry = { x = 1 y = 0 }
+						infantry = { x = 1 y = 1 }
+						infantry = { x = 1 y = 2 }
+					}
+					support = {
+						military_police = { x = 0 y = 0 }
+					}
+				}
+			}
+			random_owned_state = {
+				create_unit = {
+				    division = "name = \"1. Spezialpolizeieinheit\" division_template = \"Spezialpolizeieinheit\" start_experience_factor = 0.5"
+					count = 5
+				    owner = ROOT
+				}
+			}
 		}
 	}
 }
@@ -8348,9 +8402,9 @@ country_event = { #event that gives SER, ROM, CRO, etc. the event about unificat
 			OR = {
 				tag = MNT
 				tag = SKS
+				tag = BOS
 			}
 		}
-		ai_chance = { base = 100 }
 		SER = {
 			country_event = {
 				id = constituents.1000
@@ -8366,9 +8420,9 @@ country_event = { #event that gives SER, ROM, CRO, etc. the event about unificat
 			OR = {
 				tag = BUK
 				tag = TRS
+				tag = BAN
 			}
 		}
-		ai_chance = { base = 100 }
 		ROM = {
 			country_event = {
 				id = constituents.1000
@@ -8385,7 +8439,6 @@ country_event = { #event that gives SER, ROM, CRO, etc. the event about unificat
 				tag = SLO
 			}
 		}
-		ai_chance = { base = 100 }
 		CRO = {
 			country_event = {
 				id = constituents.1000
@@ -8394,6 +8447,22 @@ country_event = { #event that gives SER, ROM, CRO, etc. the event about unificat
 				random_hours = 24
 			}
 		}
+	}
+
+	option = { #everyone else
+		name = constituents.999.e
+		trigger = {
+			NOT = {
+				tag = MNT
+				tag = SKS
+				tag = BOS
+				tag = BUK
+				tag = TRS
+				tag = BAN
+				tag = SLO
+			}
+		}
+		add_political_power = 5
 	}
 }
 
@@ -8407,7 +8476,35 @@ country_event = { #generic country that we can ask to annex didn't die in the 50
 
 	option = { #Attack!
 		name = constituents.1000.a
-		ai_chance = { base = 25 }
+		ai_chance = {
+			base = 25
+			modifier = {
+				OR = {
+					AND = {
+						ROOT = { tag = SER }
+						FROM = {
+							OR = {
+								tag = MNT
+								tag = SKS
+								tag = BOS
+							}
+						}
+					}
+					AND = {
+						ROOT = { tag = ROM }
+						FROM = {
+							OR = {
+								tag = BUK
+								tag = TRS
+								tag = BAN
+							}
+						}
+					}
+					FROM = { is_ai = no }
+				}
+				factor = 0
+			}
+		}
 		create_wargoal = {
 			target = FROM
 			type = annex_everything
@@ -8448,6 +8545,13 @@ country_event = { #FROM proposes annexation
 					tag = BUK
 				}
 				factor = 1.5
+			}
+			modifier = {
+				OR = {
+					tag = BAN
+					tag = BOS
+				}
+				factor = 0.5
 			}
 		}
 		hidden_effect = {
@@ -8519,6 +8623,10 @@ country_event = { #FROM denies union
 				tag = CRO
 				factor = 0.33
 			}
+			modifier = {
+				FROM = { is_ai = no }
+				factor = 0
+			}
 		}
 		every_state = {
 			limit = { 
@@ -8535,7 +8643,7 @@ country_event = { #FROM denies union
 			type = annex_everything
 		}
 	}
-	option = { #It's not worth our time
+	option = { #It's not worth our time.
 		name = constituents.1002.b
 		ai_chance = { base = 75 }
 		add_opinion_modifier = { target = FROM modifier = KR_displeased }

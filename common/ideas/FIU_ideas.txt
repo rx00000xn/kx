@@ -75,6 +75,9 @@ ideas = {
 			modifier = {	
 				conscription = 0.02
 				war_support_factor = -0.05
+				radical_socialist_drift = 0.01
+				syndicalist_drift = 0.02
+				totalist_drift = 0.01
 			}
 		}
 		
@@ -234,21 +237,27 @@ ideas = {
 		
 		FIU_ferrovie_dello_stato_power = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FIU_ferrovie_dello_stato_power" }
-			picture = state_economy
+			picture = FIU_ferrovie_dello_stato_power
 			allowed = { always = no }
-			modifier = {	
+			modifier = {
 				production_speed_buildings_factor = 0.05
 				production_speed_infrastructure_factor = 0.1
+				production_lack_of_resource_penalty_factor = -0.05
+				naval_speed_factor = 0.1
+				convoy_escort_efficiency = 0.05
+				naval_coordination = 0.05
 			}
 		}
 		
 		FIU_railway_control = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FIU_railway_control" }
-			picture = state_economy
+			picture = FIU_railway_control
 			allowed = { always = no }
 			modifier = {	
 				production_speed_buildings_factor = 0.1
 				min_export = -0.15
+				production_speed_rail_way_factor = -0.1
+				production_cost_rail_way_factor = 0.05
 			}
 		}
 		
@@ -264,22 +273,15 @@ ideas = {
 		
 		FIU_new_guard = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FIU_new_guard" }
-			picture = state_economy
+			picture = FIU_new_guard
 			allowed = { always = no }
 			modifier = {	
 				conscription = 0.05
 				army_org_factor = 0.05
 				army_morale_factor = 0.05
-			}
-		}
-		
-		FIU_zadar_special_status_idea = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FIU_zadar_special_status_idea" }
-			picture = state_economy
-			allowed = { always = no }
-			modifier = {	
-				monthly_population = 0.3
-				conscription_factor = 0.05
+				army_core_defence_factor = 0.05
+				special_forces_cap = 0.1
+				special_forces_min = 6
 			}
 		}
 		
@@ -872,6 +874,316 @@ ideas = {
 				army_morale_factor = 0.1
 			}
 		}
+
+		FIU_pearl_of_danubia = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FIU_pearl_of_danubia" }
+			picture = FIU_pearl_of_danubia
+			modifier = {
+				political_power_factor = 0.1
+				production_factory_max_efficiency_factor = 0.1
+				consumer_goods_factor = -0.1
+				local_resources_factor = 0.2
+				min_export = 0.05
+				extra_trade_to_overlord_factor = 0.05
+				army_fuel_consumption_factor = -0.05
+				air_fuel_consumption_factor	 = -0.05
+				repair_speed_factor	= 0.15
+			}
+		}
+
+		FIU_crisis_in_the_coffers_idea = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FIU_crisis_in_the_coffers_idea" }
+			picture = FIU_crisis_in_the_coffers_idea
+			modifier = {
+				political_power_factor = -0.2
+				stability_factor = -0.4
+				production_factory_max_efficiency_factor = -0.5
+				consumer_goods_factor = 0.5
+				totalist_drift = 0.01
+				syndicalist_drift = 0.01
+				radical_socialist_drift = 0.01
+				national_populist_drift = 0.01
+			}
+		}
+
+		FIU_crisis_in_the_coffers_idea_2 = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FIU_crisis_in_the_coffers_idea_2" }
+			name = FIU_crisis_in_the_coffers_idea
+			picture = FIU_crisis_in_the_coffers_idea
+			modifier = {
+				political_power_factor = -0.15
+				stability_factor = -0.3
+				production_factory_max_efficiency_factor = -0.4
+				consumer_goods_factor = 0.4
+				totalist_drift = 0.01
+				national_populist_drift = 0.01
+			}
+		}
+
+		FIU_crisis_in_the_coffers_idea_3 = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FIU_crisis_in_the_coffers_idea_3" }
+			name = FIU_crisis_in_the_coffers_idea
+			picture = FIU_crisis_in_the_coffers_idea
+			modifier = {
+				political_power_factor = -0.1
+				stability_factor = -0.2
+				production_factory_max_efficiency_factor = -0.3
+				consumer_goods_factor = 0.3
+			}
+		}
+
+		FIU_crisis_in_the_coffers_idea_4 = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FIU_crisis_in_the_coffers_idea_4" }
+			name = FIU_crisis_in_the_coffers_idea
+			picture = FIU_crisis_in_the_coffers_idea
+			modifier = {
+				political_power_factor = -0.05
+				stability_factor = -0.1
+				production_factory_max_efficiency_factor = -0.2
+				consumer_goods_factor = 0.2
+			}
+		}
+
+		FIU_crisis_in_the_coffers_idea_5 = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FIU_crisis_in_the_coffers_idea_5" }
+			name = FIU_crisis_in_the_coffers_idea
+			picture = FIU_crisis_in_the_coffers_idea
+			modifier = {
+				stability_factor = -0.1
+				production_factory_max_efficiency_factor = -0.1
+				consumer_goods_factor = 0.1
+			}
+		}
+
+		FIU_public_works_idea = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FIU_public_works_idea" }
+			picture = FIU_public_works_idea
+			modifier = {
+				political_power_factor = 0.05
+				stability_factor = 0.05
+				production_factory_max_efficiency_factor = 0.2
+				consumer_goods_factor = 0.2
+			}
+		}
+
+		FIU_french_connection_idea = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FIU_french_connection_idea" }
+			picture = FIU_french_connection_idea
+			cancel = {
+				FIU = { NOT = { has_country_flag = FIU_crime_boss } }
+			}
+			modifier = {
+				production_factory_max_efficiency_factor = 0.2
+				trade_opinion_factor = 0.1
+				industrial_factory_donations = 2
+				military_factory_donations = 2
+				dockyard_donations = 2
+				stability_factor = -0.1
+				stability_weekly = -0.001
+				paternal_autocrat_drift = 0.01
+			}
+		}
+
+		FIU_mass_genocide_against_the_communard_world = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FIU_mass_genocide_against_the_communard_world" }
+			picture = FIU_mass_genocide_against_the_communard_world
+			cancel = {
+				OR = {
+					is_ally_with = FRA
+					FRA = { exists = no }
+					FIU = { NOT = { has_country_flag = FIU_crime_boss } }
+				}
+			}
+			modifier = {
+				industrial_factory_donations = 1
+				military_factory_donations = 1
+				army_fuel_consumption_factor = -0.05
+				air_fuel_consumption_factor	 = -0.05
+				navy_fuel_consumption_factor = -0.05
+				army_defence_factor = 0.05
+				land_reinforce_rate = 0.05
+				naval_hit_chance = 0.05
+				naval_morale = 0.05
+				navy_org = 3
+				navy_capital_ship_attack_factor = 0.05
+			}
+			targeted_modifier = {
+				tag = FRA
+				attack_bonus_against = 0.05
+				defense_bonus_against = 0.05
+				amphibious_invasion_against = 0.1
+				invasion_preparation_against = -0.1
+			}
+		}
+
+		FIU_were_killing_the_ANI = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FIU_were_killing_the_ANI" }
+			picture = FIU_were_killing_the_ANI
+			cancel = {
+				OR = {
+					AND = {
+						is_ally_with = ITA
+						ITA = { has_government = national_populist }
+					}
+					has_government = national_populist
+					ITA = { exists = no }
+					FIU = { NOT = { has_country_flag = FIU_crime_boss } }
+				}
+			}
+			modifier = {
+				industrial_factory_donations = 1
+				military_factory_donations = 1
+				army_fuel_consumption_factor = -0.05
+				air_fuel_consumption_factor	 = -0.05
+				navy_fuel_consumption_factor = -0.05
+				national_populist_drift = -0.02
+			}
+			targeted_modifier = {
+				tag = ITA
+				attack_bonus_against = 0.075
+				defense_bonus_against = 0.075
+				amphibious_invasion_against = 0.1
+				invasion_preparation_against = -0.1
+			}
+		}
+
+		FIU_juan_march_maxxing = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FIU_juan_march_maxxing" }
+			picture = FIU_juan_march_maxxing
+			cancel = {
+				OR = {
+					AND = {
+						SPR = { exists = no }
+						CAR = { exists = no }
+					}
+					FIU = { NOT = { has_country_flag = FIU_crime_boss } }
+				}
+			}
+			modifier = {
+				army_fuel_consumption_factor = 0.1
+				navy_fuel_consumption_factor = -0.1
+				naval_attrition = -0.1
+				extra_marine_supply_grace = 48
+				industrial_capacity_dockyard = 0.05
+				supply_node_range = 0.1
+				consumer_goods_factor = 0.1
+				resistance_activity = 0.05
+				naval_intel_to_others = -0.2
+				stability_weekly = 0.001
+			}
+		}
+
+		FIU_never_go_to_london_worst_mistake_of_my_life = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FIU_never_go_to_london_worst_mistake_of_my_life" }
+			picture = FIU_never_go_to_london_worst_mistake_of_my_life
+			cancel = {
+				OR = {
+					ENG = {
+						OR = {
+							exists = no
+							has_socialist_government = no
+						}
+					}
+					FIU = { NOT = { has_country_flag = FIU_crime_boss } }
+				}
+			}
+			modifier = {
+				army_fuel_consumption_factor = 0.05
+				navy_fuel_consumption_factor = -0.1
+				consumer_goods_factor = 0.1
+			}
+			targeted_modifier = {
+				tag = ENG
+				attack_bonus_against = 0.075
+				defense_bonus_against = 0.075
+				amphibious_invasion_against = 0.1
+				invasion_preparation_against = -0.1
+			}
+		}
+
+		FIU_AUS_loan_idea = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FIU_AUS_loan_idea" }
+			picture = FIU_loan_idea
+			modifier = {
+				production_factory_max_efficiency_factor = 0.2
+				civilian_factory_use = 1
+			}
+			targeted_modifier = {
+				tag = AUS
+				cic_to_target_factor = 0.05
+				mic_to_target_factor = 0.05
+			}
+		}
+
+		FIU_HUN_loan_idea = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FIU_HUN_loan_idea" }
+			picture = FIU_loan_idea
+			modifier = {
+				production_factory_max_efficiency_factor = 0.2
+				civilian_factory_use = 1
+			}
+			targeted_modifier = {
+				tag = HUN
+				cic_to_target_factor = 0.05
+				mic_to_target_factor = 0.05
+			}
+		}
+
+		FIU_GER_loan_idea = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FIU_GER_loan_idea" }
+			picture = FIU_loan_idea
+			modifier = {
+				production_factory_max_efficiency_factor = 0.2
+				civilian_factory_use = 1
+			}
+			targeted_modifier = {
+				tag = GER
+				cic_to_target_factor = 0.05
+				mic_to_target_factor = 0.05
+			}
+		}
+
+		FIU_ITA_loan_idea = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FIU_ITA_loan_idea" }
+			picture = FIU_loan_idea
+			modifier = {
+				production_factory_max_efficiency_factor = 0.2
+				civilian_factory_use = 1
+			}
+			targeted_modifier = {
+				tag = ITA
+				cic_to_target_factor = 0.05
+				mic_to_target_factor = 0.05
+			}
+		}
+
+		FIU_CAN_loan_idea = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FIU_CAN_loan_idea" }
+			picture = FIU_loan_idea
+			modifier = {
+				production_factory_max_efficiency_factor = 0.2
+				civilian_factory_use = 1
+			}
+			targeted_modifier = {
+				tag = CAN
+				cic_to_target_factor = 0.05
+				mic_to_target_factor = 0.05
+			}
+		}
+
+		FIU_NFA_loan_idea = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FIU_NFA_loan_idea" }
+			picture = FIU_loan_idea
+			modifier = {
+				production_factory_max_efficiency_factor = 0.2
+				civilian_factory_use = 1
+			}
+			targeted_modifier = {
+				tag = NFA
+				cic_to_target_factor = 0.05
+				mic_to_target_factor = 0.05
+			}
+		}
 	}
 
 	hidden_ideas = {
@@ -909,6 +1221,16 @@ ideas = {
 			modifier = {
 				political_power_factor = 0.01
 				paternal_autocrat_drift = 0.01
+			}
+		}
+
+		FIU_Zadar_Mayor_Antonio_Cippico_natpop = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea FIU_Zadar_Mayor_Antonio_Cippico_natpop" }
+			allowed = { always = no }
+			picture = FIU_port_city
+			modifier = {
+				political_power_factor = 0.01
+				national_populist_drift = 0.01
 			}
 		}
 	}

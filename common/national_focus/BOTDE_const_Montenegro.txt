@@ -35,6 +35,7 @@ focus_tree = {
 				ideology = paternal_autocrat
 				popularity = 0.05
 			}
+
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -1070,6 +1071,11 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = MNT_trade_treaty_serbia
 		}
+		bypass = {
+			NOT = {
+				country_exists = BUL
+			}
+		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_trade_treaty_bulgaria"
 			BUL = {
@@ -1103,6 +1109,11 @@ focus_tree = {
 		}
 		mutually_exclusive = {
 			focus = MNT_trade_treaty_bulgaria
+		}
+		bypass = {
+			NOT = {
+				country_exists = SER
+			}
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_trade_treaty_serbia"
@@ -1302,13 +1313,15 @@ focus_tree = {
 				category = land_doctrine
 			}
 		}
+		search_filters = { FOCUS_FILTER_ARMY_BONUS }
 	}
 	
 	focus = {
 		id = MNT_bolster_the_police
-		icon = GFX_goal_CRO_military_frontier
-		x = 10
-		y = 10
+		icon = GFX_goal_MNT_bolster_the_police
+		relative_position_id = MNT_royal_montenegrin_army
+		x = -2
+		y = 1
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -1322,13 +1335,15 @@ focus_tree = {
 			increase_ruling_party_popularity_by_5 = yes
 			add_ideas = MNT_police
 		}
+		search_filters = { FOCUS_FILTER_ARMY_BONUS }
 	}
 	
 	focus = {
 		id = MNT_reintroduce_conscription
-		icon = GFX_goal_MNT_chetnik_vets
-		x = 14
-		y = 10
+		icon = GFX_goal_MNT_reintroduce_conscription
+		relative_position_id = MNT_royal_montenegrin_army
+		x = 2
+		y = 1
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -1348,44 +1363,15 @@ focus_tree = {
 				}
 			}
 		}
+		search_filters = { FOCUS_FILTER_ARMY_BONUS }
 	}
-	
-	focus = {
-		id = MNT_pacify_serbs
-		icon = GFX_focus_generic_oppression
-		x = 12
-		y = 11
-		cost = 5.8
-		ai_will_do = {
-			factor = 100
-		}
-		prerequisite = {
-			focus = MNT_bolster_the_police
-			focus = MNT_reintroduce_conscription
-		}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MNT_pacify_serbs"
-			remove_ideas = MNT_serb_separatism
-			1097 = {
-				set_demilitarized_zone = no
-			}
-			add_manpower = -1000
-			add_stability = 0.05
-			hidden_effect = {
-				country_event = {
-					id = mnt.54
-					days = 3
-					random = 200
-				}
-			}
-		}
-	}
-	
+
 	focus = {
 		id = MNT_reorganize_standing_army
-		icon = GFX_goal_generic_army_training
-		x = 12
-		y = 10
+		icon = GFX_goal_MNT_reorganize_standing_army
+		relative_position_id = MNT_royal_montenegrin_army
+		x = 0
+		y = 1
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -1415,13 +1401,49 @@ focus_tree = {
 				}
 			}
 		}
+		search_filters = { FOCUS_FILTER_ARMY_BONUS }
+	}
+	
+	focus = {
+		id = MNT_pacify_serbs
+		icon = GFX_goal_MNT_pacify_serbs
+		relative_position_id = MNT_royal_montenegrin_army
+		x = 0
+		y = 2
+		cost = 5.8
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = MNT_bolster_the_police
+			focus = MNT_reintroduce_conscription
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MNT_pacify_serbs"
+			remove_ideas = MNT_serb_separatism
+			every_owned_state = {
+				limit = { is_demilitarized_zone  = yes }
+				set_demilitarized_zone = no
+			}
+			add_manpower = -1000
+			add_stability = 0.05
+			hidden_effect = {
+				country_event = {
+					id = mnt.54
+					days = 3
+					random = 200
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_ARMY_BONUS }
 	}
 	
 	focus = {
 		id = MNT_royal_marines
-		icon = GFX_goal_generic_mediterranean
-		x = 11
-		y = 12
+		icon = GFX_goal_MNT_royal_marines
+		relative_position_id = MNT_royal_montenegrin_army
+		x = -1
+		y = 3
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -1444,13 +1466,55 @@ focus_tree = {
 				bonus = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_ARMY_BONUS FOCUS_FILTER_NAVY_BONUS }
 	}
 	
 	focus = {
+		id = MNT_adopt_standard_motorized
+		icon = GFX_goal_MNT_adopt_standard_motorized
+		relative_position_id = MNT_royal_montenegrin_army
+		x = 1
+		y = 3
+		cost = 5.8
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = MNT_reorganize_standing_army
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MNT_adopt_standard_motorized"
+			add_war_support = 0.075
+			add_one_random_military_factory = yes
+			add_one_random_military_factory = yes
+			add_tech_bonus = {
+				name = MNT_adopt_standard_motorized
+				category = motorized_equipment
+				uses = 1
+				bonus = 1
+			}
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				amount = 500
+			}
+			add_equipment_bonus = {
+				bonus = {
+					motorized_equipment = {
+						build_cost_ic = -0.1
+						instant = yes
+					}
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_ARMY_BONUS }
+	}
+
+	focus = {
 		id = MNT_rangers
-		icon = GFX_goal_generic_paramilitary
-		x = 10
-		y = 13
+		icon = GFX_goal_MNT_rangers
+		relative_position_id = MNT_royal_montenegrin_army
+		x = -2
+		y = 4
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -1467,118 +1531,15 @@ focus_tree = {
 				bonus = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_ARMY_BONUS }
 	}
-	
-	focus = {
-		id = MNT_adopt_standard_motorized
-		icon = GFX_goal_NEE_mechanical_cavalry
-		x = 13
-		y = 12
-		cost = 5.8
-		ai_will_do = {
-			factor = 100
-		}
-		prerequisite = {
-			focus = MNT_reorganize_standing_army
-		}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MNT_adopt_standard_motorized"
-			add_war_support = 0.075
-			add_one_random_military_factory = yes
-			add_tech_bonus = {
-				name = MNT_adopt_standard_motorized
-				category = motorized_equipment
-				uses = 1
-				bonus = 1
-			}
-		}
-	}
-	
-	focus = {
-		id = MNT_armor_works
-		icon = GFX_goal_AUS_panzerturmumbau
-		x = 14
-		y = 13
-		cost = 5.8
-		ai_will_do = {
-			factor = 100
-		}
-		prerequisite = {
-			focus = MNT_adopt_standard_motorized
-		}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MNT_armor_works"
-			add_tech_bonus = {
-				name = MNT_armor_works
-				category = armor
-				uses = 2
-				bonus = 1.5
-			}
-		}
-	}
-	
-	focus = {
-		id = MNT_element_of_strength
-		icon = GFX_goal_CZE_squad_tactics
-		x = 14
-		y = 14
-		cost = 5.8
-		ai_will_do = {
-			factor = 100
-		}
-		prerequisite = {
-			focus = MNT_armor_works
-		}
-		mutually_exclusive = {
-			focus = MNT_element_of_surprise
-		}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MNT_element_of_strength"
-			add_doctrine_cost_reduction = {
-				name = MNT_element_of_strength
-				cost_reduction = 0.5
-				uses = 2
-				category = land_doctrine
-			}
-			add_ideas = MNT_element_of_strength_idea
-		}
-	}
-	
-	focus = {
-		id = MNT_element_of_surprise
-		icon = GFX_goal_WCC_guerilla_tactic
-		x = 10
-		y = 14
-		cost = 5.8
-		ai_will_do = {
-			factor = 100
-		}
-		prerequisite = {
-			focus = MNT_rangers
-		}
-		mutually_exclusive = {
-			focus = MNT_element_of_strength
-		}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MNT_element_of_surprise"
-			add_doctrine_cost_reduction = {
-				name = MNT_element_of_surprise
-				cost_reduction = 0.5
-				uses = 2
-				category = land_doctrine
-			}
-			swap_ideas = {
-				add_idea = MNT_rangers_idea_2
-				remove_idea = MNT_rangers_idea
-			}
-		}
-	}
-	
+
 	focus = {
 		id = MNT_standard_weapons
-		icon = GFX_goal_CZE_imperial_arms
-		x = 12
-		y = 13
+		icon = GFX_goal_MNT_standard_weapons
+		relative_position_id = MNT_royal_montenegrin_army
+		x = 0
+		y = 4
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -1606,9 +1567,7 @@ focus_tree = {
 				if = {
 					limit = {
 						has_government = social_conservative
-						NOT = {
-							has_completed_focus = MNT_pacify_serbs
-						}
+						NOT = { has_completed_focus = MNT_pacify_serbs }
 					}
 					country_event = {
 						id = mnt.13
@@ -1618,13 +1577,101 @@ focus_tree = {
 				}
 			}
 		}
+		search_filters = { FOCUS_FILTER_ARMY_BONUS }
+	}
+	
+	focus = {
+		id = MNT_armor_works
+		icon = GFX_goal_MNT_armor_works
+		relative_position_id = MNT_royal_montenegrin_army
+		x = 2
+		y = 4
+		cost = 5.8
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = MNT_adopt_standard_motorized
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MNT_armor_works"
+			add_tech_bonus = {
+				name = MNT_armor_works
+				category = armor
+				uses = 2
+				bonus = 1.5
+			}
+		}
+		search_filters = { FOCUS_FILTER_ARMY_BONUS }
+	}
+	
+	focus = {
+		id = MNT_element_of_strength
+		icon = GFX_goal_MNT_element_of_strength
+		relative_position_id = MNT_royal_montenegrin_army
+		x = 2
+		y = 5
+		cost = 5.8
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = MNT_armor_works
+		}
+		mutually_exclusive = {
+			focus = MNT_element_of_surprise
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MNT_element_of_strength"
+			add_doctrine_cost_reduction = {
+				name = MNT_element_of_strength
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+			add_ideas = MNT_element_of_strength_idea
+		}
+		search_filters = { FOCUS_FILTER_ARMY_BONUS }
+	}
+	
+	focus = {
+		id = MNT_element_of_surprise
+		icon = GFX_goal_MNT_element_of_surprise
+		relative_position_id = MNT_royal_montenegrin_army
+		x = -2
+		y = 5
+		cost = 5.8
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = MNT_rangers
+		}
+		mutually_exclusive = {
+			focus = MNT_element_of_strength
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MNT_element_of_surprise"
+			add_doctrine_cost_reduction = {
+				name = MNT_element_of_surprise
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+			swap_ideas = {
+				add_idea = MNT_rangers_idea_2
+				remove_idea = MNT_rangers_idea
+			}
+		}
+		search_filters = { FOCUS_FILTER_ARMY_BONUS }
 	}
 	
 	focus = {
 		id = MNT_modern_solutions
-		icon = GFX_goal_generic_army_high_command
-		x = 12
-		y = 15
+		icon = GFX_goal_MNT_modern_solutions
+		relative_position_id = MNT_royal_montenegrin_army
+		x = 0
+		y = 6
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -1646,6 +1693,7 @@ focus_tree = {
 			}
 			add_one_random_military_factory = yes
 		}
+		search_filters = { FOCUS_FILTER_ARMY_BONUS }
 	}
 	
 	focus = {
@@ -1674,13 +1722,15 @@ focus_tree = {
 				category = naval_equipment
 			}
 		}
+		search_filters = { FOCUS_FILTER_NAVY_BONUS }
 	}
 	
 	focus = {
 		id = MNT_surface_dwellings
-		icon = GFX_goal_generic_sea_focused_navy2
-		x = 6
-		y = 10
+		icon = GFX_goal_MNT_surface_dwellings
+		relative_position_id = MNT_crnogorska_navy
+		x = -1
+		y = 1
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -1700,21 +1750,47 @@ focus_tree = {
 				uses = 1
 				category = dd_tech
 			}
+			add_one_random_dockyard = yes
+		}
+		search_filters = { FOCUS_FILTER_NAVY_BONUS }
+	}
+
+	focus = {
+		id = MNT_submarine_investiture
+		icon = GFX_goal_MNT_submarine_investiture
+		relative_position_id = MNT_crnogorska_navy
+		x = 1
+		y = 1
+		cost = 5.8
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = MNT_crnogorska_navy
+		}
+		mutually_exclusive = {
+			focus = MNT_surface_dwellings
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MNT_submarine_investiture"
+			navy_experience = 10
 			add_tech_bonus = {
-				name = MNT_surface_dwellings
+				name = MNT_submarine_investiture
 				bonus = 1
 				uses = 1
-				category = cl_tech
+				category = ss_tech
 			}
 			add_one_random_dockyard = yes
 		}
+		search_filters = { FOCUS_FILTER_NAVY_BONUS }
 	}
 	
 	focus = {
 		id = MNT_defend_montenegrin_trade
-		icon = GFX_goal_generic_positive_trade_relations_gold
-		x = 6
-		y = 11
+		icon = GFX_goal_MNT_defend_montenegrin_trade
+		relative_position_id = MNT_crnogorska_navy
+		x = -1
+		y = 2
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -1736,15 +1812,16 @@ focus_tree = {
 				uses = 1
 				category = cat_fleet_in_being
 			}
-			
 		}
+		search_filters = { FOCUS_FILTER_NAVY_BONUS }
 	}
 	
 	focus = {
 		id = MNT_adriatic_warships
-		icon = GFX_focus_generic_cruiser2
-		x = 5
-		y = 12
+		icon = GFX_goal_MNT_adriatic_warships
+		relative_position_id = MNT_crnogorska_navy
+		x = -2
+		y = 3
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -1767,41 +1844,15 @@ focus_tree = {
 				category = cat_fleet_in_being
 			}
 		}
-	}
-	
-	focus = {
-		id = MNT_submarine_investiture
-		icon = GFX_goal_generic_navy_submarine
-		x = 8
-		y = 10
-		cost = 5.8
-		ai_will_do = {
-			factor = 100
-		}
-		prerequisite = {
-			focus = MNT_crnogorska_navy
-		}
-		mutually_exclusive = {
-			focus = MNT_surface_dwellings
-		}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MNT_submarine_investiture"
-			navy_experience = 10
-			add_tech_bonus = {
-				name = MNT_submarine_investiture
-				bonus = 1
-				uses = 1
-				category = ss_tech
-			}
-			add_one_random_dockyard = yes
-		}
+		search_filters = { FOCUS_FILTER_NAVY_BONUS }
 	}
 	
 	focus = {
 		id = MNT_adriatic_sea_use
-		icon = GFX_focus_generic_navy_battleship3alt
-		x = 8
-		y = 11
+		icon = GFX_goal_MNT_adriatic_sea_use
+		relative_position_id = MNT_crnogorska_navy
+		x = 1
+		y = 2
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -1818,13 +1869,15 @@ focus_tree = {
 				category = cat_trade_interdiction
 			}
 		}
+		search_filters = { FOCUS_FILTER_NAVY_BONUS }
 	}
 	
 	focus = {
 		id = MNT_purchase_uboat_models
-		icon = GFX_goal_AUS_unrestricted_submarine_warfare
-		x = 9
-		y = 12
+		icon = GFX_goal_MNT_purchase_uboat_models
+		relative_position_id = MNT_crnogorska_navy
+		x = 2
+		y = 3
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -1846,15 +1899,36 @@ focus_tree = {
 				uses = 1
 				category = cat_trade_interdiction
 			}
-			#Load oob
+			custom_override_tooltip = {
+				tooltip = MNT_buy_10_uboots_tt
+				create_equipment_variant = {
+					name = "U-120 Class"
+					type = ship_hull_submarine_2
+					name_group = AUS_U_Submarine
+					parent_version = 0
+					modules = {
+						fixed_ship_torpedo_slot = ship_torpedo_sub_2
+						fixed_ship_engine_slot = sub_ship_engine_2
+						rear_1_custom_slot = ship_mine_layer_sub
+					}
+				}
+				create_ship = {
+    			    type = ship_hull_submarine_2
+    			    equipment_variant = "U-120 Class"
+    			    creator = AUS
+					amount = 10
+    			}
+			}
 		}
+		search_filters = { FOCUS_FILTER_NAVY_BONUS }
 	}
 	
 	focus = {
 		id = MNT_admiralty_schooling
-		icon = GFX_goal_generic_naval_command
-		x = 7
-		y = 12
+		icon = GFX_goal_MNT_admiralty_schooling
+		relative_position_id = MNT_crnogorska_navy
+		x = 0
+		y = 3
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -1867,13 +1941,15 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_admiralty_schooling"
 			add_ideas = MNT_admiral_school
 		}
+		search_filters = { FOCUS_FILTER_NAVY_BONUS }
 	}
 	
 	focus = {
 		id = MNT_defense_of_coasts
-		icon = GFX_goal_generic_coastal_navy2
-		x = 7
-		y = 13
+		icon = GFX_goal_MNT_defense_of_coasts
+		relative_position_id = MNT_crnogorska_navy
+		x = 0
+		y = 4
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -1882,9 +1958,13 @@ focus_tree = {
 			focus = MNT_adriatic_warships
 			focus = MNT_purchase_uboat_models
 		}
+		prerequisite = {
+			focus = MNT_admiralty_schooling
+		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_defense_of_coasts"
-			105 = {
+			every_owned_state = {
+				limit = { is_coastal = yes }
 				add_building_construction = {
 					type = coastal_bunker
 					level = 5
@@ -1897,6 +1977,7 @@ focus_tree = {
 			}
 			add_war_support = 0.05
 		}
+		search_filters = { FOCUS_FILTER_NAVY_BONUS }
 	}
 	
 	focus = {
@@ -1938,40 +2019,15 @@ focus_tree = {
 				category = air_doctrine
 			}
 		}
+		search_filters = { FOCUS_FILTER_AIRFORCE_BONUS }
 	}
-	
-	focus = {
-		id = MNT_coastal_patrol_airforce
-		icon = GFX_goal_FIU_naval_bomber
-		x = 18
-		y = 10
-		cost = 5.8
-		ai_will_do = {
-			factor = 100
-		}
-		prerequisite = {
-			focus = MNT_crnogorska_airforce
-		}
-		mutually_exclusive = {
-			focus = MNT_support_our_army
-		}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MNT_coastal_patrol_airforce"
-			add_tech_bonus = {
-				name = MNT_coastal_patrol_airforce
-				category = naval_bomber
-				bonus = 1
-				uses = 1
-			}
-			air_experience = 25
-		}
-	}
-	
+
 	focus = {
 		id = MNT_support_our_army
-		icon = GFX_goal_USA_organic_air_support
-		x = 16
-		y = 10
+		icon = GFX_goal_MNT_support_our_army
+		relative_position_id = MNT_crnogorska_airforce
+		x = -1
+		y = 1
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -1992,13 +2048,44 @@ focus_tree = {
 			}
 			air_experience = 25
 		}
+		search_filters = { FOCUS_FILTER_AIRFORCE_BONUS }
+	}
+	
+	focus = {
+		id = MNT_coastal_patrol_airforce
+		icon = GFX_goal_MNT_coastal_patrol_airforce
+		relative_position_id = MNT_crnogorska_airforce
+		x = 1
+		y = 1
+		cost = 5.8
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = MNT_crnogorska_airforce
+		}
+		mutually_exclusive = {
+			focus = MNT_support_our_army
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MNT_coastal_patrol_airforce"
+			add_tech_bonus = {
+				name = MNT_coastal_patrol_airforce
+				category = naval_bomber
+				bonus = 1
+				uses = 1
+			}
+			air_experience = 25
+		}
+		search_filters = { FOCUS_FILTER_AIRFORCE_BONUS }
 	}
 	
 	focus = {
 		id = MNT_lease_of_fighters
-		icon = GFX_goal_FIU_austrian_planes
-		x = 17
-		y = 11
+		icon = GFX_goal_MNT_lease_of_fighters
+		relative_position_id = MNT_crnogorska_airforce
+		x = 0
+		y = 2
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -2026,17 +2113,19 @@ focus_tree = {
 				country_event = {
 					id = mntflavor.4
 					days = 20
-					random = 600
+					random_hours = 600
 				}
 			}
 		}
+		search_filters = { FOCUS_FILTER_AIRFORCE_BONUS }
 	}
 	
 	focus = {
 		id = MNT_defend_our_skies
-		icon = GFX_focus_generic_air_defense2
-		x = 17
-		y = 12
+		icon = GFX_goal_MNT_defend_our_skies
+		relative_position_id = MNT_crnogorska_airforce
+		x = 0
+		y = 3
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -2046,29 +2135,24 @@ focus_tree = {
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_defend_our_skies"
-			105 = {
+			every_owned_state = {
 				add_building_construction = {
 					type = anti_air_building
 					level = 2
 					instant_build = yes
 				}
 			}
-			1097 = {
-				add_building_construction = {
-					type = anti_air_building
-					level = 1
-					instant_build = yes
-				}
-			}
 			add_ideas = MNT_planes
 		}
+		search_filters = { FOCUS_FILTER_AIRFORCE_BONUS }
 	}
 	
 	focus = {
 		id = MNT_cas_doctrine
-		icon = GFX_goal_generic_air_CAS_russian
-		x = 15
-		y = 12
+		icon = GFX_goal_MNT_cas_doctrine
+		relative_position_id = MNT_crnogorska_airforce
+		x = -2
+		y = 3
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -2092,13 +2176,15 @@ focus_tree = {
 				ahead_reduction = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_AIRFORCE_BONUS }
 	}
 	
 	focus = {
 		id = MNT_nav_doctrine
-		icon = GFX_goal_CZE_air_is_sea
-		x = 19
-		y = 12
+		icon = GFX_goal_MNT_nav_doctrine
+		relative_position_id = MNT_crnogorska_airforce
+		x = 2
+		y = 3
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -2122,13 +2208,15 @@ focus_tree = {
 				ahead_reduction = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_AIRFORCE_BONUS }
 	}
 	
 	focus = {
 		id = MNT_wings_of_montenegro
-		icon = GFX_goal_generic_build_airforce
-		x = 17
-		y = 13
+		icon = GFX_goal_MNT_wings_of_montenegro
+		relative_position_id = MNT_crnogorska_airforce
+		x = 0
+		y = 4
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -2150,6 +2238,7 @@ focus_tree = {
 			}
 			air_experience = 100
 		}
+		search_filters = { FOCUS_FILTER_AIRFORCE_BONUS }
 	}
 	
 	focus = {
@@ -2188,6 +2277,7 @@ focus_tree = {
 	focus = {
 		id = MNT_slavic_hegemon
 		icon = GFX_goal_MNT_slavic_hegemon
+		relative_position_id = MNT_foreign_policy
 		x = -2
 		y = 1
 		cost = 5.8
@@ -2214,6 +2304,7 @@ focus_tree = {
 			focus = MNT_old_link
 			focus = MNT_neutrality_focus
 		}
+		bypass = { has_country_flag = MNT_cancel_neutrality_flag }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_slavic_hegemon"
 			RUS = { set_country_flag = MNT_faction_target }
@@ -2224,7 +2315,14 @@ focus_tree = {
 	
 	focus = {
 		id = MNT_old_link
-		icon = GFX_goal_MNT_old_link
+		icon = {
+			GFX_goal_MNT_old_link_socialist = {
+				has_socialist_government = yes
+			}
+			GFX_goal_MNT_old_link = yes
+		}
+		dynamic = yes
+		relative_position_id = MNT_foreign_policy
 		x = 2
 		y = 1
 		cost = 5.8
@@ -2232,10 +2330,16 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_completed_focus = MNT_old_pravasi_friends
-			ENT = { is_faction_leader = yes }
-			has_socialist_government = no
-			has_war = no
+			if = {
+				limit = { has_socialist_government = yes }
+				has_completed_focus = MNT_allies_across
+				INT = { is_faction_leader = yes }
+			}
+			else = {
+				has_completed_focus = MNT_old_pravasi_friends
+				ENT = { is_faction_leader = yes }
+				has_war = no
+			}
 		}
 		prerequisite = {
 			focus = MNT_foreign_policy
@@ -2246,10 +2350,17 @@ focus_tree = {
 			focus = MNT_slavic_hegemon
 			focus = MNT_neutrality_focus
 		}
+		bypass = { has_country_flag = MNT_cancel_neutrality_flag }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_old_link"
-			ENT = { set_country_flag = MNT_faction_target }
-			custom_effect_tooltip = MNT_unlock_entente
+			if = {
+				limit = { has_socialist_government = yes }
+				add_ideas = MNT_socialist_diplomacy
+			}
+			else = {
+				ENT = { set_country_flag = MNT_faction_target }
+				custom_effect_tooltip = MNT_unlock_entente
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -2257,6 +2368,7 @@ focus_tree = {
 	focus = {
 		id = MNT_the_belgrade_pact
 		icon = GFX_goal_MNT_the_belgrade_pact
+		relative_position_id = MNT_foreign_policy
 		x = -4
 		y = 1
 		cost = 5.8
@@ -2279,10 +2391,18 @@ focus_tree = {
 			focus = MNT_old_link
 			focus = MNT_neutrality_focus
 		}
+		bypass = { has_country_flag = MNT_cancel_neutrality_flag }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_the_belgrade_pact"
 			SER = { set_country_flag = MNT_faction_target }
 			custom_effect_tooltip = MNT_unlock_belgrade
+			if = {
+				limit = {
+					is_in_faction_with = SER
+				}
+				add_war_support = 0.1
+				add_stability = 0.05
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -2290,6 +2410,7 @@ focus_tree = {
 	focus = {
 		id = MNT_viennese_dealings
 		icon = GFX_goal_MNT_viennese_dealings
+		relative_position_id = MNT_foreign_policy
 		x = 4
 		y = 1
 		cost = 5.8
@@ -2310,10 +2431,12 @@ focus_tree = {
 			focus = MNT_old_link
 			focus = MNT_neutrality_focus
 		}
+
 		bypass = {
 			OR = {
 				is_in_faction_with = AUS
 				is_in_faction_with = GER
+				has_country_flag = MNT_cancel_neutrality_flag
 			}
 		}
 		completion_reward = {
@@ -2340,6 +2463,7 @@ focus_tree = {
 	focus = {
 		id = MNT_neutrality_focus
 		icon = GFX_goal_MNT_neutrality_focus
+		relative_position_id = MNT_foreign_policy
 		x = 0
 		y = 1
 		cost = 5.8
@@ -2350,6 +2474,7 @@ focus_tree = {
 			is_in_faction = no
 			is_subject = no
 			has_war = no
+			NOT = { has_country_flag = MNT_cancel_neutrality_flag } 
 		}
 		prerequisite = {
 			focus = MNT_foreign_policy
@@ -2384,11 +2509,12 @@ focus_tree = {
 	focus = {
 		id = MNT_dukljan_question
 		icon = GFX_goal_MNT_dukljan_question
+		relative_position_id = MNT_foreign_policy
 		x = 0
 		y = 2
 		cost = 5.8
 		ai_will_do = {
-			factor = 100
+			base = 300
 		}
 		prerequisite = {
 			focus = MNT_the_belgrade_pact
@@ -2403,15 +2529,33 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_dukljan_question"
 			if = {
-				limit = { has_country_leader = { name = "Alexander II" ruling_only = yes } }
-				add_state_core = 106
-				add_state_core = 841
+				limit = { MNT_alexander_ii_path_trigger = yes }
+				add_state_claim = 106
+				add_state_claim = 841
+				every_state = {
+					limit = {
+						OR = {
+							state = 106
+							state = 841
+						}
+					}
+					set_state_flag = MNT_integrable_claim
+				}
 			}
 			else = {
-				add_state_core = 1269
-				add_state_core = 1270
+				add_state_claim = 1269
+				add_state_claim = 1270
 				add_war_support = 0.025
 				#Event for AUS here if you are in the faction
+				every_state = {
+					limit = {
+						OR = {
+							state = 1269
+							state = 1270
+						}
+					}
+					set_state_flag = MNT_integrable_claim
+				}
 			}
 			remove_ideas = MNT_dynastic_issues
 		}
@@ -2421,13 +2565,16 @@ focus_tree = {
 	focus = {
 		id = MNT_annex_serbia
 		icon = GFX_goal_MNT_annex_serbia
+		relative_position_id = MNT_foreign_policy
 		x = -2
 		y = 4
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
 		}
-		available = { NOT = { is_in_faction_with = 107.owner } }
+		available = {
+			NOT = { is_ally_with = var:107.owner }
+		}
 		prerequisite = {
 			focus = MNT_dioclea_question
 		}
@@ -2459,6 +2606,7 @@ focus_tree = {
 	focus = {
 		id = MNT_annex_albania
 		icon = GFX_goal_MNT_annex_albania
+		relative_position_id = MNT_foreign_policy
 		x = -4
 		y = 4
 		cost = 5.8
@@ -2466,7 +2614,7 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			NOT = { is_in_faction_with = 44.owner }
+			NOT = { is_ally_with = var:44.owner }
 		}
 		prerequisite = {
 			focus = MNT_dioclea_question
@@ -2498,6 +2646,7 @@ focus_tree = {
 	focus = {
 		id = MNT_secure_allied_support
 		icon = GFX_goal_MNT_secure_allied_support
+		relative_position_id = MNT_foreign_policy
 		x = 0
 		y = 4
 		cost = 5.8
@@ -2524,6 +2673,7 @@ focus_tree = {
 	focus = {
 		id = MNT_law_reform
 		icon = GFX_goal_MNT_law_reform
+		relative_position_id = MNT_foreign_policy
 		x = 0
 		y = 5
 		cost = 10
@@ -2556,74 +2706,15 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
-	#focus = {
-	#	id = MNT_dioclean_yugoslav_fusionism
-	#	icon = GFX_goal_other_yugoslavs
-	#	x = 0
-	#	y = 6
-	#	cost = 5.8
-	#	ai_will_do = {
-	#		factor = 100
-	#	}
-	#	available = {
-	#		OR = {
-	#			has_cosmetic_tag = MNT_duklja
-	#			has_cosmetic_tag = MNT_dioclea
-	#			has_cosmetic_tag = MNT_ardiaeia
-	#			has_cosmetic_tag = MNT_YUGO
-	#			has_cosmetic_tag = MNT_YUGO_red
-	#		}
-	#		owns_state = 44
-	#		owns_state = 107
-	#	}
-	#	prerequisite = {
-	#		focus = MNT_law_reform
-	#	}
-	#	completion_reward = {
-	#		if = {
-	#			limit = {
-	#				has_completed_focus = MNT_dioclea_question
-	#			}
-	#			add_state_claim = 1145
-	#			add_state_claim = 1098
-	#			add_state_claim = 104
-	#			add_state_claim = 1141
-	#			add_state_claim = 1142
-	#			add_state_claim = 1143
-	#			add_state_claim = 163
-	#			add_state_claim = 103
-	#			add_state_claim = 1206
-	#			add_state_claim = 1099
-	#			add_state_claim = 1105
-	#			add_state_claim = 109
-	#			add_state_claim = 1102
-	#			add_state_claim = 794
-	#			add_state_claim = 1128
-	#			add_state_claim = 45
-	#			add_state_claim = 875
-	#			add_state_claim = 102
-	#			add_state_claim = 1103
-	#			add_state_claim = 1101
-	#			add_state_claim = 102
-	#			add_state_claim = 841
-	#			add_state_claim = 106
-	#			else = {
-	#				add_state_claim = 44
-	#				add_state_claim = 766
-	#			}
-	#		}
-	#		#Unlock decisions to form Illyro-Dioclea, Yugoslav-Dioclean Federation, etc etc
-	#	}
-	#}
-	
 	focus = {
 		id = MNT_greater_montenegro
 		icon = GFX_goal_MNT_greater_montenegro
+		relative_position_id = MNT_foreign_policy
 		x = -2
 		y = 2
 		cost = 5.8
 		ai_will_do = {
-			factor = 100
+			base = 200
 		}
 		prerequisite = {
 			focus = MNT_the_belgrade_pact
@@ -2632,6 +2723,9 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = MNT_dukljan_question
 			focus = MNT_suck_serb_cock
+		}
+		available = {
+			NOT = { has_country_flag = MNT_yugo_flag }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_greater_montenegro"
@@ -2663,6 +2757,7 @@ focus_tree = {
 			GFX_goal_MNT_suck_serb_cock = yes
 		}
 		dynamic = yes
+		relative_position_id = MNT_foreign_policy
 		x = 2
 		y = 2
 		cost = 5.8
@@ -2674,22 +2769,6 @@ focus_tree = {
 			}
 		}
 		available = {
-			NOT = {
-				AND = {
-					OR = {
-						has_completed_focus = MNT_viennese_dealings
-						has_government = national_populist
-					}
-					has_war_with = CRO
-				}
-				AND = {
-					OR = {
-						has_completed_focus = MNT_the_belgrade_pact
-						has_completed_focus = MNT_slavic_hegemon
-					}
-					has_war_with = SER
-				}
-			}
 			has_socialist_government = no
 			if = {
 				limit = {
@@ -2699,6 +2778,7 @@ focus_tree = {
 					}
 				}
 				country_exists = CRO
+				NOT = { has_war_with = CRO }
 			}
 			if = {
 				limit = {
@@ -2708,9 +2788,11 @@ focus_tree = {
 					}
 				}
 				country_exists = SER
+				NOT = { has_war_with = SER }
 			}
-			hidden_trigger = {
-				NOT = { has_country_leader = { name = "Alexander II" ruling_only = yes } }
+			if = {
+				limit = { MNT_alexander_ii_path_trigger = yes }
+				MNT_alexander_ii_path_trigger = no
 			}
 		}
 		prerequisite = {
@@ -2728,7 +2810,7 @@ focus_tree = {
 			if = {
 				limit = {
 					check_variable = { MNT.nationalist_grievances > 1 }
-					NOT ={ has_government = national_populist }
+					NOT = { has_government = national_populist }
 				}
 				country_event = {
 					id = mnt.43
@@ -2747,14 +2829,22 @@ focus_tree = {
 								has_completed_focus = MNT_viennese_dealings
 								has_government = national_populist
 							}
-							NOT = { has_war_with = CRO }
 							country_exists = CRO
+							NOT = { has_war_with = CRO }
 						}
 					}
-					var:109.owner = { set_country_flag = MNT_dick_sucked }
+					CRO = { set_country_flag = MNT_dick_sucked }
 				}
-				else = { 
-					var:107.owner = { set_country_flag = MNT_dick_sucked }
+				else_if = {
+					limit = {
+						OR = {
+							has_completed_focus = MNT_the_belgrade_pact
+							has_completed_focus = MNT_slavic_hegemon
+						}
+						country_exists = SER
+						NOT = { has_war_with = SER }
+					}
+					SER = { set_country_flag = MNT_dick_sucked }
 				}
 			}
 			unlock_decision_tooltip = MNT_integration
@@ -2767,17 +2857,19 @@ focus_tree = {
 	focus = {
 		id = MNT_dioclea_question
 		icon = GFX_goal_MNT_dioclea_question
+		relative_position_id = MNT_foreign_policy
 		x = -3
 		y = 3
 		cost = 5.8
 		ai_will_do = {
-			factor = 100
+			base = 100
 		}
 		prerequisite = {
 			focus = MNT_dukljan_question
 		}
 		available = {
 			has_global_flag = balkan_war_ended
+			NOT = { has_country_flag = MNT_yugo_flag }
 		}
 		mutually_exclusive = {
 			focus = MNT_yugoslav_question
@@ -2802,11 +2894,12 @@ focus_tree = {
 	focus = {
 		id = MNT_yugoslav_question
 		icon = GFX_goal_MNT_yugoslav_question
+		relative_position_id = MNT_foreign_policy
 		x = 3
 		y = 3
 		cost = 5.8
 		ai_will_do = {
-			factor = 100
+			base = 100
 		}
 		available = {
 			NOT = { has_country_flag = MNT_statusquo }
@@ -2845,6 +2938,7 @@ focus_tree = {
 	focus = {
 		id = MNT_falsify_illyrianism
 		icon = GFX_goal_MNT_falsify_illyrianism
+		relative_position_id = MNT_foreign_policy
 		x = 2
 		y = 4
 		cost = 5.8
@@ -2888,6 +2982,7 @@ focus_tree = {
 	focus = {
 		id = MNT_destroy_the_imro
 		icon = GFX_goal_MNT_destroy_the_imro
+		relative_position_id = MNT_foreign_policy
 		x = 4
 		y = 4
 		cost = 5.8
@@ -2920,7 +3015,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_destroy_the_imro"
 			if = {
-				limit = { NOT = { is_in_faction_with = BUL } }
+				limit = { NOT = { is_ally_with = BUL } }
 				declare_war_on = {
 					target = BUL
 					type = annex_everything
@@ -2969,13 +3064,17 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_blazo_joganovic_putsch"
 			custom_effect_tooltip = unlock_focuses
 		}
-	} #After this point, the "Purples" are formed (Like the Greens, except purple cuz monarchy)
-	
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	#After this point, the "Purples" are formed (Like the Greens, except purple cuz monarchy)
+
 	focus = {
 		id = MNT_take_the_reins
 		icon = GFX_goal_MNT_grasp_the_reins
+		relative_position_id = MNT_blazo_joganovic_putsch
 		x = 2
-		y = 11
+		y = 1
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -3008,18 +3107,20 @@ focus_tree = {
 					country_event = {
 						id = mntflavor.12
 						days = 10
-						random = 1000
+						random_hours = 240
 					}
 				}
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = MNT_exile_the_purples
 		icon = GFX_goal_MNT_no_greens
+		relative_position_id = MNT_blazo_joganovic_putsch
 		x = 3
-		y = 12
+		y = 2
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -3040,22 +3141,28 @@ focus_tree = {
 				ideology = authoritarian_democrat
 				popularity = -0.1
 			}
+			add_popularity = {
+				ideology = paternal_autocrat
+				popularity = -0.1
+			}
 			random_owned_state = {
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
 					level = 1
 					instant_build = yes
 				}
-				add_extra_state_shared_building_slots = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = MNT_montenegrin_peoples_army
 		icon = GFX_goal_MNT_appoint_sava
+		relative_position_id = MNT_blazo_joganovic_putsch
 		x = 1
-		y = 12
+		y = 2
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -3095,7 +3202,7 @@ focus_tree = {
 			}
 			create_corps_commander = {
 				name = "Sava Kovačević"
-				portrait_path = "gfx/leaders/MNT/general/MNT_Sava_Kovacevic.png"
+				portrait_path = "gfx/leaders/MNT/MNT_Sava_Kovacevic.png"
 				traits = {
 					brilliant_strategist
 					politically_connected
@@ -3115,13 +3222,15 @@ focus_tree = {
 				}
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = MNT_dismantle_discriminatory_policy
 		icon = GFX_goal_MNT_discriminatory_law
+		relative_position_id = MNT_blazo_joganovic_putsch
 		x = 2
-		y = 13
+		y = 3
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -3143,13 +3252,15 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_dismantle_discriminatory_policy"
 			add_ideas = MNT_anti_discrimination
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = MNT_destroy_royal_loyalists
 		icon = GFX_goal_FRA_red_terror
+		relative_position_id = MNT_blazo_joganovic_putsch
 		x = 4
-		y = 14
+		y = 4
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -3170,13 +3281,15 @@ focus_tree = {
 				remove_idea = MNT_purple_resistance
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = MNT_new_montenegrin_syndicalism
-		icon = GFX_CAL_union_expansion
+		icon = GFX_goal_MNT_new_montenegrin_syndicalism
+		relative_position_id = MNT_blazo_joganovic_putsch
 		x = 2
-		y = 14
+		y = 4
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -3192,10 +3305,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_new_montenegrin_syndicalism"
-			add_popularity = {
-				ideology = syndicalist
-				popularity = 0.03
-			}
+			increase_ruling_party_popularity_by_3 = yes
 			add_tech_bonus = {
 				name = MNT_new_montenegrin_syndicalism
 				category = industry
@@ -3209,13 +3319,15 @@ focus_tree = {
 				bonus = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = MNT_in_defense_of_the_republic
 		icon = GFX_goal_CZE_fortress_autocracy
+		relative_position_id = MNT_blazo_joganovic_putsch
 		x = 0
-		y = 14
+		y = 4
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -3234,13 +3346,15 @@ focus_tree = {
 			add_ideas = MNT_in_defense_of_the_republic_idea
 			add_war_support = 0.1
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = MNT_allies_across
 		icon = GFX_goal_MNT_allies_across
+		relative_position_id = MNT_blazo_joganovic_putsch
 		x = -2
-		y = 11
+		y = 1
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -3261,19 +3375,22 @@ focus_tree = {
 			INT = {
 				country_event = {
 					id = mntfor.7
-					days = 5
-					random = 72
+					days = 1
+					random_hours = 24
 				}
 			}
 			add_political_power = 20
+			unlock_decision_tooltip = MNT_cancel_neutrality
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = MNT_stop_the_downturn
-		icon = GFX_goal_CSA_new_economic_planning
+		icon = GFX_goal_MNT_stop_the_downturn
+		relative_position_id = MNT_blazo_joganovic_putsch
 		x = -3
-		y = 12
+		y = 2
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -3291,18 +3408,17 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_stop_the_downturn"
 			add_offsite_building = { type = arms_factory level = 1 }
 			add_offsite_building = { type = industrial_complex level = 1 }
-			add_popularity = {
-				ideology = totalist
-				popularity = 0.025
-			}
+			increase_ruling_party_popularity_by_3 = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = MNT_hire_franco_british_officers
 		icon = GFX_goal_MNT_franco_british_advisory
+		relative_position_id = MNT_blazo_joganovic_putsch
 		x = -1
-		y = 12
+		y = 2
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -3324,13 +3440,15 @@ focus_tree = {
 			add_war_support = 0.05
 			custom_effect_tooltip = MNT_plead_tt
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = MNT_bulwark_against_austria
 		icon = GFX_goal_MNT_bulwark_against_austria
+		relative_position_id = MNT_blazo_joganovic_putsch
 		x = -2
-		y = 14
+		y = 4
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -3373,13 +3491,15 @@ focus_tree = {
 			}
 			add_ideas = MNT_bulwark
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = MNT_peoples_defense_assembly
 		icon = GFX_goal_FRA_red_politburo
+		relative_position_id = MNT_blazo_joganovic_putsch
 		x = -1
-		y = 15
+		y = 5
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -3414,13 +3534,15 @@ focus_tree = {
 			}
 			remove_ideas = MNT_purple_resistance_2
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = MNT_revolutionary_guard
 		icon = GFX_goal_CSA_professional_red_army
+		relative_position_id = MNT_blazo_joganovic_putsch
 		x = -1
-		y = 16
+		y = 6
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -3443,13 +3565,15 @@ focus_tree = {
 			}
 			add_ideas = MNT_infantry_idea
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = MNT_western_republic
 		icon = GFX_goal_FRA_international_insurrection
+		relative_position_id = MNT_blazo_joganovic_putsch
 		x = 3
-		y = 15
+		y = 5
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -3488,14 +3612,15 @@ focus_tree = {
 			remove_ideas = MNT_purple_resistance_2
 			add_tot_to_coalition = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
-	
 	
 	focus = {
 		id = MNT_civilian_shift
 		icon = GFX_goal_MNT_Nikola_Kovacevic
+		relative_position_id = MNT_blazo_joganovic_putsch
 		x = 3
-		y = 16
+		y = 6
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -3511,13 +3636,15 @@ focus_tree = {
 			add_one_random_civilian_factory = yes
 			add_ideas = MNT_construction_idea
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
 		id = MNT_montenegrin_mountain_roads
 		icon = GFX_goal_MNT_njegos_mausoleum
+		relative_position_id = MNT_blazo_joganovic_putsch
 		x = 1
-		y = 16
+		y = 6
 		cost = 5.8
 		ai_will_do = {
 			factor = 100
@@ -3537,6 +3664,7 @@ focus_tree = {
 			add_one_random_infrastructure = yes
 			add_one_random_infrastructure = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	#### Montenegrinists ####
@@ -3560,6 +3688,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_nationalist"
 			custom_effect_tooltip = unlock_focuses
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3582,8 +3711,8 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_dinaric_heritage"
 			add_political_power = 30
 			add_ideas = MNT_dinaric_heritage_idea
-
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3606,7 +3735,9 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_deny_serbization"
 			add_stability = 0.05
 			add_one_random_military_factory = yes
+			add_ideas = MNT_mass_genocide_against_the_serbian_world
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3632,6 +3763,7 @@ focus_tree = {
 			army_experience = 10
 			add_one_random_military_factory = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3653,13 +3785,11 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_ancestral_brotherhood"
 			add_manpower = 15000
-			add_popularity = {
-				ideology = national_populist
-				popularity = 0.03
-			}
+			increase_ruling_party_popularity_by_3 = yes
 			add_one_random_civilian_factory = yes
 			#Event for CRO here
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3683,44 +3813,29 @@ focus_tree = {
 			every_state = {
 				limit = { 
 					OR = {
-						state = 765
-						state = 108
-						state = 107
-						state = 44
-						state = 1098
-						state = 1145
-						state = 104
-						state = 1141
-						state = 1142
-						state = 1143
-						state = 163
-						state = 103
-						state = 1099
-						state = 1105
-						state = 1206
-						state = 1144
 						state = 766
-						state = 185
+						state = 1144
+						region = 24
+						region = 143
 					}
 					NOT = { is_core_of = ROOT }
 				}
-				add_core_of = ROOT
+				add_claim_by = ROOT
+				add_state_flag = MNT_integrable_claim
 			}
-			
+			unlock_decision_tooltip = MNT_integrate_state_TT_FUCK_YOU_INSTANT_CORES_LMAAOOOOOOOOOO
 			set_cosmetic_tag = MNT_red_croatia
 			add_war_support = 0.1
-			add_popularity = {
-				ideology = national_populist
-				popularity = 0.05
-			}
+			increase_ruling_party_popularity_by_5 = yes
 			hidden_effect = {
 				country_event = {
 					id = mntflavor.14
 					days = 40
-					random = 2000
+					random_hours = 1000
 				}
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
 	}
 	
 	focus = {
@@ -3747,6 +3862,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_montenegrinist_orthodoxy"
 			add_ideas = MNT_orthodoxy
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3770,10 +3886,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_armanist_exceptionalism"
-			add_popularity = {
-				ideology = national_populist
-				popularity = 0.03
-			}
+			increase_ruling_party_popularity_by_3 = yes
 			add_tech_bonus = {
 				name = MNT_armanist_exceptionalism
 				category = infantry_weapons
@@ -3781,6 +3894,7 @@ focus_tree = {
 				bonus = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3805,12 +3919,10 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_purified_danubian_federalism"
 			add_stability = 0.075
-			add_popularity = {
-				ideology = national_populist
-				popularity = 0.03
-			}
+			increase_ruling_party_popularity_by_3 = yes
 			add_ideas = MNT_federalism
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3833,6 +3945,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_found_the_doclean_academies"
 			add_ideas = MNT_DANU
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3860,6 +3973,7 @@ focus_tree = {
 			add_political_power = 50
 			add_one_random_civilian_factory = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3896,6 +4010,7 @@ focus_tree = {
 				bonus = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3927,6 +4042,7 @@ focus_tree = {
 			}
 			add_one_random_military_factory = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3955,6 +4071,7 @@ focus_tree = {
 			add_political_power = 100
 			army_experience = 20
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3967,18 +4084,22 @@ focus_tree = {
 			factor = 100
 		}
 		allow_branch = {
-			has_country_leader = { name = "Alexander II" ruling_only = yes }
+			OR = {
+				MNT_alexander_ii_path_trigger = yes
+				has_completed_focus = MNT_serb_king
+			}
 		}
 		available = {
-			has_country_leader = { name = "Alexander II" ruling_only = yes }
+			MNT_alexander_ii_path_trigger = yes
 		}
 		bypass = {
-			has_country_leader = { name = "Alexander II" ruling_only = yes }
+			MNT_alexander_ii_path_trigger = yes
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_serb_king"
 			custom_effect_tooltip = unlock_focuses
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3992,7 +4113,7 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_leader = { name = "Alexander II" ruling_only = yes }
+			MNT_alexander_ii_path_trigger = yes
 		}
 		prerequisite = {
 			focus = MNT_serb_king
@@ -4003,6 +4124,7 @@ focus_tree = {
 			add_war_support = 0.05
 			add_one_random_military_factory = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4016,18 +4138,19 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_leader = { name = "Alexander II" ruling_only = yes }
+			MNT_alexander_ii_path_trigger = yes
 		}
 		prerequisite = {
 			focus = MNT_serb_king
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_court_cultured_serbs"
-			army_experience = 5
-			navy_experience = 5
-			air_experience = 5
+			army_experience = 25
+			navy_experience = 25
+			air_experience = 25
 			add_ideas = MNT_culture
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4041,7 +4164,7 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_leader = { name = "Alexander II" ruling_only = yes }
+			MNT_alexander_ii_path_trigger = yes
 		}
 		prerequisite = {
 			focus = MNT_serb_king
@@ -4072,6 +4195,7 @@ focus_tree = {
 				}
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4085,7 +4209,7 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_leader = { name = "Alexander II" ruling_only = yes }
+			MNT_alexander_ii_path_trigger = yes
 		}
 		prerequisite = {
 			focus = MNT_welcome_karadordevic_loyalists
@@ -4096,8 +4220,9 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_absolutist_reclamation"
 			add_one_random_civilian_factory = yes
-			add_war_support = 0.03
+			add_war_support = 0.05
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4111,7 +4236,7 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_leader = { name = "Alexander II" ruling_only = yes }
+			MNT_alexander_ii_path_trigger = yes
 		}
 		prerequisite = {
 			focus = MNT_destroy_montenegrin_nationalism
@@ -4122,8 +4247,24 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_enemies_on_all_sides"
 			add_ideas = MNT_all_sides
-			army_experience = 5
+			army_experience = 25
+			every_owned_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+					any_neighbor_state = { NOT = { is_owned_by = ROOT }}
+				}
+				add_building_construction = {
+					type = bunker
+					province = {
+						all_provinces = yes
+						limit_to_border = yes
+					}
+					level = 3
+					instant_build = yes
+				}
+			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4137,7 +4278,7 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_leader = { name = "Alexander II" ruling_only = yes }
+			MNT_alexander_ii_path_trigger = yes
 		}
 		prerequisite = {
 			focus = MNT_destroy_montenegrin_nationalism
@@ -4146,7 +4287,13 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_hands_of_serbdom"
 			add_ideas = MNT_hands
 			add_one_random_military_factory = yes
+			increase_ruling_party_popularity_by_10 = yes
+			add_popularity = {
+				ideology = national_populist
+				popularity = 0.1
+			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4160,7 +4307,7 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_leader = { name = "Alexander II" ruling_only = yes }
+			MNT_alexander_ii_path_trigger = yes
 		}
 		prerequisite = {
 			focus = MNT_destroy_montenegrin_nationalism
@@ -4173,6 +4320,7 @@ focus_tree = {
 			navy_experience = 10
 			air_experience = 10
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4186,7 +4334,7 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_leader = { name = "Alexander II" ruling_only = yes }
+			MNT_alexander_ii_path_trigger = yes
 		}
 		prerequisite = {
 			focus = MNT_welcome_karadordevic_loyalists
@@ -4197,6 +4345,7 @@ focus_tree = {
 			add_stability = 0.1
 			increase_ruling_party_popularity_by_5 = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4210,7 +4359,7 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_leader = { name = "Alexander II" ruling_only = yes }
+			MNT_alexander_ii_path_trigger = yes
 		}
 		prerequisite = {
 			focus = MNT_absolutist_reclamation
@@ -4222,10 +4371,20 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_develop_northern_agriculture"
 			increase_ruling_party_popularity_by_5 = yes
+			random_owned_controlled_state = {
+				prioritize = { 1097 }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				add_manpower = 100000
+			}
 			add_tech_bonus = {
 				name = MNT_develop_northern_agriculture
 				category = industry
-				uses = 1
+				uses = 2
 				bonus = 1
 			}
 			add_tech_bonus = {
@@ -4235,6 +4394,7 @@ focus_tree = {
 				bonus = 1
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4248,7 +4408,7 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_leader = { name = "Alexander II" ruling_only = yes }
+			MNT_alexander_ii_path_trigger = yes
 		}
 		prerequisite = {
 			focus = MNT_enemies_on_all_sides
@@ -4263,6 +4423,7 @@ focus_tree = {
 			add_political_power = 30
 			add_ideas = MNT_alexanders_identity_idea
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4276,49 +4437,62 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_leader = { name = "Alexander II" ruling_only = yes }
-			NOT = {
-				owns_state = 107
-			}
+			MNT_alexander_ii_path_trigger = yes
+			NOT = { owns_state = 107 }
+		}
+		bypass = {
+			MNT_alexander_ii_path_trigger = yes
+			owns_state = 107
 		}
 		prerequisite = {
 			focus = MNT_alexanders_identity
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_the_reclamation"
-			declare_war_on = {
-				target = 107.owner
+			every_state = {
+				limit = {
+					is_core_of = SER
+					NOT = { is_core_of = ROOT }
+				}
+				if = {
+					limit = { is_claimed_by = ROOT }
+					remove_claim_and_add_core = yes
+				}
+				add_core_of = ROOT
+			}
+			create_wargoal = {
+				target = var:107.owner
 				type = annex_everything
 			}
+			if = {
+				limit = {
+					BUL = {
+						is_subject = no
+						exists = yes
+					}
+				}
+				create_wargoal = {
+					target = BUL
+					type = annex_everything
+				}
+			}
+			if = {
+				limit = {
+					MCD = {
+						is_subject = no
+						exists = yes
+					}
+				}
+				create_wargoal = {
+					target = MCD
+					type = annex_everything
+				}
+			}
 			unlock_decision_tooltip = MNT_serb_unification
-			add_war_support = 0.05
+			add_war_support = 0.1
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
 	}
-	
-	#focus = {
-	#	id = MNT_promote_united_serb_youth
-	#	icon = GFX_goal_MNT_questions_of_the_day
-	#	relative_position_id = MNT_serb_king
-	#	x = 0
-	#	y = 5
-	#	cost = 5.8
-	#	ai_will_do = {
-	#		factor = 100
-	#	}
-	#	available = {
-	#		has_country_leader = { name = "Alexander II" ruling_only = yes }
-	#	}
-	#	prerequisite = {
-	#		focus = MNT_fund_NLM
-	#	}
-	#	completion_reward = {
-	#		army_experience = 20
-	#		navy_experience = 20
-	#		add_manpower = 20000
-	#		increase_ruling_party_popularity_by_5 = yes
-	#		add_war_support = 0.1
-	#	}
-	#}
 	
 	focus = {
 		id = MNT_link_with_chetniks
@@ -4331,16 +4505,17 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_leader = { name = "Alexander II" ruling_only = yes }
+			MNT_alexander_ii_path_trigger = yes
 		}
 		prerequisite = {
 			focus = MNT_develop_northern_agriculture
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MNT_link_with_chetniks"
-			army_experience = 15
+			army_experience = 50
 			add_one_random_military_factory = yes
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -4354,7 +4529,8 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-			has_country_leader = { name = "Alexander II" ruling_only = yes }
+			MNT_alexander_ii_path_trigger = yes
+			owns_state = 107
 		}
 		prerequisite = {
 			focus = MNT_the_reclamation
@@ -4370,5 +4546,6 @@ focus_tree = {
 			add_war_support = 0.1
 			add_stability = 0.1
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 }

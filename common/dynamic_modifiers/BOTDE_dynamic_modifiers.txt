@@ -247,8 +247,8 @@ LIC_shadow_empire_dynmod = {
 	remove_trigger = {
 		always = no
 	}
-	industrial_factory_donations = LIC.shadow_empire_civs_percent
-	military_factory_donations = LIC.shadow_empire_mils_percent
+	industrial_factory_donations = LIC.shadow_empire_civs
+	military_factory_donations = LIC.shadow_empire_mils
 	consumer_goods_expected_value = -0.05
 }
 
@@ -783,6 +783,7 @@ FIU_state_just_got_frauded_modifier = {
 FIU_piracy_gains_modifier = {
 	icon = GFX_idea_FIU_piracy_gains_modifier
 	remove_trigger = { always = no }
+	production_lack_of_resource_penalty_factor = FIU.FIU_piracy_gains_production_lack_of_resource_penalty_factor
 	industry_free_repair_factor = FIU.piracy_gains_var
 	political_power_gain = FIU.piracy_gains_var
 	recruitable_population_factor = FIU.piracy_gains_var
@@ -793,4 +794,87 @@ FIU_piracy_gains_modifier = {
 	country_resource_coal = FIU.FIU_coal_var
 	country_resource_chromium = FIU.FIU_chromium_var
 	country_resource_tungsten = FIU.FIU_tungsten_var
+}
+
+FIU_clean_gains_modifier = {
+	icon = GFX_idea_FIU_clean_gains_modifier
+	remove_trigger = { always = no }
+	production_lack_of_resource_penalty_factor = FIU.FIU_piracy_gains_production_lack_of_resource_penalty_factor
+	country_resource_steel = FIU.FIU_steel_var
+	country_resource_rubber = FIU.FIU_rubber_var
+	country_resource_aluminium = FIU.FIU_aluminium_var
+	country_resource_oil = FIU.FIU_oil_var
+	country_resource_coal = FIU.FIU_coal_var
+	country_resource_chromium = FIU.FIU_chromium_var
+	country_resource_tungsten = FIU.FIU_tungsten_var
+}
+
+FIU_zadar_special_state_modifier = {
+	icon = GFX_dynamic_mod_FIU_zadar_special_status
+	remove_trigger = { NOT = { is_owned_by = FIU } }
+	local_building_slots_factor = 0.25
+	state_resources_factor = 0.25
+	local_factories	= 0.15
+	local_intel_to_enemies = -0.5
+}
+
+FIU_french_connection_modifier = {
+	icon = GFX_dynamic_mod_FIU_french_connection_modifier
+	remove_trigger = {
+		OR = {
+			NOT = { has_global_flag = french_connection_exists }
+			FIU = { NOT = { has_country_flag = FIU_crime_boss } }
+		}
+	}
+	local_building_slots_factor = -0.05
+	state_resources_factor = 0.1
+	local_factories	= -0.05
+	local_intel_to_enemies = -0.05
+	recruitable_population_factor = -0.05
+	local_factory_sabotage = 0.05
+}
+
+FIU_fucking_up_france_modifier = {
+	icon = GFX_dynamic_mod_FIU_fucking_up_france_modifier
+	remove_trigger = {
+		OR = {
+			NOT = { is_owned_by = FRA }
+			FIU = { NOT = { has_country_flag = FIU_crime_boss } }
+		}
+	}
+	local_building_slots_factor = -0.05
+	state_resources_factor = -0.1
+	local_factories	= -0.05
+	local_intel_to_enemies = 0.5
+	recruitable_population_factor = -0.1
+	local_factory_sabotage = 0.05
+}
+
+FIU_fucking_up_france_milieu_style = {
+	icon = GFX_dynamic_mod_FIU_fucking_up_france_milieu_style
+	remove_trigger = {
+		OR = {
+			NOT = { is_owned_by = FRA }
+			FIU = { NOT = { has_country_flag = FIU_crime_boss } }
+		}
+	}
+	local_building_slots_factor = -0.02
+	state_resources_factor = -0.05
+	local_factories	= -0.05
+	local_factory_sabotage = 0.01
+}
+
+FIU_Sabini_Gang = {
+	icon = GFX_dynamic_mod_FIU_Sabini_Gang
+	remove_trigger = {
+		OR = {
+			NOT = { is_owned_by = ENG }
+			FIU = { NOT = { has_country_flag = FIU_crime_boss } }
+		}
+	}
+	local_building_slots_factor = -0.05
+	state_resources_factor = -0.05
+	local_factories	= -0.1
+	recruitable_population_factor = -0.05
+	local_factory_sabotage = 0.05
 }

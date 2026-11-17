@@ -1136,7 +1136,7 @@ save_austria = {
 			log = "[GetDateText]: [Root.GetName]: Decision cancel BOTDE_collapse_headsup"
 			if = {
 				limit = {
-					has_country_flag = imminent_collapse
+					has_country_flag = AUS_imminent_collapse
 					tag = AUS
 				}
 				AUS_subtract_five_collapse = yes
@@ -1204,7 +1204,6 @@ save_austria = {
 					}
 				}
 			}			
-			clr_country_flag = imminent_collapse
 			clr_country_flag = AUS_collapse_HUN_stays
 			clr_country_flag = AUS_revolution_collapse
 			clr_country_flag = AUS_economic_collapse
@@ -2099,7 +2098,7 @@ save_austria = {
 			}
 		}
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove CONST_help_austria"
+			log = "[GetDateText]: [Root.GetName]: Decision CONST_help_austria"
 			AUS_subtract_three_collapse = yes
 			add_stability = 0.02
 		}
@@ -2256,14 +2255,10 @@ save_austria = {
 					hidden_effect = {
 						scoped_sound_effect = "AUS_paramilitary_pacified"
 					}
-					FROM = {
-						AUS_remove_minority_paramilitary = yes
-						owner = {
-							if = {
-								limit = { is_ally_with = AUS }
-								add_stability = 0.03
-							}
-						}
+					FROM = { AUS_remove_minority_paramilitary = yes }
+					if = {
+						limit = { var:FROM.owner = { is_ally_with = AUS } }
+						var:FROM.owner = { add_stability = 0.03 }
 					}
 				}
 			}
@@ -2425,6 +2420,20 @@ save_austria = {
 				}
 				owner = { add_stability = 0.03 }
 			}
+			if = {
+				limit = { is_ai = yes }
+				every_possible_country = {
+					limit = {
+						AUS_is_danubian_tag = yes
+						is_in_array = { global.bp_occupied_tag_array_SER = THIS }
+					}
+					set_temp_variable = { revolt_progress_change = -0.05 }
+					custom_override_tooltip = {
+						tooltip = BOTDE_collapse_no_country_name_with_flag_tt
+						BOTDE_add_collapse = yes
+					}
+				}
+			}
 		}
 		ai_will_do = {
 			factor = 300
@@ -2487,6 +2496,20 @@ save_austria = {
 				add_compliance = 4
 				add_resistance = -4
 			}
+			if = {
+				limit = { is_ai = yes }
+				every_possible_country = {
+					limit = {
+						AUS_is_danubian_tag = yes
+						is_in_array = { global.bp_occupied_tag_array_SER = THIS }
+					}
+					set_temp_variable = { revolt_progress_change = -0.05 }
+					custom_override_tooltip = {
+						tooltip = BOTDE_collapse_no_country_name_with_flag_tt
+						BOTDE_add_collapse = yes
+					}
+				}
+			}
 		}
 	}
 	
@@ -2546,6 +2569,20 @@ save_austria = {
 				add_compliance = 2
 				add_resistance = -2
 			}
+			if = {
+				limit = { is_ai = yes }
+				every_possible_country = {
+					limit = {
+						AUS_is_danubian_tag = yes
+						is_in_array = { global.bp_occupied_tag_array_SER = THIS }
+					}
+					set_temp_variable = { revolt_progress_change = -0.05 }
+					custom_override_tooltip = {
+						tooltip = BOTDE_collapse_no_country_name_with_flag_tt
+						BOTDE_add_collapse = yes
+					}
+				}
+			}
 		}
 	}
 	
@@ -2604,6 +2641,20 @@ save_austria = {
 				}
 				add_compliance = 4
 				add_resistance = -4
+			}
+			if = {
+				limit = { is_ai = yes }
+				every_possible_country = {
+					limit = {
+						AUS_is_danubian_tag = yes
+						is_in_array = { global.bp_occupied_tag_array_ROM = THIS }
+					}
+					set_temp_variable = { revolt_progress_change = -0.05 }
+					custom_override_tooltip = {
+						tooltip = BOTDE_collapse_no_country_name_with_flag_tt
+						BOTDE_add_collapse = yes
+					}
+				}
 			}
 		}
 	}
@@ -2671,6 +2722,20 @@ save_austria = {
 				}
 				add_compliance = 2
 				add_resistance = -2
+			}
+			if = {
+				limit = { is_ai = yes }
+				every_possible_country = {
+					limit = {
+						AUS_is_danubian_tag = yes
+						is_in_array = { global.bp_occupied_tag_array_ROM = THIS }
+					}
+					set_temp_variable = { revolt_progress_change = -0.05 }
+					custom_override_tooltip = {
+						tooltip = BOTDE_collapse_no_country_name_with_flag_tt
+						BOTDE_add_collapse = yes
+					}
+				}
 			}
 		}
 	}
@@ -3180,6 +3245,7 @@ save_austria = {
 			factor = 1000
 		}
 		visible = {
+			tag = AUS
 			has_war_with = GAL
 		}
 		remove_effect = {
@@ -3740,8 +3806,8 @@ AUS_constituent_influence = {
 		
 		cancel_if_not_visible = yes
 		
-		cost = 100	
-		days_remove = 120
+		cost = 80	
+		days_remove = 60
 		ai_will_do = {
 			factor = 100
 		}
@@ -5866,7 +5932,7 @@ austria_collapse_category = {
 		cost = 50
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 0
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_form_antihabsburg_coalition target: [From.GetName]"
@@ -5905,7 +5971,7 @@ austria_collapse_category = {
 		cost = 10
 		fire_only_once = yes
 		ai_will_do = {
-			factor = 100
+			factor = 0
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_invite_to_coalition target: [From.GetName]"
@@ -6578,6 +6644,15 @@ AUS_foreign_policy_category = {
 						has_cosmetic_tag = EBR
 						has_country_flag = AUS_faction_invitee
 					}
+					AND = {
+						fifth_balkan_war = yes
+						OR = {
+							tag = ALB
+							tag = MNT
+						}
+						NOT = { has_war_with = ROOT }
+						has_war_together_with = ROOT
+					}
 				}
 				is_in_faction = no
 				is_subject = no
@@ -6617,20 +6692,52 @@ AUS_foreign_policy_category = {
 		}
 		target_trigger = {
 			FROM = {
-				is_ally_with = ROOT
-				AUS_DWV_member = no
+				OR = {
+					is_ally_with = ROOT
+					AND = {
+						OR = {
+							tag = ALB
+							tag = VNC
+							tag = LOM
+							tag = ALB
+							tag = ITA
+						}
+						same_government_type_as_ROOT = yes
+						NOT = {
+							is_ally_with = SER
+							NOT = { SER = { is_ally_with = ROOT } }
+						}
+					}
+				}
+				is_member_of_economic_sphere = no
 				NOT = { has_country_flag = AUS_no_DWV_decision_for_this_tag }
 			}
 		}
 		available = {
 			FROM = {
-				is_ally_with = ROOT
-				AUS_DWV_member = no
+				OR = {
+					is_ally_with = ROOT
+					AND = {
+						OR = {
+							tag = ALB
+							tag = VNC
+							tag = LOM
+							tag = ALB
+							tag = ITA
+						}
+						same_government_type_as_ROOT = yes
+						NOT = {
+							is_ally_with = SER
+							NOT = { SER = { is_ally_with = ROOT } }
+						}
+					}
+				}
+				is_member_of_economic_sphere = no
 				NOT = { has_country_flag = AUS_no_DWV_decision_for_this_tag }
 			}
 		}
 		fire_only_once = yes
-		days_remove = 7
+		days_remove = 3
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove AUS_invite_into_DWV target: [From.GetName]"
 			FROM = {
@@ -6657,6 +6764,7 @@ AUS_foreign_policy_category = {
 			is_faction_leader = yes
 			SWI = {
 				is_in_faction = no
+				NOT = { has_war_with = ROOT }
 				AUS = { both_socialist_or_both_not_socialist = yes }
 			}
 		}
@@ -6720,6 +6828,7 @@ AUS_foreign_policy_category = {
 			BUL = {
 				is_in_faction = no
 				is_subject = no
+				NOT = { has_war_with = ROOT }
 			}
 		}
 		fire_only_once = yes
@@ -8864,6 +8973,162 @@ political_actions = {
 			factor = 0
 		}
 	}
+
+	BOTDE_hungarian_revolt_victory_time_limit = {
+		icon = GFX_decision_revolt
+		allowed = { always = no }
+		available = { 
+			hidden_trigger = { always = no }
+		}
+		cancel_trigger = {
+			if = {
+				limit = { NOT = { tag = HUN } }
+				NOT = { has_war_with = HUN }
+			}
+			else = {
+				NOT = { has_war_with = AUS }
+			}
+		}
+		is_good = no
+		days_mission_timeout = 120
+		priority = 100
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout BOTDE_hungarian_revolt_victory_time_limit"
+			if = {
+				limit = {
+					OR = {
+						tag = AUS
+						is_ally_with = AUS
+					}
+				}
+				custom_override_tooltip = {
+					tooltip = AUS_revolt_peaceout_tt
+					country_event = revolt_peace.1
+				}
+			}
+			else_if = {
+				limit = { has_war_with = AUS }
+				custom_override_tooltip = CONST_revolt_peaceout_tt
+			}
+		}
+	}
+
+	BOTDE_czech_revolt_victory_time_limit = {
+		icon = GFX_decision_revolt
+		allowed = { always = no }
+		available = { 
+			hidden_trigger = { always = no }
+		}
+		cancel_trigger = {
+			if = {
+				limit = { NOT = { tag = CZE } }
+				NOT = { has_war_with = CZE }
+			}
+			else = {
+				NOT = { has_war_with = AUS }
+			}
+		}
+		is_good = no
+		days_mission_timeout = 120
+		priority = 100
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout BOTDE_czech_revolt_victory_time_limit"
+			if = {
+				limit = {
+					OR = {
+						tag = AUS
+						is_ally_with = AUS
+					}
+				}
+				custom_override_tooltip = {
+					tooltip = AUS_revolt_peaceout_tt
+					country_event = revolt_peace.2
+				}
+			}
+			else_if = {
+				limit = { has_war_with = AUS }
+				custom_override_tooltip = CONST_revolt_peaceout_tt
+			}
+		}
+	}
+
+	BOTDE_croatian_revolt_victory_time_limit = {
+		icon = GFX_decision_revolt
+		allowed = { always = no }
+		available = { 
+			hidden_trigger = { always = no }
+		}
+		cancel_trigger = {
+			if = {
+				limit = { NOT = { tag = CRO } }
+				NOT = { has_war_with = CRO }
+			}
+			else = {
+				NOT = { has_war_with = AUS }
+			}
+		}
+		is_good = no
+		days_mission_timeout = 120
+		priority = 100
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout BOTDE_croatian_revolt_victory_time_limit"
+			if = {
+				limit = {
+					OR = {
+						tag = AUS
+						is_ally_with = AUS
+					}
+				}
+				custom_override_tooltip = {
+					tooltip = AUS_revolt_peaceout_tt
+					country_event = revolt_peace.3
+				}
+			}
+			else_if = {
+				limit = { has_war_with = AUS }
+				custom_override_tooltip = CONST_revolt_peaceout_tt
+			}
+		}
+	}
+
+	BOTDE_galician_revolt_victory_time_limit = {
+		icon = GFX_decision_revolt
+		allowed = { always = no }
+		available = { 
+			hidden_trigger = { always = no }
+		}
+		cancel_trigger = {
+			if = {
+				limit = { NOT = { tag = GAL } }
+				NOT = { has_war_with = GAL }
+			}
+			else = {
+				NOT = { has_war_with = AUS }
+			}
+		}
+		is_good = no
+		days_mission_timeout = 120
+		priority = 100
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout BOTDE_galician_revolt_victory_time_limit"
+			if = {
+				limit = {
+					OR = {
+						tag = AUS
+						is_ally_with = AUS
+					}
+				}
+				custom_override_tooltip = {
+					tooltip = AUS_revolt_peaceout_tt
+					country_event = revolt_peace.4
+				}
+			}
+			else_if = {
+				limit = { has_war_with = AUS }
+				custom_override_tooltip = CONST_revolt_peaceout_tt
+			}
+		}
+	}
 }
 
 AUS_socialist_republic = {
@@ -9671,10 +9936,14 @@ AUS_ausgleich_category = {
 	AUS_ausgleich_placate_attendants = {
 		icon = GFX_decision_generic_civil_support
 		visible = {
+			tag = AUS
 			check_variable = { global.ausgleich_successes < 2 }
 		}
 		available = {
-			NOT = { has_global_flag = ausgleich_debating_question }
+			NOT = {
+				has_global_flag = ausgleich_debating_question
+				has_active_mission = AUS_ausgleich_ends_mission
+			}
 		}
 		ai_will_do = {
 			factor = 1000

@@ -10,13 +10,13 @@ country_event = { #debug
 	title = mnt.0.t
 	desc = mnt.0.d
 	
-	picture = GFX_event_MNT_
+	picture = GFX_event_AUS_i_was_there_dude
 
 	fire_only_once = yes
 
 	is_triggered_only = yes
 
-	option = { #Egads!
+	option = {
 		name = mnt.0.a
 		every_unit_leader = {
 			limit = {
@@ -68,13 +68,12 @@ country_event = { #Black Monday hits Montenegro!
 
 	is_triggered_only = yes
 
-	option = { #Egads!
+	option = { #Damn avalanches.
 		name = mnt.1.a
 		set_country_flag = MNT_black_monday
 		add_political_power = -50
 		add_stability = -0.1
 		add_ideas = MNT_bm_1
-		
 		hidden_effect = { #EXPAND ME LATER!
 			country_event = {
 				id = mnt.23
@@ -124,18 +123,34 @@ country_event = { #The King's Policy
 
 	is_triggered_only = yes
 
-	option = { #We cannot afford more damage, Status Quo
+	option = { #Uphold the status quo; we can't risk more variables.
 		name = mnt.2.a
 		ai_chance = {
 			base = 33
+			modifier = {
+				OR = {
+					BOTDE_AI_MNT_go_soccons = yes
+					BOTDE_AI_MNT_go_alexander_ii = yes
+					BOTDE_AI_MNT_go_patauts = yes
+				}
+				factor = 0
+			}
 		}
 		set_country_flag = MNT_statusquo
 	}
 	
-	option = { #Something must be done now, Pravasi
+	option = { #Montenegro must seek its own future; support the Pravaši
 		name = mnt.2.b
 		ai_chance = {
 			base = 33
+			modifier = {
+				OR = {
+					BOTDE_AI_MNT_go_soccons = yes
+					BOTDE_AI_MNT_go_alexander_ii = yes
+					BOTDE_AI_MNT_go_status_quo = yes
+				}
+				factor = 0
+			}
 		}
 		set_country_flag = MNT_pravasi
 		add_stability = -0.05
@@ -158,11 +173,18 @@ country_event = { #The King's Policy
 		}
 	}
 	
-	option = { #More risky maneuvers have to be made, Klubasi
+	option = { #To keep away from the ire of our other neighbors, appoint the Klubaši
 		name = mnt.2.c
 		trigger = { NOT = { has_country_flag = MNT_klubasi_owned } }
 		ai_chance = {
 			base = 33
+			modifier = {
+				OR = {
+					BOTDE_AI_MNT_go_patauts = yes
+					BOTDE_AI_MNT_go_status_quo = yes
+				}
+				factor = 0
+			}
 		}
 		set_country_flag = MNT_klubasi
 		add_stability = -0.05
@@ -206,16 +228,14 @@ country_event = { #Policy on the Balkan War
 	option = { #Our neutrality must be preserved.
 		name = mnt.3.a
 		add_stability = 0.1
-		ai_chance = { factor = 20 }
+		ai_chance = { base = 20 }
 	}
 	
 	option = { #We are able to crush the Serbs here and now!
 		name = mnt.3.b
-		ai_chance = { factor = 5 }
+		ai_chance = { base = 5 }
 		if = {
-			limit = {
-				is_in_faction_with = AUS
-			}
+			limit = { is_in_faction = yes }
 			leave_faction = yes
 		}
 		trigger = {
@@ -254,9 +274,13 @@ country_event = { #Policy on the Balkan War
 	
 	option = { #To arms, Serbs!
 		name = mnt.3.c
-		ai_chance = { factor = 5 }
+		ai_chance = { base = 5 }
 		trigger = {
 			has_government = social_conservative
+		}
+		if = {
+			limit = { is_in_faction = yes }
+			leave_faction = yes
 		}
 		add_war_support = 0.1
 		set_country_flag = MNT_intervention_balkanwar
@@ -272,7 +296,6 @@ country_event = { #Policy on the Balkan War
 		BUL = {
 			set_country_flag = MNT_attack_on_this_side
 		}
-		leave_faction = yes
 	}
 }
 
@@ -292,6 +315,10 @@ country_event = { #Alexander of Serbia Flees to Cetinje
 		name = mnt.4.a
 		ai_chance = {
 			base = 50
+			modifier = {
+				BOTDE_AI_MNT_go_alexander_ii = yes
+				factor = 0
+			}
 		}
 		add_political_power = 50
 		add_war_support = 0.05
@@ -308,7 +335,9 @@ country_event = { #Alexander of Serbia Flees to Cetinje
 				has_country_flag = MNT_SER_war
 			}
 		}
-		ai_chance = { base = 50 }
+		ai_chance = {
+			base = 50
+		}
 		add_political_power = -20
 		add_stability = -0.075
 		if = {
@@ -337,6 +366,7 @@ country_event = { #Alexander of Serbia Flees to Cetinje
 				days = 30
 				random_hours = 300
 			}
+			country_event = mnt.7
 		}
 	}
 }
@@ -355,7 +385,6 @@ country_event = { #Royal Loyalists In Tow
 
 	option = { #We didn't sign up for this...
 		name = mnt.5.a
-		ai_chance = { factor = 10 }
 		add_stability = -0.05
 		add_war_support = 0.025
 		add_manpower = 5000
@@ -392,11 +421,9 @@ country_event = { #Unification or Death! (Black Hand arrives in Montenegro)
 
 	is_triggered_only = yes
 
-	option = { #We didn't sign up for this...
+	option = { #Stop bringing your problems with you!
 		name = mnt.6.a
-		ai_chance = { factor = 10 }
 		add_stability = -0.05
-		
 		hidden_effect = {
 			if = {
 				limit = {
@@ -427,18 +454,17 @@ country_event = { #Vidovdan checker
 	title = mnt.7.t
 	desc = mnt.7.d
 
+	picture = GFX_event_AUS_i_was_there_dude
+
 	hidden = yes
 
 	is_triggered_only = yes
 
-	option = { #We didn't sign up for this...
+	option = {
 		name = mnt.7.a
-		ai_chance = { factor = 10 }
 		if = {
 			limit = {
-				NOT = {
-					has_country_flag = MNT_blackhand_suppressed
-				}
+				NOT = { has_country_flag = MNT_blackhand_suppressed }
 				has_country_flag = MNT_alexander_asylum
 				has_country_flag = MNT_vidovdan_coup
 			}
@@ -447,7 +473,7 @@ country_event = { #Vidovdan checker
 		else = {
 			country_event = {
 				id = mnt.7
-				days = 365
+				days = 30
 			}
 		}
 	}
@@ -467,7 +493,13 @@ country_event = { #The Vidovdan Coup
 
 	option = { #The Serb cronies are chased out again!
 		name = mnt.8.a
-		ai_chance = { base = 60 }
+		ai_chance = {
+			base = 60
+			modifier = {
+				BOTDE_AI_MNT_go_alexander_ii = yes
+				factor = 0
+			}
+		}
 		add_stability = -0.1
 		add_war_support = 0.1
 	}
@@ -490,10 +522,9 @@ country_event = { #The Vidovdan Coup
 			name = "Alexander II"
 			desc = "POLITICS_ALEXANDER_II_DESC"
 			picture = "gfx/leaders/SER/Portrait_SER_Alexander_II.png"
-			expire = "1965.1.1"
+			expire = "1.1.1"
 			ideology = authdem_absolute_monarchy_subtype
 		}
-		
 		create_field_marshal = {
 			name = "Alexander II "
 			portrait_path = "gfx/leaders/SER/Portrait_SER_Alexander_II.png"
@@ -512,6 +543,7 @@ country_event = { #The Vidovdan Coup
 			id = 19213
 		}
 		hidden_effect = {
+			complete_national_focus = MNT_serb_king
 			country_event = {
 				id = mnt.9
 				days = 3
@@ -574,14 +606,14 @@ country_event = { #Fate of Montenegrin Institutions
 
 	option = { #Respect our fellow Serbs.
 		name = mnt.9.a
-		ai_chance = { factor = 10 }
+		ai_chance = { base = 50 }
 		add_political_power = 25
 		increase_ruling_party_popularity_by_5 = yes
 	}
 	
 	option = { #Cleanse them of false nationalism!
 		name = mnt.9.b
-		ai_chance = { factor = 10 }
+		ai_chance = { base = 50 }
 		add_stability = 0.03
 		add_war_support = 0.03
 		add_to_variable = { MNT.karadordevic_grievances = 1 }
@@ -602,13 +634,13 @@ country_event = { #The House of Karadordevic in Charge
 
 	option = { #Modify the Montenegrin Constitution.
 		name = mnt.10.a
-		ai_chance = { factor = 10 }
+		ai_chance = { base = 50 }
 		add_political_power = 50
 	}
 	
 	option = { #Do away with the Constitutions; Serbia needs strength.
 		name = mnt.10.b
-		ai_chance = { factor = 10 }
+		ai_chance = { base = 50 }
 		add_stability = 0.03
 		add_to_variable = { MNT.karadordevic_grievances = 1 }
 		set_politics = {
@@ -623,7 +655,7 @@ country_event = { #The House of Karadordevic in Charge
 			name = "Alexander II"
 			desc = "POLITICS_ALEXANDER_II_DESC"
 			picture = "gfx/leaders/SER/Portrait_SER_Alexander_II.png"
-			expire = "1965.1.1"
+			expire = "1.1.1"
 			ideology = absolute_monarchy_subtype
 		}
 		hidden_effect = {
@@ -659,13 +691,19 @@ country_event = { #Royal attacked in broad daylight!
 
 	option = { #Something's fishy about those Serbs...
 		name = mnt.11.a
-		ai_chance = { factor = 10 }
+		ai_chance = { base = 50 }
 		add_stability = -0.05
 	}
 	
 	option = { #Deport or arrest the Serb refugees; keep Alexander
 		name = mnt.11.b
-		ai_chance = { factor = 10 }
+		ai_chance = {
+			base = 50
+			modifier = {
+				BOTDE_AI_MNT_go_alexander_ii = yes
+				factor = 0
+			}
+		}
 		add_stability = 0.05
 		add_political_power = 30
 		add_manpower = -7000
@@ -687,7 +725,6 @@ country_event = { #Krsto Popovic Resigns
 
 	option = { #Something's fishy about those Serbs...
 		name = mnt.12.a
-		ai_chance = { factor = 10 }
 		add_war_support = 0.03
 		hidden_effect = {
 			every_unit_leader = {
@@ -712,7 +749,6 @@ country_event = { #The Greens Expand
 
 	option = { #They must be dealt with.
 		name = mnt.13.a
-		ai_chance = { factor = 10 }
 		add_political_power = -20
 		army_experience = -30
 		MNT_do_nationalist_raise = yes
@@ -738,7 +774,9 @@ country_event = { #The Royalists Attempt Restoration
 
 	option = { #The disorganized Serb army is chased out of Montenegro!
 		name = mnt.14.a
-		ai_chance = { factor = 10 }
+		ai_chance = {
+			base = 50
+		}
 		clr_country_flag = MNT_serb_king
 		clr_country_flag = MNT_yugo_flag
 		set_country_flag = MNT_nationalist_flag
@@ -764,14 +802,20 @@ country_event = { #The Royalists Attempt Restoration
 			name = "Michael I"
 			desc = "MNT_KING_MICHAEL_NPO_DESC"
 			picture = "gfx/leaders/MNT/MNT_suit_michael.png"
-			expire = "1965.1.1"
+			expire = "1.1.1"
 			ideology = crnogoroslavlje_subtype
 		}
 	}
 	
 	option = { #Michael and his goons are exiled!
 		name = mnt.14.b
-		ai_chance = { factor = 10 }
+		ai_chance = {
+			base = 50
+			modifier = {
+				BOTDE_AI_MNT_go_nationalists = yes
+				factor = 0
+			}
+		}
 		add_stability = -0.1
 		add_political_power = 20
 	}
@@ -791,7 +835,7 @@ country_event = { #Fate of Austrian Holdings
 
 	option = { #Nationalize them.
 		name = mnt.15.a
-		ai_chance = { factor = 10 }
+		ai_chance = { base = 50 }
 		add_stability = 0.03
 		add_war_support = -0.1
 		random_owned_state = {
@@ -805,7 +849,7 @@ country_event = { #Fate of Austrian Holdings
 	
 	option = { #Leave them be
 		name = mnt.15.b
-		ai_chance = { factor = 10 }
+		ai_chance = { base = 50 }
 		add_stability = -0.075
 		add_political_power = 50
 	}
@@ -825,14 +869,20 @@ country_event = { #Dock Workers Go on Strike
 
 	option = { #Offer concessions
 		name = mnt.16.a
-		ai_chance = { factor = 10 }
+		ai_chance = {
+			base = 50
+			modifier = {
+				BOTDE_AI_MNT_go_syndies = yes
+				factor = 0
+			}
+		}
 		add_stability = 0.05
 		add_political_power = -50
 	}
 	
 	option = { #We have an opportunity here.
 		name = mnt.16.b
-		ai_chance = { factor = 10 }
+		ai_chance = { base = 50 }
 		add_stability = -0.075
 		random_owned_state = {
 			add_building_construction = {
@@ -859,7 +909,9 @@ country_event = { #Fate of Crvenasi Chetniks
 
 	option = { #Let's see how they do
 		name = mnt.17.a
-		ai_chance = { factor = 10 }
+		ai_chance = {
+			base = 50
+		}
 		add_popularity = {
 			ideology = totalist
 			popularity = 0.03
@@ -870,7 +922,13 @@ country_event = { #Fate of Crvenasi Chetniks
 	
 	option = { #Disallow their conscription
 		name = mnt.17.b
-		ai_chance = { factor = 10 }
+		ai_chance = {
+			base = 50
+			modifier = {
+				BOTDE_AI_MNT_go_syndies = yes
+				factor = 0
+			}
+		}
 		add_stability = 0.1
 	}
 }
@@ -887,9 +945,8 @@ country_event = { #Max Mijuskovic's Cryptography (father of Ben Lazare Mijuskovi
 
 	is_triggered_only = yes
 
-	option = { #A great man!
+	option = { #Brilliant!
 		name = mnt.18.a
-		ai_chance = { factor = 10 }
 		add_popularity = {
 			ideology = totalist
 			popularity = -0.03
@@ -920,7 +977,6 @@ country_event = { #Death of Lazar Mijuskovic
 
 	option = { #Rest in peace
 		name = mnt.19.a
-		ai_chance = { factor = 10 }
 		add_political_power = -10
 		hidden_effect = {
 			if = {
@@ -971,7 +1027,6 @@ country_event = { #Northerners Support New Administration
 
 	option = { #Rest in peace
 		name = mnt.20.a
-		ai_chance = { factor = 10 }
 		add_stability = 0.03
 	}
 }
@@ -994,7 +1049,6 @@ country_event = { #Joko Mestrovic Killed in the ACW
 
 	option = { #Worrying
 		name = mnt.21.a
-		ai_chance = { factor = 10 }
 		add_war_support = 0.01
 		add_stability = 0.01
 	}
@@ -1014,7 +1068,6 @@ country_event = { #Monument to the Montenegrin Chetniks
 
 	option = { #Heroes of the Slavs!
 		name = mnt.22.a
-		ai_chance = { factor = 10 }
 		add_political_power = 20
 		army_experience = 15
 	}
@@ -1034,7 +1087,6 @@ country_event = { #Austrian Military Units Withdraw (fires after Black Monday)
 
 	option = { #This will upset the status quo
 		name = mnt.23.a
-		ai_chance = { factor = 10 }
 		add_stability = -0.05
 		hidden_effect = {
 			country_event = {
@@ -1060,7 +1112,6 @@ country_event = { #White Chetniks Activate
 
 	option = { #Too soon...
 		name = mnt.24.a
-		ai_chance = { factor = 10 }
 		add_political_power = -25
 		hidden_effect = {
 			country_event = {
@@ -1084,9 +1135,9 @@ country_event = { #The Pravasi Pressures the King
 
 	is_triggered_only = yes
 
-	option = { #Invite leading Montenegrins to a meeting to work out the details.
+	option = { #Invite leading Montenegrins to work out our divides with this election-plebiscite.
 		name = mnt.25.a
-		ai_chance = { factor = 10 }
+		ai_chance = { base = 50 }
 		add_political_power = -25
 		add_popularity = {
 			ideology = social_conservative 
@@ -1101,9 +1152,9 @@ country_event = { #The Pravasi Pressures the King
 		}
 	}
 	
-	option = { #Order Krsto Popovic to subdue any Serb rebels.
+	option = { #There is no reason to do this.
 		name = mnt.25.b
-		ai_chance = { factor = 10 }
+		ai_chance = { base = 50 }
 		add_war_support = -0.05
 		add_popularity = {
 			ideology = paternal_autocrat
@@ -1140,7 +1191,6 @@ country_event = { #The Klubasi and Pravasi Show to the Plebiscite
 
 	option = { #Let's decide on a new course of action here
 		name = mnt.26.a
-		ai_chance = { factor = 10 }
 		country_event = {
 			id = mnt.2
 			days = 7
@@ -1162,7 +1212,16 @@ country_event = { #Resistance in Berane
 
 	option = { #The Zelenasi is victorious!
 		name = mnt.27.a
-		ai_chance = { factor = 10 }
+		ai_chance = {
+			base = 50
+			modifier = {
+				OR = {
+					BOTDE_AI_MNT_go_soccons = yes
+					BOTDE_AI_MNT_go_alexander_ii = yes
+				}
+				factor = 0
+			}
+		}
 		add_stability = -0.05
 		if = {
 			limit = {
@@ -1176,7 +1235,10 @@ country_event = { #Resistance in Berane
 				}
 			}
 		}
-		set_country_flag = MNT_klubasi_owned
+		custom_override_tooltip = {
+			tooltip = MNT_owns_klubasi_tt
+			set_country_flag = MNT_klubasi_owned
+		}
 		hidden_effect = {
 			country_event = {
 				id = mnt.29
@@ -1188,13 +1250,14 @@ country_event = { #Resistance in Berane
 				days = 11
 				random = 72
 			}
-			
 		}
 	}
 	
 	option = { #The Zelenasi are defeated!
 		name = mnt.27.b
-		ai_chance = { factor = 10 }
+		ai_chance = {
+			base = 50
+		}
 		if = {
 			limit = {
 				has_country_flag = MNT_no_cessation
@@ -1215,7 +1278,6 @@ country_event = { #Resistance in Berane
 			}
 		}
 	}
-	
 }
 
 country_event = { #SER - Montenegro Oppresses the Serbs
@@ -1345,7 +1407,7 @@ country_event = { #Krsto Popovic Requests Increased Authority
 			name = "Krsto Popović"
 			desc = "MNT_POPOVIC_DESC"
 			picture = "gfx/leaders/MNT/Portrait_MNT_Krsto_Popovic.png"
-			expire = "1965.1.1"
+			expire = "1.1.1"
 			ideology = junta_subtype
 		}
 	}
@@ -1379,14 +1441,14 @@ country_event = { #The Crvenasi Attempt a Coup
 
 	option = { #The Reds are victorious!
 		name = mnt.32.a
-		ai_chance = { factor = 10 }
+		ai_chance = { base = 50 }
 		set_country_flag = MNT_commie
 		complete_national_focus = MNT_blazo_joganovic_putsch
 		set_politics = {
 			ruling_party = totalist
 		}
 		set_country_flag = MNT_commie_coup
-		clear_all_relations = yes
+		clear_all_relations_except_puppets_war = yes
 		hidden_effect = {
 			add_synd_to_coalition = yes
 			country_event = {
@@ -1445,12 +1507,17 @@ country_event = { #The Crvenasi Attempt a Coup
 	
 	option = { #Jovanovic's goons are pushed out!
 		name = mnt.32.b
-		ai_chance = { factor = 10 }
+		ai_chance = {
+			base = 50
+			modifier = {
+				BOTDE_AI_MNT_go_syndies = yes
+				factor = 0
+			}
+		}
 		set_country_flag = MNT_commie_coup
 		add_political_power = -70
 		add_stability = -0.1
 	}
-	
 }
 
 country_event = { #Crvenasi Elements Empowered (After picking either Klubasi or Pravasi)
@@ -1467,7 +1534,6 @@ country_event = { #Crvenasi Elements Empowered (After picking either Klubasi or 
 
 	option = { #The Reds are victorious!
 		name = mnt.33.a
-		ai_chance = { factor = 10 }
 		MNT_do_commie_raise = yes
 	}
 }
@@ -1492,7 +1558,13 @@ country_event = { #Zelenasi Counter-Coup
 
 	option = { #In the chaos, the Zelenasi seize victory!
 		name = mnt.34.a
-		ai_chance = { factor = 10 }
+		ai_chance = {
+			base = 50
+			modifier = {
+				BOTDE_AI_MNT_go_syndies = yes
+				factor = 0
+			}
+		}
 		clr_country_flag = MNT_commie
 		set_country_flag = MNT_nationalist_flag
 		complete_national_focus = MNT_nationalist
@@ -1531,7 +1603,13 @@ country_event = { #Zelenasi Counter-Coup
 	
 	option = { #The Reds are victorious again!
 		name = mnt.34.b
-		ai_chance = { factor = 10 }
+		ai_chance = {
+			base = 50
+			modifier = {
+				BOTDE_AI_MNT_go_nationalists = yes
+				factor = 0
+			}
+		}
 		add_stability = -0.075
 	}
 }
@@ -1550,7 +1628,6 @@ country_event = { #Karadordevic Loyalists Organized
 
 	option = { #In the chaos, the Zelenasi seize victory!
 		name = mnt.35.a
-		ai_chance = { factor = 10 }
 		army_experience = 20
 		hidden_effect = {
 			load_oob = MNT_KARADORDEVICS
@@ -1572,7 +1649,6 @@ country_event = { #Return of Red Vienna (If Renner is elected in 1936)
 
 	option = { #Interesting
 		name = mnt.36.a
-		ai_chance = { factor = 10 }
 		MNT_do_commie_raise = yes
 		add_popularity = {
 			ideology = totalist
@@ -1599,7 +1675,6 @@ country_event = { #Collapse of the Austro-Hungarian Empire
 
 	option = { #oh
 		name = mnt.37.a
-		ai_chance = { factor = 10 }
 		#Unlock decisions to seize land
 	}
 }
@@ -1618,7 +1693,6 @@ country_event = { #Crvenasi Elements Resist Pro-Austrian Policy (if taken Evils 
 
 	option = { #Interesting
 		name = mnt.38.a
-		ai_chance = { factor = 10 }
 		MNT_do_commie_raise = yes
 		add_political_power = -25
 	}
@@ -1638,7 +1712,6 @@ country_event = { #Zelenasi Elements Furious at Bjelasi Victory
 
 	option = { #Too bad so sad
 		name = mnt.39.a
-		ai_chance = { factor = 10 }
 		add_political_power = -50
 		add_popularity = {
 			ideology = paternal_autocrat
@@ -1672,7 +1745,9 @@ country_event = { #Popovic Leads a Coup de etat
 
 	option = { #With the King's support, it's a success!
 		name = mnt.40.a
-		ai_chance = { factor = 10 }
+		ai_chance = {
+			base = 50
+		}
 		add_popularity = {
 			ideology = national_populist
 			popularity = 0.06
@@ -1697,7 +1772,13 @@ country_event = { #Popovic Leads a Coup de etat
 	
 	option = { #The coup is pushed out by the Bjelasi alone!
 		name = mnt.40.b
-		ai_chance = { factor = 10 }
+		ai_chance = {
+			base = 50
+			modifier = {
+				BOTDE_AI_MNT_go_nationalists = yes
+				factor = 0
+			}
+		}
 		add_popularity = {
 			ideology = national_populist
 			popularity = -0.025
@@ -1722,12 +1803,12 @@ country_event = { #Stedmlija or Drljevic?
 
 	option = { #Drljevic
 		name = mnt.41.a
-		ai_chance = { factor = 10 }
+		ai_chance = { base = 50 }
 	}
 	
 	option = { #Stedmilja
 		name = mnt.41.b
-		ai_chance = { factor = 10 }
+		ai_chance = { base = 50 }
 		create_country_leader = {
 			name = "Savić M. Štedimlija"
 			desc = "MNT_DRLJEVIC_DESC"
@@ -1784,7 +1865,7 @@ country_event = { #Zelenasi Coup Attempt
 
 	option = { #A daring success.
 		name = mnt.43.a
-		ai_chance = { factor = 10 }
+		ai_chance = { base = 50 }
 		add_popularity = {
 			ideology = national_populist
 			popularity = 0.06
@@ -1808,7 +1889,13 @@ country_event = { #Zelenasi Coup Attempt
 	
 	option = { #The coup is pushed out!
 		name = mnt.43.b
-		ai_chance = { factor = 10 }
+		ai_chance = {
+			base = 50
+			modifier = {
+				BOTDE_AI_MNT_go_nationalists = yes
+				factor = 0
+			}
+		}
 		add_popularity = {
 			ideology = national_populist
 			popularity = -0.025
@@ -1836,7 +1923,6 @@ country_event = { #christmas checker
 
 	option = { #hoe hoe hoe
 		name = mnt.44.a
-		ai_chance = { factor = 10 }
 		if = {
 			limit = {
 				has_country_flag = MNT_christmas_rebellion
@@ -1866,7 +1952,6 @@ country_event = { #Arso Jovanovic Promoted
 
 	option = { #
 		name = mnt.45.a
-		ai_chance = { factor = 10 }
 		army_experience = 10
 		create_corps_commander = {
 			name = "Arso Jovanović"
@@ -1956,7 +2041,6 @@ country_event = { #Experience on the Front for Arso checker
 
 	option = { #
 		name = mnt.47.a
-		ai_chance = { factor = 10 }
 		if = {
 			limit = {
 				any_unit_leader = {
@@ -1994,7 +2078,6 @@ country_event = { #Delayed commie raise
 
 	option = { #
 		name = mnt.48.a
-		ai_chance = { factor = 10 }
 		MNT_do_commie_raise = yes
 		MNT_do_nationalist_raise = yes
 	}
@@ -2014,7 +2097,7 @@ country_event = { #Black Hand Ambushes the King
 
 	option = { #My God! He's dead!
 		name = mnt.49.a
-		ai_chance = { factor = 10 }
+		ai_chance = { base = 50 }
 		add_stability = -0.15
 		create_country_leader = {
 			name = "Regentski Savjet"
@@ -2052,7 +2135,7 @@ country_event = { #Black Hand Ambushes the King
 	
 	option = { #A miracle! The gunman misses every shot.
 		name = mnt.49.b
-		ai_chance = { factor = 10 }
+		ai_chance = { base = 50 }
 		add_stability = -0.1
 		add_war_support = -0.1
 	}
@@ -2091,7 +2174,7 @@ country_event = { #Prince Milo Ambushed En Route to Podgorica
 
 	option = { #The Black Hand wins again.
 		name = mnt.51.a
-		ai_chance = { factor = 10 }
+		ai_chance = { base = 50 }
 		SER = {
 			annex_country = {
 				target = MNT
@@ -2106,7 +2189,7 @@ country_event = { #Prince Milo Ambushed En Route to Podgorica
 	
 	option = { #Milo's guards cement his position.
 		name = mnt.51.b
-		ai_chance = { factor = 10 }
+		ai_chance = { base = 50 }
 		create_country_leader = {
 			name = "Milo I"
 			desc = "MNT_MILO_DESC"
@@ -2176,7 +2259,6 @@ country_event = { #Zelenasi Frustrated at Slow Progress (if you take too long to
 
 	option = { #Ebin
 		name = mnt.53.a
-		ai_chance = { factor = 10 }
 		add_stability = -0.05
 		add_popularity = {
 			ideology = paternal_autocrat
@@ -2199,7 +2281,6 @@ country_event = { #Skirmishing in the North
 
 	option = { #Ebin
 		name = mnt.54.a
-		ai_chance = { factor = 10 }
 		add_war_support = -0.03
 		add_stability = 0.06
 	}
@@ -2217,14 +2298,14 @@ country_event = { #Montenegrins Demand Federalisation (Alexander)
 
 	option = { #Okay
 		name = mnt.55.a
-		ai_chance = { factor = 10 }
+		ai_chance = { base = 50 }
 		add_political_power = -30
 		add_stability = 0.01
 	}
 	
 	option = { #No way
 		name = mnt.55.b
-		ai_chance = { factor = 10 }
+		ai_chance = { base = 50 }
 		add_war_support = 0.025
 		add_political_power = 10
 		hidden_effect = {
@@ -3309,7 +3390,6 @@ country_event = { #The Internationale Offers a Lucrative Deal
 			}
 		}
 	}
-	
 }
 
 country_event = { #Montenegro Accepts the Deal
@@ -3326,14 +3406,12 @@ country_event = { #Montenegro Accepts the Deal
 
 	option = { #Give us the resources, and the Revolution shall flood even on the lowest of tides.
 		name = mntfor.29.a
-		ai_chance = { factor = 50 }
 		add_war_support = 0.05
 		add_timed_idea = {
 			idea = MNT_navy_bought_INT
 			days = 365
 		}
 	}
-	
 }
 
 country_event = { #Internationale Specialists Arrive
@@ -3350,7 +3428,6 @@ country_event = { #Internationale Specialists Arrive
 
 	option = { #Thank you.
 		name = mntfor.30.a
-		ai_chance = { factor = 50 }
 		add_war_support = 0.05
 		add_timed_idea = {
 			idea = MNT_INT_engineers
@@ -3373,7 +3450,6 @@ country_event = { #Montenegro Denies
 
 	option = { #Thank you.
 		name = mntfor.31.a
-		ai_chance = { factor = 50 }
 		add_political_power = -10
 		add_war_support = 0.03
 	}
@@ -3393,13 +3469,13 @@ country_event = { #The Balkan War Ends
 
 	option = { #We shall exit too.
 		name = mntfor.32.a
-		ai_chance = { factor = 50 }
+		ai_chance = { base = 100 }
 		white_peace = BUL
 	}
 	
 	option = { #Fight on!
 		name = mntfor.32.b
-		ai_chance = { factor = 0 }
+		ai_chance = { base = 0 }
 		add_war_support = 0.1
 	}
 }
@@ -3418,17 +3494,15 @@ country_event = { #Splitting Serbia
 
 	option = { #Ask for assured control of Belgrade and Kraljevo.
 		name = mntfor.33.a
-		ai_chance = { factor = 70 }
+		ai_chance = { base = 70 }
 		BUL = {
-			country_event = {
-				id = mntfor.34
-			}
+			country_event = mntfor.34
 		}
 	}
 	
 	option = { #Actually, we're not interested...
 		name = mntfor.33.b
-		ai_chance = { factor = 20 }
+		ai_chance = { base = 20 }
 	}	
 }
 
@@ -3462,9 +3536,7 @@ country_event = { #BUL - Montenegro Proposes Split
 			}
 		}
 		MNT = {
-			country_event = {
-				id = mntfor.35
-			}
+			country_event = mntfor.35
 		}
 	}
 	
@@ -3486,9 +3558,7 @@ country_event = { #BUL - Montenegro Proposes Split
 		add_stability = 0.1
 		add_manpower = 20000
 		MNT = {
-			country_event = {
-				id = mntfor.36
-			}
+			country_event = mntfor.36
 		}
 	}
 }
@@ -3616,7 +3686,6 @@ country_event = { #Montenegro Demands Dioclean Greece
 			}
 		}
 	}
-	
 }
 
 country_event = { #FROM denies demand
@@ -3634,7 +3703,7 @@ country_event = { #FROM denies demand
 	option = { #They called our bluff.
 		name = mntfor.38.a
 		ai_chance = {
-			factor = 20
+			base = 20
 		}
 		add_war_support = -0.1
 	}
@@ -3642,14 +3711,13 @@ country_event = { #FROM denies demand
 	option = { #Attack!
 		name = mntfor.38.b
 		ai_chance = {
-			factor = 20
+			base = 20
 		}
 		declare_war_on = {
 			target = FROM
 			type = annex_everything
 		}
 	}
-	
 }
 
 country_event = { #FROM accepts
@@ -3666,7 +3734,6 @@ country_event = { #FROM accepts
 
 	option = { #Wow okay
 		name = mntfor.39.a
-		ai_chance = { factor = 20 }
 		add_political_power = 20
 	}
 }
@@ -3686,7 +3753,7 @@ country_event = { #Montenegro demands dioclean Bulgaria
 	option = { #Not without a damned fight!
 		name = mntfor.40.a
 		ai_chance = {
-			factor = 30
+			base = 95
 		}
 		add_war_support = 0.05
 		MNT = {
@@ -3701,7 +3768,7 @@ country_event = { #Montenegro demands dioclean Bulgaria
 	option = { #If it protects our independence...
 		name = mntfor.40.b
 		ai_chance = {
-			factor = 1
+			base = 5
 			modifier = {
 				factor = 0
 				is_in_faction = yes
@@ -3745,7 +3812,7 @@ country_event = { #Montenegro demands state
 	option = { #Ok
 		name = mntfor.41.a
 		ai_chance = {
-			factor = 30
+			base = 30
 		}
 		add_political_power = -40
 		add_stability = -0.025
@@ -3769,7 +3836,7 @@ country_event = { #Montenegro demands state
 	option = { #No.
 		name = mntfor.41.b
 		ai_chance = {
-			factor = 15
+			base = 15
 			modifier = {
 				factor = 0
 				is_in_faction = yes
@@ -3916,7 +3983,7 @@ country_event = { #AUS wins Unternehmen Schwarzenberg
 
 	option = { #Hooray!
 		name = mntfor.44.a
-		ai_chance = { factor = 20 }
+		ai_chance = { base = 20 }
 		trigger = {
 			OR = {
 				tag = AUS
@@ -3959,7 +4026,7 @@ country_event = { #AUS wins Unternehmen Schwarzenberg
 	
 	option = { #fuck
 		name = mntfor.44.b
-		ai_chance = { factor = 20 }
+		ai_chance = { base = 20 }
 		trigger = {
 			OR = {
 				tag = SER
@@ -3985,7 +4052,7 @@ country_event = { #SER wins Unternehmen Schwarzenberg
 
 	option = { #Hooray!
 		name = mntfor.45.a
-		ai_chance = { factor = 20 }
+		ai_chance = { base = 20 }
 		trigger = {
 			OR = {
 				tag = SER
@@ -4000,7 +4067,7 @@ country_event = { #SER wins Unternehmen Schwarzenberg
 	
 	option = { #fuck
 		name = mntfor.45.b
-		ai_chance = { factor = 20 }
+		ai_chance = { base = 20 }
 		trigger = {
 			OR = {
 				tag = AUS
@@ -4028,7 +4095,7 @@ country_event = { #The Dioclean Capital
 
 	option = { #Prizren, the seat of the ancient Serb Empire!
 		name = mntflavor.1.a
-		ai_chance = { factor = 50 }
+		ai_chance = { base = 50 }
 		trigger = {
 			owns_state = 765
 		}
@@ -4041,13 +4108,13 @@ country_event = { #The Dioclean Capital
 	
 	option = { #Podgorica.
 		name = mntflavor.1.b
-		ai_chance = { factor = 200 }
+		ai_chance = { base = 200 }
 		add_political_power = 20
 	}
 	
 	option = { #Belgrade!
 		name = mntflavor.1.c
-		ai_chance = { factor = 100 }
+		ai_chance = { base = 100 }
 		trigger = {
 			owns_state = 107
 		}
@@ -4069,7 +4136,6 @@ country_event = { #The Tsar's Bridge
 
 	option = { #Glorious
 		name = mntflavor.2.a
-		ai_chance = { factor = 49 }
 		random_owned_state = {
 			add_building_construction = {
 				type = infrastructure
@@ -4093,11 +4159,9 @@ country_event = { #Petar Perunović
 
 	option = { #Glorious
 		name = mntflavor.3.a
-		ai_chance = { factor = 49 }
 		add_political_power = 20
 		increase_ruling_party_popularity_by_5 = yes
 	}
-	
 }
 
 country_event = { #An Air Show?
@@ -4114,7 +4178,7 @@ country_event = { #An Air Show?
 
 	option = { #Reach out to Bulgaria
 		name = mntflavor.4.a
-		ai_chance = { factor = 40 }
+		ai_chance = { base = 40 }
 		trigger = {
 			country_exists = BUL
 			NOT = {
@@ -4131,7 +4195,7 @@ country_event = { #An Air Show?
 	
 	option = { #Reach out to Serbia
 		name = mntflavor.4.b
-		ai_chance = { factor = 40 }
+		ai_chance = { base = 40 }
 		trigger = {
 			country_exists = SER
 			NOT = {
@@ -4154,7 +4218,7 @@ country_event = { #An Air Show?
 				has_war_with = CRO
 			}
 		}
-		ai_chance = { factor = 40 }
+		ai_chance = { base = 40 }
 		CRO = {
 			country_event = {
 				id = mntflavor.5
@@ -4165,10 +4229,9 @@ country_event = { #An Air Show?
 	
 	option = { #We don't really care
 		name = mntflavor.4.e
-		ai_chance = { factor = 30 }
+		ai_chance = { base = 30 }
 		air_experience = 40
 	}
-	
 }
 
 country_event = { #Montenegro Proposes an Air Show
@@ -4183,25 +4246,22 @@ country_event = { #Montenegro Proposes an Air Show
 
 	is_triggered_only = yes
 	
-
 	option = { #Sure!
 		name = mntflavor.5.a
-		ai_chance = { factor = 80 }
+		ai_chance = { base = 80 }
 		add_tech_bonus = {
 			category = air_equipment
 			bonus = 1
 			uses = 1
 		}
 		MNT = {
-			country_event = {
-				id = mntflavor.6
-			}
+			country_event = mntflavor.6
 		}
 	}
 	
 	option = { #We aren't interested
 		name = mntflavor.5.b
-		ai_chance = { factor = 20 }
+		ai_chance = { base = 20 }
 		air_experience = 40
 	}
 }
@@ -4218,10 +4278,8 @@ country_event = { #The Montenegrin-FROM Air Show!
 
 	is_triggered_only = yes
 	
-
 	option = { #Fascinating.
 		name = mntflavor.6.a
-		ai_chance = { factor = 49 }
 		add_tech_bonus = {
 			category = air_equipment
 			bonus = 1
@@ -4243,10 +4301,8 @@ country_event = { #Founding of the Podgorica University
 
 	is_triggered_only = yes
 	
-
 	option = { #Fascinating.
 		name = mntflavor.7.a
-		ai_chance = { factor = 49 }
 		add_research_slot = 1
 		increase_ruling_party_popularity_by_5 = yes
 	}
@@ -4263,11 +4319,9 @@ country_event = { #New Montenegrin Tourism
 	fire_only_once = yes
 
 	is_triggered_only = yes
-	
 
 	option = { #Come hike the Black Mountain!
 		name = mntflavor.8.a
-		ai_chance = { factor = 49 }
 		increase_ruling_party_popularity_by_3 = yes
 		hidden_effect = {
 			country_event = {
@@ -4294,7 +4348,6 @@ country_event = { #Development of Sveti Nikola Island (NUDIST BEACH!!!! BOOBA)
 
 	option = { #A paradise!
 		name = mntflavor.9.a
-		ai_chance = { factor = 49 }
 		105 = {
 			add_extra_state_shared_building_slots = 1
 		}
@@ -4313,19 +4366,17 @@ country_event = { #Fate of George Obrenovic (Dioclea)
 
 	is_triggered_only = yes
 	
-
 	option = { #Allow him re-entry
 		name = mntflavor.10.a
-		ai_chance = { factor = 49 }
+		ai_chance = { base = 50 }
 		add_stability = 0.01
 	}
 	
 	option = { #Keep out, Serb!
 		name = mntflavor.10.b
-		ai_chance = { factor = 49 }
+		ai_chance = { base = 50 }
 		add_political_power = 10
 	}
-	
 }
 
 country_event = { #Baldacci Reorganizes the Montenegrin Committee (Pravasi flavor when they split off)
@@ -4343,7 +4394,6 @@ country_event = { #Baldacci Reorganizes the Montenegrin Committee (Pravasi flavo
 
 	option = { #Thank you friend!
 		name = mntflavor.11.a
-		ai_chance = { factor = 49 }
 		reverse_add_opinion_modifier = {
 			target = ITA
 			modifier = KR_approves_of_govt
@@ -4371,7 +4421,6 @@ country_event = { #The Baldacci Committee Shifts to the SRI (if Red Coup Pravasi
 
 	option = { #Thank you new friend!
 		name = mntflavor.12.a
-		ai_chance = { factor = 49 }
 		remove_opinion_modifier = {
 			target = ITA
 			modifier = KR_approves_of_govt
@@ -4407,10 +4456,8 @@ country_event = { #Creation of the Glas Crnogorca
 
 	is_triggered_only = yes
 	
-
 	option = { #Rats.
 		name = mntflavor.13.a
-		ai_chance = { factor = 49 }
 		add_political_power = -30
 		add_stability = -0.05
 	}
@@ -4430,7 +4477,6 @@ country_event = { #Lyrical rearrangement of 'Oj svijetla Majska Zoro'
 
 	option = { #Cool
 		name = mntflavor.14.a
-		ai_chance = { factor = 49 }
 		add_political_power = -30
 		add_stability = -0.05
 	}
@@ -4450,7 +4496,6 @@ country_event = { #Crvenasi Organize CNT-FAI Assistance
 
 	option = { #Rats.
 		name = mntflavor.15.a
-		ai_chance = { factor = 49 }
 		if = {
 			limit = {
 				NOT = {
@@ -4490,7 +4535,6 @@ country_event = { #Jovanovic's Associate
 
 	option = { #Promote 'im!
 		name = mntflavor.16.a
-		ai_chance = { factor = 49 }
 		create_corps_commander = {
 			name = "Velimir Terzić"
 			portrait_path = "gfx/leaders/MNT/general/MNT_Velimir_Terzic.png"
@@ -4532,7 +4576,6 @@ country_event = { #Investors Return to Montenegro (Klubasi/StatusQuo/Pravasi, 1-
 
 	option = { #Promote 'im!
 		name = mntflavor.17.a
-		ai_chance = { factor = 49 }
 		add_ideas = MNT_investors
 	}
 }
@@ -4551,15 +4594,14 @@ country_event = { #Zelenasi/Bjelasi (lore explanation, fires before BM)
 
 	option = { #Interesting
 		name = mntflavor.18.a
-		ai_chance = { factor = 49 }
+		ai_chance = { base = 100 }
 	}
 	
 	option = { #Interesting
 		name = mntflavor.18.b
-		ai_chance = { factor = 49 }
+		ai_chance = { base = 0 }
 		country_event = mntflavor.19
 	}
-	
 }
 
 country_event = { #Crvenasi lore
@@ -4576,7 +4618,6 @@ country_event = { #Crvenasi lore
 
 	option = { #Interesting
 		name = mntflavor.19.a
-		ai_chance = { factor = 49 }
 	}
 }
 
@@ -4594,7 +4635,6 @@ country_event = { #Trebjesa Brewery Refoots
 
 	option = { #Interesting
 		name = mntflavor.20.a
-		ai_chance = { factor = 49 }
 		105 = {
 			add_building_construction = {
 				type = industrial_complex
@@ -4621,7 +4661,6 @@ country_event = { #Confederative Govt. with Serbia Formed (if annexing Serbia as
 
 	option = { #A worthy solution.
 		name = mntflavor.21.a
-		ai_chance = { factor = 49 }
 		add_political_power = 30
 		every_state = {
 			limit = {
@@ -4646,7 +4685,6 @@ country_event = { #Serbia integrated (if annexing Serbia as Klubasi)
 
 	option = { #A worthy solution.
 		name = mntflavor.22.a
-		ai_chance = { factor = 49 }
 		add_political_power = 50
 		every_state = {
 			limit = {
@@ -4671,7 +4709,6 @@ country_event = { #Trebjesa Brewery Destroyed Again (if surrender to Serbia or v
 
 	option = { #Unfortunate
 		name = mntflavor.23.a
-		ai_chance = { factor = 49 }
 		add_stability = -0.02
 		if = {
 			limit = {
@@ -4702,7 +4739,6 @@ country_event = { #Overprinting of Stamps for Alexander
 
 	option = { #Fortunate
 		name = mntflavor.24.a
-		ai_chance = { factor = 49 }
 		add_political_power = 20
 	}
 }
@@ -4721,7 +4757,6 @@ country_event = { #Bunkering of the Tara River Canyon
 
 	option = { #Fortunate
 		name = mntflavor.25.a
-		ai_chance = { factor = 49 }
 		105 = {
 			add_building_construction = {
 				type = bunker
@@ -4761,7 +4796,6 @@ country_event = { #Construction of the Đurđevića Tara Bridge
 
 	option = { #Fortunate
 		name = mntflavor.26.a
-		ai_chance = { factor = 49 }
 	}
 }
 
@@ -4779,7 +4813,6 @@ country_event = { #Heritage Museum Pljevlja constructed (fires ~1942?)
 
 	option = { #Fortunate
 		name = mntflavor.27.a
-		ai_chance = { factor = 49 }
 	}
 }
 
@@ -4797,7 +4830,6 @@ country_event = { #Royal Palace Museumized (for commies)
 
 	option = { #Fortunate
 		name = mntflavor.28.a
-		ai_chance = { factor = 49 }
 	}
 }
 
@@ -4815,7 +4847,7 @@ country_event = { #A Return to the Royal Capital? (Alexander/Nationalist)
 
 	option = { #Yes
 		name = mntflavor.29.a
-		ai_chance = { factor = 49 }
+		ai_chance = { base = 50 }
 		add_victory_points = {
 			province = 9821
 			value = 5
@@ -4827,7 +4859,7 @@ country_event = { #A Return to the Royal Capital? (Alexander/Nationalist)
 	
 	option = { #No
 		name = mntflavor.29.b
-		ai_chance = { factor = 49 }
+		ai_chance = { base = 50 }
 	}
 }
 
@@ -4850,7 +4882,6 @@ country_event = { #Prince Milo Flees (After going Alexander/Commies)
 
 	option = { #Yes
 		name = mntflavor.30.a
-		ai_chance = { factor = 49 }
 		add_political_power = -20
 	}
 }
@@ -4873,7 +4904,6 @@ country_event = { #Charles Douglas Armstrong Arrives in Podgorica (Entente)
 
 	option = { #Thank you friend
 		name = mntflavor.31.a
-		ai_chance = { factor = 49 }
 		army_experience = 30
 		#Add as special Chief of Army option
 	}
@@ -4897,7 +4927,6 @@ country_event = { #Wilhelm Keiper Arrives in Podgorica (Reichspakt)
 
 	option = { #Thank you friend
 		name = mntflavor.32.a
-		ai_chance = { factor = 49 }
 		army_experience = 30
 		#Add as special Chief of Army option
 	}
@@ -4917,7 +4946,6 @@ country_event = { #Tenth Anniversary of the End of the Condominium
 
 	option = { #Hurrah!
 		name = mntflavor.33.a
-		ai_chance = { factor = 49 }
 		add_war_support = 0.03
 	}
 }
@@ -4936,7 +4964,6 @@ country_event = { #Tenth Anniversary of the Treaty of Niksic
 
 	option = { #Hurrah!
 		name = mntflavor.34.a
-		ai_chance = { factor = 49 }
 		add_stability = 0.03
 	}
 }
@@ -4975,7 +5002,6 @@ country_event = { #A Flight from Prince Milo
 
 	option = { #Goodbye!
 		name = mntflavor.35.a
-		ai_chance = { factor = 49 }
 	}
 }
 
@@ -4993,7 +5019,6 @@ country_event = { #Twentieth Anniversary of the Death of Prince Mirko
 
 	option = { #Goodbye!
 		name = mntflavor.36.a
-		ai_chance = { factor = 49 }
 		add_political_power = -1
 	}
 }
@@ -5012,14 +5037,22 @@ country_event = { #A Shadowy Tap on the Shoulder #Black Hand Appears Flavor
 
 	option = { #They wouldn't dare.
 		name = mntflavor.37.a
-		ai_chance = { factor = 49 }
+		ai_chance = {
+			base = 50
+		}
 		add_stability = -0.05
 		set_country_flag = MNT_blackhand_presence
 	}
 	
 	option = { #Up police presence; make sure all are loyal only to the King!
 		name = mntflavor.37.b
-		ai_chance = { factor = 49 }
+		ai_chance = {
+			base = 50
+			modifier = {
+				BOTDE_AI_MNT_go_alexander_ii = yes
+				factor = 0
+			}
+		}
 		add_stability = -0.05
 		add_political_power = -75
 		add_manpower = -1500

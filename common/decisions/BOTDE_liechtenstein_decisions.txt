@@ -8,7 +8,7 @@ BOTDE_LIC_decisions = {
 		fire_only_once = yes
 		icon = GFX_paternal_autocrat_decision
 		visible = {
-			has_country_flag = LIC_franz_josef_ii
+			has_country_flag = LIC_franz_josef_ii_flag
 		}
 		available = {
 			NOT = {
@@ -37,7 +37,7 @@ BOTDE_LIC_decisions = {
 				name = LIC_absolute_party
 				long_name = LIC_absolute_party_long
 			}
-			set_cosmetic_tag = LIC_absolutist_tag
+			#set_cosmetic_tag = LIC_absolutist_tag
 			hidden_effect = {
 				news_event = licnews.4
 			}
@@ -646,6 +646,7 @@ BOTDE_LIC_decisions = {
 					experience_loss_factor = -0.025
 				}
 			}
+			country_event = licflavor.96
 		}
 	}
 	
@@ -1371,26 +1372,29 @@ BOTDE_LIC_decisions = {
 		}
 		available = {
 			FROM = {
-				has_capitulated = no
-				capital_scope = {
-					is_controlled_by = FROM
+				owner = {
+					has_capitulated = no
+					capital_scope = {
+						is_controlled_by = FROM
+					}
 				}
 			}
+			num_of_civilian_factories_available_for_projects > 2
 		}
 		modifier = {
 			civilian_factory_use = 3
 		}
 		cancel_trigger = {
-			FROM = {
+			ROOT = {
 				NOT = {
 					is_in_faction_with = GER
 				}
 			}
 		}
 		days_remove = 45
-		complete_effect = {
+		remove_effect = {
 			custom_effect_tooltip = LIC_holding_improve_tt
-			add_dynamic_modifier = { modifier = LIC_holding_rietberg scope = FROM }
+			FROM = { add_dynamic_modifier = { modifier = LIC_holding_rietberg } }
 			add_to_variable = {
 				var = LIC.holding_penalty
 				value = 0.025
@@ -1483,6 +1487,8 @@ BOTDE_LIC_decisions = {
 				}
 				add_claim_by = ROOT
 			}
+			country_event = licflavor.52
+			set_country_flag = LIC_map_formed
 		}
 	}
 	
@@ -1517,6 +1523,8 @@ BOTDE_LIC_decisions = {
 					set_cosmetic_tag = LIC_SWABIA
 				}
 			}
+			country_event = licflavor.52
+			set_country_flag = LIC_map_formed
 		}
 	}
 	
@@ -1588,6 +1596,8 @@ BOTDE_LIC_decisions = {
 				add_claim_by = ROOT
 				set_state_flag = LIC_integrable_state
 			}
+			country_event = licflavor.52
+			set_country_flag = LIC_map_formed
 		}
 	}
 	
@@ -1635,6 +1645,8 @@ BOTDE_LIC_decisions = {
 			add_state_claim = 1272
 			add_state_claim = 786
 			add_state_claim = 71
+			country_event = licflavor.52
+			set_country_flag = LIC_map_formed
 		}
 	}
 	
@@ -1659,7 +1671,7 @@ BOTDE_LIC_decisions = {
 			}
 			country_exists = LEC
 			GER = {
-				has_country_flag = legation_council_member
+				is_in_array = { global.LEC_voters = THIS }
 				is_in_faction_with = LIC
 			}
 		}
@@ -1878,12 +1890,19 @@ BOTDE_LIC_decisions = {
 			}
 			NOT = {
 				has_government = national_populist
+				has_country_flag = LIC_kdm_flag
+				has_country_flag = LIC_papal_house
 			}
 		}
 		complete_effect = {
 			set_cosmetic_tag = LIC_duchy
 			set_country_flag = LIC_duchy_flag
-			country_event = licflavor.69
+			unlock_decision_tooltip = LIC_this_isnt_fucking_europa_universalis_raise_rank_kdm
+			country_event = {
+				id = licflavor.69
+				days = 3
+			}
+			country_event = licflavor.52
 		}
 	}
 	
@@ -1897,6 +1916,7 @@ BOTDE_LIC_decisions = {
 				value = 3
 				compare = greater_than_or_equals
 			}
+			has_country_flag = LIC_duchy_flag
 		}
 		icon = GFX_decision_LIC_crown
 		available = {
@@ -1910,6 +1930,7 @@ BOTDE_LIC_decisions = {
 			}
 			NOT = {
 				has_government = national_populist
+				has_country_flag = LIC_papal_house
 			}
 		}
 		complete_effect = {
@@ -1929,7 +1950,9 @@ BOTDE_LIC_decisions = {
 		icon = GFX_decision_papacy
 		available = {
 			owns_state = 2
-			has_war = no
+			NOT = {
+				has_war_with = SRI
+			}
 		}
 		complete_effect = {
 			set_country_flag = LIC_papal_restoration
@@ -2555,7 +2578,12 @@ BOTDE_LIC_decisions = {
 		fire_only_once = no
 		cost = 35
 		visible = {
-			has_completed_focus = LIC_botde
+			OR = {
+				has_completed_focus = LIC_botde
+				any_owned_state = {
+					has_state_flag = LIC_integrable_state
+				}
+			}
 		}
 		icon = GFX_decision_LIC_crown
 		available = {
@@ -4201,7 +4229,7 @@ LIC_neutrality_cat = {
 				has_country_flag = LIC_got_bailout
 			}
 		}
-		days_remove = 45
+		days_remove = 25
 		remove_effect = {
 			reduce_focus_completion_cost = {
 				focus = LIC_continue_customs_union
@@ -4239,7 +4267,7 @@ LIC_neutrality_cat = {
 				has_country_flag = LIC_got_bailout
 			}
 		}
-		days_remove = 45
+		days_remove = 25
 		remove_effect = {
 			reduce_focus_completion_cost = {
 				focus = LIC_swiss_compact
@@ -4293,6 +4321,22 @@ LIC_neutrality_cat = {
 				value = -0.06
 				tooltip_side = LIC_austro_swiss_swiss
 			}
+		}
+	}
+	
+	LIC_terminate_the_austrian_postal_union = {
+		cost = 25
+		icon = GFX_decision_generic_agreement
+		allowed = { tag = LIC }
+		fire_only_once = yes
+		visible = {
+			has_power_balance = {
+				id = LIC_austro_swiss
+			}
+		}
+		complete_effect = {
+			set_country_flag = LIC_postal_flag
+			country_event = licflavor.27
 		}
 	}
 	
@@ -4785,7 +4829,7 @@ LIC_playing_60_seconds_speedrun = {
 			}
 		}
 		custom_cost_trigger = {
-			LIC_no_negs_HH = yes
+			LIC_no_negs_HH_chungus = yes
 		}
 		custom_cost_text = LIC_HH_cost_tt
 		available = {
@@ -4814,6 +4858,7 @@ LIC_playing_60_seconds_speedrun = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove LIC_foreign_currency"
 			LIC_restore_hh = yes
+			LIC_readiness_weekly_increase_001 = yes
 			if = {
 				limit = {
 					FROM = {
@@ -4830,13 +4875,11 @@ LIC_playing_60_seconds_speedrun = {
 						value = -0.05
 						tooltip_side = LIC_austro_swiss_swiss
 					}
-					LIC_readiness_increase_2 = yes
 				}
 				if = {
 					limit = {
 						has_country_flag = LIC_coin_SWI
 					}
-					LIC_readiness_increase_2 = yes
 					add_power_balance_value = {
 						id = LIC_austro_swiss
 						value = -0.1
@@ -4863,9 +4906,6 @@ LIC_playing_60_seconds_speedrun = {
 						}
 					}
 					LIC_readiness_increase_2 = yes
-					else = {
-						LIC_readiness_increase_1 = yes
-					}
 				}
 			}
 			if = {
@@ -4878,7 +4918,6 @@ LIC_playing_60_seconds_speedrun = {
 					limit = {
 						has_country_flag = LIC_coin_AUS
 					}
-					LIC_readiness_increase_2 = yes
 					add_power_balance_value = {
 						id = LIC_austro_swiss
 						value = 0.1
@@ -4890,7 +4929,6 @@ LIC_playing_60_seconds_speedrun = {
 					limit = {
 						has_country_flag = LIC_coin_SWI
 					}
-					LIC_readiness_increase_2 = yes
 					add_power_balance_value = {
 						id = LIC_austro_swiss
 						value = 0.05
@@ -4917,9 +4955,6 @@ LIC_playing_60_seconds_speedrun = {
 						}
 					}
 					LIC_readiness_increase_2 = yes
-					else = {
-						LIC_readiness_increase_1 = yes
-					}
 				}
 			}
 		}
@@ -4992,7 +5027,7 @@ LIC_playing_60_seconds_speedrun = {
 		}
 	}
 	LIC_leverage_properties = {
-		cost = 25
+		#cost = 25
 		icon = GFX_decision_LIC_crown
 		allowed = { tag = LIC }
 		fire_only_once = no
@@ -5007,7 +5042,7 @@ LIC_playing_60_seconds_speedrun = {
 				has_country_flag = LIC_quotas_done
 			}
 		}
-		days_re_enable = 25
+		days_re_enable = 10
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision LIC_leverage_properties"
 			LIC_nerf_hh = yes
@@ -5023,7 +5058,7 @@ LIC_playing_60_seconds_speedrun = {
 		}
 	}
 	LIC_unleverage = {
-		cost = 15
+		#cost = 15
 		icon = GFX_decision_generic_inflation
 		allowed = { tag = LIC }
 		fire_only_once = no
@@ -5045,7 +5080,7 @@ LIC_playing_60_seconds_speedrun = {
 				has_country_flag = LIC_quotas_done
 			}
 		}
-		days_re_enable = 25
+		days_re_enable = 10
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision LIC_unleverage"
 			LIC_readiness_weekly_decrease_05 = yes

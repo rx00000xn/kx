@@ -17,9 +17,8 @@ country_event = { #debug
 
 	option = { #Egads!
 		name = licdebug.0.a
-		clr_country_flag = AUS_tiwanaku_artifact
-		#clr_country_flag = AUS_true_cross_selected
-		#clr_country_flag = AUS_lemurian_skeleton_sitecah_selected
+		LIC_vibe_check_famine = yes
+		log = "[?govt_readiness_neg_max]"
 	}
 }
 
@@ -36,17 +35,12 @@ country_event = { #debug
 
 	option = { #Egads!
 		name = licdebug.1.a
-		set_country_flag = AUS_atlantis_discovered
-		set_country_flag = AUS_ark_of_the_covenant_discovered
-		set_country_flag = AUS_rhine_gold_discovered
-		
-		set_country_flag = AUS_l_anse_aux_meadows_discovered
-		set_country_flag = AUS_holy_grail_discovered
-		set_country_flag = AUS_lemurian_skeleton_sitecah_discovered
-		
-		set_country_flag = AUS_nazca_theozoan_discovered
-		set_country_flag = AUS_holy_grail_discovered
-		set_country_flag = AUS_lemurian_skeleton_sitecah_discovered
+		remove_dynamic_modifier = {
+				modifier = LIC_shadow_empire_dynmod
+			}
+			#add_dynamic_modifier = {
+			#	modifier = LIC_shadow_empire_dynmod
+			#}
 	}
 }
 
@@ -2432,8 +2426,13 @@ country_event = { #Roulette: Customs Union Results
 			}
 			add_stability = 0.01
 			add_political_power = 15
-			else = {
-				LIC_readiness_take_5 = yes
+			else_if = {
+				limit = {
+					has_country_flag = LIC_BOP_OVER
+				}
+				add_political_power = 20
+				LIC_readiness_increase_1 = yes
+				else = { LIC_readiness_take_5 = yes }
 			}
 		}
 	}
@@ -2691,6 +2690,7 @@ country_event = { #End the BOP
 		remove_power_balance = {
 			id = LIC_austro_swiss
 		}
+		set_country_flag = LIC_BOP_OVER
 		if = {
 			limit = {
 				has_stability < 0
@@ -3286,7 +3286,10 @@ country_event = { #The Old Erzberger Plan https://www.spiegel.de/geschichte/kirc
 				has_completed_focus = LIC_reichspakt
 				has_completed_focus = LIC_neutrality
 			}
-			has_government = social_conservative
+			OR = {
+				has_government = social_conservative
+				has_government = paternal_autocrat
+			}
 			has_completed_focus = LIC_papal_legitimacy_concordat
 			NOT = {
 				has_government = national_populist
@@ -4775,9 +4778,9 @@ country_event = { #Growth of the ATU https://historisches-lexikon.li/Allgemeines
 
 country_event = { #Realization of a Party
 	id = lic.108
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.107" }
+	immediate = { log = "[GetDateText]: [Root.GetName]: event lic.108" }
 	title = {
-		text = licfor.108.t_libsynd
+		text = lic.108.t_libsynd
 		trigger = {
 			check_variable = {
 				var = LIC.revolutionary
@@ -4787,7 +4790,7 @@ country_event = { #Realization of a Party
 		}
 	}
 	desc = {
-		text = licfor.108.d_libsynd
+		text = lic.108.d_libsynd
 		trigger = {
 			check_variable = {
 				var = LIC.revolutionary
@@ -4797,7 +4800,7 @@ country_event = { #Realization of a Party
 		}
 	}
 	title = {
-		text = licfor.108.t_ausmarx
+		text = lic.108.t_ausmarx
 		trigger = {
 			check_variable = {
 				var = LIC.revolutionary
@@ -4813,7 +4816,7 @@ country_event = { #Realization of a Party
 		}
 	}
 	desc = {
-		text = licfor.108.d_ausmarx
+		text = lic.108.d_ausmarx
 		trigger = {
 			check_variable = {
 				var = LIC.revolutionary
@@ -4835,7 +4838,7 @@ country_event = { #Realization of a Party
 	is_triggered_only = yes
 	
 	option = { #
-		name = lic.107.a
+		name = lic.lic.a
 		if = {
 			limit = {
 				check_variable = {
@@ -5650,6 +5653,12 @@ country_event = { #A State Broadcaster
 			}
 		}
 	}
+	
+	option = { #I'm afraid we have other matters to attend to
+		name = licflavor.24.e
+		add_political_power = -15
+	}
+	
 }
 
 country_event = { #Liechtenstein requests radio station
@@ -5713,18 +5722,60 @@ country_event = { #Termination of the Austro-Liechtensteiner Postal Agreement
 
 	option = { #Ask Switzerland for an agreement
 		name = licflavor.27.a
+		increase_ruling_party_popularity_by_5 = yes
+		LIC_readiness_increase_2 = yes
 		SWI = {
 			country_event = {
 				id = licflavor.28
 				days = 7
 			}
 		}
+		add_power_balance_value = {
+			id = LIC_austro_swiss
+			value = -0.15
+			tooltip_side = LIC_austro_swiss_swiss
+		}
+		add_power_balance_modifier = {
+			id = LIC_austro_swiss
+			modifier = LIC_AUS_SWI_swipost
+		}
 		set_country_flag = LIC_SWI_postal
 	}
 	
 	option = { #Now it is time for us to make our own.
 		name = licflavor.27.b
-		add_political_power = 15
+		add_stability = 0.05
+		add_political_power = 20
+		reduce_focus_completion_cost = {
+			focus = LIC_foreign_suspicion
+			cost = 20
+		}
+		if = {
+			limit = {
+				power_balance_value = {
+					id = LIC_austro_swiss
+					value > 0.1
+				}
+			}
+			add_power_balance_value = {
+				id = LIC_austro_swiss
+				value = -0.1
+				tooltip_side = LIC_austro_swiss_swiss
+			}
+			else_if = {
+				limit = {
+					power_balance_value = {
+						id = LIC_austro_swiss
+						value < -0.1
+					}
+				}
+				add_power_balance_value = {
+					id = LIC_austro_swiss
+					value = 0.1
+					tooltip_side = LIC_austro_swiss_austria
+				}
+			}
+		}
 	}
 }
 
@@ -6924,10 +6975,8 @@ country_event = { #Smuggler shot!
 
 	option = { #Demand apology
 		name = licflavor.70.a
-		add_stability = -0.1
-		add_war_support = 0.1
-		add_political_power = -50
-		
+		#Probably need an event here for Austria or Switzerland. Set immediate for flag of who it is...
+		custom_effect_tooltip = GIVE_ME_AN_OPTION_bRO_OR_ILL_KILL_YA
 	}
 	
 	option = { #Skill diff
@@ -8018,6 +8067,25 @@ country_event = { #The Iranian Emigre (Johann Graf Moncay)
 		add_stability = 0.1
 	}
 	
+}
+
+country_event = { #Expanding the Landesspital
+	id = licflavor.96
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licflavor.96" }
+	title = licflavor.96.t
+	desc = licflavor.96.d
+	
+	picture = PLEASEGIVEMEAPIC
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #Cool
+		name = licflavor.95.a
+		add_stability = 0.05
+		add_political_power = 15
+	}
 }
 
 
@@ -9907,6 +9975,7 @@ country_event = { #Pressuring Switzerland - Our Offer.
 
 	option = { #Merely Aosta and Savoie.
 		name = licfor.50.a
+		set_country_flag = LIC_offer_aosta
 		SWI = {
 			country_event = {
 				id = licfor.51
@@ -9946,7 +10015,24 @@ country_event = { #SWI - Liechtensteiner bribes!
 	id = licfor.51
 	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.51" }
 	title = licfor.51.t
-	desc = licfor.51.d
+	desc = {
+		text = licfor.51.d_aosta
+		trigger = {
+			has_country_flag = LIC_offer_aosta
+		}
+	}
+	desc = {
+		text = licfor.51.d_eco
+		trigger = {
+			has_country_flag = LIC_offer_eco
+		}
+	}
+	desc = {
+		text = licfor.51.d_VRL
+		trigger = {
+			has_country_flag = LIC_offer_VRL
+		}
+	}
 	
 	picture = GFX_event_LIC_state_meeting_swiss
 
@@ -10719,6 +10805,12 @@ country_event = { #GER - Liechtenstein Wants on the Legation Council
 		LEC = {
 			country_event = licfor.69
 		}
+		LIC = {
+			country_event = {
+				id = licfor.93
+				days = 1
+			}
+		}
 	}
 	
 	option = { #No, it's too obvious a move.
@@ -10755,7 +10847,7 @@ country_event = { #LEC - Germany supports Liechtenstein
 				}
 			}
 			else = {
-				country_event = lec.164
+				country_event = lec.167
 			}
 		}
 		ai_chance = { factor = 15 }
@@ -11616,10 +11708,18 @@ country_event = { #The Papacy Reclaimed!
 		set_cosmetic_tag = LIC_PAP_clone
 		add_state_core = 2
 		add_state_core = 1149
-		add_state_claim = 764
-		add_state_claim = 1005
-		add_state_claim = 157
-		add_state_claim = 161
+		every_state = {
+			limit = {
+				OR = {
+					state = 764
+					state = 1005
+					state = 157
+					state = 161
+				}
+			}
+			add_claim_by = ROOT
+			set_state_flag = LIC_integrable_state
+		}
 	}
 }
 
@@ -11708,6 +11808,38 @@ country_event = { #Liechtenstein Rejects
 			add_stability = -0.15
 			add_political_power = -250
 		}
+	}
+}
+
+country_event = { #Alaska purchased!
+	id = licfor.92
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.92" }
+	title = licfor.92.t
+	desc = licfor.92.d
+	
+	picture = profits
+
+	is_triggered_only = yes
+	
+	option = { #Attack
+		name = licfor.92.a
+		add_political_power = 100
+	}
+}
+
+country_event = { #Germany Agrees to Push a Vote
+	id = licfor.93
+	immediate = { log = "[GetDateText]: [Root.GetName]: event licfor.93" }
+	title = licfor.93.t
+	desc = licfor.93.d
+	
+	picture = profits
+
+	is_triggered_only = yes
+	
+	option = { #Attack
+		name = licfor.93.a
+		add_political_power = 10
 	}
 }
 
