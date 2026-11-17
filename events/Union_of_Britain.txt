@@ -1555,7 +1555,7 @@ country_event = { #Union Collapse/home nations break free
 	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.20" }
 	title = uob.20.t
 	desc = uob.20.d
-	picture = GFX_report_event_ENG_Union_Explodes
+	picture = GFX_report_event_generic_map_brit
 
 	is_triggered_only = yes
 
@@ -5937,6 +5937,15 @@ country_event = { #Hobart coup
 						uncomplete_children = yes
 					}
 				}
+				if = {
+					limit = { has_completed_focus = ENG_ECO_internationale_money }
+					every_other_country = {
+						limit = { 
+							has_idea = ENG_ECO_avantgarde_eco_idea
+						}
+						remove_ideas = ENG_ECO_avantgarde_eco_idea
+					}
+				}
 			}
 			remove_all_ministers = yes
 			set_politics = { ruling_party = paternal_autocrat }
@@ -6705,7 +6714,6 @@ country_event = { # Absurd UPIF investment - note that a lot of the titles and o
 	}
 }
 # Anarchist events # 
-# event for Aldred being ousted for trying too hard to ally with people like russell/scottish protestants/other weridos 
 country_event = {#fully commit to platformism
 	id = uob.300
 	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.300" }
@@ -6831,7 +6839,7 @@ country_event = {#R U S S E L L
 	option = {
 		name = uob.304.a
 		ai_chance = {
-			base = 50
+			base = 60
 		}
 		add_political_power = -30
 		add_stability = -0.05
@@ -6849,7 +6857,7 @@ country_event = {#R U S S E L L
 	option = {
 		name = uob.304.b
 		ai_chance = {
-			base = 50
+			base = 40
 		}
 		swap_ideas = {
 			remove_idea = ENG_ANA_strickland_press_better_idea
@@ -6869,7 +6877,7 @@ country_event = { #in hot water
 	option = {
 		name = uob.305.a
 		ai_chance = {
-			base = 50
+			base = 40
 		}
 		add_political_power = -20
 		hidden_effect = {
@@ -7019,7 +7027,7 @@ country_event = {#WSPU standpoint
 	option = {
 		name = uob.308.b
 		ai_chance = {
-			base = 50
+			base = 40
 		}
 		add_political_power = 10
 		add_timed_idea = {
@@ -7070,7 +7078,7 @@ country_event = {#dora marsden more influential
 	option = {
 		name = uob.309.a
 		ai_chance = {
-			base = 20
+			base = 40
 		}
 		remove_ideas_with_trait = head_of_government
 		add_ideas = ENG_Dora_Marsden_hog_rso
@@ -7078,7 +7086,7 @@ country_event = {#dora marsden more influential
 	option = {
 		name = uob.309.b
 		ai_chance = {
-			base = 50
+			base = 60
 		}
 		create_country_leader = {
 			name = "Dora Marsden"
@@ -7206,7 +7214,7 @@ country_event = {#education reform 1 - centralised or decentralised curriculum
 		}
 		custom_effect_tooltip = ENG_ANA_education_1_a_tt
 		add_to_variable = { ENG.ENG_ANA_research_speed_factor = 0.05 }
-		add_to_variable = { ENG.ENG_ANA_stability_factor = -0.05 }
+		add_to_variable = { ENG.ENG_ANA_stability_factor = -0.03 }
 	}
 	option = {
 		name = uob.3121.b #decentralise curriculum
@@ -7286,7 +7294,6 @@ country_event = {#education reform 2 - academic vs artistic
 		add_dynamic_modifier = {
 			modifier = ENG_summerhill_modifier
 		}
-		
 	}
 }
 
@@ -7579,10 +7586,36 @@ country_event = { #They didnt joined
 		}
 	}
 }
-
+country_event = { #Edward Hyams
+	id = uob.318
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.318" }
+	title = uob.318.t
+	desc = uob.318.d
+	picture = GFX_report_event_generic_map_brit
+	is_triggered_only = yes
+	option = {
+		name = uob.318.a
+		ai_chance = {
+			base = 70
+		}
+	}
+	option = {
+		name = uob.318.a
+		ai_chance = {
+			base = 30
+		}
+		create_country_leader = {
+			name = "Edward Hyams"
+			desc = "POLITICS_TE_LAWRENCE_DESC"
+			picture = "gfx/leaders/ENG/Portrait_ENG_Edward_Hyams.png"
+			expire = "1.1.1"
+			ideology = eco_anarchism_subtype
+		}
+	}
+}
 country_event = { #christian anarchists
 	id = uob.319
-	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.318" }
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.319" }
 	title = uob.319.t
 	desc = uob.319.d
 	picture = GFX_report_event_generic_farming2
@@ -8642,6 +8675,7 @@ country_event = {#Joad subideo picker
 		}
 		set_country_leader_ideology = eco_syndicalism_subtype
 		custom_effect_tooltip = syn_eco_syndicalism_subtype_swap_tt
+		
 	}
 	option = {
 		name = uob.503.e
@@ -8650,6 +8684,7 @@ country_event = {#Joad subideo picker
 		}
 		set_country_leader_ideology = syn_spiritualism_subtype
 		custom_effect_tooltip = syn_syn_spiritualism_subtype_swap_tt
+		
 	}
 }
 
@@ -8731,7 +8766,7 @@ country_event = {#So Christians are cool ammirite??
 	option = {
 		name = uob.505.c
 		ai_chance = {
-			base = 80
+			base = 50
 		}
 		create_country_leader = {
 			name = "John Groser"
@@ -9048,7 +9083,7 @@ country_event = { #what do with unions??
 	}
 }
 
-country_event = {#Joad likes ghosts + brocken experiment
+country_event = {#Joad likes ghosts
 	id = uob.514
 	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.514" }
 	title = uob.514.t
@@ -9061,7 +9096,7 @@ country_event = {#Joad likes ghosts + brocken experiment
 	}
 }
 
-country_event = {#Joad has a weird relation with ruralists/hates over development
+country_event = {#The Untutored Townsmans Invasion Of The Country
 	id = uob.515
 	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.515" }
 	title = uob.515.t
@@ -9090,10 +9125,10 @@ country_event = {#pacifism is on the way out
 			limit = {
 				is_core_of = ENG
 			}
-			add_extra_state_shared_building_slots = 1
+			add_extra_state_shared_building_slots = 2
 			add_building_construction = {
 				type = industrial_complex
-				level = 1
+				level = 2
 			}
 		}
 	}
@@ -9105,10 +9140,10 @@ country_event = {#pacifism is on the way out
 			limit = {
 				is_core_of = ENG
 			}
-			add_extra_state_shared_building_slots = 1
+			add_extra_state_shared_building_slots = 2
 			add_building_construction = {
 				type = arms_factory
-				level = 1
+				level = 2
 			}
 		}
 	}
@@ -9121,10 +9156,10 @@ country_event = {#pacifism is on the way out
 			limit = {
 				is_core_of = ENG
 			}
-			add_extra_state_shared_building_slots = 2
+			add_extra_state_shared_building_slots = 3
 			add_building_construction = {
 				type = arms_factory
-				level = 2
+				level = 3
 			}
 		}
 	}
@@ -9650,8 +9685,10 @@ country_event = {#london school of economics opens
 		add_political_power = 10
 		add_stability = 0.01
 		hidden_effect = {
-			country_event = uob.536
-			days = 100
+			country_event = {
+				id =  uob.536
+				days = 100
+			}
 		}
 	}
 }
@@ -9698,6 +9735,18 @@ country_event = {#people want laski to lecture again
 		add_stability = 0.03
 		set_country_flag = LEADER_GUI_VISIBLE
 		set_country_flag = ENG_FED_orbach_vice
+	}
+}
+
+country_event = {#laskianism
+	id = uob.537
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uob.537" }
+	title = uob.537.t
+	desc = uob.537.d
+	picture = GFX_report_event_election_vote
+	is_triggered_only = yes
+	option = { 
+		name = uob.537.a
 	}
 }
 #BSP Specific events
@@ -13637,7 +13686,6 @@ country_event = { #Russell fucking loves birds
 	}
 }
 
-
 ## Flavour ##
 country_event = { #Cornish revivalism
 	id = uobflavour.1
@@ -14861,7 +14909,37 @@ country_event = { # decimalisation day
 	fire_only_once = yes
 	option = {
 		name = uobeco.2.a
+		add_stability = 0.05
+		add_ideas = ENG_eco_decimalisation_done_idea
+	}
+}
+country_event = { #gropecunt
+	id = uobeco.3
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobeco.3" }
+	title = uobeco.3.t
+	desc = uobeco.3.d
+	picture = GFX_CSA_union_bank
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = uobeco.3.a
 		add_stability = 0.02
+	}
+	option = {
+		name = uobeco.3.b
+		add_political_power = 10
+	}
+}
+country_event = { # what the fucklins is a butlins
+	id = uobeco.4
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobeco.4" }
+	title = uobeco.4.t
+	desc = uobeco.4.d
+	picture = GFX_CSA_union_bank
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = uobeco.4.a
 		
 	}
 }
@@ -15073,6 +15151,18 @@ country_event = { # tf is going on with the army
 	}
 }
 
+country_event = { #Helicopter truck
+	id = uobmil.11
+	immediate = { log = "[GetDateText]: [Root.GetName]: event uobmil.11" }
+	title = uobmil.11.t
+	desc = uobmil.11.d
+	picture = GFX_report_event_ENG_Generic_Soldiers
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = uobmil.11.a
+	}
+}
 # Flag pickers # 
 country_event = { #WSPU Flag picker
 	id = uobflag.1

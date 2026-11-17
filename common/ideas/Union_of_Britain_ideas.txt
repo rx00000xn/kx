@@ -230,7 +230,7 @@ ideas = {
 		}
 		# Class War
 		ENG_red_idea = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea CAN_special_branch_idea"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_red_idea"}
 			picture = ENG_red_idea
 			research_bonus = {
 				decryption_tech = 0.10
@@ -244,7 +244,7 @@ ideas = {
 			}
 		}
 		ENG_red_idea_lar = {
-			on_add = { log = "[GetDateText]: [Root.GetName]: add idea CAN_special_branch_idea_lar"}
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_red_idea_lar "}
 			picture = ENG_red_idea
 			research_bonus = {
 				decryption_tech = 0.10
@@ -512,7 +512,7 @@ ideas = {
 			available = {
 				ENG = {
 					has_socialist_government = yes
-					is_puppet = no
+					is_subject = no
 				}
 			}
             modifier = {
@@ -527,6 +527,7 @@ ideas = {
 		ENG_workers_bastion_idea = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_workers_bastion_idea"}
 			allowed = { always = no }
+			available = { has_socialist_government = yes }
             modifier = {
 				monthly_population = 0.1
 				production_speed_buildings_factor = 0.075
@@ -599,8 +600,9 @@ ideas = {
 			}
             modifier = {
 				production_factory_efficiency_gain_factor = 0.05
-				political_power_factor = 0.065
+				political_power_factor = 0.05
 				consumer_goods_factor = -0.075
+				global_building_slots_factor = 0.05
 				army_intel_to_others = 3
 				civilian_intel_to_others = 3
 				navy_intel_to_others = 3
@@ -619,8 +621,10 @@ ideas = {
 				consumer_goods_factor = -0.1
 				army_org_regain = -0.075
 				stability_factor = 0.05
-				production_speed_buildings_factor = 0.065
+				production_speed_buildings_factor = 0.05
 				line_change_production_efficiency_factor = 0.045
+				army_attack_factor = 0.05
+				army_defence_factor = -0.05
 			}
 			picture = ENG_ANA_idea_1
 		}
@@ -633,13 +637,15 @@ ideas = {
             modifier = {
 				production_factory_efficiency_gain_factor = 0.1
 				political_power_factor = 0.15
-				consumer_goods_factor = -0.1
+				consumer_goods_factor = -0.15
 				army_org_regain = -0.1
 				stability_factor = 0.05
 				production_speed_buildings_factor = 0.1
 				line_change_production_efficiency_factor = 0.075
-				send_volunteer_size = 2
+				send_volunteer_size = 3
 				global_building_slots_factor = 0.05
+				army_attack_factor = 0.05
+				army_defence_factor = -0.05
 			}
 			picture = ENG_ANA_individual_idea_3
 		}
@@ -659,6 +665,7 @@ ideas = {
 				navy_intel_to_others = 6
 				party_popularity_stability_factor = 0.1
 				factory_energy_consumption = -0.04
+				industry_free_repair_factor = 0.1
 			}
 			picture = ENG_ANA_idea_1
 		}
@@ -671,7 +678,7 @@ ideas = {
             modifier = {
 				production_factory_efficiency_gain_factor = 0.1
 				consumer_goods_factor = -0.15
-				weekly_manpower = 600
+				weekly_manpower = 750
 				research_speed_factor = 0.08
 				army_intel_to_others = 10
 				civilian_intel_to_others = 10
@@ -679,6 +686,8 @@ ideas = {
 				planning_speed = 0.075
 				party_popularity_stability_factor = 0.15
 				factory_energy_consumption = -0.095
+				global_building_slots_factor = 0.1
+				industry_free_repair_factor = 0.15
 			}
 			picture = ENG_ANA_collective_idea_3
 		}
@@ -698,10 +707,32 @@ ideas = {
             modifier = {
 				political_power_factor = -0.08
 				army_experience_from_volunteers = 0.25
-				send_volunteer_size = 3
 				air_volunteer_cap = 1
 				experience_gain_army = 0.05
 				experience_gain_air = 0.05
+				custom_modifier_tooltip = ENG_ANA_ACW_Support
+			}
+			on_add = {
+				log = "[GetLogRoot]: add idea ENG_ANA_anarchism_across_atlantic_idea"
+				meta_effect = {
+					text = {
+						if = {
+							limit = { NOT = { has_relation_modifier = { modifier = volunteer_limit_plus_three target = CSA } } }
+							add_relation_modifier = { modifier = volunteer_limit_plus_three target = CSA }
+						}
+					}
+				}
+			}
+			on_remove = {
+				log = "[GetLogRoot]: remove idea ENG_ANA_anarchism_across_atlantic_idea"
+				meta_effect = {
+					text = {
+						if = {
+							limit = { has_relation_modifier = { modifier = volunteer_limit_plus_three target = CSA } }
+							remove_relation_modifier = { modifier = volunteer_limit_plus_three target = CSA }
+						}
+					}
+				}
 			}
 			picture = ENG_ANA_anarchism_across_atlantic_idea
 		}
@@ -714,6 +745,7 @@ ideas = {
             modifier = {
 				radical_socialist_acceptance = 40
 				radical_socialist_drift = 0.05
+				political_power_factor = 0.05
 				war_support_factor = -0.05
 				propaganda_mission_factor = 0.1
 			}
@@ -727,11 +759,13 @@ ideas = {
 			}
             modifier = {
 				radical_socialist_acceptance = 40
-				radical_socialist_drift = 0.065
+				radical_socialist_drift = 0.05
 				war_support_factor = -0.01
-				political_power_cost = -0.05
+				political_power_factor = 0.1
 				boost_resistance_factor = 0.1
 				propaganda_mission_factor = 0.1
+				operation_fake_intel_cost = -0.25
+				civilian_factory_use = 1
 			}
 			picture = ENG_ANA_strickland_press_better_idea
 		}
@@ -745,10 +779,11 @@ ideas = {
             modifier = {
 				recruitable_population_factor = -0.15
 				stability_factor = 0.05
-				production_cost_industrial_complex_factor = -0.08
+				production_speed_industrial_complex_factor = 0.05
+				production_speed_infrastructure_factor = 0.1
 				research_speed_factor = 0.05
 				political_power_gain = 0.1
-				production_speed_infrastructure_factor = 0.1
+				economy_cost_factor = -0.1
 			}
 			on_remove = {
 				if = {
@@ -767,9 +802,9 @@ ideas = {
 				has_government = radical_socialist
 			}
             modifier = {
-				industrial_capacity_factory = -0.06
-				industrial_capacity_dockyard = -0.06
-				consumer_goods_factor = -0.065
+				industrial_capacity_factory = -0.05
+				industrial_capacity_dockyard = -0.05
+				consumer_goods_factor = -0.08
 				supply_consumption_factor = -0.1
 				local_resource_gain_efficiency_per_infrastructure = 0.10
 			}
@@ -783,7 +818,8 @@ ideas = {
 			}
             modifier = {
 				political_power_factor = -0.1
-				syndicalist_drift = 0.035
+				syndicalist_drift = 0.03
+				syndicalist_acceptance = 20
 				industrial_capacity_dockyard = 0.08
 				industrial_capacity_factory = 0.08
 				recruitable_population = 0.125
@@ -799,7 +835,7 @@ ideas = {
 			}
             modifier = {
 				research_speed_factor = -0.08
-				political_power_cost = 0.075
+				political_power_cost = 0.1
 				scientist_breakthrough_bonus_factor = -0.1
 				civilian_factory_use = 3
 			}
@@ -813,7 +849,7 @@ ideas = {
 				political_power_factor = -0.06
 				totalist_drift = -0.04
 				syndicalist_drift = -0.04
-				radical_socialist_drift = 0.03
+				radical_socialist_drift = 0.04
 				stability_weekly = 0.003 
 			}
 			picture = ENG_AUT_TUC_reform_idea
@@ -924,11 +960,12 @@ ideas = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_AUT_idea_1"}
 			allowed = { always = no }
             modifier = {
-				compliance_growth = 0.02
-				recruitable_population_factor = 0.04
+				compliance_growth = 0.03
+				recruitable_population_factor = 0.05
 				drift_defence_factor = -0.05
 				political_power_cost = -0.05
 				army_org_regain = 0.065
+				cic_construction_boost_factor = 0.05
 			}
 			picture = ENG_AUT_idea_1
 		}
@@ -943,6 +980,7 @@ ideas = {
 				local_resources_factor = 0.075
 				trade_laws_cost_factor = -0.15
 				political_power_cost = -0.05
+				cic_construction_boost_factor = 0.075
 			}
 			picture = ENG_AUT_idea_1
 		}
@@ -954,10 +992,11 @@ ideas = {
 				recruitable_population_factor = 0.08
 				drift_defence_factor = -0.05
 				local_resources_factor = 0.075
-				trade_opinion_factor = 0.1
 				production_factory_efficiency_gain_factor = 0.045
 				party_popularity_stability_factor = 0.15
 				radical_socialist_drift = 0.065
+				cic_construction_boost_factor = 0.1
+				resistance_growth = -0.1
 			}
 			picture = ENG_AUT_snell_idea
 		}
@@ -985,6 +1024,7 @@ ideas = {
 				command_power_gain_mult = 0.15
 				army_org_regain = 0.065
 				factory_energy_consumption = -0.1
+				cic_construction_boost_factor = 0.1
 			}
 			picture = ENG_AUT_acland_idea
 		}
@@ -1038,6 +1078,7 @@ ideas = {
 				research_speed_factor = 0.065
 				production_speed_buildings_factor = 0.1
 				production_cost_industrial_complex_factor = -0.1
+				cic_construction_boost_factor = 0.1
 			}
 			picture = ENG_AUT_brockway_idea
 		}
@@ -1064,6 +1105,7 @@ ideas = {
 				consumer_goods_factor = -0.075
 				party_popularity_stability_factor = 0.05
 				monthly_population = 0.05
+				production_cost_industrial_complex_factor = -0.05
 			}
 			picture = ENG_horner_idea_1
 		}
@@ -1079,6 +1121,7 @@ ideas = {
 				starting_compliance = 0.05
 				monthly_population = 0.1
 				min_export = -0.05
+				production_cost_industrial_complex_factor = -0.05
 			}
 			picture = ENG_horner_idea_1
 		}
@@ -1094,6 +1137,7 @@ ideas = {
 				starting_compliance = 0.075
 				monthly_population = 0.15
 				min_export = -0.1
+				production_cost_industrial_complex_factor = -0.1
 			}
 			picture = ENG_horner_idea_3
 		}
@@ -1107,6 +1151,7 @@ ideas = {
 				industrial_capacity_factory = 0.04
 				justify_war_goal_time = 0.1
 				send_volunteer_size = 2
+				political_power_factor = 0.05
 			}
 			picture = ENG_mann_idea_1
 		}
@@ -1122,6 +1167,7 @@ ideas = {
 				send_volunteer_size = 3
 				production_factory_start_efficiency_factor = 0.04
 				line_change_production_efficiency_factor = 0.05
+				political_power_factor = 0.075
 			}
 			picture = ENG_mann_idea_1
 		}
@@ -1138,6 +1184,7 @@ ideas = {
 				send_volunteer_size = 3
 				air_volunteer_cap = 1
 				production_factory_start_efficiency_factor = 0.08
+				political_power_factor = 0.1
 			}
 			picture = ENG_mann_idea_3
 		}
@@ -1178,7 +1225,7 @@ ideas = {
 				research_speed_factor = 0.075
 				local_resources_factor = 0.15
 				equipment_conversion_speed = 0.15
-				political_power_factor = 0.1
+				political_power_factor = 0.15
 				special_project_speed_factor = -0.08
 				research_sharing_per_country_bonus = 0.1
 				production_factory_efficiency_gain_factor = 0.075
@@ -1196,6 +1243,7 @@ ideas = {
 				mobilization_speed = -0.025
 				consumer_goods_factor = -0.05
 				production_factory_max_efficiency_factor = 0.025
+				research_speed_factor = 0.05
 			}
 			picture = ENG_laski_idea_1
 		}
@@ -1212,6 +1260,7 @@ ideas = {
 				conversion_cost_mil_to_civ_factor = -0.1
 				line_change_production_efficiency_factor = 0.04
 				production_speed_buildings_factor = 0.035
+				research_speed_factor = 0.05
 			}
 			picture = ENG_laski_idea_1
 		}
@@ -1228,6 +1277,7 @@ ideas = {
 				conversion_cost_mil_to_civ_factor = -0.125
 				line_change_production_efficiency_factor = 0.08
 				production_speed_buildings_factor = 0.075
+				research_speed_factor = 0.1
 			}
 			picture = ENG_laski_idea_3
 		}
@@ -1236,7 +1286,7 @@ ideas = {
 			allowed = { always = no }
             modifier = {
 				stability_weekly = 0.008
-				syndicalist_drift = 0.035
+				syndicalist_drift = 0.04
 				totalist_drift = -0.05
 				radical_socialist_drift = -0.05
 				political_power_gain = 0.05
@@ -1262,6 +1312,7 @@ ideas = {
 				production_speed_buildings_factor = 0.05
 				defensive_war_stability_factor = 0.1
 				offensive_war_stability_factor = -0.05
+				consumer_goods_factor = -0.04
 			}
 			equipment_bonus = {
 				infantry_equipment = {
@@ -1309,7 +1360,7 @@ ideas = {
 			allowed = { always = no }
             modifier = {
 				justify_war_goal_time = 0.1
-				enemy_justify_war_goal_time = 0.1
+				enemy_justify_war_goal_time = 0.15
 				trade_opinion_factor = 0.125
 				consumer_goods_factor = -0.1
 				energy_gain_factor = 0.085
@@ -1328,6 +1379,7 @@ ideas = {
 				stability_factor = 0.05
 				recruitable_population_factor = 0.04
 				production_factory_efficiency_gain_factor = 0.025
+				production_factory_max_efficiency_factor = 0.03
 			}
 			picture = ENG_WSPU_idea
 		}
@@ -1340,6 +1392,7 @@ ideas = {
 				stability_factor = 0.05
 				recruitable_population_factor = 0.04
 				production_factory_efficiency_gain_factor = 0.035
+				production_factory_max_efficiency_factor = 0.05
 				industrial_capacity_dockyard = 0.05
 				industrial_capacity_factory = 0.05
 			}
@@ -1350,14 +1403,15 @@ ideas = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_WSPU_idea_3"}
 			allowed = { always = no }
             modifier = {
-				war_support_factor = -0.09
+				war_support_factor = -0.1
 				research_speed_factor = 0.08
-				recruitable_population_factor = 0.045
+				recruitable_population_factor = 0.05
 				production_factory_efficiency_gain_factor = 0.05
-				production_factory_max_efficiency_factor = 0.04
+				production_factory_max_efficiency_factor = 0.075
 				industrial_capacity_dockyard = 0.1
 				industrial_capacity_factory = 0.1
 				stability_weekly = 0.0015
+				army_core_defence_factor = 0.05
 			}
 			picture = ENG_WSPU_idea
 		}
@@ -1374,7 +1428,8 @@ ideas = {
 				industrial_capacity_factory = 0.075
 				mobilization_speed = 0.04
 				war_support_weekly = 0.0015
-
+				army_attack_against_major_factor = 0.1
+				production_factory_max_efficiency_factor = 0.075
 			}
 			picture = ENG_WSPU_tot_idea
 		}
@@ -1412,6 +1467,7 @@ ideas = {
 				party_popularity_stability_factor = 0.1
 				syndicalist_drift = 0.02
 				syndicalist_acceptance = 15
+				political_power_factor = 0.05
 			}
 			picture = ENG_suffrage_dramas_idea
 		}
@@ -1488,7 +1544,7 @@ ideas = {
             modifier = {
 				scientist_breakthrough_bonus_factor = 0.075
 				scientist_research_bonus_factor = 0.05
-				research_speed_factor = 0.6
+				research_speed_factor = 0.06
 			}
 			picture = ENG_WSPU_Progress_idea
 		}
@@ -1513,11 +1569,11 @@ ideas = {
 				enemy_operative_capture_chance_factor = 0.1
 				intel_network_gain_factor = 0.125
 				agency_upgrade_time = -0.075
-				encryption_factor = 0.07
-				decryption_factor = 0.07
+				encryption_factor = 0.075
+				decryption_factor = 0.075
 				scientist_breakthrough_bonus_factor = 0.08
 				scientist_research_bonus_factor = 0.05
-				research_speed_factor = 0.095
+				research_speed_factor = 0.1
 			}
 			picture = ENG_WSPU_Progress_Security_idea
 		}
@@ -1536,9 +1592,10 @@ ideas = {
 				totalist_drift = 0.02
 				drift_defence_factor = 0.1
 				political_power_gain = 0.05
-				army_core_attack_factor = 0.03
+				army_core_attack_factor = 0.05
 				research_speed_factor = 0.01
 				encryption_factor = 0.05
+				production_speed_arms_factory_factor = 0.05
 			}
 			picture = ENG_BSP_idea
 		}
@@ -1556,9 +1613,14 @@ ideas = {
 				totalist_drift = 0.03
 				drift_defence_factor = 0.15
 				political_power_gain = 0.075
-				army_core_attack_factor = 0.03
+				army_core_attack_factor = 0.05
 				justify_war_goal_time = -0.1
 				research_speed_factor = 0.03
+				consumer_goods_factor = -0.05
+				encryption_factor = 0.05
+				mobilization_speed = 0.05
+				production_speed_arms_factory_factor = 0.075
+				recruitable_population = 0.005
 			}
 			picture = ENG_BSP_idea
 		}
@@ -1581,6 +1643,12 @@ ideas = {
 				research_speed_factor = 0.05
 				resistance_garrison_penetration_chance = -0.1
 				resistance_growth = -0.1
+				experience_loss_factor = 0.05
+				consumer_goods_factor = -0.1
+				encryption_factor = 0.1
+				production_speed_arms_factory_factor = 0.1
+				mobilization_speed = 0.05
+				recruitable_population = 0.0075
 			}
 			picture = ENG_BSP_bolshie_idea_3
 		}
@@ -1595,14 +1663,19 @@ ideas = {
 				}
 			}
             modifier = {
-				drift_defence_factor = 0.15
 				political_power_gain = 0.1
 				research_speed_factor = 0.08
 				compliance_growth = 0.05
 				stability_factor = 0.1
 				war_stability_factor = 0.1
+				consumer_goods_factor = -0.075
+				army_morale_factor = 0.05
+				encryption_factor = 0.05
 				totalist_acceptance = 30
 				syndicalist_acceptance = 30
+				mobilization_speed = 0.1
+				production_speed_arms_factory_factor = 0.075
+				recruitable_population = 0.01
 			}
 			picture = ENG_BSP_hardliner_idea_3
 		}
@@ -1619,9 +1692,9 @@ ideas = {
             modifier = {
 				political_power_factor = 0.10
 				stability_weekly = 0.0035
-				economy_cost_factor = 0.5
-				trade_laws_cost_factor = 0.5
-				mobilization_laws_cost_factor = 0.5
+				economy_cost_factor = 0.33
+				trade_laws_cost_factor = 0.33
+				mobilization_laws_cost_factor = 0.33
 			}
 			picture = ENG_BSP_aggressive_restructuring_idea
 		}
@@ -1630,11 +1703,13 @@ ideas = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_BSP_watchful_eye_idea"}
 			allowed = { always = no }
             modifier = {
-				root_out_resistance_effectiveness_factor = 0.08
+				resistance_growth = -0.1
 				enemy_operative_capture_chance_factor = 0.08
+				stability_factor = -0.025
 				army_intel_to_others = -6
 				civilian_intel_to_others = -6
 				navy_intel_to_others = -6
+				operative_slot = 1
 			}
 			picture = ENG_BSP_watchful_eye_idea
 		}
@@ -1690,6 +1765,7 @@ ideas = {
 				recruitable_population_factor = -0.02
 				production_factory_efficiency_gain_factor = 0.03
 				production_factory_max_efficiency_factor = 0.05
+				production_factory_start_efficiency_factor = 0.05
 			}
 			picture = ENG_BSP_NUWM_idea
 		}
@@ -1698,10 +1774,11 @@ ideas = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_BSP_legacy_of_change_idea"}
 			allowed = { always = no }
             modifier = {
-				consumer_goods_factor = 0.11
+				consumer_goods_factor = 0.125
 				special_project_facility_supply_consumption_factor = -0.15
 				military_industrial_organization_funds_gain = 0.125
 				line_change_production_efficiency_factor = 0.08
+				special_project_speed_factor = 0.1
 			}
 			picture = ENG_BSP_legacy_of_change_idea
 		}
@@ -1728,6 +1805,11 @@ ideas = {
 				training_time_army_factor = -0.125
 				political_power_factor = -0.1
 			}
+			equipment_bonus = {
+				infantry_equipment = {
+					build_cost_ic = -0.075
+				}
+			}
 			picture = ENG_BSP_YSL_expansion_idea
 		}
 
@@ -1741,6 +1823,7 @@ ideas = {
 				monthly_population = 0.04
 				consumer_goods_factor = -0.06
 				command_power_gain_mult = 0.04
+				stability_factor = 0.05
 			}
 			picture = ENG_MAX_idea
 		}
@@ -1754,6 +1837,9 @@ ideas = {
 				consumer_goods_factor = -0.12
 				command_power_gain_mult = 0.08
 				mobilization_speed = 0.04
+				stability_factor = 0.075
+				global_building_slots_factor = 0.04
+				conversion_cost_civ_to_mil_factor = -0.05
 			}
 			picture = ENG_MAX_idea
 		}
@@ -1769,6 +1855,9 @@ ideas = {
 				mobilization_speed = 0.08
 				generate_wargoal_tension = -0.1
 				production_speed_arms_factory_factor = 0.05
+				stability_factor = 0.075
+				global_building_slots_factor = 0.08
+				conversion_cost_civ_to_mil_factor = -0.1
 			}
 			picture = ENG_MAX_auth_idea_3
 		}
@@ -1782,6 +1871,8 @@ ideas = {
 				consumer_goods_factor = -0.12
 				stability_weekly_factor = 0.03
 				lend_lease_tension = -0.1
+				stability_factor = 0.075
+				starting_compliance = 0.04
 			}
 			picture = ENG_MAX_idea
 		}
@@ -1791,12 +1882,14 @@ ideas = {
             modifier = {
 				political_power_cost = 0.075
 				experience_gain_army = 0.04
-				monthly_population = 0.16
-				consumer_goods_factor = -0.18
+				monthly_population = 0.15
+				consumer_goods_factor = -0.15
 				lend_lease_tension = -0.1
 				stability_weekly_factor = 0.1
 				research_speed_factor = 0.05
-				production_cost_industrial_complex_factor = -0.05
+				production_cost_industrial_complex_factor = -0.1
+				stability_factor = 0.075
+				starting_compliance = 0.08
 			}
 			picture = ENG_MAX_dem_idea_3
 		}
@@ -1830,11 +1923,12 @@ ideas = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_MAX_Biff_boys_no_violence_idea"}
 			allowed = { always = no }
             modifier = {
-				weekly_manpower = 150
+				weekly_manpower = 200
 				land_reinforce_rate = 0.04
-				experience_gain_infantry_combat_factor = 0.025
+				experience_gain_infantry_combat_factor = 0.05
 				max_planning_factor = 0.05
-				planning_speed = 0.045 
+				planning_speed = 0.045
+				stability_factor = 0.03 
 			}
 			picture = ENG_MAX_Biff_boys_idea
 		}
@@ -1896,7 +1990,7 @@ ideas = {
             modifier = {
 				consumer_goods_factor = 0.07
 				political_power_gain = 0.05
-				recruitable_population_factor = 0.02
+				recruitable_population_factor = 0.04
 			}
 			picture = ENG_MAX_pensions_idea
 		}
@@ -1907,9 +2001,9 @@ ideas = {
 			}
 			allowed = { always = no }
             modifier = {
-				stability_factor = -0.05
+				stability_factor = -0.08
 				war_support_factor = -0.05
-				political_power_gain = -0.05
+				political_power_gain = -0.1
 			}
 			picture = ENG_cable_street_idea
 		}
@@ -1924,7 +2018,7 @@ ideas = {
 				production_factory_start_efficiency_factor = 0.03
 				extra_trade_to_overlord_factor = 0.05
 			}
-			picture = placeholder
+			picture = ENG_eco_shilling_idea
 		}
 		ENG_eco_decimalisation_idea = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_eco_decimalisation_idea"}
@@ -1932,12 +2026,12 @@ ideas = {
             modifier = {
 				stability_factor = -0.05
 				political_power_cost = 0.05
-				consumer_goods_factor = 0.1
+				consumer_goods_factor = 0.15
 			}
 			on_remove = {
 				country_event = uobeco.2
 			}
-			picture = placeholder
+			picture = ENG_eco_decimalisation_idea
 		}
 		ENG_eco_decimalisation_done_idea = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_eco_decimalisation_done_idea"}
@@ -1945,13 +2039,114 @@ ideas = {
             modifier = {
 				trade_laws_cost_factor = -0.25
 				trade_opinion_factor = 0.1
-				consumer_goods_factor = 0.05
+				consumer_goods_factor = 0.035
 				extra_trade_to_overlord_factor = 0.15
-				license_purchase_cost = -0.01
+				license_purchase_cost = -0.1
 				license_production_speed = 0.15
 			}
-			picture = placeholder
+			picture = ENG_eco_decimalisation_done_idea
 		}
+		ENG_ECO_avantgarde_eco_idea = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_ECO_avantgarde_eco_idea"}
+			allowed = { always = no }
+			available = {
+				has_socialist_government = yes
+			}
+            modifier = {
+				faction_trade_opinion_factor = 0.1
+				stability_factor = 0.02
+				war_support_factor = 0.02
+				political_power_cost = -0.05
+			}
+			picture = ENG_ECO_avantgarde_eco_idea
+		}
+		
+		ENG_ECO_worker_faith_idea = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_ECO_worker_faith_idea"}
+			allowed = { always = no }
+			available = {
+				has_socialist_government = yes
+			}
+            modifier = {
+				industrial_capacity_dockyard = 0.03
+				industrial_capacity_factory = 0.03
+				monthly_population = 0.05
+			}
+			picture = ENG_ECO_worker_faith_idea
+		}
+		ENG_ECO_new_luxuries_idea = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_ECO_new_luxuries_idea"}
+			allowed = { always = no }
+			available = {
+				has_socialist_government = yes
+			}
+            modifier = {
+				industrial_capacity_dockyard = 0.05
+				industrial_capacity_factory = 0.05
+				monthly_population = 0.05
+				consumer_goods_factor = 0.05
+				min_export = 0.1
+				political_power_gain = 0.05
+			}
+			picture = ENG_ECO_new_luxuries_idea
+		}
+		ENG_ECO_physical_education_idea = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_ECO_physical_education_idea"}
+			allowed = { always = no }
+			available = {
+				has_socialist_government = yes
+			}
+            modifier = {
+				industrial_capacity_dockyard = 0.03
+				industrial_capacity_factory = 0.03
+				monthly_population = 0.05
+				mobilization_speed = 0.025
+				weekly_manpower = 250
+				supply_consumption_factor = -0.05
+			}
+			picture = ENG_ECO_physical_education_idea
+		}
+		ENG_ECO_luxuries_education_idea = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_ECO_luxuries_education_idea"}
+			allowed = { always = no }
+			available = {
+				has_socialist_government = yes
+			}
+            modifier = {
+				industrial_capacity_dockyard = 0.075
+				industrial_capacity_factory = 0.075
+				monthly_population = 0.05
+				consumer_goods_factor = 0.1
+				min_export = 0.1
+				political_power_gain = 0.05
+				mobilization_speed = 0.05
+				weekly_manpower = 300
+				supply_consumption_factor = -0.05
+			}
+			picture = ENG_ECO_luxuries_education_idea
+		}
+		ENG_ECO_happy_healthy_hardy_idea = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_ECO_happy_healthy_hardy_idea"}
+			allowed = { always = no }
+			available = {
+				has_socialist_government = yes
+			}
+            modifier = {
+				industrial_capacity_dockyard = 0.075
+				industrial_capacity_factory = 0.075
+				monthly_population = 0.1
+				consumer_goods_factor = 0.15
+				min_export = 0.1
+				political_power_gain = 0.1
+				mobilization_speed = 0.05
+				weekly_manpower = 300
+				supply_consumption_factor = -0.075
+				army_attack_factor = 0.03
+				army_defence_factor = 0.03
+			}
+			picture = ENG_ECO_happy_healthy_hardy_idea
+		}
+		
 		ENG_eco_reverse_brain_drain_idea = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_eco_reverse_brain_drain_idea"}
 			allowed = { always = no }
@@ -1964,7 +2159,143 @@ ideas = {
 				civilian_factory_use = 3
 				monthly_population = 0.1
 			}
-			picture = placeholder
+			picture = ENG_eco_reverse_brain_drain_idea
+		}
+		ENG_eco_workforce_wakes_idea = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_eco_workforce_wakes_idea"}
+			allowed = { always = no }
+            modifier = {
+				production_speed_buildings_factor = 0.05
+				production_factory_start_efficiency_factor = 0.025
+				industry_repair_factor = 0.05
+			}
+			picture = ENG_eco_workforce_wakes_idea
+		}
+		ENG_eco_gears_of_war_idea = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_eco_gears_of_war_idea"}
+			allowed = { always = no }
+            modifier = {
+				production_factory_start_efficiency_factor = 0.025
+				industry_repair_factor = 0.08
+				industrial_capacity_factory = 0.05
+				industrial_capacity_dockyard = 0.05
+				consumer_goods_factor = 0.06
+				conversion_cost_civ_to_mil_factor = -0.1
+				production_speed_industrial_complex_factor = -0.05
+				production_speed_arms_factory_factor = 0.05
+			}
+			picture = ENG_eco_gears_of_war_idea
+		}
+		ENG_eco_gears_of_war_idea_2 = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_eco_gears_of_war_idea_2"}
+			allowed = { always = no }
+            modifier = {
+				production_factory_start_efficiency_factor = 0.06
+				industry_repair_factor = 0.08
+				industrial_capacity_factory= 0.1
+				industrial_capacity_dockyard = 0.1
+				consumer_goods_factor = 0.1
+				conversion_cost_civ_to_mil_factor = -0.15
+				production_speed_industrial_complex_factor = -0.15
+				equipment_conversion_speed = 0.1
+				production_speed_arms_factory_factor = 0.1
+			}
+			picture = ENG_eco_gears_of_war_idea
+		}
+		ENG_eco_hope_for_future_idea = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_eco_workforce_wakes_idea"}
+			allowed = { always = no }
+            modifier = {
+				production_factory_start_efficiency_factor = 0.025
+				production_speed_buildings_factor = 0.075
+				production_factory_max_efficiency_factor = 0.05
+				industry_repair_factor = 0.1
+				military_industrial_organization_funds_gain = 0.1 
+				consumer_goods_factor = -0.05
+				production_factory_efficiency_gain_factor = -0.05
+			}
+			picture = ENG_eco_hope_for_future_idea
+		}
+		ENG_eco_hope_for_future_idea_2 = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_eco_workforce_wakes_idea"}
+			allowed = { always = no }
+            modifier = {
+				production_factory_start_efficiency_factor = 0.05
+				production_speed_buildings_factor = 0.1
+				production_factory_max_efficiency_factor = 0.1
+				industry_repair_factor = 0.1
+				military_industrial_organization_funds_gain = 0.1 
+				consumer_goods_factor = -0.1
+				production_factory_efficiency_gain_factor = -0.08
+				global_building_slots_factor = 0.075
+				production_speed_arms_factory_factor = -0.1
+			}
+			picture = ENG_eco_hope_for_future_idea
+		}
+		ENG_eco_public_works_idea = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_eco_public_works_idea"}
+			allowed = { always = no }
+            modifier = {
+				consumer_goods_factor = -0.05
+				production_factory_start_efficiency_factor = 0.025
+				production_speed_buildings_factor = 0.05
+				production_speed_infrastructure_factor = 0.1
+				energy_gain_factor = 0.05
+				factory_energy_consumption = -0.05
+				industrial_capacity_dockyard = 0.05
+				industrial_capacity_factory = 0.05
+			}
+			picture = ENG_eco_public_works_idea
+		}
+		ENG_eco_public_works_idea_2 = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_eco_public_works_idea_2"}
+			allowed = { always = no }
+            modifier = {
+				production_factory_start_efficiency_factor = 0.05
+				production_speed_buildings_factor = 0.05
+				production_speed_infrastructure_factor = 0.15
+				consumer_goods_factor = -0.05
+				energy_gain_factor = 0.1
+				factory_energy_consumption = -0.075
+				industrial_capacity_dockyard = 0.05
+				industrial_capacity_factory = 0.05
+				conversion_cost_mil_to_civ_factor = -0.1
+				production_factory_efficiency_gain_factor = 0.05
+			}
+			picture = ENG_eco_public_works_idea
+		}
+		ENG_eco_loadsafarmin_idea = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_eco_public_works_idea"}
+			allowed = { always = no }
+            modifier = {
+				monthly_population = 0.1
+				consumer_goods_factor = -0.08
+				production_speed_buildings_factor = 0.05
+				production_factory_max_efficiency_factor = -0.03
+				industry_repair_factor = 0.05
+				global_building_slots_factor = 0.05
+				industry_air_damage_factor = -0.075
+				economy_cost_factor = -0.25
+				stability_factor = 0.05
+			}
+			picture = ENG_eco_loadsafarmin_idea
+		}
+		ENG_eco_loadsafarmin_2_idea = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_eco_public_works_idea"}
+			allowed = { always = no }
+            modifier = {
+				monthly_population = 0.15
+				consumer_goods_factor = -0.15
+				production_speed_buildings_factor = 0.1
+				production_factory_max_efficiency_factor = -0.06
+				industry_repair_factor = 0.1
+				global_building_slots_factor = 0.1
+				industry_air_damage_factor = -0.15
+				economy_cost_factor = -0.25
+				stability_factor = 0.1
+				factory_energy_consumption = -0.075
+			}
+			picture = ENG_eco_loadsafarmin_idea
 		}
 		## Military ##
 		ENG_mil_new_doctrine_tanks_idea_1 = {
@@ -2073,7 +2404,7 @@ ideas = {
 			modifier = {
 				cas_damage_reduction = -0.05
 				supply_consumption_factor = -0.085
-				max_dig_in_factor = 0.1
+				army_org_factor = 0.05
 				org_loss_when_moving = 0.05
 				land_mastery_gain_factor = 0.1
 			}
@@ -2132,19 +2463,22 @@ ideas = {
 			modifier = {
 				supply_consumption_factor = -0.1
 				cas_damage_reduction = -0.1
-				max_dig_in_factor = 0.1
+				army_org_factor = 0.075
 				org_loss_when_moving = 0.075
 				army_attack_factor = 0.1
 				land_mastery_gain_factor = 0.1
 				army_armor_attack_factor = 0.05
 				army_armor_defence_factor = 0.05
+				max_fuel_factor = 0.1
+
 			}
 			equipment_bonus = {
 				heavy_tank_chassis = {
 					build_cost_ic = -0.15
 					armor_value = 0.1
-					soft_attack = 0.125
-					maximum_speed = -0.075
+					soft_attack = 0.15
+					hard_attack = 0.1
+					maximum_speed = -0.1
 					reliability_factor = 0.1
 					instant = yes
 				}
@@ -2247,8 +2581,8 @@ ideas = {
             modifier = {
 				experience_loss_factor = 0.05
 				pocket_penalty = -0.08
-				land_reinforce_rate = 0.04
-				breakthrough_factor = 0.05
+				land_reinforce_rate = 0.02
+				attrition = -0.05
 			}
 			picture = ENG_mil_bayonet_idea
 		}
@@ -2258,8 +2592,8 @@ ideas = {
             modifier = {
 				experience_loss_factor = 0.08
 				pocket_penalty = -0.1
-				land_reinforce_rate = 0.065
-				breakthrough_factor = 0.075
+				land_reinforce_rate = 0.03
+				attrition = -0.05
 				army_infantry_attack_factor = 0.075
 				army_infantry_defence_factor = 0.075
 				army_artillery_attack_factor = 0.06
@@ -2278,8 +2612,7 @@ ideas = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_mil_disrupt_idea"}
 			allowed = { always = no }
             modifier = {
-				planning_speed = 0.06
-				planning_decay_rate_factor = -0.05
+				planning_speed = 0.05
 				army_attack_speed_factor = 0.075
 			}
 			picture = ENG_mil_disrupt_idea
@@ -2288,11 +2621,11 @@ ideas = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_mil_rifle_bayonet_idea_2"}
 			allowed = { always = no }
             modifier = {
-				experience_loss_factor = 0.15
+				experience_loss_factor = 0.10
 				army_org_regain = -0.05
 				pocket_penalty = -0.1
-				land_reinforce_rate = 0.08
-				breakthrough_factor = 0.075
+				land_reinforce_rate = 0.04
+				attrition = -0.075
 				combat_width_factor = -0.1
 				army_infantry_attack_factor = 0.1
 				army_infantry_defence_factor = 0.1
@@ -2300,7 +2633,7 @@ ideas = {
 				army_artillery_defence_factor = 0.06
 				recon_factor = 0.1
 				recon_factor_while_entrenched = 0.075
-				weekly_casualties_war_support = 0.005
+				weekly_casualties_war_support = 0.001
 			}
 			equipment_bonus = {
 				infantry_equipment = {
@@ -2315,11 +2648,11 @@ ideas = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_mil_rifle_bayonet_idea_alt_2"}
 			allowed = { always = no }
             modifier = {
-				experience_loss_factor = 0.15
+				experience_loss_factor = 0.10
 				army_org_regain = -0.05
 				pocket_penalty = -0.1
-				land_reinforce_rate = 0.08
-				breakthrough_factor = 0.075
+				land_reinforce_rate = 0.04
+				attrition = -0.075
 				combat_width_factor = -0.1
 				army_infantry_attack_factor = 0.1
 				army_infantry_defence_factor = 0.1
@@ -2327,7 +2660,7 @@ ideas = {
 				army_artillery_defence_factor = 0.06
 				recon_factor = 0.1
 				recon_factor_while_entrenched = 0.075
-				weekly_casualties_war_support = 0.005
+				weekly_casualties_war_support = 0.001
 			}
 			equipment_bonus = {
 				infantry_equipment = {
@@ -2402,9 +2735,9 @@ ideas = {
 			allowed = { always = no }
             modifier = {
 				initiative_factor = 0.125
-				planning_speed = 0.15
+				planning_speed = 0.1
 				max_planning_factor = -0.15
-				recon_factor = 0.15
+				recon_factor = 0.1
 				reassignment_duration_factor = -0.1
 				army_retreat_speed_factor = 0.075
 				dig_in_speed_factor = 0.14
@@ -2414,7 +2747,10 @@ ideas = {
 				army_armor_attack_factor = 0.08
 				army_artillery_attack_factor = 0.08
 				army_bonus_air_superiority_factor = 0.08
-				army_attack_factor = 0.1
+				army_defence_factor = 0.05
+				army_morale_factor = 0.1
+				intel_network_gain_factor = 0.05
+				terrain_penalty_reduction = 0.05
 			}
 			picture = ENG_mil_situational_dominance_idea
 		}
@@ -2515,8 +2851,6 @@ ideas = {
 				army_org_regain = 0.05
 				fortification_damage = 0.15
 				army_speed_factor = -0.05
-				planning_decay_rate_factor = 0.075
-				fortification_damage = 0.15
 			}
 			equipment_bonus = {
 				artillery = {
@@ -2623,7 +2957,6 @@ ideas = {
 				army_org_Factor = -0.05
 				planning_speed = -0.10
 				max_command_power = -10
-				planning_decay_rate_factor = 0.05
 				modifier_army_sub_unit_militia_attack_factor = 0.10
 				modifier_army_sub_unit_militia_defence_factor = 0.10
 				supply_consumption_factor = -0.05
@@ -2643,7 +2976,6 @@ ideas = {
 				army_org_Factor = -0.05
 				planning_speed = -0.05
 				max_command_power = -20
-				planning_decay_rate_factor = 0.1
 				modifier_army_sub_unit_militia_attack_factor = 0.2
 				modifier_army_sub_unit_militia_defence_factor = 0.2
 				supply_consumption_factor = -0.075
@@ -2689,7 +3021,7 @@ ideas = {
 				consumer_goods_factor = 0.08
 				political_power_cost = 0.05
 			}
-			picture = placeholder
+			picture = LEC_low_reserves
 		}
 		ENG_investment_medium_idea = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_investment_medium_idea"}
@@ -2698,7 +3030,7 @@ ideas = {
 				consumer_goods_factor = 0.1
 				political_power_cost = 0.075
 			}
-			picture = placeholder
+			picture = LEC_medium_reserves
 		}
 		ENG_investment_large_idea = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_investment_large_idea"}
@@ -2708,7 +3040,7 @@ ideas = {
 				political_power_cost = 0.1
 				stability_factor = -0.025
 			}
-			picture = placeholder
+			picture = LEC_high_reserves
 		}
 		ENG_investment_absurd_idea = {
 			on_add = { log = "[GetDateText]: [Root.GetName]: add idea ENG_investment_absurd_idea"}
@@ -2718,7 +3050,7 @@ ideas = {
 				political_power_cost = 0.1
 				stability_factor = -0.05
 			}
-			picture = placeholder
+			picture = LEC_staggering_reserves
 		}
 
 		ENG_investment_received_idea = {
