@@ -9320,9 +9320,9 @@ country_event = { #french demand A-L and colonies
 	option = { #NEVER !!!
 		name = natfra.189.a 
 		ai_chance = {
-			factor = 95
+			base = 95
 			modifier = {
-				factor = 0.7
+				add = -20
 				NFA = { is_ai = no }
 			}
 		}
@@ -9335,9 +9335,9 @@ country_event = { #french demand A-L and colonies
 	option = { #fine
 		name = natfra.189.b
 		ai_chance = {
-			factor = 5
+			base = 5
 			modifier = {
-				factor = 8
+				add = 25
 				NFA = { is_ai = no }
 			}
 		}
@@ -22718,7 +22718,6 @@ country_event = { #Revenge!
 		hidden_effect = {
 			GRU = {
 				add_ideas = NFA_versaille_treaty_for_GRU
-				set_cosmetic_tag = GRU_NFA_state
 				create_country_leader = {
 					name = "Günther von Kluge"
 					picture = "gfx/leaders/GER/Portrait_Germany_Gunther_Kluge_kr.png"
@@ -22745,19 +22744,35 @@ country_event = { #Revenge!
 				if = {
 					limit = {
 						NFA = {
-							has_country_leader_ideology = authdem_revolution_nationale_subtype
-							has_country_leader_ideology = revolution_nationale_subtype
-							has_country_leader_ideology = natpop_revolution_nationale_subtype
+							OR = {
+								has_country_leader_ideology = authdem_revolution_nationale_subtype
+								has_country_leader_ideology = revolution_nationale_subtype
+								has_country_leader_ideology = natpop_revolution_nationale_subtype
+							}
 						}
 					}
+					set_country_leader_ideology = revolution_nationale_subtype
 				}
-				set_country_leader_ideology = revolution_nationale_subtype
 				set_party_name = { 
 					ideology = paternal_autocrat 
 					long_name = GRU_vichy_france_long
 					name = GRU_vichy_france
 				}
-				set_capital = { state = 60 } 
+				if = {
+					limit = { owns_state = 60 }
+					set_cosmetic_tag = GRU_NFA_state
+					set_victory_points = { province = 538 value = 10 } 
+					set_capital = { state = 60 } 
+				}
+				else_if = {
+					limit = { owns_state = 781 }
+					set_cosmetic_tag = GRU_NFA_state_alt
+					set_victory_points = { province = 11494 value = 31 } 
+					set_capital = { state = 781 } 
+				}
+				else = {
+					set_cosmetic_tag = GRU_NFA_state_alt_sad
+				}
 			}
 		}
 	}
@@ -23150,7 +23165,7 @@ country_event = { #Alsace Lorraine flavor
 
 	option = {
 		name = flavorfra.30.a #cope boche
-		set_province_name = { id = 9503 name = "Strasbourg" }
+		set_province_name = { id = 9503 name = VICTORY_POINTS_9503_FRENCH }
 		add_political_power = 150
 		add_command_power = 50
 		add_war_support = -0.05
@@ -26785,7 +26800,7 @@ country_event = { #French Solidarity
 			popularity = 0.5
 		}
 		add_pataut_to_coalition = yes
-		custom_effect_tooltip = pataut_pataut_right_syndicalism_subtype_swap_tt
+		custom_effect_tooltip = natpop_natpop_rocquisme_subtype_swap_tt
 	}
 }
 

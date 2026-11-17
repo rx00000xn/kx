@@ -381,10 +381,17 @@ focus_tree = {
 		y = 1
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus DKB_Recuit_New_Generals"
-			GER = {
-				random_unit_leader = {
-					limit = { has_id = 6884 }
-					set_nationality = DKB
+			if = {
+				limit = { GER = { is_ai = yes } }
+				GER = {
+					random_unit_leader = {
+						limit = { has_id = 6884 }
+						set_nationality = DKB
+					}
+					random_unit_leader = {
+						limit = { has_id = 6886 }
+						set_nationality = DKB
+					}
 				}
 			}
 		}
@@ -2539,7 +2546,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus DKB_Future_With_Russia"
-			RUS = {
+			var:219.owner = {
 				annex_country = {
 					target = DKB
 					transfer_troops = yes
@@ -2630,7 +2637,10 @@ focus_tree = {
 		available = {
 			is_subject = no
 			is_faction_leader = no
-			NOT = { has_global_flag = UCH_exists }
+			custom_trigger_tooltip = {
+				tooltip = UCH_not_established_yet
+				NOT = { has_global_flag = UCH_exists }
+			}
 			RUS = {
 				OR = { 
 					has_socialist_government = yes
@@ -12560,6 +12570,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus DKB_Recover_From_Smuta"
 			DKB_reduce_economic_aftermath = yes
+			add_research_slot_until_five = yes
 		}
 	}
 	focus = {

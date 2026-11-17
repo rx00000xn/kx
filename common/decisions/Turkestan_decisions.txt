@@ -3584,7 +3584,7 @@ TRK_foreign_policy = {
 		target_trigger = {
 			FROM = { 
 				is_subject = no
-				has_socialist_government = yes
+				has_socialist_government = no
 				is_in_faction = no
 				hidden_trigger = { NOT = { tag = SIK } }
 			}
@@ -3596,6 +3596,19 @@ TRK_foreign_policy = {
 
 		ai_will_do = {
 			factor = 1000
+			modifier = {
+				factor = 0
+				AND = {
+					FROM = { has_war_with = TUR }
+					AND = {
+						has_global_flag = OTT_cairo_pact_war
+						NOT = {
+							has_global_flag = AXIS_VICTORY
+							has_global_flag = AXIS_DEFEAT
+						}
+					}
+				}
+			}
 		}
 
 		cancel_effect = {
@@ -3872,11 +3885,19 @@ TRK_foreign_policy = {
                 any_allied_country = {
                     is_owner_neighbor_of = FROM
                 }
-            }	
-			FROM = {
-				has_war_with = GER
-				surrender_progress > 0.1
-			}
+            }
+			OR = {
+				AND = {
+					FROM = { has_war_with = GER }
+					hidden_trigger = { is_ai = no }
+				}
+				AND = {
+					FROM = {
+						has_war_with = GER
+						surrender_progress > 0.1
+					}
+				}
+			}	
 		}
 		targets = { RUS TRM }
 		target_root_trigger = {
@@ -4440,7 +4461,7 @@ political_actions = {
 		cancel_if_not_visible = yes
 
 		state_target = yes
-		targets = { 236 }
+		targets = { 1224 }
 		target_trigger = {
 			FROM = {
 				is_controlled_by = ROOT
@@ -4467,10 +4488,10 @@ political_actions = {
 				}
 				FROM = {
 					set_state_flag = renamed_state_kazakh
-					set_state_name = "Orda"
+					set_state_name = STATE_1224_KAZAKH
 					set_province_name = {
-						id = 7708
-						name = "Orda"
+						id = 6525
+						name = VICTORY_POINTS_6525_KAZAKH
 					}
 				}
 			}			
@@ -4532,10 +4553,10 @@ political_actions = {
 				}
 				FROM = {
 					set_state_flag = renamed_state_kazakh
-					set_state_name = "Zhamanqala"
+					set_state_name = STATE_582_KAZAKH_RENAMED
 					set_province_name = {
 						id = 4261
-						name = "Zhamanqala"
+						name = VICTORY_POINTS_4261_KAZAKH
 					}
 				}
 			}
@@ -4546,10 +4567,10 @@ political_actions = {
 				}
 				FROM = {
 					set_state_flag = renamed_state_kazakh
-					set_state_name = "Qostanai"
+					set_state_name = STATE_583_KAZAKH
 					set_province_name = {
 						id = 10284
-						name = "Qostanai"
+						name = VICTORY_POINTS_10284_KAZAKH
 					}
 				}
 			}
@@ -4560,18 +4581,18 @@ political_actions = {
 				}
 				FROM = {
 					set_state_flag = renamed_state_kazakh
-					set_state_name = "Aqmola"
+					set_state_name = STATE_590_KAZAKH
 					set_province_name = {
 						id = 7874
-						name = "Kyzylzhar"
+						name = VICTORY_POINTS_7874_KAZAKH
 					}
 					set_province_name = {
 						id = 1375
-						name = "Aqmola"
+						name = VICTORY_POINTS_1375_KAZAKH
 					}
 					set_province_name = {
 						id = 1418
-						name = "Kokşetau"
+						name = VICTORY_POINTS_1418_KAZAKH
 					}
 				}
 			}
@@ -4582,10 +4603,10 @@ political_actions = {
 				}
 				FROM = {
 					set_state_flag = renamed_state_kazakh
-					set_state_name = "Kereku"
+					set_state_name = STATE_588_KAZAKH
 					set_province_name = {
 						id = 7708
-						name = "Kereku"
+						name = VICTORY_POINTS_7708_KAZAKH
 					}
 				}
 			}			

@@ -3523,6 +3523,11 @@ country_event = {
 		ai_chance = {
 			factor = 0
 		}
+		BRM = {
+			every_unit_leader = {
+				set_nationality = ALB
+			}
+		}
 		ALB = {
 			annex_country = {
 			target = BRM
@@ -3545,6 +3550,39 @@ country_event = {
 			factor = 100
 		}
 		add_political_power = 150
+	}
+}
+
+country_event = { #VF clubs
+	id = albania.74
+	immediate = { log = "[GetDateText]: [Root.GetName]: event albania.74" }
+	title = albania.74.t
+	desc = albania.74.d
+	picture = GFX_report_event_ALB_Officers
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { #
+		name = albania.74.a	
+		add_political_power = 30
+		add_stability = 0.03
+	}
+	option = {#
+		name = albania.74.b
+		add_political_power = -50
+		increase_ruling_party_popularity_by_3 = yes
+		random_owned_state = {
+			add_extra_state_shared_building_slots = 1
+		}
+		set_country_leader_ideology = authdem_austropopulism_subtype
+		custom_effect_tooltip = authdem_authdem_austropopulism_subtype_swap_tt
+	}
+	option = {#
+		name = albania.74.c
+		add_political_power = -30
+		add_stability = 0.05
 	}
 }
 
@@ -4675,9 +4713,9 @@ country_event = {#The Ultimate Apotheosis
 		ai_chance = {
 			factor = 0
 		}
-		set_province_name = { id = 9914 name = "Enver"}
+		set_province_name = { id = 9914 name = VICTORY_POINTS_9914_ENVER }
 		44 = { 
-			set_state_name = "Enver" 
+			set_state_name = STATE_44_ENVER
 			set_state_flag = renamed_state_enver
 		}
 		hidden_effect = {
@@ -4701,9 +4739,9 @@ country_event = {#The Ultimate Apotheosis
 		ai_chance = {
 			factor = 90
 		}
-		set_province_name = { id = 9914 name = "Enver"}
+		set_province_name = { id = 9914 name = VICTORY_POINTS_9914_ENVER }
 		44 = { 
-			set_state_name = "Enver" 
+			set_state_name = STATE_44_ENVER
 			set_state_flag = renamed_state_enver
 		}
 		hidden_effect = {
@@ -5064,6 +5102,15 @@ country_event = {# Albania Offers Peace
 		}
 		if = {
 			limit = {
+				ALB = {
+					is_ai = no
+					controls_state = 1271
+				}
+			}
+			1271 = { transfer_state_to = ALB }
+		}
+		if = {
+			limit = {
 				ROM = {
 				has_war_with = ALB
 			}
@@ -5137,9 +5184,7 @@ country_event = {# Albania Offers Peace
 		SER = {
 		add_political_power = -50
 		}
-		ALB = {
-			transfer_state = 765
-			}
+		765 = { transfer_state_to = ALB }
 		}
 }
 

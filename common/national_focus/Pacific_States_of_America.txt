@@ -9961,7 +9961,10 @@ focus_tree = {
 		}
 		available = {
 			has_government = social_democrat
-			NOT = { country_exists = TEX }
+			NOT = { 
+				country_exists = TEX 
+				has_country_flag = CAL_was_at_war_with_tex
+			}
 			has_global_flag = PSA_AUS_TREATY
 			hidden_trigger = {
 				PAR = {
@@ -14544,6 +14547,10 @@ focus_tree = {
 				is_faction_leader = yes
 				is_in_faction = no
 			}
+			ENT = { 
+			exists = yes
+			is_faction_leader = yes
+			}
 			NOT = {
 			ENT = {
 			is_puppet_of = CAL
@@ -14551,7 +14558,10 @@ focus_tree = {
 			}
 			}
 		}
-		bypass = { is_in_faction_with = ENT }
+		bypass = { 
+			is_in_faction_with = ENT 
+			is_faction_leader = yes
+		}
 		relative_position_id = CAL_new_interventionism
 		x = -1
 		y = 1
@@ -17681,6 +17691,9 @@ focus_tree = {
 		x = -2
 		y = 4
 		cost = 2
+		available = {
+			NOT = { has_global_flag = CAL_peaceout_with_mac }
+		}
 		available_if_capitulated = yes
 		mutually_exclusive = { focus = CAL_stranger_in_a_strange_land }
 		mutually_exclusive = { focus = CAL_aiso_the_american }
@@ -17718,6 +17731,7 @@ focus_tree = {
 		available_if_capitulated = yes
 		available = {
 			is_subject = no
+			NOT = { has_global_flag = CAL_peaceout_with_mac }
 		}
 		mutually_exclusive = { 
 			focus = CAL_aiso_the_american 
@@ -17909,6 +17923,7 @@ focus_tree = {
 				tooltip = CAL_aiso_independent
 				has_completed_focus = CAL_aiso_the_american
 			}
+			NOT = { has_global_flag = CAL_peaceout_with_mac }
 		}
 		cost = 5
 		available_if_capitulated = yes
